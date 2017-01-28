@@ -1,0 +1,136 @@
+<div id="page_content">
+    <div id="page_content_inner">
+
+        <div class="uk-grid blog_article" data-uk-grid-margin>
+            <div class="uk-width-medium-3-4">
+                <div class="md-card">
+                    <div class="md-card-content large-padding">
+                        <figure class="uk-thumbnail thumbnail_left">
+                                     <img class="img_thumb" src ="{{vm.course.logoURL}}"/>
+                                </figure>
+                        <div class="uk-article">
+                            {{vm.course.code}}
+                            
+                            <h1 class="uk-article-title">{{vm.course.name}} </h1>
+                            <p class="uk-article-meta">
+                                Created by {{vm.course.user.displayName}} on {{vm.course.created | date :'dd-MM-yyyy'}}
+                            </p>
+                            <p class="uk-article-lead">{{vm.course.summary}}</p>
+                            <hr class="uk-article-divider">
+                            <p ng-bind-html="vm.course.detail">
+                                
+                            </p>
+                            
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="uk-width-medium-1-4">
+                <h5 class="uk-margin-small-bottom uk-text-upper">{{'PAGE.CMS.COURSES.BASIC_INFO'|translate}}</h5>
+                <ul class="md-list uk-margin-remove">
+                    <li>
+                        <div class="md-list-content">
+                            <span class="md-list-heading uk-text-truncate"><a href="#">{{'MODEL.COURSE.STATUS'|translate}}</a>
+                            <span class="uk-badge" ng-show="vm.course.status=='initial'">{{'COMMON.STATUS.INITIAL'|translate}}</span>
+                            <span class="uk-badge uk-badge-success" ng-show="vm.course.status=='available'">{{'COMMON.STATUS.AVAIL'|translate}}</span>
+                            <span class="uk-badge uk-badge-warning" ng-show="vm.course.status=='suspended'">{{'COMMON.STATUS.SUSPEND'|translate}}</span>
+                            </span>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="md-list-content">
+                            <span class="md-list-heading uk-text-truncate"><a href="#">{{'MODEL.COURSE.GROUP'|translate}}</a></span>
+                            <span class="uk-text-small uk-text-muted">{{vm.group.name}}</span>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="md-list-content">
+                           <span class="md-list-heading uk-text-truncate"><a href="#">{{'MODEL.COURSE.MODEL'|translate}}</a></span>
+                            <span class="uk-text-small uk-text-muted" ng-show="vm.course.model=='self-paced'">{{'COMMON.COURSE_MODEL.SELF_STUDY' | translate}}</span>
+                            <span class="uk-text-small uk-text-muted" ng-show="vm.course.model=='group'">{{'COMMON.COURSE_MODEL.GROUP_STUDY' | translate}}</span>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="md-list-content">
+                            <span class="md-list-heading uk-text-truncate"><a href="#">{{'MODEL.COURSE.DIFFICULTY'|translate}}</a></span>
+                            <span class="uk-text-small uk-text-muted" ng-show="vm.course.level=='easy'">{{'COMMON.DIFFICULTY.EASY' | translate}}</span>
+                            <span class="uk-text-small uk-text-muted" ng-show="vm.course.level=='medium'">{{'COMMON.DIFFICULTY.MEDIUM' | translate}}</span>
+                            <span class="uk-text-small uk-text-muted" ng-show="vm.course.level=='hard'">{{'COMMON.DIFFICULTY.HARD' | translate}}</span>
+                        </div>
+                    </li>
+
+                </ul>
+                <h5 class="uk-margin-small-bottom uk-text-upper  uk-margin-large">{{'MODEL.COURSE.PREQUISITE'| translate}}</h5>
+                <div class="blog_tags">
+                    <a href="#" class="uk-badge" ng-repeat="course in vm.prequisites">{{course.name}}</a>
+                </div>
+                
+                <h5 class="uk-margin-small-bottom uk-text-upper uk-margin-large">{{'PAGE.CMS.COURSES.ENROLLMENT'|translate}}</h5>
+                <ul class="md-list uk-margin-remove">
+                    <li>
+                        <div class="md-list-content">
+                            <span class="md-list-heading uk-text-truncate"><a href="#">{{'MODEL.COURSE.ENROLL_STATUS'|translate}}</a>
+                                <span class="uk-badge uk-badge-success" ng-show="vm.course.enrollStatus">Ok</span>
+                                <span class="uk-badge uk-badge-danger" ng-show="!vm.course.enrollStatus">Nok</span>
+                            </span>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="md-list-content">
+                            <span class="md-list-heading uk-text-truncate"><a href="#">{{'MODEL.COURSE.ENROLL_POLICY'|translate}}</a></span>
+                            <span class="uk-text-small uk-text-muted" ng-show="vm.course.enrollPolicy=='open'">{{'COMMON.ENROLL_POLICY.OPEN_DESC'|translate}}</span>
+                            <span class="uk-text-small uk-text-muted" ng-show="vm.course.enrollPolicy=='censor'">{{'COMMON.ENROLL_POLICY.CENSOR_DESC'|translate}}</span>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="md-list-content">
+                            <span class="md-list-heading uk-text-truncate"><a href="#">{{'MODEL.COURSE.PRESENT_MODE'|translate}}</a></span>
+                            <span class="uk-text-small uk-text-muted" ng-show="vm.course.displayMode=='open'">{{'COMMON.PRESENT_MODE.ALL'|translate}}</span>
+                            <span class="uk-text-small uk-text-muted" ng-show="vm.course.displayMode=='login'">{{'COMMON.PRESENT_MODE.LOGIN'|translate}}</span>
+                            <span class="uk-text-small uk-text-muted" ng-show="vm.course.displayMode=='enroll'">{{'COMMON.PRESENT_MODE.ENROLL'|translate}}</span>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="md-list-content">
+                            <span class="md-list-heading uk-text-truncate"><a href="#">{{'MODEL.COURSE.START_DATE'|translate}}</a></span>
+                            <span class="uk-text-small uk-text-muted">{{vm.course.startDate | date:'dd/MM/yyyy'}}</span>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="md-list-content">
+                            <span class="md-list-heading uk-text-truncate"><a href="#">{{'MODEL.COURSE.END_DATE'|translate}}</a></span>
+                            <span class="uk-text-small uk-text-muted">{{vm.course.endDate | date:'dd/MM/yyyy'}}</span>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="md-list-content">
+                            <span class="md-list-heading uk-text-truncate"><a href="#">{{'MODEL.COURSE.ENROLL_START_DATE'|translate}}</a></span>
+                            <span class="uk-text-small uk-text-muted">{{vm.course.enrollStartDate | date:'dd/MM/yyyy'}}</span>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="md-list-content">
+                            <span class="md-list-heading uk-text-truncate"><a href="#">{{'MODEL.COURSE.ENROLL_END_DATE'|translate}}</a></span>
+                            <span class="uk-text-small uk-text-muted">{{vm.course.enrollEndDate | date:'dd/MM/yyyy'}}</span>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="md-list-content">
+                            <span class="md-list-heading uk-text-truncate"><a href="#">{{'MODEL.COURSE.EMAIL'|translate}}</a></span>
+                            <span class="uk-text-small uk-text-muted">{{vm.course.email}}</span>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="md-list-content">
+                            <span class="md-list-heading uk-text-truncate"><a href="#">{{'MODEL.COURSE.PHONE'|translate}}</a></span>
+                            <span class="uk-text-small uk-text-muted">{{vm.course.phone}}</span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+</div>
+

@@ -1,0 +1,52 @@
+
+ <div class="uk-modal " id="new_student">
+    <div class="uk-modal-dialog uk-modal-dialog-large">
+        <div class="uk-alert uk-text-center uk-alert-info" >
+            <h3 class="heading_b">{{'PAGE.CMS.COURSES.ENROLL.SELECT_STUDENT' | translate}}</h3>
+        </div>
+         <div class="uk-overflow-container">
+            
+            <div class="uk-grid" data-uk-grid-margin >
+            <div class="uk-width-medium-2-5 " >
+                
+                <h3 class="heading_a">{{'PAGE.CMS.COURSES.ENROLL.FILTER_BY_GROUP'|translate}}</h3>
+                <div id="orgTree" class="fancytree-checkbox " >
+                </div>
+                
+                <div ng-show="vm.course.model=='group'" >
+                    <input name="course_class" id="course_class" type="text" config="vm.classConfig" options="vm.classOptions" ng-model="vm.selectedClass" selectize />
+                    <span class="uk-form-help-block">{{'MODEL.MEMBER.CLASSROOM'|translate}}</span>
+                </div>
+             </div>
+            <div class="uk-width-medium-3-5">
+        
+            <table class="uk-table uk-table-hover uk-table-nowrap" datatable="ng" dt-options="vm.dtStudentOptions">
+                <thead>
+                <tr>
+                    <th ></th>
+                    <th class="uk-text-center uk-text-upper">{{'MODEL.USER.AVATAR'|translate}}</th>
+                    <th class="uk-text-center uk-text-upper">{{'MODEL.USER.DISPLAY_NAME'|translate}}</th>
+                    <th class="uk-text-center uk-text-upper">{{'MODEL.USER.POSITION'|translate}}</th>
+                    <th class="uk-text-center uk-text-upper">{{'MODEL.USER.GROUP'|translate}}</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="user in vm.displayUsers">
+                    <td class="uk-text-center uk-table-middle small_col"><input type="checkbox" icheck ng-model="user.selectedAsStudent" class="check_row" table-check-row></td>
+                    <td class="uk-text-center">
+                        <a href="#" class="user_action_image"><img class="md-user-image" src="{{user.profileImageURL}}" alt=""/></a>
+                    </td>
+                    <td class="uk-text-center">{{user.displayName}}</td>        
+                    <td class="uk-text-center" >{{user.position}}</td>
+                    <td class="uk-text-center">{{user.group.name}}</td>
+                </tr>
+                </tbody>
+            </table>
+            </div>
+        </div>
+        </div>
+        <div class="uk-modal-footer uk-text-right">
+            <button type="button" class="md-btn md-btn-flat uk-modal-close">{{'ACTION.CLOSE'|translate}}</button><button type="button" class="md-btn md-btn-flat md-btn-flat-primary uk-modal-close" id="snippet_new_save" ng-click="vm.selectStudents()">{{'ACTION.SELECT'|translate}}</button>
+        </div>
+    </div>
+</div>
