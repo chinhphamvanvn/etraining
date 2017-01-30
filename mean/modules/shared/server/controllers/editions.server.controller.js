@@ -5,128 +5,128 @@
  */
 var path = require('path'),
   mongoose = require('mongoose'),
-  EditionSection = mongoose.model('EditionSection'),
+  CourseEdition = mongoose.model('CourseEdition'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
   _ = require('lodash');
 
 /**
- * Create a Section
+ * Create a CourseEdition
  */
 exports.create = function(req, res) {
-  var section = new EditionSection(req.body);
-  section.user = req.user;
+  var edition = new CourseEdition(req.body);
+  edition.user = req.user;
 
-  section.save(function(err) {
+  edition.save(function(err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      res.jsonp(section);
+      res.jsonp(edition);
     }
   });
 };
 
 /**
- * Show the current Section
+ * Show the current CourseEdition
  */
 exports.read = function(req, res) {
   // convert mongoose document to JSON
-  var section = req.section ? req.section.toJSON() : {};
+  var edition = req.edition ? req.edition.toJSON() : {};
 
   // Add a custom field to the Article, for determining if the current User is the "owner".
   // NOTE: This field is NOT persisted to the database, since it doesn't exist in the Article model.
-  section.isCurrentUserOwner = req.user && section.user && section.user._id.toString() === req.user._id.toString();
+  edition.isCurrentUserOwner = req.user && edition.user && edition.user._id.toString() === req.user._id.toString();
 
-  res.jsonp(section);
+  res.jsonp(edition);
 };
 
 /**
- * Update a Section
+ * Update a CourseEdition
  */
 exports.update = function(req, res) {
-  var section = req.section;
+  var edition = req.edition;
 
-  section = _.extend(section, req.body);
+  edition = _.extend(edition, req.body);
 
-  section.save(function(err) {
+  edition.save(function(err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      res.jsonp(section);
+      res.jsonp(edition);
     }
   });
 };
 
 /**
- * Delete an Section
+ * Delete an CourseEdition
  */
 exports.delete = function(req, res) {
-  var section = req.section;
+  var edition = req.edition;
 
-  section.remove(function(err) {
+  edition.remove(function(err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      res.jsonp(section);
+      res.jsonp(edition);
     }
   });
 };
 
 /**
- * List of Sections
+ * List of CourseEditions
  */
 exports.list = function(req, res) {
-    EditionSection.find().sort('-created').populate('user', 'displayName').exec(function(err, sections) {
+  CourseEdition.find().sort('-created').populate('user', 'displayName').exec(function(err, editions) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      res.jsonp(sections);
+      res.jsonp(editions);
     }
   });
 };
 
 /**
- * List of sections in editions
+ * List of Editions in course
  */
-exports.sectionByEditionID = function(req, res) {
-    EditionSection.find({edition:req.edition._id}).sort('-created').populate('user', 'displayName').populate('quiz').exec(function(err, sections) {
+exports.editionByCourseID = function(req, res) {
+    CourseEdition.find({course:req.course._id}).sort('-created').populate('user', 'displayName').exec(function(err, editions) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      res.jsonp(sections);
+      res.jsonp(editions);
     }
   });
 };
 
 /**
- * Section middleware
+ * CourseEdition middleware
  */
-exports.sectionByID = function(req, res, next, id) {
+exports.editionByID = function(req, res, next, id) {
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(400).send({
-      message: 'Section is invalid'
+      message: 'CourseEdition is invalid'
     });
   }
 
-  EditionSection.findById(id).populate('user', 'displayName').exec(function (err, section) {
+  CourseEdition.findById(id).populate('user', 'displayName').exec(function (err, edition) {
     if (err) {
       return next(err);
-    } else if (!section) {
+    } else if (!edition) {
       return res.status(404).send({
-        message: 'No Section with that identifier has been found'
+        message: 'No CourseEdition with that identifier has been found'
       });
     }
-    req.section = section;
+    req.edition = edition;
     next();
   });
 };

@@ -25,6 +25,9 @@ exports.create = function(req, res) {
       .then(checkClassroom,function(err) {
            return res.status(422).send({ message: errorHandler.getErrorMessage(err)  })
        })
+       .then(verifyNotExistMember,function(err) {
+           return res.status(422).send({ message: errorHandler.getErrorMessage(err)  })
+       })
       .then(function(course) {
           course.validateEnrollment()           
           .then(function() {
@@ -71,6 +74,17 @@ exports.create = function(req, res) {
           });
       });
     }
+  
+  function verifyNotExistMember(course) {
+      return new Promise(function (resolve, reject) {
+          CourseMember.find({status:'active',member:member.member,course:course._id}).exec(function (err, existMember) {
+             if (err || existMember) 
+                 reject({message:'Member already exist'});
+             else 
+                 resolve(course);
+          });
+      });
+  }
   
   function checkCoursePrequisite(course) {
       return new Promise(function (resolve, reject) {

@@ -16,7 +16,7 @@
         if (_.contains(vm.user.roles,'admin'))
             $state.go('admin.workspace.dashboard');
         else
-            $state.go('workspace.dashboard');
+            $state.go('workspace.lms.courses.list');
     }
     
     vm.annoucements = AnnoucementsService.listPublished();

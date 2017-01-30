@@ -11,7 +11,11 @@
   function EditionSectionsService($resource) {
     return $resource('/api/sections/:sectionId', {
       sectionId: '@_id'
-    }, {
+    }, { byEdition: {
+        method: 'GET',
+        isArray:true,
+        url:'/api/sections/byEdition/:editionId'
+      }, 
       update: {
         method: 'PUT'
       }

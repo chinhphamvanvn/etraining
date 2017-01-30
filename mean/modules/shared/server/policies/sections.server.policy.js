@@ -18,6 +18,9 @@ exports.invokeRolesPolicies = function () {
       resources: '/api/sections',
       permissions: '*'
     }, {
+        resources: '/api/sections/byEdition/:editionId',
+        permissions: '*'
+      },{
       resources: '/api/sections/:sectionId',
       permissions: '*'
     }]
@@ -27,6 +30,9 @@ exports.invokeRolesPolicies = function () {
       resources: '/api/sections',
       permissions: ['get', 'post']
     }, {
+        resources: '/api/sections/byEdition/:editionId',
+        permissions: '*'
+      },{
       resources: '/api/sections/:sectionId',
       permissions: ['get']
     }]

@@ -26,7 +26,7 @@
     vm.finishLoad = finishLoad;
     
     vm.groups = GroupsService.listOrganizationGroup( function() {
-        var tree = treeUtils.buildTree(vm.groups);
+        var tree = treeUtils.buildOrgTree(vm.groups);
         $timeout(function() {
             $("#departmentTree").fancytree({
                 checkbox: true,

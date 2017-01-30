@@ -14,7 +14,7 @@
       vm.rename = rename;
    
       vm.groups = GroupsService.listCourseGroup( function() {
-          var tree = treeUtils.buildTree(vm.groups);
+          var tree = treeUtils.buildOrgTree(vm.groups);
           $timeout(function() {
               $("#orgTree").fancytree({
                   checkbox: false,
@@ -213,7 +213,7 @@
       
       function reloadTree() {
           vm.groups = GroupsService.listCourseGroup( function() {
-              var roots = treeUtils.buildTree(vm.groups);
+              var roots = treeUtils.buildOrgTree(vm.groups);
               var tree = $("#orgTree").fancytree("getTree");
               tree.reload(roots);
           });

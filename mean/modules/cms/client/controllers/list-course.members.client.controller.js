@@ -70,7 +70,7 @@
       
       vm.groups = [];
       vm.groups = GroupsService.listOrganizationGroup( function() {
-          var tree = treeUtils.buildTree(vm.groups);
+          var tree = treeUtils.buildOrgTree(vm.groups);
           $timeout(function() {
               $("#orgTree").fancytree({
                   checkbox: true,
@@ -176,7 +176,7 @@
              if (user.selectedAsTeacher) {
                  user.selectedAsTeacher = false;
                  var exist = _.find(vm.teachers,function(teacher) {
-                     return teacher.member._id == user._id;
+                     return teacher.member._id == user._id && teacher.status=='active';
                  });
                  if (!exist) {
                      var member = new CourseMembersService();

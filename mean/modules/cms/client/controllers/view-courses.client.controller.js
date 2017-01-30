@@ -13,12 +13,7 @@ function CourseViewController($scope, $state, $window, Authentication, $timeout,
 
     vm.authentication = Authentication;
     vm.course = course;
-    if (vm.course.group)
-        vm.group = GroupsService.get({groupId:vm.course.group});
-   vm.prequisites = [];
-   _.each(vm.course.prequisites,function(course) {
-       vm.prequisites.push(CoursesService.get({courseId:course}))
-   });
+    
 
 }
 }());

@@ -7,14 +7,22 @@ var mongoose = require('mongoose'),
   Schema = mongoose.Schema;
 
 /**
- * Unit Schema
+ * Edition Schema
  */
-var EditionUnitSchema = new Schema({
+var CourseEditionSchema = new Schema({
   name: {
     type: String,
     default: '',
-    required: 'Please fill Unit name',
+    required: 'Please fill Edition name',
     trim: true
+  },
+  course: {
+    type: Schema.ObjectId,
+    ref: 'Course'
+  },
+  published: {
+    type: Boolean,
+    default: false
   },
   created: {
     type: Date,
@@ -26,4 +34,4 @@ var EditionUnitSchema = new Schema({
   }
 });
 
-mongoose.model('EditionUnit', EditionUnitSchema);
+mongoose.model('CourseEdition', CourseEditionSchema);

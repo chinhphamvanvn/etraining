@@ -11,13 +11,6 @@
   function menuConfig(menuService) {
     menuService.addMenuItem('sidebar', {
       title: 'PAGE.WORKSPACE.SIDEBAR.DASHBOARD',
-      state: 'workspace.dashboard',
-      roles: ['user'],
-      icon:'dashboard',
-      position: 1
-    });
-    menuService.addMenuItem('sidebar', {
-      title: 'PAGE.WORKSPACE.SIDEBAR.DASHBOARD',
       state: 'admin.workspace.dashboard',
       roles: ['admin'],
       icon:'dashboard',

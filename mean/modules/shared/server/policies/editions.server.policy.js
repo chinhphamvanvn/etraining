@@ -9,64 +9,55 @@ var acl = require('acl');
 acl = new acl(new acl.memoryBackend());
 
 /**
- * Invoke Members Permissions
+ * Invoke Editions Permissions
  */
 exports.invokeRolesPolicies = function () {
   acl.allow([{
     roles: ['admin'],
     allows: [{
-      resources: '/api/members',
+      resources: '/api/editions',
       permissions: '*'
-    }, {
-        resources: '/api/members/byCourse/:courseId',
-        permissions: '*'
-      },
+    }, 
       {
-      resources: '/api/members/:memberId',
+        resources: '/api/editions/byCourse:courseId',
+        permissions: '*'
+      },{
+      resources: '/api/editions/:editionId',
       permissions: '*'
     }]
   }, {
     roles: ['user'],
     allows: [{
-      resources: '/api/members',
+      resources: '/api/editions',
       permissions: ['get', 'post']
     }, {
-        resources: '/api/members/byCourse/:courseId',
-        permissions: 'get'
+        resources: '/api/editions/byCourse/:courseId',
+        permissions: ['get']
       },
       {
-          resources: '/api/members/me',
-          permissions: 'get'
-        },
-      {
-      resources: '/api/members/:memberId',
-      permissions: ['get','put']
+      resources: '/api/editions/:editionId',
+      permissions: ['get']
     }]
   }, {
     roles: ['guest'],
     allows: [{
-      resources: '/api/members',
-      permissions: ['']
-    },
-    {
-        resources: '/api/members/byCourse/:courseId',
-        permissions: ''
-      },
-      {
-      resources: '/api/members/:memberId',
-      permissions: ['']
+      resources: '/api/editions',
+      permissions: ['get']
+    }, {
+      resources: '/api/editions/:editionId',
+      permissions: ['get']
     }]
   }]);
 };
 
 /**
- * Check If Members Policy Allows
+ * Check If Editions Policy Allows
  */
 exports.isAllowed = function (req, res, next) {
   var roles = (req.user) ? req.user.roles : ['guest'];
 
-  // If an Member is being processed and the current user created it then allow any manipulation
-  if (req.member && req.user && req.member.user && req.member.user.id === req.user.id) {
+  // If an Edition is being processed and the current user created it then allow any manipulation
+  if (req.edition && req.user && req.edition.user && req.edition.user.id === req.user.id) {
     return next();
   }
 

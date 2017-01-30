@@ -16,6 +16,50 @@ var EditionSectionSchema = new Schema({
     required: 'Please fill Section name',
     trim: true
   },
+  edition: {
+      type: Schema.ObjectId,
+      ref: 'CourseEdition'
+  },
+  parent: {
+      type: Schema.ObjectId,
+      ref: 'EditionSection'
+  },
+  order: {
+    type: Number,
+    default: 0
+  },
+  visible: {
+    type: Boolean,
+    default: true
+  },
+  hasContent: {
+    type: Boolean
+  },
+  contentType: {
+    type: String,
+    enum: ['html', 'test', 'video'],
+  },
+  html: {
+    type: String,
+    default: '',
+    trim: true
+  },
+  transcript: {
+      type: String,
+      trim: true
+  },
+  videoUrl: {
+      type: String,
+      trim: true
+  },
+  videoCaptionUrl: {
+      type: String,
+      trim: true
+  },
+  quiz: {
+      type: Schema.ObjectId,
+      ref: 'Quiz'
+  },
   created: {
     type: Date,
     default: Date.now

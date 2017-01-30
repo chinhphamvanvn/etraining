@@ -9,47 +9,47 @@ var acl = require('acl');
 acl = new acl(new acl.memoryBackend());
 
 /**
- * Invoke Units Permissions
+ * Invoke Quizzes Permissions
  */
 exports.invokeRolesPolicies = function () {
   acl.allow([{
     roles: ['admin'],
     allows: [{
-      resources: '/api/units',
+      resources: '/api/quizzes',
       permissions: '*'
     }, {
-      resources: '/api/units/:unitId',
+      resources: '/api/quizzes/:quizId',
       permissions: '*'
     }]
   }, {
     roles: ['user'],
     allows: [{
-      resources: '/api/units',
+      resources: '/api/quizzes',
       permissions: ['get', 'post']
     }, {
-      resources: '/api/units/:unitId',
+      resources: '/api/quizzes/:quizId',
       permissions: ['get']
     }]
   }, {
     roles: ['guest'],
     allows: [{
-      resources: '/api/units',
+      resources: '/api/quizzes',
       permissions: ['get']
     }, {
-      resources: '/api/units/:unitId',
+      resources: '/api/quizzes/:quizId',
       permissions: ['get']
     }]
   }]);
 };
 
 /**
- * Check If Units Policy Allows
+ * Check If Quizzes Policy Allows
  */
 exports.isAllowed = function (req, res, next) {
   var roles = (req.user) ? req.user.roles : ['guest'];
 
-  // If an Unit is being processed and the current user created it then allow any manipulation
-  if (req.unit && req.user && req.unit.user && req.unit.user.id === req.user.id) {
+  // If an Quiz is being processed and the current user created it then allow any manipulation
+  if (req.quiz && req.user && req.quiz.user && req.quiz.user.id === req.user.id) {
     return next();
   }
 

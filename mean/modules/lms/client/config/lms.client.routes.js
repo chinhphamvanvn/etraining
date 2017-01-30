@@ -30,12 +30,25 @@
         }
       })
       .state('workspace.lms.courses.outline', {
-        url: '/outline',
+        url: '/outline/:courseId',
         templateUrl: '/modules/lms/client/views/outline-course.client.view.html',
         controller: 'CoursesOutlineController',
         controllerAs: 'vm',
         resolve: {
           courseResolve: getCourse
+        },
+        data: {
+          roles: [ 'user'],
+          courseRoles: [ 'teacher']
+        }
+      })
+      .state('workspace.lms.courses.outline.section', {
+        url: '/:sectionId',
+        templateUrl: '/modules/lms/client/views/section-outline-course.client.view.html',
+        controller: 'CoursesOutlineSectionController',
+        controllerAs: 'vm',
+        resolve: {
+          sectionResolve: getSection
         },
         data: {
           roles: [ 'user'],
@@ -95,6 +108,14 @@
   function getCourse($stateParams, CoursesService) {
     return CoursesService.get({
       courseId: $stateParams.courseId
+    }).$promise;
+  }
+  
+  getSection.$inject = ['$stateParams', 'EditionSectionService'];
+
+  function getCourse($stateParams, EditionSectionService) {
+    return EditionSectionService.get({
+        sectionId: $stateParams.sectionId
     }).$promise;
   }
 
