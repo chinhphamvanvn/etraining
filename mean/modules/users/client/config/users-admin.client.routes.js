@@ -24,17 +24,21 @@
         resolve: {
             userResolve: getUser
         },
-        roles:['admin']
+        data : {
+            roles:['admin']
+        }
       })
       .state('admin.workspace.users.create', {
         url: '/create',
         templateUrl: '/modules/users/client/views/edit-user.client.view.html',
-        controller: 'UserEditController',
+        controller: 'AdminEditController',
         controllerAs: 'vm',
         resolve: {
             userResolve: newUser
         },
-        roles:['admin']
+        data : {
+            roles:['admin']
+        }
       })
       .state('admin.workspace.users.edit', {
         url: '/edit/:userId',
@@ -44,21 +48,27 @@
         resolve: {
             userResolve: getUser
         },
-        roles:['admin']
+        data : {
+            roles:['admin']
+        }
       })
       .state('admin.workspace.users.list', {
         url: '/list',
         templateUrl: '/modules/users/client/views/admin/list-users.client.view.html',
         controller: 'UserListController',
         controllerAs: 'vm',
-        roles:['admin']
+        data : {
+            roles:['admin']
+        }
       })
       .state('admin.workspace.users.organization', {
         url: '/organization',
         templateUrl: '/modules/users/client/views/admin/organization.client.view.html',
         controller: 'OrganizationController',
         controllerAs: 'vm',
-        roles:['admin']
+        data : {
+            roles:['admin']
+        }
       });
     
     newUser.$inject = [ 'UsersService'];

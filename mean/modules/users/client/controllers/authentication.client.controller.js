@@ -94,7 +94,13 @@
       vm.authentication.user = response;
       Notification.success({ message: '<i class="uk-icon-check"></i> Signup successful!' });
       // And redirect to the previous or home page
-      $state.go($state.previous.state.name || 'workspace.dashboard', $state.previous.params);
+      if ($state.previous.state.name=='home'|| !$state.previous.state) {
+          if (_.contains(vm.authentication.user.roles,'admin'))
+              $state.go('admin.workspace.dashboard');
+          else
+              $state.go('workspace.dashboard');
+      } else
+          $state.go($state.previous.state.name || 'home', $state.previous.params);
     }
 
     function onUserSignupError(response) {
@@ -106,7 +112,13 @@
       vm.authentication.user = response;
       Notification.info({ message: 'Welcome ' + response.firstName });
       // And redirect to the previous or home page
-      $state.go($state.previous.state.name || 'workspace.dashboard', $state.previous.params);
+      if ($state.previous.state.name=='home' || !$state.previous.state) {
+          if (_.contains(vm.authentication.user.roles,'admin'))
+              $state.go('admin.workspace.dashboard');
+          else
+              $state.go('workspace.dashboard');
+      } else
+          $state.go($state.previous.state.name || 'home', $state.previous.params);
     }
 
     function onUserSigninError(response) {

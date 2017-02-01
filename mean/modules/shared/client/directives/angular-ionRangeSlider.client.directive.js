@@ -66,6 +66,11 @@ angular
                             disable: disabled
                         });
                     });
+                    scope.$watch(attrs.ngMax, function(maxVal) {
+                        slider.update({
+                            max: maxVal
+                        });                        
+                    });
                     scope.$on('$destroy', function() {
                         slider.destroy();
                     });

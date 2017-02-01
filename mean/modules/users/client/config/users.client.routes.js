@@ -24,6 +24,9 @@
         resolve: {
             userResolve: getUser
         },
+        data : {
+            roles:['admin','user']
+        }
       })
       .state('workspace.users.edit', {
         url: '/edit',
@@ -33,6 +36,9 @@
         resolve: {
             userResolve: getUser
         },
+        data : {
+            roles:['admin','user']
+        }
       })
       .state('authentication', {
         abstract: true,

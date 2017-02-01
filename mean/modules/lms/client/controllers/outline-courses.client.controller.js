@@ -6,17 +6,18 @@ angular
     .module('lms')
     .controller('CoursesOutlineController', CoursesOutlineController);
 
-CoursesOutlineController.$inject = ['$scope', '$state', '$window', 'Authentication', '$timeout', 'courseResolve', 'CoursesService', 'Notification', 'CourseEditionsService', 'EditionSectionsService', 'fileManagerConfig','treeUtils','_'];
+CoursesOutlineController.$inject = ['$scope', '$state', '$window', 'Authentication', '$timeout', 'editionResolve','courseResolve', 'Notification', 'CourseEditionsService', 'EditionSectionsService','treeUtils','_'];
 
-function CoursesOutlineController($scope, $state, $window, Authentication, $timeout, course, CoursesService, Notification, CourseEditionsService,EditionSectionsService ,fileManagerConfig, treeUtils, _) {
+function CoursesOutlineController($scope, $state, $window, Authentication, $timeout, edition, course, Notification, CourseEditionsService,EditionSectionsService , treeUtils, _) {
     var vm = this;
     vm.authentication = Authentication;
+    vm.edition = edition;
     vm.course = course;
     vm.addSection = addSection;
     vm.addUnit = addUnit;
     vm.addSubsection = addSubsection;
     vm.hasUnitSection = hasUnitSection;
-    vm.editName  = editName ;
+    vm.editSection  = editSection ;
     vm.editVisible = editVisible;
     vm.removeSection = removeSection;
     vm.changePublishStatus = changePublishStatus;
@@ -28,27 +29,12 @@ function CoursesOutlineController($scope, $state, $window, Authentication, $time
     vm.goUp = goUp;
     vm.goDown = goDown;
     vm.moveSection = moveSection;
-    vm.edition = null;
     vm.sections = [];
     vm.expandMode = true;
     
-    CourseEditionsService.byCourse({courseId:vm.course._id},function(data) {
-        if (data.length==0) {
-            vm.edition = new CourseEditionsService();
-            vm.edition.course = vm.course._id;
-            vm.edition.name ='v1.0';
-            vm.edition.$save(function() {
-                
-            },function(errorResponse) {
-                Notification.error({ message: errorResponse.data.message, title: '<i class="uk-icon-ban"></i> Course outline created error!' });
-                $state.go('workspace.lms.courses.list');
-            });
-        } else {
-            vm.edition = data[0];
-            vm.sections = EditionSectionsService.byEdition({editionId:vm.edition._id}, function() {
-                buildCourseTree();
-            });
-        }
+    
+    vm.sections = EditionSectionsService.byEdition({editionId:vm.edition._id}, function() {
+        buildCourseTree();
     });
     
     function buildCourseTree(){
@@ -93,7 +79,7 @@ function CoursesOutlineController($scope, $state, $window, Authentication, $time
             section.name = val;
             section.edition = vm.edition._id;
             section.hasContent = false;
-            section.order = Math.max(vm.nodes.children.length + 1,_.max(vm.nodes, function(node){return node.order}));
+            section.order = Math.max(vm.nodes.length + 1,_.max(vm.nodes, function(node){return node.order}));
             section.$save(function (response) {
                  Notification.success({ message: '<i class="uk-icon-ok"></i> Section created successfully!' });
                  vm.sections.push(section);
@@ -148,9 +134,12 @@ function CoursesOutlineController($scope, $state, $window, Authentication, $time
          });
     }
     
-    function editName(node) {
+    function editSection(node) {
         var section = node.data;
-        UIkit.modal.prompt('Name:', '', function(val){ 
+        if (section.hasContent)
+            $state.go('workspace.lms.courses.section.edit',{courseId:vm.edition.course,sectionId:node.data._id});
+        else
+            UIkit.modal.prompt('Name:', '', function(val){ 
             section.name = val;
             section.$update(function () {
                }, function (errorResponse) {

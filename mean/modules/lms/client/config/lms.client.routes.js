@@ -35,6 +35,7 @@
         controller: 'CoursesOutlineController',
         controllerAs: 'vm',
         resolve: {
+          editionResolve: getEdition,
           courseResolve: getCourse
         },
         data: {
@@ -42,13 +43,33 @@
           courseRoles: [ 'teacher']
         }
       })
-      .state('workspace.lms.courses.outline.section', {
-        url: '/:sectionId',
-        templateUrl: '/modules/lms/client/views/section-outline-course.client.view.html',
+      .state('workspace.lms.courses.section', {
+        abstract: true,
+        url: '/:courseId/section',
+        template: '<ui-view/>'
+      })
+      .state('workspace.lms.courses.section.view', {
+        url: '/view/:sectionId',
+        templateUrl: '/modules/lms/client/views/view-outline.section-course.client.view.html',
         controller: 'CoursesOutlineSectionController',
         controllerAs: 'vm',
         resolve: {
-          sectionResolve: getSection
+          sectionResolve: getSection,
+          courseResolve: getCourse
+        },
+        data: {
+          roles: [ 'user'],
+          courseRoles: [ 'teacher']
+        }
+      })
+      .state('workspace.lms.courses.section.edit', {
+        url: '/edit/:sectionId',
+        templateUrl: '/modules/lms/client/views/form-outline.section-course.client.view.html',
+        controller: 'CoursesOutlineSectionController',
+        controllerAs: 'vm',
+        resolve: {
+          sectionResolve: getSection,
+          courseResolve: getCourse
         },
         data: {
           roles: [ 'user'],
@@ -56,12 +77,14 @@
         }
       })
       .state('workspace.lms.courses.grade', {
-        url: '/:courseId/grade',
+        url: '/:courseId/:editionId/grade',
         templateUrl: '/modules/lms/client/views/grade-course.client.view.html',
         controller: 'CoursesGradeController',
         controllerAs: 'vm',
         resolve: {
-          courseResolve: getCourse
+          courseResolve: getCourse,
+          schemeResolve: getGradescheme,
+          editionResolve: getEdition
         },
         data: {
           roles: ['user'],
@@ -111,10 +134,50 @@
     }).$promise;
   }
   
-  getSection.$inject = ['$stateParams', 'EditionSectionService'];
+  getEdition.$inject = ['$stateParams', 'CourseEditionsService', '$q'];
 
-  function getCourse($stateParams, EditionSectionService) {
-    return EditionSectionService.get({
+  function getEdition($stateParams, CourseEditionsService, $q) {
+      return $q(function(resolve, reject) {
+          CourseEditionsService.byCourse({courseId:$stateParams.courseId},function(data) {
+          if (data.length==0) {
+              var edition = new CourseEditionsService();
+              edition.course = $stateParams.courseId;
+              edition.name ='v1.0';
+              edition.$save(function() {
+                  resolve(edition);
+              },function(errorResponse) {
+                  reject();
+              });
+          } else {
+              resolve( data[0]);
+          }
+      });
+      });
+  }
+  
+  getGradescheme.$inject = ['$stateParams', 'GradeSchemesService', '$q'];
+
+  function getGradescheme($stateParams, GradeSchemesService, $q) {
+      return $q(function(resolve, reject) {
+          var scheme = GradeSchemesService.byEdition({editionId:$stateParams.editionId},function(data) {
+          resolve(data);
+      }, function(err) {
+          var scheme = new GradeSchemesService();
+          scheme.edition = $stateParams.editionId;
+          scheme.$save(function() {
+              resolve(scheme);
+          },function(errorResponse) {
+              reject();
+          });
+      });
+      });
+      
+  }
+  
+  getSection.$inject = ['$stateParams', 'EditionSectionsService'];
+
+  function getSection($stateParams, EditionSectionsService) {
+    return EditionSectionsService.get({
         sectionId: $stateParams.sectionId
     }).$promise;
   }
