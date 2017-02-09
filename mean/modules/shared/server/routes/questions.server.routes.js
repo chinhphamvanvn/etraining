@@ -12,6 +12,9 @@ module.exports = function(app) {
     .get(questions.list)
     .post(questions.create);
 
+  app.route('/api/questions/byFilter/:groupId/:level').all(questionsPolicy.isAllowed)
+  .get(questions.listByAutoselectFilter);
+  
   app.route('/api/questions/:questionId').all(questionsPolicy.isAllowed)
     .get(questions.read)
     .put(questions.update)

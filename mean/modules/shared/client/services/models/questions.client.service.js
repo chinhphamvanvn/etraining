@@ -14,7 +14,12 @@
     }, {
       update: {
         method: 'PUT'
-      }
+      },
+        byFilter : {
+            method: 'GET',
+            url: '/api/questions/byFilter/:groupId/:level',
+            isArray: true
+          }
     });
   }
 }());

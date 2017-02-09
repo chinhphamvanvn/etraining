@@ -17,7 +17,18 @@ exports.invokeRolesPolicies = function () {
     allows: [{
       resources: '/api/attempts',
       permissions: '*'
-    }, {
+    },{
+        resources: '/api/attempts/byExamAndUser/:examId/:candidateId',
+        permissions: ['get']
+      },{
+          resources: '/api/attempts/byUser/:candidateId',
+          permissions: ['get']
+        },
+        {
+            resources: '/api/attempts/byExam/:examId',
+            permissions: ['get']
+          },
+        {
       resources: '/api/attempts/:attemptId',
       permissions: '*'
     }]
@@ -27,6 +38,17 @@ exports.invokeRolesPolicies = function () {
       resources: '/api/attempts',
       permissions: ['get', 'post']
     }, {
+        resources: '/api/attempts/byExamAndUser/:examId/:candidateId',
+        permissions: ['get']
+      },
+      {
+          resources: '/api/attempts/byExam/:examId',
+          permissions: ['get']
+        },
+      {
+          resources: '/api/attempts/byUser/:candidateId',
+          permissions: ['get']
+        },{
       resources: '/api/attempts/:attemptId',
       permissions: ['get']
     }]

@@ -103,7 +103,8 @@ function CoursesController($scope, $state, $window, Authentication, $timeout, co
         create: false,
         maxItems: 1,
         valueField: 'value',
-        labelField: 'title'
+        labelField: 'title',
+        searchField: 'title'
     };
     vm.groupOptions = [];
     GroupsService.listCourseGroup(function(data) {
@@ -157,9 +158,6 @@ function CoursesController($scope, $state, $window, Authentication, $timeout, co
     
     function onSaveSuccess(response) {
         if (!vm.logo) {
-            _.each(response.data,function(val,key) {
-                vm.course[key] = val;
-            });
             Notification.success({ message: '<i class="uk-icon-check"></i> Course saved successfully!'     });
             $state.go('admin.workspace.cms.courses.list');
             return;
@@ -170,9 +168,6 @@ function CoursesController($scope, $state, $window, Authentication, $timeout, co
               newCourseLogo: vm.logo
             }
           }).then(function(response) {
-              _.each(response.data,function(val,key) {
-                  vm.course[key] = val;
-              });
               Notification.success({ message: '<i class="uk-icon-check"></i> Course saved successfully!'     });
               $state.go('admin.workspace.cms.courses.list');
           },function(errorResponse) {

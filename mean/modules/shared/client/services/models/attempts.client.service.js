@@ -14,7 +14,22 @@
     }, {
       update: {
         method: 'PUT'
-      }
+      },
+      byExamAndUser: {
+          url:'/api/attempts/byExamAndUser/:examId/:candidateId',
+          method: 'GET',
+          isArray: true
+        },
+        byUser: {
+            url:'/api/attempts/byUser/:candidateId',
+            method: 'GET',
+            isArray: true
+          },
+          byExam: {
+              url:'/api/attempts/byExam/:examId',
+              method: 'GET',
+              isArray: true
+            }
     });
   }
 }());

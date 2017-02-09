@@ -26,7 +26,7 @@
     vm.finishLoad = finishLoad;
     
     vm.groups = GroupsService.listOrganizationGroup( function() {
-        var tree = treeUtils.buildOrgTree(vm.groups);
+        var tree = treeUtils.buildGroupTree(vm.groups);
         $timeout(function() {
             $("#departmentTree").fancytree({
                 checkbox: true,
@@ -105,6 +105,7 @@
         placeholder:'Match column',
         valueField: 'value',
         labelField: 'title',
+        searchField: 'title',
         optgroupField: 'parent_id',
         optgroupLabelField: 'title',
         optgroupValueField: 'ogid',

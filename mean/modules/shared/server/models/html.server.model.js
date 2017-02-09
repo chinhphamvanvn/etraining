@@ -7,13 +7,13 @@ var mongoose = require('mongoose'),
   Schema = mongoose.Schema;
 
 /**
- * Quiz Schema
+ * Html Schema
  */
-var QuizSchema = new Schema({
-  name: {
+var HtmlSchema = new Schema({
+  content: {
     type: String,
     default: '',
-    required: 'Please fill Quiz name',
+    required: 'Please fill Html content',
     trim: true
   },
   created: {
@@ -26,4 +26,4 @@ var QuizSchema = new Schema({
   }
 });
 
-mongoose.model('Quiz', QuizSchema);
+mongoose.model('Html', HtmlSchema);

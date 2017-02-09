@@ -72,9 +72,6 @@
     
     function onSaveSuccess(response) {
         if (!vm.avatar) {
-            _.each(response.data,function(val,key) {
-                vm.user[key] = val;
-            });
             Notification.success({ message: '<i class="uk-icon-check"></i> User saved successfully!' });
             $state.go('workspace.users.view');
             return;
@@ -85,9 +82,6 @@
               newProfilePicture: vm.avatar
             }
           }).then(function(response) {
-              _.each(response.data,function(val,key) {
-                  vm.user[key] = val;
-              });
               Notification.success({ message: '<i class="uk-icon-check"></i> User saved successfully!' });
               $state.go('workspace.users.view');
           },function(errorResponse) {

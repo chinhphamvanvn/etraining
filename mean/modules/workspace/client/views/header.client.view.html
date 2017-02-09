@@ -54,7 +54,7 @@
                             <a href="#" class="user_action_image"><img class="md-user-image" ng-src="{{vm.user.profileImageURL?vm.user.profileImageURL:'/assets/img/avatars/user.png'}}"  alt="" add-image-prop/></a>
                             <div class="uk-dropdown  uk-dropdown-small">
                                 <ul class="uk-nav js-uk-prevent uk-list-line">
-                                    <li ><a ui-sref="workspace.users.view" class="uk-dropdown-close" > {{'PAGE.WORKSPACE.HEADER.MY_PROFILE' | translate}}</a></li>
+                                    <li ><a ng-click="vm.viewProfile()" class="uk-dropdown-close" > {{'PAGE.WORKSPACE.HEADER.MY_PROFILE' | translate}}</a></li>
                                     <li ><a a href="/api/auth/signout" target="_self" >{{'PAGE.WORKSPACE.HEADER.LOGOUT'| translate}}</a></li>
                                 </ul>
                             </div>

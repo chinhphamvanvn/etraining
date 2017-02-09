@@ -40,25 +40,16 @@ var EditionSectionSchema = new Schema({
     enum: ['html', 'test', 'video'],
   },
   html: {
-    type: String,
-    default: '',
-    trim: true
-  },
-  transcript: {
-      type: String,
-      trim: true
-  },
-  videoUrl: {
-      type: String,
-      trim: true
-  },
-  videoCaptionUrl: {
-      type: String,
-      trim: true
+      type: Schema.ObjectId,
+      ref: 'Html'
   },
   quiz: {
       type: Schema.ObjectId,
-      ref: 'Quiz'
+      ref: 'Exam'
+  },
+  video: {
+      type: Schema.ObjectId,
+      ref: 'Video'
   },
   created: {
     type: Date,

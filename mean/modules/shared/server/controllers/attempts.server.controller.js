@@ -92,6 +92,42 @@ exports.list = function(req, res) {
   });
 };
 
+exports.listByExam = function(req, res) {
+    Attempt.find({exam:req.exam._id}).sort('-created').populate('user', 'displayName').exec(function(err, attempts) {
+      if (err) {
+        return res.status(400).send({
+          message: errorHandler.getErrorMessage(err)
+        });
+      } else {
+        res.jsonp(attempts);
+      }
+    });
+  };
+  
+exports.listByUser = function(req, res) {
+    Attempt.find({candidate:req.params.candidateId}).sort('-created').populate('user', 'displayName').exec(function(err, attempts) {
+      if (err) {
+        return res.status(400).send({
+          message: errorHandler.getErrorMessage(err)
+        });
+      } else {
+        res.jsonp(attempts);
+      }
+    });
+  };
+
+exports.listByExamAndUser = function(req, res) {
+    Attempt.find({candidate:req.params.candidateId,exam:req.exam._id}).sort('-created').populate('user', 'displayName').exec(function(err, attempts) {
+      if (err) {
+        return res.status(400).send({
+          message: errorHandler.getErrorMessage(err)
+        });
+      } else {
+        res.jsonp(attempts);
+      }
+    });
+  };
+
 /**
  * Attempt middleware
  */

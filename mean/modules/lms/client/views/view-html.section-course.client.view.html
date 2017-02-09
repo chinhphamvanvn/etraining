@@ -1,11 +1,7 @@
 
 <div id="page_content">
     <div id="page_heading" data-uk-sticky="{ top: 48, media: 960 }">
-        <div class="heading_actions">
-            <span class="icheck-inline" >                                    
-                <input type="checkbox" class="switchery switchery-small" ui-switch color="#7cb342"  name="switch_visible" id="switch_visible"  ng-disabled="true" ng-model="vm.section.visible" />
-                <label for="switch_visible" class="inline-label">{{'MODEL.SECTION.VISIBLE'|translate}}</label>
-            </span>            
+        <div class="heading_actions">          
         </div>
        <h1 >{{vm.section.name}}                        
        </h1>
@@ -17,10 +13,8 @@
     <div id="page_content_inner">
         <div class="md-card" >
             <div class="md-card-content uk-margin">
-                <div ng-if ="vm.section.contentType=='html'">
                     <label for="section_html">{{'MODEL.SECTION.HTML'|translate}}</span></label>
-                    <p ng-bind-html="vm.section.html"></p>
-                </div>
+                    <p ng-bind-html="vm.html.content"></p>
             </div>            
         </div>        
     </div>
@@ -28,7 +22,7 @@
 </div>      
     
  <div class="md-fab-wrapper">
-    <a class="md-fab md-fab-accent md-fab-wave-light" ui-sref="workspace.lms.courses.section.edit({courseId:vm.course._id,sectionId:vm.section._id})" >
+    <a class="md-fab md-fab-accent md-fab-wave-light" ui-sref="workspace.lms.courses.section.edit.html({courseId:vm.course._id,sectionId:vm.section._id})" >
         <i class="material-icons">&#xE150;</i>
     </a>
 </div>

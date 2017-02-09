@@ -17,6 +17,9 @@
         templateUrl: '/modules/workspace/client/views/workspace.client.view.html',
         controller: 'WorkspaceController',
         controllerAs: 'vm',
+        resolve: {
+            userResolve: getUser
+        },
         data: {
           roles: ['user']
         }
@@ -27,9 +30,19 @@
         templateUrl: '/modules/workspace/client/views/workspace.client.view.html',
         controller: 'WorkspaceController',
         controllerAs: 'vm',
+        resolve: {
+            userResolve: getUser
+        },
         data: {
           roles: ['admin']
         }
       });
+  }
+
+  
+  getUser.$inject = [ 'UsersService'];
+
+  function getUser( UsersService) {
+      return UsersService.me().$promise;
   }
 }());

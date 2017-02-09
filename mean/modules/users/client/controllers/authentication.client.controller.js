@@ -5,9 +5,9 @@
     .module('users')
     .controller('AuthenticationController', AuthenticationController);
 
-  AuthenticationController.$inject = [ '$scope', '$state', '$stateParams', 'UsersService', '$location', '$window', 'Authentication', 'Notification', 'utils'];
+  AuthenticationController.$inject = [ '$scope','$rootScope', '$state', '$stateParams', 'UsersService', '$location', '$window', 'Authentication', 'Notification', 'utils'];
 
-  function AuthenticationController( $scope, $state, $stateParams, UsersService, $location, $window, Authentication, Notification, utils) {
+  function AuthenticationController( $scope, $rootScope, $state, $stateParams, UsersService, $location, $window, Authentication, Notification, utils) {
     var vm = this;
     vm.authentication = Authentication;
     vm.signup = signup;
@@ -98,7 +98,7 @@
           if (_.contains(vm.authentication.user.roles,'admin'))
               $state.go('admin.workspace.dashboard');
           else
-              $state.go('workspace.dashboard');
+              $state.go('workspace.lms.courses.list');
       } else
           $state.go($state.previous.state.name || 'home', $state.previous.params);
     }
@@ -116,7 +116,7 @@
           if (_.contains(vm.authentication.user.roles,'admin'))
               $state.go('admin.workspace.dashboard');
           else
-              $state.go('workspace.dashboard');
+              $state.go('workspace.lms.courses.list');
       } else
           $state.go($state.previous.state.name || 'home', $state.previous.params);
     }

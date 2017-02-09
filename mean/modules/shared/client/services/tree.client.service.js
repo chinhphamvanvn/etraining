@@ -8,7 +8,7 @@
             return {
               
                 // build tree
-                buildOrgTree: function(groups) {
+                buildGroupTree: function(groups) {
                     function buildTopDownTree(rootId,root) {
                         var childGroups = _.filter(groups,function(group) {
                             return group.parent == rootId;
@@ -24,7 +24,7 @@
                     }
                     return buildTopDownTree(null,null);
                 },
-                findOrgNode:function(treeNodes, key) {
+                findGroupNode:function(treeNodes, key) {
                     var found = null;
                     function find(node,key) {
                         if (node.key == key)

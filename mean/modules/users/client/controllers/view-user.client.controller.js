@@ -25,9 +25,9 @@
     }
     
     vm.groups = GroupsService.listOrganizationGroup( function() {
-        var tree = treeUtils.buildOrgTree(vm.groups);
+        var tree = treeUtils.buildGroupTree(vm.groups);
         if (vm.user.group) {
-            var selectNode = treeUtils.findOrgNode(tree, vm.user.group);
+            var selectNode = treeUtils.findGroupNode(tree, vm.user.group);
             selectNode.selected = true;
         }
         $timeout(function() {

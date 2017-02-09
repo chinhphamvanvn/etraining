@@ -5,113 +5,125 @@
  */
 var path = require('path'),
   mongoose = require('mongoose'),
-  Quiz = mongoose.model('Quiz'),
+  Answer = mongoose.model('Answer'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
   _ = require('lodash');
 
 /**
- * Create a Quiz
+ * Create a Answer
  */
 exports.create = function(req, res) {
-  var quiz = new Quiz(req.body);
-  quiz.user = req.user;
+  var answer = new Answer(req.body);
+  answer.user = req.user;
 
-  quiz.save(function(err) {
+  answer.save(function(err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      res.jsonp(quiz);
+      res.jsonp(answer);
     }
   });
 };
 
 /**
- * Show the current Quiz
+ * Show the current Answer
  */
 exports.read = function(req, res) {
   // convert mongoose document to JSON
-  var quiz = req.quiz ? req.quiz.toJSON() : {};
+  var answer = req.answer ? req.answer.toJSON() : {};
 
   // Add a custom field to the Article, for determining if the current User is the "owner".
   // NOTE: This field is NOT persisted to the database, since it doesn't exist in the Article model.
-  quiz.isCurrentUserOwner = req.user && quiz.user && quiz.user._id.toString() === req.user._id.toString();
+  answer.isCurrentUserOwner = req.user && answer.user && answer.user._id.toString() === req.user._id.toString();
 
-  res.jsonp(quiz);
+  res.jsonp(answer);
 };
 
 /**
- * Update a Quiz
+ * Update a Answer
  */
 exports.update = function(req, res) {
-  var quiz = req.quiz;
+  var answer = req.answer;
 
-  quiz = _.extend(quiz, req.body);
+  answer = _.extend(answer, req.body);
 
-  quiz.save(function(err) {
+  answer.save(function(err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      res.jsonp(quiz);
+      res.jsonp(answer);
     }
   });
 };
 
 /**
- * Delete an Quiz
+ * Delete an Answer
  */
 exports.delete = function(req, res) {
-  var quiz = req.quiz;
+  var answer = req.answer;
 
-  quiz.remove(function(err) {
+  answer.remove(function(err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      res.jsonp(quiz);
+      res.jsonp(answer);
     }
   });
 };
 
 /**
- * List of Quizzes
+ * List of Answers
  */
 exports.list = function(req, res) {
-  Quiz.find().sort('-created').populate('user', 'displayName').exec(function(err, quizzes) {
+  Answer.find().sort('-created').populate('user', 'displayName').exec(function(err, answers) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      res.jsonp(quizzes);
+      res.jsonp(answers);
     }
   });
 };
 
+exports.listByAttempt = function(req, res) {
+    Answer.find({attempt:req.attempt._id}).sort('-created').populate('user', 'displayName').exec(function(err, answers) {
+      if (err) {
+        return res.status(400).send({
+          message: errorHandler.getErrorMessage(err)
+        });
+      } else {
+        res.jsonp(answers);
+      }
+    });
+  };
+
 /**
- * Quiz middleware
+ * Answer middleware
  */
-exports.quizByID = function(req, res, next, id) {
+exports.answerByID = function(req, res, next, id) {
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(400).send({
-      message: 'Quiz is invalid'
+      message: 'Answer is invalid'
     });
   }
 
-  Quiz.findById(id).populate('user', 'displayName').exec(function (err, quiz) {
+  Answer.findById(id).populate('user', 'displayName').exec(function (err, answer) {
     if (err) {
       return next(err);
-    } else if (!quiz) {
+    } else if (!answer) {
       return res.status(404).send({
-        message: 'No Quiz with that identifier has been found'
+        message: 'No Answer with that identifier has been found'
       });
     }
-    req.quiz = quiz;
+    req.answer = answer;
     next();
   });
 };

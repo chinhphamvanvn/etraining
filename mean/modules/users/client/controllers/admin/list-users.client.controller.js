@@ -93,7 +93,7 @@
     vm.dtInstance = {};
     
     vm.groups = GroupsService.listOrganizationGroup( function() {
-        var tree = treeUtils.buildOrgTree(vm.groups);
+        var tree = treeUtils.buildGroupTree(vm.groups);
         $timeout(function() {
             $("#orgTree").fancytree({
                 checkbox: true,

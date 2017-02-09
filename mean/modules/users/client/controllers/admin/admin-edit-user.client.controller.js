@@ -41,9 +41,9 @@
     });
     
     vm.groups = GroupsService.listOrganizationGroup( function() {
-        var tree = treeUtils.buildOrgTree(vm.groups);
+        var tree = treeUtils.buildGroupTree(vm.groups);
         if (vm.user.group) {
-            var selectNode = treeUtils.findOrgNode(tree, vm.user.group);
+            var selectNode = treeUtils.findGroupNode(tree, vm.user.group);
             selectNode.selected = true;
         }
         $timeout(function() {
@@ -109,9 +109,6 @@
     
     function onSaveSuccess(response) {
         if (!vm.avatar) {
-            _.each(response.data,function(val,key) {
-                vm.user[key] = val;
-            });
             Notification.success({ message: '<i class="uk-icon-check"></i> User saved successfully!' });
             $state.go('admin.workspace.users.list');
             return;
@@ -122,9 +119,6 @@
               newProfilePicture: vm.avatar
             }
           }).then(function(response) {
-              _.each(response.data,function(val,key) {
-                  vm.user[key] = val;
-              });
               Notification.success({ message: '<i class="uk-icon-check"></i> User saved successfully!' });
               $state.go('admin.workspace.users.list');
           },function(errorResponse) {

@@ -10,11 +10,26 @@ var mongoose = require('mongoose'),
  * Attempt Schema
  */
 var AttemptSchema = new Schema({
-  name: {
+    candidate: {
+        type: Schema.ObjectId,
+        ref: 'User'
+    },
+  exam: {
+      type: Schema.ObjectId,
+      ref: 'Exam'
+  },
+  start: {
+    type: Date,
+    default: Date.now
+  },
+  end: {
+    type: Date,
+    default: Date.now
+  },
+  status: {
     type: String,
-    default: '',
-    required: 'Please fill Attempt name',
-    trim: true
+    enum: ['initial', 'completed', 'pending', 'cancelled'],
+    default: 'initial'
   },
   created: {
     type: Date,
@@ -27,3 +42,4 @@ var AttemptSchema = new Schema({
 });
 
 mongoose.model('Attempt', AttemptSchema);
+

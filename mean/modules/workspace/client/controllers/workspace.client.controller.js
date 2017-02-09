@@ -5,14 +5,14 @@
     .module('workspace')
     .controller('WorkspaceController', WorkspaceController);
 
-  WorkspaceController.$inject = ['$scope', '$rootScope','$state', 'Authentication', 'menuService', '$timeout', '$window', '_'];
+  WorkspaceController.$inject = ['$scope', '$rootScope','$state', 'userResolve', 'menuService', '$timeout', '$window', '_'];
   
-  function WorkspaceController($scope, $rootScope, $state, Authentication, menuService,$timeout, $window, _) {
+  function WorkspaceController($scope, $rootScope, $state, user, menuService,$timeout, $window, _) {
     var vm = this;
-    vm.authentication = Authentication;
-    vm.user = vm.authentication.user;
+    vm.user = user;
     vm.menu = menuService.getMenu('sidebar');
     vm.switchPanel = switchPanel;
+    vm.viewProfile = viewProfile;
     vm.hasAdminRole = _.contains(vm.user.roles,'admin');    
     vm.user.alerts =  [
                 {
@@ -65,6 +65,13 @@
                 }
             })
         });
+        
+        function viewProfile() {
+            if ($rootScope.viewerRole=='user')
+                $state.go('workspace.users.view');
+            else
+                $state.go('admin.workspace.users.view',{userId:vm.user._id});
+        }
 
         function updateSidebar() {
             vm.sections = [];
@@ -98,7 +105,7 @@
         
         function switchPanel() {
             if ($rootScope.viewerRole=='admin') {
-                $state.go('workspace.dashboard');
+                $state.go('workspace.lms.courses.list');
             } else {
                 $state.go('admin.workspace.dashboard');
             }

@@ -9,7 +9,7 @@
     applicationModuleVendorDependencies: ['ngResource', 'ngMessages','ngSanitize', 'ngFileUpload', 'ui.router', 
                                           'ui-notification', 'ui.bootstrap', 'pascalprecht.translate', 'ncy-angular-breadcrumb',
                                           'LocalStorageModule', 'underscore', 'datatables', 'datatables.buttons',
-                                          angularDragula(angular),'mgo-angular-wizard'],
+                                          angularDragula(angular),'kendo.directives'],
     registerModule: registerModule
   };
 

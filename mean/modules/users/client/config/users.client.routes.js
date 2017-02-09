@@ -25,7 +25,7 @@
             userResolve: getUser
         },
         data : {
-            roles:['admin','user']
+            roles:['user']
         }
       })
       .state('workspace.users.edit', {
@@ -37,7 +37,7 @@
             userResolve: getUser
         },
         data : {
-            roles:['admin','user']
+            roles:['user']
         }
       })
       .state('authentication', {
@@ -64,10 +64,10 @@
         },
       });
     
-    getUser.$inject = ['$stateParams', 'AdminService', 'Authentication'];
+    getUser.$inject = ['$stateParams', 'UsersService'];
 
-    function getUser($stateParams, AdminService, Authentication) {
-          return Authentication.user;
+    function getUser($stateParams, UsersService) {
+          return UsersService.me().$promise;
     }
   }
 }());

@@ -56,7 +56,7 @@
       
       vm.groups = [];
       vm.groups = GroupsService.listOrganizationGroup( function() {
-          var tree = treeUtils.buildOrgTree(vm.groups);
+          var tree = treeUtils.buildGroupTree(vm.groups);
           $timeout(function() {
               $("#orgTree").fancytree({
                   checkbox: true,
@@ -104,7 +104,8 @@
           create: false,
           maxItems: 1,
           valueField: 'value',
-          labelField: 'title'
+          labelField: 'title',
+          searchField: 'title'
       };
       vm.classOptions = [];
       

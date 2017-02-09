@@ -45,17 +45,53 @@
       })
       .state('workspace.lms.courses.section', {
         abstract: true,
-        url: '/:courseId/section',
+        url: '/section',
         template: '<ui-view/>'
       })
       .state('workspace.lms.courses.section.view', {
-        url: '/view/:sectionId',
-        templateUrl: '/modules/lms/client/views/view-outline.section-course.client.view.html',
-        controller: 'CoursesOutlineSectionController',
+        abstract: true,
+        url: '/view',
+        template: '<ui-view/>'
+      })
+      .state('workspace.lms.courses.section.view.html', {
+        url: '/html/:courseId/:sectionId',
+        templateUrl: '/modules/lms/client/views/view-html.section-course.client.view.html',
+        controller: 'CoursesHTMLSectionController',
         controllerAs: 'vm',
         resolve: {
           sectionResolve: getSection,
-          courseResolve: getCourse
+          courseResolve: getCourse,
+          htmlResolve: getHtml
+        },
+        data: {
+          roles: [ 'user'],
+          courseRoles: [ 'teacher']
+        }
+      })
+      .state('workspace.lms.courses.section.view.quiz', {
+        url: '/quiz/:courseId/:sectionId',
+        templateUrl: '/modules/lms/client/views/view-quiz.section-course.client.view.html',
+        controller: 'CoursesQuizSectionController',
+        controllerAs: 'vm',
+        resolve: {
+          sectionResolve: getSection,
+          courseResolve: getCourse,
+          quizResolve: getQuiz
+        },
+        data: {
+          roles: [ 'user'],
+          courseRoles: [ 'teacher']
+        }
+      })
+      .state('workspace.lms.courses.section.view.video', {
+        url: '/video/:courseId/:sectionId',
+        templateUrl: '/modules/lms/client/views/view-video.section-course.client.view.html',
+        controller: 'CoursesVideoSectionController',
+        controllerAs: 'vm',
+        resolve: {
+          sectionResolve: getSection,
+          courseResolve: getCourse,
+          videoResolve: getVideo
         },
         data: {
           roles: [ 'user'],
@@ -63,13 +99,49 @@
         }
       })
       .state('workspace.lms.courses.section.edit', {
-        url: '/edit/:sectionId',
-        templateUrl: '/modules/lms/client/views/form-outline.section-course.client.view.html',
-        controller: 'CoursesOutlineSectionController',
+        abstract: true,
+        url: '/edit',
+        template: '<ui-view/>'
+      })
+      .state('workspace.lms.courses.section.edit.html', {
+        url: '/html/:courseId/:sectionId',
+        templateUrl: '/modules/lms/client/views/form-html.section-course.client.view.html',
+        controller: 'CoursesHTMLSectionController',
         controllerAs: 'vm',
         resolve: {
           sectionResolve: getSection,
-          courseResolve: getCourse
+          courseResolve: getCourse,
+          htmlResolve: getHtml
+        },
+        data: {
+          roles: [ 'user'],
+          courseRoles: [ 'teacher']
+        }
+      })
+      .state('workspace.lms.courses.section.edit.quiz', {
+        url: '/quiz/:courseId/:sectionId',
+        templateUrl: '/modules/lms/client/views/form-quiz.section-course.client.view.html',
+        controller: 'CoursesQuizSectionController',
+        controllerAs: 'vm',
+        resolve: {
+          sectionResolve: getSection,
+          courseResolve: getCourse,
+          quizResolve: getQuiz
+        },
+        data: {
+          roles: [ 'user'],
+          courseRoles: [ 'teacher']
+        }
+      })
+      .state('workspace.lms.courses.section.edit.video', {
+        url: '/video/:courseId/:sectionId',
+        templateUrl: '/modules/lms/client/views/form-video.section-course.client.view.html',
+        controller: 'CoursesVideoSectionController',
+        controllerAs: 'vm',
+        resolve: {
+          sectionResolve: getSection,
+          courseResolve: getCourse,
+          videoResolve: getVideo
         },
         data: {
           roles: [ 'user'],
@@ -172,6 +244,81 @@
       });
       });
       
+  }
+  
+  getHtml.$inject = ['$stateParams', 'EditionSectionsService','HtmlsService', '$q'];
+
+  function getHtml($stateParams, EditionSectionsService, HtmlsService, $q) {
+      return $q(function(resolve, reject) {
+          EditionSectionsService.get({sectionId:$stateParams.sectionId},function(section) {
+              if (section.html) {
+                  HtmlsService.get({htmlId:section.html},function(html) {
+                      resolve(html);
+                  },function() {
+                      reject();
+                  })
+              } else {
+                  var html = new HtmlsService();
+                  html.$save(function() {
+                      resolve(html);
+                  });                  
+              }
+                  
+      }, function(err) {
+              reject();
+      });
+      });
+  }
+  
+  getQuiz.$inject = ['$stateParams', 'EditionSectionsService','ExamsService', '$q'];
+
+  function getQuiz($stateParams, EditionSectionsService, ExamsService, $q) {
+      return $q(function(resolve, reject) {
+          EditionSectionsService.get({sectionId:$stateParams.sectionId},function(section) {
+              if (section.quiz) {
+                  ExamsService.get({examId:section.quiz},function(quiz) {
+                      resolve(quiz);
+                  },function() {
+                      reject();
+                  })
+              } else {
+                  var quiz = new ExamsService();
+                  quiz.type='quiz';
+                  quiz.maxAttempt = 1;
+                  quiz.questionSelection = 'manual';
+                  quiz.$save(function() {
+                      resolve(quiz);
+                  });  
+              }
+                  
+      }, function(err) {
+              reject();
+      });
+      });
+  }
+  
+  getVideo.$inject = ['$stateParams', 'EditionSectionsService','VideosService', '$q'];
+
+  function getVideo($stateParams, EditionSectionsService, VideosService, $q) {
+      return $q(function(resolve, reject) {
+          EditionSectionsService.get({sectionId:$stateParams.sectionId},function(section) {
+              if (section.video) {
+                  VideosService.get({videoId:section.video},function(video) {
+                      resolve(video);
+                  },function() {
+                      reject();
+                  })
+              } else {
+                  var video = new VideosService();
+                  video.$save(function() {
+                      resolve(video);
+                  });  
+              }
+                  
+      }, function(err) {
+              reject();
+      });
+      });
   }
   
   getSection.$inject = ['$stateParams', 'EditionSectionsService'];

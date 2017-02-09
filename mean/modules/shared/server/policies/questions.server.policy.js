@@ -17,7 +17,11 @@ exports.invokeRolesPolicies = function () {
     allows: [{
       resources: '/api/questions',
       permissions: '*'
-    }, {
+    },  {
+          resources: '/api/questions/byFilter/:groupId/:level',
+          permissions: '*'
+        },
+        {
       resources: '/api/questions/:questionId',
       permissions: '*'
     }]
@@ -26,7 +30,11 @@ exports.invokeRolesPolicies = function () {
     allows: [{
       resources: '/api/questions',
       permissions: ['get', 'post']
-    }, {
+    },{
+          resources: '/api/questions/byFilter/:groupId/:level',
+          permissions: ['get']
+        },
+      {
       resources: '/api/questions/:questionId',
       permissions: ['get']
     }]

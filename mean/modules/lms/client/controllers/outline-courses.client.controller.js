@@ -136,8 +136,14 @@ function CoursesOutlineController($scope, $state, $window, Authentication, $time
     
     function editSection(node) {
         var section = node.data;
-        if (section.hasContent)
-            $state.go('workspace.lms.courses.section.edit',{courseId:vm.edition.course,sectionId:node.data._id});
+        if (section.hasContent) {
+            if (section.contentType=='html')
+                $state.go('workspace.lms.courses.section.edit.html',{courseId:vm.edition.course,sectionId:node.data._id});
+            if (section.contentType=='test')
+                $state.go('workspace.lms.courses.section.edit.quiz',{courseId:vm.edition.course,sectionId:node.data._id});
+            if (section.contentType=='video')
+                $state.go('workspace.lms.courses.section.edit.video',{courseId:vm.edition.course,sectionId:node.data._id});
+        }
         else
             UIkit.modal.prompt('Name:', '', function(val){ 
             section.name = val;

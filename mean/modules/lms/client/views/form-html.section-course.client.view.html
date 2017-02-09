@@ -19,19 +19,16 @@
         <div class="md-fab md-fab-toolbar md-fab-small md-fab-accent" md-fab-toolbar>
             <i class="material-icons">&#xE8BE;</i>
             <div class="md-fab-toolbar-actions">
-                <button   id="section_edit_save"  ng-click = "vm.update()" data-uk-tooltip="{cls:'uk-tooltip-small',pos:'bottom'}" title="{{'ACTION.SAVE'|translate}}"><i class="material-icons md-color-white">&#xE161;</i></button>
+                <button   id="section_edit_save"  ng-click = "vm.save()" data-uk-tooltip="{cls:'uk-tooltip-small',pos:'bottom'}" title="{{'ACTION.SAVE'|translate}}"><i class="material-icons md-color-white">&#xE161;</i></button>
                 <a id="section_edit_cancel"  ui-sref="workspace.lms.courses.section.view({courseId:vm.course._id,sectionId:vm.section._id})"  data-uk-tooltip="{cls:'uk-tooltip-small',pos:'bottom'}" title="{{'ACTION.CANCEL'|translate}}"><i class="material-icons md-color-white">&#xE5CD;</i></a>
-                <button   ng-click="vm.remove()"  id="user_edit_delete" data-uk-tooltip="{cls:'uk-tooltip-small',pos:'bottom'}" title="{{'ACTION.DELETE'|translate}}"><i class="material-icons md-color-red">&#xE872;</i></button>
             </div>
         </div>
     </div>
     <div id="page_content_inner">
         <div class="md-card" >
             <div class="md-card-content uk-margin">
-                <div ng-if ="vm.section.contentType=='html'">
                     <label for="section_html">{{'MODEL.SECTION.HTML'|translate}}</span></label>
-                    <textarea ui-tinymce="vm.tinymce_options" ng-model="vm.section.html" cols="30" rows="24"></textarea>
-                </div>
+                    <textarea ui-tinymce="vm.tinymce_options" ng-model="vm.html.content" cols="30" rows="24"></textarea>
             </div>            
         </div>        
     </div>
