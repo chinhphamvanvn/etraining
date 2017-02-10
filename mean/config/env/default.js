@@ -27,7 +27,7 @@ module.exports = {
     // secure cookie should be turned to true to provide additional
     // layer of security so that the cookie is set only when working
     // in HTTPS mode.
-    secure: false
+    secure: true
   },
   // sessionSecret should be changed for security measures and concerns
   sessionSecret: process.env.SESSION_SECRET || 'ETRAINING',
@@ -61,14 +61,21 @@ module.exports = {
         }
       }
     },
-    course: {
+    file: {
         image: {
-          dest: 'modules/shared/client/img/logo/uploads/',
-          urlPaath: '/modules/shared/client/img/logo/uploads/',
+          dest: 'public/files/logo/uploads/',
+          urlPaath: '/files/logo/uploads/',
           limits: {
             fileSize: 4 * 1024 * 1024 // Max file size in bytes (1 MB)
           }
-        }
+        },
+        video: {
+            dest: 'public/files/video/uploads/',
+            urlPaath: '/files/video/uploads/',
+            limits: {
+              fileSize: 64 * 1024 * 1024 // Max file size in bytes (1 MB)
+            }
+          }
       }
   },
   shared: {
@@ -79,6 +86,11 @@ module.exports = {
       minPhraseLength: 20,
       minOptionalTestsToPass: 4
     }
+  },
+  secure: {
+      ssl:true,
+      privateKey:'config/sslcerts/key.pem',
+      certificate:'config/sslcerts/cert.pem'
   }
 
 };

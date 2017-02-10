@@ -93,7 +93,11 @@
     "angular-translate-handler-log": "^2.13.1",
     "angular-translate-storage-local": "^2.13.1",
     "ui-contextmenu": "^1.13.0",
-    "angular-csv-import": "^0.0.37"
+    "angular-csv-import": "^0.0.37",
+    "kurento-client": "^6.6.0",
+    "kurento-utils": "^6.6.1",
+    "webrtc-adapter": "^3.1.3",
+    "ng-device-detector": "^3.0.1"
   },
   "overrides": {
     "bootstrap": {

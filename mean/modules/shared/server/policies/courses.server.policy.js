@@ -23,7 +23,10 @@ exports.invokeRolesPolicies = function () {
     }, {
         resources: '/api/courses/:courseId/logo',
         permissions: '*'
-      }]
+      },{
+          resources: '/api/courses/video',
+          permissions: '*'
+        }]
   }, {
     roles: ['user'],
     allows: [{
@@ -35,7 +38,10 @@ exports.invokeRolesPolicies = function () {
     }, {
         resources: '/api/courses/:courseId/logo',
         permissions: ['get']
-      }]
+      },{
+          resources: '/api/courses/video',
+          permissions: ['post']
+        }]
   }, {
     roles: ['guest'],
     allows: [{

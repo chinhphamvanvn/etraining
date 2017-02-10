@@ -14,11 +14,11 @@ var VideoSchema = new Schema({
         type: String,
         trim: true
     },
-    videoUrl: {
+    videoURL: {
         type: String,
         trim: true
     },
-    videoCaptionUrl: {
+    videoCaptionURL: {
         type: String,
         trim: true
     },

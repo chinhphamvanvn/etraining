@@ -51,7 +51,10 @@ module.exports = {
             'public/assets/css/main.css'
       ],
       js: [
-           //common jquery-based
+           //non-angular
+           'public/lib/webrtc-adapter/release/adapter.js',
+           'public/lib/kurento-client/js/kurento-client.js',
+           'public/lib/kurento-utils/js/kurento-utils.js',
            'public/lib/jquery/dist/jquery.js',
            'public/lib/modernizr/modernizr.js',
            'public/lib/moment/moment.js',
@@ -241,7 +244,9 @@ module.exports = {
            'public/lib/kendo-ui/js/kendo.numerictextbox.min.js',
            'public/lib/kendo-ui/js/kendo.toolbar.min.js',
            'public/lib/kendo-ui/js/kendo.panelbar.min.js',
-           'public/lib/kendo-ui/js/kendo.window.min.js'
+           'public/lib/kendo-ui/js/kendo.window.min.js',
+           'public/lib/re-tree/re-tree.min.js',
+           'public/lib/ng-device-detector/ng-device-detector.min.js'
       ],
       tests: ['public/lib/angular-mocks/angular-mocks.js']
     },

@@ -1,0 +1,33 @@
+<div class="md-card">
+    <div class="md-card-content">
+        <div id="file_upload-drop" class="uk-file-upload">
+            <div
+                class="uk-margin uk-cover uk-position-relative uk-height-1-1 transform-origin-50"
+                id="video_player">
+                <div class="uk-grid">
+                    <div class="uk-width-1-2 uk-container-center">
+                        <video id="selectorVideo"   src="{{url | trust}}" 
+                        video-autoplay data-attr-autoplay={{videoAttr.autoplay}}
+                        video-control data-attr-control={{videoAttr.controls}}
+                        video-muted data-attr-muted={{videoAttr.muted}}
+                        poster="{{ url?'':'/assets/img/brand/logow.png' }}"></video>
+                    </div>
+                </div>
+            </div>
+            <div>
+            <span class="uk-form-file md-btn md-btn-icon" ng-show="!recordMode">
+                <i class="uk-icon-upload"></i>
+                {{'ACTION.CHOOSE_FILE'|translate}}
+                <input id="file_upload-select" type="file">
+            </span>
+            </div>
+             <div class="md-fab" >
+                                <i class="material-icons uk-text-danger" ng-show="!recordMode" ng-click="startRecord()" data-uk-tooltip="{pos:'top'}" title="{{'ACTION.RECORD'|translate}}">fiber_manual_record</i>
+                                <i class="material-icons uk-text-danger" ng-show="recordMode" ng-click="stopRecord()" data-uk-tooltip="{pos:'top'}" title="{{'ACTION.STOP'|translate}}">stop</i>
+                                                            </div>
+        </div>
+        <div id="file_upload-progressbar" class="uk-progress uk-hidden">
+            <div class="uk-progress-bar" style="width: 0">0%</div>
+        </div>
+    </div>
+</div>
