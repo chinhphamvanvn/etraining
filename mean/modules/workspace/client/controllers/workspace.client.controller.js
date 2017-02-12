@@ -105,7 +105,7 @@
         
         function switchPanel() {
             if ($rootScope.viewerRole=='admin') {
-                $state.go('workspace.lms.courses.list');
+                $state.go('workspace.lms.courses.me');
             } else {
                 $state.go('admin.workspace.dashboard');
             }

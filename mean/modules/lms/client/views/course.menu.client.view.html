@@ -1,0 +1,15 @@
+<div id="top_bar">
+    <div class="md-top-bar">
+        <ul id="menu_top" class="uk-clearfix">
+            <li class="uk-hidden-small"><a ng-click="vm.gotoWorkspace()"><i class="material-icons md-24">&#xE88A;</i></a></li>
+            <li class="uk-hidden-small"><a ui-sref="workspace.lms.course.intro({courseId:vm.course._id})"><i class="material-icons md-24">info_outline</i><span>{{'PAGE.LMS.MY_COURSES.STUDENT_BOARD.COURSE_INFO'|translate}}</span></a></li>
+            <li class="uk-hidden-small"><a ui-sref="workspace.lms.course.study({courseId:vm.course._id})"><i class="material-icons md-24">account_balance</i><span>{{'PAGE.LMS.MY_COURSES.STUDENT_BOARD.COURSE_OUTLINE'|translate}}</span></a></li>
+            <li class="uk-hidden-small"><a ui-sref="workspace.lms.course.study({courseId:vm.course._id})"><i class="material-icons md-24">library_books</i><span>{{'PAGE.LMS.MY_COURSES.STUDENT_BOARD.MATERIAL'|translate}}</span></a></li>
+            <li class="uk-hidden-small"><a ui-sref="workspace.lms.course.forum({courseId:vm.course._id})"><i class="material-icons md-24">question_answer</i><span>{{'PAGE.LMS.MY_COURSES.STUDENT_BOARD.FORUM'|translate}}</span></a></li>
+            <li class="uk-hidden-small"><a ui-sref="workspace.lms.course.gradebook({courseId:vm.course._id})"><i class="material-icons md-24">book</i><span>{{'PAGE.LMS.MY_COURSES.STUDENT_BOARD.GRADEBOOK'|translate}}</span></a></li>
+            <li class="uk-hidden-small"><a ui-sref="workspace.lms.course.classroom({courseId:vm.course._id})"><i class="material-icons md-24">room</i><span>{{'PAGE.LMS.MY_COURSES.STUDENT_BOARD.CLASSROOM'|translate}}</span></a></li>
+            <li class="uk-hidden-small"><a ui-sref="workspace.lms.course.gradeboard({courseId:vm.course._id})"><i class="material-icons md-24">book</i><span>{{'PAGE.LMS.MY_COURSES.TEACHER_BOARD.GRADE_BOARD'|translate}}</span></a></li>
+            <li class="uk-hidden-small"><a ui-sref="workspace.lms.course.gradeboard({courseId:vm.course._id})"><i class="material-icons md-24">show_chart</i><span>{{'PAGE.LMS.MY_COURSES.TEACHER_BOARD.REPORT'|translate}}</span></a></li>
+        </ul>
+    </div>
+</div>

@@ -18,10 +18,6 @@ var VideoSchema = new Schema({
         type: String,
         trim: true
     },
-    videoCaptionURL: {
-        type: String,
-        trim: true
-    },
   created: {
     type: Date,
     default: Date.now

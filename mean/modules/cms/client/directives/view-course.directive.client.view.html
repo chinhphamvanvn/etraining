@@ -38,7 +38,7 @@
                     <li>
                         <div class="md-list-content">
                             <span class="md-list-heading uk-text-truncate"><a href="#">{{'MODEL.COURSE.GROUP'|translate}}</a></span>
-                            <span class="uk-text-small uk-text-muted">{{group.name}}</span>
+                            <span class="uk-text-small uk-text-muted">{{course.group.name}}</span>
                         </div>
                     </li>
                     <li>
@@ -60,7 +60,7 @@
                 </ul>
                 <h5 class="uk-margin-small-bottom uk-text-upper  uk-margin-large">{{'MODEL.COURSE.PREQUISITE'| translate}}</h5>
                 <div class="blog_tags">
-                    <a href="#" class="uk-badge" ng-repeat="course in prequisites">{{course.name}}</a>
+                    <a href="#" class="uk-badge" ng-repeat="courseRequire in course.prequisites">{{courseRequire.name}}</a>
                 </div>
                 
                 <h5 class="uk-margin-small-bottom uk-text-upper uk-margin-large">{{'PAGE.CMS.COURSES.ENROLLMENT'|translate}}</h5>

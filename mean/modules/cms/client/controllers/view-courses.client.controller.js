@@ -6,14 +6,22 @@ angular
     .module('cms')
     .controller('CourseViewController', CourseViewController);
 
-CourseViewController.$inject = ['$scope', '$state', '$window', 'Authentication', '$timeout', 'courseResolve', 'CoursesService', 'Notification', 'GroupsService', 'Upload', 'fileManagerConfig','_'];
+CourseViewController.$inject = ['$scope', '$state', '$window', 'Authentication', '$timeout', 'courseResolve', 'CoursesService', 'Notification', 'GroupsService', 'Upload', '$q','_'];
 
-function CourseViewController($scope, $state, $window, Authentication, $timeout, course, CoursesService, Notification, GroupsService,Upload ,fileManagerConfig, _) {
+function CourseViewController($scope, $state, $window, Authentication, $timeout, course, CoursesService, Notification, GroupsService,Upload ,$q, _) {
     var vm = this;
 
     vm.authentication = Authentication;
     vm.course = course;
-    
+    if (vm.course.group)
+        vm.course.group = GroupsService.get({groupId:vm.course.group});
+     var allPromise = [];
+   _.each(vm.course.prequisites,function(courseId) {
+       allPromise.push(CoursesService.get({courseId:courseId}).$promise);
+   });
+   $q.all(allPromise).then(function(prequisites) {
+       vm.course.prequisites = prequisites;
+   })
 
 }
 }());

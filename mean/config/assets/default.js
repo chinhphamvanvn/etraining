@@ -52,7 +52,9 @@ module.exports = {
       ],
       js: [
            //non-angular
-           'public/lib/webrtc-adapter/release/adapter.js',
+          // 'public/lib/webrtc-adapter/release/adapter.js',
+           'public/lib/recordrtc/RecordRTC.min.js',
+           'public/lib/recordrtc/dev/RecordRTC.promises.js',
            'public/lib/kurento-client/js/kurento-client.js',
            'public/lib/kurento-utils/js/kurento-utils.js',
            'public/lib/jquery/dist/jquery.js',
@@ -246,7 +248,8 @@ module.exports = {
            'public/lib/kendo-ui/js/kendo.panelbar.min.js',
            'public/lib/kendo-ui/js/kendo.window.min.js',
            'public/lib/re-tree/re-tree.min.js',
-           'public/lib/ng-device-detector/ng-device-detector.min.js'
+           'public/lib/ng-device-detector/ng-device-detector.min.js',
+           'public/lib/webrtc-adapter/release/adapter.js'
       ],
       tests: ['public/lib/angular-mocks/angular-mocks.js']
     },

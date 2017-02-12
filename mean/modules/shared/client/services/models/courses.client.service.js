@@ -14,7 +14,27 @@
     }, {
       update: {
         method: 'PUT'
-      }
+      },
+      byGroup: {
+          method: 'GET',
+          isArray:true,
+          url:'/api/courses/byGroup/:groupId'
+      },
+      listPublic: {
+          method: 'GET',
+          isArray:true,
+          url:'/api/courses/public'
+      },
+      listPrivate: {
+          method: 'GET',
+          isArray:true,
+          url:'/api/courses/private'
+        },
+      listRestricted: {
+          method: 'GET',
+          isArray:true,
+          url:'/api/courses/restricted'
+        }
     });
   }
 }());

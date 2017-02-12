@@ -11,7 +11,7 @@ module.exports.imageFileFilter = function (req, file, callback) {
 
 module.exports.videoFileFilter = function (req, file, callback) {
     console.log(file);
-    if (file.mimetype !== 'video/webm' && file.mimetype !== 'video/avi' && file.mimetype !== 'video/mov' && file.mimetype !== 'video/mp4' && file.mimetype !== 'video/flv'  && file.mimetype !== 'video/mpeg') {
+    if (file.mimetype !== 'video/webm' && file.mimetype !== 'audio/webm'  && file.mimetype !== 'video/avi' && file.mimetype !== 'video/mov' && file.mimetype !== 'video/mp4' && file.mimetype !== 'video/flv'  && file.mimetype !== 'video/mpeg') {
       var err = new Error();
       err.code = 'UNSUPPORTED_MEDIA_TYPE';
       return callback(err, false);

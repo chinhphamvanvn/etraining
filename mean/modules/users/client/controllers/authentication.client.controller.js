@@ -98,7 +98,7 @@
           if (_.contains(vm.authentication.user.roles,'admin'))
               $state.go('admin.workspace.dashboard');
           else
-              $state.go('workspace.lms.courses.list');
+              $state.go('workspace.lms.courses.me');
       } else
           $state.go($state.previous.state.name || 'home', $state.previous.params);
     }
@@ -116,7 +116,7 @@
           if (_.contains(vm.authentication.user.roles,'admin'))
               $state.go('admin.workspace.dashboard');
           else
-              $state.go('workspace.lms.courses.list');
+              $state.go('workspace.lms.courses.me');
       } else
           $state.go($state.previous.state.name || 'home', $state.previous.params);
     }

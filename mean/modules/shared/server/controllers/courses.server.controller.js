@@ -86,7 +86,7 @@ exports.delete = function(req, res) {
  * List of Courses
  */
 exports.list = function(req, res) {
-  Course.find().sort('-created').populate('user', 'displayName').populate('group').exec(function(err, courses) {
+  Course.find().sort('-created').populate('user', 'displayName').populate('group').populate('prequisites').exec(function(err, courses) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -96,6 +96,54 @@ exports.list = function(req, res) {
     }
   });
 };
+
+exports.listPublic = function(req, res) {
+    Course.find({status:'available',enrollStatus:true,displayMode:'open'}).sort('-created').populate('user', 'displayName').populate('group').populate('prequisites').exec(function(err, courses) {
+      if (err) {
+        return res.status(400).send({
+          message: errorHandler.getErrorMessage(err)
+        });
+      } else {
+        res.jsonp(courses);
+      }
+    });
+  };
+  
+  exports.listPrivate = function(req, res) {
+      Course.find({status:'available',enrollStatus:true,displayMode:'enroll'}).sort('-created').populate('user', 'displayName').populate('group').populate('prequisites').exec(function(err, courses) {
+        if (err) {
+          return res.status(400).send({
+            message: errorHandler.getErrorMessage(err)
+          });
+        } else {
+          res.jsonp(courses);
+        }
+      });
+    };
+    
+exports.listRestricted = function(req, res) {
+    Course.find({status:'available',enrollStatus:true,displayMode:'login'}).sort('-created').populate('user', 'displayName').populate('group').populate('prequisites').exec(function(err, courses) {
+      if (err) {
+        return res.status(400).send({
+          message: errorHandler.getErrorMessage(err)
+        });
+      } else {
+        res.jsonp(courses);
+      }
+    });
+  };
+  
+  exports.listByGroup = function(req, res) {
+      Course.find({group:req.group._id}).sort('-created').populate('user', 'displayName').populate('group').populate('prequisites').exec(function(err, courses) {
+        if (err) {
+          return res.status(400).send({
+            message: errorHandler.getErrorMessage(err)
+          });
+        } else {
+          res.jsonp(courses);
+        }
+      });
+    };
 
 /**
  * Course middleware

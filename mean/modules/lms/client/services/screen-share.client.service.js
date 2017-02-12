@@ -4,7 +4,7 @@
     /*
      * Source: https://webrtcexperiment-webrtc.netdna-ssl.com/getScreenId.js
      */
-    angular.module('lms').factory('screenShare',['$log', function($log)
+    angular.module('lms').factory('screenShare',['$log','deviceDetector', function($log,deviceDetector)
     {
         function getScreenConstraints(error, sourceId) {
             var screen_constraints = {
@@ -18,6 +18,15 @@
                     optional: []
                 }
             };
+            
+            if(deviceDetector.browser == 'firefox') {
+                screen_constraints = {
+                    video: {
+                        mediaSource: 'window',
+                    },
+                    audio: true
+                }
+            }
     
             if (sourceId) {
                 screen_constraints.video.mandatory.chromeMediaSourceId = sourceId;

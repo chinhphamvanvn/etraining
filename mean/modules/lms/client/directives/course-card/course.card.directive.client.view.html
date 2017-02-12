@@ -1,0 +1,31 @@
+
+
+
+<div class="md-card md-card-hover">
+    <div class="md-card-head">
+     <div class="uk-text-center">
+            <img class="md-card-head-avatar"
+                ng-src="{{course.logoURL}}" alt="" />
+        </div>
+        <h3
+            class="md-card-head-text uk-text-center">
+            {{course.name}}
+            <span class="uk-text-truncate">{{course.group.name}}</span>
+        </h3>
+    </div>
+    <div class="md-card-content">
+        <ul class="md-list">
+            <li>
+                <div class="md-list-content">
+                  
+                    <span
+                        class="uk-text-small uk-text-muted uk-text-truncate">{{course.summary}}</span>
+                </div>
+            </li>
+        </ul>
+        <div class="blog_list_footer">
+ 
+            <a ui-sref="workspace.lms.courses.join({ courseId: course._id })" class="md-btn md-btn-small md-btn-flat md-btn-flat-primary uk-float-right">{{'ACTION.VIEW_INFO'|translate}}</a>
+        </div>
+    </div>
+</div>

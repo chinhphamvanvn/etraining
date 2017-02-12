@@ -14,7 +14,7 @@
               question: "=",
               mode: "="
           },
-          templateUrl:'/modules/lms/client/directives/question-edit/view-question.directive.client.view.html',
+          templateUrl:'/modules/lms/client/directives/question-edit/question.directive.client.view.html',
           link: function (scope, element, attributes) {
               if (scope.question._id)
                   scope.question.options = OptionsService.byQuestion({questionId:scope.question._id});

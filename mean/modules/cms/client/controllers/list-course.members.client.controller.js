@@ -140,17 +140,17 @@
                      classroom.titleClass ='uk-accordion-title-warning';
                  else if (endDate) {
                      if (endDate.getTime() > now.getTime())
-                         classroom.titleClass ='uk-accordion-title-primary';
-                     else
                          classroom.titleClass ='uk-accordion-title-success';
+                     else
+                         classroom.titleClass ='';
                  } else
-                     classroom.titleClass ='uk-accordion-title-primary';
+                     classroom.titleClass ='uk-accordion-title-success';
              } else {
                  if (endDate) {
                      if (endDate.getTime() > now.getTime())
-                         classroom.titleClass ='uk-accordion-title-primary';
-                     else
                          classroom.titleClass ='uk-accordion-title-success';
+                     else
+                         classroom.titleClass ='';
                  } else
                      classroom.titleClass ='';
              }

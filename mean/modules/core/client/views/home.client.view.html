@@ -1,57 +1,54 @@
 <style type="text/css">
-  @import url("/assets/css/landing.css");
+@import url("/assets/css/landing.css");
 </style>
 <header id="header_landing">
-        <div class="header_main_content">
-    <nav class="uk-navbar " data-uk-sticky>
-        <div class="uk-container uk-container-center">
-            <a href="#" class="uk-float-left"
-                id="mobile_navigation_toggle"
-                data-uk-offcanvas="{target:'#mobile_navigation'}">
-                <i class="material-icons">&#xE5D2;</i>
-            </a>
-            <div class="uk-navbar-brand ">
-                <img src="/assets/img/brand/logo.png" alt="" width="105"
-                    height="22">
-                </div>
-             <div class="uk-navbar-flip lang_selections" ng-controller="LanguageController as lang" >
-                <selectize 
-                    config='lang.langSwitcherConfig'
-                    options='lang.langSwitcherOptions'
-                    ng-model="lang.langSwitcherModel"></selectize>
-                    </div>
-            <div class="uk-navbar-flip">
-                <a ng-click="vm.gotoWorkspace()" ng-show="vm.authentication.user"
-                    class="md-btn md-btn-success header_cta uk-margin-left">
-                    <i class="material-icons">work</i>
-                    {{'PAGE.HOME.WORKSPACE'|translate}}
+    <div class="header_main_content">
+        <nav class="uk-navbar " data-uk-sticky>
+            <div class="uk-container uk-container-center">
+                <a href="#" class="uk-float-left"
+                    id="mobile_navigation_toggle"
+                    data-uk-offcanvas="{target:'#mobile_navigation'}">
+                    <i class="material-icons">&#xE5D2;</i>
                 </a>
+                <div class="uk-navbar-brand ">
+                    <img src="/assets/img/brand/logo.png" alt=""
+                        width="105" height="22">
+                </div>
                 
-                
-                <a ui-sref="authentication.signup"
-                    ng-show="!vm.authentication.user"
-                    class="md-btn md-btn-default header_cta uk-margin-left">{{'ACTION.SIGN_UP'|translate}}</a>
-                <a ui-sref="authentication.signin"
-                    ng-show="!vm.authentication.user"
-                    class="md-btn md-btn-primary header_cta uk-margin-left">{{'ACTION.SIGN_IN'|translate}}</a>
+                <div class="uk-navbar-flip lang_selections"
+                    ng-controller="LanguageController as lang">
+                    <selectize config='lang.langSwitcherConfig'
+                        options='lang.langSwitcherOptions'
+                        ng-model="lang.langSwitcherModel"></selectize>
+                </div>
+                <div class="uk-navbar-flip">
+                    <a ng-click="vm.gotoWorkspace()"
+                        ng-show="vm.authentication.user"
+                        class="md-btn md-btn-success header_cta uk-margin-left">
+                        <i class="material-icons">work</i>
+                        {{'PAGE.HOME.WORKSPACE'|translate}}
+                    </a>
+                    <a ui-sref="authentication.signup"
+                        ng-show="!vm.authentication.user"
+                        class="md-btn md-btn-default header_cta uk-margin-left">{{'ACTION.SIGN_UP'|translate}}</a>
+                    <a ui-sref="authentication.signin"
+                        ng-show="!vm.authentication.user"
+                        class="md-btn md-btn-primary header_cta uk-margin-left">{{'ACTION.SIGN_IN'|translate}}</a>
+                </div>
+                <div class="uk-navbar-flip">
+                    <ul class="uk-navbar-nav" id="main_navigation">
+                        <li>
+                            <a href="#sect-bulletin">
+                                {{'PAGE.HOME.BULLETIN'|translate}} </a>
+                        </li>
+                        <li>
+                            <a href="#sect-program">
+                                {{'PAGE.HOME.COURSES'|translate}} </a>
+                        </li>
+                    </ul>
+                </div>
             </div>
-     
-            <div class="uk-navbar-flip">
-                <ul class="uk-navbar-nav" id="main_navigation">
-                    <li>
-                        <a href="#sect-bulletin"> {{'PAGE.HOME.BULLETIN'|translate}} </a>
-                    </li>
-                    <li>
-                        <a href="#sect-course"> {{'PAGE.HOME.COURSES'|translate}} </a>
-                    </li>
-                    <li>
-                        <a href="#sect-program"> {{'PAGE.HOME.PROGRAMS'|translate}} </a>
-                    </li>
-                </ul>
-            </div>
-            </div>
-            
-    </nav>
+        </nav>
     </div>
 </header>
 <div id="mobile_navigation" class="uk-offcanvas">
@@ -67,93 +64,78 @@
                 </a>
             </li>
             <li>
-                <a href="#sect-course"
-                    data-uk-smooth-scroll="{offset: 48}">
-                    <span class="menu_icon">
-                        <i class="material-icons">school</i>
-                    </span>
-                    <span class="menu_title">{{'PAGE.HOME.COURSES'|translate}}</span>
-                </a>
-            </li>
-            <li>
                 <a href="#sect-program"
                     data-uk-smooth-scroll="{offset: 48}">
                     <span class="menu_icon">
                         <i class="material-icons">collections</i>
                     </span>
-                    <span class="menu_title">{{'PAGE.HOME.PROGRAMS'|translate}} </span>
+                    <span class="menu_title">{{'PAGE.HOME.COURSES'|translate}}
+                    </span>
                 </a>
             </li>
         </ul>
     </div>
 </div>
-<div class="uk-container uk-container-center uk-margin-large-top " id="sect-bulletin" ng-show="vm.annoucements.length">        
-           <div class="uk-grid " >
-               <div class="uk-width-6-10 uk-container-center">
-                <div class="md-card">
-                    <div class="md-card-content">
-                        <div class="uk-slidenav-position" data-uk-slideshow="{animation:'scroll'}">
-                            <ul class="uk-slideshow">
-                                <li ng-repeat="message in vm.annoucements">
-                                    <h3 class="heading_c">
-                                         <i class="md-icon material-icons md-36 uk-text-default" ng-show="message.level=='info'">info</i>
-                                <i class="md-icon material-icons md-36  uk-text-warning" ng-show="message.level=='warning'">warning</i>
-                                <i class="md-icon material-icons md-36  uk-text-primary" ng-show="message.level=='primary'">announcement</i>
-                                {{message.title}}
-                                    </h3>
-                                    
-                                    <hr>
-                                    <p ng-bind-html="message.content"></p>
-                                </li>
-                                
-                            </ul>
-                            <a href="" class="uk-slidenav uk-slidenav-previous" data-uk-slideshow-item="previous"></a>
-                            <a href="" class="uk-slidenav uk-slidenav-next" data-uk-slideshow-item="next"></a>
+<div class="md-bg-grey-50">
+    <div class="uk-block bulletin" id="sect-bulletin">
+        <div class="uk-container uk-container-center">
+            <div class="uk-grid ">
+                <div class="uk-width-6-10 uk-container-center">
+                    <div class="md-card">
+                        <div class="md-card-content">
+                            <div class="uk-slidenav-position"
+                                data-uk-slideshow="{animation:'scroll'}">
+                                <ul class="uk-slideshow">
+                                    <li
+                                        ng-repeat="message in vm.annoucements">
+                                        <h2>
+                                            <i
+                                                class="md-icon material-icons md-36 uk-text-default"
+                                                ng-show="message.level=='info'">info</i>
+                                            <i
+                                                class="md-icon material-icons md-36  uk-text-warning"
+                                                ng-show="message.level=='warning'">warning</i>
+                                            <i
+                                                class="md-icon material-icons md-36  uk-text-primary"
+                                                ng-show="message.level=='primary'">announcement</i>
+                                            {{'PAGE.HOME.BULLETIN'
+                                            |translate}}
+                                        </h2>
+                                        <hr>
+                                        <h3>{{message.title}}</h3>
+                                        <p 
+                                            ng-bind-html="message.content"></p>
+                                    </li>
+                                </ul>
+                                <a href=""
+                                    class="uk-slidenav uk-slidenav-previous"
+                                    data-uk-slideshow-item="previous"></a>
+                                <a href=""
+                                    class="uk-slidenav uk-slidenav-next"
+                                    data-uk-slideshow-item="next"></a>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-</div>
-<br>
-
-
-    <section class="section_dark section md-bg-blue-grey-700">
+    </div>
+    <div class="uk-block " id="sect-program">
         <div class="uk-container uk-container-center">
-        <div class="uk-grid" data-uk-grid-margin>
-            <div class="uk-width-medium-3-5 uk-text-center-medium">
-                Copyright &copy; 2016 Thanh Cong A Chau (JSC), All
-                rights reserved.</div>
-            <div class="uk-width-medium-2-5">
-                <div class="uk-align-medium-right uk-text-center-medium">
-                    <a href="#" class="uk-margin-medium-right"
-                        data-uk-tooltip="{offset: 12}" title="Facebook">
-                        <i
-                            class="uk-icon-facebook uk-icon-small md-color-white"></i>
-                    </a>
-                    <!--
-                        -->
-                    <a href="#" class="uk-margin-medium-right"
-                        data-uk-tooltip="{offset: 12}" title="Twitter">
-                        <i
-                            class="uk-icon-twitter uk-icon-small md-color-white"></i>
-                    </a>
-                    <!--
-                        -->
-                    <a href="#" class="uk-margin-medium-right"
-                        data-uk-tooltip="{offset: 12}" title="LinkedIn">
-                        <i
-                            class="uk-icon-linkedin uk-icon-small md-color-white"></i>
-                    </a>
-                    <!--
-                        -->
-                    <a href="#" data-uk-tooltip="{offset: 12}"
-                        title="Google Plus">
-                        <i
-                            class="uk-icon-google-plus uk-icon-small md-color-white"></i>
-                    </a>
+            <h3 class="heading_b uk-text-center md-color-blue-500">{{'PAGE.HOME.AVAILABLE_COURSE_LIST'|translate}}</h3>
+            <div class="uk-grid" data-uk-grid-margin>
+                <div class="uk-width-medium-1-4"
+                    ng-repeat="course in vm.courses">
+                        <course-card course="course"></course-card>
+                    </div>
                 </div>
             </div>
-            </div>
         </div>
-    </section>
+    </div>
+<footer id="footer">
+    <small>
+        &copy; 2014-2015
+        <a href="#">Thanh Cong A Chau , JSC</a>
+        , All rights reserved.
+    </small>
+</footer>

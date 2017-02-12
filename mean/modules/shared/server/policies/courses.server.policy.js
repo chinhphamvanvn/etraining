@@ -24,6 +24,18 @@ exports.invokeRolesPolicies = function () {
         resources: '/api/courses/:courseId/logo',
         permissions: '*'
       },{
+          resources: '/api/courses/public',
+          permissions: ['get']
+        },{
+            resources: '/api/courses/private',
+            permissions: ['get']
+          },{
+              resources: '/api/courses/restricted',
+              permissions: ['get']
+            },{
+                resources: '/api/courses/byGroup/:groupId',
+                permissions: ['get']
+              },{
           resources: '/api/courses/video',
           permissions: '*'
         }]
@@ -39,6 +51,19 @@ exports.invokeRolesPolicies = function () {
         resources: '/api/courses/:courseId/logo',
         permissions: ['get']
       },{
+          resources: '/api/courses/public',
+          permissions: ['get']
+        },{
+            resources: '/api/courses/private',
+            permissions: ['get']
+          },{
+              resources: '/api/courses/restricted',
+              permissions: ['get']
+            },
+            {
+                resources: '/api/courses/byGroup/:groupId',
+                permissions: ['get']
+              },{
           resources: '/api/courses/video',
           permissions: ['post']
         }]
@@ -53,7 +78,10 @@ exports.invokeRolesPolicies = function () {
     }, {
         resources: '/api/courses/:courseId/logo',
         permissions: ['get']
-      }]
+      },{
+          resources: '/api/courses/public',
+          permissions: ['get']
+        }]
   }]);
 };
 

@@ -10,7 +10,8 @@
                         video-autoplay data-attr-autoplay={{videoAttr.autoplay}}
                         video-control data-attr-control={{videoAttr.controls}}
                         video-muted data-attr-muted={{videoAttr.muted}}
-                        poster="{{ url?'':'/assets/img/brand/logow.png' }}"></video>
+                        src="{{screenURL|trust}}"
+                        poster="{{ screenURL?'':'/assets/img/brand/logow.png' }}"></video>
                     </div>
                 </div>
             </div>
@@ -20,7 +21,7 @@
                 {{'ACTION.SELECT_SCREEN'|translate}}
             </span>
             </div>
-             <div class="md-fab" >
+             <div class="md-fab" ng-show="screen" >
                                 <i class="material-icons uk-text-danger" ng-show="!recordMode" ng-click="startRecord()" data-uk-tooltip="{pos:'top'}" title="{{'ACTION.RECORD'|translate}}">fiber_manual_record</i>
                                 <i class="material-icons uk-text-danger" ng-show="recordMode" ng-click="stopRecord()" data-uk-tooltip="{pos:'top'}" title="{{'ACTION.STOP'|translate}}">stop</i>
                                                             </div>

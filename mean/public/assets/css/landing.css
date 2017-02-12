@@ -12,13 +12,22 @@
 *
 /* 6. altair landing page styles ===================== */
 html {
-  background: #ececec;
+  background: #ffffff;
 }
 body {
   font: 400 15px / 1.42857143 "Roboto", sans-serif;
   box-sizing: border-box;
-  
+  padding-top:12px !important;
+
 }
+
+.bulletin {
+	background:linear-gradient(to bottom,transparent 40%,transparent 40%,rgba(0,0,0,0.6) 55%);
+    background-image: url("/assets/img/brand/stats.jpg"),linear-gradient(transparent 40%, transparent 40%, rgba(0, 0, 0, 0.6) 55%);
+    background-repeat: no-repeat;
+}
+
+
 html,
 body {
   height: 100%;
@@ -143,7 +152,7 @@ a:active {
   z-index: 10;
 }
 #header_landing .uk-navbar {
-  background: #ececec;
+  background: #ffffff;
   border: none !important;
 }
 #header_landing .uk-navbar-nav > li > a {
@@ -449,4 +458,19 @@ a:active {
     padding-right: 15px;
   }
 }
+
+
+
+#footer {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background: #fff;
+    padding: 0 25px;
+    border-top: 1px solid rgba(0, 0, 0, 0.12);
+    line-height: 32px;
+	margin-left: 0px !important;
+}
+
 /* theme */

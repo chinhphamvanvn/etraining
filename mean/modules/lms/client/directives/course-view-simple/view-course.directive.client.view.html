@@ -1,0 +1,32 @@
+
+        <div class="md-card">
+            <div class="md-card-content large-padding">
+        <div class="uk-grid blog_article uk-grid-divider" data-uk-grid-margin>
+            <div class="uk-width-medium-1-1">
+                        <figure class="uk-thumbnail thumbnail_left">
+                                     <img class="img_thumb" src ="{{course.logoURL}}"/>
+                                </figure>
+                        <div class="uk-article">
+                            {{course.code}}
+                            
+                            <h1 class="uk-article-title">{{course.name}} </h1>
+                            <p class="uk-article-meta">
+                                Created by {{course.user.displayName}} on {{course.created | date :'dd-MM-yyyy'}}
+                            </p>
+                            <p class="uk-article-lead">{{course.summary}}</p>
+                            <hr class="uk-article-divider">
+                            <p ng-bind-html="course.detail">
+                                
+                            </p>
+                            
+
+                        </div>
+                         <div class="blog_list_footer">
+ 
+            <a ui-sref="workspace.lms.courses.join({ courseId: course._id })" class="md-btn md-btn-small md-btn-flat md-btn-flat-primary uk-float-right">{{'ACTION.VIEW_INFO'|translate}}</a>
+        </div>
+            </div>
+            
+        </div>
+         </div>
+        </div>
