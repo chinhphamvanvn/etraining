@@ -22,7 +22,7 @@
       .state('admin.workspace.cms.courses.list', {
         url: '/list',
         templateUrl: '/modules/cms/client/views/list-courses.client.view.html',
-        controller: 'CoursesListController',
+        controller: 'CmsCoursesListController',
         controllerAs: 'vm',
         data: {
             roles: [ 'admin'],

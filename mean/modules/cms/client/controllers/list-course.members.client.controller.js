@@ -200,7 +200,7 @@
              if (user.selectedAsStudent) {
                  user.selectedAsStudent = false;
                  var exist = _.find(vm.students,function(student) {
-                     return student.member._id == user._id && student.enrollmentStatus!='completed';
+                     return student.member._id == user._id && student.status=='active';
                  });
                  if (!exist) {
                      var member = new CourseMembersService();

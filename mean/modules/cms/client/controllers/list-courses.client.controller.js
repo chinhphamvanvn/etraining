@@ -3,11 +3,11 @@
 
     angular
       .module('cms')
-      .controller('CoursesListController', CoursesListController);
+      .controller('CmsCoursesListController', CmsCoursesListController);
 
-    CoursesListController.$inject = ['$scope', '$state', '$filter', '$compile','Authentication', 'CoursesService', '$timeout', '$location', '$window', 'GroupsService', 'DTOptionsBuilder','DTColumnBuilder', 'Notification','$q','treeUtils', '$translate', '_'];
+    CmsCoursesListController.$inject = ['$scope', '$state', '$filter', '$compile','Authentication', 'CoursesService', '$timeout', '$location', '$window', 'GroupsService', 'DTOptionsBuilder','DTColumnBuilder', 'Notification','$q','treeUtils', '$translate', '_'];
 
-    function CoursesListController($scope,$state, $filter, $compile, Authentication, CoursesService, $timeout, $location, $window, GroupsService,DTOptionsBuilder, DTColumnBuilder, Notification, $q, treeUtils, $translate, _) {
+    function CmsCoursesListController($scope,$state, $filter, $compile, Authentication, CoursesService, $timeout, $location, $window, GroupsService,DTOptionsBuilder, DTColumnBuilder, Notification, $q, treeUtils, $translate, _) {
       var vm = this;
       vm.remove = remove;
       vm.reload = true;
@@ -113,7 +113,7 @@
       vm.groups = GroupsService.listCourseGroup( function() {
           var tree = treeUtils.buildGroupTree(vm.groups);
           $timeout(function() {
-              $("#orgTree").fancytree({
+              $("#courseTree").fancytree({
                   checkbox: true,
                   titlesTabbable: true,
                   selectMode:2,

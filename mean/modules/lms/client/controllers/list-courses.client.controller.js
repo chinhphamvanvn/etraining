@@ -4,11 +4,11 @@
 // Courses controller
 angular
     .module('lms')
-    .controller('CoursesListController', CoursesListController);
+    .controller('LmsCoursesListController', LmsCoursesListController);
 
-CoursesListController.$inject = ['$scope', '$state', '$window', 'Authentication', '$timeout', 'CoursesService', 'Notification', 'GroupsService', '$q','_'];
+LmsCoursesListController.$inject = ['$scope', '$state', '$window', 'Authentication', '$timeout', 'CoursesService', 'Notification', 'GroupsService', '$q','_'];
 
-function CoursesListController($scope, $state, $window, Authentication, $timeout, CoursesService, Notification, GroupsService,$q, _) {
+function LmsCoursesListController($scope, $state, $window, Authentication, $timeout, CoursesService, Notification, GroupsService,$q, _) {
     var vm = this;
     vm.groups = GroupsService.listCourseGroup(function() {
         _.each(vm.groups,function(group) {
@@ -19,7 +19,11 @@ function CoursesListController($scope, $state, $window, Authentication, $timeout
     vm.selectCourse = selectCourse;
     
     function selectGroup(group) {
-        group.courses = CoursesService.byGroup({groupId:group._id});
+        CoursesService.byGroup({groupId:group._id},function(courses) {
+            group.courses = _.filter(courses,function(course) {
+                return course.status =='available' && course.enrollStatus && course.displayMode !='enroll'
+            })
+        });
     }
     
     function selectCourse(course) {

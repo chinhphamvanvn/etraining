@@ -13,10 +13,13 @@ module.exports = function(app) {
     .post(members.create);
 
   app.route('/api/members/byCourse/:courseId').all(membersPolicy.isAllowed)
-  .get(members.memberByCourseID);
+  .get(members.memberByCourse);
   
   app.route('/api/members/me').all(membersPolicy.isAllowed)
   .get(members.me);
+  
+  app.route('/api/members/me/byCourse/:courseId').all(membersPolicy.isAllowed)
+  .get(members.meByCourse);
   
   app.route('/api/members/:memberId').all(membersPolicy.isAllowed)
     .get(members.read)

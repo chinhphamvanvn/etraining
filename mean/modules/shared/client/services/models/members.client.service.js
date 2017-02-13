@@ -25,7 +25,11 @@
               method: 'GET',
               isArray:true,
               url:'/api/members/me'
-            }
+            },
+            meByCourse: {
+                method: 'GET',
+                url:'/api/members/me/byCourse/:courseId'
+              }
     });
   }
 }());

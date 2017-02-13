@@ -4,7 +4,7 @@
   // Focus the element on page load
   // Unless the user is on a small device, because this could obscure the page with a keyboard
 
-  angular.module('lms')
+  angular.module('core')
     .directive('courseCard', ['OptionsService','QuestionsService','_', courseCard]);
 
   function courseCard(OptionsService,QuestionsService,_) {
@@ -13,7 +13,7 @@
           scope: {
               course: "=",
           },
-          templateUrl:'/modules/lms/client/directives/course-card/course.card.directive.client.view.html',
+          templateUrl:'/modules/core/client/directives/course-card/course.card.directive.client.view.html',
           link: function (scope, element, attributes) {
               
           }

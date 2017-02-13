@@ -107,6 +107,7 @@
 	"ACTION.HIDE":"Không hiển thị",
 	"ACTION.SHOW":"Hiển thị",
 	"ACTION.CLOSE":"Đóng",
+	"ACTION.REGISTER":"Đăng ký",
 	"ACTION.PRINT":"In",
 	"ACTION.COLUMN":"Hiển thị",
 	"ACTION.PREVIEW":"Xem trước",
@@ -287,5 +288,13 @@
 	"COMMON.TRUE":"Đúng",
 	"COMMON.FALSE":"Sai",
 	"COMMON.PASS":"Đỗ",
-	"COMMON.FAIL":"Trượt"
+	"COMMON.FAIL":"Trượt",
+	"ERROR.COURSE_REGISTER.UNAVAILABLE":"Khóa học chưa sẵn sàng",
+	"ERROR.COURSE_REGISTER.ENROLL_UNAVAILABLE":"Khóa học chưa cho phép đăng ký",
+	"ERROR.COURSE_REGISTER.NOT_STARTED":"Khóa học chưa bắt đầu",
+	"ERROR.COURSE_REGISTER.EXPIRED":"Khóa học đã kết thúc",
+	"ERROR.COURSE_REGISTER.ENROLL_NOT_STARTED":"Khóa học chưa đến ngày đăng ký",
+	"ERROR.COURSE_REGISTER.ENROLL_EXPIRED":"Khóa học đã hết hạn đăng ký",
+	"ERROR.COURSE_REGISTER.ENROLL_RESTRICTED":"Khóa học giới hạn thành viên đăng ký",
+	"ERROR.COURSE_REGISTER.CLASS_UNAVAILABLE":"Chưa có lớp học trực tuyến"
 }

@@ -77,7 +77,7 @@ exports.create = function(req, res) {
   
   function verifyNotExistMember(course) {
       return new Promise(function (resolve, reject) {
-          CourseMember.find({status:'active',member:member.member,course:course._id}).exec(function (err, existMember) {
+          CourseMember.findOne({status:'active',member:member.member,course:course._id}).exec(function (err, existMember) {
              if (err || existMember) 
                  reject({message:'Member already exist'});
              else 
@@ -182,7 +182,7 @@ exports.list = function(req, res) {
 /**
  * List of Members in course
  */
-exports.memberByCourseID = function(req, res) {
+exports.memberByCourse = function(req, res) {
     CourseMember.find({course:req.course._id}).sort('-created').populate('user', 'displayName').populate('member').exec(function(err, members) {
     if (err) {
       return res.status(400).send({
@@ -197,7 +197,7 @@ exports.memberByCourseID = function(req, res) {
 /**
  * List of Members in class
  */
-exports.memberByClassID = function(req, res) {
+exports.memberByClass = function(req, res) {
     CourseMember.find({classroom:req.classroom._id}).sort('-created').populate('user', 'displayName').populate('member').exec(function(err, members) {
     if (err) {
       return res.status(400).send({
@@ -213,13 +213,25 @@ exports.memberByClassID = function(req, res) {
  * List of Members of current user
  */
 exports.me = function(req, res) {
-    CourseMember.find({status:'active',member:req.user._id}).sort('-created').populate('member').populate('course').populate('classroom').exec(function(err, members) {
+    CourseMember.find({member:req.user._id}).sort('-created').populate('member').populate('course').populate('classroom').exec(function(err, members) {
     if (err) {
-      return res.status(400).send({
+      return res.status(422).send({
         message: errorHandler.getErrorMessage(err)
       });
     } else {
       res.jsonp(members);
+    }
+  });
+};
+
+exports.meByCourse = function(req, res) {
+    CourseMember.findOne({status:'active',member:req.user._id,course:req.course._id}).sort('-created').populate('member').populate('course').populate('classroom').exec(function(err, member) {
+    if (err || !member) {
+      return res.status(422).send({
+        message: 'No member found'
+      });
+    } else {
+      res.jsonp(member);
     }
   });
 };

@@ -5,9 +5,9 @@
     .module('users')
     .controller('AuthenticationController', AuthenticationController);
 
-  AuthenticationController.$inject = [ '$scope','$rootScope', '$state', '$stateParams', 'UsersService', '$location', '$window', 'Authentication', 'Notification', 'utils'];
+  AuthenticationController.$inject = [ '$scope','$rootScope', '$state', '$stateParams', 'UsersService', '$location', '$window', 'Authentication', 'Notification', 'localStorageService','utils'];
 
-  function AuthenticationController( $scope, $rootScope, $state, $stateParams, UsersService, $location, $window, Authentication, Notification, utils) {
+  function AuthenticationController( $scope, $rootScope, $state, $stateParams, UsersService, $location, $window, Authentication, Notification, localStorageService,utils) {
     var vm = this;
     vm.authentication = Authentication;
     vm.signup = signup;
@@ -110,6 +110,7 @@
     function onUserSigninSuccess(response) {
       // If successful we assign the response to the global user model
       vm.authentication.user = response;
+      localStorageService.set("userId", vm.authentication.user._id);
       Notification.info({ message: 'Welcome ' + response.firstName });
       // And redirect to the previous or home page
       if ($state.previous.state.name=='home' || !$state.previous.state) {

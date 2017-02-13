@@ -32,7 +32,7 @@
       .state('workspace.lms.courses.list', {
         url: '/list',
         templateUrl: '/modules/lms/client/views/list-courses.client.view.html',
-        controller: 'CoursesListController',
+        controller: 'LmsCoursesListController',
         controllerAs: 'vm',
         data: {
             roles: [ 'user'],
@@ -175,7 +175,7 @@
       })
       .state('workspace.lms.courses.join', {
         url: '/:courseId/join',
-        templateUrl: '/modules/lms/client/views/join-course.client.view.html',
+        templateUrl: '/modules/lms/client/views/course-board/join-course.client.view.html',
         controller: 'CoursesJoinController',
         controllerAs: 'vm',
         resolve: {
@@ -186,25 +186,76 @@
           courseRoles: [ 'student','teacher']
         }
       })
-      
-      .state('workspace.lms.courses.gradebooks', {
-        url: '/:courseId/gradebooks',
-        templateUrl: '/modules/lms/client/views/teacher/list-gradebook-course.client.view.html',
-        controller: 'CourseGradebooksListController',
+      .state('workspace.lms.courses.join.intro', {
+        url: '/intro',
+        templateUrl: '/modules/lms/client/views/course-board/intro-course.client.view.html',
+        controller: 'CoursesIntroController',
+        controllerAs: 'vm',
+        data: {
+          roles: ['user'],
+          courseRoles: [ 'student','teacher']
+        }
+      })
+      .state('workspace.lms.courses.join.study', {
+        url: '/study',
+        templateUrl: '/modules/lms/client/views/course-board/study-course.client.view.html',
+        controller: 'CoursesStudyController',
+        controllerAs: 'vm',
+        resolve: {
+            editionResolve: getEdition
+        },
+        data: {
+          roles: ['user'],
+          courseRoles: [ 'student']
+        }
+      }).state('workspace.lms.courses.join.material', {
+          url: '/material',
+          templateUrl: '/modules/lms/client/views/course-board/material-course.client.view.html',
+          controller: 'CoursesMaterialController',
+          controllerAs: 'vm',
+          data: {
+            roles: ['user'],
+            courseRoles: [ 'student']
+          }
+        })
+      .state('workspace.lms.courses.join.forum', {
+        url: '/forum',
+        templateUrl: '/modules/lms/client/views/course-board/forum-course.client.view.html',
+        controller: 'CoursesForumController',
+        controllerAs: 'vm',
+        data: {
+          roles: ['user'],
+          courseRoles: [ 'student']
+        }
+      })
+      .state('workspace.lms.courses.join.gradebook', {
+        url: '/gradebook',
+        templateUrl: '/modules/lms/client/views/course-board/gradebook-course.client.view.html',
+        controller: 'CoursesGradebookController',
+        controllerAs: 'vm',
+        data: {
+          roles: ['user'],
+          courseRoles: [ 'student']
+        }
+      })
+      .state('workspace.lms.courses.join.gradeboard', {
+        url: '/gradeboard',
+        templateUrl: '/modules/lms/client/views/course-board/gradeboard-course.client.view.html',
+        controller: 'CoursesGradeboardController',
         controllerAs: 'vm',
         data: {
           roles: ['user'],
           courseRoles: [ 'teacher']
         }
       })
-      .state('workspace.lms.courses.gradebooks.view', {
-        url: '/:courseId/gradebooks/:gradebookId',
-        templateUrl: '/modules/lms/client/views/student/view-gradebook-course.client.view.html',
-        controller: 'CourseGradebooksController',
+      .state('workspace.lms.courses.join.stats', {
+        url: '/stats',
+        templateUrl: '/modules/lms/client/views/course-board/stats-course.client.view.html',
+        controller: 'CoursesStatsController',
         controllerAs: 'vm',
         data: {
           roles: ['user'],
-          courseRoles: [ 'student']
+          courseRoles: ['teacher']
         }
       });
   }

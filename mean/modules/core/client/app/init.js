@@ -45,7 +45,8 @@
     });
     
     localStorageServiceProvider
-    .setPrefix('eTraining');
+    .setPrefix('eTraining')
+    .setStorageType('localStorage');
   }
 
 

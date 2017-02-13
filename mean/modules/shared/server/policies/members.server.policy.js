@@ -20,7 +20,10 @@ exports.invokeRolesPolicies = function () {
     }, {
         resources: '/api/members/byCourse/:courseId',
         permissions: '*'
-      },
+      }, {
+          resources: '/api/members/me/byCourse/:courseId',
+          permissions: '*'
+        },
       {
       resources: '/api/members/:memberId',
       permissions: '*'
@@ -33,7 +36,10 @@ exports.invokeRolesPolicies = function () {
     }, {
         resources: '/api/members/byCourse/:courseId',
         permissions: 'get'
-      },
+      }, {
+          resources: '/api/members/me/byCourse/:courseId',
+          permissions: 'get'
+        },
       {
           resources: '/api/members/me',
           permissions: 'get'
