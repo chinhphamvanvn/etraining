@@ -10,9 +10,9 @@ var mongoose = require('mongoose'),
  * Answer Schema
  */
 var AnswerSchema = new Schema({
-    attempt: {
+    exam: {
         type: Schema.ObjectId,
-        ref: 'Attempt'
+        ref: 'Exam'
     },
     question: {
         type: Schema.ObjectId,

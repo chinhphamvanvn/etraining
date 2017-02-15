@@ -66,7 +66,7 @@
                 bar         = progressbar.find('.uk-progress-bar'),
                 settings    = {
 
-                    action: '/api/courses/video', // upload url
+                    action: '/api/videos/upload', // upload url
                     param: 'newCourseVideo',
                     method: 'POST',
 

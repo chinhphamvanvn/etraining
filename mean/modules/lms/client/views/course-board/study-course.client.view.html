@@ -14,13 +14,14 @@
                                 </h3>
                             </div>
                             <div class="md-card-content">
-                                <ul class="uk-list uk-list-line uk-list-space">
-                                     <li  ng-repeat="node in vm.nodes" class="uk-active">
+                                <ul class="uk-nav">
+                                     <li  ng-repeat="node in vm.nodes"  >
                                           <span class="sub-heading">
                                             <i ng-show="!node.expand" ng-click="vm.expand(node)" class="md-icon material-icons md-18">arrow_drop_down</i>
                                             <i ng-show="node.expand" ng-click="vm.collapse(node)"  class="md-icon material-icons md-18">arrow_drop_up</i>
                                             
-                                            <a ng-click="vm.toggleExpand(node)" class="uk-text-muted" ><i  class="md-icon material-icons md-18">folder_open</i><span class="uk-text-upper uk-text-bold">{{$index+1}}. {{node.data.name}}</span></a>
+                                            <a ng-click="vm.toggleExpand(node)" ng-class="{'uk-text-muted':node.id!=vm.selectedNode.id,'uk-text-bold uk-text-italic':node.id==vm.selectedNode.id}" >
+                                            <i  class="md-icon material-icons md-18" ng-class="{'uk-text-primary':node.id==vm.selectedNode.id}">folder_open</i><span class="uk-text-large">{{$index+1}}. {{node.data.name}}</span></a>
                                             </span>
                                           <div ng-include="'subList'"></div>
                                     </li>
@@ -30,7 +31,21 @@
                         
                     </div>
                     <div class="uk-width-large-3-4">
-                       
+                       <div class="md-card" ng-show="vm.selectedContentNode">
+                         <div  class="md-card-toolbar" >
+                        <div class="md-card-toolbar-actions">
+                            <a ng-click="vm.nextSection()"  class="md-btn md-btn-small md-btn-flat md-btn-flat-primary"><i class="uk-icon-arrow-right "></i> {{'ACTION.NEXT'|translate}}</a>
+                                <a  ng-click="vm.prevSection()"  class="md-btn md-btn-small md-btn-flat md-btn-flat-primary"><i   class="uk-icon-arrow-left"></i> {{'ACTION.PREV'|translate}}</a>
+                        </div>
+                        <h3 class="md-card-toolbar-heading-text large" >
+                            <span>{{vm.selectedContentNode.title}}
+                            </span>
+                        </h3>
+                    </div>
+                        <div class="md-card-content">
+                            <ui-view></ui-view>
+                        </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -40,17 +55,18 @@
                         
                             
 <script type="text/ng-template" id="subList">
-	<ul class="uk-list uk-list-line uk-list-space" ng-show="node.expand">
+	<ul class="uk-nav" ng-show="node.expand">
            <li ng-repeat="node in node.children">
                   <span class="sub-heading">
                       <i ng-show="!node.expand" ng-click="vm.expand(node)" class="md-icon material-icons md-18">arrow_drop_down</i>
                            <i ng-show="node.expand" ng-click="vm.collapse(node)"  class="md-icon material-icons md-18">arrow_drop_up</i>
 						
-                              <a ng-click="vm.toggleExpand(node)" class="uk-text-muted"><i ng-if="!node.data.hasContent" class="md-icon material-icons md-18">folder_open</i>
-						<i ng-if="node.data.hasContent && node.data.contentType=='html'" class="md-icon material-icons md-18">note</i>
-						<i ng-if="node.data.hasContent && node.data.contentType=='test'" class="md-icon material-icons md-18">question_answer</i>
-						<i ng-if="node.data.hasContent && node.data.contentType=='video'" class="md-icon material-icons md-18">videocam</i>{{node.data.name}}</a>
-						<i class="uk-icon-check  uk-text-success  "></i>
+                              <a ng-click="vm.toggleExpand(node)" ng-class="{'uk-text-muted':node.id!=vm.selectedNode.id,'uk-text-bold uk-text-italic':node.id==vm.selectedNode.id}">
+								<i ng-if="!node.data.hasContent" ng-class="{'uk-text-primary':node.id==vm.selectedNode.id}" class="md-icon material-icons md-18">folder_open</i>
+						<i ng-if="node.data.hasContent && node.data.contentType=='html'" class="md-icon material-icons md-18" ng-class="{'uk-text-primary':node.id==vm.selectedNode.id}">note</i>
+						<i ng-if="node.data.hasContent && node.data.contentType=='test'" class="md-icon material-icons md-18" ng-class="{'uk-text-primary':node.id==vm.selectedNode.id}">question_answer</i>
+						<i ng-if="node.data.hasContent && node.data.contentType=='video'" class="md-icon material-icons md-18" ng-class="{'uk-text-primary':node.id==vm.selectedNode.id}">videocam</i>{{node.data.name}}</a>
+						<i class="uk-icon-check  uk-text-success  " ng-show="node.data.hasContent && node.data.read"></i>
 					</span>
                                           <div ng-include="'subList'"></div>
                                     </li>

@@ -95,14 +95,14 @@ exports.list = function(req, res) {
 /**
  * List of Editions in course
  */
-exports.editionByCourseID = function(req, res) {
-    CourseEdition.find({course:req.course._id}).sort('-created').populate('user', 'displayName').exec(function(err, editions) {
+exports.editionByCourse = function(req, res) {
+    CourseEdition.findOne({course:req.course._id}).sort('-created').populate('user', 'displayName').exec(function(err, edition) {
     if (err) {
-      return res.status(400).send({
+      return res.status(422).send({
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      res.jsonp(editions);
+      res.jsonp(edition);
     }
   });
 };

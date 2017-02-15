@@ -100,7 +100,7 @@
                 function onDataAvail(videoFile) {
                     console.log(videoFile);
                     Upload.upload({
-                        url: '/api/courses/video',
+                        url: '/api/videos/upload',
                         data: {
                             newCourseVideo: videoFile,
                         }

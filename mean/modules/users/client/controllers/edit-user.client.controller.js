@@ -5,9 +5,9 @@
     .module('users')
     .controller('UserEditController', UserEditController);
 
-  UserEditController.$inject = ['$scope', '$state', '$rootScope', '$window', 'userResolve', 'Authentication', 'Notification', 'Upload', 'UsersService', '_'];
+  UserEditController.$inject = ['$scope', '$state', '$rootScope', '$window', 'userResolve', 'Authentication', 'Notification', 'Upload', 'UsersService', 'localStorageService','_'];
 
-  function UserEditController($scope, $state, $rootScope, $window, user, Authentication, Notification, Upload, UsersService,  _) {
+  function UserEditController($scope, $state, $rootScope, $window, user, Authentication, Notification, Upload, UsersService, localStorageService, _) {
     var vm = this;
     vm.authentication = Authentication;    
     vm.user = user;
@@ -18,7 +18,7 @@
     vm.removeUserSocialAccount = removeUserSocialAccount;
     vm.callOauthProvider = callOauthProvider;
     vm.changeUserPassword = changeUserPassword;
-    console.log($rootScope.viewerRole, vm.user._id);
+    vm.currentUserId = localStorageService.get('userId');
     
     var $basicValidate = $('#user_edit_form');
     var $changePassValidate = $('#user_change_pass_form');

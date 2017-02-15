@@ -14,11 +14,11 @@
             </div>
   
             <div class="sidebar_actions" ng-if="vm.hasAdminRole" ng-click="vm.switchPanel()">
-                 <a ng-show="viewerRole=='user'" class="md-btn md-btn-success md-btn-mini md-btn-wave-light md-btn-icon">
+                 <a ng-show="viewerRole=='user' && vm.user.roles.includes('admin')" class="md-btn md-btn-success md-btn-mini md-btn-wave-light md-btn-icon">
                         <i class="uk-icon-exchange"></i>
                                 {{'PAGE.WORKSPACE.SIDEBAR.ADMIN_PANEL'|translate}}
                   </a>
-                  <a ng-show="viewerRole=='admin'"  class="md-btn md-btn-default md-btn-mini md-btn-wave-light md-btn-icon" >
+                  <a ng-show="viewerRole=='admin' && vm.user.roles.includes('user')"  class="md-btn md-btn-default md-btn-mini md-btn-wave-light md-btn-icon" >
                         <i class="uk-icon-exchange"></i>
                                 {{'PAGE.WORKSPACE.SIDEBAR.USER_PANEL'|translate}}
                   </a>                

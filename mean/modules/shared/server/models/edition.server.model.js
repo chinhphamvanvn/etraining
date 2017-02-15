@@ -20,6 +20,10 @@ var CourseEditionSchema = new Schema({
     type: Schema.ObjectId,
     ref: 'Course'
   },
+  primary: {
+      type: Boolean,
+      default: false
+  },
   published: {
     type: Boolean,
     default: false

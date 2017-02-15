@@ -5,7 +5,9 @@
  */
 var path = require('path'),
   mongoose = require('mongoose'),
-  Attempt = mongoose.model('Attempt'),
+  CourseAttempt = mongoose.model('CourseAttempt'),
+  CourseMember = mongoose.model('CourseMember'),
+  EditionSection = mongoose.model('EditionSection'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
   _ = require('lodash');
 
@@ -13,7 +15,7 @@ var path = require('path'),
  * Create a Attempt
  */
 exports.create = function(req, res) {
-  var attempt = new Attempt(req.body);
+  var attempt = new CourseAttempt(req.body);
   attempt.user = req.user;
 
   attempt.save(function(err) {
@@ -55,6 +57,7 @@ exports.update = function(req, res) {
         message: errorHandler.getErrorMessage(err)
       });
     } else {
+     
       res.jsonp(attempt);
     }
   });
@@ -81,7 +84,7 @@ exports.delete = function(req, res) {
  * List of Attempts
  */
 exports.list = function(req, res) {
-  Attempt.find().sort('-created').populate('user', 'displayName').exec(function(err, attempts) {
+  CourseAttempt.find().sort('-created').populate('user', 'displayName').populate('answer').exec(function(err, attempts) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -92,32 +95,9 @@ exports.list = function(req, res) {
   });
 };
 
-exports.listByExam = function(req, res) {
-    Attempt.find({exam:req.exam._id}).sort('-created').populate('user', 'displayName').exec(function(err, attempts) {
-      if (err) {
-        return res.status(400).send({
-          message: errorHandler.getErrorMessage(err)
-        });
-      } else {
-        res.jsonp(attempts);
-      }
-    });
-  };
-  
-exports.listByUser = function(req, res) {
-    Attempt.find({candidate:req.params.candidateId}).sort('-created').populate('user', 'displayName').exec(function(err, attempts) {
-      if (err) {
-        return res.status(400).send({
-          message: errorHandler.getErrorMessage(err)
-        });
-      } else {
-        res.jsonp(attempts);
-      }
-    });
-  };
 
-exports.listByExamAndUser = function(req, res) {
-    Attempt.find({candidate:req.params.candidateId,exam:req.exam._id}).sort('-created').populate('user', 'displayName').exec(function(err, attempts) {
+exports.listByCourseAndMember = function(req, res) {
+    CourseAttempt.find({member:req.member._id,edition:req.edition._id}).sort('-created').populate('user', 'displayName').populate('answer').exec(function(err, attempts) {
       if (err) {
         return res.status(400).send({
           message: errorHandler.getErrorMessage(err)
@@ -139,7 +119,7 @@ exports.attemptByID = function(req, res, next, id) {
     });
   }
 
-  Attempt.findById(id).populate('user', 'displayName').exec(function (err, attempt) {
+  CourseAttempt.findById(id).populate('user', 'displayName').populate('answer').exec(function (err, attempt) {
     if (err) {
       return next(err);
     } else if (!attempt) {

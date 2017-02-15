@@ -4,32 +4,22 @@
 
   angular
     .module('shared.models')
-    .factory('AttemptsService', AttemptsService);
+    .factory('CourseAttemptsService', CourseAttemptsService);
 
-  AttemptsService.$inject = ['$resource'];
+  CourseAttemptsService.$inject = ['$resource'];
 
-  function AttemptsService($resource) {
+  function CourseAttemptsService($resource) {
     return $resource('/api/attempts/:attemptId', {
       attemptId: '@_id'
     }, {
       update: {
         method: 'PUT'
       },
-      byExamAndUser: {
-          url:'/api/attempts/byExamAndUser/:examId/:candidateId',
+      byCourseAndMember: {
+          url:'/api/attempts/byCourseAndMember/:editionId/:memberId',
           method: 'GET',
           isArray: true
-        },
-        byUser: {
-            url:'/api/attempts/byUser/:candidateId',
-            method: 'GET',
-            isArray: true
-          },
-          byExam: {
-              url:'/api/attempts/byExam/:examId',
-              method: 'GET',
-              isArray: true
-            }
+        }
     });
   }
 }());

@@ -53,6 +53,7 @@
           courseRoles: [ 'teacher']
         }
       })
+      
       .state('workspace.lms.courses.section', {
         abstract: true,
         url: '/section',
@@ -202,17 +203,68 @@
         controller: 'CoursesStudyController',
         controllerAs: 'vm',
         resolve: {
-            editionResolve: getEdition
+            editionResolve: getEdition,
+            memberResolve: getMember
         },
         data: {
           roles: ['user'],
           courseRoles: [ 'student']
         }
+      })
+        .state('workspace.lms.courses.join.study.html', {
+            url: '/html/:sectionId',
+            templateUrl: '/modules/lms/client/views/course-board/study-html-course.client.view.html',
+            controller: 'CoursesStudyHtmlController',
+            controllerAs: 'vm',
+            resolve: {
+                sectionResolve: getSection,
+                memberResolve: getMember,
+                editionResolve: getEdition
+            },
+            data: {
+              roles: ['user'],
+              courseRoles: [ 'student']
+            }
+        })
+        .state('workspace.lms.courses.join.study.quiz', {
+            url: '/quiz/:sectionId',
+            templateUrl: '/modules/lms/client/views/course-board/study-quiz-course.client.view.html',
+            controller: 'CoursesStudyQuizController',
+            controllerAs: 'vm',
+            resolve: {
+                sectionResolve: getSection,
+                memberResolve: getMember,
+                editionResolve: getEdition
+            },
+            data: {
+              roles: ['user'],
+              courseRoles: [ 'student']
+            }
+        })
+        .state('workspace.lms.courses.join.study.video', {
+            url: '/video/:sectionId',
+            templateUrl: '/modules/lms/client/views/course-board/study-video-course.client.view.html',
+            controller: 'CoursesStudyVideoController',
+            controllerAs: 'vm',
+            resolve: {
+                sectionResolve: getSection,
+                memberResolve: getMember,
+                editionResolve: getEdition
+            },
+            data: {
+              roles: ['user'],
+              courseRoles: [ 'student']
+            }
       }).state('workspace.lms.courses.join.material', {
           url: '/material',
           templateUrl: '/modules/lms/client/views/course-board/material-course.client.view.html',
           controller: 'CoursesMaterialController',
           controllerAs: 'vm',
+          resolve: {
+              memberResolve: getMember,
+              editionResolve: getEdition,
+              courseResolve: getCourse
+          },
           data: {
             roles: ['user'],
             courseRoles: [ 'student']
@@ -223,6 +275,10 @@
         templateUrl: '/modules/lms/client/views/course-board/forum-course.client.view.html',
         controller: 'CoursesForumController',
         controllerAs: 'vm',
+        resolve: {
+            memberResolve: getMember,
+            courseResolve: getCourse
+        },
         data: {
           roles: ['user'],
           courseRoles: [ 'student']
@@ -233,6 +289,9 @@
         templateUrl: '/modules/lms/client/views/course-board/gradebook-course.client.view.html',
         controller: 'CoursesGradebookController',
         controllerAs: 'vm',
+        resolve: {
+            memberResolve: getMember
+        },
         data: {
           roles: ['user'],
           courseRoles: [ 'student']
@@ -243,6 +302,9 @@
         templateUrl: '/modules/lms/client/views/course-board/gradeboard-course.client.view.html',
         controller: 'CoursesGradeboardController',
         controllerAs: 'vm',
+        resolve: {
+            memberResolve: getMember
+        },
         data: {
           roles: ['user'],
           courseRoles: [ 'teacher']
@@ -253,6 +315,9 @@
         templateUrl: '/modules/lms/client/views/course-board/stats-course.client.view.html',
         controller: 'CoursesStatsController',
         controllerAs: 'vm',
+        resolve: {
+            memberResolve: getMember
+        },
         data: {
           roles: ['user'],
           courseRoles: ['teacher']
@@ -268,25 +333,10 @@
     }).$promise;
   }
   
-  getEdition.$inject = ['$stateParams', 'CourseEditionsService', '$q'];
+  getEdition.$inject = ['$stateParams', 'CourseEditionsService'];
 
-  function getEdition($stateParams, CourseEditionsService, $q) {
-      return $q(function(resolve, reject) {
-          CourseEditionsService.byCourse({courseId:$stateParams.courseId},function(data) {
-          if (data.length==0) {
-              var edition = new CourseEditionsService();
-              edition.course = $stateParams.courseId;
-              edition.name ='v1.0';
-              edition.$save(function() {
-                  resolve(edition);
-              },function(errorResponse) {
-                  reject();
-              });
-          } else {
-              resolve( data[0]);
-          }
-      });
-      });
+  function getEdition($stateParams, CourseEditionsService) {
+      return  CourseEditionsService.byCourse({courseId:$stateParams.courseId}).$promise;
   }
   
   getGradescheme.$inject = ['$stateParams', 'GradeSchemesService', '$q'];
@@ -381,6 +431,12 @@
               reject();
       });
       });
+  }
+  
+  getMember.$inject = ['$stateParams', 'CourseMembersService','localStorageService'];
+
+  function getMember($stateParams, CourseMembersService,localStorageService) {
+    return CourseMembersService.meByCourse({courseId:$stateParams.courseId,userId:localStorageService.get('userId')}).$promise;
   }
   
   getSection.$inject = ['$stateParams', 'EditionSectionsService'];

@@ -16,6 +16,10 @@ var CourseSchema = new Schema({
     required: 'Please fill Course name',
     trim: true
   },
+  primaryEdition: {
+      type: Schema.ObjectId,
+      ref: 'CourseEdition'
+    },
   summary: {
     type: String,
     default: '',

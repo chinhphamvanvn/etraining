@@ -228,8 +228,7 @@
          vm.classroom.course = vm.course._id;
          vm.classroom.$save(function() {
              Notification.success({ message: '<i class="uk-icon-check"></i> Class saved successfully!'});
-             vm.classes.push(vm.classroom);
-             vm.classroom =  new ClassroomsService();
+             $window.location.reload();
          }, function(errorResponse) {
              Notification.error({ message: errorResponse.data.message, title: '<i class="uk-icon-ban"></i> Class saved failed!' });
          });

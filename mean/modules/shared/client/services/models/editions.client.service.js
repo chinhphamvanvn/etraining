@@ -17,7 +17,6 @@
       },
       byCourse: {
           method: 'GET',
-          isArray:true,
           url:'/api/editions/byCourse/:courseId'
         },
     });

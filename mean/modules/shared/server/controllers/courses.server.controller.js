@@ -10,7 +10,9 @@ var path = require('path'),
   fs = require('fs'),
   multer = require('multer'),
   config = require(path.resolve('./config/config')),
-  Course = mongoose.model('Course');
+  Course = mongoose.model('Course'),
+  CourseEdition = mongoose.model('CourseEdition');
+
 
 
 
@@ -27,7 +29,19 @@ exports.create = function(req, res) {
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      res.jsonp(course);
+        var edition = new CourseEdition();
+        edition.course = course._id;
+        edition.name ='v1.0';
+        edition.primary = true;
+        edition.save(function(err) {
+            if (err) {
+                return res.status(400).send({
+                  message: errorHandler.getErrorMessage(err)
+                });
+            } else
+                res.jsonp(course);
+        })
+      
     }
   });
 };
@@ -182,7 +196,7 @@ exports.changeCourseLogo = function (req, res) {
   var upload = multer(multerConfig).single('newCourseLogo');
 
   if (course) {
-    existingImageUrl = course.logoURL;
+    existingImageUrl = config.uploads.file.image.dest+ path.basename(course.logoURL);
     uploadImage()
       .then(updateCourse)
       .then(deleteOldImage)
@@ -242,31 +256,5 @@ exports.changeCourseLogo = function (req, res) {
 };
 
 
-exports.uploadCourseVideo = function (req, res) {
-    // Filtering to upload only images
-    var multerConfig = config.uploads.file.video;
-    multerConfig.fileFilter = require(path.resolve('./config/lib/multer')).videoFileFilter;
-    var upload = multer(multerConfig).single('newCourseVideo');
+  
 
-      uploadVideo()
-        .then(function (videoURL) {
-          res.json({videoURL:videoURL});
-        })
-        .catch(function (err) {
-          res.status(422).send(err);
-        });
-     
-    function uploadVideo () {
-      return new Promise(function (resolve, reject) {
-        upload(req, res, function (uploadError) {
-          if (uploadError) {
-            reject(errorHandler.getErrorMessage(uploadError));
-          } else {
-              var videoURL = config.uploads.file.video.urlPaath + req.file.filename;
-              resolve(videoURL);
-          }
-        });
-      });
-    }
-
-  };

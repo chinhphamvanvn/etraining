@@ -20,7 +20,10 @@ exports.invokeRolesPolicies = function () {
     }, {
       resources: '/api/videos/:videoId',
       permissions: '*'
-    }]
+    },,{
+        resources: '/api/videos/upload',
+        permissions: ['post']
+      }]
   }, {
     roles: ['user'],
     allows: [{
@@ -29,7 +32,10 @@ exports.invokeRolesPolicies = function () {
     }, {
       resources: '/api/videos/:videoId',
       permissions: ['get']
-    }]
+    },{
+        resources: '/api/videos/upload',
+        permissions: ['post']
+      }]
   }, {
     roles: ['guest'],
     allows: [{

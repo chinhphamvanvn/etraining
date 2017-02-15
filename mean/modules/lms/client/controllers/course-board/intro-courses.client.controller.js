@@ -12,15 +12,7 @@ function CoursesIntroController($scope, $state, $window, CourseMembersService,Au
     var vm = this;
     vm.register = register;
     vm.course = course;
-    if (vm.course.group)
-        vm.course.group = GroupsService.get({groupId:vm.course.group});
-     var allPromise = [];
-   _.each(vm.course.prequisites,function(courseId) {
-       allPromise.push(CoursesService.get({courseId:courseId}).$promise);
-   });
-   $q.all(allPromise).then(function(prequisites) {
-       vm.course.prequisites = prequisites;
-   });
+    
    vm.classes = ClassroomsService.byCourse({courseId:vm.course._id});
    vm.member = CourseMembersService.meByCourse({courseId:vm.course._id,userId:localStorageService.get('userId')},function(data) {
    },function() {

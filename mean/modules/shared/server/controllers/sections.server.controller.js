@@ -96,7 +96,7 @@ exports.list = function(req, res) {
  * List of sections in editions
  */
 exports.sectionByEditionID = function(req, res) {
-    EditionSection.find({edition:req.edition._id}).sort('-created').populate('user', 'displayName').populate('quiz').exec(function(err, sections) {
+    EditionSection.find({edition:req.edition._id}).sort('-created').populate('user', 'displayName').exec(function(err, sections) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)

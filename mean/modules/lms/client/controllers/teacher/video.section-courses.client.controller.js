@@ -16,7 +16,6 @@ function CoursesVideoSectionController($scope, $state, $window, Authentication, 
     vm.video = video;
     vm.update = update;
     vm.tinymce_options = fileManagerConfig;
-    vm.selectVideo = selectVideo;
     
     function saveSection() {
         return $q(function(resolve, reject) {
@@ -50,29 +49,6 @@ function CoursesVideoSectionController($scope, $state, $window, Authentication, 
         });
     }
     
-    vm.videos = [
-                 {
-                     source: $translate.instant('COMMON.VIDEO_SOURCE.ORIGINAL'),
-                     videoURL: vm.video.videoURL,
-                     selected: true
-                  },
-                  {
-                      source: $translate.instant('COMMON.VIDEO_SOURCE.UPLOAD'),
-                      videoURL: null,
-                      selected: false
-                   },
-                   {
-                       source: $translate.instant('COMMON.VIDEO_SOURCE.RECORD'),
-                       videoURL: null,
-                       selected: false
-                    }
-                 ]
-
-    function selectVideo(video) {
-        if (video.selected)
-            vm.video.videoURL = video.videoURL;
-        else
-            vm.video.videoURL = null;
-    }
+   
 }
 }());

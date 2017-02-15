@@ -7,7 +7,10 @@ var path = require('path'),
   mongoose = require('mongoose'),
   Video = mongoose.model('Video'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
-  _ = require('lodash');
+  _ = require('lodash'),
+  fs = require('fs'),
+  multer = require('multer'),
+  config = require(path.resolve('./config/config'));
 
 /**
  * Create a Video
@@ -115,3 +118,33 @@ exports.videoByID = function(req, res, next, id) {
     next();
   });
 };
+
+
+exports.uploadCourseVideo = function (req, res) {
+    // Filtering to upload only images
+    var multerConfig = config.uploads.file.video;
+    multerConfig.fileFilter = require(path.resolve('./config/lib/multer')).videoFileFilter;
+    var upload = multer(multerConfig).single('newCourseVideo');
+
+      uploadVideo()
+        .then(function (videoURL) {
+          res.json({videoURL:videoURL});
+        })
+        .catch(function (err) {
+          res.status(422).send(err);
+        });
+     
+    function uploadVideo () {
+      return new Promise(function (resolve, reject) {
+        upload(req, res, function (uploadError) {
+          if (uploadError) {
+            reject(errorHandler.getErrorMessage(uploadError));
+          } else {
+              var videoURL = config.uploads.file.video.urlPaath + req.file.filename;
+              resolve(videoURL);
+          }
+        });
+      });
+    }
+
+  };

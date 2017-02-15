@@ -58,7 +58,7 @@
         $("html, body").animate({
             scrollTop: 0
         }, 200);
-        
+        $rootScope.state = toState;
         if (toState.data && _.contains(toState.data.roles,'admin')) 
             $rootScope.viewerRole='admin';
         else

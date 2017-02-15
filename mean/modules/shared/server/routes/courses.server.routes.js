@@ -22,7 +22,7 @@ module.exports = function(app) {
   .get(courses.listByGroup);
   
   app.route('/api/courses/:courseId/logo').post(courses.changeCourseLogo);
-  app.route('/api/courses/video').post(courses.uploadCourseVideo);
+  
   
   app.route('/api/courses/:courseId').all(coursesPolicy.isAllowed)
     .get(courses.read)

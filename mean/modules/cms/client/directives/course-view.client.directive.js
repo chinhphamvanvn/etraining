@@ -5,9 +5,9 @@
   // Unless the user is on a small device, because this could obscure the page with a keyboard
 
   angular.module('cms')
-    .directive('courseView', ['GroupsService','CoursesService','_', courseView]);
+    .directive('courseView', ['GroupsService','CoursesService','$q','_', courseView]);
 
-  function courseView(GroupsService,CoursesService,_) {
+  function courseView(GroupsService,CoursesService,$q,_) {
       
       return {
           scope: {
@@ -15,7 +15,19 @@
           },
           templateUrl:'/modules/cms/client/directives/view-course.directive.client.view.html',
           link: function (scope, element, attributes) {
-             
+              if (!scope.course.loaded) {
+                  scope.course.loaded = true;
+                  if (scope.course.group) 
+                      scope.course.group = GroupsService.get({groupId:scope.course.group});
+                  
+                   var allPromise = [];
+                 _.each(scope.course.prequisites,function(courseId) {
+                     allPromise.push(CoursesService.get({courseId:scope.course._id}).$promise);
+                 });
+                 $q.all(allPromise).then(function(prequisites) {
+                     scope.course.prequisites = prequisites;
+                 });
+              }
           }
       }
   }

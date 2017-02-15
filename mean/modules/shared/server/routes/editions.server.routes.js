@@ -13,7 +13,7 @@ module.exports = function(app) {
     .post(editions.create);
   
   app.route('/api/editions/byCourse/:courseId').all(editionsPolicy.isAllowed)
-  .get(editions.editionByCourseID);
+  .get(editions.editionByCourse);
 
   app.route('/api/editions/:editionId').all(editionsPolicy.isAllowed)
     .get(editions.read)

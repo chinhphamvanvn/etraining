@@ -213,7 +213,7 @@ exports.memberByClass = function(req, res) {
  * List of Members of current user
  */
 exports.me = function(req, res) {
-    CourseMember.find({member:req.user._id}).sort('-created').populate('member').populate('course').populate('classroom').exec(function(err, members) {
+    CourseMember.find({status:'active',member:req.user._id}).sort('-created').populate('member').populate('course').populate('classroom').exec(function(err, members) {
     if (err) {
       return res.status(422).send({
         message: errorHandler.getErrorMessage(err)

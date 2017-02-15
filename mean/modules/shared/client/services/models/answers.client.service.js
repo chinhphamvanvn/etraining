@@ -14,12 +14,7 @@
     }, {
       update: {
         method: 'PUT'
-      },
-      byAttempt: {
-          url:'/api/answers/byAttempt/:attemptId',
-          method: 'GET',
-          isArray: true
-        },
+      }
     });
   }
 }());

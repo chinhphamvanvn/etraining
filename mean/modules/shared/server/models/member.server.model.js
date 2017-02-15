@@ -14,6 +14,10 @@ var CourseMemberSchema = new Schema({
       type: Schema.ObjectId,
       ref: 'Course'
   },
+  edition: {
+      type: Schema.ObjectId,
+      ref: 'CourseEdition'
+  },
   classroom: {
       type: Schema.ObjectId,
       ref: 'Classroom'

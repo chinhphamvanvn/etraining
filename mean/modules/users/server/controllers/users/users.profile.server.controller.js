@@ -66,7 +66,7 @@ exports.changeProfilePicture = function (req, res) {
   var upload = multer(multerConfig).single('newProfilePicture');
 
   if (user) {
-    existingImageUrl = user.profileImageURL;
+    existingImageUrl = config.uploads.profile.image.dest + path.basename(user.profileImageURL);
     uploadImage()
       .then(updateUser)
       .then(deleteOldImage)

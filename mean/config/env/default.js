@@ -75,7 +75,14 @@ module.exports = {
             limits: {
               fileSize: 64 * 1024 * 1024 // Max file size in bytes (1 MB)
             }
-          }
+          },
+          document: {
+              dest: 'public/files/document/uploads/',
+              urlPaath: '/files/document/uploads/',
+              limits: {
+                fileSize: 8 * 1024 * 1024 // Max file size in bytes (1 MB)
+              }
+            }
       }
   },
   shared: {

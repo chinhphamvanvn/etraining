@@ -156,6 +156,7 @@ function CoursesController($scope, $state, $window, Authentication, $timeout, co
             vm.course.$update(onSaveSuccess, onSaveFailure);
     }
     
+
     function onSaveSuccess(response) {
         if (!vm.logo) {
             Notification.success({ message: '<i class="uk-icon-check"></i> Course saved successfully!'     });

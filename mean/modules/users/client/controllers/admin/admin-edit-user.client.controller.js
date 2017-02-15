@@ -5,9 +5,9 @@
     .module('users.admin')
     .controller('AdminEditController', AdminEditController);
 
-  AdminEditController.$inject = ['$scope', '$state','$rootScope','$timeout', '$window','AdminService', 'userResolve', 'Authentication', 'Notification', 'Upload', 'GroupsService','UsersService', 'treeUtils', '_'];
+  AdminEditController.$inject = ['$scope', '$state','$rootScope','$timeout', '$window','AdminService', 'userResolve', 'Authentication', 'Notification', 'Upload', 'GroupsService','UsersService', 'localStorageService','treeUtils', '_'];
 
-  function AdminEditController($scope, $state,$rootScope, $timeout, $window, AdminService, user, Authentication, Notification, Upload, GroupsService, UsersService, treeUtils, _) {
+  function AdminEditController($scope, $state,$rootScope, $timeout, $window, AdminService, user, Authentication, Notification, Upload, GroupsService, UsersService, localStorageService,treeUtils, _) {
     var vm = this;
     vm.authentication = Authentication;    
     vm.user = user;
@@ -15,6 +15,7 @@
     vm.save = save;
     vm.cancel = cancel;
     vm.isContextUserSelf = isContextUserSelf;
+    vm.currentUserId = localStorageService.get('userId');
     
     var $basicValidate = $('#user_edit_form');
     var $changePassValidate = $('#user_change_pass_form');
