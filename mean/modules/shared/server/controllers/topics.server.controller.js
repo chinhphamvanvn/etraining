@@ -81,7 +81,7 @@ exports.delete = function(req, res) {
  * List of ForumTopics
  */
 exports.list = function(req, res) {
-  ForumTopic.find().sort('-created').populate('user', 'displayName').exec(function(err, topics) {
+  ForumTopic.find().sort('-updated').populate('user', '_id displayName').exec(function(err, topics) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -96,7 +96,7 @@ exports.list = function(req, res) {
  * List of ForumTopics
  */
 exports.listByForum = function(req, res) {
-  ForumTopic.find({forum:req.forum._id}).sort('-created').populate('user', 'displayName').exec(function(err, topics) {
+  ForumTopic.find({forum:req.forum._id}).sort('-updated').populate('user', '_id displayName').exec(function(err, topics) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -118,7 +118,7 @@ exports.topicByID = function(req, res, next, id) {
     });
   }
 
-  ForumTopic.findById(id).populate('user', 'displayName').exec(function (err, topic) {
+  ForumTopic.findById(id).populate('user', '_id displayName').exec(function (err, topic) {
     if (err) {
       return next(err);
     } else if (!topic) {

@@ -1,0 +1,33 @@
+
+<div id="page_content">
+    <div id="page_content_inner">
+        <div class="uk-width-medium-8-10 uk-container-center">
+            <div class="md-card md-card-single" single-card>
+                <div class="md-card-toolbar">
+                    <h3 class="md-card-toolbar-heading-text large">
+                        {{'PAGE.LMS.MY_COURSES.STUDENT_BOARD.GRADEBOOK'|translate}}
+                    </h3>
+                </div>
+                <div class="md-card-content">
+                    <div ng-repeat="node in vm.nodes">
+                        <div class="uk-grid uk-grid-divider" data-uk-grid-margin >
+                        
+                            <div class="uk-width-medium-1-4" >
+                                      <span class="heading_c">{{node.data.name}}</span>
+                            </div>
+                            <div class="uk-width-medium-3-4" >
+                                <h3 class="heading_c uk-margin-bottom uk-text-primary" ng-repeat="childNode in node.childList">
+                                    {{childNode.data.name}}
+                                    <span class="sub-heading" ng-show="childNode.data.questions.length==0">{{'ERROR.COURSE_STUDY.QUESTION_NOT_FOUND'|translate}}</span>
+                                    <span class="sub_heading" ng-show="childNode.data.questions.length">{{'PAGE.LMS.MY_COURSES.COURSE_GRADE.EXAM_RESULT'|translate}} </span>
+                                </h3>
+                            </div>
+                            
+                         </div>
+                            <hr class="uk-grid-divider">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

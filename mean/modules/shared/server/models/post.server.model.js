@@ -10,10 +10,10 @@ var mongoose = require('mongoose'),
  * Post Schema
  */
 var ForumPostSchema = new Schema({
-  name: {
+    content: {
     type: String,
     default: '',
-    required: 'Please fill Post name',
+    required: 'Please fill Post content',
     trim: true
   },
   topic: {
@@ -26,6 +26,7 @@ var ForumPostSchema = new Schema({
   },    
   updated: {
       type: Date,
+      default: Date.now
   },
   created: {
     type: Date,

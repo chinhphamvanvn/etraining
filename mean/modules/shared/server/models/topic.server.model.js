@@ -10,10 +10,10 @@ var mongoose = require('mongoose'),
  * Topic Schema
  */
 var ForumTopicSchema = new Schema({
-  name: {
+  content: {
     type: String,
     default: '',
-    required: 'Please fill Topic name',
+    required: 'Please fill Topic content',
     trim: true
   },
   forum: {
@@ -22,6 +22,7 @@ var ForumTopicSchema = new Schema({
     },
   updated: {
       type: Date,
+      default: Date.now
   },
   created: {
     type: Date,

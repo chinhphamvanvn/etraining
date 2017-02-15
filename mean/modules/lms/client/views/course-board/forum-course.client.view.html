@@ -13,74 +13,65 @@
         <div class="uk-width-medium-8-10 uk-container-center">
             <div class="md-card md-card-single" single-card>
                 <div class="md-card-toolbar">
-                    <div class="md-card-toolbar-actions">
-                        <i class="md-icon material-icons">&#xE149;</i>
-                    </div>
                     <h3 class="md-card-toolbar-heading-text large">
-                        Todo List</h3>
+                        {{'PAGE.LMS.MY_COURSES.STUDENT_BOARD.FORUM'|translate}}
+                    </h3>
                 </div>
                 <div class="md-card-content" id="todo_list">
-                    <div ng-repeat="list in todo_data"
-                        ng-class="{ 'uk-margin-large-bottom': ($index+1) != todo_length }">
-                        <h2 class="heading_list uk-text-upper">{{list.list_name}}</h2>
-                        <ul
-                            class="md-list md-list-addon uk-margin-small-bottom uk-nestable"
-                            data-uk-nestable="{ maxDepth: 2, handleClass: 'md-list-content' }">
-                            <li class="uk-nestable-item"
-                                ng-class="{'md-list-item-disabled': task.closed}"
-                                ng-repeat="task in list.tasks">
+                        <ul class="md-list md-list-addon uk-margin-small-bottom">
+                            <li ng-repeat="topic in vm.topics">
                                 <div class="md-list-addon-element">
-                                    <input type="checkbox" icheck
-                                        ng-model="task.closed" />
+                                   <i ng-show="!topic.expand" ng-click="vm.expand(topic)" class="md-icon material-icons md-36">arrow_drop_down</i>
+                                    <i ng-show="topic.expand" ng-click="vm.collapse(topic)"  class="md-icon material-icons md-36">arrow_drop_up</i>
                                 </div>
                                 <div class="md-list-content">
                                     <a href="#" class="md-list-action">
-                                        <i
-                                            class="md-icon material-icons">&#xE872;</i>
+                                        <i class="md-icon material-icons " ng-click="vm.editTopic(topic)" ng-show="vm.member.member==topic.user._id || vm.member.role=='teacher'" data-uk-tooltip="{pos:'top'}" title="{{'ACTION.EDIT'|translate}}">edit</i>
+                                        <i class="md-icon material-icons " ng-click="vm.replyTopic(topic)"  data-uk-tooltip="{pos:'top'}" title="{{'ACTION.REPLY'|translate}}">reply</i>
+                                        <i class="md-icon material-icons uk-text-danger" ng-click="vm.removeTopic(topic)" ng-show="vm.member.role=='teacher'" data-uk-tooltip="{pos:'top'}" title="{{'ACTION.DELETE'|translate}}">delete</i>
                                     </a>
-                                    <span class="md-list-heading"
-                                        ng-class="{'uk-text-danger': task.important}">{{task.title}}</span>
-                                    <span class="uk-text-small"
-                                        ng-class="{'uk-text-danger': task.important, 'uk-text-muted': !task.important}">{{task.description}}</span>
+                                    <span class="md-list-heading">{{topic.content}}</span>
+                                    <span class="uk-text-small uk-text-muted">Last updated by {{topic.user.displayName}} on {{topic.updated | date :'dd-MM-yyyy'}}</span>
+                                    
                                 </div>
-                                <ul class="uk-nestable"
-                                    ng-if="task.subtasks">
-                                    <li class="uk-nestable-item"
-                                        ng-class="{'md-list-item-disabled': subtask.closed}"
-                                        ng-repeat="subtask in task.subtasks">
-                                        <div
-                                            class="md-list-addon-element">
-                                            <input type="checkbox"
-                                                icheck
-                                                ng-model="subtask.closed" />
-                                        </div>
+                                <ul class="md-list md-list-addon  uk-margin-small-bottom">
+                                    <li ng-repeat="post in topic.posts | parentPost">
                                         <div class="md-list-content">
                                             <a href="#"
                                                 class="md-list-action">
-                                                <i
-                                                    class="md-icon material-icons">&#xE872;</i>
+                                                <i class="md-icon material-icons " ng-click="vm.editPost(post)" ng-show="vm.member.member==post.user._id || vm.member.role=='teacher'" data-uk-tooltip="{pos:'top'}" title="{{'ACTION.EDIT'|translate}}">edit</i>
+                                                 <i class="md-icon material-icons " ng-click="vm.replyPost(post)"  data-uk-tooltip="{pos:'top'}" title="{{'ACTION.REPLY'|translate}}">reply</i>
+                                                <i class="md-icon material-icons uk-text-danger" ng-click="vm.removePost(post)" ng-show="vm.member.role=='teacher'" data-uk-tooltip="{pos:'top'}" title="{{'ACTION.DELETE'|translate}}">delete</i>
                                             </a>
-                                            <span
-                                                class="md-list-heading"
-                                                ng-class="{'uk-text-danger': subtask.important}">{{subtask.title}}</span>
-                                            <span class="uk-text-small"
-                                                ng-class="{'uk-text-danger': subtask.important, 'uk-text-muted': !subtask.important}">{{subtask.description}}</span>
+                                            <span>{{post.content}}</span>
+                                            <span class="uk-text-small uk-text-muted">Last updated by {{post.user.displayName}} on {{post.updated | date :'dd-MM-yyyy'}}</span>
                                         </div>
+                                        
+                                        <ul class="md-list md-list-addon  uk-margin-small-bottom">
+                                        <li ng-repeat="comment in topic.posts | childPost:post">
+                                            <div class="md-list-content">
+                                                <a href="#"
+                                                    class="md-list-action">
+                                                    <i class="md-icon material-icons " ng-click="vm.editPost(comment)" ng-show="vm.member.member==comment.user._id || vm.member.role=='teacher'" data-uk-tooltip="{pos:'top'}" title="{{'ACTION.EDIT'|translate}}">edit</i>
+                                                    <i class="md-icon material-icons uk-text-danger" ng-click="vm.removePost(comment)" ng-show="vm.member.role=='teacher'" data-uk-tooltip="{pos:'top'}" title="{{'ACTION.DELETE'|translate}}">delete</i>
+                                                </a>
+                                                <span class="uk-text-small uk-text-muted">{{post.content}}</span>
+                                                <span class="uk-text-small uk-text-muted">Last updated by {{post.user.displayName}} on {{post.updated | date :'dd-MM-yyyy'}}</span>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                
                                     </li>
                                 </ul>
                             </li>
                         </ul>
-                        <a href="#"
-                            class="md-btn md-btn-flat md-btn-flat-primary">Add
-                            new task</a>
-                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
 <div class="md-fab-wrapper" ng-show="!vm.alert">
-    <a class="md-fab md-fab-accent" href="#new_todo" data-uk-tooltip="{pos:'top'}" title="{{'ACTION.NEW_TOPIC'}}" >
+    <a ng-click="vm.createTopic()" class="md-fab md-fab-accent" href="#new_todo" data-uk-tooltip="{pos:'top'}" title="{{'ACTION.NEW_TOPIC'|translate}}" >
         <i class="material-icons">&#xE03B;</i>
     </a>
 </div>

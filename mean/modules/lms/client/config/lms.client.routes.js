@@ -290,7 +290,9 @@
         controller: 'CoursesGradebookController',
         controllerAs: 'vm',
         resolve: {
-            memberResolve: getMember
+            memberResolve: getMember,
+            editionResolve: getEdition,
+            courseResolve: getCourse
         },
         data: {
           roles: ['user'],
@@ -303,7 +305,9 @@
         controller: 'CoursesGradeboardController',
         controllerAs: 'vm',
         resolve: {
-            memberResolve: getMember
+            memberResolve: getMember,
+            editionResolve: getEdition,
+            courseResolve: getCourse
         },
         data: {
           roles: ['user'],

@@ -15,7 +15,7 @@
       update: {
         method: 'PUT'
       },
-      byCourse: {
+      byForum: {
           url:'/api/topics/byForum/:forumId',
           method: 'GET',
           isArray: true
