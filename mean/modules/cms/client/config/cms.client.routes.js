@@ -65,7 +65,7 @@
         }
       })
       .state('admin.workspace.cms.course-members', {
-        url: '/:courseId/members',
+        url: '/members/:courseId',
         templateUrl: '/modules/cms/client/views/list-course.members.client.view.html',
         controller: 'CourseMembersController',
         controllerAs: 'vm',

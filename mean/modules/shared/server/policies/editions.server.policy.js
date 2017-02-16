@@ -44,6 +44,9 @@ exports.invokeRolesPolicies = function () {
       resources: '/api/editions',
       permissions: ['get']
     }, {
+        resources: '/api/editions/byCourse/:courseId',
+        permissions: ['get']
+      }, {
       resources: '/api/editions/:editionId',
       permissions: ['get']
     }]

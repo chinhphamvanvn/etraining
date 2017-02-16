@@ -160,7 +160,7 @@
         }
       })
       .state('workspace.lms.courses.grade', {
-        url: '/:courseId/:editionId/grade',
+        url: '/grade/:courseId/:editionId',
         templateUrl: '/modules/lms/client/views/teacher/grade-course.client.view.html',
         controller: 'CoursesGradeController',
         controllerAs: 'vm',
@@ -175,12 +175,13 @@
         }
       })
       .state('workspace.lms.courses.join', {
-        url: '/:courseId/join',
+        url: '/join/:courseId/:editionId',
         templateUrl: '/modules/lms/client/views/course-board/join-course.client.view.html',
         controller: 'CoursesJoinController',
         controllerAs: 'vm',
         resolve: {
-          courseResolve: getCourse
+          courseResolve: getCourse,
+          editionResolve: getEdition
         },
         data: {
           roles: ['user'],
@@ -292,7 +293,8 @@
         resolve: {
             memberResolve: getMember,
             editionResolve: getEdition,
-            courseResolve: getCourse
+            courseResolve: getCourse,
+            gradeResolve: getGradescheme
         },
         data: {
           roles: ['user'],
@@ -340,12 +342,16 @@
   getEdition.$inject = ['$stateParams', 'CourseEditionsService'];
 
   function getEdition($stateParams, CourseEditionsService) {
+      if ($stateParams.editionId)
+          return CourseEditionsService.get({editionId:$stateParams.editionId}).$promise;
       return  CourseEditionsService.byCourse({courseId:$stateParams.courseId}).$promise;
   }
   
   getGradescheme.$inject = ['$stateParams', 'GradeSchemesService', '$q'];
 
   function getGradescheme($stateParams, GradeSchemesService, $q) {
+      if ($stateParams.schemeId)
+          return GradeSchemesService.get({schemeId:$stateParams.schemeId}).$promise;
       return $q(function(resolve, reject) {
           var scheme = GradeSchemesService.byEdition({editionId:$stateParams.editionId},function(data) {
           resolve(data);
@@ -365,6 +371,8 @@
   getHtml.$inject = ['$stateParams', 'EditionSectionsService','HtmlsService', '$q'];
 
   function getHtml($stateParams, EditionSectionsService, HtmlsService, $q) {
+      if ($stateParams.htmlId)
+          return HtmlsService.get({htmlId:$stateParams.htmlId}).$promise;
       return $q(function(resolve, reject) {
           EditionSectionsService.get({sectionId:$stateParams.sectionId},function(section) {
               if (section.html) {
@@ -389,6 +397,8 @@
   getQuiz.$inject = ['$stateParams', 'EditionSectionsService','ExamsService', '$q'];
 
   function getQuiz($stateParams, EditionSectionsService, ExamsService, $q) {
+      if ($stateParams.examId)
+          return ExamsService.get({examId:$stateParams.examId}).$promise;
       return $q(function(resolve, reject) {
           EditionSectionsService.get({sectionId:$stateParams.sectionId},function(section) {
               if (section.quiz) {
@@ -416,6 +426,8 @@
   getVideo.$inject = ['$stateParams', 'EditionSectionsService','VideosService', '$q'];
 
   function getVideo($stateParams, EditionSectionsService, VideosService, $q) {
+      if ($stateParams.videoId)
+          return VideosService.get({videoId:$stateParams.videoId}).$promise;
       return $q(function(resolve, reject) {
           EditionSectionsService.get({sectionId:$stateParams.sectionId},function(section) {
               if (section.video) {
@@ -440,6 +452,8 @@
   getMember.$inject = ['$stateParams', 'CourseMembersService','localStorageService'];
 
   function getMember($stateParams, CourseMembersService,localStorageService) {
+      if ($stateParams.memberId)
+          return CourseMembersService.get({memberId:$stateParams.memberId}).$promise;
     return CourseMembersService.meByCourse({courseId:$stateParams.courseId,userId:localStorageService.get('userId')}).$promise;
   }
   

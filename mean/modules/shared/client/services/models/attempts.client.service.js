@@ -19,7 +19,12 @@
           url:'/api/attempts/byCourseAndMember/:editionId/:memberId',
           method: 'GET',
           isArray: true
-        }
+        },
+        bySectionAndMember: {
+            url:'/api/attempts/bySectionAndMember/:editionId/:sectionId/:memberId',
+            method: 'GET',
+            isArray: true
+          }
     });
   }
 }());

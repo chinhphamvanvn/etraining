@@ -19,6 +19,7 @@ function MyCoursesListController($scope, $state, $window, Authentication, $timeo
                 member.course.percentage = 100;
             if (member.enrollmentStatus =='in-study') {
                 CourseEditionsService.byCourse({courseId:member.course._id},function(edition) {
+                    member.edition = edition;
                     var sections = EditionSectionsService.byEdition({editionId:edition._id}, function() {
                         var attempts = CourseAttemptsService.byCourseAndMember({editionId:edition._id,memberId:member._id},function() {
                             var total =0;
@@ -33,7 +34,7 @@ function MyCoursesListController($scope, $state, $window, Authentication, $timeo
                                         complete++;
                                 }
                             });
-                            member.course.percentage = complete * 100 / total;
+                            member.course.percentage = Math.floor(complete * 100 / total);
                         });
                     });
                 });

@@ -5,9 +5,9 @@
   // Unless the user is on a small device, because this could obscure the page with a keyboard
 
   angular.module('core')
-    .directive('courseCard', ['OptionsService','QuestionsService','_', courseCard]);
+    .directive('courseCard', ['OptionsService','CourseEditionsService','_', courseCard]);
 
-  function courseCard(OptionsService,QuestionsService,_) {
+  function courseCard(OptionsService,CourseEditionsService,_) {
       
       return {
           scope: {
@@ -15,7 +15,7 @@
           },
           templateUrl:'/modules/core/client/directives/course-card/course.card.directive.client.view.html',
           link: function (scope, element, attributes) {
-              
+              scope.edition = CourseEditionsService.byCourse({courseId:scope.course._id});
           }
       }
   }

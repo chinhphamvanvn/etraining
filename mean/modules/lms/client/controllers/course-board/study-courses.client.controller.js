@@ -56,11 +56,11 @@ function CoursesStudyController($scope, $state, $window, HtmlsService,ExamsServi
         vm.selectedContentNode = node;
         vm.section = node.data;
         if (node.data.contentType=='html')
-            $state.go('workspace.lms.courses.join.study.html',{sectionId:node.data._id});
+            $state.go('.html',{sectionId:node.data._id});
         if (node.data.contentType=='test')
-            $state.go('workspace.lms.courses.join.study.quiz',{sectionId:node.data._id});
+            $state.go('.quiz',{sectionId:node.data._id});
         if (node.data.contentType=='video')
-            $state.go('workspace.lms.courses.join.study.video',{sectionId:node.data._id});
+            $state.go('.video',{sectionId:node.data._id});
     }
     
     function toggleExpand(node) {

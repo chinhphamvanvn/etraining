@@ -13,6 +13,10 @@ function CoursesStudyQuizController($scope, $state, $window, QuestionsService,Ex
     vm.edition = edition;
     vm.member = member;
     vm.section = section;
+    if (vm.member.enrollmentStatus=='completed') {
+        vm.alert = $translate.instant('ERROR.COURSE_STUDY.COURSE_ALREADY_COMPLETE');
+        return;
+    }
     if (vm.section.quiz) {
         vm.quiz = ExamsService.get({examId:vm.section.quiz},function() {
             vm.attempts = CourseAttemptsService.byCourseAndMember({editionId:vm.edition._id,memberId:vm.member._id},function() {

@@ -1,26 +1,36 @@
 
 <div id="page_content">
     <div id="page_content_inner">
-        <div class="uk-width-medium-8-10 uk-container-center">
-            <div class="md-card md-card-single" single-card>
-                <div class="md-card-toolbar">
-                    <h3 class="md-card-toolbar-heading-text large">
-                        {{'PAGE.LMS.MY_COURSES.STUDENT_BOARD.GRADEBOOK'|translate}}
-                    </h3>
-                </div>
+        <div class="uk-width-medium-1-1 uk-container-center">
+             
+                    
+            <div class="md-card">
                 <div class="md-card-content">
+                            
+                    
+                    <h3 class="heading_b">
+                        {{'PAGE.LMS.MY_COURSES.STUDENT_BOARD.PROGRESS_CHART'|translate}}
+                    </h3>
+                    
+                    <div class="uk-margin">
+                    <div id="progress_chart" class="c3chart"></div>
+                    </div>
+                    
                     <div ng-repeat="node in vm.nodes">
                         <div class="uk-grid uk-grid-divider" data-uk-grid-margin >
                         
                             <div class="uk-width-medium-1-4" >
-                                      <span class="heading_c">{{node.data.name}}</span>
+                                      <span class="heading_b">{{node.data.name}}</span>
                             </div>
                             <div class="uk-width-medium-3-4" >
-                                <h3 class="heading_c uk-margin-bottom uk-text-primary" ng-repeat="childNode in node.childList">
-                                    {{childNode.data.name}}
-                                    <span class="sub-heading" ng-show="childNode.data.questions.length==0">{{'ERROR.COURSE_STUDY.QUESTION_NOT_FOUND'|translate}}</span>
-                                    <span class="sub_heading" ng-show="childNode.data.questions.length">{{'PAGE.LMS.MY_COURSES.COURSE_GRADE.EXAM_RESULT'|translate}} </span>
+                                <div ng-repeat="childNode in node.childList" class="uk-margin-bottom">
+                                <h3 class="heading_c uk-margin-bottom uk-text-primary" >
+                                    {{childNode.data.name}} ({{childNode.quiz.correctCount}}/{{childNode.quiz.questions.length}})
                                 </h3>
+                                <span class="sub-heading uk-margin-right" ng-show="!childNode.quiz || childNode.quiz.questions.length==0">{{'ERROR.COURSE_STUDY.QUESTION_NOT_FOUND'|translate}}</span>
+                                    <span class="sub_heading uk-margin-right" ng-show="childNode.quiz.questions.length">{{'PAGE.LMS.MY_COURSES.COURSE_GRADE.EXAM_RESULT'|translate}}: </span>
+                                <span ng-repeat="question in childNode.quiz.questions" class="uk-margin-right">{{question.mark}}/{{question.score}} </span>
+                                </div>
                             </div>
                             
                          </div>

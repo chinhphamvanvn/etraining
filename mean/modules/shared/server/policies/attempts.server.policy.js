@@ -20,7 +20,10 @@ exports.invokeRolesPolicies = function () {
     },{
         resources: '/api/attempts/byCourseAndMember/:editionId/:memberId',
         permissions: ['get']
-      },
+      },{
+          resources: '/api/attempts/bySectionAndMember/:editionId/:sectionId/:memberId',
+          permissions: ['get']
+        },
         {
       resources: '/api/attempts/:attemptId',
       permissions: '*'
@@ -33,7 +36,10 @@ exports.invokeRolesPolicies = function () {
     }, {
         resources: '/api/attempts/byCourseAndMember/:editionId/:memberId',
         permissions: ['get']
-      },{
+      }, {
+          resources: '/api/attempts/bySectionAndMember/:editionId/:sectionId/:memberId',
+          permissions: ['get']
+        },{
       resources: '/api/attempts/:attemptId',
       permissions: ['get']
     }]

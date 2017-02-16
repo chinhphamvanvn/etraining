@@ -7,7 +7,7 @@
   angular.module('lms')
     .directive('courseViewSimple', ['GroupsService','CoursesService','_', courseViewSimple]);
 
-  function courseViewSimple(GroupsService,CoursesService,_) {
+  function courseViewSimple(GroupsService,CourseEditionsService,_) {
       
       return {
           scope: {
@@ -15,7 +15,7 @@
           },
           templateUrl:'/modules/lms/client/directives/course-view-simple/view-course.directive.client.view.html',
           link: function (scope, element, attributes) {
-             
+              scope.edition = CourseEditionsService.byCourse({courseId:scope.course._id});
           }
       }
   }

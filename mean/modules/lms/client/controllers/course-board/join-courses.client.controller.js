@@ -5,12 +5,13 @@
       .module('lms')
       .controller('CoursesJoinController', CoursesJoinController);
 
-    CoursesJoinController.$inject = [ '$scope', '$rootScope','$state', '$stateParams', 'Authentication','UsersService', 'courseResolve', '$window', 'GroupsService', 'Notification', 'CourseMembersService','localStorageService', '_'];
+    CoursesJoinController.$inject = [ '$scope', '$rootScope','$state', '$stateParams', 'Authentication','UsersService', 'courseResolve', 'editionResolve', '$window', 'GroupsService', 'Notification', 'CourseEditionsService', 'CourseMembersService','localStorageService', '_'];
 
-    function CoursesJoinController( $scope,$rootScope, $state, $stateParams, Authentication,UsersService, course, $window, GroupsService, Notification, CourseMembersService,localStorageService, _) {
+    function CoursesJoinController( $scope,$rootScope, $state, $stateParams, Authentication,UsersService, course, edition, $window, GroupsService, Notification, CourseEditionsService, CourseMembersService,localStorageService, _) {
       var vm = this;
       vm.user = Authentication.user;
       vm.course = course;
+      vm.edition = edition;
       vm.gotoWorkspace = gotoWorkspace;
       
       $rootScope.toBarActive = true;

@@ -88,6 +88,7 @@
 	"PAGE.LMS.MY_COURSES.STUDENT_BOARD.COURSE_INFO":"Thông tin khóa học",
 	"PAGE.LMS.MY_COURSES.STUDENT_BOARD.COURSE_OUTLINE":"Chương trình học",
 	"PAGE.LMS.MY_COURSES.STUDENT_BOARD.FORUM":"Thảo luận",
+	"PAGE.LMS.MY_COURSES.STUDENT_BOARD.PROGRESS_CHART":"Biểu đồ học tập",
 	"PAGE.LMS.MY_COURSES.STUDENT_BOARD.GRADEBOOK":"Sổ điểm",
 	"PAGE.LMS.MY_COURSES.STUDENT_BOARD.CLASSROOM":"Phòng học ảo",
 	"PAGE.LMS.MY_COURSES.PROGRESS":"Khối lượng hoàn thành ",
@@ -320,6 +321,7 @@
 	"COMMON.FAIL":"Trượt",
 	"ERROR.COURSE_STUDY.MAX_ATTEMPT_EXCEED":"Bạn đã hết lượt làm bài thi",
 	"ERROR.COURSE_STUDY.QUESTION_NOT_FOUND":"Bài thi không có câu hỏi",
+	"ERROR.COURSE_STUDY.COURSE_ALREADY_COMPLETE":"Bạn đã hoàn thành khóa học",
 	"ERROR.COURSE_REGISTER.UNAVAILABLE":"Khóa học chưa sẵn sàng",
 	"ERROR.COURSE_REGISTER.UNAVAILABLE":"Khóa học chưa sẵn sàng",
 	"ERROR.COURSE_REGISTER.ENROLL_UNAVAILABLE":"Khóa học chưa cho phép đăng ký",
@@ -329,5 +331,9 @@
 	"ERROR.COURSE_REGISTER.ENROLL_EXPIRED":"Khóa học đã hết hạn đăng ký",
 	"ERROR.COURSE_REGISTER.ENROLL_RESTRICTED":"Khóa học giới hạn thành viên đăng ký",
 	"ERROR.COURSE_REGISTER.CLASS_UNAVAILABLE":"Chưa có lớp học trực tuyến",
-	"ERROR.COURSE_FORUM_UNAVAILABLE":"Khóa học chưa có chức năng thảo luận"
+	"ERROR.COURSE_FORUM_UNAVAILABLE":"Khóa học chưa có chức năng thảo luận",
+	"REPORT.STUDENT_MARK.SCORE":"Điểm học viên",
+	"REPORT.STUDENT_MARK.MAX_SCORE":"Điểm tối đa",
+	"REPORT.STUDENT_MARK.PASSMARK":"Điểm đỗ",
+	"REPORT.STUDENT_MARK.SUMMARY":"Tổng cộng"
 }
