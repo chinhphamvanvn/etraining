@@ -119,11 +119,6 @@ function insertSetting(options) {
             if (err || !settingRecord) {
                 var setting = new Setting(obj);
                 setting.save();
-            } else {
-                settingRecord.name =  obj.name;
-                settingRecord.value = obj.value;
-                settingRecord.category = obj.category;
-                settingRecord.update();
             }
         });
         

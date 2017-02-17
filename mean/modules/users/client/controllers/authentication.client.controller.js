@@ -5,9 +5,9 @@
     .module('users')
     .controller('AuthenticationController', AuthenticationController);
 
-  AuthenticationController.$inject = [ '$scope','$rootScope', '$state', '$stateParams', 'UsersService', '$location', '$window', 'Authentication', 'Notification', 'localStorageService','utils'];
+  AuthenticationController.$inject = [ '$scope','$rootScope', '$state', '$stateParams', 'UsersService', '$location', '$window', 'Authentication', 'Notification','SettingsService', 'localStorageService','utils'];
 
-  function AuthenticationController( $scope, $rootScope, $state, $stateParams, UsersService, $location, $window, Authentication, Notification, localStorageService,utils) {
+  function AuthenticationController( $scope, $rootScope, $state, $stateParams, UsersService, $location, $window, Authentication, Notification, SettingsService, localStorageService,utils) {
     var vm = this;
     vm.authentication = Authentication;
     vm.signup = signup;
@@ -19,6 +19,10 @@
     vm.registerForm = registerForm;
     vm.passwordReset = passwordReset;
     vm.askForPasswordReset =  askForPasswordReset;
+    SettingsService.registerMode().then(function(data) {
+        vm.registerSetting = data;
+    });
+    
     vm.registerFormActive = $state.current.data.action == 'register';
     var $login_card = $('#login_card'),
     $login_form = $('#login_form'),

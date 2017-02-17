@@ -5,13 +5,17 @@
     .module('core')
     .controller('HomeController', HomeController);
 
-  HomeController.$inject = ['$scope', '$state', 'Authentication', 'CoursesService','CourseMembersService','AnnoucementsService', '_'];
+  HomeController.$inject = ['$scope', '$state', 'Authentication', 'CoursesService','CourseMembersService','SettingsService', 'AnnoucementsService', '_'];
   
-  function HomeController($scope, $state, Authentication, CoursesService, CourseMembersService, AnnoucementsService, _) {
+  function HomeController($scope, $state, Authentication, CoursesService, CourseMembersService,SettingsService, AnnoucementsService, _) {
     var vm = this;
     vm.user = Authentication.user;
     vm.authentication = Authentication;
     vm.gotoWorkspace = gotoWorkspace;
+    SettingsService.registerMode().then(function(data) {
+        vm.registerSetting = data;
+    });
+    
     
     function gotoWorkspace() {
         if (_.contains(vm.user.roles,'admin'))

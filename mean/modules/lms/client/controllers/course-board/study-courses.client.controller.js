@@ -91,11 +91,14 @@ function CoursesStudyController($scope, $state, $window, HtmlsService,ExamsServi
             index = _.findIndex(vm.nodeList,function(node) {
                 return node.id == vm.selectedNode.id;
             })-1;
-        while (index >=0 && !vm.nodeList[index].data.hasContent)
-            index--;
-        if (index >=0)
-            selectContentNode(vm.nodeList[index]);
+            while (index >=0 && !vm.nodeList[index].data.hasContent)
+                index--;
+            if (index >=0) {
+                vm.selectedNode = vm.nodeList[index];
+                selectContentNode(vm.nodeList[index]);
+            }
         }
+        
     }
     
     function nextSection() {
@@ -104,10 +107,12 @@ function CoursesStudyController($scope, $state, $window, HtmlsService,ExamsServi
             index = _.findIndex(vm.nodeList,function(node) {
                 return node.id == vm.selectedNode.id;
             })+1;
-        while (index <vm.nodeList.length && !vm.nodeList[index].data.hasContent)
-            index++;
-        if (index <vm.nodeList.length )
-            selectContentNode(vm.nodeList[index]);
+            while (index <vm.nodeList.length && !vm.nodeList[index].data.hasContent)
+                index++;
+            if (index <vm.nodeList.length )  {
+                vm.selectedNode = vm.nodeList[index];
+                selectContentNode(vm.nodeList[index]);
+            }
         }
     }
    

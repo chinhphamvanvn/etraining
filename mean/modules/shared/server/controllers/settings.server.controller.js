@@ -33,7 +33,6 @@ exports.create = function(req, res) {
 exports.read = function(req, res) {
   // convert mongoose document to JSON
   var setting = req.setting ? req.setting.toJSON() : {};
-
   // Add a custom field to the Article, for determining if the current User is the "owner".
   // NOTE: This field is NOT persisted to the database, since it doesn't exist in the Article model.
   setting.isCurrentUserOwner = req.user && setting.user && setting.user._id.toString() === req.user._id.toString();
@@ -116,14 +115,13 @@ exports.settingByID = function(req, res, next, id) {
   });
 };
 
-exports.settingByCode = function(req, res, next, id) {
-
-    Setting.findOne({code:req.params.code}).populate('user', 'displayName').exec(function (err, setting) {
+exports.settingByCode = function(req, res, next, code) {
+    Setting.findOne({code:code}).populate('user', 'displayName').exec(function (err, setting) {
       if (err) {
         return next(err);
       } else if (!setting) {
         return res.status(404).send({
-          message: 'No Setting with that identifier has been found'
+          message: 'No Setting with that code has been found'
         });
       }
       req.setting = setting;

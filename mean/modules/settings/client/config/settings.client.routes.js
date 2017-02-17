@@ -30,7 +30,7 @@
       })
     .state('admin.workspace.settings.alert', {
         url: '/alert',
-        templateUrl: '/modules/settings/client/views/alert.client.view.html',
+        templateUrl: '/modules/settings/client/views/settings-alert.client.view.html',
         controller: 'AlertSettingsController',
         controllerAs: 'vm',
         data: {

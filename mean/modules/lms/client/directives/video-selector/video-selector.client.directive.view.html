@@ -15,15 +15,15 @@
                 </div>
             </div>
             <div>
-            <span class="uk-form-file md-btn md-btn-icon" ng-show="!recordMode">
+            <span class="uk-form-file md-btn md-btn-icon">
                 <i class="uk-icon-upload"></i>
                 {{'ACTION.CHOOSE_FILE'|translate}}
                 <input id="file_upload-select" type="file">
             </span>
             </div>
         </div>
-        <div id="file_upload-progressbar" class="uk-progress uk-hidden">
-            <div class="uk-progress-bar" style="width: 0">0%</div>
+        <div id="file_upload-progressbar" class="uk-progress" ng-show="showProgress">
+            <div id="progress_bar" class="uk-progress-bar" style="width: 0">0%</div>
         </div>
     </div>
 </div>

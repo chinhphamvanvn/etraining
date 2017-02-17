@@ -19,6 +19,12 @@ var SettingSchema = new Schema({
         default: '',
         trim: true
     },
+    valueNumber: {
+        type: Number,
+    },
+    valueBoolean: {
+        type: Boolean,
+    },
     code: {
         type: String,
         unique : true

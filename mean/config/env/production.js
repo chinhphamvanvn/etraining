@@ -114,46 +114,132 @@ module.exports = {
       settings: [
                  {
                      name:'contactEmail',
-                     value:'',
+                     edit: true,
+                     type:'String',
+                     valueString:'',
                      code:'CONTACT_EMAIL',
                      category:'system'
                   },
                   {
                       name:'registerMode',
-                      value:'open',
+                      edit: true,
+                      type:'String',
+                      valueString:'open',
                       code:'REGISTER_MODE',
                       category:'system'
                    }
                   ,{
                       name:'maxLoginAttempt',
-                      value:'6',
+                      edit: true,
+                      type:'Number',
+                      valueNumber:6,
                       code:'MAX_LOGIN_ATTEMPT',
                       category:'system'
                    },
                    {
                        name:'concurrentLogin',
-                       value:'true',
+                       edit: true,
+                       type:'Boolean',
+                       valueBoolean:true,
                        code:'CONCURRENT_LOGIN',
                        category:'system'
                     },
-                   {
-                       name:'vietInterviewConferenceApiAdminUrl',
-                       value:'',
-                       code:'BUILT_INT_CONFERENCE_ADMIN_API',
-                       category:'conference'
-                    },
                     {
                         name:'vietInterviewConferenceApiUrl',
-                        value:'',
+                        edit: true,
+                        type:'String',
+                        valueString:'',
                         code:'BUILT_INT_CONFERENCE_API',
                         category:'conference'
                      },
                      {
                          name:'vietInterviewConferenceApiSalt',
-                         value:'',
+                         edit: true,
+                         type:'String',
+                         valueString:'',
                          code:'BUILT_INT_CONFERENCE_API_SALT',
                          category:'conference'
-                      }
+                      },
+                      {
+                          name:'alertUserCreate',
+                          edit: true,
+                          type:'Boolean',
+                          valueBoolean:true,
+                          code:'ALERT_USER_CREATE',
+                          category:'alert'
+                       },
+                       {
+                           name:'alertUserUpdated',
+                           edit: true,
+                           type:'Boolean',
+                           valueBoolean:true,
+                           code:'ALERT_USER_UPDATE',
+                           category:'alert'
+                        },
+                        {
+                            name:'alertUserDelete',
+                            edit: true,
+                            type:'Boolean',
+                            valueBoolean:true,
+                            code:'ALERT_USER_DELETE',
+                            category:'alert'
+                         },
+                         {
+                             name:'alertMemberEnroll',
+                             edit: true,
+                             type:'Boolean',
+                             valueBoolean:true,
+                             code:'ALERT_MEMBER_ENROLL',
+                             category:'alert'
+                          },
+                          {
+                              name:'alertMemberWithdraw',
+                              edit: true,
+                              type:'Boolean',
+                              valueBoolean:true,
+                              code:'ALERT_MEMBER_WIDTHDRAW',
+                              category:'alert'
+                           },
+                           {
+                               name:'alertMemberComplete',
+                               edit: true,
+                               type:'Boolean',
+                               valueBoolean:true,
+                               code:'ALERT_MEMBER_COMPLETE',
+                               category:'alert'
+                            },
+                            {
+                                name:'alertCourseUpdate',
+                                edit: true,
+                                type:'Boolean',
+                                valueBoolean:true,
+                                code:'ALERT_COURSE_UPDATE',
+                                category:'alert'
+                             },
+                             {
+                                 name:'alertThreadNew',
+                                 edit: true,
+                                 type:'Boolean',
+                                 valueBoolean:true,
+                                 code:'ALERT_THREAD_NEW',
+                                 category:'alert'
+                              },
+                              {
+                                  name:'alertReplyNew',
+                                  edit: true,
+                                  type:'Boolean',
+                                  valueBoolean:true,
+                                  code:'ALERT_REPLY_NEW',
+                                  category:'alert'
+                               },
+                               {
+                                   name:'alertCourseMaterialUpdate',
+                                   edit: true,
+                                   type:'Boolean',
+                                   valueBoolean:true,
+                                   code:'ALERT_COURSE_MATERIAL_UPDATE',
+                                   category:'alert'
+                                }
              ]
     }
   }

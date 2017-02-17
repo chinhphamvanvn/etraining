@@ -9,42 +9,39 @@
   SettingsService.$inject = ['$resource'];
 
   function SettingsService($resource) {
-    return $resource('/api/settings/:settingId', {
+    var Settings =  $resource('/api/settings/:settingId', {
       settingId: '@_id'
     }, {
       update: {
         method: 'PUT'
       },
-      registerMode: {
+      byCode: {
           method: 'GET',
           url:'/api/settings/byCode/:code',
-          params:{code:'REGISTER_MODE'}
-        },
-        contactEmail: {
-            method: 'GET',
-            url:'/api/settings/byCode/:code',
-            params:{code:'CONTACT_EMAIL'}
-          },
-          maxLoginAttempt: {
-              method: 'GET',
-              url:'/api/settings/byCode/:code',
-              params:{code:'MAX_LOGIN_ATTEMPT'}
-            },
-            concurrentLogin: {
-                method: 'GET',
-                url:'/api/settings/byCode/:code',
-                params:{code:'CONCURRENT_LOGIN'}
-              },  
-              vietInterviewConferenceApiUrl: {
-                  method: 'GET',
-                  url:'/api/settings/byCode/:code',
-                  params:{code:'BUILT_IN_CONFERENCE_API'}
-                },  
-                vietInterviewConferenceApiSalt: {
-                    method: 'GET',
-                    url:'/api/settings/byCode/:code',
-                    params:{code:'BUILT_IN_CONFERENCE_API_SALT'}
-                  }
+        }
     });
+    
+    angular.extend(Settings, {
+        registerMode: function () {
+          return this.byCode({code:'REGISTER_MODE'}).$promise;
+        },
+        contactEmail: function () {
+            return this.byCode({code:'CONTACT_EMAIL'}).$promise;
+        },
+        maxLoginAttempt: function () {
+            return this.byCode({code:'MAX_LOGIN_ATTEMPT'}).$promise;
+          },
+      concurrentLogin: function () {
+          return this.byCode({code:'CONCURRENT_LOGIN'}).$promise;
+        },
+        vietInterviewConferenceApiUrl: function () {
+            return this.byCode({code:'BUILT_IN_CONFERENCE_API'}).$promise;
+          },
+          vietInterviewConferenceApiSalt: function () {
+              return this.byCode({code:'BUILT_IN_CONFERENCE_API_SALT'}).$promise;
+            }
+      });
+    
+    return Settings;
   }
 }());

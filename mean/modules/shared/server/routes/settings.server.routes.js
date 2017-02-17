@@ -13,7 +13,7 @@ module.exports = function(app) {
     .post(settings.create);
 
   app.route('/api/settings/byCode/:code').all(settingsPolicy.isAllowed)
-  .get(settings.settingByCode);
+  .get(settings.read);
   
   app.route('/api/settings/:settingId').all(settingsPolicy.isAllowed)
     .get(settings.read)
@@ -22,4 +22,5 @@ module.exports = function(app) {
 
   // Finish by binding the Setting middleware
   app.param('settingId', settings.settingByID);
+  app.param('code', settings.settingByCode);
 };

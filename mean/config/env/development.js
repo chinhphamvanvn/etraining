@@ -140,7 +140,87 @@ module.exports = {
                          valueString:'',
                          code:'BUILT_INT_CONFERENCE_API_SALT',
                          category:'conference'
-                      }
+                      },
+                      {
+                          name:'alertUserCreate',
+                          edit: true,
+                          type:'Boolean',
+                          valueBoolean:true,
+                          code:'ALERT_USER_CREATE',
+                          category:'alert'
+                       },
+                       {
+                           name:'alertUserUpdated',
+                           edit: true,
+                           type:'Boolean',
+                           valueBoolean:true,
+                           code:'ALERT_USER_UPDATE',
+                           category:'alert'
+                        },
+                        {
+                            name:'alertUserDelete',
+                            edit: true,
+                            type:'Boolean',
+                            valueBoolean:true,
+                            code:'ALERT_USER_DELETE',
+                            category:'alert'
+                         },
+                         {
+                             name:'alertMemberEnroll',
+                             edit: true,
+                             type:'Boolean',
+                             valueBoolean:true,
+                             code:'ALERT_MEMBER_ENROLL',
+                             category:'alert'
+                          },
+                          {
+                              name:'alertMemberWithdraw',
+                              edit: true,
+                              type:'Boolean',
+                              valueBoolean:true,
+                              code:'ALERT_MEMBER_WIDTHDRAW',
+                              category:'alert'
+                           },
+                           {
+                               name:'alertMemberComplete',
+                               edit: true,
+                               type:'Boolean',
+                               valueBoolean:true,
+                               code:'ALERT_MEMBER_COMPLETE',
+                               category:'alert'
+                            },
+                            {
+                                name:'alertCourseUpdate',
+                                edit: true,
+                                type:'Boolean',
+                                valueBoolean:true,
+                                code:'ALERT_COURSE_UPDATE',
+                                category:'alert'
+                             },
+                             {
+                                 name:'alertThreadNew',
+                                 edit: true,
+                                 type:'Boolean',
+                                 valueBoolean:true,
+                                 code:'ALERT_THREAD_NEW',
+                                 category:'alert'
+                              },
+                              {
+                                  name:'alertReplyNew',
+                                  edit: true,
+                                  type:'Boolean',
+                                  valueBoolean:true,
+                                  code:'ALERT_REPLY_NEW',
+                                  category:'alert'
+                               },
+                               {
+                                   name:'alertCourseMaterialUpdate',
+                                   edit: true,
+                                   type:'Boolean',
+                                   valueBoolean:true,
+                                   code:'ALERT_COURSE_MATERIAL_UPDATE',
+                                   category:'alert'
+                                },
              ]
           
       

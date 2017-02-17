@@ -82,7 +82,7 @@
                 </form>
             </div>
         </div>
-        <div class="uk-margin-top uk-text-center">
+        <div class="uk-margin-top uk-text-center" ng-show="!vm.registerSetting.valueString || vm.registerSetting.valueString=='open'">
             <a href="#" id="signup_form_show" ng-hide="vm.registerFormActive" ng-click="vm.registerForm($event)">{{'PAGE.AUTHENTICATION.CREATE_ACCOUNT'|translate}}</a>
         </div>
     </div>

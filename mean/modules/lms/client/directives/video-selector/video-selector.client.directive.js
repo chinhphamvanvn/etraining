@@ -62,8 +62,8 @@
                 video: '=', 
             },
             link: function(scope, element, attr) {
-                var progressbar = $("#file_upload-progressbar"),
-                bar         = progressbar.find('.uk-progress-bar'),
+                var progressbar = angular.element( document.getElementById( 'file_upload-progressbar' ) ),//$("#file_upload-progressbar"),
+                bar         =angular.element( document.getElementById( 'progress_bar' )),// progressbar.find('.uk-progress-bar'),
                 settings    = {
 
                     action: '/api/videos/upload', // upload url
@@ -80,6 +80,7 @@
                                 controls:false,
                                 muted:true
                         };
+                        scope.showProgress = true;
                         scope.$apply();
                     },
 
@@ -103,14 +104,15 @@
                                 controls:true,
                                 muted:false
                         };
+                        scope.showProgress = false;
                         scope.$apply();
                     }
                 };
 
                 var select = UIkit.uploadSelect($("#file_upload-select"), settings),
                 drop   = UIkit.uploadDrop($("#file_upload-drop"), settings);
-                
-                
+               
+                scope.showProgress =  false;
 
         }
         }}]);

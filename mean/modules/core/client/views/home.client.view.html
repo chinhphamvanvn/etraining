@@ -29,7 +29,7 @@
                         {{'PAGE.HOME.WORKSPACE'|translate}}
                     </a>
                     <a ui-sref="authentication.signup"
-                        ng-show="!vm.authentication.user"
+                        ng-show="!vm.authentication.user && (!vm.registerSetting ||vm.registerSetting.valueString=='open')"
                         class="md-btn md-btn-default header_cta uk-margin-left">{{'ACTION.SIGN_UP'|translate}}</a>
                     <a ui-sref="authentication.signin"
                         ng-show="!vm.authentication.user"
