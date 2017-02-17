@@ -101,7 +101,51 @@ module.exports = {
         lastName: 'Local',
         displayName: 'Admin Local',
         roles: ['user', 'admin']
-      }
+      },
+      settings: [
+                 {
+                     name:'contactEmail',
+                     value:'',
+                     code:'CONTACT_EMAIL',
+                     category:'system'
+                  },
+                  {
+                      name:'registerMode',
+                      value:'open',
+                      code:'REGISTER_MODE',
+                      category:'system'
+                   }
+                  ,{
+                      name:'maxLoginAttempt',
+                      value:'6',
+                      code:'MAX_LOGIN_ATTEMPT',
+                      category:'system'
+                   },
+                   {
+                       name:'concurrentLogin',
+                       value:'true',
+                       code:'CONCURRENT_LOGIN',
+                       category:'system'
+                    },
+                   {
+                       name:'vietInterviewConferenceApiAdminUrl',
+                       value:'',
+                       code:'BUILT_INT_CONFERENCE_ADMIN_API',
+                       category:'conference'
+                    },
+                    {
+                        name:'vietInterviewConferenceApiUrl',
+                        value:'',
+                        code:'BUILT_INT_CONFERENCE_API',
+                        category:'conference'
+                     },
+                     {
+                         name:'vietInterviewConferenceApiSalt',
+                         value:'',
+                         code:'BUILT_INT_CONFERENCE_API_SALT',
+                         category:'conference'
+                      }
+             ]
     }
   }
 };

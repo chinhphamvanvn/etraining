@@ -183,7 +183,7 @@ exports.list = function(req, res) {
  * List of Members in course
  */
 exports.memberByCourse = function(req, res) {
-    CourseMember.find({course:req.course._id}).sort('-created').populate('user', 'displayName').populate('member').exec(function(err, members) {
+    CourseMember.find({course:req.course._id}).sort('-created').populate('user', 'displayName').populate('member').populate('classroom').exec(function(err, members) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)

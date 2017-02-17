@@ -7,9 +7,13 @@
                     <div ng-if="member.role=='teacher'" class="md-card md-card-hover" >
                     <div class="md-card-toolbar">
                          <h3 class="md-card-toolbar-heading-text">
-                                <a class="md-btn md-btn-flat md-btn-flat-primary   md-btn-icon uk-margin-right" ui-sref="workspace.lms.courses.outline({courseId:member.course._id})">
+                                <a class="md-btn md-btn-flat md-btn-flat-primary   md-btn-icon uk-margin-right" ui-sref="workspace.lms.courses.outline.edit({courseId:member.course._id,editionId:member.edition._id})">
                                     <i class="uk-icon-book"></i>
                                     {{'PAGE.LMS.MY_COURSES.TEACHER_BOARD.COURSE_OUTLINE'|translate}}
+                                </a>
+                                <a class="md-btn md-btn-flat md-btn-flat-primary   md-btn-icon uk-margin-right" ui-sref="workspace.lms.courses.grade({courseId:member.course._id,editionId:member.edition._id})">
+                                    <i class="uk-icon-star-half-o"></i>
+                                    {{'PAGE.LMS.MY_COURSES.TEACHER_BOARD.GRADE_SCHEME'|translate}}
                                 </a>
                                 <a class="md-btn md-btn-flat md-btn-flat-primary   md-btn-icon uk-margin-right" ui-sref="workspace.lms.courses.join.intro({courseId:member.course._id,editionId:member.edition._id})">
                                     <i class="uk-icon-hand-pointer-o"></i>

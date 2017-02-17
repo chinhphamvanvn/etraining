@@ -1,0 +1,74 @@
+<div id="page_content">
+    <div id="page_content_inner">
+        <div class="md-card uk-margin-medium-bottom">
+                        <div class="md-card-toolbar">
+                    <h3 class="md-card-toolbar-heading-text large">
+                        {{'PAGE.LMS.MY_COURSES.COURSE_GRADE.STUDENT_LIST'|translate}}
+                    </h3>
+                </div>
+                <div class="md-card-content">
+                        <table  class="uk-table uk-table-nowrap">
+                            <thead>
+                            <tr>
+                                <th class="uk-width-1-10 uk-text-center">{{'MODEL.USER.AVATAR'|translate}}</th>
+                                <th class="uk-width-2-10 uk-text-center">{{'MODEL.USER.DISPLAY_NAME'|translate}}</th>
+                                <th class="uk-width-1-10 uk-text-center">{{'MODEL.MEMBER.REGISTER_DATE'|translate}}</th>
+                                <th class="uk-width-1-10  uk-text-center">{{'MODEL.MEMBER.STATUS'|translate}}</th>
+                                <th class="uk-width-1-10 uk-text-center">{{'MODEL.MEMBER.ENROLL_STATUS'|translate}}</th>
+                                <th class="uk-width-2-10 uk-text-center" ng-show="vm.course.model=='group'">{{'MODEL.MEMBER.CLASSROOM' | translate}}</th>
+                                <th class="uk-width-2-10 uk-text-center">{{'COMMON.ACTION' | translate}}</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="member in vm.members">
+                                <td class="uk-text-center"><img class="md-user-image" src="{{member.member.profileImageURL}}" alt=""/></td>
+                                <td class="uk-text-center">{{member.member.displayName}}</td>
+                                <td class="uk-text-center">{{member.registered | date:'dd-MM-yyyy'}}</td>
+                                <td class="uk-text-center">
+                                    <span ng-show="member.status=='active'" class="uk-badge uk-badge-success">active</span>
+                                    <span ng-show="member.status=='withdrawn'" class="uk-badge uk-badge-warning">withdrawn</span>
+                                    <span ng-show="member.status=='suspended'" class="uk-badge uk-badge-danger">suspended</span>
+                                </td>
+                                <td class="uk-text-center">
+                                    <span ng-show="member.enrollmentStatus=='completed'" class="uk-badge uk-badge-success">{{'COMMON.ENROLL.COMPLETED'|translate}}</span>
+                                    <span ng-show="member.enrollmentStatus=='in-study'" class="uk-badge uk-badge-primary">{{'COMMON.ENROLL.INSTUDY'|translate}}</span>
+                                    <span ng-show="member.enrollmentStatus=='registered'" class="uk-badge ">{{'COMMON.ENROLL.REGISTERED'|translate}}</span>
+                                </td>
+                                <td class="uk-text-center" ng-show="vm.course.model=='group'">{{member.classroom.name}}</td>
+                                <td class="uk-text-center">
+                                <a  data-uk-modal="{target:'#modal_gradebook'}" ng-click="vm.selectedMember=member" data-uk-tooltip="{pos:'right'}" title="{{'PAGE.LMS.MY_COURSES.STUDENT_BOARD.GRADEBOOK'|translate}}"><i class="md-icon material-icons ">grade</i></a>
+                                     <a ng-show="member.status=='active'" ng-click="vm.suspend(member)" data-uk-tooltip="{pos:'right'}" title="{{'ACTION.SUSPEND'|translate}}"><i class="md-icon material-icons uk-text-warning">lock</i></a>
+                                    <a  ng-show="member.status=='suspended'" ng-click="vm.activate(member)" data-uk-tooltip="{pos:'right'}" title="{{'ACTION.ACTIVATE'|translate}}"><i class="md-icon material-icons uk-text-warning">lock_open</i></a>
+                                    
+                                    
+                                </td>
+                            </tr>
+                            
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+
+    </div>
+
+<div class="uk-modal uk-modal-card-fullscreen" id="modal_gradebook">
+    <div class="uk-modal-dialog uk-modal-dialog-blank">
+        <div class="md-card uk-height-viewport">
+            <div class="md-card-toolbar">
+                <span class="md-icon material-icons uk-modal-close">&#xE5C4;</span>
+                <h3 class="md-card-toolbar-heading-text">
+                   {{'ACTION.BACK'|translate}}
+                </h3>
+            </div>
+            <div class="md-card-content">
+                <h3 class="heading_b">
+                        {{'PAGE.LMS.MY_COURSES.STUDENT_BOARD.PROGRESS_CHART'|translate}} : {{vm.selectedMember.member.displayName}}
+                    </h3>
+                <gradebook course="vm.course" edition="vm.edition" member = "vm.selectedMember" gradescheme="vm.gradescheme"></gradebook>
+            </div>
+        </div>
+    </div>
+</div>
+

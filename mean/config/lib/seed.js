@@ -110,49 +110,75 @@ function reportError (reject) {
   };
 }
 
-module.exports.start = function start(options) {
-  // Initialize the default seed options
-  seedOptions = _.clone(config.seedDB.options, true);
+function insertSetting(options) {
+    seedOptions = _.clone(config.seedDB.options, true);
+    seedOptions.settings = config.seedDB.options.settings;
+    var Setting = mongoose.model('Setting');
+    _.each(seedOptions.settings,function(obj) {
+        Setting.findOne({code:obj.code},function(err,settingRecord) {
+            if (err || !settingRecord) {
+                var setting = new Setting(obj);
+                setting.save();
+            } else {
+                settingRecord.name =  obj.name;
+                settingRecord.value = obj.value;
+                settingRecord.category = obj.category;
+                settingRecord.update();
+            }
+        });
+        
+    });
+}
 
-  // Check for provided options
+function insertUser(options) {
+ // Initialize the default seed options
+    seedOptions = _.clone(config.seedDB.options, true);
 
-  if (_.has(options, 'logResults')) {
-    seedOptions.logResults = options.logResults;
-  }
+    // Check for provided options
 
-  if (_.has(options, 'seedUser')) {
-    seedOptions.seedUser = options.seedUser;
-  }
-
-  if (_.has(options, 'seedAdmin')) {
-    seedOptions.seedAdmin = options.seedAdmin;
-  }
-
-  var User = mongoose.model('User');
-  return new Promise(function (resolve, reject) {
-
-    var adminAccount = new User(seedOptions.seedAdmin);
-    var userAccount = new User(seedOptions.seedUser);
-
-    // If production only seed admin if it does not exist
-    if (process.env.NODE_ENV === 'production') {
-      User.generateRandomPassphrase()
-        .then(seedTheUser(adminAccount))
-        .then(function () {
-          resolve();
-        })
-        .catch(reportError(reject));
-    } else {
-      // Add both Admin and User account
-
-      User.generateDefaultPassword()
-        .then(seedTheUser(userAccount))
-        .then(User.generateDefaultPassword)
-        .then(seedTheUser(adminAccount))
-        .then(function () {
-          resolve();
-        })
-        .catch(reportError(reject));
+    if (_.has(options, 'logResults')) {
+      seedOptions.logResults = options.logResults;
     }
-  });
+
+    if (_.has(options, 'seedUser')) {
+      seedOptions.seedUser = options.seedUser;
+    }
+
+    if (_.has(options, 'seedAdmin')) {
+      seedOptions.seedAdmin = options.seedAdmin;
+    }
+    
+    var User = mongoose.model('User');
+    return new Promise(function (resolve, reject) {
+
+      var adminAccount = new User(seedOptions.seedAdmin);
+      var userAccount = new User(seedOptions.seedUser);
+
+      // If production only seed admin if it does not exist
+      if (process.env.NODE_ENV === 'production') {
+        User.generateRandomPassphrase()
+          .then(seedTheUser(adminAccount))
+          .then(function () {
+            resolve();
+          })
+          .catch(reportError(reject));
+      } else {
+        // Add both Admin and User account
+
+        User.generateDefaultPassword()
+          .then(seedTheUser(userAccount))
+          .then(User.generateDefaultPassword)
+          .then(seedTheUser(adminAccount))
+          .then(function () {
+            resolve();
+          })
+          .catch(reportError(reject));
+      }
+    });
+}
+
+module.exports.start = function start(options) {
+
+  insertUser(options)
+  .then(insertSetting(options));
 };

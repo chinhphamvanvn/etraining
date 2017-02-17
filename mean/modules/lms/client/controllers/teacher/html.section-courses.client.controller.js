@@ -6,12 +6,13 @@ angular
     .module('lms')
     .controller('CoursesHTMLSectionController', CoursesHTMLSectionController);
 
-CoursesHTMLSectionController.$inject = ['$scope', '$state', '$window', 'Authentication', '$timeout', 'courseResolve', 'sectionResolve','htmlResolve', 'Notification', 'EditionSectionsService', 'fileManagerConfig','$q', '_'];
+CoursesHTMLSectionController.$inject = ['$scope', '$state', '$window', 'Authentication', '$timeout', 'courseResolve', 'sectionResolve','editionResolve', 'htmlResolve', 'Notification', 'EditionSectionsService', 'fileManagerConfig','$q', '_'];
 
-function CoursesHTMLSectionController($scope, $state, $window, Authentication, $timeout, course, section, html,Notification, EditionSectionsService ,fileManagerConfig, $q, _) {
+function CoursesHTMLSectionController($scope, $state, $window, Authentication, $timeout, course, section,edition, html,Notification, EditionSectionsService ,fileManagerConfig, $q, _) {
     var vm = this;
     vm.authentication = Authentication;
     vm.course = course;
+    vm.edition = edition;
     vm.section = section;
     vm.html = html;
     vm.save = save;

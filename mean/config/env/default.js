@@ -73,7 +73,7 @@ module.exports = {
             dest: 'public/files/video/uploads/',
             urlPaath: '/files/video/uploads/',
             limits: {
-              fileSize: 64 * 1024 * 1024 // Max file size in bytes (1 MB)
+              fileSize: 256 * 1024 * 1024 // Max file size in bytes (1 MB)
             }
           },
           document: {

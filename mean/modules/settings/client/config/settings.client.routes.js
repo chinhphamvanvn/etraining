@@ -21,8 +21,8 @@
       })
      .state('admin.workspace.settings.system', {
         url: '/system',
-        templateUrl: '/modules/settings/client/views/system.client.view.html',
-        controller: 'SystemSettingController',
+        templateUrl: '/modules/settings/client/views/settings-system.client.view.html',
+        controller: 'SystemSettingsController',
         controllerAs: 'vm',
         data: {
           roles: [ 'admin']
@@ -31,7 +31,7 @@
     .state('admin.workspace.settings.alert', {
         url: '/alert',
         templateUrl: '/modules/settings/client/views/alert.client.view.html',
-        controller: 'AlertSettingController',
+        controller: 'AlertSettingsController',
         controllerAs: 'vm',
         data: {
           roles: [ 'admin']

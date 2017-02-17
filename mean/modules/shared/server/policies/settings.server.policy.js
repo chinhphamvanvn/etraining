@@ -9,57 +9,57 @@ var acl = require('acl');
 acl = new acl(new acl.memoryBackend());
 
 /**
- * Invoke Editions Permissions
+ * Invoke Settings Permissions
  */
 exports.invokeRolesPolicies = function () {
   acl.allow([{
     roles: ['admin'],
     allows: [{
-      resources: '/api/editions',
+      resources: '/api/settings',
       permissions: '*'
-    }, 
-      {
-        resources: '/api/editions/byCourse/:courseId',
+    }, {
+      resources: '/api/settings/:settingId',
+      permissions: '*'
+    },{
+        resources: '/api/settings/byCode/:code',
         permissions: '*'
-      },{
-      resources: '/api/editions/:editionId',
-      permissions: '*'
-    }]
+      }]
   }, {
     roles: ['user'],
     allows: [{
-      resources: '/api/editions',
+      resources: '/api/settings',
       permissions: ['get', 'post']
     }, {
-        resources: '/api/editions/byCourse/:courseId',
-        permissions: ['get']
-      },
-      {
-      resources: '/api/editions/:editionId',
-      permissions: ['get','put']
-    }]
+      resources: '/api/settings/:settingId',
+      permissions: ['get']
+    },
+    {
+        resources: '/api/settings/byCode/:code',
+        permissions: 'get'
+      }]
   }, {
     roles: ['guest'],
     allows: [{
-      resources: '/api/editions',
+      resources: '/api/settings',
       permissions: ['get']
     }, {
-        resources: '/api/editions/byCourse/:courseId',
-        permissions: ['get']
-      }, {
-      resources: '/api/editions/:editionId',
+      resources: '/api/settings/:settingId',
       permissions: ['get']
-    }]
+    },{
+        resources: '/api/settings/byCode/:code',
+        permissions: 'get'
+      }]
   }]);
 };
 
 /**
- * Check If Editions Policy Allows
+ * Check If Settings Policy Allows
  */
 exports.isAllowed = function (req, res, next) {
   var roles = (req.user) ? req.user.roles : ['guest'];
-  // If an Edition is being processed and the current user created it then allow any manipulation
-  if (req.edition && req.user && req.edition.user && req.edition.user.id === req.user.id) {
+
+  // If an Setting is being processed and the current user created it then allow any manipulation
+  if (req.setting && req.user && req.setting.user && req.setting.user.id === req.user.id) {
     return next();
   }
 

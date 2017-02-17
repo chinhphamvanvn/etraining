@@ -91,7 +91,59 @@ module.exports = {
         lastName: 'Local',
         displayName: 'Admin Local',
         roles: ['user', 'admin']
-      }
+      },
+      settings: [
+                 {
+                     name:'contactEmail',
+                     edit: true,
+                     type:'String',
+                     valueString:'',
+                     code:'CONTACT_EMAIL',
+                     category:'system'
+                  },
+                  {
+                      name:'registerMode',
+                      edit: true,
+                      type:'String',
+                      valueString:'open',
+                      code:'REGISTER_MODE',
+                      category:'system'
+                   }
+                  ,{
+                      name:'maxLoginAttempt',
+                      edit: true,
+                      type:'Number',
+                      valueNumber:6,
+                      code:'MAX_LOGIN_ATTEMPT',
+                      category:'system'
+                   },
+                   {
+                       name:'concurrentLogin',
+                       edit: true,
+                       type:'Boolean',
+                       valueBoolean:true,
+                       code:'CONCURRENT_LOGIN',
+                       category:'system'
+                    },
+                    {
+                        name:'vietInterviewConferenceApiUrl',
+                        edit: true,
+                        type:'String',
+                        valueString:'',
+                        code:'BUILT_INT_CONFERENCE_API',
+                        category:'conference'
+                     },
+                     {
+                         name:'vietInterviewConferenceApiSalt',
+                         edit: true,
+                         type:'String',
+                         valueString:'',
+                         code:'BUILT_INT_CONFERENCE_API_SALT',
+                         category:'conference'
+                      }
+             ]
+          
+      
     }
   }
 };

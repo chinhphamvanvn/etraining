@@ -40,7 +40,7 @@
         }
       })
       .state('workspace.lms.courses.outline', {
-        url: '/outline/:courseId',
+        url: '/outline/:courseId/:editionId',
         templateUrl: '/modules/lms/client/views/teacher/outline-course.client.view.html',
         controller: 'CoursesOutlineController',
         controllerAs: 'vm',
@@ -53,10 +53,79 @@
           courseRoles: [ 'teacher']
         }
       })
-      
+      .state('workspace.lms.courses.outline.edit', {
+        url: '/edit',
+        templateUrl: '/modules/lms/client/views/teacher/edit-outline-course.client.view.html',
+        controller: 'CoursesOutlineEditController',
+        controllerAs: 'vm',
+        resolve: {
+            editionResolve: getEdition,
+            courseResolve: getCourse
+          },
+        data: {
+          roles: [ 'user'],
+          courseRoles: [ 'teacher']
+        }
+      })
+      .state('workspace.lms.courses.outline.preview', {
+        url: '/preview',
+        templateUrl: '/modules/lms/client/views/teacher/preview-outline-course.client.view.html',
+        controller: 'CoursesOutlinePreviewController',
+        controllerAs: 'vm',
+        resolve: {
+            editionResolve: getEdition,
+            courseResolve: getCourse
+          },
+        data: {
+          roles: [ 'user'],
+          courseRoles: [ 'teacher']
+        }
+      })
+       .state('workspace.lms.courses.outline.preview.html', {
+            url: '/html/:sectionId',
+            templateUrl: '/modules/lms/client/views/teacher/preview-html-course.client.view.html',
+            controller: 'CoursesPreviewHtmlController',
+            controllerAs: 'vm',
+            resolve: {
+                sectionResolve: getSection,
+                editionResolve: getEdition
+            },
+            data: {
+              roles: ['user'],
+              courseRoles: [ 'student']
+            }
+        })
+        .state('workspace.lms.courses.outline.preview.quiz', {
+            url: '/quiz/:sectionId',
+            templateUrl: '/modules/lms/client/views/teacher/preview-quiz-course.client.view.html',
+            controller: 'CoursesPreviewQuizController',
+            controllerAs: 'vm',
+            resolve: {
+                sectionResolve: getSection,
+                editionResolve: getEdition
+            },
+            data: {
+              roles: ['user'],
+              courseRoles: [ 'student']
+            }
+        })
+        .state('workspace.lms.courses.outline.preview.video', {
+            url: '/video/:sectionId',
+            templateUrl: '/modules/lms/client/views/teacher/preview-video-course.client.view.html',
+            controller: 'CoursesPreviewVideoController',
+            controllerAs: 'vm',
+            resolve: {
+                sectionResolve: getSection,
+                editionResolve: getEdition
+            },
+            data: {
+              roles: ['user'],
+              courseRoles: [ 'student']
+            }
+        })
       .state('workspace.lms.courses.section', {
         abstract: true,
-        url: '/section',
+        url: '/section/:courseId/:editionId',
         template: '<ui-view/>'
       })
       .state('workspace.lms.courses.section.view', {
@@ -65,12 +134,13 @@
         template: '<ui-view/>'
       })
       .state('workspace.lms.courses.section.view.html', {
-        url: '/html/:courseId/:sectionId',
+        url: '/html/:sectionId',
         templateUrl: '/modules/lms/client/views/teacher/view-html.section-course.client.view.html',
         controller: 'CoursesHTMLSectionController',
         controllerAs: 'vm',
         resolve: {
           sectionResolve: getSection,
+          editionResolve: getEdition,
           courseResolve: getCourse,
           htmlResolve: getHtml
         },
@@ -80,12 +150,13 @@
         }
       })
       .state('workspace.lms.courses.section.view.quiz', {
-        url: '/quiz/:courseId/:sectionId',
+        url: '/quiz/:sectionId',
         templateUrl: '/modules/lms/client/views/teacher/view-quiz.section-course.client.view.html',
         controller: 'CoursesQuizSectionController',
         controllerAs: 'vm',
         resolve: {
           sectionResolve: getSection,
+          editionResolve: getEdition,
           courseResolve: getCourse,
           quizResolve: getQuiz
         },
@@ -95,12 +166,13 @@
         }
       })
       .state('workspace.lms.courses.section.view.video', {
-        url: '/video/:courseId/:sectionId',
+        url: '/video/:sectionId',
         templateUrl: '/modules/lms/client/views/teacher/view-video.section-course.client.view.html',
         controller: 'CoursesVideoSectionController',
         controllerAs: 'vm',
         resolve: {
           sectionResolve: getSection,
+          editionResolve: getEdition,
           courseResolve: getCourse,
           videoResolve: getVideo
         },
@@ -121,6 +193,7 @@
         controllerAs: 'vm',
         resolve: {
           sectionResolve: getSection,
+          editionResolve: getEdition,
           courseResolve: getCourse,
           htmlResolve: getHtml
         },
@@ -136,6 +209,7 @@
         controllerAs: 'vm',
         resolve: {
           sectionResolve: getSection,
+          editionResolve: getEdition,
           courseResolve: getCourse,
           quizResolve: getQuiz
         },
@@ -151,6 +225,7 @@
         controllerAs: 'vm',
         resolve: {
           sectionResolve: getSection,
+          editionResolve: getEdition,
           courseResolve: getCourse,
           videoResolve: getVideo
         },
@@ -303,13 +378,14 @@
       })
       .state('workspace.lms.courses.join.gradeboard', {
         url: '/gradeboard',
-        templateUrl: '/modules/lms/client/views/course-board/gradeboard-course.client.view.html',
+        templateUrl: '/modules/lms/client/views/teacher/gradeboard-course.client.view.html',
         controller: 'CoursesGradeboardController',
         controllerAs: 'vm',
         resolve: {
             memberResolve: getMember,
             editionResolve: getEdition,
-            courseResolve: getCourse
+            courseResolve: getCourse,
+            gradeResolve: getGradescheme
         },
         data: {
           roles: ['user'],

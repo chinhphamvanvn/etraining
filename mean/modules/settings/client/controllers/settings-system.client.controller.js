@@ -5,11 +5,13 @@
     .module('settings')
     .controller('SystemSettingsController', SystemSettingsController);
 
-  SystemSettingsController.$inject = ['$scope', '$rootScope','$state', 'Authentication', 'menuService', '$timeout', '$window'];
+  SystemSettingsController.$inject = ['$scope', '$rootScope','$state', 'Authentication', 'SettingsService', '$timeout', '$window'];
   
-  function SystemSettingsController($scope, $rootScope, $state, Authentication, menuService) {
+  function SystemSettingsController($scope, $rootScope, $state, Authentication, SettingsService,$timeout,$window) {
     var vm = this;
-    vm.authentication = Authentication;
+    vm.settings = SettingsService.query(function() {
+        console.log(vm.settings);
+    });
    
    
   }

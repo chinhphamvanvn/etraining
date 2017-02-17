@@ -12,7 +12,7 @@
        </h1>
         <span class="uk-text-upper uk-text-small">
             <a ui-sref="workspace.lms.courses.me"><i class="material-icons uk-text-primary" >keyboard_arrow_left</i>{{'PAGE.LMS.MY_COURSES.TITLE' | translate}}</a> 
-            <a ui-sref="workspace.lms.courses.outline({courseId:vm.course._id})"><i class="material-icons uk-text-primary" >keyboard_arrow_left</i>{{vm.course.name}}</a> 
+            <a ui-sref="workspace.lms.courses.outline.edit({courseId:vm.course._id,editionId:vm.edition._id})"><i class="material-icons uk-text-primary" >keyboard_arrow_left</i>{{vm.course.name}}</a> 
             </span>
     </div>
     <div class="md-fab-wrapper">
@@ -41,6 +41,17 @@
                     </ul>
                     <ul id="tabs_4" class="uk-switcher uk-margin">
                         <li>
+                            <div class="md-fab-wrapper md-fab-in-card">
+                            <div class="md-fab md-fab-primary md-fab-sheet" md-fab-sheet>
+                                <i class="material-icons">add</i>
+                                <div class="md-fab-sheet-actions">
+                                    <a ng-click="vm.addQuestion('sc')"class="md-color-white">{{'COMMON.QUESTION_TYPE.SC'|translate}}</a>
+                                    <a ng-click="vm.addQuestion('mc')"class="md-color-white">{{'COMMON.QUESTION_TYPE.MC'|translate}}</a>
+                                  
+                                </div>
+                            </div>
+                        </div>
+  
                             <div id="questions">
                                 <div class="uk-grid" data-uk-grid-margin  ng-repeat="question in vm.questions | orderBy: 'order'">
                                     <div  class="uk-width-1-1 uk-margin-top" >
@@ -122,15 +133,7 @@
                             </div>
                         </li>
                     </ul>
-                         <div class="uk-margin-medium-top uk-margin-bottom uk-button-dropdown" data-uk-dropdown="{mode:'click'}">
-                                <button class="md-btn  md-btn-primary">{{'PAGE.LMS.MY_COURSES.TEACHER_BOARD.COURSE_OUTLINE.TEST.ADD_QUESTION'|translate}} <i class="material-icons">&#xE313;</i></button>
-                                <div class="uk-dropdown">
-                                    <ul class="uk-nav uk-nav-dropdown">
-                                        <li><a href="#" ng-click="vm.addQuestion('sc')">{{'COMMON.QUESTION_TYPE.SC'|translate}}</a></li>
-                                        <li><a href="#" ng-click="vm.addQuestion('mc')">{{'COMMON.QUESTION_TYPE.MC'|translate}}</a></li>
-                                    </ul>
-                                </div>
-                            </div>  
+                       
                 </form>
             </div>
         </div>       

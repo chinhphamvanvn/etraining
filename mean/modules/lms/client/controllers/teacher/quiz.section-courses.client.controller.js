@@ -6,12 +6,13 @@ angular
     .module('lms')
     .controller('CoursesQuizSectionController', CoursesQuizSectionController);
 
-CoursesQuizSectionController.$inject = ['$scope', '$state', '$window', 'Authentication', '$timeout', 'courseResolve', 'sectionResolve','quizResolve', 'Notification','QuestionsService','ExamsService', 'EditionSectionsService','$q','_'];
+CoursesQuizSectionController.$inject = ['$scope', '$state', '$window', 'Authentication', '$timeout', 'courseResolve', 'sectionResolve','editionResolve','quizResolve', 'Notification','QuestionsService','ExamsService', 'EditionSectionsService','$q','_'];
 
-function CoursesQuizSectionController($scope, $state, $window, Authentication, $timeout, course, section, quiz, Notification, QuestionsService, ExamsService, EditionSectionsService, $q, _) {
+function CoursesQuizSectionController($scope, $state, $window, Authentication, $timeout, course, section, edition, quiz, Notification, QuestionsService, ExamsService, EditionSectionsService, $q, _) {
     var vm = this;
     vm.authentication = Authentication;
     vm.course = course;
+    vm.edition = edition;
     vm.section = section;
     vm.quiz = quiz;
     vm.addQuestion = addQuestion;
@@ -55,6 +56,9 @@ function CoursesQuizSectionController($scope, $state, $window, Authentication, $
             return {id:obj._id,score:1,order:obj.order};
         });
         var allPromise = [];
+        vm.section.html = null;
+        vm.section.video = null;
+        vm.section.quiz = vm.quiz._id;
         allPromise.push(vm.section.$update().$promise);
         allPromise.push(vm.quiz.$update().$promise);
         _.each(vm.questions,function(question) {

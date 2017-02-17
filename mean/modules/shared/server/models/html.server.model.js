@@ -13,7 +13,6 @@ var HtmlSchema = new Schema({
   content: {
     type: String,
     default: '',
-    required: 'Please fill Html content',
     trim: true
   },
   created: {

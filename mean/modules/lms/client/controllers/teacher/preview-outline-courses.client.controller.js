@@ -4,14 +4,13 @@
 // Courses controller
 angular
     .module('lms')
-    .controller('CoursesStudyController', CoursesStudyController);
+    .controller('CoursesOutlinePreviewController', CoursesOutlinePreviewController);
 
-CoursesStudyController.$inject = ['$scope', '$state', '$window', 'HtmlsService','ExamsService','VideosService','EditionSectionsService','Authentication','CourseAttemptsService', 'courseResolve', 'CoursesService', 'Notification', 'editionResolve','memberResolve','treeUtils', '$translate', '$q','_'];
+CoursesOutlinePreviewController.$inject = ['$scope', '$state', '$window', 'HtmlsService','ExamsService','VideosService','EditionSectionsService','Authentication','CourseAttemptsService', 'courseResolve', 'CoursesService', 'Notification', 'editionResolve','treeUtils', '$translate', '$q','_'];
 
-function CoursesStudyController($scope, $state, $window, HtmlsService,ExamsService,VideosService,EditionSectionsService, Authentication, CourseAttemptsService,course, CoursesService, Notification, edition,member,treeUtils,$translate ,$q, _) {
+function CoursesOutlinePreviewController($scope, $state, $window, HtmlsService,ExamsService,VideosService,EditionSectionsService, Authentication, CourseAttemptsService,course, CoursesService, Notification, edition,treeUtils,$translate ,$q, _) {
     var vm = this;
     vm.course = course;
-    vm.member = member;
     vm.edition = edition;
     vm.prevSection = prevSection;
     vm.nextSection = nextSection;
@@ -41,14 +40,7 @@ function CoursesStudyController($scope, $state, $window, HtmlsService,ExamsServi
                     vm.selectedContentNode =  vm.selectedNode;
             }
         }
-        
-        vm.attempts = CourseAttemptsService.byCourseAndMember({editionId:vm.edition._id,memberId:vm.member._id},function() {
-            _.each(vm.sections,function(section) {
-                section.read = _.find(vm.attempts,function(attempt) {
-                    return attempt.section == section._id && attempt.status=='completed';
-                })
-            })
-        });
+      
     });
     
 
@@ -56,11 +48,11 @@ function CoursesStudyController($scope, $state, $window, HtmlsService,ExamsServi
         vm.selectedContentNode = node;
         vm.section = node.data;
         if (node.data.contentType=='html')
-            $state.go('workspace.lms.courses.join.study.html',{sectionId:node.data._id});
+            $state.go('workspace.lms.courses.outline.preview.html',{sectionId:node.data._id});
         if (node.data.contentType=='test')
-            $state.go('workspace.lms.courses.join.study.quiz',{sectionId:node.data._id});
+            $state.go('workspace.lms.courses.outline.preview.quiz',{sectionId:node.data._id});
         if (node.data.contentType=='video')
-            $state.go('workspace.lms.courses.join.study.video',{sectionId:node.data._id});
+            $state.go('workspace.lms.courses.outline.preview.video',{sectionId:node.data._id});
     }
     
     function toggleExpand(node) {
