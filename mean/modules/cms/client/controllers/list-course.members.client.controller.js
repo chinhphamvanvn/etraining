@@ -20,11 +20,12 @@
       .module('cms')
       .controller('CourseMembersController', CourseMembersController);
 
-    CourseMembersController.$inject = ['$scope', '$state', '$filter', '$compile','Authentication', 'UsersService','GroupsService', 'courseResolve', '$timeout', '$location', '$window', 'DTOptionsBuilder','DTColumnDefBuilder', 'Notification','$q','CourseMembersService','ClassroomsService', '$translate','treeUtils', '_'];
+    CourseMembersController.$inject = ['$scope', '$state', '$filter', '$compile','Authentication', 'UsersService','GroupsService', 'courseResolve','editionResolve', '$timeout', '$location', '$window', 'DTOptionsBuilder','DTColumnDefBuilder', 'Notification','$q','CourseMembersService','ClassroomsService', '$translate','treeUtils', '_'];
 
-    function CourseMembersController($scope,$state, $filter, $compile, Authentication, AdminService, GroupsService, course, $timeout, $location, $window,DTOptionsBuilder, DTColumnDefBuilder, Notification, $q, CourseMembersService,ClassroomsService, $translate,treeUtils, _) {
+    function CourseMembersController($scope,$state, $filter, $compile, Authentication, AdminService, GroupsService, course,edition, $timeout, $location, $window,DTOptionsBuilder, DTColumnDefBuilder, Notification, $q, CourseMembersService,ClassroomsService, $translate,treeUtils, _) {
       var vm = this;
       vm.course = course;
+      vm.edition = edition;
       vm.classroom = new ClassroomsService();
       vm.users = AdminService.query(function() {
           vm.displayUsers = vm.users;
@@ -206,6 +207,7 @@
                      var member = new CourseMembersService();
                      member.course = vm.course._id;
                      member.member = user._id;
+                     member.edition = vm.edition._id;
                      if (vm.selectedClass)
                          member.classroom = vm.selectedClass;
                      member.registerAgent = Authentication.user._id;

@@ -13,9 +13,7 @@
           vm.alertUserCreate = _.find(vm.settings,function(setting) {
               return setting.code == 'ALERT_USER_CREATE';
           });
-          vm.alertUserUpdated = _.find(vm.settings,function(setting) {
-              return setting.code == 'ALERT_USER_UPDATE';
-          });
+ 
           vm.alertUserDelete = _.find(vm.settings,function(setting) {
               return setting.code == 'ALERT_USER_DELETE';
           });
@@ -27,9 +25,6 @@
           });
           vm.alertMemberComplete = _.find(vm.settings,function(setting) {
               return setting.code == 'ALERT_MEMBER_COMPLETE';
-          });
-          vm.alertCourseUpdate = _.find(vm.settings,function(setting) {
-              return setting.code == 'ALERT_COURSE_UPDATE';
           });
           vm.alertThreadNew = _.find(vm.settings,function(setting) {
               return setting.code == 'ALERT_THREAD_NEW';

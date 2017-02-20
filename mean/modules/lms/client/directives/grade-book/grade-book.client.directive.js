@@ -38,31 +38,16 @@
                               var attempts = CourseAttemptsService.bySectionAndMember({editionId:scope.edition._id,memberId:scope.member._id,sectionId:section._id},function() {
                                   var latestAttempt = _.max(attempts, function(attempt){return new Date(attempt.start).getTime()});
                                   _.each(latestAttempt.answers, function(answer) {
-                                      QuestionsService.get({questionId:answer.question},function(question) {
-                                          OptionsService.byQuestion({questionId:answer.question},function(options) {
-                                              _.each(options,function(option) {
-                                                  var selected = answer.option == option._id;
-                                                  var checked =  _.contains(answer.options,option._id);
-                                                  option.selected = selected || checked;
-                                              });
-                                              var correctOptions = _.filter(options, function(option) {
-                                                 return option.isCorrect; 
-                                              });
-                                              var selectedOptions = _.filter(options, function(option) {
-                                                  return option.selected; 
-                                               });
-                                              var quizQuestion = _.find(node.quiz.questions,function(q) {
-                                                  return q.id == answer.question;
-                                              });
-                                              if (_.difference(correctOptions,selectedOptions).length==0) {
-                                                  quizQuestion.mark = quizQuestion.score;
-                                                  node.quiz.correctCount++;
-                                              } else
-                                                  quizQuestion.mark = 0;
-                                              reloadChart();
-                                          });
-                                      }); 
-                                  }); 
+                                      var quizQuestion = _.find(node.quiz.questions,function(q) {
+                                          return q.id == answer.question;
+                                      });
+                                      if (answer.isCorrect) {
+                                          quizQuestion.mark = quizQuestion.score;
+                                          node.quiz.correctCount++;
+                                      } else
+                                          quizQuestion.mark = 0;
+                                      reloadChart();
+                                  });
                                   
                               }); 
                           });

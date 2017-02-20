@@ -4,11 +4,19 @@
  * Module dependencies
  */
 var path = require('path'),
+  config = require(path.resolve('./config/config')),
+  async = require('async'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
   mongoose = require('mongoose'),
   passport = require('passport'),
+  nodemailer = require('nodemailer'),
   User = mongoose.model('User'),
+  Setting = mongoose.model('Setting'),
+  Message = mongoose.model('Message'),
   UserLog = mongoose.model('UserLog');
+
+
+var smtpTransport = nodemailer.createTransport(config.mailer.options);
 
 // URLs for which user can't be redirected on signin
 var noReturnUrls = [
@@ -23,32 +31,91 @@ exports.signup = function (req, res) {
   // For security measurement we remove the roles from the req.body object
   delete req.body.roles;
 
-  // Init user and add missing fields
-  var user = new User(req.body);
-  user.provider = 'local';
-  user.displayName = user.firstName + ' ' + user.lastName;
+  async.waterfall([
+       // Create new user
+       function (done) {
+        // Init user and add missing fields
+           var user = new User(req.body);
+           user.provider = 'local';
+           user.displayName = user.firstName + ' ' + user.lastName;
 
-  // Then save the user
-  user.save(function (err) {
-    if (err) {
-      return res.status(422).send({
-        message: errorHandler.getErrorMessage(err)
-      });
-    } else {
-      // Remove sensitive data before login
-      user.password = undefined;
-      user.salt = undefined;
-      UserLog.schema.statics.register(user);
-      req.login(user, function (err) {
-        if (err) {
-          res.status(400).send(err);
-        } else {
-            
-          res.json(user);
+           // Then save the user
+           user.save(function (err) {
+             if (err) {
+               return res.status(422).send({
+                 message: errorHandler.getErrorMessage(err)
+               });
+             } else {
+               // Remove sensitive data before login
+               user.password = undefined;
+               user.salt = undefined;
+               UserLog.schema.statics.register(user);
+               req.login(user, function (err) {
+                 if (err) {
+                   res.status(400).send(err);
+                 } else {
+                   res.json(user);
+                   done(err, user);
+                 }
+               });
+             }
+           });
+       },
+       function (user, done) {
+           Setting.findOne({code:'ALERT_USER_CREATE'}).exec(function(err,setting) {
+               if (!err && setting && setting.valueBoolean)  {
+                   User.find({roles:'admin'}).exec(function(err,users) {
+                       _.each(users,function(recipient) {
+                           var alert = new Message({title:'User account',content:'User ' + user.username +' has been created',level:'success',type:'alert',recipient: recipient._id});
+                           alert.save();
+                       });
+                   });
+               } 
+           });
+           done(err, user);
+       },
+       function (user, done) {
+
+           var httpTransport = 'http://';
+           if (config.secure && config.secure.ssl === true) {
+             httpTransport = 'https://';
+           }
+           var baseUrl = req.app.get('domain') || httpTransport + req.headers.host;
+           res.render(path.resolve('modules/users/server/templates/user-registeration-welcome-email'), {
+             name: user.displayName,
+             appName: config.app.title
+           }, function (err, emailHTML) {
+             done(err, emailHTML, user);
+           });
+         },
+         // If valid email, send reset email using service
+         function (emailHTML, user, done) {
+           var mailOptions = {
+             to: user.email,
+             from: config.mailer.from,
+             subject: 'Welcome to e-Training',
+             html: emailHTML
+           };
+           smtpTransport.sendMail(mailOptions, function (err) {
+             if (!err) {
+               res.send({
+                 message: 'An email has been sent to the provided email with further instructions.'
+               });
+             } else {
+               return res.status(400).send({
+                 message: 'Failure sending email'
+               });
+             }
+
+             done(err);
+           });
+         }
+     ], function (err) {
+      if (err) {
+          return next(err);
         }
       });
-    }
-  });
+  
 };
 
 /**

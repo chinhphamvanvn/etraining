@@ -93,6 +93,21 @@ exports.list = function(req, res) {
 };
 
 /**
+ * List of Messages
+ */
+exports.listWaitingAlert = function(req, res) {
+  Message.find({recipient:req.user._id,type:'alert'}).sort('-created').populate('user', 'displayName').exec(function(err, messages) {
+    if (err) {
+      return res.status(400).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    } else {
+      res.jsonp(messages);
+    }
+  });
+};
+
+/**
  * Message middleware
  */
 exports.messageByID = function(req, res, next, id) {

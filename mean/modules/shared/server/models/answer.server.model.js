@@ -18,9 +18,12 @@ var AnswerSchema = new Schema({
         type: Schema.ObjectId,
         ref: 'Question'
     },
-    option: {
-        type: Schema.ObjectId,
-        ref: 'Option'
+    isCorrect: {
+        type: Boolean
+    },
+    score: {
+        type: Number,
+        default: 0
     },
     options: {
         type: [

@@ -70,7 +70,8 @@
         controller: 'CourseMembersController',
         controllerAs: 'vm',
         resolve: {
-          courseResolve: getCourse
+          courseResolve: getCourse,
+          editionResolve: getEdition
         },
         data: {
             roles: [ 'admin'],
@@ -85,6 +86,14 @@
             roles: [ 'admin'],
         }
       });
+  }
+  
+  getEdition.$inject = ['$stateParams', 'CourseEditionsService'];
+
+  function getEdition($stateParams, CourseEditionsService) {
+      if ($stateParams.editionId)
+          return CourseEditionsService.get({editionId:$stateParams.editionId}).$promise;
+      return  CourseEditionsService.byCourse({courseId:$stateParams.courseId}).$promise;
   }
 
   getCourse.$inject = ['$stateParams', 'CoursesService'];

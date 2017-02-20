@@ -57,8 +57,7 @@ function MyCoursesListController($scope, $state, $window, Authentication, $timeo
     vm.unenroll = unenroll;
     
     function unenroll(member) {
-        member.status = 'withdrawn';
-        member.$update(function (response) {
+        member.$withdraw(function (response) {
             Notification.success({ message: '<i class="uk-icon-ok"></i> Member withdrawn successfully!' });
             $window.location.reload();
            }, function (errorResponse) {

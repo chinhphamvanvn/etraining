@@ -268,6 +268,9 @@
         templateUrl: '/modules/lms/client/views/course-board/intro-course.client.view.html',
         controller: 'CoursesIntroController',
         controllerAs: 'vm',
+        resolve: {
+            userResolve: getUser,
+          },
         data: {
           roles: ['user'],
           courseRoles: [ 'student','teacher']
@@ -380,6 +383,22 @@
         url: '/gradeboard',
         templateUrl: '/modules/lms/client/views/teacher/gradeboard-course.client.view.html',
         controller: 'CoursesGradeboardController',
+        controllerAs: 'vm',
+        resolve: {
+            memberResolve: getMember,
+            editionResolve: getEdition,
+            courseResolve: getCourse,
+            gradeResolve: getGradescheme
+        },
+        data: {
+          roles: ['user'],
+          courseRoles: [ 'teacher']
+        }
+      })
+      .state('workspace.lms.courses.join.gradeboard.member', {
+        url: '/:memberId',
+        templateUrl: '/modules/lms/client/views/teacher/gradebook-course.client.view.html',
+        controller: 'CoursesGradeboardMemberController',
         controllerAs: 'vm',
         resolve: {
             memberResolve: getMember,
@@ -545,5 +564,11 @@
 
   function newCourse(CoursesService) {
     return new CoursesService();
+  }
+  
+  getUser.$inject = [ 'UsersService'];
+
+  function getUser( UsersService) {
+      return UsersService.me().$promise;
   }
 }());

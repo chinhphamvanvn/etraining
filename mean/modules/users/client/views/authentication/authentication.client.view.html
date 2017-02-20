@@ -44,6 +44,10 @@
                     <div class="uk-margin-medium-top">
                         <a ng-click="vm.askForPasswordReset()" class="md-btn md-btn-primary md-btn-block">{{'ACTION.RESET_PASSWORD'|translate}}</a>
                     </div>
+                    <div class="uk-alert uk-alert-success" data-uk-alert ng-show="vm.alert">
+                         {{vm.alert}}
+                    </div>
+
                 </form>
             </div>
             <div class="md-card-content large-padding" id="register_form" style="display: none">
@@ -84,5 +88,8 @@
         </div>
         <div class="uk-margin-top uk-text-center" ng-show="!vm.registerSetting.valueString || vm.registerSetting.valueString=='open'">
             <a href="#" id="signup_form_show" ng-hide="vm.registerFormActive" ng-click="vm.registerForm($event)">{{'PAGE.AUTHENTICATION.CREATE_ACCOUNT'|translate}}</a>
+        </div>
+        <div class="uk-margin-top uk-text-center" >
+            <a href="#"  ui-sref="home">{{'PAGE.HOME'|translate}}</a>
         </div>
     </div>

@@ -18,6 +18,7 @@ function CoursesStudyController($scope, $state, $window, HtmlsService,ExamsServi
     vm.expand =  expand;
     vm.collapse = collapse;
     vm.toggleExpand = toggleExpand;
+    $scope.completeQuiz = nextSection;
     
     vm.sections = EditionSectionsService.byEdition({editionId:vm.edition._id}, function() {
         vm.sections = _.filter(vm.sections,function(section) {

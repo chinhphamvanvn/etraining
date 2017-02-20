@@ -155,7 +155,7 @@
                                 </li>
               
                                 <li>
-                                    <form  ng-submit="vm.changeUserPassword()" class="uk-form-stacked" id="user_change_pass_form" novalidate>
+                                    <form  ng-submit="vm.changeUserPassword()" class="uk-form-stacked" id="user_change_pass_form"  >
                                     <div class="md-card">
                                     <div class="md-card-content" data-uk-grid-margin>
                                         <div class="uk-form-row parsley-row">
@@ -171,7 +171,7 @@
                                                 <input data-parsley-trigger="change" type="password" data-parsley-minlength="4" data-parsley-equalto="#new_pass" class="md-input uk-form-width-medium" id="new_pass_repeat" ng-model="vm.passwordDetails.verifyPassword"  required md-input />
                                             </div>
                                              <div class="uk-margin-medium-top">
-                                             <button  type="submit" class="md-btn md-btn-primary">{{'ACTION.SUBMIT'|translate}}</button>
+                                             <button  ng-click="vm.changeUserPassword()" type="submit" class="md-btn md-btn-primary">{{'ACTION.SUBMIT'|translate}}</button>
                                          </div>
                     
                                         </div>

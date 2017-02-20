@@ -5,39 +5,17 @@
     .module('workspace')
     .controller('WorkspaceController', WorkspaceController);
 
-  WorkspaceController.$inject = ['$scope', '$rootScope','$state', 'userResolve', 'menuService', '$timeout', '$window', '_'];
+  WorkspaceController.$inject = ['$scope', '$rootScope','$state', 'userResolve', 'menuService', '$timeout', '$window', 'MessagesService','_'];
   
-  function WorkspaceController($scope, $rootScope, $state, user, menuService,$timeout, $window, _) {
+  function WorkspaceController($scope, $rootScope, $state, user, menuService,$timeout, $window, MessagesService,_) {
     var vm = this;
     vm.user = user;
     vm.menu = menuService.getMenu('sidebar');
     vm.switchPanel = switchPanel;
     vm.viewProfile = viewProfile;
     vm.hasAdminRole = _.contains(vm.user.roles,'admin');    
-    vm.user.alerts =  [
-                {
-                    "title": "Hic expedita eaque.",
-                    "content": "Nemo nemo voluptatem officia voluptatum minus.",
-                    "type": "warning"
-                },
-                {
-                    "title": "Voluptatibus sed eveniet.",
-                    "content": "Tempora magnam aut ea.",
-                    "type": "success"
-                },
-                {
-                    "title": "Perferendis voluptatem explicabo.",
-                    "content": "Enim et voluptatem maiores ab fugiat commodi aut repellendus.",
-                    "type": "danger"
-                },
-                {
-                    "title": "Quod minima ipsa.",
-                    "content": "Vel dignissimos neque enim ad praesentium optio.",
-                    "type": "primary"
-                }
-            ];
-    
-        vm.alerts_length = vm.user.alerts.length;
+    vm.alerts = MessagesService.waitingAlert({userId:vm.user._id});
+    vm.closeAlert = closeAlert;
 
 
         $('#menu_top').children('[data-uk-dropdown]').on('show.uk.dropdown', function(){
@@ -65,6 +43,14 @@
                 }
             })
         });
+        
+        function closeAlert(alert) {
+            alert.$remove(function() {
+                vm.alerts = _.reject(vm.alerts,function(obj) {
+                    return obj._id == alert._id;
+                } )
+            })
+        }
         
         function viewProfile() {
             if ($rootScope.viewerRole=='user')

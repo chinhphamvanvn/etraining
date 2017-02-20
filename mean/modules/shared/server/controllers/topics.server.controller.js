@@ -6,6 +6,13 @@
 var path = require('path'),
   mongoose = require('mongoose'),
   ForumTopic = mongoose.model('ForumTopic'),
+  Forum = mongoose.model('Forum'),
+  CourseMember = mongoose.model('CourseMember'),
+  Course = mongoose.model('Course'),
+  CourseEdition = mongoose.model('CourseEdition'),
+  User = mongoose.model('User'),
+  Setting = mongoose.model('Setting'),
+  Message = mongoose.model('Message'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
   _ = require('lodash');
 
@@ -23,8 +30,26 @@ exports.create = function(req, res) {
       });
     } else {
       res.jsonp(topic);
+      alertMember();
     }
   });
+  
+  function alertMember() {
+      Forum.findById(topic.forum).exec(function(err,forum) {
+          Course.findById(forum.course).exec(function(err,course) {
+              Setting.findOne({code:'ALERT_THREAD_NEW'}).exec(function(err,setting) {
+                  if (!err && setting && setting.valueBoolean)  {
+                      CourseMember.find({status:'active'}).exec(function(err,members) {
+                          _.each(members,function(member) {
+                              var alert = new Message({title:'Course activity',content:'New thread created for course ' + course.name,level:'primary',type:'alert',recipient: member.member});
+                              alert.save();
+                          });
+                      });
+                  } 
+              });
+          });
+      });
+  }
 };
 
 /**

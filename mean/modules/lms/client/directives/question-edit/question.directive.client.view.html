@@ -25,20 +25,11 @@
             ng-show="question.type=='mc' || question.type=='sc'">
             <div class="uk-grid" data-uk-grid-margin
                 ng-repeat="option in question.options | orderBy: 'order'">
-                <div class="uk-width-medium-2-10 uk-text-center" ng-show="question.type=='mc'">
+                <div class="uk-width-medium-2-10 uk-text-center" ng-show="question.type=='mc' || question.type=='sc'">
                     <span class="icheck-inline">
                         <input type="checkbox" ng-disabled="mode=='view'"
                             id="option_{{option._id}}" icheck 
-                            ng-model="option.isCorrect" 
-                             />
-                        <label for="option_{{option._id}}" class="inline-label">{{option.order}}</label>
-                    </span>
-                </div>
-                <div class="uk-width-medium-2-10 uk-text-center" ng-show="question.type=='sc'">
-                    <span class="icheck-inline">
-                        <input type="radio" name="option_{{question._id}}"
-                            id="option_{{option._id}}" icheck  ng-disabled="mode=='view'"
-                            ng-model="option.isCorrect"  ng-value="true"
+                            ng-model="option.isCorrect" ng-change="selectOption(option)"
                              />
                         <label for="option_{{option._id}}" class="inline-label">{{option.order}}</label>
                     </span>

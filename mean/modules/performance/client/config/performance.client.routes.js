@@ -11,14 +11,13 @@
   function routeConfig($stateProvider) {
     // Users state routing
     $stateProvider
-      .state('admin.workspace.performance', {
-        url: '/performance',
-        templateUrl: '/modules/performance/client/views/performance.client.view.html',
-        controller: 'PerformanceController',
-        controllerAs: 'vm',
+    .state('admin.workspace.performance', {
+        url: '/settings',
+        abstract:true,
+        template: '<ui-view/>',
         data: {
           roles: [ 'admin']
         }
-      });
+      })
   }
 }());

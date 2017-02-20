@@ -7,6 +7,11 @@ var path = require('path'),
   mongoose = require('mongoose'),
   ForumPost = mongoose.model('ForumPost'),
   ForumTopic = mongoose.model('ForumTopic'),
+  CourseMember = mongoose.model('CourseMember'),
+  Course = mongoose.model('Course'),
+  User = mongoose.model('User'),
+  Setting = mongoose.model('Setting'),
+  Message = mongoose.model('Message'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
   _ = require('lodash');
 

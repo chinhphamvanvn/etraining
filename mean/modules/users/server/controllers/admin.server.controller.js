@@ -7,12 +7,20 @@ var path = require('path'),
   mongoose = require('mongoose'),
   User = mongoose.model('User'),
   config = require(path.resolve('./config/config')),
+  async = require('async'),
+  nodemailer = require('nodemailer'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
   _ = require('lodash'),
   fs = require('fs'),
   multer = require('multer'),
   UserLog = mongoose.model('UserLog'),
+  Setting = mongoose.model('Setting'),
+  Message = mongoose.model('Message'),
   validator = require('validator');
+
+
+var smtpTransport = nodemailer.createTransport(config.mailer.options);
+
 /**
  * Show the current user
  */
@@ -32,16 +40,75 @@ exports.create = function (req, res) {
       user.password = config.defaultPassword;
   user.displayName = user.firstName + ' ' + user.lastName;
 
-  // Then save the user
-  user.save(function (err) {
-    if (err) {
-      return res.status(422).send({
-        message: errorHandler.getErrorMessage(err)
+  async.waterfall([
+       // Create new user
+       function (done) {
+          // Then save the user
+          user.save(function (err) {
+            if (err) {
+              return res.status(422).send({
+                message: errorHandler.getErrorMessage(err)
+              });
+            } else {     
+               res.json(user);
+               done(err,user);
+            }
+          });
+       },
+       function (user, done) {
+           Setting.findOne({code:'ALERT_USER_CREATE'}).exec(function(err,setting) {
+               if (!err && setting && setting.valueBoolean)  {
+                   User.find({roles:'admin'}).exec(function(err,users) {
+                       _.each(users,function(recipient) {
+                           var alert = new Message({title:'User account',content:'User ' + user.username +' has been created',level:'success',type:'alert',recipient: recipient._id});
+                           alert.save();
+                       });
+                   });
+               } 
+           });
+           done(err, user);
+       },
+       function (user, done) {
+
+           var httpTransport = 'http://';
+           if (config.secure && config.secure.ssl === true) {
+             httpTransport = 'https://';
+           }
+           var baseUrl = req.app.get('domain') || httpTransport + req.headers.host;
+           res.render(path.resolve('modules/users/server/templates/user-registeration-welcome-email'), {
+             name: user.displayName,
+             appName: config.app.title
+           }, function (err, emailHTML) {
+             done(err, emailHTML, user);
+           });
+         },
+         // If valid email, send reset email using service
+         function (emailHTML, user, done) {
+           var mailOptions = {
+             to: user.email,
+             from: config.mailer.from,
+             subject: 'Welcome to e-Training',
+             html: emailHTML
+           };
+           smtpTransport.sendMail(mailOptions, function (err) {
+             if (!err) {
+               res.send({
+                 message: 'An email has been sent to the provided email with further instructions.'
+               });
+             } else {
+               return res.status(400).send({
+                 message: 'Failure sending email'
+               });
+             }
+
+             done(err);
+           });
+         }
+     ], function (err) {
+      if (err) {
+          return next(err);
+        }
       });
-    } else {     
-       res.json(user);
-    }
-  });
     
 };
 /**
@@ -81,15 +148,74 @@ exports.update = function (req, res) {
 exports.delete = function (req, res) {
   var user = req.model;
 
-  user.remove(function (err) {
-    if (err) {
-      return res.status(422).send({
-        message: errorHandler.getErrorMessage(err)
-      });
-    }
+  async.waterfall([
+                   // Create new user
+                   function (done) {
+                      // Then save the user
+                       user.remove(function (err) {
+                           if (err) {
+                             return res.status(422).send({
+                               message: errorHandler.getErrorMessage(err)
+                             });
+                           }
+                           res.json(user);
+                           done(err,user);
+                         });
+                   },
+                   function (user, done) {
+                       Setting.findOne({code:'ALERT_USER_DELETE'}).exec(function(err,setting) {
+                           if (!err && setting && setting.valueBoolean)  {
+                               User.find({roles:'admin'}).exec(function(err,users) {
+                                   _.each(users,function(recipient) {
+                                       var alert = new Message({title:'User account',content:'User ' + user.username +' has been deleted',level:'danger',type:'alert',recipient: recipient._id});
+                                       alert.save();
+                                   });
+                               });
+                           } 
+                       })
+                       done(err,user);
+                   },
+                   function (user, done) {
 
-    res.json(user);
-  });
+                       var httpTransport = 'http://';
+                       if (config.secure && config.secure.ssl === true) {
+                         httpTransport = 'https://';
+                       }
+                       var baseUrl = req.app.get('domain') || httpTransport + req.headers.host;
+                       res.render(path.resolve('modules/users/server/templates/user-removal-notification-email'), {
+                         name: user.displayName,
+                         appName: config.app.title
+                       }, function (err, emailHTML) {
+                         done(err, emailHTML, user);
+                       });
+                     },
+                     // If valid email, send reset email using service
+                     function (emailHTML, user, done) {
+                       var mailOptions = {
+                         to: user.email,
+                         from: config.mailer.from,
+                         subject: 'Welcome to e-Training',
+                         html: emailHTML
+                       };
+                       smtpTransport.sendMail(mailOptions, function (err) {
+                         if (!err) {
+                           res.send({
+                             message: 'An email has been sent to the provided email with further instructions.'
+                           });
+                         } else {
+                           return res.status(400).send({
+                             message: 'Failure sending email'
+                           });
+                         }
+
+                         done(err);
+                       });
+                     }
+                 ], function (err) {
+                  if (err) {
+                      return next(err);
+                    }
+                  });
 };
 
 /**

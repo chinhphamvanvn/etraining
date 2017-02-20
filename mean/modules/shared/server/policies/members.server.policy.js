@@ -40,6 +40,10 @@ exports.invokeRolesPolicies = function () {
           resources: '/api/members/me/byCourse/:courseId',
           permissions: 'get'
         },
+        {
+            resources: '/api/members/withdraw',
+            permissions: 'post'
+          },
       {
           resources: '/api/members/me',
           permissions: 'get'

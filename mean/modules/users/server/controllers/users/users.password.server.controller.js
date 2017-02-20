@@ -44,7 +44,7 @@ exports.forgot = function (req, res, next) {
           } else {
             user.resetPasswordToken = token;
             user.resetPasswordExpires = Date.now() + 3600000; // 1 hour
-            UserLog.schema.statics.forgotPassword(req.user);
+            UserLog.schema.statics.forgotPassword(user);
             user.save(function (err) {
               done(err, token, user);
             });
@@ -135,6 +135,7 @@ exports.reset = function (req, res, next) {
         }
       }, function (err, user) {
         if (!err && user) {
+            console.log(passwordDetails);
           if (passwordDetails.newPassword === passwordDetails.verifyPassword) {
             user.password = passwordDetails.newPassword;
             user.resetPasswordToken = undefined;

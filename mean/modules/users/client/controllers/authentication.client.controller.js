@@ -5,9 +5,9 @@
     .module('users')
     .controller('AuthenticationController', AuthenticationController);
 
-  AuthenticationController.$inject = [ '$scope','$rootScope', '$state', '$stateParams', 'UsersService', '$location', '$window', 'Authentication', 'Notification','SettingsService', 'localStorageService','utils'];
+  AuthenticationController.$inject = [ '$scope','$rootScope', '$state', '$stateParams', 'UsersService', '$location', '$window', 'Authentication', 'Notification','SettingsService', '$translate','localStorageService','utils'];
 
-  function AuthenticationController( $scope, $rootScope, $state, $stateParams, UsersService, $location, $window, Authentication, Notification, SettingsService, localStorageService,utils) {
+  function AuthenticationController( $scope, $rootScope, $state, $stateParams, UsersService, $location, $window, Authentication, Notification, SettingsService, $translate, localStorageService,utils) {
     var vm = this;
     vm.authentication = Authentication;
     vm.signup = signup;
@@ -186,8 +186,9 @@
     
     function askForPasswordReset() {
         UsersService.requestPasswordReset(vm.credentials)
-          .then(onRequestPasswordResetSuccess)
-          .catch(onRequestPasswordResetError);
+          .then(function() {
+              vm.alert = $translate.instant('PAGE.AUTHENTICATION.RESET_PASSWORD_PROMPT');
+          })
       }
   }
 }());

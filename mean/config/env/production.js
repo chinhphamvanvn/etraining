@@ -172,7 +172,7 @@ module.exports = {
                            name:'alertUserUpdated',
                            edit: true,
                            type:'Boolean',
-                           valueBoolean:true,
+                           valueBoolean:false,
                            code:'ALERT_USER_UPDATE',
                            category:'alert'
                         },

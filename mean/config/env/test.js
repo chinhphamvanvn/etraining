@@ -71,15 +71,20 @@ module.exports = {
     sandbox: true
   },
   mailer: {
-    from: process.env.MAILER_FROM || 'MAILER_FROM',
-    options: {
-      service: process.env.MAILER_SERVICE_PROVIDER || 'MAILER_SERVICE_PROVIDER',
-      auth: {
-        user: process.env.MAILER_EMAIL_ID || 'MAILER_EMAIL_ID',
-        pass: process.env.MAILER_PASSWORD || 'MAILER_PASSWORD'
+      from: 'contact@vietinterview.com',
+      options: {
+          auth: {
+              user: 'contact@vietinterview.com',
+              pass: 'Tc!@#6102'
+            },
+        port: 25,
+        host: 'vietinterview.com',
+        secure:false,
+        tls: {rejectUnauthorized: false},
+        ignoreTLS:false,
+        debug:true
       }
-    }
-  },
+    },
   seedDB: {
     seed:true,
     options: {
@@ -144,7 +149,87 @@ module.exports = {
                          value:'',
                          code:'BUILT_INT_CONFERENCE_API_SALT',
                          category:'conference'
-                      }
+                      },
+                      {
+                          name:'alertUserCreate',
+                          edit: true,
+                          type:'Boolean',
+                          valueBoolean:true,
+                          code:'ALERT_USER_CREATE',
+                          category:'alert'
+                       },
+                       {
+                           name:'alertUserUpdated',
+                           edit: true,
+                           type:'Boolean',
+                           valueBoolean:false,
+                           code:'ALERT_USER_UPDATE',
+                           category:'alert'
+                        },
+                        {
+                            name:'alertUserDelete',
+                            edit: true,
+                            type:'Boolean',
+                            valueBoolean:true,
+                            code:'ALERT_USER_DELETE',
+                            category:'alert'
+                         },
+                         {
+                             name:'alertMemberEnroll',
+                             edit: true,
+                             type:'Boolean',
+                             valueBoolean:true,
+                             code:'ALERT_MEMBER_ENROLL',
+                             category:'alert'
+                          },
+                          {
+                              name:'alertMemberWithdraw',
+                              edit: true,
+                              type:'Boolean',
+                              valueBoolean:true,
+                              code:'ALERT_MEMBER_WIDTHDRAW',
+                              category:'alert'
+                           },
+                           {
+                               name:'alertMemberComplete',
+                               edit: true,
+                               type:'Boolean',
+                               valueBoolean:true,
+                               code:'ALERT_MEMBER_COMPLETE',
+                               category:'alert'
+                            },
+                            {
+                                name:'alertCourseUpdate',
+                                edit: true,
+                                type:'Boolean',
+                                valueBoolean:true,
+                                code:'ALERT_COURSE_UPDATE',
+                                category:'alert'
+                             },
+                             {
+                                 name:'alertThreadNew',
+                                 edit: true,
+                                 type:'Boolean',
+                                 valueBoolean:true,
+                                 code:'ALERT_THREAD_NEW',
+                                 category:'alert'
+                              },
+                              {
+                                  name:'alertReplyNew',
+                                  edit: true,
+                                  type:'Boolean',
+                                  valueBoolean:true,
+                                  code:'ALERT_REPLY_NEW',
+                                  category:'alert'
+                               },
+                               {
+                                   name:'alertCourseMaterialUpdate',
+                                   edit: true,
+                                   type:'Boolean',
+                                   valueBoolean:true,
+                                   code:'ALERT_COURSE_MATERIAL_UPDATE',
+                                   category:'alert'
+                                }
              ]
     }
   }

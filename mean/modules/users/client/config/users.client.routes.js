@@ -62,7 +62,26 @@
         data: {
             action: 'register'
         },
-      });
+      })
+      .state('password', {
+        abstract: true,
+        url: '/password',
+        template: '<ui-view/>'
+      })
+      .state('password.reset', {
+        abstract: true,
+        url: '/reset',
+        template: '<ui-view/>'
+      })
+      .state('password.reset.form', {
+        url: '/:token',
+        templateUrl: '/modules/users/client/views/reset-password.client.view.html',
+        controller: 'PasswordController',
+        controllerAs: 'vm',
+        data: {
+          pageTitle: 'Password reset form'
+        }
+      });;
     
     getUser.$inject = ['$stateParams', 'UsersService'];
 

@@ -16,5 +16,23 @@
       icon:'grade',
       position: 40
     });
+    menuService.addSubMenuItem('sidebar', 'admin.workspace.performance',{
+        title: 'PAGE.WORKSPACE.SIDEBAR.PERFORMANCE.ASSESSMENT',
+        state: 'admin.workspace.performance.exams',
+        roles: ['admin'],
+        position: 1
+      });
+    menuService.addSubMenuItem('sidebar', 'admin.workspace.performance',{
+        title: 'PAGE.WORKSPACE.SIDEBAR.PERFORMANCE.COMPETENCY',
+        state: 'admin.workspace.performance.competency',
+        roles: ['admin'],
+        position: 1
+      });
+    menuService.addSubMenuItem('sidebar', 'admin.workspace.performance',{
+        title: 'PAGE.WORKSPACE.SIDEBAR.PERFORMANCE.GAP_ANALYSIS',
+        state: 'admin.workspace.performance.gap',
+        roles: ['admin'],
+        position: 1
+      });
   }
 }());

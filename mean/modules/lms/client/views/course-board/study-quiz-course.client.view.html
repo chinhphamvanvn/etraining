@@ -22,22 +22,11 @@
                         <hr>
                         <h5 class="uk-margin-small-bottom uk-text-muted">{{'PAGE.LMS.MY_COURSES.COURSE_STUDY.OPTION'|translate}}</h5>
                         <ul class="uk-list uk-list-large">
-                            <li ng-repeat="option in vm.options">
+                            <li ng-repeat="option in vm.question.options">
                                 <div class="">
-                                    <span class="icheck-inline" ng-show="vm.question.type=='sc'">
-                                        <input type="radio"
-                                            name="question{{vm.question._id}}"
-                                            id="question_option{{option._id}}"
-                                            ng-value="true"
-                                            icheck ng-model="option.selected" />  
-                                        <label
-                                            for="question_option{{option._id}}"
-                                            class="inline-label">{{option.content}}</label>
-                                                                              
-                                    </span>
-                                    <span class="icheck-inline" ng-show="vm.question.type=='mc'">
+                                    <span class="icheck-inline" ng-show="vm.question.type=='mc' || vm.question.type=='sc'">
                                         <input type="checkbox"
-                                            id="question_option{{option._id}}"
+                                            id="question_option{{option._id}}" ng-change="vm.selectOption(option,vm.question)"
                                             icheck ng-model="option.selected" /> 
                                         <label
                                             for="question_option{{option._id}}"

@@ -6,6 +6,11 @@
 var path = require('path'),
   mongoose = require('mongoose'),
   CourseMaterial = mongoose.model('CourseMaterial'),
+  CourseMember = mongoose.model('CourseMember'),
+  Course = mongoose.model('Course'),
+  CourseEdition = mongoose.model('CourseEdition'),
+  Setting = mongoose.model('Setting'),
+  Message = mongoose.model('Message'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
   _ = require('lodash'),
   fs = require('fs'),
@@ -26,8 +31,26 @@ exports.create = function(req, res) {
       });
     } else {
       res.jsonp(material);
+      alertMember();
     }
   });
+  
+  function alertMember() {
+      CourseEdition.findById(material.edition).exec(function(err,courseEdition) {
+          Course.findById(courseEdition.course).exec(function(err,course) {
+              Setting.findOne({code:'ALERT_COURSE_MATERIAL_UPDATE'}).exec(function(err,setting) {
+                  if (!err && setting && setting.valueBoolean)  {
+                      CourseMember.find({role:'student',edition:edition,status:'active',enrollmentStatus:'in-study'}).exec(function(err,students) {
+                          _.each(students,function(student) {
+                              var alert = new Message({title:'Course activity',content:'New material uploaded for course ' + course.name,level:'primary',type:'alert',recipient: student.member});
+                              alert.save();
+                          });
+                      });
+                  } 
+              });
+          });
+      });
+  }
 };
 
 /**

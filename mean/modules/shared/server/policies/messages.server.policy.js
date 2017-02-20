@@ -17,7 +17,11 @@ exports.invokeRolesPolicies = function () {
     allows: [{
       resources: '/api/messages',
       permissions: '*'
-    }, {
+    }, 
+    {
+        resources: '/api/messages/alert',
+        permissions: '*'
+      },{
       resources: '/api/messages/:messageId',
       permissions: '*'
     }]
@@ -26,9 +30,13 @@ exports.invokeRolesPolicies = function () {
     allows: [{
       resources: '/api/messages',
       permissions: ['get', 'post']
-    }, {
+    },
+    {
+        resources: '/api/messages/alert',
+        permissions: ['get']
+      },{
       resources: '/api/messages/:messageId',
-      permissions: ['get']
+      permissions: ['get','delete']
     }]
   }, {
     roles: ['guest'],

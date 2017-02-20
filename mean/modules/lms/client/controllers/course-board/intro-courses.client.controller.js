@@ -6,12 +6,14 @@ angular
     .module('lms')
     .controller('CoursesIntroController', CoursesIntroController);
 
-CoursesIntroController.$inject = ['$scope', '$state', '$window', 'CourseMembersService','Authentication', 'ClassroomsService', 'courseResolve', 'CoursesService', 'Notification', 'GroupsService','UsersService', '$translate','localStorageService', '$q','_'];
+CoursesIntroController.$inject = ['$scope', '$state', '$window', 'CourseMembersService','Authentication', 'ClassroomsService', 'courseResolve', 'editionResolve','userResolve', 'CoursesService', 'Notification', 'GroupsService','UsersService', '$translate','localStorageService', '$q','_'];
 
-function CoursesIntroController($scope, $state, $window, CourseMembersService,Authentication, ClassroomsService, course, CoursesService, Notification, GroupsService,UsersService,$translate ,localStorageService, $q, _) {
+function CoursesIntroController($scope, $state, $window, CourseMembersService,Authentication, ClassroomsService, course, edition, user, CoursesService, Notification, GroupsService,UsersService,$translate ,localStorageService, $q, _) {
     var vm = this;
     vm.register = register;
     vm.course = course;
+    vm.edition = edition;
+    vm.user = user;
     
    vm.classes = ClassroomsService.byCourse({courseId:vm.course._id});
    vm.member = CourseMembersService.meByCourse({courseId:vm.course._id,userId:localStorageService.get('userId')},function(data) {
@@ -74,6 +76,7 @@ function CoursesIntroController($scope, $state, $window, CourseMembersService,Au
        if (vm.course.model=='group')
            member.classroom = classroom._id;
        member.registerAgent = vm.user._id;
+       member.edition = vm.edition._id;
        member.status = 'active';
        member.enrollmentStatus ='registered';
        member.role = 'student';

@@ -60,13 +60,18 @@ module.exports = {
     sandbox: true
   },
   mailer: {
-    from: process.env.MAILER_FROM || 'MAILER_FROM',
+    from: 'contact@vietinterview.com',
     options: {
-      service: process.env.MAILER_SERVICE_PROVIDER || 'MAILER_SERVICE_PROVIDER',
-      auth: {
-        user: process.env.MAILER_EMAIL_ID || 'MAILER_EMAIL_ID',
-        pass: process.env.MAILER_PASSWORD || 'MAILER_PASSWORD'
-      }
+        auth: {
+            user: 'contact@vietinterview.com',
+            pass: 'Tc!@#6102'
+          },
+      port: 25,
+      host: 'vietinterview.com',
+      secure:false,
+      tls: {rejectUnauthorized: false},
+      ignoreTLS:false,
+      debug:true
     }
   },
   livereload: true,
@@ -141,7 +146,7 @@ module.exports = {
                          code:'BUILT_INT_CONFERENCE_API_SALT',
                          category:'conference'
                       },
-                      {
+                     {
                           name:'alertUserCreate',
                           edit: true,
                           type:'Boolean',
@@ -153,7 +158,7 @@ module.exports = {
                            name:'alertUserUpdated',
                            edit: true,
                            type:'Boolean',
-                           valueBoolean:true,
+                           valueBoolean:false,
                            code:'ALERT_USER_UPDATE',
                            category:'alert'
                         },

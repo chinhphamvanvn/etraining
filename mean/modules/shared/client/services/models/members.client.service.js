@@ -26,6 +26,10 @@
               isArray:true,
               url:'/api/members/me'
             },
+            withdraw: {
+                method: 'POST',
+                url:'/api/members/withdraw/:memberId'
+              },
             meByCourse: {
                 method: 'GET',
                 url:'/api/members/me/byCourse/:courseId'

@@ -14,7 +14,12 @@
     }, {
       update: {
         method: 'PUT'
-      }
+      },
+      waitingAlert : {
+          method: 'GET',
+          url: '/api/messages/alert',
+          isArray: true
+        } 
     });
   }
 }());

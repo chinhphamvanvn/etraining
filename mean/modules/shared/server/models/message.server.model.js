@@ -3,6 +3,7 @@
 /**
  * Module dependencies.
  */
+var _ = require('underscore')._;
 var mongoose = require('mongoose'),
   Schema = mongoose.Schema;
 
@@ -20,6 +21,10 @@ var MessageSchema = new Schema({
       type: String,
       default: ''
     },
+    read: {
+        type: Boolean,
+        default: false
+      },
   type: {
       type: String,
       enum: ['alert', 'message'],
@@ -27,7 +32,7 @@ var MessageSchema = new Schema({
     },
   level: {
       type: String,
-      enum: ['warning', 'info', 'danger', 'success'],
+      enum: ['warning', 'primary', 'danger', 'success'],
       default: 'info',
     },
     sender: {
@@ -48,4 +53,6 @@ var MessageSchema = new Schema({
   }
 });
 
-mongoose.model('Message', MessageSchema);
+var Message = mongoose.model('Message', MessageSchema);
+
+

@@ -34,10 +34,13 @@ function CoursesStudyQuizController($scope, $state, $window, QuestionsService,Ex
                     vm.attempt.$save();
                     vm.remainTime = vm.quiz.duration*60 ;
                     vm.timeoutToken = $timeout(function() {
+                        $interval.cancel(vm.intervalToken);
                         vm.attempt.status ='completed';
                         vm.attempt.end = new Date();
                         vm.attempt.answers = _.pluck(vm.questions,'answer._id');
-                        vm.attempt.$update();
+                        vm.attempt.$update(function() {
+                            $scope.$parent.completeQuiz();
+                        });
                     },vm.remainTime*1000);
                     vm.intervalToken = $interval(updateClock,1000);
                     
@@ -64,7 +67,7 @@ function CoursesStudyQuizController($scope, $state, $window, QuestionsService,Ex
     vm.saveNext = saveNext;
     vm.savePrev = savePrev;
     vm.submitQuiz = submitQuiz;
-  
+    vm.selectOption = selectOption;
     
     function updateClock() {
         vm.remainTime--;
@@ -77,18 +80,28 @@ function CoursesStudyQuizController($scope, $state, $window, QuestionsService,Ex
         vm.timeString =  pad(hh)+":"+pad(mm)+":"+pad(ss);
     }
     
+    function selectOption(option,question) {
+        if (vm.question.type=='sc') {
+            _.each(question.options,function(obj) {
+               obj.selected = false; 
+            });
+            option.selected = true;
+        }
+    }
+    
     function selectQuestion(index) {
         vm.question = vm.questions[index];
         if (!vm.question.answer) {
             vm.question.answer =  new AnswersService();
         }
-        vm.options =  OptionsService.byQuestion({questionId:vm.question._id}, function(){
-            _.each(vm.options,function(option) {
-                var selected = vm.question.answer.option == option._id;
-                var checked =  _.contains(vm.question.answer.options,option._id);
-                option.selected = selected || checked;
+        if (!vm.question.options) {
+            vm.question.options =  OptionsService.byQuestion({questionId:vm.question._id}, function(){
+                _.each(vm.question.options ,function(option) {
+                    option.selected = _.contains(vm.question.answer.options,option._id)
+                });
             });
-        });
+        } 
+        
         if (vm.question.answer.option || vm.question.answer.options)
             vm.question.attempted = true;
         else
@@ -113,10 +126,13 @@ function CoursesStudyQuizController($scope, $state, $window, QuestionsService,Ex
             UIkit.modal.confirm('Are you sure?', function(){ 
                 vm.attempt.status ='completed';
                 vm.attempt.end = new Date();
-                vm.attempt.answers = _.pluck(vm.questions,'answer._id');
+                vm.attempt.answers = _.map(vm.questions,function(obj) {
+                    return obj.answer._id;
+                });
                 vm.attempt.$update(function() {
                     $interval.cancel(vm.intervalToken);
                     $timeout.cancel(vm.timeoutToken);
+                    $scope.$parent.completeQuiz();
                 });
             });
         })
@@ -139,23 +155,14 @@ function CoursesStudyQuizController($scope, $state, $window, QuestionsService,Ex
        var answer = vm.question.answer ;
        answer.question =  vm.question._id;
        answer.exam =  vm.quiz._id;
-       if (vm.question.type=='sc' ) {
-           var selectedOption = _.find(vm.options,function(option) {
+       if (vm.question.type=='mc' || vm.question.type=='sc')  {
+           var selectedOptions = _.filter(vm.question.options,function(option) {
                return option.selected;
            });
-           if (!selectedOption) {
-               Notification.error({message:'You must selected one option', title: '<i class="glyphicon glyphicon-remove"></i> Save answer error!' });
-               return;
-           }
-           else
-               answer.option = selectedOption._id;
-       } 
-       if (vm.question.type=='mc')  {
-           var selectedOptions = _.filter(vm.options,function(option) {
-               return option.selected;
-           });
-           if (selectedOptions.length)
-               answer.options = _.pluck(selectedOptions,'_id');
+           answer.options = _.pluck(selectedOptions,'_id');
+           answer.isCorrect =  _.filter(vm.question.options,function(option) {
+               return option.isCorrect && !option.selected;
+           }).length==0;
        }
        if (answer._id) 
            answer.$update(function() {

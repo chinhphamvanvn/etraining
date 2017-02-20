@@ -34,6 +34,15 @@
                   });
               }
               
+              scope.selectOption = function(option) {
+                  if (scope.question.type=='sc') {
+                      _.each(scope.question.options,function(obj) {
+                         obj.isCorrect = false; 
+                      });
+                      option.isCorrect = true;
+                  }
+              }
+              
               scope.removeOption = function(option) {
                   if (option._id)  {
                       OptionsService.delete({optionId:option._id},function() {

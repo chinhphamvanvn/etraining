@@ -4,16 +4,23 @@
             <h4 class="heading_a uk-margin-bottom">{{'PAGE.SETTING.USER_ALERT'|translate}}</h4>
             <form action="" class="uk-form-stacked" id="page_settings">
                 <div class="uk-grid" data-uk-grid-margin>
-                    <div class="uk-width-large-1-2 uk-width-medium-1-1">
+                    <div class="uk-width-large-1-1 uk-width-medium-1-1">
                         <div class="md-card">
                             <div class="md-card-content">
                                  <div class="uk-form-row">
                                     <label for="alert_user_create">{{'PAGE.SETTING.ALERT_USER_CREATE'|translate}}</label>
                                     <div >
-                                                <input type="checkbox" ui-switch ng-model="vm.alertUserCreate.valueBoolean" id="alert_user_create" name="alert_user_create" />
+                                         <input type="checkbox" ui-switch ng-model="vm.alertUserCreate.valueBoolean" id="alert_user_create" name="alert_user_create" />
                                      </div>
                                 </div>
-
+                                <div class="uk-form-row">
+                                    <label for="alert_user_delete">{{'PAGE.SETTING.ALERT_USER_DELETE'|translate}}</label>
+                                    <div >
+                                         <input type="checkbox" ui-switch ng-model="vm.alertUserDelete.valueBoolean" id="alert_user_delete" name="alert_user_delete" />
+                                     </div>
+                                </div>
+                                
+                                
                             </div>
                         </div>
                     </div>
@@ -27,13 +34,44 @@
                     <div class="uk-width-medium-1-2">
                         <div class="md-card">
                             <div class="md-card-content">
+                               <div class="uk-form-row">
+                                    <label for="alert_member_enroll">{{'PAGE.SETTING.ALERT_MEMBER_ENROLL'|translate}}</label>
+                                    <div >
+                                         <input type="checkbox" ui-switch ng-model="vm.alertMemberEnroll.valueBoolean" id="alert_member_enroll" name="alert_member_enroll" />
+                                     </div>
+                                </div>
+                                
                                 <div class="uk-form-row">
-                                    <label for="settings_builtin_conference_api">{{'PAGE.SETTING.BUILT_INT_API_URL'|translate}}</label>
-                                    <input class="md-input" type="text" id="settings_builtin_conference_api" name="settings_builtin_conference_api" ng-model="vm.settingBuiltinConferenceApiURL.valueString" md-input/>
+                                    <label for="alert_member_withdraw">{{'PAGE.SETTING.ALERT_MEMBER_WIDTHDRAW'|translate}}</label>
+                                    <div >
+                                         <input type="checkbox" ui-switch ng-model="vm.alertMemberWithdraw.valueBoolean" id="alert_member_withdraw" name="alert_member_withdraw" />
+                                     </div>
+                                </div>
+                                
+                                <div class="uk-form-row">
+                                    <label for="alert_member_complete">{{'PAGE.SETTING.ALERT_MEMBER_COMPLETE'|translate}}</label>
+                                    <div >
+                                         <input type="checkbox" ui-switch ng-model="vm.alertMemberComplete.valueBoolean" id="alert_member_complete" name="alert_member_complete" />
+                                     </div>
                                 </div>
                                 <div class="uk-form-row">
-                                    <label for="settings_builtin_conference_api_salt">{{'PAGE.SETTING.BUILT_INT_API_SALT'|translate}}</label>
-                                    <input class="md-input" type="text" id="settings_builtin_conference_api_salt" name="settings_builtin_conference_api_salt" ng-model="vm.settingBuiltinConferenceApiSalt.valueString" md-input/>
+                                    <label for="alert_thread_new">{{'PAGE.SETTING.ALERT_THREAD_NEW'|translate}}</label>
+                                    <div >
+                                         <input type="checkbox" ui-switch ng-model="vm.alertThreadNew.valueBoolean" id="alert_thread_new" name="alert_thread_new" />
+                                     </div>
+                                </div>
+                                
+                                <div class="uk-form-row">
+                                    <label for="alert_reply_new">{{'PAGE.SETTING.ALERT_REPLY_NEW'|translate}}</label>
+                                    <div >
+                                         <input type="checkbox" ui-switch ng-model="vm.alertReplyNew.valueBoolean" id="alert_reply_new" name="alert_reply_new" />
+                                     </div>
+                                </div>
+                                <div class="uk-form-row">
+                                    <label for="alert_course_material_update">{{'PAGE.SETTING.ALERT_COURSE_MATERIAL_UPDATE'|translate}}</label>
+                                    <div >
+                                         <input type="checkbox" ui-switch ng-model="vm.alertCourseMaterialUpdate.valueBoolean" id="alert_course_material_update" name="alert_course_material_update" />
+                                     </div>
                                 </div>
                             </div>
                         </div>

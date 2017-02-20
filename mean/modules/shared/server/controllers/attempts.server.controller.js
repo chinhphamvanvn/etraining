@@ -109,7 +109,7 @@ exports.listByCourseAndMember = function(req, res) {
   };
   
   exports.listBySectionAndMember = function(req, res) {
-      CourseAttempt.find({member:req.member._id,section:req.section._id,edition:req.edition._id}).sort('-created').populate('user', 'displayName').populate('answer').exec(function(err, attempts) {
+      CourseAttempt.find({member:req.member._id,section:req.section._id,edition:req.edition._id}).sort('-created').populate('user', 'displayName').populate('answers').exec(function(err, attempts) {
         if (err) {
           return res.status(400).send({
             message: errorHandler.getErrorMessage(err)

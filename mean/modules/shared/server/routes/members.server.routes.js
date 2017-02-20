@@ -18,6 +18,9 @@ module.exports = function(app) {
   app.route('/api/members/me').all(membersPolicy.isAllowed)
   .get(members.me);
   
+  app.route('/api/members/withdraw/:memberId').all(membersPolicy.isAllowed)
+  .post(members.withdraw);
+  
   app.route('/api/members/me/byCourse/:courseId').all(membersPolicy.isAllowed)
   .get(members.meByCourse);
   

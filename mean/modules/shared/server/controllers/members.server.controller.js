@@ -8,6 +8,9 @@ var path = require('path'),
   _ = require('underscore'),
   CourseMember = mongoose.model('CourseMember'),
   Course = mongoose.model('Course'),
+  User = mongoose.model('User'),
+  Setting = mongoose.model('Setting'),
+  Message = mongoose.model('Message'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
   _ = require('lodash');
 
@@ -38,7 +41,8 @@ exports.create = function(req, res) {
                       });
                     } else {
                         CourseMember.findOne(member).populate('member').exec(function (err, item) {
-                            res.json(item)});
+                            res.json(item)});              
+                        alertTeacher(member,course);
                     }
               });
           }, function(err) {
@@ -61,6 +65,21 @@ exports.create = function(req, res) {
                 CourseMember.findOne(member).populate('member').exec(function (err, item) {
                     res.json(item)});
             }
+      });
+  }
+  
+  function alertTeacher(student,course) {
+      User.findById(student.member).exec(function(err,studentUser) {
+          Setting.findOne({code:'ALERT_MEMBER_ENROLL'}).exec(function(err,setting) {
+              if (!err && setting && setting.valueBoolean)  {
+                  CourseMember.find({role:'teacher',course:course._id,status:'active'}).exec(function(err,teachers) {
+                      _.each(teachers,function(teacher) {
+                          var alert = new Message({title:'Course activity',content:'User ' + studentUser.displayName +' has enrolled course ' + course.name,level:'success',type:'alert',recipient: teacher.member});
+                          alert.save();
+                      });
+                  });
+              } 
+          });
       });
   }
   
@@ -146,6 +165,39 @@ exports.update = function(req, res) {
     }
   });
 };
+
+exports.withdraw = function(req, res) {
+    var member = req.member;
+    member = _.extend(member, req.body);
+    member.status ='withdrawn';
+    member.save(function(err) {
+      if (err) {
+        return res.status(400).send({
+          message: errorHandler.getErrorMessage(err)
+        });
+      } else {
+        res.jsonp(member);
+        alertTeacher(member);
+      }
+    });
+    
+    function alertTeacher(student) {
+        User.findById(student.member).exec(function(err,studentUser) {
+            Course.findById(student.course).exec(function(err,course) {
+                Setting.findOne({code:'ALERT_MEMBER_WIDTHDRAW'}).exec(function(err,setting) {
+                    if (!err && setting && setting.valueBoolean)  {
+                        CourseMember.find({role:'teacher',course:course._id,status:'active'}).exec(function(err,teachers) {
+                            _.each(teachers,function(teacher) {
+                                var alert = new Message({title:'Course activity',content:'User ' + studentUser.displayName +' has withdrawn course ' + course.name,level:'warning',type:'alert',recipient: teacher.member});
+                                alert.save();
+                            });
+                        });
+                    } 
+                });
+            });
+        });
+    }
+  };
 
 /**
  * Delete an Member
