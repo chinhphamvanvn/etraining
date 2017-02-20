@@ -41,6 +41,7 @@ exports.invokeRolesPolicies = function () {
           resources: '/api/exams/public',
           permissions: ['get']
         },
+
         {
       resources: '/api/exams/:examId',
       permissions: ['get']

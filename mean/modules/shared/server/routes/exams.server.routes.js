@@ -16,6 +16,8 @@ module.exports = function(app) {
   
   app.route('/api/exams/public').all(examsPolicy.isAllowed)
   .get(exams.listPublished)
+  
+
 
   app.route('/api/exams/:examId').all(examsPolicy.isAllowed)
     .get(exams.read)

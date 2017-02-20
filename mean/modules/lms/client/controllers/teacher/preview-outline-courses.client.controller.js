@@ -45,6 +45,7 @@ function CoursesOutlinePreviewController($scope, $state, $window, HtmlsService,E
     
 
     function selectContentNode(node) {
+        vm.selectedNode = node;
         vm.selectedContentNode = node;
         vm.section = node.data;
         if (node.data.contentType=='html')
@@ -53,6 +54,8 @@ function CoursesOutlinePreviewController($scope, $state, $window, HtmlsService,E
             $state.go('workspace.lms.courses.outline.preview.quiz',{sectionId:node.data._id});
         if (node.data.contentType=='video')
             $state.go('workspace.lms.courses.outline.preview.video',{sectionId:node.data._id});
+        if (node.data.contentType=='survey')
+            $state.go('workspace.lms.courses.outline.preview.survey',{sectionId:node.data._id});
     }
     
     function toggleExpand(node) {
@@ -79,9 +82,9 @@ function CoursesOutlinePreviewController($scope, $state, $window, HtmlsService,E
     
     function prevSection() {
         var index = 0;
-        if (vm.selectedNode) {
+        if (vm.selectedContentNode) {
             index = _.findIndex(vm.nodeList,function(node) {
-                return node.id == vm.selectedNode.id;
+                return node.id == vm.selectedContentNode.id;
             })-1;
         while (index >=0 && !vm.nodeList[index].data.hasContent)
             index--;
@@ -92,9 +95,9 @@ function CoursesOutlinePreviewController($scope, $state, $window, HtmlsService,E
     
     function nextSection() {
         var index = 0;
-        if (vm.selectedNode) {
+        if (vm.selectedContentNode) {
             index = _.findIndex(vm.nodeList,function(node) {
-                return node.id == vm.selectedNode.id;
+                return node.id == vm.selectedContentNode.id;
             })+1;
         while (index <vm.nodeList.length && !vm.nodeList[index].data.hasContent)
             index++;

@@ -17,6 +17,9 @@ module.exports = function(app) {
   
   app.route('/api/attempts/bySectionAndMember/:editionId/:sectionId/:memberId').all(attemptsPolicy.isAllowed)
   .get(attempts.listBySectionAndMember);
+  
+  app.route('/api/attempts/bySection/:editionId/:sectionId').all(attemptsPolicy.isAllowed)
+  .get(attempts.listBySection);
 
   app.route('/api/attempts/:attemptId').all(attemptsPolicy.isAllowed)
     .get(attempts.read)

@@ -20,7 +20,11 @@ exports.invokeRolesPolicies = function () {
     }, {
         resources: '/api/sections/byEdition/:editionId',
         permissions: '*'
-      },{
+      },
+      {
+          resources: '/api/sections/survey/:editionId',
+          permissions: 'get'
+        },{
       resources: '/api/sections/:sectionId',
       permissions: '*'
     }]
@@ -29,7 +33,11 @@ exports.invokeRolesPolicies = function () {
     allows: [{
       resources: '/api/sections',
       permissions: ['get', 'post']
-    }, {
+    },
+    {
+        resources: '/api/sections/survey/:editionId',
+        permissions: 'get'
+      },{
         resources: '/api/sections/byEdition/:editionId',
         permissions: '*'
       },{

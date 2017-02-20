@@ -96,6 +96,13 @@
                     value: "twitter",
                     parent_id: 1
                 }
+                ,
+                {
+                    id: 9,
+                    title: "-- Ignore --",
+                    value: '#IGNORE#',
+                    parent_id: 1
+                }
             ];
         
 
@@ -129,21 +136,15 @@
         $scope.$apply();
     }
     
-    function importData() {
-        var unmatchHeader = _.find(vm.headers,function(header,index) {
-            return !header.column;
-        });
-        if (unmatchHeader) {
-            Notification.error({ message:  '<i class="uk-icon-ban"></i> Not all columns are matched!' });
-            return;
-        }            
+    function importData() {          
         var modal = UIkit.modal.blockUI('<div class=\'uk-text-center\'>Processing...<br/><img class=\'uk-margin-top\' src=\'/assets/img/spinners/spinner.gif\' alt=\'\'>');
         var allPromise = [];
         _.each(vm.users,function(user) {
             if (!user.removed) {
                 var userService = new UsersService();
                 _.each(vm.headers,function(header,index) {
-                    userService[header.column] = user[index];
+                    if (header.column && header.column !='#IGNORE#')
+                        userService[header.column] = user[index];
                 });
                 userService.group = vm.group;
                 allPromise.push(userService.$save().$promise);

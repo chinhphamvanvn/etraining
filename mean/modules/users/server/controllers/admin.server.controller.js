@@ -31,9 +31,6 @@ exports.read = function (req, res) {
 
 exports.create = function (req, res) {
   // For security measurement we remove the roles from the req.body object
-  delete req.body.roles;
-
-  // Init user and add missing fields
   var user = new User(req.body);
   user.provider = 'local';
   if (!user.password)
@@ -65,8 +62,9 @@ exports.create = function (req, res) {
                        });
                    });
                } 
+               done(err, user);
            });
-           done(err, user);
+          
        },
        function (user, done) {
 
@@ -172,8 +170,9 @@ exports.delete = function (req, res) {
                                    });
                                });
                            } 
+                           done(err,user);
                        })
-                       done(err,user);
+                       
                    },
                    function (user, done) {
 

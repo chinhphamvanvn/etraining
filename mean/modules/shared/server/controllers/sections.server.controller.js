@@ -107,6 +107,18 @@ exports.sectionByEditionID = function(req, res) {
   });
 };
 
+exports.listSurveyByEditionID = function(req, res) {
+    EditionSection.find({edition:req.edition._id,hasContent:true,contentType:'survey',survey: { $ne: null }}).sort('-created').populate('user', 'displayName').populate('survey').exec(function(err, sections) {
+    if (err) {
+      return res.status(400).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    } else {
+      res.jsonp(sections);
+    }
+  });
+};
+
 /**
  * Section middleware
  */

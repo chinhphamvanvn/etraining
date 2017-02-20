@@ -14,6 +14,9 @@ module.exports = function(app) {
   
   app.route('/api/sections/byEdition/:editionId').all(sectionsPolicy.isAllowed)
   .get(sections.sectionByEditionID);
+  
+  app.route('/api/sections/survey/:editionId').all(sectionsPolicy.isAllowed)
+  .get(sections.listSurveyByEditionID)
 
   app.route('/api/sections/:sectionId').all(sectionsPolicy.isAllowed)
     .get(sections.read)

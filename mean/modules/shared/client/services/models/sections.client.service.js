@@ -18,7 +18,12 @@
       }, 
       update: {
         method: 'PUT'
-      }
+      },
+      surveyByCourse: {
+          url:'/api/sections/survey/:editionId',
+          method: 'GET',
+          isArray:true
+        }, 
     });
   }
 }());

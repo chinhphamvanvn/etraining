@@ -12,6 +12,7 @@
       return {
           scope: {
               question: "=",
+              exam:"=",
               mode: "="
           },
           templateUrl:'/modules/lms/client/directives/question-edit/question.directive.client.view.html',

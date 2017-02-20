@@ -109,6 +109,20 @@
               courseRoles: [ 'student']
             }
         })
+        .state('workspace.lms.courses.outline.preview.survey', {
+            url: '/survey/:sectionId',
+            templateUrl: '/modules/lms/client/views/teacher/preview-survey-course.client.view.html',
+            controller: 'CoursesPreviewSurveyController',
+            controllerAs: 'vm',
+            resolve: {
+                sectionResolve: getSection,
+                editionResolve: getEdition
+            },
+            data: {
+              roles: ['user'],
+              courseRoles: [ 'student']
+            }
+        })
         .state('workspace.lms.courses.outline.preview.video', {
             url: '/video/:sectionId',
             templateUrl: '/modules/lms/client/views/teacher/preview-video-course.client.view.html',
@@ -165,6 +179,22 @@
           courseRoles: [ 'teacher']
         }
       })
+      .state('workspace.lms.courses.section.view.survey', {
+        url: '/survey/:sectionId',
+        templateUrl: '/modules/lms/client/views/teacher/view-survey.section-course.client.view.html',
+        controller: 'CoursesSurveySectionController',
+        controllerAs: 'vm',
+        resolve: {
+          sectionResolve: getSection,
+          editionResolve: getEdition,
+          courseResolve: getCourse,
+          surveyResolve: getSurvey
+        },
+        data: {
+          roles: [ 'user'],
+          courseRoles: [ 'teacher']
+        }
+      })
       .state('workspace.lms.courses.section.view.video', {
         url: '/video/:sectionId',
         templateUrl: '/modules/lms/client/views/teacher/view-video.section-course.client.view.html',
@@ -187,7 +217,7 @@
         template: '<ui-view/>'
       })
       .state('workspace.lms.courses.section.edit.html', {
-        url: '/html/:courseId/:sectionId',
+        url: '/html/:sectionId',
         templateUrl: '/modules/lms/client/views/teacher/form-html.section-course.client.view.html',
         controller: 'CoursesHTMLSectionController',
         controllerAs: 'vm',
@@ -203,7 +233,7 @@
         }
       })
       .state('workspace.lms.courses.section.edit.quiz', {
-        url: '/quiz/:courseId/:sectionId',
+        url: '/quiz/:sectionId',
         templateUrl: '/modules/lms/client/views/teacher/form-quiz.section-course.client.view.html',
         controller: 'CoursesQuizSectionController',
         controllerAs: 'vm',
@@ -218,8 +248,24 @@
           courseRoles: [ 'teacher']
         }
       })
+      .state('workspace.lms.courses.section.edit.survey', {
+        url: '/survey/:sectionId',
+        templateUrl: '/modules/lms/client/views/teacher/form-survey.section-course.client.view.html',
+        controller: 'CoursesSurveySectionController',
+        controllerAs: 'vm',
+        resolve: {
+          sectionResolve: getSection,
+          editionResolve: getEdition,
+          courseResolve: getCourse,
+          surveyResolve: getSurvey
+        },
+        data: {
+          roles: [ 'user'],
+          courseRoles: [ 'teacher']
+        }
+      })
       .state('workspace.lms.courses.section.edit.video', {
-        url: '/video/:courseId/:sectionId',
+        url: '/video/:sectionId',
         templateUrl: '/modules/lms/client/views/teacher/form-video.section-course.client.view.html',
         controller: 'CoursesVideoSectionController',
         controllerAs: 'vm',
@@ -320,6 +366,21 @@
               courseRoles: [ 'student']
             }
         })
+        .state('workspace.lms.courses.join.study.survey', {
+            url: '/survey/:sectionId',
+            templateUrl: '/modules/lms/client/views/course-board/study-survey-course.client.view.html',
+            controller: 'CoursesStudySurveyController',
+            controllerAs: 'vm',
+            resolve: {
+                sectionResolve: getSection,
+                memberResolve: getMember,
+                editionResolve: getEdition
+            },
+            data: {
+              roles: ['user'],
+              courseRoles: [ 'student']
+            }
+        })
         .state('workspace.lms.courses.join.study.video', {
             url: '/video/:sectionId',
             templateUrl: '/modules/lms/client/views/course-board/study-video-course.client.view.html',
@@ -389,6 +450,20 @@
             editionResolve: getEdition,
             courseResolve: getCourse,
             gradeResolve: getGradescheme
+        },
+        data: {
+          roles: ['user'],
+          courseRoles: [ 'teacher']
+        }
+      })
+      .state('workspace.lms.courses.join.survey', {
+        url: '/survey',
+        templateUrl: '/modules/lms/client/views/teacher/survey-course.client.view.html',
+        controller: 'CoursesSurveyController',
+        controllerAs: 'vm',
+        resolve: {
+            editionResolve: getEdition,
+            courseResolve: getCourse
         },
         data: {
           roles: ['user'],
@@ -509,6 +584,36 @@
                   quiz.questionSelection = 'manual';
                   quiz.$save(function() {
                       resolve(quiz);
+                  });  
+              }
+                  
+      }, function(err) {
+              reject();
+      });
+      });
+  }
+  
+  getSurvey.$inject = ['$stateParams', 'EditionSectionsService','ExamsService', '$q'];
+
+  function getSurvey($stateParams, EditionSectionsService, ExamsService, $q) {
+      if ($stateParams.examId)
+          return ExamsService.get({examId:$stateParams.examId}).$promise;
+      return $q(function(resolve, reject) {
+          EditionSectionsService.get({sectionId:$stateParams.sectionId},function(section) {
+              if (section.survey) {
+                  ExamsService.get({examId:section.survey},function(survey) {
+                      resolve(survey);
+                  },function() {
+                      reject();
+                  })
+              } else {
+                  var survey = new ExamsService();
+                  survey.type='survey';
+                  survey.maxAttempt = 1;
+                  survey.allowNavigate = true;
+                  survey.questionSelection = 'manual';
+                  survey.$save(function() {
+                      resolve(survey);
                   });  
               }
                   
