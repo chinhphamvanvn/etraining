@@ -4,11 +4,11 @@
 // Courses controller
 angular
     .module('lms')
-    .controller('CoursesStudyQuizController', CoursesStudyQuizController);
+    .controller('CoursesStudySurveyController', CoursesStudySurveyController);
 
-CoursesStudyQuizController.$inject = ['$scope', '$state', '$window', 'QuestionsService','ExamsService','AnswersService', 'OptionsService','EditionSectionsService','Authentication','CourseAttemptsService', 'editionResolve', 'CoursesService', 'Notification', 'sectionResolve','memberResolve','$timeout', '$interval','$translate', '$q','_'];
+CoursesStudySurveyController.$inject = ['$scope', '$state', '$window', 'QuestionsService','ExamsService','AnswersService', 'OptionsService','EditionSectionsService','Authentication','CourseAttemptsService', 'editionResolve', 'CoursesService', 'Notification', 'sectionResolve','memberResolve','$timeout', '$interval','$translate', '$q','_'];
 
-function CoursesStudyQuizController($scope, $state, $window, QuestionsService,ExamsService,AnswersService,OptionsService,EditionSectionsService, Authentication, CourseAttemptsService,edition, CoursesService, Notification, section,member,$timeout, $interval,$translate ,$q, _) {
+function CoursesStudySurveyController($scope, $state, $window, QuestionsService,ExamsService,AnswersService,OptionsService,EditionSectionsService, Authentication, CourseAttemptsService,edition, CoursesService, Notification, section,member,$timeout, $interval,$translate ,$q, _) {
     var vm = this;
     vm.edition = edition;
     vm.member = member;
@@ -17,35 +17,32 @@ function CoursesStudyQuizController($scope, $state, $window, QuestionsService,Ex
         vm.alert = $translate.instant('ERROR.COURSE_STUDY.COURSE_ALREADY_COMPLETE');
         return;
     }
-    if (vm.section.quiz) {
-        vm.quiz = ExamsService.get({examId:vm.section.quiz},function() {
+    if (vm.section.survey) {
+        vm.survey = ExamsService.get({examId:vm.section.survey},function() {
             vm.attempts = CourseAttemptsService.byCourseAndMember({editionId:vm.edition._id,memberId:vm.member._id},function() {
                 var attemptCount = _.filter(vm.attempts,function(att) {
-                    return att.section == vm.section._id
+                    return att.section == vm.section._id && att.status=='completed';
                 }).length;
-                if (attemptCount > vm.quiz.maxAttempt && vm.quiz.maxAttempt > 0) {
-                    vm.alert = $translate.instant('ERROR.COURSE_STUDY.MAX_ATTEMPT_EXCEED');
+                if (attemptCount > vm.survey.maxAttempt && vm.survey.maxAttempt > 0) {
+                    vm.alert = $translate.instant('ERROR.COURSE_SURVEY.MAX_ATTEMPT_EXCEED');
                 } else {
-                    vm.attempt = new CourseAttemptsService();
-                    vm.attempt.section = vm.section._id;
-                    vm.attempt.edition = vm.edition._id;
-                    vm.attempt.member = vm.member._id;
-                    vm.attempt.status = 'initial';
-                    vm.attempt.$save();
-                    vm.remainTime = vm.quiz.duration*60 ;
-                    vm.timeoutToken = $timeout(function() {
-                        $interval.cancel(vm.intervalToken);
-                        vm.attempt.status ='completed';
-                        vm.attempt.end = new Date();
-                        vm.attempt.answers = _.pluck(vm.questions,'answer._id');
-                        vm.attempt.$update(function() {
-                            $scope.$parent.nextSection();
-                        });
-                    },vm.remainTime*1000);
-                    vm.intervalToken = $interval(updateClock,1000);
+                    vm.attempt = _.find(vm.attempts,function(att) {
+                        return att.section == vm.section._id && att.status=='initial';
+                    });
+                    if (!vm.attempt) {
+                        vm.attempt = new CourseAttemptsService();
+                        vm.attempt.section = vm.section._id;
+                        vm.attempt.edition = vm.edition._id;
+                        vm.attempt.member = vm.member._id;
+                        vm.attempt.status = 'initial';
+                        vm.attempt.$save();
+                    }
+                        
+                        
+                        
                     
                     var allPromise = [];
-                    _.each(vm.quiz.questions,function(q,index) {
+                    _.each(vm.survey.questions,function(q,index) {
                         allPromise.push(QuestionsService.get({questionId:q.id}).$promise);
                      });
                     $q.all(allPromise).then(function(questions) {
@@ -54,13 +51,13 @@ function CoursesStudyQuizController($scope, $state, $window, QuestionsService,Ex
                        if (vm.questions.length>0)
                            selectQuestion(vm.index)
                        else
-                           vm.alert = $translate.instant('ERROR.COURSE_STUDY.QUESTION_NOT_FOUND');
+                           vm.alert = $translate.instant('ERROR.COURSE_SURVEY.QUESTION_NOT_FOUND');
                     });
                 }
             });
         })
     } else
-        vm.alert = $translate.instant('ERROR.COURSE_STUDY.QUESTION_NOT_FOUND');
+        vm.alert = $translate.instant('ERROR.COURSE_SURVEY.QUESTION_NOT_FOUND');
     
     vm.nextQuestion = nextQuestion;
     vm.prevQuestion = prevQuestion;
@@ -68,17 +65,7 @@ function CoursesStudyQuizController($scope, $state, $window, QuestionsService,Ex
     vm.savePrev = savePrev;
     vm.submitQuiz = submitQuiz;
     vm.selectOption = selectOption;
-    
-    function updateClock() {
-        vm.remainTime--;
-        function pad(num) {
-            return ("0"+num).slice(-2);
-        }
-        var hh = Math.floor(vm.remainTime / 3600);
-        var mm = Math.floor((vm.remainTime - hh*3600 ) /60);
-        var ss = Math.floor(vm.remainTime - hh*3600 - mm* 60);
-        vm.timeString =  pad(hh)+":"+pad(mm)+":"+pad(ss);
-    }
+ 
     
     function selectOption(option,question) {
         if (vm.question.type=='sc') {
@@ -130,8 +117,6 @@ function CoursesStudyQuizController($scope, $state, $window, QuestionsService,Ex
                     return obj.answer._id;
                 });
                 vm.attempt.$update(function() {
-                    $interval.cancel(vm.intervalToken);
-                    $timeout.cancel(vm.timeoutToken);
                     $scope.$parent.nextSection();
                 });
             });
@@ -154,7 +139,7 @@ function CoursesStudyQuizController($scope, $state, $window, QuestionsService,Ex
    function save(callback) {
        var answer = vm.question.answer ;
        answer.question =  vm.question._id;
-       answer.exam =  vm.quiz._id;
+       answer.exam =  vm.survey._id;
        if (vm.question.type=='mc' || vm.question.type=='sc')  {
            var selectedOptions = _.filter(vm.question.options,function(option) {
                return option.selected;

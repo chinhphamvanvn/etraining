@@ -20,7 +20,7 @@
             <i class="material-icons">&#xE8BE;</i>
             <div class="md-fab-toolbar-actions">
                 <button   id="section_edit_save"  ng-click = "vm.update()" data-uk-tooltip="{cls:'uk-tooltip-small',pos:'bottom'}" title="{{'ACTION.SAVE'|translate}}"><i class="material-icons md-color-white">&#xE161;</i></button>
-                <a id="section_edit_cancel"  ui-sref="workspace.lms.courses.section.view({courseId:vm.course._id,sectionId:vm.section._id})"  data-uk-tooltip="{cls:'uk-tooltip-small',pos:'bottom'}" title="{{'ACTION.CLOSE'|translate}}"><i class="material-icons md-color-white">&#xE5CD;</i></a>
+                <a id="section_edit_cancel"  ui-sref="workspace.lms.courses.section.view.quiz({courseId:vm.course._id,sectionId:vm.section._id})"  data-uk-tooltip="{cls:'uk-tooltip-small',pos:'bottom'}" title="{{'ACTION.CLOSE'|translate}}"><i class="material-icons md-color-white">&#xE5CD;</i></a>
             </div>
         </div>
     </div>
@@ -69,7 +69,7 @@
                                                 </h3>
                                             </div>
                                             <div class="md-card-content">
-                                                <lms-question mode="'edit'" question="question"></lms-question>
+                                                <lms-question mode="'edit'" exam="vm.quiz" question="question"></lms-question>
                                             </div>
                                         </div>
                                     </div>

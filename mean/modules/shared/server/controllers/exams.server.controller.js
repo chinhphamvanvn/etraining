@@ -6,6 +6,7 @@
 var path = require('path'),
   mongoose = require('mongoose'),
   Exam = mongoose.model('Exam'),
+  EditionSection = mongoose.model('EditionSection'),
   fs = require('fs'),
   multer = require('multer'),
   config = require(path.resolve('./config/config')),
@@ -94,8 +95,6 @@ exports.list = function(req, res) {
     }
   });
 };
-
-
 
 exports.listPublished = function(req, res) {
     Exam.find({published:true}).sort('-created').populate('user', 'displayName').exec(function(err, exams) {

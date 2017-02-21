@@ -20,6 +20,7 @@
           method: 'GET',
           isArray:true
         }, 
+
     });
   }
 }());

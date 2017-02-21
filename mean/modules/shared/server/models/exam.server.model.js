@@ -97,7 +97,7 @@ var ExamSchema = new Schema({
       },
       type: {
           type: String,
-          enum: ['quiz', 'exam'],
+          enum: ['quiz', 'exam','survey'],
           default: 'quiz',
         },
       created: {

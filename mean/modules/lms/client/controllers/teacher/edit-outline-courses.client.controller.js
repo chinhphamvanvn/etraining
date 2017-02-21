@@ -137,11 +137,13 @@ function CoursesOutlineEditController($scope, $state, $window, Authentication, $
         var section = node.data;
         if (section.hasContent) {
             if (section.contentType=='html')
-                $state.go('workspace.lms.courses.section.edit.html',{courseId:vm.edition.course,sectionId:node.data._id});
+                $state.go('workspace.lms.courses.section.edit.html',{courseId:vm.edition.course,editionId:vm.edition._id,sectionId:node.data._id});
             if (section.contentType=='test')
-                $state.go('workspace.lms.courses.section.edit.quiz',{courseId:vm.edition.course,sectionId:node.data._id});
+                $state.go('workspace.lms.courses.section.edit.quiz',{courseId:vm.edition.course,editionId:vm.edition._id,sectionId:node.data._id});
+            if (section.contentType=='survey')
+                $state.go('workspace.lms.courses.section.edit.survey',{courseId:vm.edition.course,editionId:vm.edition._id,sectionId:node.data._id});
             if (section.contentType=='video')
-                $state.go('workspace.lms.courses.section.edit.video',{courseId:vm.edition.course,sectionId:node.data._id});
+                $state.go('workspace.lms.courses.section.edit.video',{courseId:vm.edition.course,editionId:vm.edition._id,sectionId:node.data._id});
         }
         else
             UIkit.modal.prompt('Name:', '', function(val){ 

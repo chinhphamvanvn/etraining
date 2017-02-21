@@ -24,7 +24,12 @@
             url:'/api/attempts/bySectionAndMember/:editionId/:sectionId/:memberId',
             method: 'GET',
             isArray: true
-          }
+          },
+          bySection: {
+              url:'/api/attempts/bySection/:editionId/:sectionId',
+              method: 'GET',
+              isArray: true
+            }
     });
   }
 }());

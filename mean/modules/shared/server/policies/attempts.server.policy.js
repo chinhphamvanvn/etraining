@@ -25,6 +25,10 @@ exports.invokeRolesPolicies = function () {
           permissions: ['get']
         },
         {
+            resources: '/api/attempts/bySection/:editionId/:sectionId',
+            permissions: ['get']
+          },
+        {
       resources: '/api/attempts/:attemptId',
       permissions: '*'
     }]
@@ -39,7 +43,11 @@ exports.invokeRolesPolicies = function () {
       }, {
           resources: '/api/attempts/bySectionAndMember/:editionId/:sectionId/:memberId',
           permissions: ['get']
-        },{
+        },
+        {
+            resources: '/api/attempts/bySection/:editionId/:sectionId',
+            permissions: ['get']
+          },{
       resources: '/api/attempts/:attemptId',
       permissions: ['get']
     }]
