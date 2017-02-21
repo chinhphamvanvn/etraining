@@ -13,8 +13,8 @@ function CoursesStudyController($scope, $state, $window, HtmlsService,ExamsServi
     vm.course = course;
     vm.member = member;
     vm.edition = edition;
-    vm.prevSection = prevSection;
-    vm.nextSection = nextSection;
+    $scope.prevSection = prevSection;
+    $scope.nextSection = nextSection;
     vm.expand =  expand;
     vm.collapse = collapse;
     vm.toggleExpand = toggleExpand;

@@ -23,7 +23,7 @@ function CoursesStudySurveyController($scope, $state, $window, QuestionsService,
                 var attemptCount = _.filter(vm.attempts,function(att) {
                     return att.section == vm.section._id && att.status=='completed';
                 }).length;
-                if (attemptCount > vm.survey.maxAttempt && vm.survey.maxAttempt > 0) {
+                if (attemptCount >= vm.survey.maxAttempt && vm.survey.maxAttempt > 0) {
                     vm.alert = $translate.instant('ERROR.COURSE_SURVEY.MAX_ATTEMPT_EXCEED');
                 } else {
                     vm.attempt = _.find(vm.attempts,function(att) {
@@ -37,10 +37,7 @@ function CoursesStudySurveyController($scope, $state, $window, QuestionsService,
                         vm.attempt.status = 'initial';
                         vm.attempt.$save();
                     }
-                        
-                        
-                        
-                    
+                 
                     var allPromise = [];
                     _.each(vm.survey.questions,function(q,index) {
                         allPromise.push(QuestionsService.get({questionId:q.id}).$promise);
@@ -158,6 +155,9 @@ function CoursesStudySurveyController($scope, $state, $window, QuestionsService,
                callback();
            })
    }
+   
+   vm.nextSection = $scope.$parent.nextSection;
+   vm.prevSection = $scope.$parent.prevSection;
    
 }
 }());

@@ -5,7 +5,7 @@
                 <div class="md-card" ng-show="!vm.alert">
                     <div  class="md-card-toolbar" ng-class="{'md-bg-green-200':vm.question.attempted,'md-bg-grey-100':!vm.question.attempted }">
                         <div class="md-card-toolbar-actions">
-                            <span class=" uk-text-danger"><i class="uk-icon-clock-o uk-text-danger"></i> {{vm.timeString}}</span>
+                            <span class=" uk-text-danger"><i class="uk-icon-clock-o uk-text-danger"></i> {{vm.remainTime | timeString}}</span>
                            
                         </div>
                         <div class="md-card-toolbar-heading-text">
@@ -51,3 +51,6 @@
                         </div>
                     </div>
                 </div>
+                <hr>
+        <a ng-click="vm.nextSection()"  class="md-btn md-btn-small md-btn-flat md-btn-flat-primary"><i class="uk-icon-arrow-right "></i> {{'ACTION.NEXT'|translate}}</a>
+        <a  ng-click="vm.prevSection()"  class="md-btn md-btn-small md-btn-flat md-btn-flat-primary"><i   class="uk-icon-arrow-left"></i> {{'ACTION.PREV'|translate}}</a>

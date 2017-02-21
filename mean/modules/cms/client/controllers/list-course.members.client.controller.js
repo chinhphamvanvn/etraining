@@ -8,7 +8,7 @@
             return _.filter(students,function(student) {
                 if(!student.classroom)
                     return false;
-                if (student.classroom == classroom._id)
+                if (student.classroom._id == classroom._id || student.classroom == classroom._id)
                     return true;
                 return false;
             });
@@ -108,10 +108,10 @@
         
       CourseMembersService.byCourse({courseId:vm.course._id},function(data) {
           vm.teachers = _.filter(data,function(item) {
-              return item.role=='teacher';
+              return item.role=='teacher' && item.member;
           });
           vm.students = _.filter(data,function(item) {
-              return item.role=='student';
+              return item.role=='student' && item.member;
           });
       });
       
