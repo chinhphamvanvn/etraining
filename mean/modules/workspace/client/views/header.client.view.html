@@ -6,22 +6,21 @@
                     <a><img ng-src="/assets/img/brand/logo.png" alt="" add-image-prop/></a>
                 </div>
                 <!-- main sidebar switch -->
-                 <div >
-                 <ul  class="uk-navbar-nav user_actions">
-                    <li data-uk-tooltip="{cls:'uk-tooltip-small',pos:'top'}" title="Expand / collapse">
-                        <sidebar-primary-toggle></sidebar-primary-toggle>
-                    </li>
-                    <li data-uk-tooltip="{cls:'uk-tooltip-small',pos:'top'}" title="Zoom in/out">
-                    <a href="#" class="user_action_icon uk-visible-large" id="full_screen_toggle" full-screen-toggle><i class="material-icons md-24 md-light">&#xE5D0;</i></a>
-                    </li>
-                    <li data-uk-tooltip="{cls:'uk-tooltip-small',pos:'top'}" title="Print">
-                        <a href="#"  class="user_action_icon uk-visible-large" print-page ><i class=" material-icons md-24 md-light">&#xE8AD;</i></a>
-                    </li>
+                <div>
+                    <ul class="uk-navbar-nav user_actions">
+                        <li data-uk-tooltip="{cls:'uk-tooltip-small',pos:'top'}" title="Expand / collapse">
+                            <sidebar-primary-toggle></sidebar-primary-toggle>
+                        </li>
+                        <li data-uk-tooltip="{cls:'uk-tooltip-small',pos:'top'}" title="Zoom in/out">
+                            <a href="#" class="user_action_icon uk-visible-large" id="full_screen_toggle" full-screen-toggle><i class="material-icons md-24 md-light">&#xE5D0;</i></a>
+                        </li>
+                        <li data-uk-tooltip="{cls:'uk-tooltip-small',pos:'top'}" title="Print">
+                            <a href="#"  class="user_action_icon uk-visible-large" print-page ><i class=" material-icons md-24 md-light">&#xE8AD;</i></a>
+                        </li>
                     </ul>
                 </div>
                 <div class="uk-navbar-flip">
                     <ul class="uk-navbar-nav user_actions">
-                      
                         <li data-uk-dropdown="{mode:'click',pos:'bottom-right'}">
                             <a href="#" class="user_action_icon"><i class="material-icons md-24 md-light">&#xE7F4;</i><span class="uk-badge" ng-show="vm.alerts.length">{{vm.alerts.length}}</span></a>
                             <div class="uk-dropdown uk-dropdown-xlarge">
@@ -39,7 +38,7 @@
                                                         <i class="md-list-addon-icon material-icons uk-text-danger" ng-if="alert.level == 'danger'">&#xE001;</i>
                                                         <i class="md-list-addon-icon material-icons uk-text-primary" ng-if="alert.level == 'primary'">&#xE8FD;</i>
                                                     </div>
-                                                     <div class="uk-position-absolute uk-position-top-right uk-margin-small-right uk-margin-small-top">
+                                                    <div class="uk-position-absolute uk-position-top-right uk-margin-small-right uk-margin-small-top">
                                                         <a href="#" class="note_action_remove" ng-click="vm.closeAlert(alert)"><i class="md-icon material-icons">&#xE5CD;</i></a>
                                                     </div>
                                                     <div class="md-list-content">
@@ -62,13 +61,13 @@
                                 </ul>
                             </div>
                         </li>
-                                 <li>
+                        <li>
                             <div class="lang_selections" ng-controller="LanguageController as lang" >
                                 <selectize 
                                     config='lang.langSwitcherConfig'
                                     options='lang.langSwitcherOptions'
                                     ng-model="lang.langSwitcherModel"></selectize>
-                                    </div>
+                            </div>
                         </li>
                     </ul>
                 </div>
