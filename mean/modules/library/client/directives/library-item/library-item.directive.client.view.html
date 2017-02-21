@@ -1,0 +1,15 @@
+<div class="md-card">
+    <div class="md-card-content small-padding">
+        <img  ng-src="{{media.imageURL}}" alt="" class="blog_list_teaser_image">
+        <div class="blog_list_teaser">
+            <h2 class="blog_list_teaser_title uk-text-truncate">{{media.name}}</h2>
+            <p>{{media.description}}</p>
+            <span class="uk-text-muted uk-text-small">{{'MODEL.MEDIA.TYPE'|translate}}:  {{media.mediaType}}</span>
+        </div>
+        <div class="blog_list_footer">
+               <a  class="md-btn md-btn-small md-btn-flat md-btn-icon md-btn-flat-primary " target="_self" href="{{media.downloadURL}}"download="{{media.filename}}" ><i class="material-icons">file_download</i>{{'ACTION.DOWNLOAD'|translate}}</a>
+                           <a  class="md-btn md-btn-small md-btn-flat md-btn-flat-primary uk-float-right">{{'ACTION.BOOKMARK'|translate}}</a>
+               
+        </div>
+    </div>
+</div>

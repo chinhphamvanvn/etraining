@@ -88,7 +88,7 @@ var CourseSchema = new Schema({
   },
   logoURL: {
     type: String,
-    default: '/modules/shared/client/img/logo/default-placeholder.png'
+      default: '/files/logo/uploads/place-holder.png'
   },
   group: {
       type: Schema.ObjectId,

@@ -104,6 +104,17 @@ exports.listCourseGroup = function(req, res) {
     });
   };
 
+  exports.listLibraryGroup = function(req, res) {
+      Group.find({category:'library'}).sort('-created').populate('user', 'displayName').exec(function(err, groups) {
+        if (err) {
+          return res.status(400).send({
+            message: errorHandler.getErrorMessage(err)
+          });
+        } else {
+          res.jsonp(groups);
+        }
+      });
+    };
   
   exports.listCompetencyGroup = function(req, res) {
       Group.find({category:'competency'}).sort('-created').populate('user', 'displayName').exec(function(err, groups) {

@@ -238,8 +238,9 @@ exports.changeCourseLogo = function (req, res) {
   }
 
   function deleteOldImage () {
-    return new Promise(function (resolve, reject) {
-      if (existingImageUrl !== Course.schema.path('logoURL').defaultValue) {
+      var defaultUrl = config.uploads.file.image.dest + path.basename(Course.schema.path('logoURL').defaultValue);
+      return new Promise(function (resolve, reject) {
+        if (existingImageUrl !== defaultUrl) {
         fs.unlink(existingImageUrl, function (unlinkError) {
           if (unlinkError) {
             console.log(unlinkError);

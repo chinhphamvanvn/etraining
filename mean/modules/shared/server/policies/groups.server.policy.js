@@ -29,6 +29,10 @@ exports.invokeRolesPolicies = function () {
         resources: '/api/groups/competency',
         permissions: '*'
       },
+      {
+          resources: '/api/groups/library',
+          permissions: '*'
+        },
     {
       resources: '/api/groups/:groupId',
       permissions: '*'
@@ -48,6 +52,10 @@ exports.invokeRolesPolicies = function () {
         resources: '/api/groups/competency',
         permissions: ['get']
       },
+      {
+          resources: '/api/groups/library',
+          permissions: ['get']
+        },
      {
       resources: '/api/groups/:groupId',
       permissions: ['get']
@@ -66,6 +74,10 @@ exports.invokeRolesPolicies = function () {
         resources: '/api/groups/competency',
         permissions: ['get']
       },
+      {
+          resources: '/api/groups/library',
+          permissions: ['get']
+        },
           {
       resources: '/api/groups/:groupId',
       permissions: ['get']
