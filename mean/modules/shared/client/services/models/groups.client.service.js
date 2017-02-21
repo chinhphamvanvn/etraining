@@ -25,6 +25,11 @@
         method: 'GET',
         isArray: true
       },
+      listLibraryGroup: {
+          url:'/api/groups/library',
+          method: 'GET',
+          isArray: true
+        },
       listCompetencyGroup: {
           url:'/api/groups/competency',
           method: 'GET',

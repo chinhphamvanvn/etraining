@@ -1,0 +1,29 @@
+    <div id="page_content">
+        <div id="page_content_inner">
+            <h3 class="heading_b uk-margin-bottom">{{'PAGE.LIBRARY.TITLE' | translate}}</h3>
+            <div class="md-card">
+                <div class="md-card-content">
+                    <div class="uk-grid uk-margin-large-bottom">
+                        <div class="uk-width-large-2-5">
+                            <ul kendo-panel-bar ng-repeat="node in vm.nodeList">
+                                <li ng-click="vm.selectGroup(node)">
+                                    {{node.fullTitle}} {{node.data.medium.length}}
+                                    <ul >
+                                        <li  class="k-item k-state-default" role="menuitem" ng-repeat="media in node.data.medium">
+                                            <span ng-click="vm.selectMedia = media" class="k-link">{{media.name}}</span>
+                                        </li>
+                                    </ul>
+                                </li>
+                               
+                            </ul>
+                        </div>
+                        <div class="uk-width-large-3-5" ng-show="vm.selectMedia">
+                            <library-item media="vm.selectMedia"></library-item>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>

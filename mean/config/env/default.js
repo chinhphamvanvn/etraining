@@ -83,7 +83,23 @@ module.exports = {
                 fileSize: 8 * 1024 * 1024 // Max file size in bytes (1 MB)
               }
             }
-      }
+      },
+      media: {
+          image: {
+            dest: 'public/media/image/uploads/',
+            urlPaath: '/media/image/uploads/',
+            limits: {
+              fileSize: 4 * 1024 * 1024 // Max file size in bytes (1 MB)
+            }
+          },
+            content: {
+                dest: 'public/media/content/uploads/',
+                urlPaath: '/media/content/uploads/',
+                limits: {
+                  fileSize: 128 * 1024 * 1024 // Max file size in bytes (1 MB)
+                }
+              }
+        }
   },
   shared: {
     owasp: {
