@@ -1,13 +1,13 @@
     <div id="page_content">
         <div id="page_content_inner">
-
+            <h3 class="heading_b uk-margin-bottom">{{'PAGE.WORKSPACE.SIDEBAR.LMS.COURSE_LIST.TITLE' | translate}}</h3>
             <div class="md-card">
                 <div class="md-card-content">
                     <div class="uk-grid uk-margin-large-bottom">
-                        <div class="uk-width-large-1-4">
+                        <div class="uk-width-large-2-5">
                             <ul kendo-panel-bar ng-repeat="group in vm.groups">
                                 <li ng-click="vm.selectGroup(group)">
-                                    {{group.name}}
+                                    {{group.name}} - {{group.courses.length}}
                                     <ul >
                                         <li ng-click="vm.selectCourse(course)" class="k-item k-state-default" role="menuitem" ng-repeat="course in group.courses">
                                             <span class="k-link">{{course.name}}</span>
@@ -17,7 +17,7 @@
                                
                             </ul>
                         </div>
-                        <div class="uk-width-large-3-4" ng-show="vm.selectedCourse">
+                        <div class="uk-width-large-3-5" ng-show="vm.selectedCourse">
                             <course-view-simple course="vm.selectedCourse"></course-view-simple>
                         </div>
                     </div>
