@@ -11,7 +11,7 @@
       
       return {
           scope: {
-              stats: "=",
+              day: "=",
           },
           templateUrl:'/modules/dashboard/client/directives/user-login-chart/user-login.directive.client.view.html',
           link: function (scope, element, attributes) {
@@ -37,21 +37,25 @@
                       pattern: ['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728', '#9467bd', '#8c564b', '#e377c2', '#7f7f7f', '#bcbd22', '#17becf']
                   }
               });
+              scope.$watch('day', function(newValue, oldValue) {
+                  if (newValue) {
+                      ReportsService.userLoginStats({day:newValue},function(stats) {
+                          var date = ['x'];
+                          var login =[$translate.instant('PAGE.DASHBOARD.USER_STATS.LOGIN_COUNT')];
+                          _.each(stats,function(stat) {
+                              date.push(stat.created);
+                              login.push(stat.count);
+                          });
+                          progress_chart.load({
+                              columns: [
+                                    date,
+                                    login,
+                              ]
+                          });
+                      })
+                  }
+             });
               
-              ReportsService.userLoginStats(function(stats) {
-                  var date = ['x'];
-                  var login =[$translate.instant('PAGE.DASHBOARD.USER_STATS.LOGIN_COUNT')];
-                  _.each(stats,function(stat) {
-                      date.push(stat.created);
-                      login.push(stat.count);
-                  });
-                  progress_chart.load({
-                      columns: [
-                            date,
-                            login,
-                      ]
-                  });
-              })
           }
       }
   }

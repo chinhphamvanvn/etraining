@@ -17,12 +17,12 @@
       userRegistrationStats: {
           method: 'GET',
           isArray:true,
-          url:'/api/reports/userRegistrationStats',
+          url:'/api/reports/userRegistrationStats/:day',
         },
         userLoginStats: {
             method: 'GET',
             isArray:true,
-            url:'/api/reports/userLoginStats',
+            url:'/api/reports/userLoginStats/:day',
           },
     });
   }

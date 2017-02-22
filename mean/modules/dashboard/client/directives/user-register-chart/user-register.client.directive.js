@@ -11,7 +11,7 @@
       
       return {
           scope: {
-              stats: "=",
+              day: "=",
           },
           templateUrl:'/modules/dashboard/client/directives/user-register-chart/user-register.directive.client.view.html',
           link: function (scope, element, attributes) {
@@ -38,20 +38,27 @@
                   }
               });
               
-              ReportsService.userRegistrationStats(function(stats) {
-                  var date = ['x'];
-                  var register =[$translate.instant('PAGE.DASHBOARD.USER_STATS.REGISTER_COUNT')];
-                  _.each(stats,function(stat) {
-                      date.push(stat.created);
-                      register.push(stat.count);
-                  });
-                  progress_chart.load({
-                      columns: [
-                            date,
-                            register,
-                      ]
-                  });
-              })
+              scope.$watch('day', function(newValue, oldValue) {
+                  if (newValue) {
+                      ReportsService.userRegistrationStats({day:newValue},function(stats) {
+                          var date = ['x'];
+                          var register =[$translate.instant('PAGE.DASHBOARD.USER_STATS.REGISTER_COUNT')];
+                          _.each(stats,function(stat) {
+                              date.push(stat.created);
+                              register.push(stat.count);
+                          });
+                          progress_chart.load({
+                              columns: [
+                                    date,
+                                    register,
+                              ]
+                          });
+                      })
+                  }
+                });
+              
+              
+             
           }
       }
   }

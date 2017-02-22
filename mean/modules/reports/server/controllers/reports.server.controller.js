@@ -39,7 +39,8 @@ exports.accountStats = function(req, res) {
 };
 
 exports.userRegistrationStats = function(req, res) {
-    Stat.find({category:'USER_REGISTER',created:{$gt:new Date(Date.now() - 7*24*60 * 1000)}}).sort('created').exec(function(err,stats) {
+    var day = parseInt(req.params.day);
+    Stat.find({category:'USER_REGISTER',created:{$gt:new Date(Date.now() - day*24*60 * 1000)}}).sort('created').exec(function(err,stats) {
         if (err) {
             return res.status(400).send({
               message: errorHandler.getErrorMessage(err)
@@ -51,7 +52,8 @@ exports.userRegistrationStats = function(req, res) {
 }
 
 exports.userLoginStats = function(req, res) {
-    Stat.find({category:'USER_LOGIN',created:{$gt:new Date(Date.now() - 7*24*60 * 1000)}}).sort('created').exec(function(err,stats) {
+    var day = parseInt(req.params.day);
+    Stat.find({category:'USER_LOGIN',created:{$gt:new Date(Date.now() - day*24*60 * 1000)}}).sort('created').exec(function(err,stats) {
         if (err) {
             return res.status(400).send({
               message: errorHandler.getErrorMessage(err)
