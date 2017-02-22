@@ -8,7 +8,15 @@
                                 <i class="md-icon uk-icon-bar-chart  md-icon-light"></i>
                                 <div class="uk-dropdown uk-dropdown-small">
                                     <ul class="uk-nav">
-                                        <li class="uk-nav-header">{{'PAGE.PROFILE.COMPETENCY'|translate}}</li>
+                                        <li class="uk-nav-header" data-uk-modal="{target:'#modal_course'}">
+                                        {{'PAGE.PROFILE.COURSE'|translate}}
+                                        </li>
+                                        <li class="uk-nav-header" data-uk-modal="{target:'#modal_certificate'}">
+                                        {{'PAGE.PROFILE.CERTIFICATE'|translate}}
+                                        </li>
+                                        <li class="uk-nav-header"  data-uk-modal="{target:'#modal_competency'}">
+                                        {{'PAGE.PROFILE.COMPETENCY'|translate}}
+                                        </li>
                                     </ul>
                                 </div>
                             </div>
@@ -24,13 +32,13 @@
                                 </h2>
                                 <ul class="user_stats">
                                     <li>
-                                        <h4 class="heading_a">0<span class="sub-heading">Visits</span></h4>
+                                        <h4 class="heading_a">{{vm.members.length}}<span class="sub-heading">{{'PAGE.PROFILE.COURSE'|translate}}</span></h4>
                                     </li>
                                     <li>
-                                        <h4 class="heading_a">0<span class="sub-heading">Courses</span></h4>
+                                        <h4 class="heading_a">{{vm.certificates.length}}<span class="sub-heading">{{'PAGE.PROFILE.CERTIFICATE'|translate}}</span></h4>
                                     </li>
                                     <li>
-                                        <h4 class="heading_a">0<span class="sub-heading">Certificates</span></h4>
+                                        <h4 class="heading_a">{{vm.skills.length}}<span class="sub-heading">{{'PAGE.PROFILE.COMPETENCY'|translate}}</span></h4>
                                     </li>
                                 </ul>
                             </div>
@@ -146,3 +154,102 @@
             </div>
         </div>
     </div>
+
+  <div id="modal_course" class="uk-modal">
+    <div class="uk-modal-dialog uk-modal-dialog-large">
+        <button type="button" class="uk-modal-close uk-close uk-close-alt"></button>
+        <table  class="uk-table uk-table-nowrap uk-table-condensed uk-table-hover">
+                            <thead>
+                            <tr>
+                                <th class="uk-width-2-10 uk-text-center">{{'MODEL.COURSE.NAME'|translate}}</th>
+                                <th class="uk-width-1-10 uk-text-center">{{'MODEL.MEMBER.REGISTER_DATE'|translate}}</th>
+                                <th class="uk-width-1-10  uk-text-center">{{'MODEL.MEMBER.STATUS'|translate}}</th>
+                                <th class="uk-width-1-10 uk-text-center">{{'MODEL.MEMBER.ENROLL_STATUS'|translate}}</th>
+                                <th class="uk-width-3-10 uk-text-center">{{'COMMON.PROGRESS_PERCENTAGE'|translate}}</th>
+                                <th class="uk-width-2-10 uk-text-center">{{'COMMON.TIME_SPEND'|translate}}</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="member in vm.members">
+                                <td class="uk-text-center">{{member.course.name}}
+                                </td>
+                                <td class="uk-text-center">{{member.registered | date:'dd-MM-yyyy'}}</td>
+                                <td class="uk-text-center">
+                                    <span ng-show="member.status=='active'" class="uk-badge uk-badge-success">active</span>
+                                    <span ng-show="member.status=='withdrawn'" class="uk-badge uk-badge-warning">withdrawn</span>
+                                    <span ng-show="member.status=='suspended'" class="uk-badge uk-badge-danger">suspended</span>
+                                </td>
+                                <td class="uk-text-center">
+                                    <span ng-show="member.enrollmentStatus=='completed'" class="uk-badge uk-badge-success">{{'COMMON.ENROLL.COMPLETED'|translate}}</span>
+                                    <span ng-show="member.enrollmentStatus=='in-study'" class="uk-badge uk-badge-primary">{{'COMMON.ENROLL.INSTUDY'|translate}}</span>
+                                    <span ng-show="member.enrollmentStatus=='registered'" class="uk-badge ">{{'COMMON.ENROLL.REGISTERED'|translate}}</span>
+                                    <span ng-show="member.certificate" class="uk-form-help-block">{{'PAGE.LMS.MY_COURSES.TEACHER_BOARD.GRADE_BOARD.CERTIFIED'|translate}}</span>
+                                </td>
+                                <td class="uk-text-center" >
+                                    <div class="uk-progress ">
+                                        <div class="uk-progress-bar" style="width:{{member.percentage}}%">{{member.percentage}}%</div>
+                                    </div>
+                                </td>
+                                <td class="uk-text-center">
+                                    {{member.timeSpent | timeString}}
+                                </td>
+                            </tr>
+                            
+                            </tbody>
+                        </table>
+    </div>
+</div>
+
+
+  <div id="modal_certificate" class="uk-modal">
+    <div class="uk-modal-dialog ">
+        <button type="button" class="uk-modal-close uk-close uk-close-alt"></button>
+        <table  class="uk-table uk-table-nowrap ">
+                            <thead>
+                            <tr>
+                                <th class="uk-width-2-10 uk-text-center">{{'MODEL.COURSE.NAME'|translate}}</th>
+                                <th class="uk-width-2-10 uk-text-center">{{'MODEL.CERTIFICATE.ISSUE_DATE'|translate}}</th>
+                                <th class="uk-width-2-10  uk-text-center">{{'MODEL.CERTIFICATE.AUTHORIZER'|translate}}</th>
+                                <th class="uk-width-4-10 uk-text-center"></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="certificate in vm.certificates">
+                                <td class="uk-text-center">{{certificate.course.name}}
+                                </td>
+                                <td class="uk-text-center">{{certificate.issueDate | date:'dd-MM-yyyy'}}</td>
+                                <td class="uk-text-center">{{certificate.authorizer.displayName}}
+            
+                                <td class="uk-text-center">
+                                    <a class="md-btn" data-uk-modal="{target:'#modal_lightbox{{certificate._id}}'}">
+                                        <img class="img_thumb"  data-ng-src="data:image/png;base64,{{certificate.base64data}}">
+                                    </a>
+                                    <div class="uk-modal" id="#modal_lightbox{{certificate._id}}">
+                                        <div class="uk-modal-dialog uk-modal-dialog-lightbox">
+                                            <button type="button" class="uk-modal-close uk-close uk-close-alt"></button>
+                                            <img data-ng-src="data:image/png;base64,{{certificate.base64data}}" />
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            
+                            </tbody>
+                        </table>
+    </div>
+</div>
+
+
+<div id="modal_competency" class="uk-modal">
+    <div class="uk-modal-dialog">
+        <button type="button" class="uk-modal-close uk-close uk-close-alt"></button>
+        <table  class="uk-table uk-table-nowrap uk-table-condensed uk-table-hover">
+                            <thead>
+                            <tr>
+                                <th class="uk-width-2-10 uk-text-center">{{'MODEL.COMPETENCY.NAME'|translate}}</th>
+                                <th class="uk-width-2-10 uk-text-center">{{'MODEL.COMPETENCY.LEVEL'|translate}}</th>
+                            </tr>
+                            </thead>
+                            
+                        </table>
+    </div>
+</div>

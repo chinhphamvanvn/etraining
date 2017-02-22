@@ -264,8 +264,8 @@ exports.memberByClass = function(req, res) {
 /**
  * List of Members of current user
  */
-exports.me = function(req, res) {
-    CourseMember.find({status:'active',member:req.user._id}).sort('-created').populate('member').populate('course').populate('classroom').exec(function(err, members) {
+exports.memberByUser = function(req, res) {
+    CourseMember.find({status:'active',member:req.params.userId}).sort('-created').populate('member').populate('course').populate('classroom').exec(function(err, members) {
     if (err) {
       return res.status(422).send({
         message: errorHandler.getErrorMessage(err)
@@ -276,7 +276,7 @@ exports.me = function(req, res) {
   });
 };
 
-exports.meByCourse = function(req, res) {
+exports.memberByUserAndCourse = function(req, res) {
     CourseMember.findOne({status:'active',member:req.user._id,course:req.course._id}).sort('-created').populate('member').populate('course').populate('classroom').exec(function(err, member) {
     if (err || !member) {
       return res.status(422).send({

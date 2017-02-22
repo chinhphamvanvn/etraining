@@ -98,7 +98,7 @@
             $("#orgTree").fancytree({
                 checkbox: true,
                 titlesTabbable: true,
-                selectMode:2,
+                selectMode:3,
                 clickFolderMode:3,
                 imagePath: "/assets/icons/others/",
                 extensions: ["wide"],

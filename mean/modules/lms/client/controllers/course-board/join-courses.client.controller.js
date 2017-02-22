@@ -28,7 +28,7 @@
           $rootScope.toBarActive = false;
           $rootScope.topMenuActive = false;
       });
-      vm.member = CourseMembersService.meByCourse({courseId:vm.course._id,userId:localStorageService.get('userId')},function(data) {
+      vm.member = CourseMembersService.byUserAndCourse({courseId:vm.course._id,userId:localStorageService.get('userId')},function(data) {
       },function() {
           vm.member =null;
       });

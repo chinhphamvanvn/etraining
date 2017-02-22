@@ -16,7 +16,7 @@ function CoursesIntroController($scope, $state, $window, CourseMembersService,Au
     vm.user = user;
     
    vm.classes = ClassroomsService.byCourse({courseId:vm.course._id});
-   vm.member = CourseMembersService.meByCourse({courseId:vm.course._id,userId:localStorageService.get('userId')},function(data) {
+   vm.member = CourseMembersService.byUserAndCourse({courseId:vm.course._id,userId:localStorageService.get('userId')},function(data) {
    },function() {
        vm.member =null;
    });

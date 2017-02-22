@@ -479,7 +479,7 @@
             memberResolve: getMember,
             editionResolve: getEdition,
             courseResolve: getCourse,
-            gradeResolve: getGradescheme
+            gradeResolve: getGradescheme,
         },
         data: {
           roles: ['user'],
@@ -654,7 +654,7 @@
   function getMember($stateParams, CourseMembersService,localStorageService) {
       if ($stateParams.memberId)
           return CourseMembersService.get({memberId:$stateParams.memberId}).$promise;
-    return CourseMembersService.meByCourse({courseId:$stateParams.courseId,userId:localStorageService.get('userId')}).$promise;
+    return CourseMembersService.byUserAndCourse({courseId:$stateParams.courseId,userId:localStorageService.get('userId')}).$promise;
   }
   
   getSection.$inject = ['$stateParams', 'EditionSectionsService'];

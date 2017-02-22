@@ -3,7 +3,7 @@
     <div id="page_content_inner">
         <div class="md-card ">
             <div class="md-card-content">
-                <div class="uk-grid uk-margin-large-bottom">
+                <div class="uk-grid ">
                     <div class="uk-width-large-1-4 uk-width-1-3">
                         <div class="md-card">
                             <div class="md-card-toolbar">
@@ -34,8 +34,7 @@
                        <div class="md-card" ng-show="vm.selectedContentNode">
                          <div  class="md-card-toolbar" >
                         <div class="md-card-toolbar-actions">
-                            <a ng-click="vm.nextSection()"  class="md-btn md-btn-small md-btn-flat md-btn-flat-primary"><i class="uk-icon-arrow-right "></i> {{'ACTION.NEXT'|translate}}</a>
-                                <a  ng-click="vm.prevSection()"  class="md-btn md-btn-small md-btn-flat md-btn-flat-primary"><i   class="uk-icon-arrow-left"></i> {{'ACTION.PREV'|translate}}</a>
+                            
                         </div>
                         <h3 class="md-card-toolbar-heading-text large" >
                             <span>{{vm.selectedContentNode.title}}

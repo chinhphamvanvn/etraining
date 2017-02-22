@@ -6,12 +6,12 @@ angular
     .module('lms')
     .controller('MyCoursesListController', MyCoursesListController);
 
-MyCoursesListController.$inject = ['$scope', '$state', '$window', 'Authentication', '$timeout', 'CoursesService', 'Notification','CourseAttemptsService','EditionSectionsService','CourseEditionsService', 'CourseMembersService', '$q', 'GroupsService','_'];
+MyCoursesListController.$inject = ['$scope', '$state', '$window', 'Authentication', '$timeout','localStorageService', 'CoursesService', 'Notification','CourseAttemptsService','EditionSectionsService','CourseEditionsService', 'CourseMembersService', '$q', 'GroupsService','_'];
 
-function MyCoursesListController($scope, $state, $window, Authentication, $timeout, CoursesService, Notification, CourseAttemptsService,EditionSectionsService, CourseEditionsService, CourseMembersService,$q ,GroupsService, _) {
+function MyCoursesListController($scope, $state, $window, Authentication, $timeout, localStorageService, CoursesService, Notification, CourseAttemptsService,EditionSectionsService, CourseEditionsService, CourseMembersService,$q ,GroupsService, _) {
     var vm = this;
     vm.authentication = Authentication;
-    vm.members = CourseMembersService.me(function() {
+    vm.members = CourseMembersService.byUser({ userId:localStorageService.get('userId')},function() {
         _.each(vm.members,function(member) {
             if (member.enrollmentStatus=='registered')
                 member.course.percentage = 0;

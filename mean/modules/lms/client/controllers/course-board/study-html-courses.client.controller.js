@@ -15,13 +15,34 @@ function CoursesStudyHtmlController($scope, $state, $window, HtmlsService,ExamsS
     vm.section = section;
     if (vm.section.html) {
         vm.html = HtmlsService.get({htmlId:vm.section.html},function() {
-            var attempt = new CourseAttemptsService();
-            attempt.section = vm.section._id;
-            attempt.edition = vm.edition._id;
-            attempt.member = vm.member._id;
-            attempt.status = 'completed';
-            attempt.$save();
+            vm.attempt = new CourseAttemptsService();
+            vm.attempt.section = vm.section._id;
+            vm.attempt.edition = vm.edition._id;
+            vm.attempt.member = vm.member._id;
+            vm.attempt.status = 'initial';
+            vm.attempt.$save();
         })
+    }
+    
+    vm.nextSection = nextSection;
+    vm.prevSection = prevSection;
+    
+    function nextSection() {
+        if (vm.attempt) {
+            vm.attempt.status = 'completed';
+            vm.attempt.end = new Date();
+            vm.attempt.$update();
+            $scope.$parent.nextSection();
+        }
+    }
+    
+    function prevSection() {
+        if (vm.attempt) {
+            vm.attempt.status = 'completed';
+            vm.attempt.end = new Date();
+            vm.attempt.$update();
+            $scope.$parent.prevSection();
+        }
     }
    
 }

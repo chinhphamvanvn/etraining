@@ -15,13 +15,34 @@ function CoursesStudyVideoController($scope, $state, $window, HtmlsService,Exams
     vm.section = section;
     if (vm.section.video) {
         vm.video = VideosService.get({videoId:vm.section.video},function() {
-            var attempt = new CourseAttemptsService();
-            attempt.section = vm.section._id;
-            attempt.edition = vm.edition._id;
-            attempt.member = vm.member._id;
-            attempt.status = 'completed';
-            attempt.$save();
+            vm.attempt = new CourseAttemptsService();
+            vm.attempt.section = vm.section._id;
+            vm.attempt.edition = vm.edition._id;
+            vm.attempt.member = vm.member._id;
+            vm.attempt.status = 'initial';
+            vm.attempt.$save();
         })
+    }
+    
+    vm.nextSection = nextSection;
+    vm.prevSection = prevSection;
+    
+    function nextSection() {
+        if (vm.attempt) {
+            vm.attempt.status = 'completed';
+            vm.attempt.end = new Date();
+            vm.attempt.$update();
+            $scope.$parent.nextSection();
+        }
+    }
+    
+    function prevSection() {
+        if (vm.attempt) {
+            vm.attempt.status = 'completed';
+            vm.attempt.end = new Date();
+            vm.attempt.$update();
+            $scope.$parent.prevSection();
+        }
     }
    
 }

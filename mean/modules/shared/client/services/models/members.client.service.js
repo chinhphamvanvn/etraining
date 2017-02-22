@@ -21,18 +21,18 @@
             isArray:true,
             url:'/api/members/byCourse/:courseId'
           },
-          me: {
+          byUser: {
               method: 'GET',
               isArray:true,
-              url:'/api/members/me'
+              url:'/api/members/byUser/:userId'
             },
             withdraw: {
                 method: 'POST',
                 url:'/api/members/withdraw/:memberId'
               },
-            meByCourse: {
+            byUserAndCourse: {
                 method: 'GET',
-                url:'/api/members/me/byCourse/:courseId'
+                url:'/api/members/byUserAndCourse/:userId/:courseId'
               }
     });
   }
