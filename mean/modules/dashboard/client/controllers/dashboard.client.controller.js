@@ -18,7 +18,10 @@
    vm.userBanCount = '0';
    
    ReportsService.accountStats(function(stats) {
-      console.log(stats); 
+       vm.userRegisterCount = stats.total +'';
+       vm.accountUserCount = stats.userAccount +'';
+       vm.accountAdminCount = stats.adminAccount +'';
+       vm.userBanCount = stats.banAccount +'';
    });
 
    

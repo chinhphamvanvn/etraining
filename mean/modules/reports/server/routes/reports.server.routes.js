@@ -9,6 +9,9 @@ var reportsPolicy = require('../policies/reports.server.policy'),
 module.exports = function(app) {
     app.route('/api/reports/accountStats').all(reportsPolicy.isAllowed)
     .get(reports.accountStats)
-
+    app.route('/api/reports/registerationStats').all(reportsPolicy.isAllowed)
+    .get(reports.registerationStats)
+    app.route('/api/reports/loginStats').all(reportsPolicy.isAllowed)
+    .get(reports.loginStats)
 
 };

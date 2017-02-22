@@ -13,10 +13,6 @@ var path = require('path'),
   config = require(path.resolve('./config/config'));
 
 
-
-/**
- * Show the current Video
- */
 exports.accountStats = function(req, res) {
   // convert mongoose document to JSON
   User.find().exec(function(err,users) {
@@ -28,10 +24,10 @@ exports.accountStats = function(req, res) {
       var stats = {};
       stats.total = users.length;
       stats.userAccount = _.filter(users,function(user) {
-          return _.contains(user.roles,'user');
+          return _.includes(user.roles,'user');
       }).length;
       stats.adminAccount = _.filter(users,function(user) {
-          return _.contains(user.roles,'admin');
+          return _.includes(user.roles,'admin');
       }).length;
       stats.banAccount = _.filter(users,function(user) {
           return user.banned;
@@ -40,3 +36,11 @@ exports.accountStats = function(req, res) {
     }
   })
 };
+
+exports.registrationStats = function(req, res) {
+    
+}
+
+exports.loginStats = function(req, res) {
+    
+}

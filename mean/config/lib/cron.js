@@ -95,6 +95,28 @@ module.exports.start = function start() {
         start: true,
         timezone: 'America/Los_Angeles'
     });
+    
+    var updateRegisteredMemberJob = new cron.CronJob({
+        cronTime: '*/5 * * * *',
+        onTick: function() {
+            var members = [];
+            CourseAttempt.find({"created":{$gt:new Date(Date.now() - 10*60 * 1000)}}).populate('member').exec(function(err,attempts)
+            {
+                _.each(attempts,function(attempt) {
+                    var member = attempt.member;
+                    if (!_.contains(members,member._id)) {
+                        members.push(member._id);
+                        if (member.enrollmentStatus=='registered') {
+                            member.enrollmentStatus='in-study';
+                            member.save();
+                        } 
+                    }
+                });
+            });
+        },                
+        start: true,
+        timezone: 'America/Los_Angeles'
+    });
 
     updateInprogressMemberJob.start();
     updateRegisteredMemberJob.start();

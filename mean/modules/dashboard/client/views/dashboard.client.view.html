@@ -9,6 +9,9 @@
             <div >
                 <div class="md-card">
                     <div class="md-card-content">
+                        <div class="uk-float-right uk-margin-top uk-margin-small-right">
+                            <i class="material-icons md-36  uk-text-primary">people</i>      
+                          </div>
                         <span class="uk-text-muted uk-text-small">{{
                             'PAGE.DASHBOARD.USER_STATS.REGISTER_ACCOUNT'|translate
                             }}</span>
@@ -22,6 +25,9 @@
             <div on-last-repeat>
                 <div class="md-card">
                     <div class="md-card-content">
+                         <div class="uk-float-right uk-margin-top uk-margin-small-right">
+                            <i class="material-icons md-36 uk-text-primary">group</i>      
+                          </div>
                         <span class="uk-text-muted uk-text-small">{{
                             'PAGE.DASHBOARD.USER_STATS.USER_ACCOUNT'|translate
                             }}</span>
@@ -35,12 +41,15 @@
             <div on-last-repeat>
                 <div class="md-card">
                     <div class="md-card-content">
+                         <div class="uk-float-right uk-margin-top uk-margin-small-right">
+                            <i class="material-icons md-36 uk-text-warning">supervisor_account</i>      
+                          </div>
                         <span class="uk-text-muted uk-text-small">{{
                             'PAGE.DASHBOARD.USER_STATS.ADMIN_ACCOUNT'|translate
                             }}</span>
                         <h2 class="uk-margin-remove">
                             <span count-up id="count_3" separator="."
-                                ng-model="vm.accountAminCount">0</span>
+                                ng-model="vm.accountAdminCount">0</span>
                         </h2>
                     </div>
                 </div>
@@ -48,6 +57,9 @@
             <div on-last-repeat>
                 <div class="md-card">
                     <div class="md-card-content">
+                         <div class="uk-float-right uk-margin-top uk-margin-small-right">
+                            <i class="material-icons md-36 uk-text-danger">people_outline</i>      
+                          </div>
                         <span class="uk-text-muted uk-text-small">{{
                             'PAGE.DASHBOARD.USER_STATS.BAN_ACCOUNT'|translate
                             }}</span>
