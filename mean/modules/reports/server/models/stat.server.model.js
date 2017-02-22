@@ -10,12 +10,12 @@ var mongoose = require('mongoose'),
  * Stat Schema
  */
 var StatSchema = new Schema({
-  name: {
-    type: String,
-    default: '',
-    required: 'Please fill Stat name',
-    trim: true
+  category: {
+    type: String
   },
+  count: {
+      type: Number
+   },
   created: {
     type: Date,
     default: Date.now

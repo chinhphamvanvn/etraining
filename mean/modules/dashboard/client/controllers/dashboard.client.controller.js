@@ -23,6 +23,7 @@
        vm.accountAdminCount = stats.adminAccount +'';
        vm.userBanCount = stats.banAccount +'';
    });
+   
 
    
   }

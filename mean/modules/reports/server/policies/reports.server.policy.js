@@ -19,11 +19,11 @@ exports.invokeRolesPolicies = function () {
       permissions: '*'
     },
     {
-        resources: '/api/reports/registerationStats',
+        resources: '/api/reports/userRegistrationStats',
         permissions: '*'
       },
       {
-          resources: '/api/reports/loginStats',
+          resources: '/api/reports/userLoginStats',
           permissions: '*'
         }]
   }, {
