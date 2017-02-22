@@ -57,11 +57,14 @@ exports.grant = function (req, res, next) {
           });
       },
       function (teacherUser, studentMember,course,done) {
+        var dateFormat = require('dateformat');
+        var issueDate = new Date();
+        issueDate = dateFormat(issueDate, "dddd, mmmm dS, yyyy");
         res.render(path.resolve('modules/shared/server/templates/certificate'), {
             studentName: studentMember.member.displayName,
             courseName: course.name,
             instructorName: teacherUser.displayName,
-            issueDate: certificate.issueDate,
+            issueDate: issueDate,
           appName: config.app.title,
         }, function (err, certificateHTNL) {
           done(err, certificateHTNL);
