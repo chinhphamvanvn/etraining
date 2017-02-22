@@ -23,7 +23,7 @@ function CoursesHTMLSectionController($scope, $state, $window, Authentication, $
             vm.section.html = vm.html._id;
             vm.section.$update(function() {
                 resolve();
-            },function() {
+            },function(errorResponse) {
                 Notification.error({ message: errorResponse.data.message, title: '<i class="uk-icon-ban"></i> Section HTML updated error!' });
                 reject();
             })
@@ -34,7 +34,7 @@ function CoursesHTMLSectionController($scope, $state, $window, Authentication, $
         return $q(function(resolve, reject) {
             vm.html.$update(function () {
                 resolve();
-            },function() {
+            },function(errorResponse) {
                 Notification.error({ message: errorResponse.data.message, title: '<i class="uk-icon-ban"></i> Section HTML updated error!' });
                 reject();
             });

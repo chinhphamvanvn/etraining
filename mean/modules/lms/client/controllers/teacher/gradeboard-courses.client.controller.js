@@ -37,7 +37,9 @@ function CoursesGradeboardController($scope, $state, $window, Authentication, $t
         certificate.edition = vm.edition._id;
         certificate.issueDate = new Date();
         certificate.authorizer = vm.user._id;
-        certificate.$save();
+        certificate.$save(function() {
+            member.certificate = certificate;
+        });
     }
 }
 }());

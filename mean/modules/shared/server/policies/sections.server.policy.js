@@ -36,13 +36,13 @@ exports.invokeRolesPolicies = function () {
     },
     {
         resources: '/api/sections/survey/:editionId',
-        permissions: 'get'
+        permissions: '*'
       },{
         resources: '/api/sections/byEdition/:editionId',
         permissions: '*'
       },{
       resources: '/api/sections/:sectionId',
-      permissions: ['get']
+      permissions: '*'
     }]
   }, {
     roles: ['guest'],

@@ -24,7 +24,7 @@ function CoursesVideoSectionController($scope, $state, $window, Authentication, 
             vm.section.video = vm.video._id;
             vm.section.$update(function() {
                 resolve();
-            },function() {
+            },function(errorResponse) {
                 Notification.error({ message: errorResponse.data.message, title: '<i class="uk-icon-ban"></i> Section HTML updated error!' });
                 reject();
             })
@@ -35,7 +35,7 @@ function CoursesVideoSectionController($scope, $state, $window, Authentication, 
         return $q(function(resolve, reject) {
             vm.video.$update(function () {
                 resolve();
-            },function() {
+            },function(errorResponse) {
                 Notification.error({ message: errorResponse.data.message, title: '<i class="uk-icon-ban"></i> Section HTML updated error!' });
                 reject();
             });
