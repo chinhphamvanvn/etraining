@@ -201,40 +201,41 @@
 </div>
 
 
-  <div id="modal_certificate" class="uk-modal">
-    <div class="uk-modal-dialog ">
+  <div id="modal_certificate" class="uk-modal" style="pointer-events: none;">
+    <div class="uk-modal-dialog " style="pointer-events: auto;">
         <button type="button" class="uk-modal-close uk-close uk-close-alt"></button>
         <table  class="uk-table uk-table-nowrap ">
-                            <thead>
-                            <tr>
-                                <th class="uk-width-2-10 uk-text-center">{{'MODEL.COURSE.NAME'|translate}}</th>
-                                <th class="uk-width-2-10 uk-text-center">{{'MODEL.CERTIFICATE.ISSUE_DATE'|translate}}</th>
-                                <th class="uk-width-2-10  uk-text-center">{{'MODEL.CERTIFICATE.AUTHORIZER'|translate}}</th>
-                                <th class="uk-width-4-10 uk-text-center"></th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr ng-repeat="certificate in vm.certificates">
-                                <td class="uk-text-center">{{certificate.course.name}}
-                                </td>
-                                <td class="uk-text-center">{{certificate.issueDate | date:'dd-MM-yyyy'}}</td>
-                                <td class="uk-text-center">{{certificate.authorizer.displayName}}
-            
-                                <td class="uk-text-center">
-                                    <a class="md-btn" data-uk-modal="{target:'#modal_lightbox{{certificate._id}}'}">
-                                        <img class="img_thumb"  data-ng-src="data:image/png;base64,{{certificate.base64data}}">
-                                    </a>
-                                    <div class="uk-modal" id="#modal_lightbox{{certificate._id}}">
-                                        <div class="uk-modal-dialog uk-modal-dialog-lightbox">
-                                            <button type="button" class="uk-modal-close uk-close uk-close-alt"></button>
-                                            <img data-ng-src="data:image/png;base64,{{certificate.base64data}}" />
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                            
-                            </tbody>
-                        </table>
+            <thead>
+                <tr>
+                    <th class="uk-width-2-10 uk-text-center">{{'MODEL.COURSE.NAME'|translate}}</th>
+                    <th class="uk-width-2-10 uk-text-center">{{'MODEL.CERTIFICATE.ISSUE_DATE'|translate}}</th>
+                    <th class="uk-width-2-10  uk-text-center">{{'MODEL.CERTIFICATE.AUTHORIZER'|translate}}</th>
+                    <th class="uk-width-4-10 uk-text-center"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="certificate in vm.certificates" ng-init="certificate.showimage = false;">
+                    <td class="uk-text-center">{{certificate.course.name}}
+                    </td>
+                    <td class="uk-text-center">{{certificate.issueDate | date:'dd-MM-yyyy'}}</td>
+                    <td class="uk-text-center">{{certificate.authorizer.displayName}}
+
+                    <td class="uk-text-center">
+                        <a class="md-btn" ng-click="certificate.showimage = !certificate.showimage">
+                        <!-- data-uk-modal="{target:'#modal_lightbox{{certificate._id}}'}" -->
+                            <img class="img_thumb"  data-ng-src="data:image/png;base64,{{certificate.base64data}}">
+                        </a>
+                        <div ng-show="certificate.showimage" class="uk-modal uk-open" style="display: block; z-index: 1500; opacity: 1; overflow: visible !important; margin-top: -70px;">
+                        <!-- id="#modal_lightbox{{certificate._id}}" -->
+                            <div class="uk-modal-dialog uk-modal-dialog-lightbox" style=" max-width: calc(100% - 0px); margin: 0px 0px; position: initial;">
+                                <button type="button" class="uk-modal-close uk-close uk-close-alt" ng-click="certificate.showimage = !certificate.showimage"></button>
+                                <img data-ng-src="data:image/png;base64,{{certificate.base64data}}" />
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 </div>
 
