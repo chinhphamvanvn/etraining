@@ -158,6 +158,13 @@
   <div id="modal_course" class="uk-modal">
     <div class="uk-modal-dialog uk-modal-dialog-large">
         <button type="button" class="uk-modal-close uk-close uk-close-alt"></button>
+        <button class="md-btn buttons-csv buttons-html5" type="button"
+            ng-csv="vm.memberListCsv" 
+            csv-header="vm.headerArrCsv"
+            filename="Report.csv" style="margin-top: -18px;">
+            <i class="uk-icon-file-excel-o" aria-hidden="true"></i>
+            {{"ACTION.EXPORT" | translate}}
+        </button>
         <table  class="uk-table uk-table-nowrap uk-table-condensed uk-table-hover">
             <thead>
                 <tr>
