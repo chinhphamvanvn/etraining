@@ -3,11 +3,11 @@
 
   angular
     .module('reports')
-    .controller('CourseByMemberReportsController', CourseByMemberReportsController);
+    .controller('SectionByMemberReportsController', SectionByMemberReportsController);
 
-  CourseByMemberReportsController.$inject = ['$scope', '$rootScope','$state', 'Authentication', 'GroupsService','AdminService', 'CoursesService','CourseMembersService','CourseAttemptsService','$timeout', '$window','$translate', 'treeUtils','_'];
+  SectionByMemberReportsController.$inject = ['$scope', '$rootScope','$state', 'Authentication', 'GroupsService','AdminService', 'CoursesService','CourseMembersService','EditionSectionsService', 'CourseAttemptsService','$timeout', '$window','$translate', 'treeUtils','_'];
   
-  function CourseByMemberReportsController($scope, $rootScope, $state, Authentication,GroupsService,AdminService, CoursesService,CourseMembersService, CourseAttemptsService, $timeout,$window,$translate, treeUtils,_) {
+  function SectionByMemberReportsController($scope, $rootScope, $state, Authentication,GroupsService,AdminService, CoursesService,CourseMembersService, EditionSectionsService, CourseAttemptsService, $timeout,$window,$translate, treeUtils,_) {
     var vm = this;
     vm.authentication = Authentication;
     vm.selectAll = selectAll;
@@ -53,27 +53,35 @@
     }
     
     function generateReport() {
-        vm.users = _.filter(vm.users,function(user) {
+        vm.selectedUsers = _.filter(vm.users,function(user) {
             return user.selected;
         });
-        vm.members = [];
-        _.each(vm.users,function(user) {
+        vm.sections = [];
+        _.each(vm.selectedUsers,function(user) {
             CourseMembersService.byUser({userId:user._id},function(members) {
                _.each(members,function(member) {
-                   member.time  = 0;
-                   member.score  = 0;
-                   CourseAttemptsService.byMember({memberId:member._id},function(attempts) {
-                       member.lastAttempt = _.max(attempts, function(attempt){return new Date(attempt.start).getTime()}); 
-                       member.firstAttempt = _.min(attempts, function(attempt){return new Date(attempt.start).getTime()});
-                       _.each(attempts,function(attempt) {
-                           if (attempt.status=='completed') {
-                               var start = new Date(attempt.start);
-                               var end = new Date(attempt.end);
-                               member.time += Math.floor((end.getTime() - start.getTime())/1000);
-                           }
+                   if (member.edition) {
+                       var attemps = CourseAttemptsService.byMember({memberId:member._id},function() {
+                           var sections = EditionSectionsService.byEdition({editionId:member.edition},function() {
+                               _.each(sections,function(section) {
+                                  var sectionAttemps = _.filter(attemps,function(attempt) {
+                                      return attempt.section == section._id;
+                                  }) ;
+                                  if (sectionAttemps && sectionAttemps.length > 0) {
+                                      section.member = member;
+                                      section.lastAttempt = _.max(sectionAttemps, function(attempt){return new Date(attempt.start).getTime()}); 
+                                      section.firstAttempt = _.min(sectionAttemps, function(attempt){return new Date(attempt.start).getTime()});
+                                      section.completed = _.find(sectionAttemps,function(attempt) {
+                                          return attempt.status=='completed';
+                                      }) ;
+                                      vm.sections.push(section);
+                                  }
+                                 
+                               });
+                           });
                        });
-                   });
-                   vm.members.push(member);
+                   }
+                   
                }) ;
             });
         });

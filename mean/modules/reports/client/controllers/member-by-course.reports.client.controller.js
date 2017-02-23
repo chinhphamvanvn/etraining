@@ -92,8 +92,6 @@
                vm.summary.percentInstudyMember = Math.floor(vm.summary.totalInstudyMember*100 / vm.summary.toalMember);
                vm.summary.totalCompleteMember += course.totalCompleteMember;
                vm.summary.percentCompleteMember = Math.floor(vm.summary.totalCompleteMember*100 / vm.summary.toalMember);
-               console.log(vm.summary.percentInstudyMember,course.percentInstudyMember );
-               course.time = 0;
                CourseAttemptsService.byCourse({courseId:course._id},function(attempts) {
                    _.each(attempts,function(attempt) {
                        if (attempt.status=='completed') {
