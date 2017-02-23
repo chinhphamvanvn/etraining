@@ -59,7 +59,7 @@
                   return data.group.name;
               else
                   return '';
-          }),
+          }).withClass('withfix'),
           DTColumnBuilder.newColumn(null).withTitle($translate.instant('MODEL.COURSE.MODEL'))
           .renderWith(function(data, type, full, meta) {
               if (data.model=='self-paced')
