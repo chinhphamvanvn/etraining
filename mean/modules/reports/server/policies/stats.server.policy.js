@@ -9,40 +9,47 @@ var acl = require('acl');
 acl = new acl(new acl.memoryBackend());
 
 /**
- * Invoke Report Permissions
+ * Invoke Stats Permissions
  */
 exports.invokeRolesPolicies = function () {
   acl.allow([{
     roles: ['admin'],
     allows: [{
-      resources: '/api/reports/accountStats',
+      resources: '/api/stats',
       permissions: '*'
-    },
-    {
-        resources: '/api/reports/userRegistrationStats/:day',
-        permissions: '*'
-      },
-      {
-          resources: '/api/reports/userLoginStats/:day',
-          permissions: '*'
-        }]
+    }, {
+      resources: '/api/stats/:statId',
+      permissions: '*'
+    }]
   }, {
     roles: ['user'],
-    allows: [
-             
-             ]
-  }
-  ]);
+    allows: [{
+      resources: '/api/stats',
+      permissions: ['get', 'post']
+    }, {
+      resources: '/api/stats/:statId',
+      permissions: ['get']
+    }]
+  }, {
+    roles: ['guest'],
+    allows: [{
+      resources: '/api/stats',
+      permissions: ['get']
+    }, {
+      resources: '/api/stats/:statId',
+      permissions: ['get']
+    }]
+  }]);
 };
 
 /**
- * Check If Report Policy Allows
+ * Check If Stats Policy Allows
  */
 exports.isAllowed = function (req, res, next) {
   var roles = (req.user) ? req.user.roles : ['guest'];
 
-  // If an Video is being processed and the current user created it then allow any manipulation
-  if (req.video && req.user && req.video.user && req.video.user.id === req.user.id) {
+  // If an Stat is being processed and the current user created it then allow any manipulation
+  if (req.stat && req.user && req.stat.user && req.stat.user.id === req.user.id) {
     return next();
   }
 

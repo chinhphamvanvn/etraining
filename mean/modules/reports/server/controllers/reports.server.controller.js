@@ -10,13 +10,10 @@ var path = require('path'),
   fs = require('fs'),
   multer = require('multer'),
   User = mongoose.model('User'),
+  Stat = mongoose.model('Stat'),
   config = require(path.resolve('./config/config'));
 
 
-
-/**
- * Show the current Video
- */
 exports.accountStats = function(req, res) {
   // convert mongoose document to JSON
   User.find().exec(function(err,users) {
@@ -28,10 +25,10 @@ exports.accountStats = function(req, res) {
       var stats = {};
       stats.total = users.length;
       stats.userAccount = _.filter(users,function(user) {
-          return _.contains(user.roles,'user');
+          return _.includes(user.roles,'user');
       }).length;
       stats.adminAccount = _.filter(users,function(user) {
-          return _.contains(user.roles,'admin');
+          return _.includes(user.roles,'admin');
       }).length;
       stats.banAccount = _.filter(users,function(user) {
           return user.banned;
@@ -40,3 +37,29 @@ exports.accountStats = function(req, res) {
     }
   })
 };
+
+exports.userRegistrationStats = function(req, res) {
+    var day = parseInt(req.params.day);
+    Stat.find({category:'USER_REGISTER',created:{$gt:new Date(Date.now() - day*24*60 * 1000)}}).sort('created').exec(function(err,stats) {
+        if (err) {
+            return res.status(400).send({
+              message: errorHandler.getErrorMessage(err)
+            });
+          } else {
+              res.jsonp(stats);
+          }
+    });
+}
+
+exports.userLoginStats = function(req, res) {
+    var day = parseInt(req.params.day);
+    Stat.find({category:'USER_LOGIN',created:{$gt:new Date(Date.now() - day*24*60 * 1000)}}).sort('created').exec(function(err,stats) {
+        if (err) {
+            return res.status(400).send({
+              message: errorHandler.getErrorMessage(err)
+            });
+          } else {
+              res.jsonp(stats);
+          }
+    });
+}

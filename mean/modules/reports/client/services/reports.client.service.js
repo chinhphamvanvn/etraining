@@ -14,6 +14,16 @@
         method: 'GET',
         url:'/api/reports/accountStats',
       },
+      userRegistrationStats: {
+          method: 'GET',
+          isArray:true,
+          url:'/api/reports/userRegistrationStats/:day',
+        },
+        userLoginStats: {
+            method: 'GET',
+            isArray:true,
+            url:'/api/reports/userLoginStats/:day',
+          },
     });
   }
 }());
