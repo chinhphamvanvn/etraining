@@ -42,7 +42,7 @@
         .renderWith(function(data, type, full, meta) {
             return '<img class="img_thumb" src=\''+ data.logoURL + '\'  alt="" add-image-prop/>';
         }), 
-          DTColumnBuilder.newColumn('name').withTitle($translate.instant('MODEL.COURSE.NAME')),
+          DTColumnBuilder.newColumn('name').withTitle($translate.instant('MODEL.COURSE.NAME')).withClass('withfix'),
           DTColumnBuilder.newColumn('code').withTitle($translate.instant('MODEL.COURSE.CODE')),
           DTColumnBuilder.newColumn(null).withTitle($translate.instant('MODEL.COURSE.DIFFICULTY'))
           .renderWith(function(data, type, full, meta) {
