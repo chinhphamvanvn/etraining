@@ -123,9 +123,33 @@ module.exports.start = function start() {
         start: true,
         timezone: 'America/Los_Angeles'
     });
+    
+    var countCourseMemberJob = new cron.CronJob({
+        cronTime: '55 23 * * *',
+        onTick: function() {
+            CourseMember.count({status:'active',enrollmentStatus:'registered',created:{$gt:new Date(Date.now() - 24*60 * 1000)}}).exec(function(err,count)
+            {
+                var stat = new Stat({created:new Date(),count:count,category:'MEMBER_REGISTER'});
+                state.save();
+            });
+            CourseMember.count({status:'active',enrollmentStatus:'instudy',created:{$gt:new Date(Date.now() - 24*60 * 1000)}}).exec(function(err,count)
+            {
+                var stat = new Stat({created:new Date(),count:count,category:'MEMBER_INSTUDY'});
+                state.save();
+            });
+            CourseMember.count({status:'active',enrollmentStatus:'completed',created:{$gt:new Date(Date.now() - 24*60 * 1000)}}).exec(function(err,count)
+            {
+                var stat = new Stat({created:new Date(),count:count,category:'MEMBER_COMPLETE'});
+                state.save();
+            });
+        },                
+        start: true,
+        timezone: 'America/Los_Angeles'
+    });
 
     updateInprogressMemberJob.start();
     updateRegisteredMemberJob.start();
     countRegisterAccountJob.start();
     countLoginAccountJob.start();
+    countCourseMemberJob.start();
 };

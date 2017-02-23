@@ -96,8 +96,8 @@ exports.list = function(req, res) {
 };
 
 
-exports.listByCourseAndMember = function(req, res) {
-    CourseAttempt.find({member:req.member._id,edition:req.edition._id}).sort('-created').populate('user', 'displayName').populate('answers').exec(function(err, attempts) {
+exports.listByMember = function(req, res) {
+    CourseAttempt.find({member:req.member._id}).sort('-created').populate('user', 'displayName').populate('answers').exec(function(err, attempts) {
       if (err) {
         return res.status(400).send({
           message: errorHandler.getErrorMessage(err)
@@ -107,6 +107,18 @@ exports.listByCourseAndMember = function(req, res) {
       }
     });
   };
+  
+  exports.listByCourse = function(req, res) {
+      CourseAttempt.find({course:req.course._id}).sort('-created').populate('user', 'displayName').populate('answers').exec(function(err, attempts) {
+        if (err) {
+          return res.status(400).send({
+            message: errorHandler.getErrorMessage(err)
+          });
+        } else {
+          res.jsonp(attempts);
+        }
+      });
+    };
   
   exports.listBySectionAndMember = function(req, res) {
       CourseAttempt.find({member:req.member._id,section:req.section._id,edition:req.edition._id}).sort('-created').populate('user', 'displayName').populate('answers').exec(function(err, attempts) {

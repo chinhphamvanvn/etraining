@@ -18,12 +18,16 @@ exports.invokeRolesPolicies = function () {
       resources: '/api/attempts',
       permissions: '*'
     },{
-        resources: '/api/attempts/byCourseAndMember/:editionId/:memberId',
+        resources: '/api/attempts/byMember/:memberId',
         permissions: ['get']
       },{
           resources: '/api/attempts/bySectionAndMember/:editionId/:sectionId/:memberId',
           permissions: ['get']
         },
+        {
+            resources: '/api/attempts/byCourse/:courseId',
+            permissions: ['get']
+          },
         {
             resources: '/api/attempts/bySection/:editionId/:sectionId',
             permissions: ['get']
@@ -38,9 +42,13 @@ exports.invokeRolesPolicies = function () {
       resources: '/api/attempts',
       permissions: ['get', 'post']
     }, {
-        resources: '/api/attempts/byCourseAndMember/:editionId/:memberId',
+        resources: '/api/attempts/byMember/:memberId',
         permissions: ['get']
-      }, {
+      },
+      {
+          resources: '/api/attempts/byCourse/:courseId',
+          permissions: ['get']
+        },{
           resources: '/api/attempts/bySectionAndMember/:editionId/:sectionId/:memberId',
           permissions: ['get']
         },

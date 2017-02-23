@@ -12,8 +12,11 @@ module.exports = function(app) {
     .get(attempts.list)
     .post(attempts.create);
   
-  app.route('/api/attempts/byCourseAndMember/:editionId/:memberId').all(attemptsPolicy.isAllowed)
-  .get(attempts.listByCourseAndMember);
+  app.route('/api/attempts/byMember/:memberId').all(attemptsPolicy.isAllowed)
+  .get(attempts.listByMember);
+  
+  app.route('/api/attempts/byCourse/:courseId').all(attemptsPolicy.isAllowed)
+  .get(attempts.listByCourse);
   
   app.route('/api/attempts/bySectionAndMember/:editionId/:sectionId/:memberId').all(attemptsPolicy.isAllowed)
   .get(attempts.listBySectionAndMember);

@@ -19,13 +19,29 @@ exports.invokeRolesPolicies = function () {
       permissions: '*'
     },
     {
+        resources: '/api/reports/courseStats',
+        permissions: '*'
+      },
+    {
         resources: '/api/reports/userRegistrationStats/:day',
         permissions: '*'
       },
       {
           resources: '/api/reports/userLoginStats/:day',
           permissions: '*'
-        }]
+        },
+        {
+            resources: '/api/reports/memberRegistrationStats/:day',
+            permissions: '*'
+          },
+          {
+              resources: '/api/reports/memberInstudyStats/:day',
+              permissions: '*'
+            },
+            {
+                resources: '/api/reports/memberCompleteStats/:day',
+                permissions: '*'
+              },]
   }, {
     roles: ['user'],
     allows: [
