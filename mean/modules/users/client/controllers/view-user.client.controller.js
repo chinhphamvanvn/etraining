@@ -63,7 +63,7 @@
                 member.edition = edition;
                 if (member.enrollmentStatus =='in-study') {
                     var sections = EditionSectionsService.byEdition({editionId:edition._id}, function() {
-                        var attempts = CourseAttemptsService.byCourseAndMember({editionId:edition._id,memberId:member._id},function() {
+                        var attempts = CourseAttemptsService.byMember({memberId:member._id},function() {
                             var total =0;
                             var complete = 0;
                             _.each(sections,function(section) {

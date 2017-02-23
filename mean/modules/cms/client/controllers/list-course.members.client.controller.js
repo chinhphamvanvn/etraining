@@ -68,8 +68,6 @@
           });
       },1000);
     
-      
-      vm.groups = [];
       vm.groups = GroupsService.listOrganizationGroup( function() {
           var tree = treeUtils.buildGroupTree(vm.groups);
           $timeout(function() {

@@ -16,12 +16,23 @@
    vm.accountUserCount = '0';
    vm.accountAdminCount = '0';
    vm.userBanCount = '0';
+   vm.courseCount = '0';
+   vm.coursePublishCount = '0';
+   vm.courseMemberCount = '0';
+   vm.courseTeacherCount = '0';
    
    ReportsService.accountStats(function(stats) {
        vm.userRegisterCount = stats.total +'';
        vm.accountUserCount = stats.userAccount +'';
        vm.accountAdminCount = stats.adminAccount +'';
        vm.userBanCount = stats.banAccount +'';
+   });
+   
+   ReportsService.courseStats(function(stats) {
+       vm.courseCount = stats.total +'';
+       vm.coursePublishCount = stats.publishCount +'';
+       vm.courseMemberCount = stats.memberCount +'';
+       vm.courseTeacherCount = stats.teacherCount +'';
    });
    
    vm.userStatsDayOptions = _.map([7,15,30],function(obj) {
@@ -31,14 +42,26 @@
      vm.userStatsDayConfig = {
          create: false,
          maxItems: 1,
-         placeholder: $translate.instant('PAGE.DASHBOARD.COURSE_STATS.SELECT_DAY'),
+         placeholder: $translate.instant('PAGE.DASHBOARD.USER_STATS.SELECT_DAY'),
          valueField: 'value',
          labelField: 'title',
          create: false,
 
      };
    
+   vm.courseStatsDayOptions = _.map([7,15,30],function(obj) {
+       return {title: obj + ' ' + $translate.instant('COMMON.DAY'), value: obj}
+   })
 
+     vm.courseStatsDayConfig = {
+         create: false,
+         maxItems: 1,
+         placeholder: $translate.instant('PAGE.DASHBOARD.COURSE_STATS.SELECT_DAY'),
+         valueField: 'value',
+         labelField: 'title',
+         create: false,
+
+     };
    
   }
 }());

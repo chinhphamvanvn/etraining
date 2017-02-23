@@ -14,6 +14,10 @@ var AttemptSchema = new Schema({
         type: Schema.ObjectId,
         ref: 'CourseMember'
     },
+    course: {
+        type: Schema.ObjectId,
+        ref: 'Course'
+    },
     edition: {
         type: Schema.ObjectId,
         ref: 'CourseEdition'
