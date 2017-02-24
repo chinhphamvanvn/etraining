@@ -9,8 +9,14 @@
         <div class="uk-grid" data-uk-grid-margin >
             <div class="uk-width-medium-1-1">
                 <div class="md-card">
+                    <div class="md-card-toolbar">
+                    <h3 class="md-card-toolbar-heading-text">
+                        {{'PAGE.ORGANIZATION.TITLE' | translate}} 
+                             <a data-uk-modal="{target:'#modal_org'}"><i class="material-icons md-24 " data-uk-tooltip="{pos:'top'}" title="{{'PAGE.USERS.UPDATE_ORG_TREE'|translate}}">edit</i></a>
+                    </h3>
+                    </div>
                     <div class="md-card-content">                        
-                        <h3 class="heading_a">{{'PAGE.ORGANIZATION.TITLE' | translate}}</h3>
+                        
                         <div id="orgTree" class="fancytree-checkbox">
                         </div>
                         <div class="dt_colVis_buttons"></div>
@@ -23,4 +29,5 @@
     </div>
 </div>
 
+<div ng-include="'/modules/users/client/views/admin/organization.client.dialog.html'"></div>
 <div ng-include="'/modules/users/client/views/admin/import-users-client.dialog.html'"></div>

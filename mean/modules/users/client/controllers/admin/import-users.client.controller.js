@@ -28,7 +28,7 @@
     vm.groups = GroupsService.listOrganizationGroup( function() {
         var tree = treeUtils.buildGroupTree(vm.groups);
         $timeout(function() {
-            $("#departmentTree").fancytree({
+            $("#orgTree").fancytree({
                 checkbox: true,
                 selectMode:1,
                 titlesTabbable: true,
@@ -96,13 +96,7 @@
                     value: "twitter",
                     parent_id: 1
                 }
-                ,
-                {
-                    id: 9,
-                    title: "-- Ignore --",
-                    value: '#IGNORE#',
-                    parent_id: 1
-                }
+                
             ];
         
 
@@ -143,7 +137,7 @@
             if (!user.removed) {
                 var userService = new UsersService();
                 _.each(vm.headers,function(header,index) {
-                    if (header.column && header.column !='#IGNORE#')
+                    if (header.column )
                         userService[header.column] = user[index];
                 });
                 userService.group = vm.group;

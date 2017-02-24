@@ -22,11 +22,5 @@
         roles: ['admin'],
         position: 1
       });
-    menuService.addSubMenuItem('sidebar','admin.workspace.users', {
-      title: 'PAGE.WORKSPACE.SIDEBAR.USERS.ORGANIZATION',
-      state: 'admin.workspace.users.organization',
-      roles: ['admin'],
-      position: 2
-    });
   }
 }());
