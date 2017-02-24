@@ -158,45 +158,51 @@
   <div id="modal_course" class="uk-modal">
     <div class="uk-modal-dialog uk-modal-dialog-large">
         <button type="button" class="uk-modal-close uk-close uk-close-alt"></button>
+        <button class="md-btn buttons-csv buttons-html5" type="button"
+            ng-csv="vm.memberListCsv" 
+            csv-header="vm.headerArrCsv"
+            filename="Report.csv" style="margin-top: -18px;">
+            <i class="uk-icon-file-excel-o" aria-hidden="true"></i>
+            {{"ACTION.EXPORT" | translate}}
+        </button>
         <table  class="uk-table uk-table-nowrap uk-table-condensed uk-table-hover">
-                            <thead>
-                            <tr>
-                                <th class="uk-width-2-10 uk-text-center">{{'MODEL.COURSE.NAME'|translate}}</th>
-                                <th class="uk-width-1-10 uk-text-center">{{'MODEL.MEMBER.REGISTER_DATE'|translate}}</th>
-                                <th class="uk-width-1-10  uk-text-center">{{'MODEL.MEMBER.STATUS'|translate}}</th>
-                                <th class="uk-width-1-10 uk-text-center">{{'MODEL.MEMBER.ENROLL_STATUS'|translate}}</th>
-                                <th class="uk-width-3-10 uk-text-center">{{'COMMON.PROGRESS_PERCENTAGE'|translate}}</th>
-                                <th class="uk-width-2-10 uk-text-center">{{'COMMON.TIME_SPEND'|translate}}</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr ng-repeat="member in vm.members">
-                                <td class="uk-text-center">{{member.course.name}}
-                                </td>
-                                <td class="uk-text-center">{{member.registered | date:'dd-MM-yyyy'}}</td>
-                                <td class="uk-text-center">
-                                    <span ng-show="member.status=='active'" class="uk-badge uk-badge-success">active</span>
-                                    <span ng-show="member.status=='withdrawn'" class="uk-badge uk-badge-warning">withdrawn</span>
-                                    <span ng-show="member.status=='suspended'" class="uk-badge uk-badge-danger">suspended</span>
-                                </td>
-                                <td class="uk-text-center">
-                                    <span ng-show="member.enrollmentStatus=='completed'" class="uk-badge uk-badge-success">{{'COMMON.ENROLL.COMPLETED'|translate}}</span>
-                                    <span ng-show="member.enrollmentStatus=='in-study'" class="uk-badge uk-badge-primary">{{'COMMON.ENROLL.INSTUDY'|translate}}</span>
-                                    <span ng-show="member.enrollmentStatus=='registered'" class="uk-badge ">{{'COMMON.ENROLL.REGISTERED'|translate}}</span>
-                                    <span ng-show="member.certificate" class="uk-form-help-block">{{'PAGE.LMS.MY_COURSES.TEACHER_BOARD.GRADE_BOARD.CERTIFIED'|translate}}</span>
-                                </td>
-                                <td class="uk-text-center" >
-                                    <div class="uk-progress ">
-                                        <div class="uk-progress-bar" style="width:{{member.percentage}}%">{{member.percentage}}%</div>
-                                    </div>
-                                </td>
-                                <td class="uk-text-center">
-                                    {{member.timeSpent | timeString}}
-                                </td>
-                            </tr>
-                            
-                            </tbody>
-                        </table>
+            <thead>
+                <tr>
+                    <th class="uk-width-2-10 uk-text-center">{{'MODEL.COURSE.NAME'|translate}}</th>
+                    <th class="uk-width-1-10 uk-text-center">{{'MODEL.MEMBER.REGISTER_DATE'|translate}}</th>
+                    <th class="uk-width-1-10  uk-text-center">{{'MODEL.MEMBER.STATUS'|translate}}</th>
+                    <th class="uk-width-1-10 uk-text-center">{{'MODEL.MEMBER.ENROLL_STATUS'|translate}}</th>
+                    <th class="uk-width-3-10 uk-text-center">{{'COMMON.PROGRESS_PERCENTAGE'|translate}}</th>
+                    <th class="uk-width-2-10 uk-text-center">{{'COMMON.TIME_SPEND'|translate}}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="member in vm.members">
+                    <td class="uk-text-center">{{member.course.name}}
+                    </td>
+                    <td class="uk-text-center">{{member.registered | date:'dd-MM-yyyy'}}</td>
+                    <td class="uk-text-center">
+                        <span ng-show="member.status=='active'" class="uk-badge uk-badge-success">active</span>
+                        <span ng-show="member.status=='withdrawn'" class="uk-badge uk-badge-warning">withdrawn</span>
+                        <span ng-show="member.status=='suspended'" class="uk-badge uk-badge-danger">suspended</span>
+                    </td>
+                    <td class="uk-text-center">
+                        <span ng-show="member.enrollmentStatus=='completed'" class="uk-badge uk-badge-success">{{'COMMON.ENROLL.COMPLETED'|translate}}</span>
+                        <span ng-show="member.enrollmentStatus=='in-study'" class="uk-badge uk-badge-primary">{{'COMMON.ENROLL.INSTUDY'|translate}}</span>
+                        <span ng-show="member.enrollmentStatus=='registered'" class="uk-badge ">{{'COMMON.ENROLL.REGISTERED'|translate}}</span>
+                        <span ng-show="member.certificate" class="uk-form-help-block">{{'PAGE.LMS.MY_COURSES.TEACHER_BOARD.GRADE_BOARD.CERTIFIED'|translate}}</span>
+                    </td>
+                    <td class="uk-text-center" >
+                        <div class="uk-progress ">
+                            <div class="uk-progress-bar" style="width:{{member.percentage}}%">{{member.percentage}}%</div>
+                        </div>
+                    </td>
+                    <td class="uk-text-center">
+                        {{member.timeSpent | timeString}}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 </div>
 
