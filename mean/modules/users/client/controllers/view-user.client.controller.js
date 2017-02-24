@@ -5,9 +5,9 @@
     .module('users')
     .controller('UserViewController', UserViewController);
 
-  UserViewController.$inject = ['$scope', '$state', '$timeout', '$rootScope','$window','userResolve', 'Authentication', 'Notification', 'UsersService','CourseMembersService', 'UserLogsService', 'GroupsService','CertificatesService', 'CourseEditionsService','EditionSectionsService','CourseAttemptsService', 'treeUtils', '_'];
+  UserViewController.$inject = ['$scope', '$state', '$timeout', '$rootScope','$window','userResolve', 'Authentication', 'Notification', 'UsersService','CourseMembersService', 'UserLogsService', 'GroupsService','CertificatesService', 'CourseEditionsService','EditionSectionsService','CourseAttemptsService', 'treeUtils', '_', '$translate'];
 
-  function UserViewController($scope, $state, $timeout, $rootScope, $window, user, Authentication, Notification, UsersService, CourseMembersService, UserLogsService, GroupsService, CertificatesService, CourseEditionsService, EditionSectionsService, CourseAttemptsService, treeUtils,  _) {
+  function UserViewController($scope, $state, $timeout, $rootScope, $window, user, Authentication, Notification, UsersService, CourseMembersService, UserLogsService, GroupsService, CertificatesService, CourseEditionsService, EditionSectionsService, CourseAttemptsService, treeUtils,  _,$translate) {
     var vm = this;
     vm.authentication = Authentication;    
     vm.user = user;
@@ -19,7 +19,8 @@
     vm.members = [];
     vm.certificates = [];
     vm.skills  = [];
-    
+    vm.memberListCsv = [];
+    vm.headerArrCsv = [$translate.instant("MODEL.COURSE.NAME"), $translate.instant("MODEL.MEMBER.REGISTER_DATE"), $translate.instant("MODEL.MEMBER.STATUS"), $translate.instant("MODEL.MEMBER.ENROLL_STATUS"), $translate.instant("COMMON.PROGRESS_PERCENTAGE"), $translate.instant("COMMON.TIME_SPEND")];
     function edit() {
        if ($rootScope.viewerRole=='admin') 
            $state.go('admin.workspace.users.edit', {userId:vm.user._id});
@@ -63,7 +64,7 @@
                 member.edition = edition;
                 if (member.enrollmentStatus =='in-study') {
                     var sections = EditionSectionsService.byEdition({editionId:edition._id}, function() {
-                        var attempts = CourseAttemptsService.byCourseAndMember({editionId:edition._id,memberId:member._id},function() {
+                        var attempts = CourseAttemptsService.byMember({memberId:member._id},function() {
                             var total =0;
                             var complete = 0;
                             _.each(sections,function(section) {
@@ -82,14 +83,23 @@
                                 var endTime = new Date(attempt.end);
                                 member.timeSpent += (endTime.getTime() - startTime.getTime())/1000;
                             });
+
+                            console.log(member.percentage);
+                            var memberCsv = {
+                                name: member.course.name,
+                                registered: member.registered,
+                                status: member.status,
+                                enrollmentStatus: member.enrollmentStatus,
+                                percentage: member.percentage,
+                                timeSpent: member.timeSpent
+                            };
+
+                            vm.memberListCsv.push(memberCsv);
                         });
                     });
                 }
             });
         });
-        
-        
-        
-    })
+    });
   }
 }());

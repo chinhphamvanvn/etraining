@@ -160,7 +160,7 @@ function CoursesController($scope, $state, $window, Authentication, $timeout, co
     function onSaveSuccess(response) {
         if (!vm.logo) {
             Notification.success({ message: '<i class="uk-icon-check"></i> Course saved successfully!'     });
-            $state.go('admin.workspace.cms.courses.list');
+            $state.go('admin.workspace.cms.courses.view',{courseId:vm.course._id});
             return;
         }
         Upload.upload({
@@ -170,7 +170,7 @@ function CoursesController($scope, $state, $window, Authentication, $timeout, co
             }
           }).then(function(response) {
               Notification.success({ message: '<i class="uk-icon-check"></i> Course saved successfully!'     });
-              $state.go('admin.workspace.cms.courses.list');
+              $state.go('admin.workspace.cms.courses.view',{courseId:vm.course._id});
           },function(errorResponse) {
               Notification.error({ message: errorResponse.data.message, title: '<i class="uk-icon-ban"></i> Logo update error!' });
           });    

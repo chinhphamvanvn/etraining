@@ -18,6 +18,7 @@ function CoursesStudyVideoController($scope, $state, $window, HtmlsService,Exams
             vm.attempt = new CourseAttemptsService();
             vm.attempt.section = vm.section._id;
             vm.attempt.edition = vm.edition._id;
+            vm.attempt.course = vm.edition.course;
             vm.attempt.member = vm.member._id;
             vm.attempt.status = 'initial';
             vm.attempt.$save();

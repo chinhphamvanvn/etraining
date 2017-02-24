@@ -11,6 +11,8 @@ var cron = require('cron'),
     CourseAttempt = mongoose.model('CourseAttempt'),
     CourseEdition = mongoose.model('CourseEdition'),
     User = mongoose.model('User'),
+    UserLog = mongoose.model('UserLog'),
+    Stat = mongoose.model('Stat'),
     Setting = mongoose.model('Setting'),
     Message = mongoose.model('Message'),
     EditionSection = mongoose.model('EditionSection');
@@ -39,7 +41,7 @@ module.exports.start = function start() {
             cronTime: '*/5 * * * *',
             onTick: function() {
                 var members = [];
-                CourseAttempt.find({"created":{$gt:new Date(Date.now() - 10*60 * 1000)}}).populate('member').exec(function(err,attempts)
+                CourseAttempt.find({created:{$gt:new Date(Date.now() - 10*60 * 1000)}}).populate('member').exec(function(err,attempts)
                 {
                     _.each(attempts,function(attempt) {
                         var member = attempt.member;
@@ -78,7 +80,7 @@ module.exports.start = function start() {
         cronTime: '*/5 * * * *',
         onTick: function() {
             var members = [];
-            CourseAttempt.find({"created":{$gt:new Date(Date.now() - 10*60 * 1000)}}).populate('member').exec(function(err,attempts)
+            CourseAttempt.find({created:{$gt:new Date(Date.now() - 10*60 * 1000)}}).populate('member').exec(function(err,attempts)
             {
                 _.each(attempts,function(attempt) {
                     var member = attempt.member;
@@ -95,8 +97,59 @@ module.exports.start = function start() {
         start: true,
         timezone: 'America/Los_Angeles'
     });
+    
+    var countRegisterAccountJob = new cron.CronJob({
+        cronTime: '55 23 * * *',
+        onTick: function() {
+            User.count({created:{$gt:new Date(Date.now() - 24*60 * 1000)}}).exec(function(err,count)
+            {
+                var stat = new Stat({created:new Date(),count:count,category:'USER_REGISTER'});
+                state.save();
+            });
+        },                
+        start: true,
+        timezone: 'America/Los_Angeles'
+    });
+    
+    var countLoginAccountJob = new cron.CronJob({
+        cronTime: '55 23 * * *',
+        onTick: function() {
+            UserLog.count({tag:'LOGIN',created:{$gt:new Date(Date.now() - 24*60 * 1000)}}).exec(function(err,count)
+            {
+                var stat = new Stat({created:new Date(),count:count,category:'USER_LOGIN'});
+                state.save();
+            });
+        },                
+        start: true,
+        timezone: 'America/Los_Angeles'
+    });
+    
+    var countCourseMemberJob = new cron.CronJob({
+        cronTime: '55 23 * * *',
+        onTick: function() {
+            CourseMember.count({status:'active',enrollmentStatus:'registered',created:{$gt:new Date(Date.now() - 24*60 * 1000)}}).exec(function(err,count)
+            {
+                var stat = new Stat({created:new Date(),count:count,category:'MEMBER_REGISTER'});
+                state.save();
+            });
+            CourseMember.count({status:'active',enrollmentStatus:'instudy',created:{$gt:new Date(Date.now() - 24*60 * 1000)}}).exec(function(err,count)
+            {
+                var stat = new Stat({created:new Date(),count:count,category:'MEMBER_INSTUDY'});
+                state.save();
+            });
+            CourseMember.count({status:'active',enrollmentStatus:'completed',created:{$gt:new Date(Date.now() - 24*60 * 1000)}}).exec(function(err,count)
+            {
+                var stat = new Stat({created:new Date(),count:count,category:'MEMBER_COMPLETE'});
+                state.save();
+            });
+        },                
+        start: true,
+        timezone: 'America/Los_Angeles'
+    });
 
     updateInprogressMemberJob.start();
     updateRegisteredMemberJob.start();
-
+    countRegisterAccountJob.start();
+    countLoginAccountJob.start();
+    countCourseMemberJob.start();
 };

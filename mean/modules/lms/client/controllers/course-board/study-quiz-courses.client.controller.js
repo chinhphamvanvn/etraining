@@ -19,7 +19,7 @@ function CoursesStudyQuizController($scope, $state, $window, QuestionsService,Ex
     }
     if (vm.section.quiz) {
         vm.quiz = ExamsService.get({examId:vm.section.quiz},function() {
-            vm.attempts = CourseAttemptsService.byCourseAndMember({editionId:vm.edition._id,memberId:vm.member._id},function() {
+            vm.attempts = CourseAttemptsService.byMember({memberId:vm.member._id},function() {
                 var attemptCount = _.filter(vm.attempts,function(att) {
                     return att.section == vm.section._id
                 }).length;
@@ -29,6 +29,7 @@ function CoursesStudyQuizController($scope, $state, $window, QuestionsService,Ex
                     vm.attempt = new CourseAttemptsService();
                     vm.attempt.section = vm.section._id;
                     vm.attempt.edition = vm.edition._id;
+                    vm.attempt.course = vm.edition.course;
                     vm.attempt.member = vm.member._id;
                     vm.attempt.status = 'initial';
                     vm.attempt.$save();

@@ -249,7 +249,8 @@ module.exports = {
            'public/lib/kendo-ui/js/kendo.window.min.js',
            'public/lib/re-tree/re-tree.min.js',
            'public/lib/ng-device-detector/ng-device-detector.min.js',
-           'public/lib/webrtc-adapter/release/adapter.js'
+           'public/lib/webrtc-adapter/release/adapter.js',
+           'public/lib/ng-csv/build/ng-csv.min.js'
       ],
       tests: ['public/lib/angular-mocks/angular-mocks.js']
     },

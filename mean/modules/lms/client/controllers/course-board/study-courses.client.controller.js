@@ -30,7 +30,7 @@ function CoursesStudyController($scope, $state, $window, HtmlsService,ExamsServi
         });
         vm.nodeList = treeUtils.buildCourseListInOrder(vm.nodes);
         
-        vm.attempts = CourseAttemptsService.byCourseAndMember({editionId:vm.edition._id,memberId:vm.member._id},function() {
+        vm.attempts = CourseAttemptsService.byMember({memberId:vm.member._id},function() {
             _.each(vm.sections,function(section) {
                 section.read = _.find(vm.attempts,function(attempt) {
                     return attempt.section == section._id && attempt.status=='completed';

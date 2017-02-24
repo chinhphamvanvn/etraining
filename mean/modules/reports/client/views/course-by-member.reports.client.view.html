@@ -1,0 +1,114 @@
+<div id="page_content">
+    <div id="page_content_inner">
+        <h3 class="heading_b uk-margin-bottom">{{'PAGE.REPORTS.COURSE_BY_MEMBER.TITLE' | translate}}</h3>
+        <div class="uk-grid" data-uk-grid-margin >
+            <div class="uk-width-medium-1-1">
+                <div class="md-card">
+                    <div class="md-card-content">             
+                        <div>           
+                        <a class="md-btn  md-btn-wave-light md-btn-icon" data-uk-modal="{target:'#select_department'}">
+                                {{'PAGE.REPORTS.COURSE_BY_MEMBER.SELECT_DEPARTMENT'|translate}}
+                                <i class="material-icons">&#xE313;</i>
+                            </a>
+                         </div>
+                        <div class="dt_colVis_buttons"></div>
+                            <table  class="uk-table uk-table-hover" cellspacing="0" width="100%">
+                                <thead>
+                                    <tr>
+                                        <th  class="uk-text-center">{{'REPORT.COURSE_BY_MEMBER.MEMBER'|translate}}</th>
+                                        <th colspan="3" class="uk-text-center">{{'REPORT.COURSE_BY_MEMBER.COURSE'|translate}}</th>
+                                        <th colspan="6" class="uk-text-center">{{'REPORT.COURSE_BY_MEMBER.STATUS'|translate}}</th>
+                                    </tr>
+                                    <tr>
+                                        <th>{{'MODEL.USER.USERNAME'|translate}}</th>
+                                        <th>{{'MODEL.COURSE.CODE'|translate}}</th>
+                                        <th>{{'MODEL.COURSE.NAME'|translate}}</th>
+                                        <th>{{'MODEL.COURSE.MODEL'|translate}}</th>
+                                        <th>{{'REPORT.COURSE_BY_MEMBER.REGISTER_DATE'|translate}}</th>
+                                        <th>{{'REPORT.COURSE_BY_MEMBER.FIRST_ATTEMPT'|translate}}</th>
+                                        <th>{{'REPORT.COURSE_BY_MEMBER.LAST_ATTEMPT'|translate}}</th>
+                                        <th>{{'MODEL.MEMBER.ENROLL_STATUS'|translate}}</th>
+                                        <th>{{'REPORT.COURSE_BY_MEMBER.SCORE'|translate}}</th>
+                                        <th>{{'REPORT.COURSE_BY_MEMBER.TIME'|translate}}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="member in vm.members">
+                                        <td>{{member.member.username}}</td>
+                                        <td>{{member.course.code}}</td>
+                                        <th>{{member.course.name}}</th>
+                                        <th>
+                                        <span ng-show="member.course.model=='self-paced'">{{'COMMON.COURSE_MODEL.SELF_STUDY'|translate}}</span>
+                                        <span ng-show="member.course.model=='group'">{{'COMMON.COURSE_MODEL.GROUP_STUDY'|translate}}</span>
+                                        </th>
+                                        <th>{{member.registered | date :'dd/MM/yyyy' }}</th>
+                                        <th>{{member.firstAttempt.created | date :'dd/MM/yyyy' }}</th>
+                                        <th>{{member.lastAttempt.created | date :'dd/MM/yyyy' }}</th>
+                                        <th>
+                                        <span ng-show="member.enrollmentStatus=='registered'">{{'COMMON.ENROLL.REGISTERED'|translate}}</span>
+                                        <span ng-show="member.enrollmentStatus=='in-study'">{{'COMMON.ENROLL.INSTUDY'|translate}}</span>
+                                        <span ng-show="member.enrollmentStatus=='completed'">{{'COMMON.ENROLL.COMPLETED'|translate}}</span>
+                                        </th>
+                                        <th>{{member.score}}</th>
+                                        <th>{{member.time | timeString}}</th>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div>           
+                        <a class="md-btn md-btn-primary  md-btn-wave-light md-btn-icon" ng-csv="vm.getExportData()" csv-header="vm.getExportHeader()" filename="report.user_by_course.csv" field-separator=";" decimal-separator=".">
+                         <i class="material-icons">save</i>
+                                {{'ACTION.EXPORT'|translate}}
+                            </a>
+                         </div>
+                         </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+ <div class="uk-modal " id="select_department">
+    <div class="uk-modal-dialog uk-modal-dialog-large">
+        <div class="uk-alert uk-text-center uk-alert-info" >
+            <h3 class="heading_b">{{'PAGE.REPORTS.COURSE_BY_MEMBER.USER_LIST' | translate}}</h3>
+        </div>
+         <div class="uk-overflow-container">
+            
+            <div class="uk-grid" data-uk-grid-margin >
+            <div class="uk-width-medium-2-5 " >
+                
+                    <div id="orgTree" class="fancytree-checkbox " >
+                </div>
+
+             </div>
+            <div class="uk-width-medium-3-5">
+        
+            <table class="uk-table uk-table-hover uk-table-nowrap" >
+                <thead>
+                <tr>
+                    <th class="uk-width-1-10 uk-text-center small_col"><input type="checkbox" icheck ng-model="vm.allUser" ng-change="vm.selectAll()" class="check_all" table-check-all></th>
+                    <th class="uk-text-center uk-text-upper">{{'MODEL.USER.DISPLAY_NAME'|translate}}</th>
+                    <th class="uk-text-center uk-text-upper">{{'MODEL.USER.EMAIL'|translate}}</th>
+                    <th class="uk-text-center uk-text-upper">{{'MODEL.USER.POSITION'|translate}}</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="user in vm.users">
+                    <td class="uk-text-center uk-table-middle small_col"><input type="checkbox" icheck ng-model="user.selected" class="check_row" table-check-row></td>
+                    <td class="uk-text-center" >{{user.displayName}}</td>
+                    <td class="uk-text-center">{{user.email}}</td>
+                    <td class="uk-text-center">{{user.position}}</td>
+                </tr>
+                </tbody>
+            </table>
+            </div>
+        </div>
+        </div>
+        <div class="uk-modal-footer uk-text-right">
+            <button type="button" class="md-btn md-btn-flat uk-modal-close">{{'ACTION.CLOSE'|translate}}</button>
+            <button type="button" class="md-btn md-btn-flat md-btn-flat-primary uk-modal-close" id="snippet_new_save" ng-click="vm.generateReport()">{{'ACTION.GENERATE_REPORT'|translate}}</button>
+        </div>
+    </div>
+</div>

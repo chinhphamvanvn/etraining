@@ -15,8 +15,13 @@
       update: {
         method: 'PUT'
       },
-      byCourseAndMember: {
-          url:'/api/attempts/byCourseAndMember/:editionId/:memberId',
+      byCourse: {
+          url:'/api/attempts/byCourse/:courseId',
+          method: 'GET',
+          isArray: true
+        },
+      byMember: {
+          url:'/api/attempts/byMember/:memberId',
           method: 'GET',
           isArray: true
         },
