@@ -1,27 +1,32 @@
 
-<div class="md-card">
+<div class="md-card" style="box-shadow: none;">
     <div class="md-card-content large-padding">
         <div class="uk-grid blog_article uk-grid-divider" data-uk-grid-margin>
-            <div class="uk-width-medium-1-2" ng-repeat="itemCourse in course">
-            
-                <figure class="uk-thumbnail thumbnail_left">
-                     <img class="img_thumb" src ="{{course.logoURL}}"/>
-                </figure>
-                <div class="uk-article">
-                    {{itemCourse.code}}
-                    <h1 class="uk-article-title">{{itemCourse.name}} </h1>
-                    <p class="uk-article-meta">
-                        Created by {{itemCourse.user.displayName}} on {{itemCourse.created | date :'dd-MM-yyyy'}}
-                    </p>
-                    <p class="uk-article-lead">{{itemCourse.summary}}</p>
-                    <hr class="uk-article-divider">
-                    <p ng-bind-html="course.detail">
-                    </p>
-
+            <div class="uk-width-1-1 uk-margin-medium-bottom hierarchical_show" ng-repeat="itemCourse in course | orderBy:sort" data-uk-grid="{gutter: 20}" hierarchical-show>
+                <div class="uk-width-1-1">
+                    <div class="uk-grid uk-grid-small" style="width: 100%;">
+                        <div class="uk-width-1-4">
+                            <img class="img_thumb" style="border-radius: 5px; width: 90%; height: 80%;" src ="{{itemCourse.logoURL}}"/>
+                        </div>
+                        <div class="uk-width-3-4">
+                            <div class="uk-grid uk-grid-small">
+                                <div class="uk-width-4-5">
+                                    <div style="font-weight: bold; text-transform: capitalize; font-size: 18px; margin-bottom: 10px;">{{itemCourse.name}}</div>
+                                    <div style="font-size: 13px;">{{itemCourse.summary}}</div>
+                                    <div style="padding-top: 7px; font-size: 13px;">
+                                        <span>{{itemCourse.startDate | date :'dd-MM-yyyy'}}</span>&nbsp;&nbsp;
+                                        <span>{{itemCourse.level}}</span>&nbsp;&nbsp;
+                                        <span>{{itemCourse.user.displayName}}</span>
+                                    </div>
+                                </div>
+                                <div class="uk-width-1-5">
+                                    <a ui-sref="workspace.lms.courses.join.intro({ courseId: itemCourse._id,editionId:edition._id })" class="md-btn md-btn-small md-btn-flat md-btn-flat-primary" style="margin-top: 25%; background: #e3f2fd;">{{'ACTION.VIEW_INFO'|translate}}</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="blog_list_footer">
-                    <a ui-sref="workspace.lms.courses.join.intro({ courseId: course._id,editionId:edition._id })" class="md-btn md-btn-small md-btn-flat md-btn-flat-primary uk-float-right">{{'ACTION.VIEW_INFO'|translate}}</a>
-                </div>
+                        <!-- <p ng-bind-html="itemCourse.detail"> -->
             </div>
         </div>
     </div>
