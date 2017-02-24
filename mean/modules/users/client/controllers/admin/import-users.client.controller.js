@@ -9,7 +9,7 @@
 
   function UserImportController($scope,$state, $filter, $compile, Authentication, AdminService, $timeout, $location, $window, GroupsService,UsersService, DTOptionsBuilder, DTColumnDefBuilder, Notification, treeUtils,$q, _) {
     var vm = this;
-    vm.user = Authentication.user; 
+    vm.user = Authentication.user;
     vm.users = [];
     vm.headers = [];
     vm.importData = importData;
@@ -24,7 +24,7 @@
             uploadButtonLabel: "Select CSV file"
         };
     vm.finishLoad = finishLoad;
-    
+
     vm.groups = GroupsService.listOrganizationGroup( function() {
         var tree = treeUtils.buildGroupTree(vm.groups);
         $timeout(function() {
@@ -43,9 +43,9 @@
                 }
             });
         });
-   }); 
-    
-    vm.columnOptions = 
+   });
+
+    vm.columnOptions =
             [
                 {
                     id: 1,
@@ -104,7 +104,7 @@
                     parent_id: 1
                 }
             ];
-        
+
 
     vm.columnConfigs = {
         create: false,
@@ -119,9 +119,9 @@
         onInitialize: function(selectize){
         }
     };
-    
+
     var closeButton = $('#dialogClose');
-    
+
     function finishLoad() {
         if (!vm.csv.result.headers  || vm.csv.result.headers.length == 0) {
             vm.headers = [];
@@ -135,25 +135,48 @@
         vm.users = vm.csv.result.rows;
         $scope.$apply();
     }
-    
-    function importData() {          
-        var modal = UIkit.modal.blockUI('<div class=\'uk-text-center\'>Processing...<br/><img class=\'uk-margin-top\' src=\'/assets/img/spinners/spinner.gif\' alt=\'\'>');
-        var allPromise = [];
-        _.each(vm.users,function(user) {
-            if (!user.removed) {
-                var userService = new UsersService();
-                _.each(vm.headers,function(header,index) {
-                    if (header.column && header.column !='#IGNORE#')
-                        userService[header.column] = user[index];
-                });
-                userService.group = vm.group;
-                allPromise.push(userService.$save().$promise);
+
+    function importData() {
+      var modal = UIkit.modal.blockUI('<div class=\'uk-text-center\'>Processing...<br/><img class=\'uk-margin-top\' src=\'/assets/img/spinners/spinner.gif\' alt=\'\'>');
+      var users = [];
+
+      vm.users.map(function(u) {
+        if (!u.removed) {
+          var user = {};
+
+          vm.headers.map(function(header,index) {
+            if (header.column && header.column !='#IGNORE#') {
+              user[header.column] = u[index];
             }
-        });
-        $q.all(allPromise).then(function() {
+          });
+
+          user.group = vm.group;
+          users.push(user);
+        }
+      });
+
+      function importFromFile() {
+        return users.reduce(function (prev, curr) {
+         return prev.then(function () {
+            return UsersService.save(curr).$promise.then(
+              function() {
+                return $q.resolve();
+              },
+              function(err) {
+                return $q.resolve();
+              }
+            );
+          });
+        }, $q.resolve());
+      }
+
+      importFromFile()
+        .then(function() {
             vm.users = [];
             modal.hide();
             $window.location.reload();
+        }).catch(function(e) {
+          console.log(e);
         });
     }
   }
