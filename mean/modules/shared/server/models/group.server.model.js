@@ -22,7 +22,7 @@ var GroupSchema = new Schema({
   },
   category: {
       type: String,
-      enum: ['organization', 'competency', 'course', 'library'],
+      enum: ['organization', 'competency', 'course', 'library' ,'question'],
       default: ''
   },
   order: {

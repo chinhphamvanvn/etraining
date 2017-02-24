@@ -34,7 +34,12 @@
           url:'/api/groups/competency',
           method: 'GET',
           isArray: true
-        }
+        },
+        listQuestionGroup: {
+            url:'/api/groups/question',
+            method: 'GET',
+            isArray: true
+          }
     
     });
   }

@@ -76,7 +76,7 @@ exports.courseStats = function(req, res) {
 
 exports.userRegistrationStats = function(req, res) {
     var day = parseInt(req.params.day);
-    Stat.find({category:'USER_REGISTER',created:{$gt:new Date(Date.now() - day*24*60 * 1000)}}).sort('created').exec(function(err,stats) {
+    Stat.find({category:'USER_REGISTER',created:{$gt:new Date(Date.now() - day*24*60*60 * 1000)}}).sort('created').exec(function(err,stats) {
         if (err) {
             return res.status(400).send({
               message: errorHandler.getErrorMessage(err)
@@ -89,7 +89,7 @@ exports.userRegistrationStats = function(req, res) {
 
 exports.userLoginStats = function(req, res) {
     var day = parseInt(req.params.day);
-    Stat.find({category:'USER_LOGIN',created:{$gt:new Date(Date.now() - day*24*60 * 1000)}}).sort('created').exec(function(err,stats) {
+    Stat.find({category:'USER_LOGIN',created:{$gt:new Date(Date.now() - day*24*60*60 * 1000)}}).sort('created').exec(function(err,stats) {
         if (err) {
             return res.status(400).send({
               message: errorHandler.getErrorMessage(err)
@@ -102,7 +102,7 @@ exports.userLoginStats = function(req, res) {
 
 exports.memberRegistrationStats = function(req, res) {
     var day = parseInt(req.params.day);
-    Stat.find({category:'MEMBER_REGISTER',created:{$gt:new Date(Date.now() - day*24*60 * 1000)}}).sort('created').exec(function(err,stats) {
+    Stat.find({category:'MEMBER_REGISTER',created:{$gt:new Date(Date.now() - day*24*60*60 * 1000)}}).sort('created').exec(function(err,stats) {
         if (err) {
             return res.status(400).send({
               message: errorHandler.getErrorMessage(err)
@@ -115,7 +115,7 @@ exports.memberRegistrationStats = function(req, res) {
 
 exports.memberInstudyStats = function(req, res) {
     var day = parseInt(req.params.day);
-    Stat.find({category:'MEMBER_INSTUDY',created:{$gt:new Date(Date.now() - day*24*60 * 1000)}}).sort('created').exec(function(err,stats) {
+    Stat.find({category:'MEMBER_INSTUDY',created:{$gt:new Date(Date.now() - day*24*60*60 * 1000)}}).sort('created').exec(function(err,stats) {
         if (err) {
             return res.status(400).send({
               message: errorHandler.getErrorMessage(err)
@@ -128,7 +128,7 @@ exports.memberInstudyStats = function(req, res) {
 
 exports.memberCompleteStats = function(req, res) {
     var day = parseInt(req.params.day);
-    Stat.find({category:'MEMBER_COMPLETE',created:{$gt:new Date(Date.now() - day*24*60 * 1000)}}).sort('created').exec(function(err,stats) {
+    Stat.find({category:'MEMBER_COMPLETE',created:{$gt:new Date(Date.now() - day*24*60*60 * 1000)}}).sort('created').exec(function(err,stats) {
         if (err) {
             return res.status(400).send({
               message: errorHandler.getErrorMessage(err)

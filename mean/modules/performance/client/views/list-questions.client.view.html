@@ -1,0 +1,83 @@
+<div id="page_content">
+    <div id="page_content_inner">
+        <h3 class="heading_b uk-margin-bottom">{{'PAGE.PERFORMANCE.QUESTION_BANK.TITLE'
+            | translate}}</h3>
+        <div class="uk-grid" data-uk-grid-margin>
+            <div class="uk-width-medium-1-2">
+                <div class="md-card">
+                    <div class="md-card-toolbar">
+                        <div class="md-card-toolbar-actions">
+                            <a
+                                class="md-btn md-btn-flat md-btn-wave-light md-btn-icon uk-margin-right"
+                                ui-sref="admin.workspace.performance.question.category">
+                                <i class="uk-icon-plus uk-text-success"></i>
+                                {{'ACTION.CREATE_CATEGORY' | translate}}
+                            </a>
+                        </div>
+                         <h3 class="md-card-toolbar-heading-text">
+                                {{'PAGE.PERFORMANCE.QUESTION_BANK.GROUP_LIST'  | translate}}
+                            </h3>
+                    </div>
+                    <div class="md-card-content">
+                        <div id="questionTree" class="fancytree-checkbox">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="uk-width-medium-1-2">
+                <div class="md-card">
+                    <div class="md-card-toolbar">
+                        <div class="md-card-toolbar-actions">
+                            <div class="uk-button-dropdown" data-uk-dropdown>
+                                <a   class="md-btn md-btn-flat md-btn-wave-light md-btn-icon uk-margin-right  ">
+                                    <i  class="uk-icon-plus uk-text-success"></i>
+                                    {{'ACTION.CREATE_QUESTION' |        translate}}
+                                </a>
+                                <div class="uk-dropdown">
+                                    <ul class="uk-nav uk-nav-dropdown">
+                                        <li><a ng-click="vm.createQuestion('sc')">{{'COMMON.QUESTION_TYPE.SC'|translate}}</a></li>
+                                        <li><a ng-click="vm.createQuestion('mc')">{{'COMMON.QUESTION_TYPE.MC'|translate}}</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                        </div>
+                         <h3 class="md-card-toolbar-heading-text">
+                                {{'PAGE.PERFORMANCE.QUESTION_BANK.QUESTION_LIST'  | translate}}
+                            </h3>
+                    </div>
+                    <div class="md-card-content">
+                    
+                        <table  class="uk-table uk-table-hover" cellspacing="0" width="100%">
+                                <thead>
+                                    <tr>
+                                        <th  class="uk-text-center">{{'MODEL.QUESTION.TITLE'|translate}}</th>
+                                        <th class="uk-text-center">{{'MODEL.QUESTION.TYPE'|translate}}</th>
+                                         <th></th>
+                                    </tr>
+                                    
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="question in vm.questions">
+                                        <td>{{question.title}}</td>
+                                        <th>
+                                        <span ng-show="question.type=='sc'">{{'COMMON.QUESTION_TYPE.SC'|translate}}</span>
+                                        <span ng-show="question.type=='mc'">{{'COMMON.QUESTION_TYPE.MC'|translate}}</span>
+                                        </th>
+                                        
+                                        <th>
+                                             <a ui-sref="admin.workspace.performance.question.edit({questionId:question._id})"  data-uk-tooltip="{pos:'right'}" title="{{'ACTION.EDIT'|translate}}"><i class="md-icon material-icons ">edit</i></a>
+                                            <a ui-sref="admin.workspace.performance.question.view({questionId:question._id})"  data-uk-tooltip="{pos:'right'}" title="{{'ACTION.VIEW'|translate}}"><i class="md-icon material-icons ">remove_red_eye</i></a>
+                                            <a   data-uk-tooltip="{pos:'right'}" title="{{'ACTION.DELETE'|translate}}" ng-click="vm.remove(question)"><i class="md-icon material-icons uk-text-danger">delete</i></a>
+                                        
+                                        </th>
+                                    </tr>
+                                </tbody>
+                            </table>
+                    
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

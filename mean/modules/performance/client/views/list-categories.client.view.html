@@ -1,6 +1,6 @@
 <div id="page_content">
     <div id="page_content_inner">
-        <h3 class="heading_b uk-margin-bottom">{{'PAGE.LIBRARY.CATEGORY.TITLE' | translate}}</h3>
+        <h3 class="heading_b uk-margin-bottom">{{'PAGE.PERFORMANCE.QUESTION_BANK.GROUP_LIST' | translate}}</h3>
 
         <div class="uk-grid" data-uk-grid-margin>
             <div class="uk-width-medium-1-1">
@@ -12,7 +12,7 @@
                                 <i class="uk-icon-plus uk-text-success"></i>
                                 {{'ACTION.CREATE' | translate}}
                             </a>
-                            <a class="md-btn md-btn-default md-btn-wave-light md-btn-icon uk-margin-right  uk-text-default" ng-click="vm.rename()">
+                            <a class="md-btn md-btn-default md-btn-wave-light md-btn-icon uk-margin-right " ng-click="vm.rename()">
                                 <i class="uk-icon-pencil  uk-text-default"></i>
                                 {{'ACTION.RENAME' | translate}}
                             </a>
@@ -21,9 +21,16 @@
                                 <i class="uk-icon-trash  uk-text-danger"></i>
                                 {{'ACTION.REMOVE' | translate}}
                             </a>
+                            
+                             <a
+                                class="md-btn md-btn-flat md-btn-wave-light md-btn-icon uk-margin-right uk-float-right"
+                                ui-sref="admin.workspace.performance.question.list">
+                                <i class="uk-icon-angle-left uk-text-primary"></i>
+                                {{'PAGE.PERFORMANCE.QUESTION_BANK.TITLE' | translate}}
+                            </a>
                         
                         </div>
-                        <div id="libTree" class="fancytree-radio">
+                        <div id="questionTree" class="fancytree-radio">
                          
                         </div>
                     </div>

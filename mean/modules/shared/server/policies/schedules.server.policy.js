@@ -9,63 +9,47 @@ var acl = require('acl');
 acl = new acl(new acl.memoryBackend());
 
 /**
- * Invoke Questions Permissions
+ * Invoke Schedules Permissions
  */
 exports.invokeRolesPolicies = function () {
   acl.allow([{
     roles: ['admin'],
     allows: [{
-      resources: '/api/questions',
+      resources: '/api/schedules',
       permissions: '*'
-    },  {
-          resources: '/api/questions/byCategoryAndLevel/:groupId/:level',
-          permissions: '*'
-        },
-        {
-            resources: '/api/questions/byCategory/:groupId',
-            permissions: '*'
-          },
-        {
-      resources: '/api/questions/:questionId',
+    }, {
+      resources: '/api/schedules/:scheduleId',
       permissions: '*'
     }]
   }, {
     roles: ['user'],
     allows: [{
-      resources: '/api/questions',
+      resources: '/api/schedules',
       permissions: ['get', 'post']
-    },{
-          resources: '/api/questions/byCategoryAndLevel/:groupId/:level',
-          permissions: ['get']
-        },
-        {
-            resources: '/api/questions/byCategory/:groupId',
-            permissions: 'get'
-          },
-      {
-      resources: '/api/questions/:questionId',
+    }, {
+      resources: '/api/schedules/:scheduleId',
       permissions: ['get']
     }]
   }, {
     roles: ['guest'],
     allows: [{
-      resources: '/api/questions',
+      resources: '/api/schedules',
       permissions: ['get']
     }, {
-      resources: '/api/questions/:questionId',
+      resources: '/api/schedules/:scheduleId',
       permissions: ['get']
     }]
   }]);
 };
 
 /**
- * Check If Questions Policy Allows
+ * Check If Schedules Policy Allows
  */
 exports.isAllowed = function (req, res, next) {
   var roles = (req.user) ? req.user.roles : ['guest'];
 
-  // If an Question is being processed and the current user created it then allow any manipulation
-  if (req.question && req.user && req.question.user && req.question.user.id === req.user.id) {
+  // If an Schedule is being processed and the current user created it then allow any manipulation
+  if (req.schedule && req.user && req.schedule.user && req.schedule.user.id === req.user.id) {
     return next();
   }
 

@@ -9,63 +9,47 @@ var acl = require('acl');
 acl = new acl(new acl.memoryBackend());
 
 /**
- * Invoke Questions Permissions
+ * Invoke Candidates Permissions
  */
 exports.invokeRolesPolicies = function () {
   acl.allow([{
     roles: ['admin'],
     allows: [{
-      resources: '/api/questions',
+      resources: '/api/candidates',
       permissions: '*'
-    },  {
-          resources: '/api/questions/byCategoryAndLevel/:groupId/:level',
-          permissions: '*'
-        },
-        {
-            resources: '/api/questions/byCategory/:groupId',
-            permissions: '*'
-          },
-        {
-      resources: '/api/questions/:questionId',
+    }, {
+      resources: '/api/candidates/:candidateId',
       permissions: '*'
     }]
   }, {
     roles: ['user'],
     allows: [{
-      resources: '/api/questions',
+      resources: '/api/candidates',
       permissions: ['get', 'post']
-    },{
-          resources: '/api/questions/byCategoryAndLevel/:groupId/:level',
-          permissions: ['get']
-        },
-        {
-            resources: '/api/questions/byCategory/:groupId',
-            permissions: 'get'
-          },
-      {
-      resources: '/api/questions/:questionId',
+    }, {
+      resources: '/api/candidates/:candidateId',
       permissions: ['get']
     }]
   }, {
     roles: ['guest'],
     allows: [{
-      resources: '/api/questions',
+      resources: '/api/candidates',
       permissions: ['get']
     }, {
-      resources: '/api/questions/:questionId',
+      resources: '/api/candidates/:candidateId',
       permissions: ['get']
     }]
   }]);
 };
 
 /**
- * Check If Questions Policy Allows
+ * Check If Candidates Policy Allows
  */
 exports.isAllowed = function (req, res, next) {
   var roles = (req.user) ? req.user.roles : ['guest'];
 
-  // If an Question is being processed and the current user created it then allow any manipulation
-  if (req.question && req.user && req.question.user && req.question.user.id === req.user.id) {
+  // If an Candidate is being processed and the current user created it then allow any manipulation
+  if (req.candidate && req.user && req.candidate.user && req.candidate.user.id === req.user.id) {
     return next();
   }
 

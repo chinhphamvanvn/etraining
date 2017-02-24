@@ -15,11 +15,16 @@
       update: {
         method: 'PUT'
       },
-        byFilter : {
+      byCategoryAndLevel : {
             method: 'GET',
-            url: '/api/questions/byFilter/:groupId/:level',
+            url: '/api/questions/byCategoryAndLevel/:groupId/:level',
             isArray: true
-          }
+          },
+          byCategory : {
+              method: 'GET',
+              url: '/api/questions/byCategory/:groupId',
+              isArray: true
+            }
     });
   }
 }());
