@@ -14085,3 +14085,40 @@ body.pace-done > .page_preloader {
 .wizard > .content > .body pre[class*="language-"] {
   max-height: inherit;
 }
+/* 12. custom styles ==================================== */
+/* General style =================================== */
+*,
+body {
+  font-size: 16px;
+}
+.lowercase {
+  text-transform: lowercase;
+}
+/* List courses and library style =================== */
+.medium-title {
+  font-weight: 500;
+  text-transform: capitalize;
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+.medium-des {
+  font-size: 13px;
+  margin-bottom: 15px;
+}
+.selectize-control.single,
+.selectize-input {
+  border-bottom: 1px solid #1e1e1e;
+}
+.sortCour {
+  margin-right: 50px;
+  margin-top: -10px;
+}
+@media (max-width: 500px) {
+  .sortCour {
+    margin-right: 0px;
+    margin-top: 0px;
+  }
+  .detailCoures {
+    padding-bottom: 25px;
+  }
+}

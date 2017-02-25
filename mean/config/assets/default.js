@@ -19,7 +19,7 @@ module.exports = {
             'public/assets/css/themes/_theme_h.min.css',
             'public/assets/css/themes/_theme_i.min.css',
             'public/assets/css/themes/_theme_dark.min.css',
-           // 'public/lib/uikit/css/uikit.min.css',            
+           // 'public/lib/uikit/css/uikit.min.css',
            // 'public/lib/uikit/css/uikit.gradient.min.css',
             'public/lib/angular-clndr/angular-clndr.css',
             'public/lib/angular-datatables/dist/css/angular-datatables.min.css',
@@ -255,10 +255,10 @@ module.exports = {
       tests: ['public/lib/angular-mocks/angular-mocks.js']
     },
     css: [
-      'modules/*/client/{css,less,scss}/*.css'      
+      'modules/*/client/{css,less,scss}/*.css'
     ],
     less: [
-      'modules/*/client/less/*.less'
+      'public/assets/less/*.less'
     ],
     sass: [
       'modules/*/client/scss/*.scss'
