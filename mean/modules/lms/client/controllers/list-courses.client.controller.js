@@ -13,13 +13,19 @@ function LmsCoursesListController($scope, $state, $window, Authentication, $time
     vm.groups = GroupsService.listCourseGroup(function() {
         _.each(vm.groups,function(group) {
             group.courses = CoursesService.byGroup({groupId:group._id});
-        })
+        });
+
         _.each(vm.groups,function(group) {
             CoursesService.byGroup({groupId:group._id},function(courses) {
                 group.courses = _.filter(courses,function(course) {
                     return course.status =='available' && course.enrollStatus && course.displayMode !='enroll'
-                })
+                });
             });
+        });
+
+        CoursesService.listPublic(function(courses) {
+          vm.selectedCourse = courses;
+          vm.sort = 'asc';
         });
 
         vm.nodes = treeUtils.buildCourseTree(vm.groups);
@@ -29,7 +35,7 @@ function LmsCoursesListController($scope, $state, $window, Authentication, $time
         vm.nodeList = treeUtils.buildCourseListInOrder(vm.nodes);
         if ($state.params.sectionId) {
             vm.selectedNode = _.find(vm.nodeList,function(node){
-                return node.data._id == $state.params.sectionId; 
+                return node.data._id == $state.params.sectionId;
             });
             if (vm.selectedNode) {
                 var parentNode = vm.selectedNode.parent;
