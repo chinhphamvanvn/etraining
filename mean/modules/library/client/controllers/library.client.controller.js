@@ -24,14 +24,26 @@ function LibraryController($scope, $state, $window, Authentication, $timeout, Li
         });
     });
 
+    vm.allMedias = LibraryMediaService.query(function() {
+      vm.allMedias = _.filter(vm.allMedias, function(m) {
+        return m.published;
+      });
+
+      vm.selectMedia = vm.allMedias;
+    });
+
+    vm.getAllMedias = function() {
+      vm.selectMedia = vm.allMedias;
+    };
+
     vm.expand =  expand;
     vm.collapse = collapse;
     vm.toggleExpand = toggleExpand;
     vm.chooseSort = chooseSort;
 
     vm.optionCoures = [
-                { value: 'asc', label: 'Sắp xếp theo tên A -> z' },
-                { value: 'dsc', label: 'Sắp xếp theo tên z -> A' },
+                { value: 'asc', label: 'Sắp xếp theo tên a -> z' },
+                { value: 'dsc', label: 'Sắp xếp theo tên z -> a' },
                 { value: 'date', label: 'Săp xếp theo ngày' }
             ];
     vm.selectize_val_config = {
