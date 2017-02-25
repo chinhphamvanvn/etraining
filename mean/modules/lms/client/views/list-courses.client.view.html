@@ -2,6 +2,17 @@
         .selectize-control.single .selectize-input{
             border-bottom: 1px solid rgb(30, 30, 30);
         }
+        .sortCour {
+            margin-right: 50px; margin-top: -10px;
+        }
+        @media (max-width:500px){
+            .sortCour {
+                margin-right: 0px; margin-top: 0px;
+            }
+            .detailCoures {
+                padding-bottom: 25px;
+            }
+        }
     </style>
     <div id="page_content">
         <div id="page_content_inner">
@@ -20,7 +31,16 @@
                                 </div>
                                 <div class="md-card-content" style="padding: 16px 0px;">
                                     <ul class="uk-nav">
-                                         <li  ng-repeat="node in vm.nodes"  >
+                                        <li>
+                                            <span class="sub-heading">
+                                                <i ng-show="!node.expand" ng-click="vm.expand(node)" class="md-icon material-icons md-18">arrow_drop_down</i>
+                                                <i ng-show="node.expand" ng-click="vm.collapse(node)"  class="md-icon material-icons md-18">arrow_drop_up</i>
+                                                <a ng-click="vm.selsetAll()" class="uk-text-muted">
+                                                    <span class="uk-text-large">All</span>
+                                                </a>
+                                            </span>
+                                        </li>
+                                        <li  ng-repeat="node in vm.nodes"  >
                                             <span class="sub-heading">
                                                 <i ng-show="!node.expand" ng-click="vm.expand(node)" class="md-icon material-icons md-18">arrow_drop_down</i>
                                                 <i ng-show="node.expand" ng-click="vm.collapse(node)"  class="md-icon material-icons md-18">arrow_drop_up</i>
@@ -39,11 +59,11 @@
                         </div>
 
                         <div class="uk-width-large-3-4" ng-show="vm.selectedCourse" style="min-height: 90vh;">
-                            <div style="padding-top: 10px; font-size: 17px;">
+                            <div class="detailCoures" style="padding-top: 10px; font-size: 17px;">
                                 <span>
                                     <span style="font-weight: bold;">{{vm.selectedCourse.length}}</span> Courses
                                 </span>
-                                <div style="float: right; margin-right: 50px; border: 1px solid rgb(30, 30, 30); margin-top: -10px; min-width: 220px;">
+                                <div class="sortCour" style="float: right;border: 1px solid rgb(30, 30, 30); min-width: 220px;">
                                     <div>
                                         <input config="vm.selectize_val_config" options="vm.optionCoures" ng-model="sortCoures" required name="val_select" selectize ng-change="vm.chooseSort(sortCoures)" style="border: 1px solid #1e1e1e;" />
                                     </div>

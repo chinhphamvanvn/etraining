@@ -24,8 +24,10 @@ function LmsCoursesListController($scope, $state, $window, Authentication, $time
         });
 
         CoursesService.listPublic(function(courses) {
-          vm.selectedCourse = courses;
-          vm.sort = 'asc';
+            vm.fullCourses = [];
+            vm.fullCourses = courses;
+            vm.selectedCourse = courses;
+            vm.sort = 'asc';
         });
 
         vm.nodes = treeUtils.buildCourseTree(vm.groups);
@@ -52,6 +54,7 @@ function LmsCoursesListController($scope, $state, $window, Authentication, $time
     vm.collapse = collapse;
     vm.toggleExpand = toggleExpand;
     vm.chooseSort = chooseSort;
+    vm.selsetAll = selsetAll;
 
     vm.optionCoures = [
                 { value: 'asc', label: 'Sắp xếp theo tên A -> z' },
@@ -113,6 +116,10 @@ function LmsCoursesListController($scope, $state, $window, Authentication, $time
 
     function selectCourse(course) {
         vm.selectedCourse = course;
+    }
+
+    function selsetAll(){
+        vm.selectedCourse = vm.fullCourses;
     }
 }
 }());
