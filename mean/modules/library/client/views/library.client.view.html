@@ -24,7 +24,8 @@
                                             <span class="sub-heading">
                                                 <i ng-show="!node.expand" ng-click="vm.expand(node)" class="md-icon material-icons md-18">arrow_drop_down</i>
                                                 <i ng-show="node.expand" ng-click="vm.collapse(node)"  class="md-icon material-icons md-18">arrow_drop_up</i>
-                                                <a ng-click="vm.toggleExpand(node)" ng-class="{'uk-text-muted':node.id!=vm.selectedNode.id,'uk-text-bold uk-text-italic':node.id==vm.selectedNode.id}" >
+                                                <a ng-click="vm.toggleExpand(node)" class="uk-text-muted" >
+                                                <!-- ng-class="{'uk-text-muted':node.id!=vm.selectedNode.id,'uk-text-bold uk-text-italic':node.id==vm.selectedNode.id}" -->
                                                     <!-- <i  class="md-icon material-icons md-18" ng-class="{'uk-text-primary':node.id==vm.selectedNode.id}">folder_open</i> -->
                                                     <!-- {{$index+1}}.  -->
                                                     <span class="uk-text-large">{{node.data.name}}</span>
@@ -61,7 +62,8 @@
             <span class="sub-heading">
                 <i ng-show="!node.expand" ng-click="vm.expand(node)" class="md-icon material-icons md-18">arrow_drop_down</i>
                 <i ng-show="node.expand" ng-click="vm.collapse(node)"  class="md-icon material-icons md-18">arrow_drop_up</i>
-                <a ng-click="vm.toggleExpand(node)" ng-class="{'uk-text-muted':node.id!=vm.selectedNode.id,'uk-text-bold uk-text-italic':node.id==vm.selectedNode.id}">
+                <a ng-click="vm.toggleExpand(node)" class="uk-text-muted">
+                    <!-- ng-class="{'uk-text-muted':node.id!=vm.selectedNode.id,'uk-text-bold uk-text-italic':node.id==vm.selectedNode.id}" -->
                     <!-- <i ng-if="!node.data.hasContent" ng-class="{'uk-text-primary':node.id==vm.selectedNode.id}" class="md-icon material-icons md-18">folder_open</i> -->
                     <!-- <i ng-if="node.data.hasContent && node.data.contentType=='html'" class="md-icon material-icons md-18" ng-class="{'uk-text-primary':node.id==vm.selectedNode.id}">note</i>
                     <i ng-if="node.data.hasContent && node.data.contentType=='test'" class="md-icon material-icons md-18" ng-class="{'uk-text-primary':node.id==vm.selectedNode.id}">question_answer</i>
