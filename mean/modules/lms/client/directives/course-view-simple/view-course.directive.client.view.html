@@ -1,8 +1,12 @@
-
+<style type="text/css">
+    .md-btn-flat-primary, .md-btn-flat-primary:hover, .md-btn-flat-primary:focus, .md-btn-flat-primary:active, .md-btn-flat-primary.uk-active {
+        color: #1976d2;
+    }
+</style>
 <div class="md-card" style="box-shadow: none;">
     <div class="md-card-content large-padding">
         <div class="uk-grid blog_article uk-grid-divider" data-uk-grid-margin>
-            <div class="uk-width-1-1 uk-margin-medium-bottom hierarchical_show" ng-repeat="itemCourse in course | orderBy:sort" data-uk-grid="{gutter: 20}" hierarchical-show>
+            <div class="uk-width-1-1 hierarchical_show" ng-repeat="itemCourse in course | orderBy:sort" data-uk-grid="{gutter: 20}" hierarchical-show>
                 <div class="uk-width-1-1">
                     <div class="uk-grid uk-grid-small" style="width: 100%;">
                         <div class="uk-width-1-4">

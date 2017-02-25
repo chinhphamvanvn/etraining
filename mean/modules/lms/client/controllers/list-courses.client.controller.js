@@ -48,9 +48,9 @@ function LmsCoursesListController($scope, $state, $window, Authentication, $time
     vm.chooseSort = chooseSort;
 
     vm.optionCoures = [
-                { value: 'asc', label: 'Name A->z' },
-                { value: 'dsc', label: 'Name z->A' },
-                { value: 'date', label: 'Date' }
+                { value: 'asc', label: 'Sắp xếp theo tên A -> z' },
+                { value: 'dsc', label: 'Sắp xếp theo tên z -> A' },
+                { value: 'date', label: 'Săp xếp theo ngày bắt đầu khóa học' }
             ];
     vm.selectize_val_config = {
                 maxItems: 1,
@@ -73,7 +73,7 @@ function LmsCoursesListController($scope, $state, $window, Authentication, $time
 
         if(node.data.coursesList.length > 0) {
             vm.selectedCourse = node.data.coursesList;
-            vm.sort = "startDate";
+            vm.sort = "asc";
         } else {
             vm.selectedCourse = [];
         }
@@ -96,11 +96,9 @@ function LmsCoursesListController($scope, $state, $window, Authentication, $time
     function chooseSort(sort) {
         if(sort == "asc"){
             vm.sort = "name"
-            console.log(vm.selectedCourse);
         }
         if(sort == "dsc"){
             vm.sort = "-name";
-            console.log(vm.selectedCourse);
         }
         if(sort == "date"){
             vm.sort = "startDate";
