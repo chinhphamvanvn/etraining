@@ -27,9 +27,22 @@ function LibraryController($scope, $state, $window, Authentication, $timeout, Li
     vm.expand =  expand;
     vm.collapse = collapse;
     vm.toggleExpand = toggleExpand;
+    vm.chooseSort = chooseSort;
 
+    vm.optionCoures = [
+                { value: 'asc', label: 'Sắp xếp theo tên A -> z' },
+                { value: 'dsc', label: 'Sắp xếp theo tên z -> A' },
+                { value: 'date', label: 'Săp xếp theo ngày' }
+            ];
+    vm.selectize_val_config = {
+                maxItems: 1,
+                valueField: 'value',
+                labelField: 'label',
+                create: false,
+                placeholder: 'Choose...'
+            };
     function toggleExpand(node) {
-        console.log(node);
+        // console.log(node);
         node.data.mediumList = [];
         var medium = [];
         var childsNode = treeUtils.buildGroupListInOrder([node]);
@@ -62,13 +75,17 @@ function LibraryController($scope, $state, $window, Authentication, $timeout, Li
         treeUtils.expandCourseNode(node,false);
     }
 
-    // function selectGroup(node) {
-    //     LibraryMediaService.byGroup({groupId:node.data._id},function(medium) {
-    //         node.data.medium = _.filter(medium,function(media) {
-    //             return media.published;
-    //         })
-    //     });
-    // }
+    function chooseSort(sort) {
+        if(sort == "asc"){
+            vm.sort = "name"
+        }
+        if(sort == "dsc"){
+            vm.sort = "-name";
+        }
+        if(sort == "date"){
+            vm.sort = "created";
+        }
+    }
 
 }
 }());

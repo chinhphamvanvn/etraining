@@ -1,25 +1,31 @@
-<div class="md-card">
+<div class="md-card" style="box-shadow: none;">
     <div class="md-card-content small-padding">
-        <div class="uk-width-1-1 hierarchical_show" ng-repeat="itemMedia in media" data-uk-grid="{gutter: 20}" hierarchical-show>
+        <div class="uk-width-1-1 hierarchical_show" ng-repeat="itemMedia in media | orderBy:sort" data-uk-grid="{gutter: 20}" hierarchical-show style="margin-bottom: 20px;">
             <div class="uk-width-1-1">
                 <div class="uk-grid uk-grid-small" style="width: 100%;">
-                    <div class="uk-width-1-4">
-                            <img class="img_thumb" style="border-radius: 5px; width: 90%; height: 80%;" src ="{{itemMedia.imageURL}}"/>
+                    <div class="uk-width-1-4" style="overflow: auto;">
+                            <img class="img_thumb" style="border-radius: 5px; width: 90%;" src ="{{itemMedia.imageURL}}"/>
                         </div>
-                        <div class="uk-width-3-4"></div>
+                        <div class="uk-width-3-4">
+                            <div class="uk-grid uk-grid-small">
+                                <div class="uk-width-4-5">
+                                    <div style="font-weight: 500; text-transform: capitalize; font-size: 18px; margin-bottom: 10px;">{{itemMedia.name}}</div>
+                                    <div style="font-size: 13px;">{{itemMedia.description}}</div>
+                                    <div style="padding-top: 7px; font-size: 13px;">
+                                        <span>{{itemMedia.created | date :'dd-MM-yyyy'}}</span>&nbsp;&nbsp;
+                                        <span>{{itemMedia.mediaType}}</span>&nbsp;&nbsp;
+                                        <span>{{itemMedia.user.displayName}}</span>
+                                    </div>
+                                </div>
+                                <div class="uk-width-1-5">
+                                    <a  class="md-btn md-btn-small md-btn-flat md-btn-icon md-btn-flat-primary " target="_self" href="{{media.downloadURL}}"download="{{media.filename}}" style="background: #e3f2fd;">
+                                        <i class="material-icons">file_download</i>{{'ACTION.DOWNLOAD'|translate}}
+                                    </a>
+                                    <a  class="md-btn md-btn-small md-btn-flat md-btn-flat-primary uk-float-right" style="margin-right: 5px;">{{'ACTION.BOOKMARK'|translate}}</a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <!-- <img  ng-src="{{media.imageURL}}" alt="" class="blog_list_teaser_image"> -->
-                   <!--  <div class="blog_list_teaser">
-                        <h2 class="blog_list_teaser_title uk-text-truncate">{{media.name}}</h2>
-                        <p>{{media.description}}</p>
-                        <span class="uk-text-muted uk-text-small">{{'MODEL.MEDIA.TYPE'|translate}}:  {{media.mediaType}}</span>
-                    </div>
-                    <div class="blog_list_footer">
-                        <a  class="md-btn md-btn-small md-btn-flat md-btn-icon md-btn-flat-primary " target="_self" href="{{media.downloadURL}}"download="{{media.filename}}" >
-                            <i class="material-icons">file_download</i>{{'ACTION.DOWNLOAD'|translate}}
-                        </a>
-                        <a  class="md-btn md-btn-small md-btn-flat md-btn-flat-primary uk-float-right">{{'ACTION.BOOKMARK'|translate}}</a>
-                    </div> -->
                 </div>
             </div>
         </div>
