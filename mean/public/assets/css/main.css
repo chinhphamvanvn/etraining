@@ -14095,15 +14095,15 @@ body {
   text-transform: lowercase;
 }
 /* List courses and library style =================== */
-.medium-title {
+.media-title {
   font-weight: 500;
   text-transform: capitalize;
   font-size: 18px;
-  margin-bottom: 10px;
+  margin-bottom: 7px;
 }
-.medium-des {
+.media-des {
   font-size: 13px;
-  margin-bottom: 15px;
+  margin-bottom: 20px;
 }
 .selectize-control.single,
 .selectize-input {

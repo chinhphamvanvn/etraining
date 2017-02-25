@@ -9,19 +9,12 @@
                         <div class="uk-width-3-4">
                             <div class="uk-grid uk-grid-small">
                                 <div class="uk-width-4-5">
-                                    <div style="font-weight: 500; text-transform: capitalize; font-size: 18px; margin-bottom: 10px;">{{itemMedia.name}}</div>
-                                    <div style="font-size: 13px;">{{itemMedia.description}}</div>
-                                    <div style="padding-top: 7px; font-size: 13px;">
-                                        <span>{{itemMedia.created | date :'dd-MM-yyyy'}}</span>&nbsp;&nbsp;
-                                        <span style="text-transform: capitalize;">{{itemMedia.mediaType}}</span>&nbsp;&nbsp;
-                                        <span style="text-transform: capitalize;">{{itemMedia.user.displayName}}</span>
-                                    </div>
-                                </div>
-                                <div class="uk-width-1-5">
-                                    <a  class="md-btn md-btn-small md-btn-flat md-btn-icon md-btn-flat-primary " target="_self" href="{{media.downloadURL}}"download="{{media.filename}}" style="background: #e3f2fd;">
-                                        <i class="material-icons">file_download</i>{{'ACTION.DOWNLOAD'|translate}}
-                                    </a>
-                                    <a  class="md-btn md-btn-small md-btn-flat md-btn-flat-primary uk-float-right" style="margin-right: 5px;">{{'ACTION.BOOKMARK'|translate}}</a>
+                                    <div class="media-title">{{itemMedia.name}}</div>
+                                    <div class="media-des">{{itemMedia.description}}</div>
+                                  <a  class="md-btn md-btn-small md-btn-flat md-btn-icon md-btn-flat-primary " target="_self" href="{{media.downloadURL}}"download="{{media.filename}}" style="background: #e3f2fd;">
+                                    <i class="material-icons">file_download</i>{{'ACTION.DOWNLOAD'|translate}}
+                                  </a>
+                                  <!--<a  class="md-btn md-btn-small md-btn-flat md-btn-flat-primary uk-float-right" style="margin-right: 5px;">{{'ACTION.BOOKMARK'|translate}}</a>-->
                                 </div>
                             </div>
                         </div>
