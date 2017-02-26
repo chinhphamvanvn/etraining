@@ -36,15 +36,6 @@
           roles: [ 'admin']
         }
       })
-       .state('admin.workspace.performance.question.category', {
-        url: '/category',
-        templateUrl: '/modules/performance/client/views/list-categories.client.view.html',
-        controller: 'QuestionCategoriesController',
-        controllerAs: 'vm',
-        data: {
-          roles: [ 'admin']
-        }
-      })
       .state('admin.workspace.performance.question.edit', {
         url: '/edit/:questionId',
         templateUrl: '/modules/performance/client/views/form-question.client.view.html',

@@ -28,6 +28,7 @@
       vm.edition = edition;
       vm.classroom = new ClassroomsService();
       vm.selectStudentGroup = selectStudentGroup;
+      vm.selectTeacherGroup = selectTeacherGroup;
       vm.selectTeachers = selectTeachers;
       vm.selectStudents = selectStudents
       vm.suspend = suspend;
@@ -114,10 +115,19 @@
       });
       
       function selectStudentGroup(groups) {
-          vm.users = [];
+          vm.studentUsers = [];
           _.each(groups,function(group) {
              AdminService.byGroup({groupId:group},function(users) {
-                 vm.users = vm.users.concat(users);
+                 vm.studentUsers = vm.studentUsers.concat(users);
+             })     
+          });
+      }
+      
+      function selectTeacherGroup(groups) {
+          vm.teacherUsers = [];
+          _.each(groups,function(group) {
+             AdminService.byGroup({groupId:group},function(users) {
+                 vm.teacherUsers = vm.teacherUsers.concat(users);
              })     
           });
       }
@@ -138,9 +148,10 @@
       }
       
      function selectTeachers() {
-         _.each(vm.displayUsers,function(user) {
-             if (user.selectedAsTeacher) {
-                 user.selectedAsTeacher = false;
+         var users = _.filter(vm.studentUsers,function(user) {
+             return user.selectedAsTeacher
+         })
+         _.each(users,function(user) {
                  var exist = _.find(vm.teachers,function(teacher) {
                      return teacher.member._id == user._id && teacher.status=='active';
                  });
@@ -156,18 +167,16 @@
                          vm.teachers.push(member);
                      })
                  }
-             }
          })
      }
      
      
      
      function selectStudents() {
-         var users = _.filter(vm.users,function(user) {
+         var users = _.filter(vm.studentUsers,function(user) {
              return user.selectedAsStudent
          })
          _.each(users,function(user) {
-                 user.selectedAsStudent = false;
                  var exist = _.find(vm.students,function(student) {
                      return student.member._id == user._id && student.status=='active';
                  });
