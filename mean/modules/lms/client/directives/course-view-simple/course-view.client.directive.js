@@ -11,11 +11,15 @@
       
       return {
           scope: {
-              course: "="
+              course: "=",
+              sort: "="
           },
           templateUrl:'/modules/lms/client/directives/course-view-simple/view-course.directive.client.view.html',
           link: function (scope, element, attributes) {
-              // scope.edition = CourseEditionsService.byCourse({courseId:scope.course._id});
+            console.log('=====', scope);
+            if(scope.course){
+              scope.edition = CourseEditionsService.byCourse({courseId:scope.course._id});
+            }
           }
       }
   }

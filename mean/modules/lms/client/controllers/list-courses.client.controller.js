@@ -41,34 +41,42 @@ function LmsCoursesListController($scope, $state, $window, Authentication, $time
             }
         }
     });
-    vm.selectGroup = selectGroup;
     vm.selectCourse = selectCourse;
     vm.expand =  expand;
     vm.collapse = collapse;
     vm.toggleExpand = toggleExpand;
+    vm.chooseSort = chooseSort;
 
-    function selectContentNode(node) {
-        vm.selectedNode = node;
-        vm.selectedContentNode = node;
-        vm.section = node.data;
-        console.log(node);
-        // if (node.data.contentType=='html')
-        //     $state.go('workspace.lms.courses.outline.preview.html',{sectionId:node.data._id});
-        // if (node.data.contentType=='test')
-        //     $state.go('workspace.lms.courses.outline.preview.quiz',{sectionId:node.data._id});
-        // if (node.data.contentType=='video')
-        //     $state.go('workspace.lms.courses.outline.preview.video',{sectionId:node.data._id});
-        // if (node.data.contentType=='survey')
-        //     $state.go('workspace.lms.courses.outline.preview.survey',{sectionId:node.data._id});
-    }
-
+    vm.optionCoures = [
+                { value: 'asc', label: 'Name A->z' },
+                { value: 'dsc', label: 'Name z->A' },
+                { value: 'date', label: 'Date' }
+            ];
+    vm.selectize_val_config = {
+                maxItems: 1,
+                valueField: 'value',
+                labelField: 'label',
+                create: false,
+                placeholder: 'Choose...'
+            };
     function toggleExpand(node) {
-        console.log(node);
-        // if (vm.selectedNode != node) {
-        //     vm.selectedNode = node;
-        //     if (node.data.hasContent )
-        //         selectContentNode(node);
-        // }
+        // console.log(node);
+        node.data.coursesList = [];
+        var courses = [];
+        var childsNode = treeUtils.buildGroupListInOrder([node]);
+        childsNode.map(function(child) {
+            if (child.data.courses.length > 0) {
+              courses = courses.concat(child.data.courses);
+            }
+        });
+        node.data.coursesList = courses;
+
+        if(node.data.coursesList.length > 0) {
+            vm.selectedCourse = node.data.coursesList;
+            vm.sort = "startDate";
+        } else {
+            vm.selectedCourse = [];
+        }
         if (node.children.length == 0)
             return;
         if (node.expand)
@@ -85,17 +93,20 @@ function LmsCoursesListController($scope, $state, $window, Authentication, $time
         treeUtils.expandCourseNode(node,false);
     }
 
-    function selectGroup(group) {
-        // CoursesService.byGroup({groupId:group._id},function(courses) {
-        //     group.courses = _.filter(courses,function(course) {
-        //         return course.status =='available' && course.enrollStatus && course.displayMode !='enroll'
-        //     });
-        // });
-        vm.selectedCourse = group.courses;
-        console.log(vm.selectedCourse);
-
+    function chooseSort(sort) {
+        if(sort == "asc"){
+            vm.sort = "name"
+            console.log(vm.selectedCourse);
+        }
+        if(sort == "dsc"){
+            vm.sort = "-name";
+            console.log(vm.selectedCourse);
+        }
+        if(sort == "date"){
+            vm.sort = "startDate";
+        }
     }
-    
+
     function selectCourse(course) {
         vm.selectedCourse = course;
     }

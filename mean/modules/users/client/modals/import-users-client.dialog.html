@@ -30,8 +30,7 @@
                             </div>
                             <div class="uk-width-medium-1-2">
                              <h3 class="heading_a uk-margin-bottom">{{'DIALOG.IMPORT.USER.DEPARTMENT' | translate}}</h3>
-                                <div id="orgTree" class="fancytree-checkbox">
-                                                 </div>
+                                <group-tree-view tree-id="'departmentTree'" mode="'single'"  selects="dlg.group" category="'organization'"></group-tree-view>
                             </div>
                         </div>
                     </div>
@@ -42,23 +41,22 @@
                             <caption>{{'ACTION.PREVIEW' | translate}} <a class="md-btn md-btn-wave-light uk-align-right md-btn-primary"  ng-click="dlg.importData()">{{'ACTION.IMPORT'|translate}}</a></caption>
                             <thead>
                             <tr>
-                                <th  ng-repeat="header in dlg.headers track by $index">
+                                <th  ng-repeat="header in dlg.headers track by $index"  ng-show="!header.deleted">
                                     <input type="text" config="dlg.columnConfigs" options="dlg.columnOptions" ng-model="header.column" name="selectizeColumn"  selectize />
                                 </th>
                                 <th></th>
                             </tr>
                             <tr>
-                                <th ng-repeat="header in dlg.headers track by $index">{{header.name}}</th>
+                                <th ng-repeat="header in dlg.headers track by $index" ng-show="!header.deleted">{{header.name}} <a><i ng-click="header.deleted=true" class="material-icons uk-text-danger">remove_circle</i></a> </th>
                                 <th></th>
                             </tr>
                             </thead>
                           <tbody>
                             
-                                <tr ng-repeat="user in dlg.users">
-                                    <td ng-repeat="header in dlg.headers track by $index">{{user[$index]}}</td>
+                                <tr ng-repeat="user in dlg.users" ng-show="!user.removed">
+                                    <td ng-repeat="header in dlg.headers track by $index"  ng-show="!header.deleted">{{user[$index]}}</td>
                                     <td>
-                                        <a ng-show="!user.removed" ng-click="user.removed=true"><i class="material-icons uk-text-success">add_circle</i></a>
-                                        <a  ng-show="user.removed" ng-click="user.removed=false"><i class="material-icons uk-text-danger">remove_circle</i></a>
+                                        <a ng-click="user.removed=true"><i class="material-icons uk-text-danger">remove_circle</i></a>
                                     </td>
                                 </tr>
                             

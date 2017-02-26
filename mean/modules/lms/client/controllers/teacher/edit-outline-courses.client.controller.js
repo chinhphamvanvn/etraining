@@ -73,7 +73,7 @@ function CoursesOutlineEditController($scope, $state, $window, Authentication, $
     }
 
     function addSection() {
-        UIkit.modal.prompt('Name:', '', function(val){ 
+        UIkit.modal.prompt($translate.instant('MODEL.GROUP.NAME'), '', function(val){ 
             var section = new EditionSectionsService();
             section.name = val;
             section.edition = vm.edition._id;
@@ -90,7 +90,7 @@ function CoursesOutlineEditController($scope, $state, $window, Authentication, $
     }
     
     function addSubsection(node) {
-        UIkit.modal.prompt('Name:', '', function(val){ 
+        UIkit.modal.prompt($translate.instant('MODEL.GROUP.NAME'), '', function(val){ 
             var section = new EditionSectionsService();
             section.parent = node.data._id;
             section.name = val;
@@ -115,7 +115,7 @@ function CoursesOutlineEditController($scope, $state, $window, Authentication, $
     }
     
     function addUnit(node,contentType) {
-        UIkit.modal.prompt('Name:', '', function(val){ 
+        UIkit.modal.prompt($translate.instant('MODEL.GROUP.NAME'), '', function(val){ 
             var section = new EditionSectionsService();
             section.parent = node.data._id;
             section.name = val;
@@ -146,7 +146,7 @@ function CoursesOutlineEditController($scope, $state, $window, Authentication, $
                 $state.go('workspace.lms.courses.section.edit.video',{courseId:vm.edition.course,editionId:vm.edition._id,sectionId:node.data._id});
         }
         else
-            UIkit.modal.prompt('Name:', '', function(val){ 
+            UIkit.modal.prompt($translate.instant('MODEL.GROUP.NAME'), '', function(val){ 
             section.name = val;
             section.$update(function () {
                }, function (errorResponse) {

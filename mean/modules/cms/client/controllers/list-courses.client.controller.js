@@ -104,7 +104,7 @@
               var action =
                   '<a class="md-btn md-btn-primary md-btn-mini md-btn-wave-light" ui-sref="admin.workspace.cms.course-members({courseId:\''+data._id+'\'})" > '+$translate.instant('ACTION.ENROLL')+'</a>' +
                   '<a  ui-sref="admin.workspace.cms.courses.edit({courseId:\''+data._id+'\'})" data-uk-tooltip="{pos:\'bottom\'}" title="'+$translate.instant('ACTION.EDIT') +'"><i class="md-icon material-icons">edit</i></a>' +
-                  '<a ui-sref="admin.workspace.cms.courses.view({courseId:\''+data._id+'\'})" data-uk-tooltip="{pos:\'bottom\'}" title="'+$translate.instant('ACTION.VIEW') +'"><i class="md-icon material-icons">remove_red_eye</i></a>' ;            
+                  '<a ui-sref="admin.workspace.cms.courses.view({courseId:\''+data._id+'\'})" data-uk-tooltip="{pos:\'bottom\'}" title="'+$translate.instant('ACTION.VIEW') +'"><i class="md-icon material-icons">info_outline</i></a>' ;            
               return action;
           })
       ];

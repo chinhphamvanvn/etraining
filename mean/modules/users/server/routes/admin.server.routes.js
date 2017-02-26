@@ -11,6 +11,10 @@ module.exports = function (app) {
   require('./users.server.routes.js')(app);
 
   // Users collection routes
+  
+  app.route('/api/users/bulk')
+  .post(adminPolicy.isAllowed, admin.bulkCreate);
+  
   app.route('/api/users')
     .get(adminPolicy.isAllowed, admin.list)
     .post(adminPolicy.isAllowed, admin.create);

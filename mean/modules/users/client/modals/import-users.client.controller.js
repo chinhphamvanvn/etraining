@@ -5,9 +5,9 @@
     .module('users.admin')
     .controller('UserImportController', UserImportController);
 
-  UserImportController.$inject = ['$scope', '$state',  '$filter', '$compile','Authentication', 'AdminService', '$timeout', '$location', '$window', 'GroupsService','UsersService', 'DTOptionsBuilder','DTColumnDefBuilder', 'Notification','treeUtils', '$q',  '_'];
+  UserImportController.$inject = ['$scope', '$state',  '$filter', '$compile','Authentication', 'AdminService', '$timeout', '$location', '$window', 'GroupsService','UsersService', 'DTOptionsBuilder','DTColumnDefBuilder', 'Notification','treeUtils','$translate',  '_'];
 
-  function UserImportController($scope,$state, $filter, $compile, Authentication, AdminService, $timeout, $location, $window, GroupsService,UsersService, DTOptionsBuilder, DTColumnDefBuilder, Notification, treeUtils,$q, _) {
+  function UserImportController($scope,$state, $filter, $compile, Authentication, AdminService, $timeout, $location, $window, GroupsService,UsersService, DTOptionsBuilder, DTColumnDefBuilder, Notification, treeUtils,$translate, _) {
     var vm = this;
     vm.user = Authentication.user; 
     vm.users = [];
@@ -24,75 +24,55 @@
             uploadButtonLabel: "Select CSV file"
         };
     vm.finishLoad = finishLoad;
-    
-    vm.groups = GroupsService.listOrganizationGroup( function() {
-        var tree = treeUtils.buildGroupTree(vm.groups);
-        $timeout(function() {
-            $("#orgTree").fancytree({
-                checkbox: true,
-                selectMode:1,
-                titlesTabbable: true,
-                autoScroll: true,
-                generateIds: true,
-                source: tree,
-                select: function(event, data) {
-                    // Display list of selected nodes
-                    var node = data.tree.getSelectedNodes()[0];
-                    if (node)
-                        vm.group = node.data._id;
-                }
-            });
-        });
-   }); 
-    
+        
     vm.columnOptions = 
             [
                 {
                     id: 1,
-                    title: "First name",
+                    title: $translate.instant('MODEL.USER.FIRST_NAME'),
                     value: "firstName",
                     parent_id: 1
                 },
                 {
                     id: 2,
-                    title: "Last name",
+                    title: $translate.instant('MODEL.USER.LAST_NAME'),
                     value: "lastName",
                     parent_id: 1
                 },
                 {
                     id: 3,
-                    title: "Username",
+                    title: $translate.instant('MODEL.USER.USERNAME'),
                     value: "username",
                     parent_id: 1
                 },
                 {
                     id: 4,
-                    title: "Email",
+                    title: $translate.instant('MODEL.USER.EMAIL'),
                     value: "email",
                     parent_id: 1
                 },
                 {
                     id: 5,
-                    title: "Phone",
+                    title: $translate.instant('MODEL.USER.PHONE'),
                     value: "phone",
                     parent_id: 1
                 },
                 {
                     id: 6,
-                    title: "Position",
+                    title: $translate.instant('MODEL.USER.POSITION'),
                     value: "position",
                     parent_id: 1
                 },
                 {
                     id: 7,
-                    title: "Facebook",
+                    title: $translate.instant('MODEL.USER.FACEBOOK'),
                     value: "facebook",
                     parent_id: 1
                 }
                 ,
                 {
                     id: 8,
-                    title: "Twitter",
+                    title: $translate.instant('MODEL.USER.TWITTER'),
                     value: "twitter",
                     parent_id: 1
                 }
@@ -103,15 +83,9 @@
     vm.columnConfigs = {
         create: false,
         maxItems: 1,
-        placeholder:'Match column',
+        placeholder:'Column',
         valueField: 'value',
-        labelField: 'title',
-        searchField: 'title',
-        optgroupField: 'parent_id',
-        optgroupLabelField: 'title',
-        optgroupValueField: 'ogid',
-        onInitialize: function(selectize){
-        }
+        labelField: 'title'
     };
     
     var closeButton = $('#dialogClose');
@@ -130,25 +104,31 @@
         $scope.$apply();
     }
     
-    function importData() {          
+    function importData() {      
+        if (!vm.group) {
+            UIkit.modal.alert($translate.instant('ERROR.USER_EDIT.EMPTY_ORG_GROUP'));
+            return;
+        } 
         var modal = UIkit.modal.blockUI('<div class=\'uk-text-center\'>Processing...<br/><img class=\'uk-margin-top\' src=\'/assets/img/spinners/spinner.gif\' alt=\'\'>');
-        var allPromise = [];
+        var userList = [];
         _.each(vm.users,function(user) {
             if (!user.removed) {
-                var userService = new UsersService();
+                var createUser  = {};
                 _.each(vm.headers,function(header,index) {
-                    if (header.column )
-                        userService[header.column] = user[index];
+                    if (header.column && !header.deleted)
+                        createUser[header.column] = user[index];
                 });
-                userService.group = vm.group;
-                allPromise.push(userService.$save().$promise);
+                createUser.group = vm.group;
+                userList.push(createUser);
             }
         });
-        $q.all(allPromise).then(function() {
-            vm.users = [];
+        AdminService.bulkCreate({users:userList},function() {
             modal.hide();
             $window.location.reload();
-        });
+        },function(err) {
+            modal.hide();
+            $window.location.reload();
+        })
     }
   }
 

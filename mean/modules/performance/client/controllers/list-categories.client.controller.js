@@ -147,7 +147,7 @@
               var tree = $("#questionTree").fancytree("getTree");
               node = tree.getActiveNode();
           }
-          UIkit.modal.prompt('Name:', '', function(val){ 
+          UIkit.modal.prompt($translate.instant('MODEL.GROUP.NAME'), '', function(val){ 
               var group = new GroupsService();
               group.name = val;
               group.category ='question';
@@ -204,7 +204,7 @@
               Notification.error({ message:  '<i class="uk-icon-ban"></i> No node selected!' });
               return;
           }
-          UIkit.modal.prompt('Name:', '', function(val){ 
+          UIkit.modal.prompt($translate.instant('MODEL.GROUP.NAME'), '', function(val){ 
               var group = node.data;
               group.name = val;
               updateGroup(group);

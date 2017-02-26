@@ -140,6 +140,17 @@ exports.listCourseGroup = function(req, res) {
   });
 };
 
+exports.listByCategory = function(req, res) {
+    Group.find({category:req.params.category}).sort('-created').populate('user', 'displayName').exec(function(err, groups) {
+      if (err) {
+        return res.status(400).send({
+          message: errorHandler.getErrorMessage(err)
+        });
+      } else {
+        res.jsonp(groups);
+      }
+    });
+  };
 
 /**
  * Group middleware

@@ -11,16 +11,10 @@
   function menuConfig(menuService) {
     menuService.addMenuItem('sidebar', {
       title: 'PAGE.WORKSPACE.SIDEBAR.USERS',
-      state: 'admin.workspace.users',
+      state: 'admin.workspace.users.list',
       roles: ['admin'],
       icon:'people',
       position: 100
     });
-    menuService.addSubMenuItem('sidebar','admin.workspace.users', {
-        title: 'PAGE.WORKSPACE.SIDEBAR.USERS.LIST',
-        state: 'admin.workspace.users.list',
-        roles: ['admin'],
-        position: 1
-      });
   }
 }());

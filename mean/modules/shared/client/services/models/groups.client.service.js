@@ -15,6 +15,11 @@
       update: {
         method: 'PUT'
       },
+      byCategory: {
+          url:'/api/groups/byCategory/:category',
+          method: 'GET',
+          isArray: true
+        },
       listOrganizationGroup: {
           url:'/api/groups/organization',
           method: 'GET',

@@ -28,25 +28,6 @@
            $state.go('workspace.users.edit');
     }
     
-    vm.groups = GroupsService.listOrganizationGroup( function() {
-        var tree = treeUtils.buildGroupTree(vm.groups);
-        if (vm.user.group) {
-            var selectNode = treeUtils.findGroupNode(tree, vm.user.group);
-            selectNode.selected = true;
-        }
-        $timeout(function() {
-            $("#orgTree").fancytree({
-                checkbox: true,
-                selectMode:1,
-                titlesTabbable: true,
-                disabled: true,
-                autoScroll: true,
-                generateIds: true,
-                source: tree,
-               
-            });
-        });
-   }); 
     
     vm.members = CourseMembersService.byUser({userId:vm.user._id},function() {
         vm.members = _.filter(vm.members,function(member) {

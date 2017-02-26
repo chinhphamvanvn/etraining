@@ -97,7 +97,11 @@
           },
        update: {
         method: 'PUT'
-      }
+      },
+      bulkCreate: {
+          method: 'POST',
+          url: '/api/users/bulk/:users'
+        }
     });
   }
   
