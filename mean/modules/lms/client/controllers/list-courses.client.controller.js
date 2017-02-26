@@ -57,8 +57,8 @@ function LmsCoursesListController($scope, $state, $window, Authentication, $time
     vm.selsetAll = selsetAll;
 
     vm.optionCoures = [
-                { value: 'asc', label: 'Sắp xếp theo tên A -> z' },
-                { value: 'dsc', label: 'Sắp xếp theo tên z -> A' },
+                { value: 'asc', label: 'Sắp xếp theo tên a -> z' },
+                { value: 'dsc', label: 'Sắp xếp theo tên z -> a' },
                 { value: 'date', label: 'Săp xếp theo ngày bắt đầu khóa học' }
             ];
     vm.selectize_val_config = {
