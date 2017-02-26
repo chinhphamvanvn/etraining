@@ -71,10 +71,11 @@
         }), 
     ];
     
-    $scope.$watch('vm.groups',function(oldVal,newVal) {
-        if (vm.groups)
+    vm.selectGroup = function(groups) {
+        vm.groups = groups;
+       if (groups && groups.length)
             vm.dtInstance.reloadData(function() {}, true);
-    });
+    }
     
     function finishEditOrgTree() {
         $window.location.reload();

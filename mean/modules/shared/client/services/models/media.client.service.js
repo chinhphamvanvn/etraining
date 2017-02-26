@@ -19,7 +19,7 @@
           method: 'GET',
           isArray:true,
           url:'/api/media/byGroup/:groupId'
-      },
+      }
     });
   }
 }());

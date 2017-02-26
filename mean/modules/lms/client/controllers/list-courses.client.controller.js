@@ -13,13 +13,21 @@ function LmsCoursesListController($scope, $state, $window, Authentication, $time
     vm.groups = GroupsService.listCourseGroup(function() {
         _.each(vm.groups,function(group) {
             group.courses = CoursesService.byGroup({groupId:group._id});
-        })
+        });
+
         _.each(vm.groups,function(group) {
             CoursesService.byGroup({groupId:group._id},function(courses) {
                 group.courses = _.filter(courses,function(course) {
                     return course.status =='available' && course.enrollStatus && course.displayMode !='enroll'
-                })
+                });
             });
+        });
+
+        CoursesService.listPublic(function(courses) {
+            vm.fullCourses = [];
+            vm.fullCourses = courses;
+            vm.selectedCourse = courses;
+            vm.sort = 'asc';
         });
 
         vm.nodes = treeUtils.buildCourseTree(vm.groups);
@@ -29,7 +37,7 @@ function LmsCoursesListController($scope, $state, $window, Authentication, $time
         vm.nodeList = treeUtils.buildCourseListInOrder(vm.nodes);
         if ($state.params.sectionId) {
             vm.selectedNode = _.find(vm.nodeList,function(node){
-                return node.data._id == $state.params.sectionId; 
+                return node.data._id == $state.params.sectionId;
             });
             if (vm.selectedNode) {
                 var parentNode = vm.selectedNode.parent;
@@ -46,11 +54,12 @@ function LmsCoursesListController($scope, $state, $window, Authentication, $time
     vm.collapse = collapse;
     vm.toggleExpand = toggleExpand;
     vm.chooseSort = chooseSort;
+    vm.selsetAll = selsetAll;
 
     vm.optionCoures = [
-                { value: 'asc', label: 'Name A->z' },
-                { value: 'dsc', label: 'Name z->A' },
-                { value: 'date', label: 'Date' }
+                { value: 'asc', label: 'Sắp xếp theo tên A -> z' },
+                { value: 'dsc', label: 'Sắp xếp theo tên z -> A' },
+                { value: 'date', label: 'Săp xếp theo ngày bắt đầu khóa học' }
             ];
     vm.selectize_val_config = {
                 maxItems: 1,
@@ -73,7 +82,7 @@ function LmsCoursesListController($scope, $state, $window, Authentication, $time
 
         if(node.data.coursesList.length > 0) {
             vm.selectedCourse = node.data.coursesList;
-            vm.sort = "startDate";
+            vm.sort = "asc";
         } else {
             vm.selectedCourse = [];
         }
@@ -96,11 +105,9 @@ function LmsCoursesListController($scope, $state, $window, Authentication, $time
     function chooseSort(sort) {
         if(sort == "asc"){
             vm.sort = "name"
-            console.log(vm.selectedCourse);
         }
         if(sort == "dsc"){
             vm.sort = "-name";
-            console.log(vm.selectedCourse);
         }
         if(sort == "date"){
             vm.sort = "startDate";
@@ -109,6 +116,10 @@ function LmsCoursesListController($scope, $state, $window, Authentication, $time
 
     function selectCourse(course) {
         vm.selectedCourse = course;
+    }
+
+    function selsetAll(){
+        vm.selectedCourse = vm.fullCourses;
     }
 }
 }());

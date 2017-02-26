@@ -1,72 +1,93 @@
-    <div id="page_content">
-        <div id="page_content_inner">
-            <h3 class="heading_b uk-margin-bottom">{{'PAGE.WORKSPACE.SIDEBAR.LMS.COURSE_LIST.TITLE' | translate}}</h3>
-            <div class="md-card">
-                <div class="md-card-content">
-                    <div class="uk-grid uk-margin-large-bottom">
-                        <div class="uk-width-large-1-4">
-                            <div class="md-card" style="background: #f7f7f7;">
-                                <div class="md-card-toolbar" style="background: #f7f7f7;">
-                                    <div class="md-card-toolbar-actions">
-                                    </div>
-                                    <h3 class="md-card-toolbar-heading-text large">
-                                        {{'PAGE.WORKSPACE.SIDEBAR.LMS.COURSE_LIST.TITLE' | translate}}
-                                    </h3>
-                                </div>
-                                <div class="md-card-content">
-                                    <ul class="uk-nav">
-                                         <li  ng-repeat="node in vm.nodes"  >
-                                            <span class="sub-heading">
-                                                <i ng-show="!node.expand" ng-click="vm.expand(node)" class="md-icon material-icons md-18">arrow_drop_down</i>
-                                                <i ng-show="node.expand" ng-click="vm.collapse(node)"  class="md-icon material-icons md-18">arrow_drop_up</i>
-                                                <a ng-click="vm.toggleExpand(node)" ng-class="{'uk-text-muted':node.id!=vm.selectedNode.id,'uk-text-bold uk-text-italic':node.id==vm.selectedNode.id}" >
-                                                    <i  class="md-icon material-icons md-18" ng-class="{'uk-text-primary':node.id==vm.selectedNode.id}">folder_open</i>
-                                                    <!-- {{$index+1}}.  -->
-                                                    <span class="uk-text-large">{{node.data.name}}</span>
-                                                </a>
-                                            </span>
-                                            <div ng-include="'subList'"></div>
-                                        </li>
-                                    </ul>
-                                 </div>
-                            </div>
-                        </div>
-
-                        <div class="uk-width-large-3-4" ng-show="vm.selectedCourse">
-                            <div style="padding-top: 10px; font-size: 17px;">
-                                <span>
-                                    <span style="font-weight: bold;">{{vm.selectedCourse.length}}</span> Courses
-                                </span>
-                                <div style="float: right;">
-                                    <input config="vm.selectize_val_config" options="vm.optionCoures" ng-model="sortCoures" required name="val_select" selectize ng-change="vm.chooseSort(sortCoures)"/>
-                                </div>
-                            </div>
-                            <hr class="uk-grid-divider">
-                            <course-view-simple course="vm.selectedCourse" sort="vm.sort"></course-view-simple>
-                        </div>
-                    </div>
-
+<div id="page_content">
+  <div id="page_content_inner">
+    <h3 class="heading_b uk-margin-bottom">{{'PAGE.WORKSPACE.SIDEBAR.LMS.COURSE_LIST.TITLE' | translate}}</h3>
+    <div class="md-card">
+      <div class="md-card-content">
+        <div class="uk-grid uk-margin-large-bottom">
+          <div class="uk-width-large-1-4">
+            <div class="md-card" style="background: #f7f7f7;">
+              <div class="md-card-toolbar" style="background: #f7f7f7;">
+                <div class="md-card-toolbar-actions">
                 </div>
+                <h3 class="md-card-toolbar-heading-text large">
+                  {{"MODEL.COURSE.GROUP" | translate}}
+                </h3>
+              </div>
+              <div class="md-card-content" style="padding: 16px 0px;">
+                <ul class="uk-nav">
+                  <li>
+                    <span class="sub-heading">
+                        <i ng-show="!node.expand" ng-click="vm.expand(node)"
+                           class="md-icon material-icons md-18">arrow_drop_down</i>
+                        <i ng-show="node.expand" ng-click="vm.collapse(node)"
+                           class="md-icon material-icons md-18">arrow_drop_up</i>
+                        <a ng-click="vm.selsetAll()" class="uk-text-muted">
+                            <span class="uk-text-large">{{"COMMON.PRESENT_MODE.ALL" | translate}}</span>
+                        </a>
+                    </span>
+                  </li>
+                  <li ng-repeat="node in vm.nodes">
+                    <span class="sub-heading">
+                        <i ng-show="!node.expand" ng-click="vm.expand(node)"
+                           class="md-icon material-icons md-18">arrow_drop_down</i>
+                        <i ng-show="node.expand" ng-click="vm.collapse(node)"
+                           class="md-icon material-icons md-18">arrow_drop_up</i>
+                        <a ng-click="vm.toggleExpand(node)" class="uk-text-muted">
+                        <!-- ng-class="{'':node.id!=vm.selectedNode.id,'uk-text-bold uk-text-italic':node.id==vm.selectedNode.id}" -->
+                          <!-- <i  class="md-icon material-icons md-18" ng-class="{'uk-text-primary':node.id==vm.selectedNode.id}">folder_open</i> -->
+                          <!-- {{$index+1}}.  -->
+                            <span class="uk-text-large">{{node.data.name}}</span>
+                        </a>
+                    </span>
+                    <div ng-include="'subList'"></div>
+                  </li>
+                </ul>
+              </div>
             </div>
+          </div>
 
+          <div class="uk-width-large-3-4" ng-show="vm.selectedCourse" style="min-height: 90vh;">
+            <div class="detailCoures" style="padding-top: 10px; font-size: 17px;">
+              <span>
+                <span style="font-weight: bold;">{{vm.selectedCourse.length}}</span>
+                {{"MODEL.MEMBER.COURSE" | translate}}
+              </span>
+              <div class="sortCour" style="float: right;border: 1px solid rgb(30, 30, 30); min-width: 220px;">
+                <div>
+                  <input config="vm.selectize_val_config" options="vm.optionCoures" ng-model="sortCoures" required
+                         name="val_select" selectize ng-change="vm.chooseSort(sortCoures)"
+                         style="border: 1px solid #1e1e1e;"/>
+                </div>
+              </div>
+            </div>
+            <hr class="uk-grid-divider" style="margin-bottom: 10px;">
+            <course-view-simple course="vm.selectedCourse" sort="vm.sort"></course-view-simple>
+          </div>
         </div>
+
+      </div>
     </div>
+
+  </div>
+</div>
 <script type="text/ng-template" id="subList">
-    <ul class="uk-nav" ng-show="node.expand">
-        <li ng-repeat="node in node.children">
+  <ul class="uk-nav" ng-show="node.expand">
+    <li ng-repeat="node in node.children">
             <span class="sub-heading">
                 <i ng-show="!node.expand" ng-click="vm.expand(node)" class="md-icon material-icons md-18">arrow_drop_down</i>
-                <i ng-show="node.expand" ng-click="vm.collapse(node)"  class="md-icon material-icons md-18">arrow_drop_up</i>
-                <a ng-click="vm.toggleExpand(node)" ng-class="{'uk-text-muted':node.id!=vm.selectedNode.id,'uk-text-bold uk-text-italic':node.id==vm.selectedNode.id}">
-                    <!-- <i ng-if="!node.data.hasContent" ng-class="{'uk-text-primary':node.id==vm.selectedNode.id}" class="md-icon material-icons md-18">folder_open</i> -->
-                    <!-- <i ng-if="node.data.hasContent && node.data.contentType=='html'" class="md-icon material-icons md-18" ng-class="{'uk-text-primary':node.id==vm.selectedNode.id}">note</i>
-                    <i ng-if="node.data.hasContent && node.data.contentType=='test'" class="md-icon material-icons md-18" ng-class="{'uk-text-primary':node.id==vm.selectedNode.id}">question_answer</i>
-                    <i ng-if="node.data.hasContent && node.data.contentType=='survey'" class="md-icon material-icons md-18" ng-class="{'uk-text-primary':node.id==vm.selectedNode.id}">question_answer</i>
-                    <i ng-if="node.data.hasContent && node.data.contentType=='video'" class="md-icon material-icons md-18" ng-class="{'uk-text-primary':node.id==vm.selectedNode.id}">videocam</i> -->
+                <i ng-show="node.expand" ng-click="vm.collapse(node)"
+                   class="md-icon material-icons md-18">arrow_drop_up</i>
+                <a ng-click="vm.toggleExpand(node)" class="uk-text-muted">
+                <!-- ng-class="{'uk-text-muted':node.id!=vm.selectedNode.id,'uk-text-bold uk-text-italic':node.id==vm.selectedNode.id}" -->
+                  <!-- <i ng-if="!node.data.hasContent" ng-class="{'uk-text-primary':node.id==vm.selectedNode.id}" class="md-icon material-icons md-18">folder_open</i> -->
+                  <!-- <i ng-if="node.data.hasContent && node.data.contentType=='html'" class="md-icon material-icons md-18" ng-class="{'uk-text-primary':node.id==vm.selectedNode.id}">note</i>
+                  <i ng-if="node.data.hasContent && node.data.contentType=='test'" class="md-icon material-icons md-18" ng-class="{'uk-text-primary':node.id==vm.selectedNode.id}">question_answer</i>
+                  <i ng-if="node.data.hasContent && node.data.contentType=='survey'" class="md-icon material-icons md-18" ng-class="{'uk-text-primary':node.id==vm.selectedNode.id}">question_answer</i>
+                  <i ng-if="node.data.hasContent && node.data.contentType=='video'" class="md-icon material-icons md-18" ng-class="{'uk-text-primary':node.id==vm.selectedNode.id}">videocam</i> -->
                     {{node.data.name}}
                 </a>
             </span>
-            <div ng-include="'subList'"></div>
-        </li>
-    </ul>
+      <div ng-include="'subList'"></div>
+    </li>
+  </ul>
 </script>

@@ -10,54 +10,14 @@
   function CourseByMemberReportsController($scope, $rootScope, $state, Authentication,GroupsService,AdminService, CoursesService,CourseMembersService, CourseAttemptsService, $timeout,$window,$translate, treeUtils,_) {
     var vm = this;
     vm.authentication = Authentication;
-    vm.selectAll = selectAll;
     vm.generateReport = generateReport;
     vm.getExportData = getExportData;
     vm.getExportHeader = getExportHeader;
     
     
-    GroupsService.listOrganizationGroup( function(groups) {
-        var tree = treeUtils.buildGroupTree(groups);
-        $timeout(function() {
-                $("#orgTree").fancytree({
-                    checkbox: true,
-                    titlesTabbable: true,
-                    selectMode:2,
-                    clickFolderMode:3,
-                    imagePath: "/assets/icons/others/",
-                    autoScroll: true,
-                    generateIds: true,
-                    source: tree,
-                    toggleEffect: { effect: "blind", options: {direction: "vertical", scale: "box"}, duration: 200 },
-                    select: function(event, data) {
-                        // Display list of selected nodes
-                        var selectedGroups = _.map( data.tree.getSelectedNodes(), function(obj) {
-                            return obj.data._id;
-                        });
-                        vm.users = [];
-                        _.each(selectedGroups,function(group) {
-                            AdminService.byGroup({groupId:group},function(users) {
-                                vm.users = vm.users.concat(users)
-                            })
-                        })
-                        $scope.$apply();
-                    }
-                });
-            });
-       }); 
-    
-    function selectAll() {
-        _.each(vm.users,function(user) {
-            user.selected = vm.allUser;
-        });        
-    }
-    
-    function generateReport() {
-        vm.users = _.filter(vm.users,function(user) {
-            return user.selected;
-        });
+    function generateReport(users) {
         vm.members = [];
-        _.each(vm.users,function(user) {
+        _.each(users,function(user) {
             CourseMembersService.byUser({userId:user._id},function(members) {
                _.each(members,function(member) {
                    member.time  = 0;

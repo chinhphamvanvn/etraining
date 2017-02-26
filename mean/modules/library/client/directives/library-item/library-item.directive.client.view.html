@@ -1,16 +1,26 @@
-<div class="md-card">
+<div class="md-card" style="box-shadow: none;">
     <div class="md-card-content small-padding">
-        <img  ng-src="{{media.imageURL}}" alt="" class="blog_list_teaser_image">
-        <div class="blog_list_teaser">
-            <h2 class="blog_list_teaser_title uk-text-truncate">{{media.name}}</h2>
-            <p>{{media.description}}</p>
-            <span class="uk-text-muted uk-text-small">{{'MODEL.MEDIA.TYPE'|translate}}:  {{media.mediaType}}</span>
-        </div>
-        <div class="blog_list_footer">
-            <a  class="md-btn md-btn-small md-btn-flat md-btn-icon md-btn-flat-primary " target="_self" href="{{media.downloadURL}}"download="{{media.filename}}" >
-                <i class="material-icons">file_download</i>{{'ACTION.DOWNLOAD'|translate}}
-            </a>
-            <a  class="md-btn md-btn-small md-btn-flat md-btn-flat-primary uk-float-right">{{'ACTION.BOOKMARK'|translate}}</a>
+        <div class="uk-width-1-1 hierarchical_show" ng-repeat="itemMedia in media | orderBy:sort" data-uk-grid="{gutter: 20}" hierarchical-show style="margin-bottom: 20px;">
+            <div class="uk-width-1-1">
+                <div class="uk-grid uk-grid-small" style="width: 100%;">
+                    <div class="uk-width-1-4" style="overflow: auto;">
+                            <img class="img_thumb" style="border-radius: 5px; width: 90%;" src ="{{itemMedia.imageURL}}"/>
+                        </div>
+                        <div class="uk-width-3-4">
+                            <div class="uk-grid uk-grid-small">
+                                <div class="uk-width-4-5">
+                                    <div class="media-title">{{itemMedia.name}}</div>
+                                    <div class="media-des">{{itemMedia.description}}</div>
+                                  <a  class="md-btn md-btn-small md-btn-flat md-btn-icon md-btn-flat-primary " target="_self" href="{{media.downloadURL}}"download="{{media.filename}}" style="background: #e3f2fd;">
+                                    <i class="material-icons">file_download</i>{{'ACTION.DOWNLOAD'|translate}}
+                                  </a>
+                                  <!--<a  class="md-btn md-btn-small md-btn-flat md-btn-flat-primary uk-float-right" style="margin-right: 5px;">{{'ACTION.BOOKMARK'|translate}}</a>-->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

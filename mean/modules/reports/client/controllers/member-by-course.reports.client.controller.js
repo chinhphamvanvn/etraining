@@ -10,7 +10,6 @@
   function MemberByCourseReportsController($scope, $rootScope, $state, Authentication,GroupsService, CoursesService,CourseMembersService, CourseAttemptsService, $timeout,$window,$translate, treeUtils,_) {
     var vm = this;
     vm.authentication = Authentication;
-    vm.selectAll = selectAll;
     vm.generateReport = generateReport;
     vm.getExportData = getExportData;
     vm.getExportHeader = getExportHeader;
@@ -56,18 +55,10 @@
             });
        }); 
     
-    function selectAll() {
-        _.each(vm.courses,function(course) {
-            course.selected = vm.allCourse;
-        });        
-    }
     
-    function generateReport() {
-        vm.selectedCourses = _.filter(vm.courses,function(course) {
-            return course.selected;
-        });
-        
-        _.each(vm.selectedCourses,function(course) {
+    function generateReport(courses) {
+
+        _.each(courses,function(course) {
             CourseMembersService.byCourse({courseId:course._id},function(members) {
                course.toalMember =  members.length;
                course.totalRegisterMember = _.filter(members,function(member) {

@@ -5,54 +5,29 @@
       .module('library')
       .controller('LibraryContentsListController', LibraryContentsListController);
 
-    LibraryContentsListController.$inject = [ '$scope', '$state', '$stateParams', '$timeout', '$location', '$window', 'GroupsService','Upload', 'Notification','LibraryMediaService', 'treeUtils','$q', '_'];
+    LibraryContentsListController.$inject = [ '$scope', '$state', '$stateParams', '$timeout', '$location', '$window', 'GroupsService','Upload', 'Notification','LibraryMediaService', 'treeUtils','$q','$translate', '_'];
 
-    function LibraryContentsListController( $scope, $state, $stateParams, $timeout, $location, $window, GroupsService, Upload, Notification, LibraryMediaService, treeUtils,$q, _) {
+    function LibraryContentsListController( $scope, $state, $stateParams, $timeout, $location, $window, GroupsService, Upload, Notification, LibraryMediaService, treeUtils,$q,$translate, _) {
       var vm = this;
       vm.createMediaItem = createMediaItem;
       vm.remove = remove;
+      vm.finishEditLibTree = finishEditLibTree;
    
-      vm.groups = GroupsService.listLibraryGroup( function() {
-          var tree = treeUtils.buildGroupTree(vm.groups);
-          $timeout(function() {
-              $("#libTree").fancytree({
-                  checkbox: false,
-                  titlesTabbable: true,
-                  selectMode:1,
-                  clickFolderMode:3,
-                  imagePath: "/assets/icons/others/",
-                  extensions: ["wide", "childcounter"],
-                  autoScroll: true,
-                  generateIds: true,
-                  source: tree,
-                  toggleEffect: { effect: "blind", options: {direction: "vertical", scale: "box"}, duration: 200 },
-                  childcounter: {
-                    deep: true,
-                    hideZeros: true,
-                    hideExpanded: true
-                  },
-                  loadChildren: function(event, data) {
-                      data.node.updateCounters();
-                  },
-                  activate: function(event, data) {
-                      vm.selectedGroup =  data.node.data;
-                      vm.medium = LibraryMediaService.byGroup({groupId:vm.selectedGroup._id},function() {
-                      })
-                  },
-                 
-              });
-          });
-     }); 
-
-
+      vm.selectGroup = function(groups) {
+          if (groups && groups.length)
+              vm.medium = LibraryMediaService.byGroup({groupId:groups[0]})
+      }
       
       function createMediaItem() {
-          if (!vm.selectedGroup) {
-              UIkit.modal.alert('Please select a group!');
+          if (!vm.group) {
+              UIkit.modal.alert($translate.instant('ERROR.LIBRARY.EMPTY_LIBRARY_GROUP'));
               return;
           }
-          $state.go('admin.workspace.library.content.create',{group:vm.selectedGroup._id})
-           
+          $state.go('admin.workspace.library.content.create',{group:vm.group})
+      }
+      
+      function finishEditLibTree() {
+          $window.location.reload();
       }
       
       function remove(item) {

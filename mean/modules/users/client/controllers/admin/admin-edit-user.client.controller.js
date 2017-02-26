@@ -73,13 +73,18 @@
     function cancel() {
         $state.go('admin.workspace.users.view',{userId:vm.user._id});
     }
+    
+    function selectGroup(groups) {
+        if (groups && groups.length )
+            vm.user.group = groups[0];
+    }
 
     function save() {
-        if (!vm.group) {
+        if (!vm.user.group) {
             UIkit.modal.alert($translate.instant('ERROR.USER_EDIT.EMPTY_ORG_GROUP'));
             return;
         } 
-      vm.user.group = vm.group;
+      
        if (!vm.user._id) 
            vm.user.$save(onSaveSuccess,onSaveFailure);
        else

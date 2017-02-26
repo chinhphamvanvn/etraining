@@ -11,23 +11,12 @@
     // Set top bar menu items
     menuService.addMenuItem('sidebar', {
       title: 'PAGE.WORKSPACE.SIDEBAR.CMS',
-      state: 'admin.workspace.cms',
+      state: 'admin.workspace.cms.courses.list',
       icon:'school',
       position: 20,
       roles: ['admin']
     });
-    menuService.addSubMenuItem('sidebar','admin.workspace.cms', {
-        title: 'PAGE.WORKSPACE.SIDEBAR.CMS.COURSES',
-        state: 'admin.workspace.cms.courses.list',
-        position: 1,
-        roles: ['admin']
-      });
-    menuService.addSubMenuItem('sidebar', 'admin.workspace.cms',{
-        title: 'PAGE.WORKSPACE.SIDEBAR.CMS.CATEGORIES',
-        state: 'admin.workspace.cms.categories',
-        position: 2,
-        roles: ['admin']
-      });
+
 
 
    

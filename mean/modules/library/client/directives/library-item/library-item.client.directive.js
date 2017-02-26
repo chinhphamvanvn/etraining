@@ -11,7 +11,8 @@
       
       return {
           scope: {
-              media: "="
+              media: "=",
+              sort: "="
           },
           templateUrl:'/modules/library/client/directives/library-item/library-item.directive.client.view.html',
           link: function (scope, element, attributes) {
