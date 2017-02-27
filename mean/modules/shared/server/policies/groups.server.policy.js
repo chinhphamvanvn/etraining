@@ -30,9 +30,17 @@ exports.invokeRolesPolicies = function () {
         permissions: '*'
       },
       {
+          resources: '/api/groups/question',
+          permissions: ['get']
+        },
+      {
           resources: '/api/groups/library',
           permissions: '*'
         },
+        {
+            resources: '/api/groups/byCategory/:category',
+            permissions: ['get']
+          },
     {
       resources: '/api/groups/:groupId',
       permissions: '*'
@@ -56,6 +64,14 @@ exports.invokeRolesPolicies = function () {
           resources: '/api/groups/library',
           permissions: ['get']
         },
+        {
+            resources: '/api/groups/question',
+            permissions: ['get']
+          },
+          {
+              resources: '/api/groups/byCategory/:category',
+              permissions: ['get']
+            },
      {
       resources: '/api/groups/:groupId',
       permissions: ['get']

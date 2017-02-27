@@ -60,15 +60,6 @@
         data : {
             roles:['admin']
         }
-      })
-      .state('admin.workspace.users.organization', {
-        url: '/organization',
-        templateUrl: '/modules/users/client/views/admin/organization.client.view.html',
-        controller: 'OrganizationController',
-        controllerAs: 'vm',
-        data : {
-            roles:['admin']
-        }
       });
     
     newUser.$inject = [ 'UsersService'];

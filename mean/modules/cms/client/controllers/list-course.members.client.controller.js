@@ -20,16 +20,15 @@
       .module('cms')
       .controller('CourseMembersController', CourseMembersController);
 
-    CourseMembersController.$inject = ['$scope', '$state', '$filter', '$compile','Authentication', 'UsersService','GroupsService', 'courseResolve','editionResolve', '$timeout', '$location', '$window', 'DTOptionsBuilder','DTColumnDefBuilder', 'Notification','$q','CourseMembersService','ClassroomsService', '$translate','treeUtils', '_'];
+    CourseMembersController.$inject = ['$scope', '$state', '$filter', '$compile','Authentication', 'AdminService','GroupsService', 'courseResolve','editionResolve', '$timeout', '$location', '$window', 'DTOptionsBuilder','DTColumnDefBuilder', 'Notification','$q','CourseMembersService','ClassroomsService', '$translate','treeUtils', '_'];
 
     function CourseMembersController($scope,$state, $filter, $compile, Authentication, AdminService, GroupsService, course,edition, $timeout, $location, $window,DTOptionsBuilder, DTColumnDefBuilder, Notification, $q, CourseMembersService,ClassroomsService, $translate,treeUtils, _) {
       var vm = this;
       vm.course = course;
       vm.edition = edition;
       vm.classroom = new ClassroomsService();
-      vm.users = AdminService.query(function() {
-          vm.displayUsers = vm.users;
-      });
+      vm.selectStudentGroup = selectStudentGroup;
+      vm.selectTeacherGroup = selectTeacherGroup;
       vm.selectTeachers = selectTeachers;
       vm.selectStudents = selectStudents
       vm.suspend = suspend;
@@ -37,13 +36,6 @@
       vm.remove = remove;
       vm.addClassroom = addClassroom;
       vm.displayUsers = [];
-      vm.dtTeacherOptions = DTOptionsBuilder.newOptions()
-          .withDOM("<'dt-uikit-header'<'uk-grid'<'uk-width-medium-2-3'p><'uk-width-medium-1-3'f>>>" +
-        "<'uk-overflow-container'tr>" +
-        "<'dt-uikit-footer'<'uk-grid'<'uk-width-medium-3-10'i><'uk-width-medium-7-10'l>>>");
-      vm.dtStudentOptions = DTOptionsBuilder.newOptions()
-         .withDOM("<'uk-overflow-container'tr>" +
-        "<'dt-uikit-footer'<'uk-grid'<'uk-width-medium-5-10'p><'uk-width-medium-5-10'f>><'uk-grid'<'uk-width-medium-3-10'i><'uk-width-medium-7-10'l>>>");
     
       $timeout(function() {
 
@@ -68,41 +60,7 @@
           });
       },1000);
     
-      vm.groups = GroupsService.listOrganizationGroup( function() {
-          var tree = treeUtils.buildGroupTree(vm.groups);
-          $timeout(function() {
-              $("#orgTree").fancytree({
-                  checkbox: true,
-                  titlesTabbable: true,
-                  selectMode:2,
-                  clickFolderMode:3,
-                  imagePath: "/assets/icons/others/",
-                  autoScroll: true,
-                  generateIds: true,
-                  source: tree,
-                  toggleEffect: { effect: "blind", options: {direction: "vertical", scale: "box"}, duration: 200 },
-                  select: function(event, data) {
-                      // Display list of selected nodes
-                      vm.groups = _.map( data.tree.getSelectedNodes(), function(obj) {
-                          return obj.data._id;
-                      });
-                      vm.displayUsers = _.filter(vm.users,function(user) {
-                          if (vm.groups.length==0)
-                              return user;
-                          if (user.group) {
-                              var exist = _.contains(vm.groups,user.group._id) ;
-                              if (exist)
-                                  return user;
-                              else
-                                  return null;
-                          } else
-                              return null;
-                      });  
-                      $scope.$apply();
-                  }
-              });
-          });
-     }); 
+      
         
       CourseMembersService.byCourse({courseId:vm.course._id},function(data) {
           vm.teachers = _.filter(data,function(item) {
@@ -156,6 +114,24 @@
           });
       });
       
+      function selectStudentGroup(groups) {
+          vm.studentUsers = [];
+          _.each(groups,function(group) {
+             AdminService.byGroup({groupId:group},function(users) {
+                 vm.studentUsers = vm.studentUsers.concat(users);
+             })     
+          });
+      }
+      
+      function selectTeacherGroup(groups) {
+          vm.teacherUsers = [];
+          _.each(groups,function(group) {
+             AdminService.byGroup({groupId:group},function(users) {
+                 vm.teacherUsers = vm.teacherUsers.concat(users);
+             })     
+          });
+      }
+      
       function remove(member) {
           UIkit.modal.confirm('Are you sure?', function() {
               member.$remove(function() {
@@ -172,9 +148,10 @@
       }
       
      function selectTeachers() {
-         _.each(vm.displayUsers,function(user) {
-             if (user.selectedAsTeacher) {
-                 user.selectedAsTeacher = false;
+         var users = _.filter(vm.studentUsers,function(user) {
+             return user.selectedAsTeacher
+         })
+         _.each(users,function(user) {
                  var exist = _.find(vm.teachers,function(teacher) {
                      return teacher.member._id == user._id && teacher.status=='active';
                  });
@@ -190,14 +167,16 @@
                          vm.teachers.push(member);
                      })
                  }
-             }
          })
      }
      
+     
+     
      function selectStudents() {
-         _.each(vm.displayUsers,function(user) {
-             if (user.selectedAsStudent) {
-                 user.selectedAsStudent = false;
+         var users = _.filter(vm.studentUsers,function(user) {
+             return user.selectedAsStudent
+         })
+         _.each(users,function(user) {
                  var exist = _.find(vm.students,function(student) {
                      return student.member._id == user._id && student.status=='active';
                  });
@@ -220,7 +199,6 @@
                          Notification.error({ message: errorResponse.data.message, title: '<i class="uk-icon-ban"></i> Member '+user.displayName + 'failed to enroll successfully!' });
                      });
                  }
-             }
          })
      }
      

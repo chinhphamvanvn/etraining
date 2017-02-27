@@ -15,6 +15,11 @@
       update: {
         method: 'PUT'
       },
+      byCategory: {
+          url:'/api/groups/byCategory/:category',
+          method: 'GET',
+          isArray: true
+        },
       listOrganizationGroup: {
           url:'/api/groups/organization',
           method: 'GET',
@@ -34,7 +39,12 @@
           url:'/api/groups/competency',
           method: 'GET',
           isArray: true
-        }
+        },
+        listQuestionGroup: {
+            url:'/api/groups/question',
+            method: 'GET',
+            isArray: true
+          }
     
     });
   }

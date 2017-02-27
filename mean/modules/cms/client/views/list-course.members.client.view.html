@@ -22,7 +22,16 @@
             <h3 class="heading_b">{{'PAGE.CMS.COURSES.ENROLL.SELECT_TEACHER' | translate}}</h3>
         </div>
          <div class="uk-overflow-container">
-            <table class="uk-table uk-table-hover uk-table-nowrap" datatable="ng"  dt-options="vm.dtTeacherOptions">
+            
+            <div class="uk-grid" data-uk-grid-margin >
+            <div class="uk-width-medium-2-5 " >
+                
+                <h3 class="heading_a">{{'PAGE.CMS.COURSES.ENROLL.FILTER_BY_GROUP'|translate}}</h3>
+                    <group-tree-view tree-id="'teacherTree'" mode="'multiple'" category="'organization'" select="vm.selectTeacherGroup" ></group-tree-view>
+             </div>
+            <div class="uk-width-medium-3-5">
+        
+            <table class="uk-table uk-table-hover uk-table-nowrap">
                 <thead>
                 <tr>
                     <th ></th>
@@ -33,8 +42,8 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr ng-repeat="user in vm.displayUsers">
-                    <td class="uk-text-center uk-table-middle small_col"><input type="checkbox" icheck ng-model="user.selectedAsTeacher" class="check_row" table-check-row></td>
+                <tr ng-repeat="user in vm.teacherUsers">
+                    <td class="uk-text-center uk-table-middle small_col"><input type="checkbox" icheck ng-model="user.selectedAsStudent" class="check_row" table-check-row></td>
                     <td class="uk-text-center">
                         <a href="#" class="user_action_image"><img class="md-user-image" src="{{user.profileImageURL}}" alt=""/></a>
                     </td>
@@ -44,10 +53,11 @@
                 </tr>
                 </tbody>
             </table>
+            </div>
+        </div>
         </div>
         <div class="uk-modal-footer uk-text-right">
-            <button type="button" class="md-btn md-btn-flat uk-modal-close">{{'ACTION.CLOSE'|translate}}</button>
-            <button type="button" class="md-btn md-btn-flat md-btn-flat-primary uk-modal-close" id="snippet_new_save" ng-click="vm.selectTeachers()">{{'ACTION.SELECT'|translate}}</button>
+            <button type="button" class="md-btn md-btn-flat uk-modal-close">{{'ACTION.CLOSE'|translate}}</button><button type="button" class="md-btn md-btn-flat md-btn-flat-primary uk-modal-close" id="snippet_new_save" ng-click="vm.selectTeachers()">{{'ACTION.SELECT'|translate}}</button>
         </div>
     </div>
 </div>
@@ -94,8 +104,7 @@
             <div class="uk-width-medium-2-5 " >
                 
                 <h3 class="heading_a">{{'PAGE.CMS.COURSES.ENROLL.FILTER_BY_GROUP'|translate}}</h3>
-                <div id="orgTree" class="fancytree-checkbox " >
-                </div>
+                    <group-tree-view tree-id="'studentTree'" mode="'multiple'" category="'organization'" select="vm.selectStudentGroup" ></group-tree-view>
                 
                 <div ng-show="vm.course.model=='group'" >
                     <input name="course_class" id="course_class" type="text" config="vm.classConfig" options="vm.classOptions" ng-model="vm.selectedClass" selectize />
@@ -104,7 +113,7 @@
              </div>
             <div class="uk-width-medium-3-5">
         
-            <table class="uk-table uk-table-hover uk-table-nowrap" datatable="ng" dt-options="vm.dtStudentOptions">
+            <table class="uk-table uk-table-hover uk-table-nowrap">
                 <thead>
                 <tr>
                     <th ></th>
@@ -115,7 +124,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr ng-repeat="user in vm.displayUsers">
+                <tr ng-repeat="user in vm.studentUsers">
                     <td class="uk-text-center uk-table-middle small_col"><input type="checkbox" icheck ng-model="user.selectedAsStudent" class="check_row" table-check-row></td>
                     <td class="uk-text-center">
                         <a href="#" class="user_action_image"><img class="md-user-image" src="{{user.profileImageURL}}" alt=""/></a>

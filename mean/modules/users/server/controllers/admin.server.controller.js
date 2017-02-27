@@ -29,6 +29,45 @@ exports.read = function (req, res) {
 };
 
 
+exports.bulkCreate = function (req, res) {
+    // For security measurement we remove the roles from the req.body object
+    var users = req.body.users;
+    var promises = [];
+    _.each(users,function(user) {
+        user.provider = 'local';
+        user.roles = ['user'];
+        if (!user.password)
+            user.password = config.defaultPassword;
+        user.displayName = user.firstName + ' ' + user.lastName;
+        
+        var promise =  new Promise(function (resolve, reject) {
+            var newUser = new User(user);
+            console.log(newUser);
+            newUser.save(function (err) {
+                if (err) {
+                  console.log(err);
+                  resolve();
+                } else {     
+                   resolve();
+                }            
+            });
+        });
+        promises.push(promise);
+    });
+    
+    Promise.all(promises).then(
+            function () 
+            {
+                res.json({success:true});
+            },
+            function () 
+            {
+                res.json({success:true});
+            });
+
+}
+
+
 exports.create = function (req, res) {
   // For security measurement we remove the roles from the req.body object
   var user = new User(req.body);
@@ -232,7 +271,7 @@ exports.list = function (req, res) {
 };
 
 exports.userByGroup = function (req, res) {
-    User.find({group:req.groupId}, '-salt -password -providerData').sort('-created').populate('user', 'displayName').exec(function (err, users) {
+    User.find({group:req.group._id}, '-salt -password -providerData').sort('-created').populate('user', 'displayName').populate('group').exec(function (err, users) {
       if (err) {
         return res.status(422).send({
           message: errorHandler.getErrorMessage(err)
@@ -264,6 +303,7 @@ exports.userByID = function (req, res, next, id) {
     next();
   });
 };
+
 
 exports.logs = function(req, res) {
     var user = req.model;

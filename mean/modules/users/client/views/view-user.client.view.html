@@ -4,18 +4,24 @@
                 <div class="uk-width-large-7-10">
                     <div class="md-card">
                         <div class="user_heading">
-                             <div class="user_heading_menu" data-uk-dropdown="{pos:'bottom-right'}">
+                             <div class="user_heading_menu" data-uk-dropdown="{pos:'bottom-right',mode:'click'}">
                                 <i class="md-icon uk-icon-bar-chart  md-icon-light"></i>
                                 <div class="uk-dropdown uk-dropdown-small">
                                     <ul class="uk-nav">
-                                        <li class="uk-nav-header" data-uk-modal="{target:'#modal_course'}">
+                                        <li class="uk-nav-header">
+                                        <a  data-uk-modal="{target:'#modal_course'}">
                                         {{'PAGE.PROFILE.COURSE'|translate}}
+                                        </a>
                                         </li>
-                                        <li class="uk-nav-header" data-uk-modal="{target:'#modal_certificate'}">
+                                        <li class="uk-nav-header" >
+                                        <a  data-uk-modal="{target:'#modal_certificate'}">
                                         {{'PAGE.PROFILE.CERTIFICATE'|translate}}
+                                        </a>
                                         </li>
-                                        <li class="uk-nav-header"  data-uk-modal="{target:'#modal_competency'}">
+                                        <li class="uk-nav-header"  >
+                                        <a  data-uk-modal="{target:'#modal_competency'}">
                                         {{'PAGE.PROFILE.COMPETENCY'|translate}}
+                                        </a>
                                         </li>
                                     </ul>
                                 </div>
@@ -109,15 +115,14 @@
                                 <li>
                                    <div class="md-card">
                                         <div class="md-card-content">
-                                                 <div id="orgTree" class="fancytree-checkbox">
-                                                 </div>
+                                                 <group-tree-view tree-id="'orgTree'" mode="'single'" category="'organization'" initial="vm.user.group" disabled="true"></group-tree-view>
                                    </div>
                                     </div>   
                                 </li>
 
                             </ul>
                             <p class="uk-form-help-block">
-                                        Registered since {{vm.user.created | date:'dd-MM-yyyy'}}
+                                        {{'PAGE.PROFILE.REGISTER_SINCE'|translate}} {{vm.user.created | date:'dd-MM-yyyy'}}
                                     </p>
                         </div>
                         

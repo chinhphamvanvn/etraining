@@ -9,11 +9,9 @@
 
   function UserListController($scope,$state, $filter, $compile, Authentication, AdminService, $timeout, $location, $window, GroupsService,DTOptionsBuilder, DTColumnBuilder, Notification, $q, treeUtils, $translate, _) {
     var vm = this;
-    vm.user = Authentication.user; 
+    vm.finishEditOrgTree =  finishEditOrgTree;
     vm.remove = remove;
-    vm.reload = true;
-    vm.groupFilter = [];
-    vm.users = [];
+    vm.dtInstance = {};
     
     vm.dtOptions = DTOptionsBuilder.fromFnPromise(loadUser).withOption('createdRow', function(row, data, dataIndex) {
             // Recompiling so we can bind Angular directive to the DT
@@ -23,36 +21,18 @@
      .withDOM("<'dt-uikit-header'<'uk-grid'<'uk-width-medium-2-3'l><'uk-width-medium-1-3'f>>>" +
         "<'uk-overflow-container'tr>" +
         "<'dt-uikit-footer'<'uk-grid'<'uk-width-medium-3-10'i><'uk-width-medium-7-10'p>>>")
-    .withButtons([                  
-                  {
-                      text: '<i class="uk-icon-plus uk-text-success"></i> '+$translate.instant("ACTION.CREATE"),
-                      key: '1',
-                      action: function (e, dt, node, config) {
-                          $state.go('admin.workspace.users.create');
-                      }
-                  },                  
-                  {
-                      text:      '<i class="uk-icon-upload"></i> '+$translate.instant("ACTION.IMPORT"),
-                      key: '2',
-                      action: function (e, dt, node, config) {
-                          var modal = new UIkit.modal('#import_user_dialog');
-                          modal.show();
-                      }
-                  },
+    .withButtons([                                  
                   {
                       extend:    'print',
                       text:      '<i class="uk-icon-print"></i> '+$translate.instant("ACTION.PRINT"),
-                      titleAttr: 'Print'
                   },
                   {
                       extend:    'csvHtml5',
                       text:      '<i class="uk-icon-file-excel-o"></i> '+$translate.instant("ACTION.EXPORT"),
-                      titleAttr: ''
                   },
                   {
                       extend:    'colvis',
                       text:      '<i class="uk-icon-file-pdf-o"></i> '+$translate.instant("ACTION.COLUMN"),
-                      titleAttr: 'PDF'
                   }
               ]);
     
@@ -86,70 +66,48 @@
         DTColumnBuilder.newColumn(null).withTitle($translate.instant('COMMON.ACTION')).notSortable()
         .renderWith(function(data, type, full, meta) {
             return '<a ui-sref="admin.workspace.users.edit({userId:\''+data._id+'\'})" data-uk-tooltip="{cls:\'uk-tooltip-small\',pos:\'bottom\'}" title='+$translate.instant('ACTION.EDIT')+'><i class="md-icon material-icons">edit</i></a>' +
-                    '<a  ui-sref="admin.workspace.users.view({userId:\''+data._id+'\'})" data-uk-tooltip="{cls:\'uk-tooltip-small\',pos:\'bottom\'}" title='+$translate.instant('ACTION.VIEW')+'><i class="md-icon material-icons">remove_red_eye</i></a>'+
+                    '<a  ui-sref="admin.workspace.users.view({userId:\''+data._id+'\'})" data-uk-tooltip="{cls:\'uk-tooltip-small\',pos:\'bottom\'}" title='+$translate.instant('ACTION.VIEW')+'><i class="md-icon material-icons">info_outline</i></a>'+
                     '<a  ng-click="vm.remove(\''+data._id+'\')"><i class="md-icon uk-text-danger material-icons" data-uk-tooltip="{cls:\'uk-tooltip-small\',pos:\'bottom\'}" title='+$translate.instant('ACTION.DELETE')+'>delete</i></a>';
         }), 
     ];
-    vm.dtInstance = {};
     
-    vm.groups = GroupsService.listOrganizationGroup( function() {
-        var tree = treeUtils.buildGroupTree(vm.groups);
-        $timeout(function() {
-            $("#orgTree").fancytree({
-                checkbox: true,
-                titlesTabbable: true,
-                selectMode:3,
-                clickFolderMode:3,
-                imagePath: "/assets/icons/others/",
-                extensions: ["wide"],
-                autoScroll: true,
-                generateIds: true,
-                source: tree,
-                toggleEffect: { effect: "blind", options: {direction: "vertical", scale: "box"}, duration: 200 },
-                select: function(event, data) {
-                    // Display list of selected nodes
-                    vm.groupFilter = _.map( data.tree.getSelectedNodes(), function(obj) {
-                        return obj.data._id;
-                    });
-                    vm.dtInstance.reloadData(function() {}, true);
-                }
-            });
-        });
-   }); 
-  
+    vm.selectGroup = function(groups) {
+        vm.groups = groups;
+       if (groups && groups.length)
+            vm.dtInstance.reloadData(function() {}, true);
+    }
     
+    function finishEditOrgTree() {
+        $window.location.reload();
+    }
    
     function remove(id) {
         if (id == vm.user._id)
             return;
         UIkit.modal.confirm('Are you sure?', function(){
             AdminService.remove({userId:id},function () {
-                vm.reload = true;
                 vm.dtInstance.reloadData(function() {}, true);
                 Notification.success({ message: '<i class="uk-icon-check"></i> User deleted successfully!' });
               });
          });
     }
     
-    function loadUser() {          
+    function loadUser() {        
         // perform some asynchronous operation, resolve or reject the promise when appropriate.
         return $q(function(resolve, reject) {
-            if (vm.reload) {
-                vm.users = AdminService.query(function() {
-                    vm.reload =  false;
-                    resolve(vm.users);
-                },function error() {
-                    vm.reload = false;
-                    reject();
-                });
-            } else {
-                var users = _.filter(vm.users,function(user) {
-                    return (vm.groupFilter.length==0 || (vm.groupFilter.length && user.group && _.contains(vm.groupFilter,user.group._id)));
-                });
-                resolve(users);
-            }
+            var allPromise  = [];
+            _.each(vm.groups,function(group) {
+               allPromise.push(AdminService.byGroup({groupId:group}).$promise); 
             });
-      }  
+            var userList = [];
+            $q.all(allPromise).then(function(usersArray) {
+                _.each(usersArray,function(users) {
+                    userList = userList.concat(users);
+                });
+                resolve(userList);
+            });
+        });
+    }
   }
 
 }());

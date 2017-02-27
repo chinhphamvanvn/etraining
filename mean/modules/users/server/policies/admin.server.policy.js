@@ -18,6 +18,10 @@ exports.invokeRolesPolicies = function () {
       resources: '/api/users',
       permissions: '*'
     },
+    {
+        resources: '/api/users/bulk',
+        permissions: '*'
+      },
       {
         resources: '/api/users/group/:groupId',
         permissions: 'get'

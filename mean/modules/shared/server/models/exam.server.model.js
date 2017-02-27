@@ -28,17 +28,6 @@ var ExamSchema = new Schema({
       logoURL: {
         type: String  
       },
-      color: {
-          type: String  
-        },
-      start: {
-        type: Date,
-        default: Date.now
-      },
-      end: {
-        type: Date,
-        default: Date.now
-      },
       duration: {
         type: Number,
         default: 25

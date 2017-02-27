@@ -30,7 +30,12 @@
                   },
                   axis: {
                       x: {
-                          type: 'category' // this needed to load string x value
+                          type: 'category',
+                          tick: {
+                              rotate: 60,
+                              multiline: false
+                          },
+                          height: 130
                       }
                   },
                   color: {
@@ -43,7 +48,7 @@
                           var date = ['x'];
                           var login =[$translate.instant('PAGE.DASHBOARD.USER_STATS.LOGIN_COUNT')];
                           _.each(stats,function(stat) {
-                              date.push(stat.created);
+                              date.push(moment(stat.created).format('DD/MM/YYYY'));
                               login.push(stat.count);
                           });
                           progress_chart.load({

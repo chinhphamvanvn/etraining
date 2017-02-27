@@ -22,6 +22,12 @@ module.exports = function(app) {
   
   app.route('/api/groups/competency').all(groupsPolicy.isAllowed)
   .get(groups.listCompetencyGroup);
+  
+  app.route('/api/groups/question').all(groupsPolicy.isAllowed)
+  .get(groups.listQuestionGroup);
+  
+  app.route('/api/groups/byCategory/:category').all(groupsPolicy.isAllowed)
+  .get(groups.listByCategory);
 
   app.route('/api/groups/:groupId').all(groupsPolicy.isAllowed)
     .get(groups.read)
