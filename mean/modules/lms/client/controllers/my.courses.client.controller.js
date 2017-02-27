@@ -6,9 +6,9 @@ angular
     .module('lms')
     .controller('MyCoursesListController', MyCoursesListController);
 
-MyCoursesListController.$inject = ['$scope', '$state', '$window', 'Authentication', '$timeout','localStorageService', 'CoursesService', 'Notification','CourseAttemptsService','EditionSectionsService','CourseEditionsService', 'CourseMembersService', '$q', 'GroupsService','_'];
+MyCoursesListController.$inject = ['$scope', '$state', '$window', 'Authentication', '$timeout','localStorageService', 'CoursesService', 'Notification','AttemptsService','EditionSectionsService','CourseEditionsService', 'CourseMembersService', '$q', 'GroupsService','_'];
 
-function MyCoursesListController($scope, $state, $window, Authentication, $timeout, localStorageService, CoursesService, Notification, CourseAttemptsService,EditionSectionsService, CourseEditionsService, CourseMembersService,$q ,GroupsService, _) {
+function MyCoursesListController($scope, $state, $window, Authentication, $timeout, localStorageService, CoursesService, Notification, AttemptsService,EditionSectionsService, CourseEditionsService, CourseMembersService,$q ,GroupsService, _) {
     var vm = this;
     vm.authentication = Authentication;
     vm.members = CourseMembersService.byUser({ userId:localStorageService.get('userId')},function() {
@@ -22,7 +22,7 @@ function MyCoursesListController($scope, $state, $window, Authentication, $timeo
                 member.edition = edition;
                 if (member.enrollmentStatus =='in-study') {
                     var sections = EditionSectionsService.byEdition({editionId:edition._id}, function() {
-                        var attempts = CourseAttemptsService.byMember({memberId:member._id},function() {
+                        var attempts = AttemptsService.byMember({memberId:member._id},function() {
                             var total =0;
                             var complete = 0;
                             _.each(sections,function(section) {

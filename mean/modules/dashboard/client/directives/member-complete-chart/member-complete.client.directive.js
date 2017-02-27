@@ -30,7 +30,12 @@
                   },
                   axis: {
                       x: {
-                          type: 'category' // this needed to load string x value
+                          type: 'category',
+                          tick: {
+                              rotate: 60,
+                              multiline: false
+                          },
+                          height: 130
                       }
                   },
                   color: {
@@ -44,7 +49,7 @@
                           var date = ['x'];
                           var complete =[$translate.instant('COMMON.ENROLL.COMPLETED')];
                           _.each(stats,function(stat) {
-                              date.push(moment(stat.created,'DD/MM/YYYY'));
+                              date.push(moment(stat.created).format('DD/MM/YYYY'));
                               complete.push(stat.count);
                           });
                           progress_chart.load({

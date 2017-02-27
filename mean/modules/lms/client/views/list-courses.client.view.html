@@ -58,7 +58,7 @@
                 <span style="font-weight: bold;">{{vm.selectedCourse.length}}</span>
                 <span class="lowercase">{{"MODEL.MEMBER.COURSE" | translate}}</span>
               </span>
-              <div class="sortCour sort-container" style="float: right;border: 1px solid rgb(30, 30, 30); min-width: 220px;">
+              <div class="sort-select" style="float: right;border: 1px solid rgb(30, 30, 30); min-width: 220px;">
                   <input config="vm.selectize_val_config" options="vm.optionCoures" ng-model="sortCoures" required
                          name="val_select" selectize ng-change="vm.chooseSort(sortCoures)"
                          style="border: 1px solid #1e1e1e;"/>

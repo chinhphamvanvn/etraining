@@ -5,12 +5,11 @@
     .module('reports')
     .controller('MemberByCourseReportsController', MemberByCourseReportsController);
 
-  MemberByCourseReportsController.$inject = ['$scope', '$rootScope','$state', 'Authentication', 'GroupsService', 'CoursesService','CourseMembersService','CourseAttemptsService','$timeout', '$window','$translate', 'treeUtils','_'];
+  MemberByCourseReportsController.$inject = ['$scope', '$rootScope','$state', 'Authentication', 'GroupsService', 'CoursesService','CourseMembersService','AttemptsService','$timeout', '$window','$translate', 'treeUtils','_'];
   
-  function MemberByCourseReportsController($scope, $rootScope, $state, Authentication,GroupsService, CoursesService,CourseMembersService, CourseAttemptsService, $timeout,$window,$translate, treeUtils,_) {
+  function MemberByCourseReportsController($scope, $rootScope, $state, Authentication,GroupsService, CoursesService,CourseMembersService, AttemptsService, $timeout,$window,$translate, treeUtils,_) {
     var vm = this;
     vm.authentication = Authentication;
-    vm.selectAll = selectAll;
     vm.generateReport = generateReport;
     vm.getExportData = getExportData;
     vm.getExportHeader = getExportHeader;
@@ -56,18 +55,10 @@
             });
        }); 
     
-    function selectAll() {
-        _.each(vm.courses,function(course) {
-            course.selected = vm.allCourse;
-        });        
-    }
     
-    function generateReport() {
-        vm.selectedCourses = _.filter(vm.courses,function(course) {
-            return course.selected;
-        });
-        
-        _.each(vm.selectedCourses,function(course) {
+    function generateReport(courses) {
+
+        _.each(courses,function(course) {
             CourseMembersService.byCourse({courseId:course._id},function(members) {
                course.toalMember =  members.length;
                course.totalRegisterMember = _.filter(members,function(member) {
@@ -92,7 +83,7 @@
                vm.summary.percentInstudyMember = Math.floor(vm.summary.totalInstudyMember*100 / vm.summary.toalMember);
                vm.summary.totalCompleteMember += course.totalCompleteMember;
                vm.summary.percentCompleteMember = Math.floor(vm.summary.totalCompleteMember*100 / vm.summary.toalMember);
-               CourseAttemptsService.byCourse({courseId:course._id},function(attempts) {
+               AttemptsService.byCourse({courseId:course._id},function(attempts) {
                    _.each(attempts,function(attempt) {
                        if (attempt.status=='completed') {
                            var start = new Date(attempt.start);

@@ -5,9 +5,9 @@
     .module('users')
     .controller('UserViewController', UserViewController);
 
-  UserViewController.$inject = ['$scope', '$state', '$timeout', '$rootScope','$window','userResolve', 'Authentication', 'Notification', 'UsersService','CourseMembersService', 'UserLogsService', 'GroupsService','CertificatesService', 'CourseEditionsService','EditionSectionsService','CourseAttemptsService', 'treeUtils', '_', '$translate'];
+  UserViewController.$inject = ['$scope', '$state', '$timeout', '$rootScope','$window','userResolve', 'Authentication', 'Notification', 'UsersService','CourseMembersService', 'UserLogsService', 'GroupsService','CertificatesService', 'CourseEditionsService','EditionSectionsService','AttemptsService', 'treeUtils', '_', '$translate'];
 
-  function UserViewController($scope, $state, $timeout, $rootScope, $window, user, Authentication, Notification, UsersService, CourseMembersService, UserLogsService, GroupsService, CertificatesService, CourseEditionsService, EditionSectionsService, CourseAttemptsService, treeUtils,  _,$translate) {
+  function UserViewController($scope, $state, $timeout, $rootScope, $window, user, Authentication, Notification, UsersService, CourseMembersService, UserLogsService, GroupsService, CertificatesService, CourseEditionsService, EditionSectionsService, AttemptsService, treeUtils,  _,$translate) {
     var vm = this;
     vm.authentication = Authentication;    
     vm.user = user;
@@ -28,25 +28,6 @@
            $state.go('workspace.users.edit');
     }
     
-    vm.groups = GroupsService.listOrganizationGroup( function() {
-        var tree = treeUtils.buildGroupTree(vm.groups);
-        if (vm.user.group) {
-            var selectNode = treeUtils.findGroupNode(tree, vm.user.group);
-            selectNode.selected = true;
-        }
-        $timeout(function() {
-            $("#orgTree").fancytree({
-                checkbox: true,
-                selectMode:1,
-                titlesTabbable: true,
-                disabled: true,
-                autoScroll: true,
-                generateIds: true,
-                source: tree,
-               
-            });
-        });
-   }); 
     
     vm.members = CourseMembersService.byUser({userId:vm.user._id},function() {
         vm.members = _.filter(vm.members,function(member) {
@@ -64,7 +45,7 @@
                 member.edition = edition;
                 if (member.enrollmentStatus =='in-study') {
                     var sections = EditionSectionsService.byEdition({editionId:edition._id}, function() {
-                        var attempts = CourseAttemptsService.byMember({memberId:member._id},function() {
+                        var attempts = AttemptsService.byMember({memberId:member._id},function() {
                             var total =0;
                             var complete = 0;
                             _.each(sections,function(section) {

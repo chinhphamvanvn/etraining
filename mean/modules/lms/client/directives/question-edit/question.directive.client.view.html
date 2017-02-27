@@ -1,11 +1,28 @@
-<div class="uk-grid">
-    <div class="uk-width-medium-1-1 parsley-row">
+<div class="uk-grid ">
+    <div class="uk-width-medium-1-2 parsley-row">
         <label for="question_title">
             {{'MODEL.QUESTION.TITLE'|translate}}
             <span class="req">*</span>
         </label>
-        <input type="text" name="question_title" id="question_title"
+        <input type="text" name="question_title" id="question_title" ng-disabled="mode=='view'"
             required class="md-input" md-input ng-model="question.title" />
+    </div>
+    <div class="uk-width-medium-1-2 parsley-row">          
+            <label for="question_level_select">{{'MODEL.QUESTION.LEVEL'|translate}}</label>
+            <div  id="question_level_select">
+                <span class="icheck-inline" >
+                    <input ng-disabled="mode=='view'" type="radio" name="question_level" id="question_easy" required ng-value="'easy'" icheck ng-model="question.level" />
+                    <label for="question_easy" class="inline-label">{{'COMMON.DIFFICULTY.EASY'|translate}}</label>
+                </span>
+                <span class="icheck-inline" >
+                    <input  ng-disabled="mode=='view'" type="radio" name="question_level" id="question_medium" required ng-value="'medium'" icheck ng-model="question.level" />
+                    <label for="question_medium" class="inline-label">{{'COMMON.DIFFICULTY.MEDIUM'|translate}}</label>
+                </span>
+                <span class="icheck-inline" >
+                    <input  ng-disabled="mode=='view'" type="radio" name="question_level" id="question_hard" required ng-value="'hard'" icheck ng-model="question.level" />
+                    <label for="question_hard" class="inline-label">{{'COMMON.DIFFICULTY.HARD'|translate}}</label>
+                </span>
+            </div>
     </div>
 </div>
 <div class="uk-grid">
@@ -14,7 +31,7 @@
             {{'MODEL.QUESTION.DESC'|translate}}
             <span class="req">*</span>
         </label>
-        <input type="text" name="question_desc" id="question_desc"
+        <input type="text" name="question_desc" id="question_desc" ng-disabled="mode=='view'"
             required class="md-input" md-input
             ng-model="question.description" />
     </div>
@@ -25,7 +42,7 @@
             ng-show="question.type=='mc' || question.type=='sc'">
             <div class="uk-grid" data-uk-grid-margin
                 ng-repeat="option in question.options | orderBy: 'order'">
-                <div class="uk-width-medium-2-10 uk-text-center" ng-show="question.type=='mc' || question.type=='sc'">
+                <div class="uk-width-medium-2-10 uk-text-center" ng-show="question.type=='mc' || question.type=='sc' || question.type=='tf' || question.type=='fb'">
                     <span class="icheck-inline">
                         <input type="checkbox" ng-disabled="mode=='view'"
                             id="option_{{option._id}}" icheck 

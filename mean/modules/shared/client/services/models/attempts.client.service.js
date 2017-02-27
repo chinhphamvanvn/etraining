@@ -4,11 +4,11 @@
 
   angular
     .module('shared.models')
-    .factory('CourseAttemptsService', CourseAttemptsService);
+    .factory('AttemptsService', AttemptsService);
 
-  CourseAttemptsService.$inject = ['$resource'];
+  AttemptsService.$inject = ['$resource'];
 
-  function CourseAttemptsService($resource) {
+  function AttemptsService($resource) {
     return $resource('/api/attempts/:attemptId', {
       attemptId: '@_id'
     }, {

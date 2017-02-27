@@ -76,15 +76,6 @@
         data: {
             roles: [ 'admin'],
         }
-      })
-      .state('admin.workspace.cms.categories', {
-        url: '/categories',
-        templateUrl: '/modules/cms/client/views/list-categories.client.view.html',
-        controller: 'CourseCategoriesListController',
-        controllerAs: 'vm',
-        data: {
-            roles: [ 'admin'],
-        }
       });
   }
   

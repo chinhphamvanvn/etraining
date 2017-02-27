@@ -6,15 +6,15 @@ angular
     .module('lms')
     .controller('CoursesSurveyController', CoursesSurveyController);
 
-CoursesSurveyController.$inject = ['$scope', '$state', '$window', 'Authentication', '$timeout', 'editionResolve','courseResolve', 'OptionsService', 'QuestionsService', 'Notification', 'CourseAttemptsService', 'ExamsService', 'EditionSectionsService', '$translate', '_'];
+CoursesSurveyController.$inject = ['$scope', '$state', '$window', 'Authentication', '$timeout', 'editionResolve','courseResolve', 'OptionsService', 'QuestionsService', 'Notification', 'AttemptsService', 'ExamsService', 'EditionSectionsService', '$translate', '_'];
 
-function CoursesSurveyController($scope, $state, $window, Authentication, $timeout, edition, course,OptionsService, QuestionsService, Notification, CourseAttemptsService,ExamsService ,EditionSectionsService, $translate, _) {
+function CoursesSurveyController($scope, $state, $window, Authentication, $timeout, edition, course,OptionsService, QuestionsService, Notification, AttemptsService,ExamsService ,EditionSectionsService, $translate, _) {
     var vm = this;
     vm.course = course;
     vm.edition = edition;
     vm.sections = EditionSectionsService.surveyByCourse({editionId:vm.edition._id}, function( ) {
         _.each(vm.sections,function(section) {
-             section.attempts =  CourseAttemptsService.bySection({sectionId:section._id,editionId:vm.edition._id},function() {
+             section.attempts =  AttemptsService.bySection({sectionId:section._id,editionId:vm.edition._id},function() {
                  section.attempts = _.filter(section.attempts,function(obj) {
                      return obj.status =='completed';
                  })

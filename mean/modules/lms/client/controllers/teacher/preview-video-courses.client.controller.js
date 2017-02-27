@@ -6,9 +6,9 @@ angular
     .module('lms')
     .controller('CoursesPreviewVideoController', CoursesPreviewVideoController);
 
-CoursesPreviewVideoController.$inject = ['$scope', '$state', '$window', 'HtmlsService','ExamsService','VideosService','EditionSectionsService','Authentication','CourseAttemptsService', 'editionResolve', 'CoursesService', 'Notification', 'sectionResolve','treeUtils', '$translate', '$q','_'];
+CoursesPreviewVideoController.$inject = ['$scope', '$state', '$window', 'HtmlsService','ExamsService','VideosService','EditionSectionsService','Authentication','AttemptsService', 'editionResolve', 'CoursesService', 'Notification', 'sectionResolve','treeUtils', '$translate', '$q','_'];
 
-function CoursesPreviewVideoController($scope, $state, $window, HtmlsService,ExamsService,VideosService,EditionSectionsService, Authentication, CourseAttemptsService,edition, CoursesService, Notification, section,treeUtils,$translate ,$q, _) {
+function CoursesPreviewVideoController($scope, $state, $window, HtmlsService,ExamsService,VideosService,EditionSectionsService, Authentication, AttemptsService,edition, CoursesService, Notification, section,treeUtils,$translate ,$q, _) {
     var vm = this;
     vm.edition = edition;
     vm.section = section;

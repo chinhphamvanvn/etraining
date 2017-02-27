@@ -37,9 +37,14 @@ var QuestionSchema = new Schema({
       type: Schema.ObjectId,
       ref: 'Group'
     },
+    correctOptions: {
+        type: [{
+            type: Schema.ObjectId,
+            ref: 'Option'
+          }],
     type: {
       type: String,
-      enum: ['mc', 'sc','tt'],
+      enum: ['mc', 'sc','tf','fb'],
       default: 'sc',
     }
   });

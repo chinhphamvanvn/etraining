@@ -6,16 +6,16 @@ angular
     .module('lms')
     .controller('CoursesStudyVideoController', CoursesStudyVideoController);
 
-CoursesStudyVideoController.$inject = ['$scope', '$state', '$window', 'HtmlsService','ExamsService','VideosService','EditionSectionsService','Authentication','CourseAttemptsService', 'editionResolve', 'CoursesService', 'Notification', 'sectionResolve','memberResolve','treeUtils', '$translate', '$q','_'];
+CoursesStudyVideoController.$inject = ['$scope', '$state', '$window', 'HtmlsService','ExamsService','VideosService','EditionSectionsService','Authentication','AttemptsService', 'editionResolve', 'CoursesService', 'Notification', 'sectionResolve','memberResolve','treeUtils', '$translate', '$q','_'];
 
-function CoursesStudyVideoController($scope, $state, $window, HtmlsService,ExamsService,VideosService,EditionSectionsService, Authentication, CourseAttemptsService,edition, CoursesService, Notification, section,member,treeUtils,$translate ,$q, _) {
+function CoursesStudyVideoController($scope, $state, $window, HtmlsService,ExamsService,VideosService,EditionSectionsService, Authentication, AttemptsService,edition, CoursesService, Notification, section,member,treeUtils,$translate ,$q, _) {
     var vm = this;
     vm.edition = edition;
     vm.member = member;
     vm.section = section;
     if (vm.section.video) {
         vm.video = VideosService.get({videoId:vm.section.video},function() {
-            vm.attempt = new CourseAttemptsService();
+            vm.attempt = new AttemptsService();
             vm.attempt.section = vm.section._id;
             vm.attempt.edition = vm.edition._id;
             vm.attempt.course = vm.edition.course;

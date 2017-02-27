@@ -16,7 +16,7 @@
           },
           templateUrl:'/modules/library/client/directives/library-item/library-item.directive.client.view.html',
           link: function (scope, element, attributes) {
-                  console.log(scope.media);
+                  // console.log(scope.media);
           }
       }
   }

@@ -19,15 +19,6 @@
           roles: [ 'admin']
         }
       })
-     .state('admin.workspace.library.category', {
-        url: '/category',
-        templateUrl: '/modules/library/client/views/list-categories.client.view.html',
-        controller: 'LibraryCategoriesController',
-        controllerAs: 'vm',
-        data: {
-          roles: [ 'admin']
-        }
-      })
       .state('admin.workspace.library.content', {
         url: '/content',
         abstract:true,

@@ -17,13 +17,13 @@ function LmsCoursesListController($scope, $state, $window, Authentication, $time
             group.courses = CoursesService.byGroup({groupId:group._id});
         });
 
-        _.each(vm.groups,function(group) {
-            CoursesService.byGroup({groupId:group._id},function(courses) {
-                group.courses = _.filter(courses,function(course) {
-                    return course.status =='available' && course.enrollStatus && course.displayMode !='enroll'
-                });
-            });
-        });
+        // _.each(vm.groups,function(group) {
+        //     CoursesService.byGroup({groupId:group._id},function(courses) {
+        //         group.courses = _.filter(courses,function(course) {
+        //             return course.status =='available' && course.enrollStatus && course.displayMode !='enroll'
+        //         });
+        //     });
+        // });
 
         CoursesService.listPublic(function(courses) {
             vm.fullCourses = courses;
@@ -74,7 +74,12 @@ function LmsCoursesListController($scope, $state, $window, Authentication, $time
         var courses = [];
         var childsNode = treeUtils.buildGroupListInOrder([node]);
         childsNode.map(function(child) {
-            if (child.data.courses.length > 0) {
+            CoursesService.byGroup({groupId:child.data._id},function(courses) {
+                child.data.courses = _.filter(courses,function(course) {
+                    return course.status =='available' && course.enrollStatus && course.displayMode !='enroll'
+                });
+            });
+            if (child.data.courses && child.data.courses.length > 0) {
               courses = courses.concat(child.data.courses);
             }
         });

@@ -4,21 +4,19 @@
  * Module dependencies.
  */
 var path = require('path'),
-  async = require('async'),
   mongoose = require('mongoose'),
   Group = mongoose.model('Group'),
-  Course = mongoose.model('Course'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
   _ = require('lodash');
 
 /**
  * Create a Group
  */
-exports.create = function (req, res) {
+exports.create = function(req, res) {
   var group = new Group(req.body);
   group.user = req.user;
 
-  group.save(function (err) {
+  group.save(function(err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -32,7 +30,7 @@ exports.create = function (req, res) {
 /**
  * Show the current Group
  */
-exports.read = function (req, res) {
+exports.read = function(req, res) {
   // convert mongoose document to JSON
   var group = req.group ? req.group.toJSON() : {};
 
@@ -46,12 +44,12 @@ exports.read = function (req, res) {
 /**
  * Update a Group
  */
-exports.update = function (req, res) {
+exports.update = function(req, res) {
   var group = req.group;
 
   group = _.extend(group, req.body);
 
-  group.save(function (err) {
+  group.save(function(err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -65,10 +63,10 @@ exports.update = function (req, res) {
 /**
  * Delete an Group
  */
-exports.delete = function (req, res) {
+exports.delete = function(req, res) {
   var group = req.group;
 
-  group.remove(function (err) {
+  group.remove(function(err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -82,8 +80,8 @@ exports.delete = function (req, res) {
 /**
  * List of Groups
  */
-exports.listOrganizationGroup = function (req, res) {
-  Group.find({category: 'organization'}).sort('-created').populate('user', 'displayName').exec(function (err, groups) {
+exports.listOrganizationGroup = function(req, res) {
+  Group.find({category:'organization'}).sort('-created').populate('user', 'displayName').exec(function(err, groups) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -94,8 +92,44 @@ exports.listOrganizationGroup = function (req, res) {
   });
 };
 
-exports.listCourseGroup = function (req, res) {
-  Group.find({category: 'course'}).sort('-created').populate('user', 'displayName').exec(function (err, groups) {
+exports.listCourseGroup = function(req, res) {
+    Group.find({category:'course'}).sort('-created').populate('user', 'displayName').exec(function(err, groups) {
+      if (err) {
+        return res.status(400).send({
+          message: errorHandler.getErrorMessage(err)
+        });
+      } else {
+        res.jsonp(groups);
+      }
+    });
+  };
+
+  exports.listLibraryGroup = function(req, res) {
+      Group.find({category:'library'}).sort('-created').populate('user', 'displayName').exec(function(err, groups) {
+        if (err) {
+          return res.status(400).send({
+            message: errorHandler.getErrorMessage(err)
+          });
+        } else {
+          res.jsonp(groups);
+        }
+      });
+    };
+
+    exports.listQuestionGroup = function(req, res) {
+        Group.find({category:'question'}).sort('-created').populate('user', 'displayName').exec(function(err, groups) {
+          if (err) {
+            return res.status(400).send({
+              message: errorHandler.getErrorMessage(err)
+            });
+          } else {
+            res.jsonp(groups);
+          }
+        });
+      };
+
+  exports.listCompetencyGroup = function(req, res) {
+      Group.find({category:'competency'}).sort('-created').populate('user', 'displayName').exec(function(err, groups) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -106,36 +140,22 @@ exports.listCourseGroup = function (req, res) {
   });
 };
 
-exports.listLibraryGroup = function (req, res) {
-  Group.find({category: 'library'}).sort('-created').populate('user', 'displayName').exec(function (err, groups) {
-    if (err) {
-      return res.status(400).send({
-        message: errorHandler.getErrorMessage(err)
-      });
-    } else {
-      res.jsonp(groups);
-    }
-  });
-};
-
-exports.listCompetencyGroup = function (req, res) {
-  Group.find({category: 'competency'}).sort('-created').populate('user', 'displayName').exec(function (err, groups) {
-    if (err) {
-      return res.status(400).send({
-        message: errorHandler.getErrorMessage(err)
-      });
-    } else {
-      res.jsonp(groups);
-    }
-  });
-};
-
+exports.listByCategory = function(req, res) {
+    Group.find({category:req.params.category}).sort('-created').populate('user', 'displayName').exec(function(err, groups) {
+      if (err) {
+        return res.status(400).send({
+          message: errorHandler.getErrorMessage(err)
+        });
+      } else {
+        res.jsonp(groups);
+      }
+    });
+  };
 
 /**
  * Group middleware
  */
-exports.groupByID = function (req, res, next, id) {
-  console.log('middleware group by id');
+exports.groupByID = function(req, res, next, id) {
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(400).send({

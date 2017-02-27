@@ -5,9 +5,9 @@
     .module('users.admin')
     .controller('AdminEditController', AdminEditController);
 
-  AdminEditController.$inject = ['$scope', '$state','$rootScope','$timeout', '$window','AdminService', 'userResolve', 'Authentication', 'Notification', 'Upload', 'GroupsService','UsersService', 'localStorageService','treeUtils', '_'];
+  AdminEditController.$inject = ['$scope', '$state','$rootScope','$timeout', '$window','AdminService', 'userResolve', 'Authentication', 'Notification', 'Upload', 'GroupsService','UsersService', 'localStorageService','treeUtils', '$translate','_'];
 
-  function AdminEditController($scope, $state,$rootScope, $timeout, $window, AdminService, user, Authentication, Notification, Upload, GroupsService, UsersService, localStorageService,treeUtils, _) {
+  function AdminEditController($scope, $state,$rootScope, $timeout, $window, AdminService, user, Authentication, Notification, Upload, GroupsService, UsersService, localStorageService,treeUtils,$translate, _) {
     var vm = this;
     vm.authentication = Authentication;    
     vm.user = user;
@@ -41,30 +41,6 @@
         }
     });
     
-    vm.groups = GroupsService.listOrganizationGroup( function() {
-        var tree = treeUtils.buildGroupTree(vm.groups);
-        if (vm.user.group) {
-            var selectNode = treeUtils.findGroupNode(tree, vm.user.group);
-            selectNode.selected = true;
-        }
-        $timeout(function() {
-            $("#orgTree").fancytree({
-                checkbox: true,
-                selectMode:1,
-                titlesTabbable: true,
-                autoScroll: true,
-                generateIds: true,
-                source: tree,
-                select: function(event, data) {
-                    // Display list of selected nodes
-                    var node = data.tree.getSelectedNodes()[0];
-                    if (node)
-                        vm.user.group = node.data._id;
-                }
-            });
-        });
-   }); 
-    
     vm.roleSwitcherOptions = [
          {id: 1, title: 'User', value: 'user'},
          {id: 2, title: 'Admin', value: 'admin'}
@@ -79,10 +55,7 @@
          valueField: 'value',
          labelField: 'title',
          searchField: 'title',
-         create: false,
-         onInitialize: function(selectize) {
-             $('#lang_switcher').next().children('.selectize-input').find('input').attr('readonly',true);
-         }
+         create: false
      };
      
 
@@ -100,8 +73,18 @@
     function cancel() {
         $state.go('admin.workspace.users.view',{userId:vm.user._id});
     }
+    
+    function selectGroup(groups) {
+        if (groups && groups.length )
+            vm.user.group = groups[0];
+    }
 
     function save() {
+        if (!vm.user.group) {
+            UIkit.modal.alert($translate.instant('ERROR.USER_EDIT.EMPTY_ORG_GROUP'));
+            return;
+        } 
+      
        if (!vm.user._id) 
            vm.user.$save(onSaveSuccess,onSaveFailure);
        else

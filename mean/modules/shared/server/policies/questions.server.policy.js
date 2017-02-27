@@ -18,9 +18,13 @@ exports.invokeRolesPolicies = function () {
       resources: '/api/questions',
       permissions: '*'
     },  {
-          resources: '/api/questions/byFilter/:groupId/:level',
+          resources: '/api/questions/byCategoryAndLevel/:groupId/:level',
           permissions: '*'
         },
+        {
+            resources: '/api/questions/byCategory/:groupId',
+            permissions: '*'
+          },
         {
       resources: '/api/questions/:questionId',
       permissions: '*'
@@ -31,9 +35,13 @@ exports.invokeRolesPolicies = function () {
       resources: '/api/questions',
       permissions: ['get', 'post']
     },{
-          resources: '/api/questions/byFilter/:groupId/:level',
+          resources: '/api/questions/byCategoryAndLevel/:groupId/:level',
           permissions: ['get']
         },
+        {
+            resources: '/api/questions/byCategory/:groupId',
+            permissions: 'get'
+          },
       {
       resources: '/api/questions/:questionId',
       permissions: ['get']

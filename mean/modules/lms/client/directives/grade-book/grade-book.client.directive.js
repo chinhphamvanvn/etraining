@@ -5,9 +5,9 @@
   // Unless the user is on a small device, because this could obscure the page with a keyboard
 
   angular.module('lms')
-    .directive('gradebook', ['EditionSectionsService','ExamsService','CourseAttemptsService','QuestionsService', 'OptionsService',  'treeUtils','$translate',  '_', gradebook]);
+    .directive('gradebook', ['EditionSectionsService','ExamsService','AttemptsService','QuestionsService', 'OptionsService',  'treeUtils','$translate',  '_', gradebook]);
 
-  function gradebook(EditionSectionsService,ExamsService,CourseAttemptsService, QuestionsService, OptionsService, treeUtils,$translate, _) {
+  function gradebook(EditionSectionsService,ExamsService,AttemptsService, QuestionsService, OptionsService, treeUtils,$translate, _) {
       
       return {
           scope: {
@@ -35,7 +35,7 @@
                               _.each(node.quiz.questions,function(q) {
                                   q.mark = 0;
                               });
-                              var attempts = CourseAttemptsService.bySectionAndMember({editionId:scope.edition._id,memberId:scope.member._id,sectionId:section._id},function() {
+                              var attempts = AttemptsService.bySectionAndMember({editionId:scope.edition._id,memberId:scope.member._id,sectionId:section._id},function() {
                                   var latestAttempt = _.max(attempts, function(attempt){return new Date(attempt.start).getTime()});
                                   _.each(latestAttempt.answers, function(answer) {
                                       var quizQuestion = _.find(node.quiz.questions,function(q) {
