@@ -14105,8 +14105,8 @@ body {
   font-size: 13px;
   margin-bottom: 20px;
 }
-.selectize-control.single,
-.selectize-input {
+.sort-container .selectize-control.single,
+.sort-container .selectize-input {
   border-bottom: 1px solid #1e1e1e;
 }
 .sortCour {

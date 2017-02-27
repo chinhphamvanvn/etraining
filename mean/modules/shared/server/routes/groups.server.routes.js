@@ -23,13 +23,13 @@ module.exports = function(app) {
   app.route('/api/groups/competency').all(groupsPolicy.isAllowed)
   .get(groups.listCompetencyGroup);
 
+  app.route('/api/groups/search').all(groupsPolicy.isAllowed)
+  .get(groups.listGroupBySearchCourse);
+
   app.route('/api/groups/:groupId').all(groupsPolicy.isAllowed)
     .get(groups.read)
     .put(groups.update)
     .delete(groups.delete);
-
-  app.route('/api/groups/search')
-    .get(groups.listGroupBySearchCourse);
 
   // Finish by binding the Group middleware
   app.param('groupId', groups.groupByID);

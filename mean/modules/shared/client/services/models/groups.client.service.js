@@ -10,36 +10,37 @@
 
   function GroupsService($resource) {
     return $resource('/api/groups/:groupId', {
-      groupId: '@_id'
-    }, {
-      update: {
-        method: 'PUT'
+        groupId: '@_id'
       },
-      listOrganizationGroup: {
-        url: '/api/groups/organization',
-        method: 'GET',
-        isArray: true
-      },
-      listCourseGroup: {
-        url: '/api/groups/course',
-        method: 'GET',
-        isArray: true
-      },
-      listLibraryGroup: {
-        url: '/api/groups/library',
-        method: 'GET',
-        isArray: true
-      },
-      listCompetencyGroup: {
-        url: '/api/groups/competency',
-        method: 'GET',
-        isArray: true
-      },
-      listGroupBySearchCourse: {
-        url: '/api/groups/search',
-        method: 'GET',
-        isArray: true
-      }
-    });
+      {
+        update: {
+          method: 'PUT'
+        },
+        listOrganizationGroup: {
+          url: '/api/groups/organization',
+          method: 'GET',
+          isArray: true
+        },
+        listCourseGroup: {
+          url: '/api/groups/course',
+          method: 'GET',
+          isArray: true
+        },
+        listLibraryGroup: {
+          url: '/api/groups/library',
+          method: 'GET',
+          isArray: true
+        },
+        listCompetencyGroup: {
+          url: '/api/groups/competency',
+          method: 'GET',
+          isArray: true
+        },
+        listGroupBySearchCourse: {
+          url: '/api/groups/search',
+          method: 'GET',
+          isArray: true
+        }
+      });
   }
 }());

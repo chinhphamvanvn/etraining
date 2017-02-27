@@ -69,7 +69,7 @@ exports.invokeRolesPolicies = function () {
       },
       {
         resources: '/api/groups/search',
-        permissions: 'get'
+        permissions: ['get']
       }
     ]
   }, {
@@ -97,7 +97,7 @@ exports.invokeRolesPolicies = function () {
       },
       {
         resources: '/api/groups/search',
-        permissions: 'get'
+        permissions: ['get']
       }
     ]
   }]);

@@ -11,8 +11,8 @@ LmsCoursesListController.$inject = ['$scope', '$state', '$window', 'Authenticati
 function LmsCoursesListController($scope, $state, $window, Authentication, $timeout, CoursesService, Notification, GroupsService,$q, _, treeUtils) {
     var vm = this;
 
-    vm.search = GroupsService.listGroupBySearchCourse({keyword: 'angular'}, function() {
-
+    vm.groupsBySearchCourse = GroupsService.listGroupBySearchCourse({keyword: 'angular'}, function() {
+      console.log('==========', vm.groupsBySearchCourse);
     });
 
     vm.groups = GroupsService.listCourseGroup(function() {
@@ -73,7 +73,6 @@ function LmsCoursesListController($scope, $state, $window, Authentication, $time
                 placeholder: 'Choose...'
             };
     function toggleExpand(node) {
-        // console.log(node);
         node.data.coursesList = [];
         var courses = [];
         var childsNode = treeUtils.buildGroupListInOrder([node]);
