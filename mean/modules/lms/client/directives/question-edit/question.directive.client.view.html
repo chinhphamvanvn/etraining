@@ -42,7 +42,7 @@
             ng-show="question.type=='mc' || question.type=='sc'">
             <div class="uk-grid" data-uk-grid-margin
                 ng-repeat="option in question.options | orderBy: 'order'">
-                <div class="uk-width-medium-2-10 uk-text-center" ng-show="question.type=='mc' || question.type=='sc'">
+                <div class="uk-width-medium-2-10 uk-text-center" ng-show="question.type=='mc' || question.type=='sc' || question.type=='tf' || question.type=='fb'">
                     <span class="icheck-inline">
                         <input type="checkbox" ng-disabled="mode=='view'"
                             id="option_{{option._id}}" icheck 

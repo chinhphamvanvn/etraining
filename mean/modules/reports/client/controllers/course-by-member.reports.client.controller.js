@@ -5,9 +5,9 @@
     .module('reports')
     .controller('CourseByMemberReportsController', CourseByMemberReportsController);
 
-  CourseByMemberReportsController.$inject = ['$scope', '$rootScope','$state', 'Authentication', 'GroupsService','AdminService', 'CoursesService','CourseMembersService','CourseAttemptsService','$timeout', '$window','$translate', 'treeUtils','_'];
+  CourseByMemberReportsController.$inject = ['$scope', '$rootScope','$state', 'Authentication', 'GroupsService','AdminService', 'CoursesService','CourseMembersService','AttemptsService','$timeout', '$window','$translate', 'treeUtils','_'];
   
-  function CourseByMemberReportsController($scope, $rootScope, $state, Authentication,GroupsService,AdminService, CoursesService,CourseMembersService, CourseAttemptsService, $timeout,$window,$translate, treeUtils,_) {
+  function CourseByMemberReportsController($scope, $rootScope, $state, Authentication,GroupsService,AdminService, CoursesService,CourseMembersService, AttemptsService, $timeout,$window,$translate, treeUtils,_) {
     var vm = this;
     vm.authentication = Authentication;
     vm.generateReport = generateReport;
@@ -22,7 +22,7 @@
                _.each(members,function(member) {
                    member.time  = 0;
                    member.score  = 0;
-                   CourseAttemptsService.byMember({memberId:member._id},function(attempts) {
+                   AttemptsService.byMember({memberId:member._id},function(attempts) {
                        member.lastAttempt = _.max(attempts, function(attempt){return new Date(attempt.start).getTime()}); 
                        member.firstAttempt = _.min(attempts, function(attempt){return new Date(attempt.start).getTime()});
                        _.each(attempts,function(attempt) {

@@ -6,9 +6,9 @@ angular
     .module('lms')
     .controller('CoursesStudyController', CoursesStudyController);
 
-CoursesStudyController.$inject = ['$scope', '$state', '$window', 'HtmlsService','ExamsService','VideosService','EditionSectionsService','Authentication','CourseAttemptsService', 'courseResolve', 'CoursesService', 'Notification', 'editionResolve','memberResolve','treeUtils', '$translate', '$q','_'];
+CoursesStudyController.$inject = ['$scope', '$state', '$window', 'HtmlsService','ExamsService','VideosService','EditionSectionsService','Authentication','AttemptsService', 'courseResolve', 'CoursesService', 'Notification', 'editionResolve','memberResolve','treeUtils', '$translate', '$q','_'];
 
-function CoursesStudyController($scope, $state, $window, HtmlsService,ExamsService,VideosService,EditionSectionsService, Authentication, CourseAttemptsService,course, CoursesService, Notification, edition,member,treeUtils,$translate ,$q, _) {
+function CoursesStudyController($scope, $state, $window, HtmlsService,ExamsService,VideosService,EditionSectionsService, Authentication, AttemptsService,course, CoursesService, Notification, edition,member,treeUtils,$translate ,$q, _) {
     var vm = this;
     vm.course = course;
     vm.member = member;
@@ -30,7 +30,7 @@ function CoursesStudyController($scope, $state, $window, HtmlsService,ExamsServi
         });
         vm.nodeList = treeUtils.buildCourseListInOrder(vm.nodes);
         
-        vm.attempts = CourseAttemptsService.byMember({memberId:vm.member._id},function() {
+        vm.attempts = AttemptsService.byMember({memberId:vm.member._id},function() {
             _.each(vm.sections,function(section) {
                 section.read = _.find(vm.attempts,function(attempt) {
                     return attempt.section == section._id && attempt.status=='completed';

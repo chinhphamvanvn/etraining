@@ -6,9 +6,9 @@ angular
     .module('lms')
     .controller('CoursesStudyQuizController', CoursesStudyQuizController);
 
-CoursesStudyQuizController.$inject = ['$scope', '$state', '$window', 'QuestionsService','ExamsService','AnswersService', 'OptionsService','EditionSectionsService','Authentication','CourseAttemptsService', 'editionResolve', 'CoursesService', 'Notification', 'sectionResolve','memberResolve','$timeout', '$interval','$translate', '$q','_'];
+CoursesStudyQuizController.$inject = ['$scope', '$state', '$window', 'QuestionsService','ExamsService','AnswersService', 'OptionsService','EditionSectionsService','Authentication','AttemptsService', 'editionResolve', 'CoursesService', 'Notification', 'sectionResolve','memberResolve','$timeout', '$interval','$translate', '$q','_'];
 
-function CoursesStudyQuizController($scope, $state, $window, QuestionsService,ExamsService,AnswersService,OptionsService,EditionSectionsService, Authentication, CourseAttemptsService,edition, CoursesService, Notification, section,member,$timeout, $interval,$translate ,$q, _) {
+function CoursesStudyQuizController($scope, $state, $window, QuestionsService,ExamsService,AnswersService,OptionsService,EditionSectionsService, Authentication, AttemptsService,edition, CoursesService, Notification, section,member,$timeout, $interval,$translate ,$q, _) {
     var vm = this;
     vm.edition = edition;
     vm.member = member;
@@ -19,14 +19,14 @@ function CoursesStudyQuizController($scope, $state, $window, QuestionsService,Ex
     }
     if (vm.section.quiz) {
         vm.quiz = ExamsService.get({examId:vm.section.quiz},function() {
-            vm.attempts = CourseAttemptsService.byMember({memberId:vm.member._id},function() {
+            vm.attempts = AttemptsService.byMember({memberId:vm.member._id},function() {
                 var attemptCount = _.filter(vm.attempts,function(att) {
                     return att.section == vm.section._id
                 }).length;
                 if (attemptCount >= vm.quiz.maxAttempt && vm.quiz.maxAttempt > 0) {
                     vm.alert = $translate.instant('ERROR.COURSE_STUDY.MAX_ATTEMPT_EXCEED');
                 } else {
-                    vm.attempt = new CourseAttemptsService();
+                    vm.attempt = new AttemptsService();
                     vm.attempt.section = vm.section._id;
                     vm.attempt.edition = vm.edition._id;
                     vm.attempt.course = vm.edition.course;

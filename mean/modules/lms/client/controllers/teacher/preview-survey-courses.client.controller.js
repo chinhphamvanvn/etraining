@@ -6,9 +6,9 @@ angular
     .module('lms')
     .controller('CoursesPreviewSurveyController', CoursesPreviewSurveyController);
 
-CoursesPreviewSurveyController.$inject = ['$scope', '$state', '$window', 'QuestionsService','ExamsService','AnswersService', 'OptionsService','EditionSectionsService','Authentication','CourseAttemptsService', 'editionResolve', 'CoursesService', 'Notification', 'sectionResolve','$timeout', '$interval','$translate', '$q','_'];
+CoursesPreviewSurveyController.$inject = ['$scope', '$state', '$window', 'QuestionsService','ExamsService','AnswersService', 'OptionsService','EditionSectionsService','Authentication','AttemptsService', 'editionResolve', 'CoursesService', 'Notification', 'sectionResolve','$timeout', '$interval','$translate', '$q','_'];
 
-function CoursesPreviewSurveyController($scope, $state, $window, QuestionsService,ExamsService,AnswersService,OptionsService,EditionSectionsService, Authentication, CourseAttemptsService,edition, CoursesService, Notification, section,$timeout, $interval,$translate ,$q, _) {
+function CoursesPreviewSurveyController($scope, $state, $window, QuestionsService,ExamsService,AnswersService,OptionsService,EditionSectionsService, Authentication, AttemptsService,edition, CoursesService, Notification, section,$timeout, $interval,$translate ,$q, _) {
     var vm = this;
     vm.edition = edition;
     vm.section = section;

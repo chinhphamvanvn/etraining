@@ -4,11 +4,11 @@
 // Courses controller
 angular
     .module('lms')
-    .controller('CoursesSurveyController', CoursesSurveyController);
+    .controller('CoursesStatsController', CoursesStatsController);
 
-CoursesSurveyController.$inject = ['$scope', '$state', '$window', 'Authentication', '$timeout', 'editionResolve','courseResolve', 'OptionsService', 'QuestionsService', 'Notification', 'AttemptsService', 'ExamsService', 'EditionSectionsService', '$translate', '_'];
+CoursesStatsController.$inject = ['$scope', '$state', '$window', 'Authentication', '$timeout', 'editionResolve','courseResolve', 'OptionsService', 'QuestionsService', 'Notification', 'AttemptsService', 'ExamsService', 'EditionSectionsService', '$translate', '_'];
 
-function CoursesSurveyController($scope, $state, $window, Authentication, $timeout, edition, course,OptionsService, QuestionsService, Notification, AttemptsService,ExamsService ,EditionSectionsService, $translate, _) {
+function CoursesStatsController($scope, $state, $window, Authentication, $timeout, edition, course,OptionsService, QuestionsService, Notification, AttemptsService,ExamsService ,EditionSectionsService, $translate, _) {
     var vm = this;
     vm.course = course;
     vm.edition = edition;

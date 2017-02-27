@@ -10,12 +10,20 @@ var mongoose = require('mongoose'),
  * Submission Schema
  */
 var SubmissionSchema = new Schema({
-  name: {
-    type: String,
-    default: '',
-    required: 'Please fill Submission name',
-    trim: true
-  },
+    candidate: {
+        type: Schema.ObjectId,
+        ref: 'Candidate'
+      },
+      exam: {
+          type: Schema.ObjectId,
+          ref: 'Exam'
+        },
+    answers: {
+        type: [{
+            type: Schema.ObjectId,
+            ref: 'Answer'
+          }]
+    },
   created: {
     type: Date,
     default: Date.now

@@ -26,13 +26,11 @@ var AttemptSchema = new Schema({
       type: Schema.ObjectId,
       ref: 'EditionSection'
   },
-  
   answers: {
       type: [{
           type: Schema.ObjectId,
           ref: 'Answer'
-        }]
-  },
+        }],
   start: {
     type: Date,
     default: Date.now

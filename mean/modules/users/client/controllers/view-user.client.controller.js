@@ -5,9 +5,9 @@
     .module('users')
     .controller('UserViewController', UserViewController);
 
-  UserViewController.$inject = ['$scope', '$state', '$timeout', '$rootScope','$window','userResolve', 'Authentication', 'Notification', 'UsersService','CourseMembersService', 'UserLogsService', 'GroupsService','CertificatesService', 'CourseEditionsService','EditionSectionsService','CourseAttemptsService', 'treeUtils', '_', '$translate'];
+  UserViewController.$inject = ['$scope', '$state', '$timeout', '$rootScope','$window','userResolve', 'Authentication', 'Notification', 'UsersService','CourseMembersService', 'UserLogsService', 'GroupsService','CertificatesService', 'CourseEditionsService','EditionSectionsService','AttemptsService', 'treeUtils', '_', '$translate'];
 
-  function UserViewController($scope, $state, $timeout, $rootScope, $window, user, Authentication, Notification, UsersService, CourseMembersService, UserLogsService, GroupsService, CertificatesService, CourseEditionsService, EditionSectionsService, CourseAttemptsService, treeUtils,  _,$translate) {
+  function UserViewController($scope, $state, $timeout, $rootScope, $window, user, Authentication, Notification, UsersService, CourseMembersService, UserLogsService, GroupsService, CertificatesService, CourseEditionsService, EditionSectionsService, AttemptsService, treeUtils,  _,$translate) {
     var vm = this;
     vm.authentication = Authentication;    
     vm.user = user;
@@ -45,7 +45,7 @@
                 member.edition = edition;
                 if (member.enrollmentStatus =='in-study') {
                     var sections = EditionSectionsService.byEdition({editionId:edition._id}, function() {
-                        var attempts = CourseAttemptsService.byMember({memberId:member._id},function() {
+                        var attempts = AttemptsService.byMember({memberId:member._id},function() {
                             var total =0;
                             var complete = 0;
                             _.each(sections,function(section) {

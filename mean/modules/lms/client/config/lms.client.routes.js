@@ -488,11 +488,10 @@
       })
       .state('workspace.lms.courses.join.stats', {
         url: '/stats',
-        templateUrl: '/modules/lms/client/views/course-board/stats-course.client.view.html',
+        templateUrl: '/modules/lms/client/views/teacher/stats-course.client.view.html',
         controller: 'CoursesStatsController',
         controllerAs: 'vm',
         resolve: {
-            memberResolve: getMember
         },
         data: {
           roles: ['user'],

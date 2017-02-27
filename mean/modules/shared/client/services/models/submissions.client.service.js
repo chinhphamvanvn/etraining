@@ -9,7 +9,7 @@
   SubmissionsService.$inject = ['$resource'];
 
   function SubmissionsService($resource) {
-    return $resource('api/submissions/:submissionId', {
+    return $resource('/api/submissions/:submissionId', {
       submissionId: '@_id'
     }, {
       update: {
