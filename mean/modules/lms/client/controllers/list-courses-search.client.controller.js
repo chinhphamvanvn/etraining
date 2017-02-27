@@ -17,26 +17,29 @@
 
     vm.courses = CoursesService.listByKeyword({keyword: $stateParams.keyword}, function() {
       vm.selectedCourse = vm.courses;
+      vm.sort = 'asc';
     });
 
     vm.groups = GroupsService.listCourseGroup(function() {
-      _.each(vm.groups,function(group) {
-        group.courses = CoursesService.byGroup({groupId:group._id});
+      // _.each(vm.groups,function(group) {
+      //   group.courses = CoursesService.byGroup({groupId:group._id});
+      // });
+      //
+      // _.each(vm.groups,function(group) {
+      //   CoursesService.byGroup({groupId:group._id},function(courses) {
+      //     group.courses = _.filter(courses,function(course) {
+      //       return course.status =='available' && course.enrollStatus && course.displayMode !='enroll'
+      //     });
+      //   });
+      // });
+
+      CoursesService.listPublic(function(courses) {
+        vm.fullCourses = courses;
+        // vm.selectedCourse = courses;
+        // vm.sort = 'asc';
       });
 
-      _.each(vm.groups,function(group) {
-        CoursesService.byGroup({groupId:group._id},function(courses) {
-          group.courses = _.filter(courses,function(course) {
-            return course.status =='available' && course.enrollStatus && course.displayMode !='enroll'
-          });
-        });
-      });
-
-      if (vm.groups.lenght === 1) {
-        vm.nodes = vm.groups;
-      } else {
-        vm.nodes = treeUtils.buildCourseTree(vm.groups);
-      }
+      vm.nodes = treeUtils.buildCourseTree(vm.groups);
 
       _.each(vm.nodes,function(node) {
         treeUtils.expandCourseNode(node,false);
@@ -81,7 +84,12 @@
       var courses = [];
       var childsNode = treeUtils.buildGroupListInOrder([node]);
       childsNode.map(function(child) {
-        if (child.data.courses.length > 0) {
+        CoursesService.byGroup({groupId:child.data._id},function(courses) {
+          child.data.courses = _.filter(courses,function(course) {
+            return course.status =='available' && course.enrollStatus && course.displayMode !='enroll'
+          });
+        });
+        if (child.data.courses && child.data.courses.length > 0) {
           courses = courses.concat(child.data.courses);
         }
       });
@@ -127,6 +135,7 @@
 
     function selsetAll(){
       vm.selectedCourse = vm.fullCourses;
+      vm.sort = 'asc';
     }
   }
 }());

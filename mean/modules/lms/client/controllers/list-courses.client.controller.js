@@ -29,7 +29,11 @@ function LmsCoursesListController($scope, $state, $window, Authentication, $time
             vm.fullCourses = courses;
             vm.selectedCourse = courses;
             vm.sort = 'asc';
-        });
+        });CoursesService.listPublic(function(courses) {
+        vm.fullCourses = courses;
+        vm.selectedCourse = courses;
+        vm.sort = 'asc';
+      });
 
         vm.nodes = treeUtils.buildCourseTree(vm.groups);
         _.each(vm.nodes,function(node) {
