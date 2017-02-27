@@ -10,6 +10,11 @@ LmsCoursesListController.$inject = ['$scope', '$state', '$window', 'Authenticati
 
 function LmsCoursesListController($scope, $state, $window, Authentication, $timeout, CoursesService, Notification, GroupsService,$q, _, treeUtils) {
     var vm = this;
+
+    vm.search = GroupsService.listGroupBySearchCourse({keyword: 'angular'}, function() {
+
+    });
+
     vm.groups = GroupsService.listCourseGroup(function() {
         _.each(vm.groups,function(group) {
             group.courses = CoursesService.byGroup({groupId:group._id});
@@ -24,7 +29,6 @@ function LmsCoursesListController($scope, $state, $window, Authentication, $time
         });
 
         CoursesService.listPublic(function(courses) {
-            vm.fullCourses = [];
             vm.fullCourses = courses;
             vm.selectedCourse = courses;
             vm.sort = 'asc';

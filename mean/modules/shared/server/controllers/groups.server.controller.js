@@ -6,6 +6,7 @@
 var path = require('path'),
   mongoose = require('mongoose'),
   Group = mongoose.model('Group'),
+  Course = mongoose.model('Course'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
   _ = require('lodash');
 
@@ -92,6 +93,24 @@ exports.listOrganizationGroup = function(req, res) {
   });
 };
 
+/**
+ * List of Groups by search courses
+ */
+exports.listGroupBySearchCourse = function(req, res) {
+  Course.find({name: {$regex: /angular/i}}).exec(function(err, courses) {
+    console.log('======', courses);
+  });
+  // Group.find({category:'organization'}).sort('-created').populate('user', 'displayName').exec(function(err, groups) {
+  //   if (err) {
+  //     return res.status(400).send({
+  //       message: errorHandler.getErrorMessage(err)
+  //     });
+  //   } else {
+  //     res.jsonp(groups);
+  //   }
+  // });
+};
+
 exports.listCourseGroup = function(req, res) {
     Group.find({category:'course'}).sort('-created').populate('user', 'displayName').exec(function(err, groups) {
       if (err) {
@@ -115,7 +134,7 @@ exports.listCourseGroup = function(req, res) {
         }
       });
     };
-  
+
   exports.listCompetencyGroup = function(req, res) {
       Group.find({category:'competency'}).sort('-created').populate('user', 'displayName').exec(function(err, groups) {
     if (err) {

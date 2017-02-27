@@ -16,26 +16,30 @@
         method: 'PUT'
       },
       listOrganizationGroup: {
-          url:'/api/groups/organization',
-          method: 'GET',
-          isArray: true
-        },
-    listCourseGroup: {
-        url:'/api/groups/course',
+        url: '/api/groups/organization',
+        method: 'GET',
+        isArray: true
+      },
+      listCourseGroup: {
+        url: '/api/groups/course',
         method: 'GET',
         isArray: true
       },
       listLibraryGroup: {
-          url:'/api/groups/library',
-          method: 'GET',
-          isArray: true
-        },
+        url: '/api/groups/library',
+        method: 'GET',
+        isArray: true
+      },
       listCompetencyGroup: {
-          url:'/api/groups/competency',
-          method: 'GET',
-          isArray: true
-        }
-    
+        url: '/api/groups/competency',
+        method: 'GET',
+        isArray: true
+      },
+      listGroupBySearchCourse: {
+        url: '/api/groups/search',
+        method: 'GET',
+        isArray: true
+      }
     });
   }
 }());

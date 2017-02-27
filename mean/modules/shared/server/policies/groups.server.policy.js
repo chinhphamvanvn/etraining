@@ -14,74 +14,92 @@ acl = new acl(new acl.memoryBackend());
 exports.invokeRolesPolicies = function () {
   acl.allow([{
     roles: ['admin'],
-    allows: [{
-      resources: '/api/groups',
-      permissions: '*'
-    },{
+    allows: [
+      {
+        resources: '/api/groups',
+        permissions: '*'
+      },
+      {
         resources: '/api/groups/organization',
         permissions: '*'
       },
-  {
-      resources: '/api/groups/course',
-      permissions: '*'
-    },
-    {
+      {
+        resources: '/api/groups/course',
+        permissions: '*'
+      },
+      {
         resources: '/api/groups/competency',
         permissions: '*'
       },
       {
-          resources: '/api/groups/library',
-          permissions: '*'
-        },
-    {
-      resources: '/api/groups/:groupId',
-      permissions: '*'
-    }]
+        resources: '/api/groups/library',
+        permissions: '*'
+      },
+      {
+        resources: '/api/groups/:groupId',
+        permissions: '*'
+      },
+      {
+        resources: '/api/groups/search',
+        permissions: '*'
+      }
+    ]
   }, {
     roles: ['user'],
     allows: [
-        {
+      {
         resources: '/api/groups/organization',
         permissions: ['get']
       },
       {
-          resources: '/api/groups/course',
-          permissions: ['get']
-        },
-    {
+        resources: '/api/groups/course',
+        permissions: ['get']
+      },
+      {
         resources: '/api/groups/competency',
         permissions: ['get']
       },
       {
-          resources: '/api/groups/library',
-          permissions: ['get']
-        },
-     {
-      resources: '/api/groups/:groupId',
-      permissions: ['get']
-    }]
+        resources: '/api/groups/library',
+        permissions: ['get']
+      },
+      {
+        resources: '/api/groups/:groupId',
+        permissions: ['get']
+      },
+      {
+        resources: '/api/groups/search',
+        permissions: 'get'
+      }
+    ]
   }, {
     roles: ['guest'],
-    allows: [{
+    allows: [
+      {
         resources: '/api/groups/organization',
         permissions: ['get']
       },
       {
-          resources: '/api/groups/course',
-          permissions: ['get']
-        },
-    {
+        resources: '/api/groups/course',
+        permissions: ['get']
+      },
+      {
         resources: '/api/groups/competency',
         permissions: ['get']
       },
       {
-          resources: '/api/groups/library',
-          permissions: ['get']
-        },
-          {
-      resources: '/api/groups/:groupId',
-      permissions: ['get']
-    }]
+        resources: '/api/groups/library',
+        permissions: ['get']
+      },
+      {
+        resources: '/api/groups/:groupId',
+        permissions: ['get']
+      },
+      {
+        resources: '/api/groups/search',
+        permissions: 'get'
+      }
+    ]
   }]);
 };
 
