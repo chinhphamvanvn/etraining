@@ -30,7 +30,8 @@ var AttemptSchema = new Schema({
       type: [{
           type: Schema.ObjectId,
           ref: 'Answer'
-        }],
+        }]
+  },
   start: {
     type: Date,
     default: Date.now

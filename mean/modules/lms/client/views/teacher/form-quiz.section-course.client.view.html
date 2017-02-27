@@ -47,6 +47,8 @@
                                 <div class="md-fab-sheet-actions">
                                     <a ng-click="vm.addQuestion('sc')"class="md-color-white">{{'COMMON.QUESTION_TYPE.SC'|translate}}</a>
                                     <a ng-click="vm.addQuestion('mc')"class="md-color-white">{{'COMMON.QUESTION_TYPE.MC'|translate}}</a>
+                                    <a ng-click="vm.addQuestion('tf')"class="md-color-white">{{'COMMON.QUESTION_TYPE.TF'|translate}}</a>
+                                    <a ng-click="vm.addQuestion('fb')"class="md-color-white">{{'COMMON.QUESTION_TYPE.FB'|translate}}</a>
                                   
                                 </div>
                             </div>
@@ -66,10 +68,25 @@
                                                 </div>
                                                 <h3 class="md-card-toolbar-heading-text">
                                                   {{question.title}}
+                                                    <span ng-if="question.type=='mc'" class="uk-text-italic uk-text-small"> - {{'COMMON.QUESTION_TYPE.MC'|translate}}</span>
+                                                    <span ng-if="question.type=='sc'" class="uk-text-italic uk-text-small"> - {{'COMMON.QUESTION_TYPE.SC'|translate}}</span>
+                                                    <span ng-if="question.type=='tf'" class="uk-text-italic uk-text-small"> - {{'COMMON.QUESTION_TYPE.TF'|translate}}</span>
+                                                    <span ng-if="question.type=='fb'" class="uk-text-italic uk-text-small"> - {{'COMMON.QUESTION_TYPE.FB'|translate}}</span>
                                                 </h3>
                                             </div>
                                             <div class="md-card-content">
-                                                <lms-question mode="'edit'" exam="vm.quiz" question="question"></lms-question>
+                                                <div ng-if="question.type=='mc'">
+                                                     <multiple-choice-question mode="'edit'"  question="question"></lms-question>
+                                                </div>
+                                               <div ng-if="question.type=='sc'">
+                                                     <single-choice-question mode="'edit'"  question="question"></single-choice-question>
+                                                </div>
+                                                <div ng-if="question.type=='tf'">
+                                                     <true-false-question mode="'edit'"  question="question"></true-false-question>
+                                                </div>
+                                                <div ng-if="question.type=='fb'">
+                                                     <fill-blank-question mode="'edit'"  question="question"></fill-blank-question>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

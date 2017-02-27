@@ -4,23 +4,30 @@
   // Focus the element on page load
   // Unless the user is on a small device, because this could obscure the page with a keyboard
 
-  angular.module('lms')
-    .directive('lmsQuestion', ['OptionsService','QuestionsService','_', lmsQuestion]);
+  angular.module('shared')
+    .directive('fillBlankQuestion', ['OptionsService','QuestionsService','_', fillBlankQuestion]);
 
-  function lmsQuestion(OptionsService,QuestionsService,_) {
+  function fillBlankQuestion(OptionsService,QuestionsService,_) {
       
       return {
           scope: {
               question: "=",
-              exam:"=",
-              mode: "="
+              mode: "="         // edit.view/study
           },
-          templateUrl:'/modules/lms/client/directives/question-edit/question.directive.client.view.html',
+          templateUrl:'/modules/shared/client/directives/fill-blank-question/fill-blank-question.directive.client.view.html',
           link: function (scope, element, attributes) {
               if (scope.question._id)
-                  scope.question.options = OptionsService.byQuestion({questionId:scope.question._id});
+                  scope.question.options = OptionsService.byQuestion({questionId:scope.question._id},function() {
+                      _.each(scope.question.options,function(option) {
+                          option.isCorrect = _.contains(scope.question.correctOptions,option._id);
+                      });
+                  });
               else
                   scope.question.options = [];
+              
+              scope.translateContent = function() {
+                  return scope.question.description.replace("#BLANK#", "<u>&nbsp;&nbsp;&nbsp;&nbsp;</u>");
+              }
               
               scope.addOption = function() {
                   var option = new OptionsService();
@@ -30,18 +37,16 @@
                       option.order =  _.max(scope.question.options, function(object){return object.order}).order+1;
                   option.question = scope.question._id;
                   option.$save(function() {
-                      option.isCorrect = false;
                       scope.question.options.push(option);
                   });
               }
               
               scope.selectOption = function(option) {
-                  if (scope.question.type=='sc') {
-                      _.each(scope.question.options,function(obj) {
-                         obj.isCorrect = false; 
-                      });
-                      option.isCorrect = true;
-                  }
+                  scope.question.correctOptions = [];
+                  _.each(scope.question.options,function(obj) {
+                     if (obj.isCorrect)
+                         scope.question.correctOptions.push(obj._id);
+                  });                  
               }
               
               scope.removeOption = function(option) {
@@ -50,11 +55,11 @@
                           scope.question.options = _.reject(scope.question.options,function(o) {
                               return o._id == option._id;
                           })
+                          scope.question.correctOptions = _.reject(scope.question.correctOptions,function(o) {
+                              return o == option._id;
+                          })
                       })                      
-                  } else
-                      scope.question.options = _.reject(scope.question.options,function(o) {
-                          return o.order == option.order && !o._id;
-                      })
+                  } 
               }
           }
       }

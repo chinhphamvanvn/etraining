@@ -154,9 +154,9 @@ function CoursesStudyQuizController($scope, $state, $window, QuestionsService,Ex
                return option.selected;
            });
            answer.options = _.pluck(selectedOptions,'_id');
-           answer.isCorrect =  _.filter(vm.question.options,function(option) {
-               return option.isCorrect && !option.selected;
-           }).length==0;
+           answer.isCorrect  = _.filter(selectedOptions,function(option) {
+               return !._contains(vm.question.correctOptions,option._id);
+           }).length > 0 && selectedOptions.length;
        }
        if (answer._id) 
            answer.$update(function() {
