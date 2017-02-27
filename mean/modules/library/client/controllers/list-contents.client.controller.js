@@ -14,12 +14,13 @@
       vm.finishEditLibTree = finishEditLibTree;
    
       vm.selectGroup = function(groups) {
+          vm.group = groups;
           if (groups && groups.length)
               vm.medium = LibraryMediaService.byGroup({groupId:groups[0]})
       }
       
       function createMediaItem() {
-          if (!vm.group) {
+          if (!vm.group || vm.group.length == 0) {
               UIkit.modal.alert($translate.instant('ERROR.LIBRARY.EMPTY_LIBRARY_GROUP'));
               return;
           }
