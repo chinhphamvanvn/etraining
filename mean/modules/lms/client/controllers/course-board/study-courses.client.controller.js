@@ -78,7 +78,7 @@ function CoursesStudyController($scope, $state, $window, HtmlsService,ExamsServi
     function selectNode(node) {
         vm.selectedNode = node;
         var parentNode = vm.selectedNode.parent;
-        while (parentNode.parent)
+        while (parentNode && parentNode.parent)
             parentNode = parentNode.parent;
         expand(parentNode);
         if (vm.selectedNode.data.hasContent)

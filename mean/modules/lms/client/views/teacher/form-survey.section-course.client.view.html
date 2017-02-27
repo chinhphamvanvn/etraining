@@ -34,8 +34,7 @@
                             <div class="md-fab md-fab-primary md-fab-sheet" md-fab-sheet>
                                 <i class="material-icons">add</i>
                                 <div class="md-fab-sheet-actions">
-                                    <a ng-click="vm.addQuestion('sc')"class="md-color-white">{{'COMMON.QUESTION_TYPE.SC'|translate}}</a>
-                                    <a ng-click="vm.addQuestion('mc')"class="md-color-white">{{'COMMON.QUESTION_TYPE.MC'|translate}}</a>
+                                    <a ng-click="vm.addQuestion('mc')"class="md-color-white">{{'ACTION.CREATE_QUESTION'|translate}}</a>
                                   
                                 </div>
                             </div>
@@ -58,7 +57,7 @@
                                                 </h3>
                                             </div>
                                             <div class="md-card-content">
-                                                <lms-question mode="'edit'" exan="vm.survey" question="question"></lms-question>
+                                                <multiple-choice-survey mode="'edit'" exan="vm.survey" question="question"></multiple-choice-survey>
                                             </div>
                                         </div>
                                     </div>
