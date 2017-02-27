@@ -163,7 +163,7 @@ exports.listByKeyword = function (req, res) {
   var keyword   = req.query.keyword,
       regex     = new RegExp(keyword, 'i');
 
-  Course.find({name: {$regex: regex}}).exec(function (err, courses) {
+  Course.find({name: {$regex: regex}, status: 'available'}).exec(function (err, courses) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)

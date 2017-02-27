@@ -14104,7 +14104,8 @@ body {
 .admin-header-container .admin-page-title {
   line-height: 44px;
 }
-.search-box input {
+.search-box input,
+.main-search-box input {
   height: 30px;
   border: 1px solid #E5E5E5;
   border-radius: 4px;
@@ -14112,10 +14113,15 @@ body {
   min-width: 250px;
   font-size: 13px;
 }
-.search-box .vi-btn-search {
+.search-box .vi-btn-search,
+.main-search-box .vi-btn-search {
   height: 42px;
   line-height: 42px;
   padding: 0 10px;
+}
+.main-search-box input {
+  border: 1px solid #a7a7a7;
+  min-width: 70%;
 }
 .media-title {
   font-weight: 500;
