@@ -94,62 +94,6 @@ exports.listOrganizationGroup = function (req, res) {
   });
 };
 
-/**
- * List of Groups by search courses
- */
-exports.listGroupBySearchCourse = function (req, res) {
-  var keyword   = req.query.keyword,
-      regex     = new RegExp(keyword, 'i');
-
-  async.waterfall([
-    getGroupIdsBySearchCourse,
-    getGroupsByIds
-  ], function(err, groups) {
-    if (err) {
-      return res.status(400).send({
-        message: errorHandler.getErrorMessage(err)
-      });
-    } else {
-      res.jsonp(groups);
-    }
-  });
-
-  function getGroupIdsBySearchCourse(callback) {
-    Course.find({name: {$regex: regex}}, {group: 1, _id: 0}).exec(function (err, groupIds) {
-      if (err) {
-        callback(err);
-      } else {
-        callback(null, groupIds);
-      }
-    });
-  }
-
-  function getGroupsByIds(groupIds, callback) {
-    var groupIdsUniq = _.uniq(groupIds);
-    groupIdsUniq = groupIdsUniq.map(function(obj) {
-        return obj.group;
-    });
-
-    Group.find({_id: {$in: groupIdsUniq}}).exec(function(err, groups) {
-        if (err) {
-          callback(err);
-        } else {
-          callback(null, groups);
-        }
-    });
-  }
-
-  // Course.find({name: {$regex: regex}}, {group: 1, _id: 0}).exec(function (err, courses) {
-  //   if (err) {
-  //     return res.status(400).send({
-  //       message: errorHandler.getErrorMessage(err)
-  //     });
-  //   } else {
-  //     res.jsonp(courses);
-  //   }
-  // });
-};
-
 exports.listCourseGroup = function (req, res) {
   Group.find({category: 'course'}).sort('-created').populate('user', 'displayName').exec(function (err, groups) {
     if (err) {

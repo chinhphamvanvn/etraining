@@ -10,10 +10,7 @@ LmsCoursesListController.$inject = ['$scope', '$state', '$window', 'Authenticati
 
 function LmsCoursesListController($scope, $state, $window, Authentication, $timeout, CoursesService, Notification, GroupsService,$q, _, treeUtils) {
     var vm = this;
-
-    vm.groupsBySearchCourse = GroupsService.listGroupBySearchCourse({keyword: 'angular'}, function() {
-      console.log('==========', vm.groupsBySearchCourse);
-    });
+    vm.keyword = '';
 
     vm.groups = GroupsService.listCourseGroup(function() {
         _.each(vm.groups,function(group) {

@@ -38,10 +38,6 @@ exports.invokeRolesPolicies = function () {
       {
         resources: '/api/groups/:groupId',
         permissions: '*'
-      },
-      {
-        resources: '/api/groups/search',
-        permissions: '*'
       }
     ]
   }, {
@@ -66,10 +62,6 @@ exports.invokeRolesPolicies = function () {
       {
         resources: '/api/groups/:groupId',
         permissions: ['get']
-      },
-      {
-        resources: '/api/groups/search',
-        permissions: ['get']
       }
     ]
   }, {
@@ -93,10 +85,6 @@ exports.invokeRolesPolicies = function () {
       },
       {
         resources: '/api/groups/:groupId',
-        permissions: ['get']
-      },
-      {
-        resources: '/api/groups/search',
         permissions: ['get']
       }
     ]

@@ -14095,6 +14095,22 @@ body {
   text-transform: lowercase;
 }
 /* List courses and library style =================== */
+.uk-grid + .md-card-courses {
+  margin-top: 0;
+}
+.search-box input {
+  height: 30px;
+  border: 1px solid #E5E5E5;
+  border-radius: 4px;
+  padding: 5px 10px;
+  min-width: 250px;
+  font-size: 13px;
+}
+.search-box .vi-btn-search {
+  height: 42px;
+  line-height: 42px;
+  padding: 0 10px;
+}
 .media-title {
   font-weight: 500;
   text-transform: capitalize;

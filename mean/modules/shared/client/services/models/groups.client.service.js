@@ -35,11 +35,6 @@
           url: '/api/groups/competency',
           method: 'GET',
           isArray: true
-        },
-        listGroupBySearchCourse: {
-          url: '/api/groups/search',
-          method: 'GET',
-          isArray: true
         }
       });
   }

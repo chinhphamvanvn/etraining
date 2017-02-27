@@ -13,9 +13,6 @@ var path = require('path'),
   Course = mongoose.model('Course'),
   CourseEdition = mongoose.model('CourseEdition');
 
-
-
-
 /**
  * Create a Course
  */
@@ -41,7 +38,7 @@ exports.create = function(req, res) {
             } else
                 res.jsonp(course);
         })
-      
+
     }
   });
 };
@@ -122,7 +119,7 @@ exports.listPublic = function(req, res) {
       }
     });
   };
-  
+
   exports.listPrivate = function(req, res) {
       Course.find({status:'available',enrollStatus:true,displayMode:'enroll'}).sort('-created').populate('user', 'displayName').populate('group').populate('prequisites').exec(function(err, courses) {
         if (err) {
@@ -134,7 +131,7 @@ exports.listPublic = function(req, res) {
         }
       });
     };
-    
+
 exports.listRestricted = function(req, res) {
     Course.find({status:'available',enrollStatus:true,displayMode:'login'}).sort('-created').populate('user', 'displayName').populate('group').populate('prequisites').exec(function(err, courses) {
       if (err) {
@@ -146,7 +143,7 @@ exports.listRestricted = function(req, res) {
       }
     });
   };
-  
+
   exports.listByGroup = function(req, res) {
       Course.find({group:req.group._id}).sort('-created').populate('user', 'displayName').populate('group').populate('prequisites').exec(function(err, courses) {
         if (err) {
@@ -158,6 +155,24 @@ exports.listRestricted = function(req, res) {
         }
       });
     };
+
+/**
+ * List of Courses by keyword
+ */
+exports.listByKeyword = function (req, res) {
+  var keyword   = req.query.keyword,
+      regex     = new RegExp(keyword, 'i');
+
+  Course.find({name: {$regex: regex}}).exec(function (err, courses) {
+    if (err) {
+      return res.status(400).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    } else {
+      res.jsonp(courses);
+    }
+  });
+};
 
 /**
  * Course middleware
@@ -257,5 +272,5 @@ exports.changeCourseLogo = function (req, res) {
 };
 
 
-  
+
 
