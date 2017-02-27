@@ -14105,13 +14105,16 @@ body {
   font-size: 13px;
   margin-bottom: 20px;
 }
-.selectize-control.single,
-.selectize-input {
-  border-bottom: 1px solid #1e1e1e;
-}
-.sortCour {
+.sort-select {
   margin-right: 50px;
   margin-top: -10px;
+  float: right;
+  border: 1px solid #1e1e1e;
+  min-width: 220px;
+}
+.sort-select .selectize-control.single,
+.sort-select .selectize-input {
+  border-bottom: 1px solid #1e1e1e;
 }
 @media (max-width: 500px) {
   .sortCour {
