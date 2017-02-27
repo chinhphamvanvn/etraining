@@ -30,10 +30,25 @@
                                                 </div>
                                                 <h3 class="md-card-toolbar-heading-text">
                                                   {{question.title}}
+                                                  <span ng-if="question.type=='mc'" class="uk-text-italic uk-text-small"> - {{'COMMON.QUESTION_TYPE.MC'|translate}}</span>
+                                                    <span ng-if="question.type=='sc'" class="uk-text-italic uk-text-small"> - {{'COMMON.QUESTION_TYPE.SC'|translate}}</span>
+                                                    <span ng-if="question.type=='tf'" class="uk-text-italic uk-text-small"> - {{'COMMON.QUESTION_TYPE.TF'|translate}}</span>
+                                                    <span ng-if="question.type=='fb'" class="uk-text-italic uk-text-small"> - {{'COMMON.QUESTION_TYPE.FB'|translate}}</span>
                                                 </h3>
                                             </div>
                                             <div class="md-card-content">
-                                                <lms-question mode="'view'" exam="vm.quiz" question="question"></lms-question>
+                                                 <div ng-if="question.type=='mc'">
+                                                     <multiple-choice-question mode="'view'"  question="question"></lms-question>
+                                                </div>
+                                               <div ng-if="question.type=='sc'">
+                                                     <single-choice-question mode="'view'"  question="question"></single-choice-question>
+                                                </div>
+                                                <div ng-if="question.type=='tf'">
+                                                     <true-false-question mode="'view'"  question="question"></true-false-question>
+                                                </div>
+                                                <div ng-if="question.type=='fb'">
+                                                     <fill-blank-question mode="'view'"  question="question"></fill-blank-question>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

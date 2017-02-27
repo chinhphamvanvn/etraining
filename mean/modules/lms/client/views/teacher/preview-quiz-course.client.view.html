@@ -21,10 +21,10 @@
                         
                         <hr>
                         <h5 class="uk-margin-small-bottom uk-text-muted">{{'PAGE.LMS.MY_COURSES.COURSE_STUDY.OPTION'|translate}}</h5>
-                        <ul class="uk-list uk-list-large">
+                        <ul class="uk-list uk-list-large" ng-show="vm.question.type=='sc' || vm.question.type=='mc' || vm.question.type=='tf' || vm.question.type=='fb'">
                             <li ng-repeat="option in vm.options">
                                 <div class="">
-                                    <span class="icheck-inline" ng-show="vm.question.type=='sc' || vm.question.type=='mc'">
+                                    <span class="icheck-inline" >
                                         <input type="radio"
                                             name="question{{vm.question._id}}"
                                             id="question_option{{option._id}}"

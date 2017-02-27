@@ -15,10 +15,6 @@ var OptionSchema = new Schema({
     default: '',
     trim: true
   },
-  isCorrect: {
-    type: Boolean,
-    default: false,
-  },
   created: {
     type: Date,
     default: Date.now

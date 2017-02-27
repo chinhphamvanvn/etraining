@@ -41,7 +41,8 @@ var QuestionSchema = new Schema({
         type: [{
             type: Schema.ObjectId,
             ref: 'Option'
-          }],
+          }]
+    },
     type: {
       type: String,
       enum: ['mc', 'sc','tf','fb'],
