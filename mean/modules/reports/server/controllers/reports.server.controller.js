@@ -11,6 +11,7 @@ var path = require('path'),
   multer = require('multer'),
   User = mongoose.model('User'),
   Course = mongoose.model('Course'),
+  CourseAttempt = mongoose.model('CourseAttempt'),
   CourseMember = mongoose.model('CourseMember'),
   Stat = mongoose.model('Stat'),
   config = require(path.resolve('./config/config'));
@@ -99,6 +100,22 @@ exports.userLoginStats = function(req, res) {
           }
     });
 }
+
+exports.memberAttemptStats = function(req, res) {
+    var day = parseInt(req.params.day);
+    Attempt.find({edition:req.edition._id,created:{$gt:new Date(Date.now() - day*24*60*60 * 1000)}}).aggregate(
+            {$group:
+            {_id: {$hour:'$created'},
+                count: { $sum: 1 }
+            }},function(err,docs)
+            {
+                if(err)
+                    console.log(err);
+                console.log(docs);
+                res.json(docs);
+            });
+}
+
 
 exports.memberRegistrationStats = function(req, res) {
     var day = parseInt(req.params.day);
