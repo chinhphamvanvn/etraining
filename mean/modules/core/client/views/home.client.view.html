@@ -135,10 +135,17 @@
             <div class="uk-grid" data-uk-grid-margin>
                 <div class="uk-width-small-1-2 uk-width-medium-1-3 uk-width-large-1-4"
                     ng-repeat="course in vm.courses">
-
                         <course-card course="course"></course-card>
                     </div>
                 </div>
+            </div>
+
+            <div class="uk-text-center showmore-container">
+              <show-more-pagination curr-page=1
+                items-per-page=8
+                items="vm.courses"
+                total-items="vm.totalItems"
+                ng-show="vm.courses.length < vm.totalItems.length"></show-more-pagination>
             </div>
         </div>
     </div>

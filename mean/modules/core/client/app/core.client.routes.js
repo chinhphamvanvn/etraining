@@ -83,7 +83,7 @@
         url: '/server-error',
         templateUrl: '/modules/core/client/views/500.client.view.html',
         data: {
-          ignoreState: true,
+          ignoreState: true
         }
       });
   }
