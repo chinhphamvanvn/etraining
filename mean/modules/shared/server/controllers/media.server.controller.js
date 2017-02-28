@@ -107,6 +107,21 @@ exports.listByGroup = function(req, res) {
   });
 };
 
+exports.listByKeyword = function(req, res) {
+  var keyword = req.query.keyword,
+      regex   = new RegExp(keyword, 'i');
+
+  LibraryMedium.find({name: {$regex: regex}, published: true}).sort('-created').exec(function(err, media) {
+    if (err) {
+      return res.status(400).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    } else {
+      res.jsonp(media);
+    }
+  });
+};
+
 /**
  * Medium middleware
  */
@@ -217,7 +232,7 @@ exports.uploadMediaContent = function (req, res) {
         .catch(function (err) {
           res.status(422).send(err);
         });
-     
+
     function uploadContent () {
       return new Promise(function (resolve, reject) {
         upload(req, res, function (uploadError) {
@@ -234,5 +249,4 @@ exports.uploadMediaContent = function (req, res) {
     }
 
   };
-  
-  
+

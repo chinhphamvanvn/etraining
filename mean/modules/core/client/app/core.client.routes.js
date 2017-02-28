@@ -33,6 +33,12 @@
         controller: 'HomeController',
         controllerAs: 'vm'
       })
+      .state('search', {
+        url: '/search?keyword',
+        templateUrl: '/modules/core/client/views/home.client.view.html',
+        controller: 'HomeSearchController',
+        controllerAs: 'vm'
+      })
       .state('error', {
         abstract: true,
         url: '/error',

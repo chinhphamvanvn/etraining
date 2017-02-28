@@ -12,55 +12,77 @@ acl = new acl(new acl.memoryBackend());
  * Invoke Media Permissions
  */
 exports.invokeRolesPolicies = function () {
-  acl.allow([{
-    roles: ['admin'],
-    allows: [{
-      resources: '/api/media',
-      permissions: '*'
+  acl.allow([
+    {
+      roles: ['admin'],
+      allows: [
+        {
+          resources: '/api/media',
+          permissions: '*'
+        },
+        {
+          resources: '/api/media/byGroup/:groupId',
+          permissions: ['get']
+        },
+        {
+          resources: '/api/media/:mediumId',
+          permissions: '*'
+        },
+        {
+          resources: '/api/media/upload',
+          permissions: ['post']
+        },
+        {
+          resources: '/api/media/search',
+          permissions: '*'
+        }
+      ]
     },
     {
-        resources: '/api/media/byGroup/:groupId',
-        permissions: ['get']
-      },
-      {
-      resources: '/api/media/:mediumId',
-      permissions: '*'
+      roles: ['user'],
+      allows: [
+        {
+          resources: '/api/media',
+          permissions: ['get', 'post']
+        },
+        {
+          resources: '/api/media/byGroup/:groupId',
+          permissions: ['get']
+        }, {
+          resources: '/api/media/:mediumId',
+          permissions: ['get']
+        },
+        {
+          resources: '/api/media/upload',
+          permissions: ['post']
+        },
+        {
+          resources: '/api/media/search',
+          permissions: ['get']
+        }
+      ]
     },
     {
-        resources: '/api/media/upload',
-        permissions: ['post']
-      }]
-  }, {
-    roles: ['user'],
-    allows: [{
-      resources: '/api/media',
-      permissions: ['get', 'post']
-    }, 
-    {
-        resources: '/api/media/byGroup/:groupId',
-        permissions: ['get']
-      },{
-      resources: '/api/media/:mediumId',
-      permissions: ['get']
-    },
-    {
-        resources: '/api/media/upload',
-        permissions: ['post']
-      }]
-  }, {
-    roles: ['guest'],
-    allows: [{
-      resources: '/api/media',
-      permissions: ['get']
-    }, 
-    {
-        resources: '/api/media/byGroup/:groupId',
-        permissions: ['get']
-      },{
-      resources: '/api/media/:mediumId',
-      permissions: ['get']
-    }]
-  }]);
+      roles: ['guest'],
+      allows: [
+        {
+          resources: '/api/media',
+          permissions: ['get']
+        },
+        {
+          resources: '/api/media/byGroup/:groupId',
+          permissions: ['get']
+        },
+        {
+          resources: '/api/media/:mediumId',
+          permissions: ['get']
+        },
+        {
+          resources: '/api/media/search',
+          permissions: ['get']
+        }
+      ]
+    }]);
 };
 
 /**

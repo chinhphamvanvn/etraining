@@ -8,7 +8,8 @@
 }
 
 /* List courses and library style =================== */
-.uk-grid + .md-card-courses {
+.uk-grid + .md-card-courses,
+.uk-grid + .md-card-medias {
   margin-top: 0;
 }
 
@@ -19,7 +20,8 @@
   }
 }
 
-.search-box {
+.search-box,
+.main-search-box {
   input {
     height: 30px;
     border: 1px solid #E5E5E5;
@@ -32,6 +34,13 @@
     height: 42px;
     line-height: 42px;
     padding: 0 10px;
+  }
+}
+
+.main-search-box {
+  input {
+    border: 1px solid #a7a7a7;
+    min-width: 70%;
   }
 }
 
@@ -72,7 +81,7 @@
 
 .imageCourseHome {
     width: 100%;
-    height: 85%;
+    height: auto;
 }
 @media (max-width:479px){
     .imageCourseHome {

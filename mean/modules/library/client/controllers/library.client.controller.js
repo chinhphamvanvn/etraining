@@ -10,6 +10,7 @@ LibraryController.$inject = ['$scope', '$state', '$window', 'Authentication', '$
 
 function LibraryController($scope, $state, $window, Authentication, $timeout, LibraryMediaService, Notification, GroupsService,treeUtils, _) {
     var vm = this;
+    vm.keyword = '';
 
     vm.groups = GroupsService.listLibraryGroup(function() {
         vm.nodes = treeUtils.buildGroupTree(vm.groups);
@@ -92,6 +93,5 @@ function LibraryController($scope, $state, $window, Authentication, $timeout, Li
             vm.sort = "created";
         }
     }
-
 }
 }());
