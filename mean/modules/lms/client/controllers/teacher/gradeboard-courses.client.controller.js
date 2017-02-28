@@ -31,7 +31,7 @@ function CoursesGradeboardController($scope, $state, $window, Authentication, $t
     vm.gradescheme = gradescheme;
     
     function certify(member) {
-        UI.modal.blockUI.start();
+        var modal = UIkit.modal.blockUI('<div class=\'uk-text-center\'>Processing...<br/><img class=\'uk-margin-top\' src=\'/assets/img/spinners/spinner.gif\' alt=\'\'>');
         var certificate = new CertificatesService();
         certificate.member = member._id;
         certificate.course = vm.course._id;
@@ -40,8 +40,8 @@ function CoursesGradeboardController($scope, $state, $window, Authentication, $t
         certificate.authorizer = vm.user._id;
         certificate.$save(function() {
             member.certificate = certificate;
+            modal.hide();
         });
-        UI.modal.blockUI.stop();
     }
 }
 }());
