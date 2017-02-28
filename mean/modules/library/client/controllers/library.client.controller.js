@@ -12,6 +12,11 @@ function LibraryController($scope, $state, $window, Authentication, $timeout, Li
     var vm = this;
     vm.keyword = '';
 
+    vm.gotoSearch = function() {
+      if (!vm.keyword.trim()) return ;
+      $state.go('workspace.search', {keyword: vm.keyword});
+    };
+
     vm.groups = GroupsService.listLibraryGroup(function() {
         vm.nodes = treeUtils.buildGroupTree(vm.groups);
         vm.nodeList = treeUtils.buildGroupListInOrder(vm.nodes);

@@ -96,6 +96,7 @@
     function onUserSignupSuccess(response) {
       // If successful we assign the response to the global user model
       vm.authentication.user = response;
+      localStorageService.set("userId", vm.authentication.user._id);
       Notification.success({ message: '<i class="uk-icon-check"></i> Signup successful!' });
       // And redirect to the previous or home page
       if ($state.previous.state.name=='home'|| !$state.previous.state) {

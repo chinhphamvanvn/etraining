@@ -12,18 +12,16 @@ function LmsCoursesListController($scope, $state, $window, Authentication, $time
     var vm = this;
     vm.keyword = '';
 
+    vm.gotoSearch = function() {
+        if (!vm.keyword.trim()) return ;
+
+        $state.go('workspace.lms.courses.search', {keyword: vm.keyword});
+    };
+
     vm.groups = GroupsService.listCourseGroup(function() {
         _.each(vm.groups,function(group) {
             group.courses = CoursesService.byGroup({groupId:group._id});
         });
-
-        // _.each(vm.groups,function(group) {
-        //     CoursesService.byGroup({groupId:group._id},function(courses) {
-        //         group.courses = _.filter(courses,function(course) {
-        //             return course.status =='available' && course.enrollStatus && course.displayMode !='enroll'
-        //         });
-        //     });
-        // });
 
         CoursesService.listPublic(function(courses) {
             vm.fullCourses = courses;
