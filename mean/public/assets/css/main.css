@@ -14157,7 +14157,7 @@ body {
 }
 .imageCourseHome {
   width: 100%;
-  height: 85%;
+  height: auto;
 }
 @media (max-width: 479px) {
   .imageCourseHome {
