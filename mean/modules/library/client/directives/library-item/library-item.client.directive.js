@@ -8,7 +8,7 @@
     .directive('libraryItem', ['GroupsService','CoursesService','_', libraryItem]);
 
   function libraryItem(GroupsService,CourseEditionsService,_) {
-      
+
       return {
           scope: {
               media: "=",
@@ -16,7 +16,6 @@
           },
           templateUrl:'/modules/library/client/directives/library-item/library-item.directive.client.view.html',
           link: function (scope, element, attributes) {
-                  // console.log(scope.media);
           }
       }
   }
