@@ -16,6 +16,7 @@
     vm.cancel = cancel;
     vm.isContextUserSelf = isContextUserSelf;
     vm.currentUserId = localStorageService.get('userId');
+    vm.selectGroup = selectGroup;
     
     var $basicValidate = $('#user_edit_form');
     var $changePassValidate = $('#user_change_pass_form');
