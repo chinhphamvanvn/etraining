@@ -89,8 +89,8 @@
                   return '<span class="uk-badge uk-badge-success">Available</span>';
               if (data.status=='draft')
                   return '<span class="uk-badge uk-badge-default">Draft</span>';
-              if (data.status=='suspended')
-                  return '<span class="uk-badge uk-badge-danger">Suspended</span>';
+              if (data.status=='unavailable')
+                  return '<span class="uk-badge uk-badge-danger">N/A</span>';
           }),       ,
           DTColumnBuilder.newColumn(null).withTitle($translate.instant('COMMON.ACTION')).notSortable()
           .renderWith(function(data, type, full, meta) {

@@ -6,9 +6,9 @@ angular
     .module('lms')
     .controller('CoursesOutlineEditController', CoursesOutlineEditController);
 
-CoursesOutlineEditController.$inject = ['$scope', '$state', '$window', 'Authentication', '$timeout', 'editionResolve','courseResolve', 'Notification', 'CourseEditionsService', 'EditionSectionsService','treeUtils','_'];
+CoursesOutlineEditController.$inject = ['$scope', '$state', '$window', 'Authentication', '$timeout', 'editionResolve','courseResolve', 'Notification', 'CourseEditionsService', 'EditionSectionsService','treeUtils','$translate','_'];
 
-function CoursesOutlineEditController($scope, $state, $window, Authentication, $timeout, edition, course, Notification, CourseEditionsService,EditionSectionsService , treeUtils, _) {
+function CoursesOutlineEditController($scope, $state, $window, Authentication, $timeout, edition, course, Notification, CourseEditionsService,EditionSectionsService , treeUtils, $translate,_) {
     var vm = this;
     vm.authentication = Authentication;
     vm.edition = edition;

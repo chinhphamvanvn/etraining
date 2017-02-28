@@ -148,7 +148,7 @@
       }
       
      function selectTeachers() {
-         var users = _.filter(vm.studentUsers,function(user) {
+         var users = _.filter(vm.teacherUsers,function(user) {
              return user.selectedAsTeacher
          })
          _.each(users,function(user) {
