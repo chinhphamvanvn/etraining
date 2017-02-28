@@ -73,6 +73,7 @@
     
     vm.selectGroup = function(groups) {
         vm.groups = groups;
+        console.log(vm.groups);
        if (groups && groups.length)
             vm.dtInstance.reloadData(function() {}, true);
     }
