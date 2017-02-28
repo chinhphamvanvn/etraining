@@ -9,10 +9,11 @@
 
   function UserImportController($scope,$state, $filter, $compile, Authentication, AdminService, $timeout, $location, $window, GroupsService,UsersService, DTOptionsBuilder, DTColumnDefBuilder, Notification, treeUtils,$translate, _) {
     var vm = this;
-    vm.user = Authentication.user; 
+    vm.user = Authentication.user;
     vm.users = [];
     vm.headers = [];
     vm.importData = importData;
+    vm.selectedGroup = selectedGroup;
     vm.csv = {
             content: null,
             header: true,
@@ -24,8 +25,8 @@
             uploadButtonLabel: "Select CSV file"
         };
     vm.finishLoad = finishLoad;
-        
-    vm.columnOptions = 
+
+    vm.columnOptions =
             [
                 {
                     id: 1,
@@ -76,9 +77,8 @@
                     value: "twitter",
                     parent_id: 1
                 }
-                
             ];
-        
+
 
     vm.columnConfigs = {
         create: false,
@@ -87,9 +87,9 @@
         valueField: 'value',
         labelField: 'title'
     };
-    
+
     var closeButton = $('#dialogClose');
-    
+
     function finishLoad() {
         if (!vm.csv.result.headers  || vm.csv.result.headers.length == 0) {
             vm.headers = [];
@@ -103,12 +103,13 @@
         vm.users = vm.csv.result.rows;
         $scope.$apply();
     }
-    
-    function importData() {      
-        if (!vm.group) {
+
+    function importData() {
+        console.log(vm.group);
+        if (!vm.group || vm.group.length == 0) {
             UIkit.modal.alert($translate.instant('ERROR.USER_EDIT.EMPTY_ORG_GROUP'));
             return;
-        } 
+        }
         var modal = UIkit.modal.blockUI('<div class=\'uk-text-center\'>Processing...<br/><img class=\'uk-margin-top\' src=\'/assets/img/spinners/spinner.gif\' alt=\'\'>');
         var userList = [];
         _.each(vm.users,function(user) {
@@ -129,6 +130,10 @@
             modal.hide();
             $window.location.reload();
         })
+    }
+
+    function selectedGroup(groups) {
+        vm.group = groups;
     }
   }
 
