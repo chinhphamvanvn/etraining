@@ -17,8 +17,13 @@
       },
       byGroup: {
           method: 'GET',
-          isArray:true,
+          isArray: true,
           url:'/api/media/byGroup/:groupId'
+      },
+      byKeyword: {
+        method: 'GET',
+        isArray: true,
+        url:'/api/media/search'
       }
     });
   }

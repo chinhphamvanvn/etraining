@@ -13,27 +13,27 @@
     $stateProvider
       .state('admin.workspace.library', {
         url: '/library',
-        abstract:true,
+        abstract: true,
         template: '<ui-view/>',
         data: {
-          roles: [ 'admin']
+          roles: ['admin']
         }
       })
       .state('admin.workspace.library.content', {
         url: '/content',
-        abstract:true,
+        abstract: true,
         template: '<ui-view/>',
         data: {
-          roles: [ 'admin']
+          roles: ['admin']
         }
       })
-    .state('admin.workspace.library.content.list', {
+      .state('admin.workspace.library.content.list', {
         url: '/list',
         templateUrl: '/modules/library/client/views/list-contents.client.view.html',
         controller: 'LibraryContentsListController',
         controllerAs: 'vm',
         data: {
-          roles: [ 'admin']
+          roles: ['admin']
         }
       })
       .state('admin.workspace.library.content.create', {
@@ -42,10 +42,10 @@
         controller: 'LibraryContentController',
         controllerAs: 'vm',
         resolve: {
-            mediaResolve:newMedia,
-        },        
+          mediaResolve: newMedia
+        },
         data: {
-          roles: [ 'admin']
+          roles: ['admin']
         }
       })
       .state('admin.workspace.library.content.edit', {
@@ -53,11 +53,11 @@
         templateUrl: '/modules/library/client/views/form-content.client.view.html',
         controller: 'LibraryContentController',
         controllerAs: 'vm',
-        resolve : {
-            mediaResolve:getMedia,
-        },        
+        resolve: {
+          mediaResolve: getMedia
+        },
         data: {
-          roles: [ 'admin']
+          roles: ['admin']
         }
       })
       .state('workspace.library', {
@@ -66,11 +66,21 @@
         controller: 'LibraryController',
         controllerAs: 'vm',
         data: {
-          roles: [ 'user']
+          roles: ['user']
         }
-      });
+      })
+      .state('workspace.search', {
+        url: '/search?keyword',
+        templateUrl: '/modules/library/client/views/library.client.view.html',
+        controller: 'LibrarySearchController',
+        controllerAs: 'vm',
+        data: {
+          roles: ['user']
+        }
+      })
+    ;
   }
-  
+
   getMedia.$inject = ['$stateParams', 'LibraryMediaService'];
 
   function getMedia($stateParams, LibraryMediaService) {
@@ -79,10 +89,10 @@
     }).$promise;
   }
 
-  newMedia.$inject = ['$stateParams','LibraryMediaService'];
+  newMedia.$inject = ['$stateParams', 'LibraryMediaService'];
 
-  function newMedia($stateParams,LibraryMediaService) {
-    var media =  new LibraryMediaService();
+  function newMedia($stateParams, LibraryMediaService) {
+    var media = new LibraryMediaService();
     media.group = $stateParams.group;
     return media;
   }
