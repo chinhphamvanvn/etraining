@@ -1,0 +1,92 @@
+<style type="text/css">
+    .md-btn-flat-primary, .md-btn-flat-primary:hover, .md-btn-flat-primary:focus, .md-btn-flat-primary:active, .md-btn-flat-primary.uk-active {
+        color: #1976d2;
+    }
+    .infoCourse > .level-date{
+        padding-top: 10px;
+    }
+    .infoCourse > .level-date span {
+      font-size: 13px;
+    }
+    .infoCourse > .description {
+        display: block;
+        font-size: 13px;
+    }
+    .infoCourse > .title {
+        font-size: 18px; margin-bottom: 5px;
+    }
+    .infoCourse > .introA {
+            display: none;
+        }
+    @media (max-width:900px){
+        .infoCourse > .title {
+            font-size: 18px; margin-bottom: 5px;
+        }
+        .infoCourse > .level-date{
+            padding-top: 10px;
+            font-size: 13px;
+        }
+        .infoCourse > .description {
+            display: block;
+            font-size: 13px;
+        }
+    }
+    @media (max-width:767px){
+        .infoCourse > .level-date{
+            padding-top: 0px;
+            font-size: 13px;
+        }
+        .infoCourse > .description {
+            display: none;
+        }
+    }
+    @media (max-width:500px){
+        .infoCourse > .level-date{
+            padding-top: 0px;
+            font-size: 13px;
+        }
+        .infoCourse > .description {
+            display: none;
+        }
+        .infoCourse > .title {
+            font-size: 14px; margin-bottom: 5px;
+        }
+        .infoCourse > .introA {
+            display: none;
+        }
+    }
+</style>
+<div class="md-card" style="box-shadow: none;">
+    <div class="md-card-content large-padding">
+        <div class="uk-grid blog_article uk-grid-divider" data-uk-grid-margin>
+            <div class="uk-width-1-1 hierarchical_show" ng-repeat="itemCourse in course | orderBy:sort" data-uk-grid="{gutter: 20}" hierarchical-show style="margin-bottom: 20px;">
+                <div class="uk-width-1-1">
+                    <!-- <a ui-sref="workspace.lms.courses.join.intro({ courseId: itemCourse._id,editionId:edition._id })"> -->
+                        <div class="uk-grid uk-grid-small" style="width: 100%;">
+                            <div class="uk-width-1-4" style="overflow: auto;">
+                                <img class="img_thumb" style="border-radius: 5px; width: 90%;" src ="{{itemCourse.logoURL}}"/>
+                            </div>
+                            <div class="uk-width-3-4">
+                                <div class="uk-grid uk-grid-small">
+                                    <div class="uk-width-4-5 infoCourse" >
+                                        <div class="title" style="font-weight: 500; text-transform: capitalize;">{{itemCourse.name}}</div>
+                                        <div class="description">{{itemCourse.summary | limitTo:120}}</div>
+                                        <div class="level-date" style="">
+                                            <span>{{itemCourse.startDate | date :'dd-MM-yyyy'}}</span>&nbsp;&nbsp;
+                                            <span style="text-transform: capitalize;">{{itemCourse.level}} </span>&nbsp;&nbsp;
+                                            <span style="text-transform: capitalize;">{{itemCourse.user.displayName}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="uk-width-1-5 introA">
+                                        <a ui-sref="workspace.lms.courses.join.intro({ courseId: itemCourse._id,editionId:edition._id })" class="md-btn md-btn-small md-btn-flat md-btn-flat-primary" style="margin-top: 25%; background: #e3f2fd;">{{'ACTION.VIEW_INFO'|translate}}</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <!-- </a> -->
+                </div>
+                        <!-- <p ng-bind-html="itemCourse.detail"> -->
+            </div>
+        </div>
+    </div>
+</div>
