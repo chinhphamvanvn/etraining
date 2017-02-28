@@ -33,7 +33,7 @@
 
     function remove(item) {
       UIkit.modal.confirm('Are you sure?', function () {
-        vm.item.$remove(function () {
+        item.$remove(function () {
           vm.medium = _.reject(vm.medium, function (media) {
             return media._id == item._id;
           })
