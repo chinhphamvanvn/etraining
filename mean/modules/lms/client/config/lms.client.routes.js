@@ -480,7 +480,7 @@
           courseRoles: [ 'teacher']
         }
       })
-      .state('workspace.lms.courses.join.gradeboard.member', {
+      .state('workspace.lms.courses.join.gradeboard-member', {
         url: '/:memberId',
         templateUrl: '/modules/lms/client/views/teacher/gradebook-course.client.view.html',
         controller: 'CoursesGradeboardMemberController',

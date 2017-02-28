@@ -15,6 +15,11 @@
     var vm = this;
     vm.keyword = '';
 
+    vm.gotoSearch = function() {
+      if (!vm.keyword.trim()) return ;
+      $state.go('workspace.search', {keyword: vm.keyword});
+    };
+
     vm.mediasByKeyword = LibraryMediaService.byKeyword({keyword: $stateParams.keyword}, function() {
       vm.selectMedia = vm.mediasByKeyword;
     });

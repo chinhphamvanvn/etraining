@@ -1,0 +1,74 @@
+<div class="uk-modal uk-modal-card-fullscreen" id="import_user_dialog"
+    ng-controller="UserImportController as dlg">
+    <div class="uk-modal-dialog uk-modal-dialog-blank">
+        <div class="md-card uk-height-viewport">
+            <div class="md-card-toolbar">
+                <span class="md-icon material-icons uk-modal-close" id="dialogClose">&#xE5C4;</span>
+                <h3 class="md-card-toolbar-heading-text">{{'DIALOG.IMPORT.BACK'
+                    | translate}}</h3>
+                
+              </div>
+            <div class="md-card-content">
+                <h3 class="heading_b uk-margin-bottom">{{'DIALOG.IMPORT.USER.TITLE'
+                    | translate}}</h3>
+                <div class="md-card">
+                    <div class="md-card-content">
+                       
+                        <div class="uk-grid" >
+                            <div class="uk-width-medium-1-2">
+                                 <h3 class="heading_a uk-margin-bottom">{{'DIALOG.IMPORT.CSV_FORMAT'
+                            | translate}}</h3>
+                                    <csv-import 
+                                        content="dlg.csv.content"
+                                        header="dlg.csv.header"
+                                        separator="dlg.csv.separator"
+                                        result="dlg.csv.result"
+                                        callback="dlg.finishLoad"
+                                        encoding="dlg.csv.encoding"
+                                        acceptSize="dlg.csv.acceptSize"
+                                        upload-button-label="dlg.csv.uploadButtonLabel"></csv-import>
+                            </div>
+                            <div class="uk-width-medium-1-2">
+                             <h3 class="heading_a uk-margin-bottom">{{'DIALOG.IMPORT.USER.DEPARTMENT' | translate}}</h3>
+                                <group-tree-view tree-id="'departmentTree'" mode="'single'"  select="dlg.selectedGroup" category="'organization'"></group-tree-view>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                 <div class="md-card" ng-show="dlg.users.length">
+                    <div class="md-card-content">                                                
+                        <table  class="uk-table">
+                            <caption>{{'ACTION.PREVIEW' | translate}} <a class="md-btn md-btn-wave-light uk-align-right md-btn-primary"  ng-click="dlg.importData()">{{'ACTION.IMPORT'|translate}}</a></caption>
+                            <thead>
+                            <tr>
+                                <th  ng-repeat="header in dlg.headers track by $index"  ng-show="!header.deleted">
+                                    <input type="text" config="dlg.columnConfigs" options="dlg.columnOptions" ng-model="header.column" name="selectizeColumn"  selectize />
+                                </th>
+                                <th></th>
+                            </tr>
+                            <tr>
+                                <th ng-repeat="header in dlg.headers track by $index" ng-show="!header.deleted">{{header.name}} <a><i ng-click="header.deleted=true" class="material-icons uk-text-danger">remove_circle</i></a> </th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                          <tbody>
+                            
+                                <tr ng-repeat="user in dlg.users" ng-show="!user.removed">
+                                    <td ng-repeat="header in dlg.headers track by $index"  ng-show="!header.deleted">{{user[$index]}}</td>
+                                    <td>
+                                        <a ng-click="user.removed=true"><i class="material-icons uk-text-danger">remove_circle</i></a>
+                                    </td>
+                                </tr>
+                            
+                          </tbody>
+                        </table>
+                        
+                        
+                 </div>
+                </div>
+                
+                
+            </div>
+        </div>
+    </div>
+</div>

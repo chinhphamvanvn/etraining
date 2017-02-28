@@ -14125,6 +14125,9 @@ body {
   line-height: 42px;
   padding: 0 10px;
 }
+.main-search-box {
+  padding-bottom: 15px;
+}
 .main-search-box input {
   border: 1px solid #a7a7a7;
   min-width: 70%;
