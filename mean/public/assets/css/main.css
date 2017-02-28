@@ -14094,6 +14094,28 @@ body {
   text-transform: lowercase;
 }
 /* List courses and library style =================== */
+.uk-grid + .md-card-courses {
+  margin-top: 0;
+}
+.admin-header-container {
+  margin-bottom: 10px;
+}
+.admin-header-container .admin-page-title {
+  line-height: 44px;
+}
+.search-box input {
+  height: 30px;
+  border: 1px solid #E5E5E5;
+  border-radius: 4px;
+  padding: 5px 10px;
+  min-width: 250px;
+  font-size: 13px;
+}
+.search-box .vi-btn-search {
+  height: 42px;
+  line-height: 42px;
+  padding: 0 10px;
+}
 .media-title {
   font-weight: 500;
   text-transform: capitalize;
@@ -14108,12 +14130,13 @@ body {
   margin-right: 50px;
   margin-top: -10px;
   float: right;
-  border: 1px solid #1e1e1e;
+  border: 1px solid #cecece;
   min-width: 220px;
 }
 .sort-select .selectize-control.single,
 .sort-select .selectize-input {
-  border-bottom: 1px solid #1e1e1e;
+  border-bottom: 1px solid #cecece;
+  margin-top: 0;
 }
 @media (max-width: 500px) {
   .sortCour {

@@ -39,6 +39,16 @@
             courseRoles: [ 'teacher','student']
         }
       })
+      .state('workspace.lms.courses.search', {
+        url: '/search?keyword',
+        templateUrl: '/modules/lms/client/views/list-courses.client.view.html',
+        controller: 'LmsCoursesSearchController',
+        controllerAs: 'vm',
+        data: {
+          roles: [ 'user'],
+          courseRoles: [ 'teacher','student']
+        }
+      })
       .state('workspace.lms.courses.outline', {
         url: '/outline/:courseId/:editionId',
         templateUrl: '/modules/lms/client/views/teacher/outline-course.client.view.html',
@@ -507,7 +517,7 @@
       courseId: $stateParams.courseId
     }).$promise;
   }
-  
+
   getEdition.$inject = ['$stateParams', 'CourseEditionsService'];
 
   function getEdition($stateParams, CourseEditionsService) {
@@ -515,7 +525,7 @@
           return CourseEditionsService.get({editionId:$stateParams.editionId}).$promise;
       return  CourseEditionsService.byCourse({courseId:$stateParams.courseId}).$promise;
   }
-  
+
   getGradescheme.$inject = ['$stateParams', 'GradeSchemesService', '$q'];
 
   function getGradescheme($stateParams, GradeSchemesService, $q) {
@@ -534,9 +544,9 @@
           });
       });
       });
-      
+
   }
-  
+
   getHtml.$inject = ['$stateParams', 'EditionSectionsService','HtmlsService', '$q'];
 
   function getHtml($stateParams, EditionSectionsService, HtmlsService, $q) {
@@ -554,15 +564,15 @@
                   var html = new HtmlsService();
                   html.$save(function() {
                       resolve(html);
-                  });                  
+                  });
               }
-                  
+
       }, function(err) {
               reject();
       });
       });
   }
-  
+
   getQuiz.$inject = ['$stateParams', 'EditionSectionsService','ExamsService', '$q'];
 
   function getQuiz($stateParams, EditionSectionsService, ExamsService, $q) {
@@ -583,15 +593,15 @@
                   quiz.questionSelection = 'manual';
                   quiz.$save(function() {
                       resolve(quiz);
-                  });  
+                  });
               }
-                  
+
       }, function(err) {
               reject();
       });
       });
   }
-  
+
   getSurvey.$inject = ['$stateParams', 'EditionSectionsService','ExamsService', '$q'];
 
   function getSurvey($stateParams, EditionSectionsService, ExamsService, $q) {
@@ -613,15 +623,15 @@
                   survey.questionSelection = 'manual';
                   survey.$save(function() {
                       resolve(survey);
-                  });  
+                  });
               }
-                  
+
       }, function(err) {
               reject();
       });
       });
   }
-  
+
   getVideo.$inject = ['$stateParams', 'EditionSectionsService','VideosService', '$q'];
 
   function getVideo($stateParams, EditionSectionsService, VideosService, $q) {
@@ -639,15 +649,15 @@
                   var video = new VideosService();
                   video.$save(function() {
                       resolve(video);
-                  });  
+                  });
               }
-                  
+
       }, function(err) {
               reject();
       });
       });
   }
-  
+
   getMember.$inject = ['$stateParams', 'CourseMembersService','localStorageService'];
 
   function getMember($stateParams, CourseMembersService,localStorageService) {
@@ -655,7 +665,7 @@
           return CourseMembersService.get({memberId:$stateParams.memberId}).$promise;
     return CourseMembersService.byUserAndCourse({courseId:$stateParams.courseId,userId:localStorageService.get('userId')}).$promise;
   }
-  
+
   getSection.$inject = ['$stateParams', 'EditionSectionsService'];
 
   function getSection($stateParams, EditionSectionsService) {
@@ -669,7 +679,7 @@
   function newCourse(CoursesService) {
     return new CoursesService();
   }
-  
+
   getUser.$inject = [ 'UsersService'];
 
   function getUser( UsersService) {

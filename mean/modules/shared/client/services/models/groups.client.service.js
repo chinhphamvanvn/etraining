@@ -45,7 +45,7 @@
             method: 'GET',
             isArray: true
           }
-    
+
     });
   }
 }());

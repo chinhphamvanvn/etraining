@@ -13,13 +13,13 @@ module.exports = function(app) {
 
   app.route('/api/groups/organization').all(groupsPolicy.isAllowed)
   .get(groups.listOrganizationGroup);
-  
+
   app.route('/api/groups/course').all(groupsPolicy.isAllowed)
   .get(groups.listCourseGroup);
-  
+
   app.route('/api/groups/library').all(groupsPolicy.isAllowed)
   .get(groups.listLibraryGroup);
-  
+
   app.route('/api/groups/competency').all(groupsPolicy.isAllowed)
   .get(groups.listCompetencyGroup);
   

@@ -10,6 +10,8 @@ LmsCoursesListController.$inject = ['$scope', '$state', '$window', 'Authenticati
 
 function LmsCoursesListController($scope, $state, $window, Authentication, $timeout, CoursesService, Notification, GroupsService,$q, _, treeUtils) {
     var vm = this;
+    vm.keyword = '';
+
     vm.groups = GroupsService.listCourseGroup(function() {
         _.each(vm.groups,function(group) {
             group.courses = CoursesService.byGroup({groupId:group._id});
@@ -24,11 +26,14 @@ function LmsCoursesListController($scope, $state, $window, Authentication, $time
         // });
 
         CoursesService.listPublic(function(courses) {
-            vm.fullCourses = [];
             vm.fullCourses = courses;
             vm.selectedCourse = courses;
             vm.sort = 'asc';
-        });
+        });CoursesService.listPublic(function(courses) {
+        vm.fullCourses = courses;
+        vm.selectedCourse = courses;
+        vm.sort = 'asc';
+      });
 
         vm.nodes = treeUtils.buildCourseTree(vm.groups);
         _.each(vm.nodes,function(node) {
@@ -57,8 +62,8 @@ function LmsCoursesListController($scope, $state, $window, Authentication, $time
     vm.selsetAll = selsetAll;
 
     vm.optionCoures = [
-                { value: 'asc', label: 'Sắp xếp theo tên A -> z' },
-                { value: 'dsc', label: 'Sắp xếp theo tên z -> A' },
+                { value: 'asc', label: 'Sắp xếp theo tên a -> z' },
+                { value: 'dsc', label: 'Sắp xếp theo tên z -> a' },
                 { value: 'date', label: 'Săp xếp theo ngày bắt đầu khóa học' }
             ];
     vm.selectize_val_config = {
@@ -69,7 +74,6 @@ function LmsCoursesListController($scope, $state, $window, Authentication, $time
                 placeholder: 'Choose...'
             };
     function toggleExpand(node) {
-        // console.log(node);
         node.data.coursesList = [];
         var courses = [];
         var childsNode = treeUtils.buildGroupListInOrder([node]);

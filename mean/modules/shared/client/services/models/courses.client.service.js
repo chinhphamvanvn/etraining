@@ -16,25 +16,30 @@
         method: 'PUT'
       },
       byGroup: {
-          method: 'GET',
-          isArray:true,
-          url:'/api/courses/byGroup/:groupId'
+        method: 'GET',
+        isArray: true,
+        url: '/api/courses/byGroup/:groupId'
       },
       listPublic: {
-          method: 'GET',
-          isArray:true,
-          url:'/api/courses/public'
+        method: 'GET',
+        isArray: true,
+        url: '/api/courses/public'
       },
       listPrivate: {
-          method: 'GET',
-          isArray:true,
-          url:'/api/courses/private'
-        },
+        method: 'GET',
+        isArray: true,
+        url: '/api/courses/private'
+      },
       listRestricted: {
-          method: 'GET',
-          isArray:true,
-          url:'/api/courses/restricted'
-        }
+        method: 'GET',
+        isArray: true,
+        url: '/api/courses/restricted'
+      },
+      listByKeyword: {
+        url: '/api/courses/search',
+        method: 'GET',
+        isArray: true
+      }
     });
   }
 }());

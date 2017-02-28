@@ -115,7 +115,7 @@ exports.listCourseGroup = function(req, res) {
         }
       });
     };
-    
+
     exports.listQuestionGroup = function(req, res) {
         Group.find({category:'question'}).sort('-created').populate('user', 'displayName').exec(function(err, groups) {
           if (err) {
@@ -127,7 +127,7 @@ exports.listCourseGroup = function(req, res) {
           }
         });
       };
-  
+
   exports.listCompetencyGroup = function(req, res) {
       Group.find({category:'competency'}).sort('-created').populate('user', 'displayName').exec(function(err, groups) {
     if (err) {

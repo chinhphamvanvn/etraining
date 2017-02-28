@@ -267,10 +267,11 @@ gulp.task('sass', function () {
 // Less task
 gulp.task('less', function () {
   runSequence( 'less_main', 'less_themes', 'less_my_theme', 'less_style_switcher', function() {
-  return gulp.src(defaultAssets.client.less)
-    .pipe(plugins.less())
-    .pipe(plugins.autoprefixer())
-    .pipe(gulp.dest('./modules/'))});
+  // return gulp.src(defaultAssets.client.less)
+  //   .pipe(plugins.less())
+  //   .pipe(plugins.autoprefixer())
+  //   .pipe(gulp.dest('./modules/'))
+  });
 });
 
 // Imagemin task

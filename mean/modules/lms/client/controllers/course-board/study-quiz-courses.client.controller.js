@@ -44,13 +44,13 @@ function CoursesStudyQuizController($scope, $state, $window, QuestionsService,Ex
                         });
                     },vm.remainTime*1000);
                     vm.intervalToken = $interval(updateClock,1000);
-                    
+
                     var allPromise = [];
                     _.each(vm.quiz.questions,function(q,index) {
                         allPromise.push(QuestionsService.get({questionId:q.id}).$promise);
                      });
                     $q.all(allPromise).then(function(questions) {
-                       vm.questions = questions; 
+                       vm.questions = questions;
                        vm.index = 0;
                        if (vm.questions.length>0)
                            selectQuestion(vm.index)
@@ -62,27 +62,27 @@ function CoursesStudyQuizController($scope, $state, $window, QuestionsService,Ex
         })
     } else
         vm.alert = $translate.instant('ERROR.COURSE_STUDY.QUESTION_NOT_FOUND');
-    
+
     vm.nextQuestion = nextQuestion;
     vm.prevQuestion = prevQuestion;
     vm.saveNext = saveNext;
     vm.savePrev = savePrev;
     vm.submitQuiz = submitQuiz;
     vm.selectOption = selectOption;
-    
+
     function updateClock() {
         vm.remainTime--;
     }
-    
+
     function selectOption(option,question) {
         if (vm.question.type=='sc') {
             _.each(question.options,function(obj) {
-               obj.selected = false; 
+               obj.selected = false;
             });
             option.selected = true;
         }
     }
-    
+
     function selectQuestion(index) {
         vm.question = vm.questions[index];
         if (!vm.question.answer) {
@@ -94,14 +94,14 @@ function CoursesStudyQuizController($scope, $state, $window, QuestionsService,Ex
                     option.selected = _.contains(vm.question.answer.options,option._id)
                 });
             });
-        } 
-        
+        }
+
         if (vm.question.answer.option || vm.question.answer.options)
             vm.question.attempted = true;
         else
             vm.question.attempted = false;
     }
-    
+
     function nextQuestion() {
         if (vm.index +1 <vm.questions.length) {
             vm.index++;
@@ -114,10 +114,10 @@ function CoursesStudyQuizController($scope, $state, $window, QuestionsService,Ex
             selectQuestion(vm.index);
         }
     }
-    
+
     function submitQuiz() {
         save(function() {
-            UIkit.modal.confirm('Are you sure?', function(){ 
+            UIkit.modal.confirm('Are you sure?', function(){
                 vm.attempt.status ='completed';
                 vm.attempt.end = new Date();
                 vm.attempt.answers = _.map(vm.questions,function(obj) {
@@ -130,21 +130,21 @@ function CoursesStudyQuizController($scope, $state, $window, QuestionsService,Ex
                 });
             });
         })
-        
+
     }
-   
+
    function saveNext() {
        save(function() {
            nextQuestion();
        })
    }
-   
+
    function savePrev() {
        save(function() {
            prevQuestion();
        })
    }
-   
+
    function save(callback) {
        var answer = vm.question.answer ;
        answer.question =  vm.question._id;
@@ -158,7 +158,7 @@ function CoursesStudyQuizController($scope, $state, $window, QuestionsService,Ex
                return !_.contains(vm.question.correctOptions,option._id);
            }).length > 0 && selectedOptions.length;
        }
-       if (answer._id) 
+       if (answer._id)
            answer.$update(function() {
                callback();
            });
@@ -167,9 +167,9 @@ function CoursesStudyQuizController($scope, $state, $window, QuestionsService,Ex
                callback();
            })
    }
-   
+
    vm.nextSection = $scope.$parent.nextSection;
    vm.prevSection = $scope.$parent.prevSection;
-   
+
 }
 }());
