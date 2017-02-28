@@ -19,7 +19,8 @@ var config = require('../config'),
   hbs = require('express-hbs'),
   path = require('path'),
   _ = require('lodash'),
-  lusca = require('lusca');
+  lusca = require('lusca'),
+  ipfilter = require('express-ipfilter').IpFilter;
 
 /**
  * Initialize local variables
@@ -51,6 +52,7 @@ module.exports.initLocalVariables = function (app) {
     res.locals.url = req.protocol + '://' + req.headers.host + req.originalUrl;
     next();
   });
+
 };
 
 /**
@@ -91,6 +93,8 @@ module.exports.initMiddleware = function (app) {
   // Add the cookie parser and flash middleware
   app.use(cookieParser());
   app.use(flash());
+  
+
 };
 
 /**
@@ -218,6 +222,15 @@ module.exports.configureSocketIO = function (app, db) {
   return server;
 };
 
+module.exports.initIpFilter = function(app) {
+    if (config.whitelistEnabled) {
+        var ips = [config.whitelistIP];
+        app.use(ipfilter(ips, {mode: 'allow', logLevel:'all'}));
+    }
+    
+    
+}
+
 /**
  * Initialize the Express application
  */
@@ -228,6 +241,9 @@ module.exports.init = function (db) {
   // Initialize local variables
   this.initLocalVariables(app);
 
+  // Initizlize filter by IP
+  this.initIpFilter(app);
+  
   // Initialize Express middleware
   this.initMiddleware(app);
 
@@ -254,6 +270,7 @@ module.exports.init = function (db) {
 
   // Initialize error routes
   this.initErrorRoutes(app);
+  
 
   // Configure Socket.io
   app = this.configureSocketIO(app, db);

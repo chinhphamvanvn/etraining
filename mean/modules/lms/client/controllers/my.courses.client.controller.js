@@ -6,9 +6,9 @@ angular
     .module('lms')
     .controller('MyCoursesListController', MyCoursesListController);
 
-MyCoursesListController.$inject = ['$scope', '$state', '$window', 'Authentication', '$timeout','localStorageService', 'CoursesService', 'Notification','AttemptsService','EditionSectionsService','CourseEditionsService', 'CourseMembersService', '$q', 'GroupsService','_'];
+MyCoursesListController.$inject = ['$scope', '$state', '$window', 'Authentication', '$timeout','localStorageService', 'CoursesService', 'Notification','AttemptsService','EditionSectionsService','CourseEditionsService', 'CourseMembersService','courseUtils', '$q', 'GroupsService','_'];
 
-function MyCoursesListController($scope, $state, $window, Authentication, $timeout, localStorageService, CoursesService, Notification, AttemptsService,EditionSectionsService, CourseEditionsService, CourseMembersService,$q ,GroupsService, _) {
+function MyCoursesListController($scope, $state, $window, Authentication, $timeout, localStorageService, CoursesService, Notification, AttemptsService,EditionSectionsService, CourseEditionsService, CourseMembersService,courseUtils,$q ,GroupsService, _) {
     var vm = this;
     vm.authentication = Authentication;
     vm.members = CourseMembersService.byUser({ userId:localStorageService.get('userId')},function() {
@@ -21,27 +21,11 @@ function MyCoursesListController($scope, $state, $window, Authentication, $timeo
             CourseEditionsService.byCourse({courseId:member.course._id},function(edition) {
                 member.edition = edition;
                 if (member.enrollmentStatus =='in-study') {
-                    var sections = EditionSectionsService.byEdition({editionId:edition._id}, function() {
-                        var attempts = AttemptsService.byMember({memberId:member._id},function() {
-                            var total =0;
-                            var complete = 0;
-                            _.each(sections,function(section) {
-                                if (section.hasContent) {
-                                    var read = _.find(attempts,function(attempt) {
-                                        return attempt.section == section._id && attempt.status=='completed';
-                                    });
-                                    total++;
-                                    if (read)
-                                        complete++;
-                                }
-                            });
-                            member.course.percentage = Math.floor(complete * 100 / total);
-                        });
+                    courseUtils.memberProgress(member._id,edition._id).then(function(percentage) {
+                        member.course.percentage = percentage;
                     });
                 }
             });
-                
-                
             
             if (member.course.group)
                 member.course.group = GroupsService.get({groupId:member.course.group});

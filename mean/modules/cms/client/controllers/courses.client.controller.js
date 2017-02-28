@@ -6,9 +6,9 @@ angular
     .module('cms')
     .controller('CoursesController', CoursesController);
 
-CoursesController.$inject = ['$scope', '$state', '$window', 'Authentication', '$timeout', 'courseResolve', 'CoursesService', 'Notification', 'GroupsService', 'Upload', 'fileManagerConfig','_'];
+CoursesController.$inject = ['$scope', '$state', '$window', 'Authentication', '$timeout', 'courseResolve', 'CoursesService', 'Notification', 'GroupsService', 'Upload', 'fileManagerConfig','$translate','_'];
 
-function CoursesController($scope, $state, $window, Authentication, $timeout, course, CoursesService, Notification, GroupsService,Upload ,fileManagerConfig, _) {
+function CoursesController($scope, $state, $window, Authentication, $timeout, course, CoursesService, Notification, GroupsService,Upload ,fileManagerConfig,$translate, _) {
     var vm = this;
 
     vm.authentication = Authentication;
@@ -186,7 +186,7 @@ function CoursesController($scope, $state, $window, Authentication, $timeout, co
 
     // Remove existing Course
     function remove() {
-        UIkit.modal.confirm('Are you sure?', function() {
+        UIkit.modal.confirm($translate.instant('COMMON.CONFIRM_PROMPT'), function() {
             vm.course.$remove($state.go('admin.workspace.cms.courses.list'));
         });
     }

@@ -5,9 +5,9 @@
     .module('performance')
     .controller('QuestionsBankController', QuestionsBankController);
 
-  QuestionsBankController.$inject = ['$scope', '$rootScope','$state', 'Authentication','GroupsService','QuestionsService', '$timeout', '$window', 'treeUtils', '_'];
+  QuestionsBankController.$inject = ['$scope', '$rootScope','$state', 'Authentication','GroupsService','QuestionsService', '$timeout', '$window', 'treeUtils','$translate', '_'];
   
-  function QuestionsBankController($scope, $rootScope, $state, Authentication, GroupsService, QuestionsService, $timeout, $window, treeUtils, _) {
+  function QuestionsBankController($scope, $rootScope, $state, Authentication, GroupsService, QuestionsService, $timeout, $window, treeUtils,$translate, _) {
     var vm = this;
     vm.authentication = Authentication;
     vm.finishEditQuestionTree = finishEditQuestionTree;
@@ -46,7 +46,7 @@
     }
     
     function remove(question) {
-            UIkit.modal.confirm('Are you sure?', function() {
+        UIkit.modal.confirm($translate.instant('COMMON.CONFIRM_PROMPT'), function() {
                 vm.question.$remove(function() {
                     vm.question = _.reject(vm.question ,function(question) {
                         return question._id == question._id;
