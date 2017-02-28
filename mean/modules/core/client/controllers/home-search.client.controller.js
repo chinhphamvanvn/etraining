@@ -34,5 +34,10 @@
     vm.coursesByKeyword = CoursesService.listByKeyword({keyword: $stateParams.keyword}, function() {
       vm.courses = vm.coursesByKeyword;
     });
+
+    vm.gotoSearch = function() {
+      if (!vm.keyword.trim()) return ;
+      $state.go('search', {keyword: vm.keyword});
+    };
   }
 }());

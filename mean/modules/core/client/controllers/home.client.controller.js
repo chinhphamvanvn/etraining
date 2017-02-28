@@ -16,7 +16,6 @@
         vm.registerSetting = data;
     });
 
-
     function gotoWorkspace() {
         if (_.contains(vm.user.roles,'admin'))
             $state.go('admin.workspace.dashboard');
@@ -28,5 +27,10 @@
     vm.totalItems = CoursesService.listPublic(function() {
       vm.courses = vm.totalItems.slice(0, 8);
     });
+
+    vm.gotoSearch = function() {
+      if (!vm.keyword.trim()) return ;
+      $state.go('search', {keyword: vm.keyword});
+    };
   }
 }());

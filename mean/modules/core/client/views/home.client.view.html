@@ -84,8 +84,11 @@
         <div class="uk-container uk-container-center">
             <div class="uk-grid">
               <div class="main-search-box uk-width-large-6-10 uk-container-center uk-text-center">
-                <input type="text" placeholder="{{'MODEL.COURSE.SEARCH' | translate}}" ng-model="vm.keyword">
-                <a ui-sref="search({keyword: vm.keyword})" class="uk-icon-hover uk-icon-search vi-btn-search"></a>
+                <input type="text" placeholder="{{'MODEL.COURSE.SEARCH' | translate}}"
+                 ng-model="vm.keyword"
+                 ng-keypress="(($event.which === 13) || ($event.keyCode === 13))&& vm.gotoSearch()">
+                <a class="uk-icon-hover uk-icon-search vi-btn-search"
+                   ng-click="vm.gotoSearch()"></a>
               </div>
             </div>
             <div class="uk-grid ">
