@@ -474,6 +474,7 @@
 	"COMMON.ATTEMPT_STATUS.COMPLETE":"Hoàn thành",
 	"COMMON.PROGRESS_PERCENTAGE":"Khối lượng hoàn thành",
 	"COMMON.TIME_SPEND":"Thời gian tham gia",
+  "COMMON.SHOW_MORE":"Hiển thị thêm",
 	"ERROR.COURSE_SURVEY.MAX_ATTEMPT_EXCEED":"Bạn đã hoàn thành bài khảo sát",
 	"ERROR.COURSE_SURVEY.QUESTION_NOT_FOUND":"Bài khảo sát không có câu hỏi",
 	"ERROR.COURSE_STUDY.MAX_ATTEMPT_EXCEED":"Bạn đã hết lượt làm bài thi",

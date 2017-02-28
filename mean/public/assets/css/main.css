@@ -14104,6 +14104,12 @@ body {
 .admin-header-container .admin-page-title {
   line-height: 44px;
 }
+.showmore-container {
+  margin-top: 40px;
+}
+.showmore-container i {
+  margin-left: 5px;
+}
 .search-box input,
 .main-search-box input {
   height: 30px;
