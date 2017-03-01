@@ -6,9 +6,9 @@
     .module('settings')
     .controller('AnnoucementsController', AnnoucementsController);
 
-  AnnoucementsController.$inject = ['$scope', '$state', '$window', 'Authentication', 'annoucementResolve'];
+  AnnoucementsController.$inject = ['$scope', '$state', '$window', 'Authentication', 'annoucementResolve','$translate'];
 
-  function AnnoucementsController ($scope, $state, $window, Authentication, annoucement) {
+  function AnnoucementsController ($scope, $state, $window, Authentication, annoucement,$translate) {
     var vm = this;
 
     vm.authentication = Authentication;
@@ -82,7 +82,7 @@
         }
 
     function remove() {
-        UIkit.modal.confirm('Are you sure?', function(){
+        UIkit.modal.confirm($translate.instant('COMMON.CONFIRM_PROMPT'), function() {
             vm.annoucement.$remove($state.go('admin.workspace.settings.annoucements.list'));
          });
     }

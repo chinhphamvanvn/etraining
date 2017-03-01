@@ -21,5 +21,39 @@ var cron = require('cron'),
 
 
 module.exports.start = function start() {
+    
+    CourseAttempt.find().exec(function(err,attempts) {
+        _.each(attempts,function(attempt) {
+            if (!attempt.course && attempt.edition) {
+                CourseEdition.findById(attempt.edition).exec(function(err,edition) {
+                    attempt.course = edition.course;
+                    attempt.save();
+                })
+            }
+        })
+    });
+    
+    CourseMember.find().exec(function(err,members) {
+        _.each(members,function(member) {
+            if (!member.edition && member.course) {
+                console.log(member);
+                CourseEdition.findOne({course:member.course}).exec(function(err,edition) {
+                    member.edition = edition._id;
+                    member.save();
+                })
+            }
+        })
+    });
   
+    Course.find().exec(function(err,courses) {
+        _.each(courses,function(course) {
+                CourseEdition.findOne({course:course._id}).exec(function(err,edition) {
+                    course.primaryEdition = edition._id;
+                    course.save();
+                })
+        })
+    });
+
+
+
 };

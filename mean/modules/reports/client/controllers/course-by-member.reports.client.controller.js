@@ -5,9 +5,9 @@
     .module('reports')
     .controller('CourseByMemberReportsController', CourseByMemberReportsController);
 
-  CourseByMemberReportsController.$inject = ['$scope', '$rootScope','$state', 'Authentication', 'GroupsService','AdminService', 'CoursesService','CourseMembersService','AttemptsService','$timeout', '$window','$translate', 'treeUtils','_'];
+  CourseByMemberReportsController.$inject = ['$scope', '$rootScope','$state', 'Authentication', 'GroupsService','AdminService', 'CoursesService','CourseMembersService','AttemptsService','$timeout', '$window','$translate','courseUtils', 'treeUtils','_'];
   
-  function CourseByMemberReportsController($scope, $rootScope, $state, Authentication,GroupsService,AdminService, CoursesService,CourseMembersService, AttemptsService, $timeout,$window,$translate, treeUtils,_) {
+  function CourseByMemberReportsController($scope, $rootScope, $state, Authentication,GroupsService,AdminService, CoursesService,CourseMembersService, AttemptsService, $timeout,$window,$translate, courseUtils,treeUtils,_) {
     var vm = this;
     vm.authentication = Authentication;
     vm.generateReport = generateReport;
@@ -25,13 +25,12 @@
                    AttemptsService.byMember({memberId:member._id},function(attempts) {
                        member.lastAttempt = _.max(attempts, function(attempt){return new Date(attempt.start).getTime()}); 
                        member.firstAttempt = _.min(attempts, function(attempt){return new Date(attempt.start).getTime()});
-                       _.each(attempts,function(attempt) {
-                           if (attempt.status=='completed') {
-                               var start = new Date(attempt.start);
-                               var end = new Date(attempt.end);
-                               member.time += Math.floor((end.getTime() - start.getTime())/1000);
-                           }
-                       });
+                   });
+                   courseUtils.memberTime(member._id).then(function(time) {
+                       member.time = time;
+                   });
+                   courseUtils.memberScoreByCourse(member._id,member.edition).then(function(score) {
+                       member.score = score;
                    });
                    vm.members.push(member);
                }) ;

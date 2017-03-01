@@ -118,7 +118,7 @@
       function remove(id) {
           if (id == vm.course._id)
               return;
-          UIkit.modal.confirm('Are you sure?', function(){
+          UIkit.modal.confirm($translate.instant('COMMON.CONFIRM_PROMPT'), function() {
               CoursesService.remove({courseId:id},function () {
                   vm.reload = true;
                   vm.dtInstance.reloadData(function() {}, true);

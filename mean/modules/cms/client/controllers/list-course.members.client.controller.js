@@ -133,7 +133,7 @@
       }
       
       function remove(member) {
-          UIkit.modal.confirm('Are you sure?', function() {
+          UIkit.modal.confirm($translate.instant('COMMON.CONFIRM_PROMPT'), function() {
               member.$remove(function() {
                   if (member.role=='teacher')
                       vm.teachers = _.reject(vm.teachers,function(item) {

@@ -26,7 +26,7 @@ var GradeSchemeSchema = new Schema({
       type: [{
           quiz: {
               type: Schema.ObjectId,
-              ref: 'Quiz'
+              ref: 'EditionSection'
           },
           weight: {
               type: Number,

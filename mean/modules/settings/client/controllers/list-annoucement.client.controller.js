@@ -5,9 +5,9 @@
     .module('settings')
     .controller('AnnoucementListController', AnnoucementListController);
 
-  AnnoucementListController.$inject = ['$scope', '$rootScope','$state', 'Authentication', 'menuService', '$timeout', '$window', 'Notification', 'AnnoucementsService', '_'];
+  AnnoucementListController.$inject = ['$scope', '$rootScope','$state', 'Authentication', 'menuService', '$timeout', '$window', 'Notification', 'AnnoucementsService', '$translate','_'];
   
-  function AnnoucementListController($scope, $rootScope, $state, Authentication, menuService, $timeout, $window, Notification, AnnoucementsService, _) {
+  function AnnoucementListController($scope, $rootScope, $state, Authentication, menuService, $timeout, $window, Notification, AnnoucementsService, $translate,_) {
     var vm = this;
     vm.authentication = Authentication;
     vm.remove = remove;
@@ -25,7 +25,7 @@
     }
    
     function remove(message) {
-        UIkit.modal.confirm('Are you sure?', function(){
+        UIkit.modal.confirm($translate.instant('COMMON.CONFIRM_PROMPT'), function() {
             message.$remove(vm.annoucements = _.reject(vm.annoucements,function(item) {
                 return item._id == message._id;
             }));

@@ -1,3 +1,5 @@
+
+
 <div id="page_content">
     <div id="page_content_inner">
         <div class="md-card uk-margin-medium-bottom">
@@ -38,7 +40,7 @@
                                 </td>
                                 <td class="uk-text-center" ng-if="vm.course.model=='group'">{{member.classroom.name}}</td>
                                 <td class="">
-                                <a  ui-sref="workspace.lms.courses.join.gradeboard.member({memberId:member._id})" data-uk-tooltip="{pos:'right'}" title="{{'PAGE.LMS.MY_COURSES.STUDENT_BOARD.GRADEBOOK'|translate}}"><i class="md-icon material-icons ">grade</i></a>
+                                <a  ui-sref="workspace.lms.courses.join.gradeboard-member({memberId:member._id})" data-uk-tooltip="{pos:'right'}" title="{{'PAGE.LMS.MY_COURSES.STUDENT_BOARD.GRADEBOOK'|translate}}"><i class="md-icon material-icons ">grade</i></a>
                                      <a ng-show="member.status=='active'" ng-click="vm.suspend(member)" data-uk-tooltip="{pos:'right'}" title="{{'ACTION.SUSPEND'|translate}}"><i class="md-icon material-icons uk-text-warning">lock</i></a>
                                     <a  ng-show="member.status=='suspended'" ng-click="vm.activate(member)" data-uk-tooltip="{pos:'right'}" title="{{'ACTION.ACTIVATE'|translate}}"><i class="md-icon material-icons uk-text-warning">lock_open</i></a>
                                     <a ng-show="!member.certificate" ng-click="vm.certify(member)" data-uk-tooltip="{pos:'right'}" title="{{'ACTION.CERTIFY'|translate}}"><i class="md-icon material-icons uk-text-primary">content_paste</i></a>
@@ -50,7 +52,7 @@
                     </div>
 
                 </div>
-                <ui-view></ui-view>
+                
             </div>
         
     </div>
