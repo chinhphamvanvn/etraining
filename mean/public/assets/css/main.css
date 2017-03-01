@@ -686,7 +686,7 @@
 }
 /* ------------ Components ------------ */
 /* accordion */
-/*! UIkit 2.27.1 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.27.2 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 /* ========================================================================
    Component: Accordion
  ========================================================================== */
@@ -809,7 +809,7 @@
   padding: 24px;
 }
 /* dotnav */
-/*! UIkit 2.27.1 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.27.2 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 /* ========================================================================
    Component: Dotnav
  ========================================================================== */
@@ -934,7 +934,7 @@
   float: none;
 }
 /* progress */
-/*! UIkit 2.27.1 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.27.2 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 /* ========================================================================
    Component: Progress
  ========================================================================== */
@@ -1056,7 +1056,7 @@
   background-color: #ffa000;
 }
 /* htmleditor */
-/*! UIkit 2.27.1 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.27.2 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 /* ========================================================================
    Component: HTML editor
  ========================================================================== */
@@ -1312,7 +1312,7 @@
   top: 38px;
 }
 /* upload */
-/*! UIkit 2.27.1 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.27.2 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 /* ========================================================================
    Component: Form file
  ========================================================================== */
@@ -1346,7 +1346,7 @@
   /* 2 */
   font-size: 500px;
 }
-/*! UIkit 2.27.1 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.27.2 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 /* ========================================================================
    Component: Upload
  ========================================================================== */
@@ -1391,7 +1391,7 @@ div.uk-form-file.md-btn {
   cursor: pointer;
 }
 /* form select */
-/*! UIkit 2.27.1 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.27.2 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 /* ========================================================================
    Component: Form select
  ========================================================================== */
@@ -1555,7 +1555,7 @@ a.uk-datepicker-table-muted {
   color: #727272;
 }
 /* nestable */
-/*! UIkit 2.27.1 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.27.2 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 /* ========================================================================
    Component: Nestable
  ========================================================================== */
@@ -1740,7 +1740,7 @@ a.uk-datepicker-table-muted {
   content: "\e313";
 }
 /* notify */
-/*! UIkit 2.27.1 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.27.2 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 /* ========================================================================
    Component: Notify
  ========================================================================== */
@@ -1974,7 +1974,7 @@ a.uk-datepicker-table-muted {
   }
 }
 /* slideshow */
-/*! UIkit 2.27.1 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.27.2 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 /* ========================================================================
    Component: Slideshow
  ========================================================================== */
@@ -2120,7 +2120,7 @@ a.uk-datepicker-table-muted {
   animation: uk-fade 0.5s ease-in-out reverse;
 }
 /* slider */
-/*! UIkit 2.27.1 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.27.2 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 /* ========================================================================
    Component: Slider
  ========================================================================== */
@@ -2227,7 +2227,7 @@ html[dir="rtl"] .uk-slider > * {
   opacity: 1;
 }
 /* slidenav */
-/*! UIkit 2.27.1 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.27.2 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 /* ========================================================================
    Component: Slidenav
  ========================================================================== */
@@ -2326,7 +2326,7 @@ html[dir="rtl"] .uk-slider > * {
   color: rgba(255, 255, 255, 0.9);
 }
 /* tooltips */
-/*! UIkit 2.27.1 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.27.2 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 /* ========================================================================
    Component: Tooltip
  ========================================================================== */
@@ -2351,6 +2351,7 @@ html[dir="rtl"] .uk-slider > * {
   color: rgba(255, 255, 255, 0.7);
   font-size: 12px;
   line-height: 18px;
+  word-break: break-all;
   border-radius: 3px;
   text-shadow: 0 1px 0 rgba(0, 0, 0, 0.5);
 }
@@ -2623,7 +2624,7 @@ html[dir="rtl"] .uk-slider > * {
   display: block;
 }
 /* sortable */
-/*! UIkit 2.27.1 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.27.2 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 /* ========================================================================
    Component: Sortable
  ========================================================================== */
