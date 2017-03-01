@@ -49,18 +49,19 @@
     
     function getExportData() {
         var data  = []
-        _.each(vm.members,function(member) {
+        _.each(vm.sections,function(section) {
             data.push({
-                        username:member.member.username,
-                        code:member.course ? member.course.code:'',
-                        name:member.course? member.course.name :'',
-                        model:member.course ? member.course.model:'',
-                        registered:moment(new Date(member.registered)).format('DD/MM/YYYY'),
-                        firstAttempt:moment(new Date(member.firstAttempt.created)).format('DD/MM/YYYY'),
-                        lastAttempt:moment(new Date(member.lastAttempt.created)).format('DD/MM/YYYY'),
-                        enrollmentStatus:member.enrollmentStatus,
-                        score:member.score,
-                        time:member.time})
+                        username:section.member.member.username,
+                        firstName:section.member.member.firstName,
+                        lastName:section.member.member.lastName,
+                        code: section.member.course.code,
+                        name: section.member.course.name,
+                        enrollStatus: section.member.enrollmentStatus,                                
+                        type:section.contentType,
+                        sectionName: section.name,
+                        firstAttempt:moment(new Date(section.firstAttempt.created)).format('DD/MM/YYYY'),
+                        lastAttempt:moment(new Date(section.lastAttempt.created)).format('DD/MM/YYYY'),
+                        completed:section.completed?$translate.instant('COMMON.ATTEMPT_STATUS.INITIAL') :$translate.instant('COMMON.ATTEMPT_STATUS.COMPLETE' )})
         });
         return data;
     }
@@ -69,15 +70,16 @@
     function getExportHeader() {
         return [
                 $translate.instant('MODEL.USER.USERNAME'),
+                $translate.instant('MODEL.USER.FIRST_NAME'),
+                $translate.instant('MODEL.USER.LAST_NAME'),
                 $translate.instant('MODEL.COURSE.CODE'),
                 $translate.instant('MODEL.COURSE.NAME'),
-                $translate.instant('MODEL.COURSE.MODEL'),
-                $translate.instant('REPORT.COURSE_BY_MEMBER.REGISTER_DATE'),
-                $translate.instant('REPORT.COURSE_BY_MEMBER.FIRST_ATTEMPT'),
-                $translate.instant('REPORT.COURSE_BY_MEMBER.LAST_ATTEMPT'),
                 $translate.instant('MODEL.MEMBER.ENROLL_STATUS'),
-                $translate.instant('REPORT.COURSE_BY_MEMBER.SCORE'),
-                $translate.instant('REPORT.COURSE_BY_MEMBER.TIME'),
+                $translate.instant('MODEL.SECTION.CONTENT_TYPE'),
+                $translate.instant('MODEL.SECTION.NAME'),
+                $translate.instant('REPORT.SECTION_BY_MEMBER.FIRST_ATTEMPT'),
+                $translate.instant('REPORT.SECTION_BY_MEMBER.LAST_ATTEMPT'),
+                $translate.instant('REPORT.SECTION_BY_MEMBER.STATUS')
                 ];
     }
    

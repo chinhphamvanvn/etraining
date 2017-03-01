@@ -101,13 +101,54 @@ exports.userLoginStats = function(req, res) {
     });
 }
 
-exports.memberAttemptStats = function(req, res) {
+exports.courseAttemptStats = function(req, res) {
     var day = parseInt(req.params.day);
-    Attempt.find({edition:req.edition._id,created:{$gt:new Date(Date.now() - day*24*60*60 * 1000)}}).aggregate(
-            {$group:
-            {_id: {$hour:'$created'},
-                count: { $sum: 1 }
-            }},function(err,docs)
+    var now = new Date();    
+
+    CourseAttempt.aggregate(
+            [
+            { "$match": {
+                edition: req.edition._id,
+                created:{$gt:new Date(Date.now() - day*24*60*60 * 1000)}
+            }},
+             { "$group": {
+                "_id": { 
+                    "year":  { "$year": "$created" },
+                    "month": { "$month": "$created" },
+                    "day":   { "$dayOfMonth": "$created" }
+                },
+                "count": { "$sum": 1 }
+            }}]          
+            
+            ,function(err,docs)
+            {
+                if(err)
+                    console.log(err);
+                console.log(docs);
+                res.json(docs);
+            });
+}
+
+
+exports.memberAttemptStats = function(req, res) {
+    var now = new Date();    
+
+    CourseAttempt.aggregate(
+            [
+            { "$match": {
+                edition: req.edition._id,
+                member:req.member._id
+            }},
+             { "$group": {
+                "_id": { 
+                    "year":  { "$year": "$created" },
+                    "month": { "$month": "$created" },
+                    "day":   { "$dayOfMonth": "$created" }
+                },
+                "count": { "$sum": 1 }
+            }}]          
+            
+            ,function(err,docs)
             {
                 if(err)
                     console.log(err);

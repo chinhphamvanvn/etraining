@@ -26,25 +26,7 @@ function CoursesStatsController($scope, $state, $window, Authentication, $timeou
           create: false,
 
       };
-    vm.memberConfig = {
-            create: false,
-            maxItems: 1,
-            placeholder: $translate.instant('PAGE.LMS.MY_COURSES.TEACHER_BOARD.REPORT.COMPREHENSIVE.ATTEMPT_CHART.SELECT_MEMBER'),
-            valueField: 'value',
-            labelField: 'title',
-            create: false,
-        };
-    vm.memberOptions =  [];
-    
-    CourseMembersService.byCourse({courseId:vm.course._id} ,function(members) {
-        members = _.filter(members,function(member) {
-            return member.role=='student';
-        })
-        vm.memberOptions = _.map(members,function(obj) {
-            return {title: obj.member.displayName, value: obj}
-        })
+  
 
-          
-    });
 }
 }());

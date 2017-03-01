@@ -15,21 +15,13 @@
                     </div>
                 </div>
                 <div class="md-card-content">
-                    <member-attempt-chart day="vm.memberStatsDay">
-                    </member-attempt-chart>
+                    <course-attempt-chart day="vm.memberStatsDay" edition="vm.edition._id">
+                    </course-attempt-chart>
                 </div>
             </div>
             
             <div class="md-card">
                 <div class="md-card-toolbar">
-                    <div class="md-card-toolbar-actions">
-                        <div class="uk-float-right">
-                            <input id="select_toolbar"
-                                config="vm.memberConfig"
-                                options="vm.memberOptions"
-                                ng-model="vm.member" selectize />
-                        </div>
-                    </div>
                     <div class="md-card-toolbar-heading-text">
                         {{'PAGE.LMS.MY_COURSES.TEACHER_BOARD.REPORT.PER_STUDENT'|translate}}
                     </div>
@@ -38,16 +30,23 @@
                    <div class="uk-grid uk-grid-medium" data-uk-grid-margin>
                                 <div class="uk-width-1-5">
                                     <ul class="uk-tab uk-tab-left" data-uk-tab="{connect:'#tabs_6'}">
-                                        <li class="uk-active"><a href="#">{{'PAGE.LMS.MY_COURSES.TEACHER_BOARD.REPORT.COMPREHENSIVE.PROGRESS_CHART'|translate}}</a></li>
+                                        <li><a href="#">{{'PAGE.LMS.MY_COURSES.TEACHER_BOARD.REPORT.COMPREHENSIVE.PROGRESS_CHART'|translate}}</a></li>
                                         <li><a href="#">{{'PAGE.LMS.MY_COURSES.TEACHER_BOARD.REPORT.PER_STUDENT.TIME_SPENT'|translate}}</a></li>
                                         <li><a href="#">{{'PAGE.LMS.MY_COURSES.TEACHER_BOARD.REPORT.PER_STUDENT.DAILY_SECTION'|translate}}</a></li>
                                     </ul>
                                 </div>
                                 <div class="uk-width-4-5">
                                     <ul id="tabs_6" class="uk-switcher uk-margin-small-top">
-                                        <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda at, dignissimos esse eveniet id itaque laudantium modi nisi perferendis placeat provident quia recusandae reprehenderit sed sit soluta voluptas! Architecto, laboriosam?</li>
-                                        <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid, autem, blanditiis consequatur cumque dicta distinctio ea esse eum exercitationem explicabo id incidunt molestiae numquam quae rem repellat reprehenderit tempore voluptatem!</li>
-                                        <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci aperiam architecto, atque aut autem dicta dolorem enim fugit impedit maxime nam, nesciunt provident quibusdam rerum sed similique voluptate voluptatibus. Laudantium.</li>
+                                        <li>
+                                            <single-member-progress-report course="vm.course" ></single-member-progress-report>
+                                        
+                                        </li>
+                                        <li>
+                                            <single-member-time-report course="vm.course" ></single-member-time-report>
+                                         </li>
+                                        <li>
+                                            <single-member-attempt-report course="vm.course" edition="vm.edition"></single-member-attempt-report>
+                                        </li>
                                     </ul>
                                 </div>
                             </div>

@@ -148,7 +148,8 @@ angular
                     //scope.options = generateOptions((scope.options || config.options || scope.ngModel).slice());
 
                     scope.generatedOptions = generateOptions( (scope.options || config.options || scope.ngModel).slice() );
-                    scope.options.length = 0;
+                    if (scope.options)
+                        scope.options.length = 0;
                     scope.generatedOptions.forEach(function (item) {
                         scope.options.push(item);
                     });

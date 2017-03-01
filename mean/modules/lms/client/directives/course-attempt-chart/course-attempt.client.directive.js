@@ -5,19 +5,19 @@
   // Unless the user is on a small device, because this could obscure the page with a keyboard
 
   angular.module('lms')
-    .directive('memberAttemptChart', ['ReportsService','$translate',  '_', memberAttemptChart]);
+    .directive('courseAttemptChart', ['ReportsService','$translate',  '_', courseAttemptChart]);
 
-  function memberAttemptChart(ReportsService, $translate, _) {
+  function courseAttemptChart(ReportsService, $translate, _) {
       
       return {
           scope: {
-              member: "=",
+              day: "=",
               edition:"="
           },
-          templateUrl:'/modules/lms/client/directives/member-attempt-chart/member-attempt.directive.client.view.html',
+          templateUrl:'/modules/lms/client/directives/course-attempt-chart/course-attempt.directive.client.view.html',
           link: function (scope, element, attributes) {
               
-              var progress_chart_id = 'member_attempt_chart';
+              var progress_chart_id = 'course_attempt_chart';
               var progress_chart = c3.generate({
                   bindto: '#'+progress_chart_id,
                   data: {
@@ -44,9 +44,9 @@
                   }
               });
               
-              scope.$watch('member', function(newValue, oldValue) {
+              scope.$watch('day', function(newValue, oldValue) {
                   if (newValue) {
-                      ReportsService.memberAttemptStats({memberId:scope.member._id,editionId:scope.edition},function(stats) {
+                      ReportsService.courseAttemptStats({day:newValue,editionId:scope.edition},function(stats) {
                           var date = ['x'];
                           var attempt =[$translate.instant('COMMON.MEMBER_ATTEMPT')];
                           _.each(stats,function(stat) {
