@@ -35,7 +35,6 @@ function CoursesPreviewSurveyController($scope, $state, $window, QuestionsServic
     vm.nextQuestion = nextQuestion;
     vm.prevQuestion = prevQuestion;
     vm.saveNext = saveNext;
-    vm.savePrev = savePrev;  
 
     
     function selectQuestion(index) {
@@ -50,21 +49,13 @@ function CoursesPreviewSurveyController($scope, $state, $window, QuestionsServic
             selectQuestion(vm.index);
         }
     }
-    function prevQuestion() {
-        if (vm.index > 0 ) {
-            vm.index--;
-            selectQuestion(vm.index);
-        }
-    }
-   
+
    
    function saveNext() {
      nextQuestion();
    }
    
-   function savePrev() {
-      prevQuestion();
-   }
+
    
    
 }

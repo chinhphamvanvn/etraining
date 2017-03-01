@@ -68,32 +68,16 @@ function CoursesStudyQuizController($scope, $state, $window, QuestionsService,Ex
     vm.saveNext = saveNext;
     vm.savePrev = savePrev;
     vm.submitQuiz = submitQuiz;
-    vm.selectOption = selectOption;
 
     function updateClock() {
         vm.remainTime--;
     }
 
-    function selectOption(option,question) {
-        if (vm.question.type=='sc') {
-            _.each(question.options,function(obj) {
-               obj.selected = false;
-            });
-            option.selected = true;
-        }
-    }
 
     function selectQuestion(index) {
         vm.question = vm.questions[index];
         if (!vm.question.answer) {
             vm.question.answer =  new AnswersService();
-        }
-        if (!vm.question.options) {
-            vm.question.options =  OptionsService.byQuestion({questionId:vm.question._id}, function(){
-                _.each(vm.question.options ,function(option) {
-                    option.selected = _.contains(vm.question.answer.options,option._id)
-                });
-            });
         }
 
         if (vm.question.answer.option || vm.question.answer.options)
@@ -117,7 +101,7 @@ function CoursesStudyQuizController($scope, $state, $window, QuestionsService,Ex
 
     function submitQuiz() {
         save(function() {
-            UIkit.modal.confirm('Are you sure?', function(){
+            UIkit.modal.confirm($translate.instant('COMMON.CONFIRM_PROMPT'), function() {
                 vm.attempt.status ='completed';
                 vm.attempt.end = new Date();
                 vm.attempt.answers = _.map(vm.questions,function(obj) {
@@ -149,14 +133,14 @@ function CoursesStudyQuizController($scope, $state, $window, QuestionsService,Ex
        var answer = vm.question.answer ;
        answer.question =  vm.question._id;
        answer.exam =  vm.quiz._id;
-       if (vm.question.type=='mc' || vm.question.type=='sc')  {
+       if (vm.question.type=='mc' || vm.question.type=='sc' || vm.question.type=='tf' || vm.question.type=='fb')  {
            var selectedOptions = _.filter(vm.question.options,function(option) {
                return option.selected;
            });
            answer.options = _.pluck(selectedOptions,'_id');
            answer.isCorrect  = _.filter(selectedOptions,function(option) {
                return !_.contains(vm.question.correctOptions,option._id);
-           }).length > 0 && selectedOptions.length;
+           }).length == 0 && selectedOptions.length;
        }
        if (answer._id)
            answer.$update(function() {

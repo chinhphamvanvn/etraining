@@ -5,9 +5,9 @@
     .module('reports')
     .controller('MemberByCourseReportsController', MemberByCourseReportsController);
 
-  MemberByCourseReportsController.$inject = ['$scope', '$rootScope','$state', 'Authentication', 'GroupsService', 'CoursesService','CourseMembersService','AttemptsService','$timeout', '$window','$translate', 'treeUtils','_'];
+  MemberByCourseReportsController.$inject = ['$scope', '$rootScope','$state', 'Authentication', 'GroupsService', 'CoursesService','CourseMembersService','AttemptsService','$timeout', '$window','$translate','courseUtils', 'treeUtils','_'];
   
-  function MemberByCourseReportsController($scope, $rootScope, $state, Authentication,GroupsService, CoursesService,CourseMembersService, AttemptsService, $timeout,$window,$translate, treeUtils,_) {
+  function MemberByCourseReportsController($scope, $rootScope, $state, Authentication,GroupsService, CoursesService,CourseMembersService, AttemptsService, $timeout,$window,$translate,courseUtils, treeUtils,_) {
     var vm = this;
     vm.authentication = Authentication;
     vm.generateReport = generateReport;
@@ -25,39 +25,9 @@
             time:0
     }
     
-    GroupsService.listCourseGroup( function(groups) {
-        var tree = treeUtils.buildGroupTree(groups);
-        $timeout(function() {
-                $("#courseTree").fancytree({
-                    checkbox: true,
-                    titlesTabbable: true,
-                    selectMode:2,
-                    clickFolderMode:3,
-                    imagePath: "/assets/icons/others/",
-                    autoScroll: true,
-                    generateIds: true,
-                    source: tree,
-                    toggleEffect: { effect: "blind", options: {direction: "vertical", scale: "box"}, duration: 200 },
-                    select: function(event, data) {
-                        // Display list of selected nodes
-                        var selectedGroups = _.map( data.tree.getSelectedNodes(), function(obj) {
-                            return obj.data._id;
-                        });
-                        vm.courses = [];
-                        _.each(selectedGroups,function(group) {
-                            CoursesService.byGroup({groupId:group},function(courses) {
-                                vm.courses = vm.courses.concat(courses)
-                            })
-                        })
-                        $scope.$apply();
-                    }
-                });
-            });
-       }); 
-    
-    
+   
     function generateReport(courses) {
-
+        vm.courses = courses;
         _.each(courses,function(course) {
             CourseMembersService.byCourse({courseId:course._id},function(members) {
                course.toalMember =  members.length;
@@ -83,15 +53,8 @@
                vm.summary.percentInstudyMember = Math.floor(vm.summary.totalInstudyMember*100 / vm.summary.toalMember);
                vm.summary.totalCompleteMember += course.totalCompleteMember;
                vm.summary.percentCompleteMember = Math.floor(vm.summary.totalCompleteMember*100 / vm.summary.toalMember);
-               AttemptsService.byCourse({courseId:course._id},function(attempts) {
-                   _.each(attempts,function(attempt) {
-                       if (attempt.status=='completed') {
-                           var start = new Date(attempt.start);
-                           var end = new Date(attempt.end);
-                           course.time += Math.floor((end.getTime() - start.getTime())/1000);
-                       }
-                   });
-                   vm.summary.time += course.time;
+               courseUtils.courseTime(course._id).then(function(time) {
+                   vm.summary.time += time;
                })
             });
         });

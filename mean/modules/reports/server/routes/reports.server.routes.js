@@ -21,4 +21,6 @@ module.exports = function(app) {
     .get(reports.memberInstudyStats);
     app.route('/api/reports/memberCompleteStats/:day').all(reportsPolicy.isAllowed)
     .get(reports.memberCompleteStats);
+    app.route('/api/reports/memberAttemptStats/:day/:editionId').all(reportsPolicy.isAllowed)
+    .get(reports.memberAttemptStats);
 };

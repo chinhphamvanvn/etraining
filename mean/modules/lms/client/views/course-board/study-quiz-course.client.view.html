@@ -16,27 +16,18 @@
                     </div>
                     
                     <div class="md-card-content">
-                        <h3 class="heading_b">{{question.title}}</h3>
-                        <p ng-bind-html="vm.question.description"></p>
-                        
-                        <hr>
-                        <h5 class="uk-margin-small-bottom uk-text-muted">{{'PAGE.LMS.MY_COURSES.COURSE_STUDY.OPTION'|translate}}</h5>
-                        <ul class="uk-list uk-list-large"  ng-show="vm.question.type=='mc' || vm.question.type=='sc' || vm.question.type=='tf' || vm.question.type=='fb'">
-                            <li ng-repeat="option in vm.question.options">
-                                <div class="">
-                                    <span class="icheck-inline">
-                                        <input type="checkbox"
-                                            id="question_option{{option._id}}" ng-change="vm.selectOption(option,vm.question)"
-                                            icheck ng-model="option.selected" /> 
-                                        <label
-                                            for="question_option{{option._id}}"
-                                            class="inline-label">{{option.content}}</label>
-                                                                               
-                                    </span>
-                                </div>
-                            </li>
-                            
-                        </ul>
+                         <div ng-if="vm.question.type=='mc'">
+                             <multiple-choice-question mode="'study'"  question="vm.question" answer="vm.question.answer"></lms-question>
+                        </div>
+                       <div ng-if="vm.question.type=='sc'">
+                             <single-choice-question mode="'study'"  question="vm.question" answer="vm.question.answer"></single-choice-question>
+                        </div>
+                        <div ng-if="vm.question.type=='tf'">
+                             <true-false-question mode="'study'"  question="vm.question" answer="vm.question.answer"></true-false-question>
+                        </div>
+                        <div ng-if="vm.question.type=='fb'">
+                             <fill-blank-question mode="'study'"  question="vm.question" answer="vm.question.answer"></fill-blank-question>
+                        </div>
                         <div class="uk-text-center uk-margin-top">
                         
                             <a ng-show="vm.index < vm.questions.length-1" class="md-btn  md-btn-wave-light md-btn-icon" ng-click="vm.saveNext()"><i class="uk-icon-arrow-right "></i>

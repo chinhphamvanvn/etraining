@@ -58,21 +58,9 @@ function CoursesStudySurveyController($scope, $state, $window, QuestionsService,
         vm.alert = $translate.instant('ERROR.COURSE_SURVEY.QUESTION_NOT_FOUND');
     
     vm.nextQuestion = nextQuestion;
-    vm.prevQuestion = prevQuestion;
     vm.saveNext = saveNext;
-    vm.savePrev = savePrev;
     vm.submitQuiz = submitQuiz;
-    vm.selectOption = selectOption;
  
-    
-    function selectOption(option,question) {
-        if (vm.question.type=='sc') {
-            _.each(question.options,function(obj) {
-               obj.selected = false; 
-            });
-            option.selected = true;
-        }
-    }
     
     function selectQuestion(index) {
         vm.question = vm.questions[index];
@@ -99,16 +87,10 @@ function CoursesStudySurveyController($scope, $state, $window, QuestionsService,
             selectQuestion(vm.index);
         }
     }
-    function prevQuestion() {
-        if (vm.index > 0 ) {
-            vm.index--;
-            selectQuestion(vm.index);
-        }
-    }
     
     function submitQuiz() {
         save(function() {
-            UIkit.modal.confirm('Are you sure?', function(){ 
+            UIkit.modal.confirm($translate.instant('COMMON.CONFIRM_PROMPT'), function() {
                 vm.attempt.status ='completed';
                 vm.attempt.end = new Date();
                 vm.attempt.answers = _.map(vm.questions,function(obj) {
@@ -128,17 +110,12 @@ function CoursesStudySurveyController($scope, $state, $window, QuestionsService,
        })
    }
    
-   function savePrev() {
-       save(function() {
-           prevQuestion();
-       })
-   }
    
    function save(callback) {
        var answer = vm.question.answer ;
        answer.question =  vm.question._id;
        answer.exam =  vm.survey._id;
-       if (vm.question.type=='mc' || vm.question.type=='sc')  {
+       if (vm.question.type=='mc' || vm.question.type=='sc' || vm.question.type=='tf' || vm.question.type=='fb')  {
            var selectedOptions = _.filter(vm.question.options,function(option) {
                return option.selected;
            });

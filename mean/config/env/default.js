@@ -17,6 +17,8 @@ module.exports = {
   // URL. For example: https://www.myapp.com (including port if required).
   domain: 'localhost',
   defaultPassword:'123456',
+  whitelistEnabled:false,
+  whitelistIP:'1.1.1.1',
   // Session Cookie settings
   sessionCookie: {
     // session expiration is set by default to 1 hours

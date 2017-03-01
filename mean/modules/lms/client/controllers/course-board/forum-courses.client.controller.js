@@ -73,7 +73,7 @@ function CoursesForumController($scope, $state, $window, Authentication, $timeou
     }
     
     function removeTopic(topic) {
-        UIkit.modal.confirm('Are you sure?', function(){ 
+        UIkit.modal.confirm($translate.instant('COMMON.CONFIRM_PROMPT'), function() {
             topic.$remove(function() {
                 $window.location.reload();
                 },function(errorResponse) {
@@ -106,7 +106,7 @@ function CoursesForumController($scope, $state, $window, Authentication, $timeou
     }
     
     function removePost(post) {
-        UIkit.modal.confirm('Are you sure?', function(){ 
+        UIkit.modal.confirm($translate.instant('COMMON.CONFIRM_PROMPT'), function() {
             post.$remove(function() {
                 $window.location.reload();
                 },function(errorResponse) {

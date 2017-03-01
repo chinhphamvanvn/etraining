@@ -63,7 +63,7 @@
     function remove() {
       if (isContextUserSelf())
           return;
-      UIkit.modal.confirm('Are you sure?', function(){
+      UIkit.modal.confirm($translate.instant('COMMON.CONFIRM_PROMPT'), function() {
           AdminService.remove({userId:vm.user._id},function () {
               $state.go('admin.workspace.users.list');
               Notification.success({ message: '<i class="uk-icon-check"></i> User deleted successfully!' });

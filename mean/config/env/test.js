@@ -132,6 +132,22 @@ module.exports = {
                        code:'CONCURRENT_LOGIN',
                        category:'system'
                     },
+                    {
+                        name:'whitelistIP',
+                        edit: true,
+                        type:'String',
+                        valueString:'0.0.0.0',
+                        code:'WHITELIST_IP',
+                        category:'system'
+                     },
+                     {
+                         name:'whitelistIPEnabled',
+                         edit: true,
+                         type:'Boolean',
+                         valueBoolean:false,
+                         code:'WHITELIST_IP_ENABLE',
+                         category:'system'
+                      },
                    {
                        name:'vietInterviewConferenceApiAdminUrl',
                        value:'',

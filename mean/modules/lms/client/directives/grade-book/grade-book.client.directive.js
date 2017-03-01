@@ -41,6 +41,8 @@
                                       var quizQuestion = _.find(node.quiz.questions,function(q) {
                                           return q.id == answer.question;
                                       });
+                                      quizQuestion.detail = QuestionsService.get({questionId:quizQuestion.id})
+                                      quizQuestion.answer = answer;
                                       if (answer.isCorrect) {
                                           quizQuestion.mark = quizQuestion.score;
                                           node.quiz.correctCount++;

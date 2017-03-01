@@ -41,11 +41,18 @@ exports.invokeRolesPolicies = function () {
             {
                 resources: '/api/reports/memberCompleteStats/:day',
                 permissions: '*'
-              },]
+              },
+              {
+                  resources: '/api/reports/memberAttemptStats/:day/:editionId',
+                  permissions: '*'
+                },]
   }, {
     roles: ['user'],
     allows: [
-             
+             {
+                 resources: '/api/reports/memberAttemptStats/:day/:editionId',
+                 permissions: 'get'
+               },  
              ]
   }
   ]);

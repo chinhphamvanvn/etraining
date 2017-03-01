@@ -84,7 +84,7 @@
     function remove(id) {
         if (id == vm.user._id)
             return;
-        UIkit.modal.confirm('Are you sure?', function(){
+        UIkit.modal.confirm($translate.instant('COMMON.CONFIRM_PROMPT'), function() {
             AdminService.remove({userId:id},function () {
                 vm.dtInstance.reloadData(function() {}, true);
                 Notification.success({ message: '<i class="uk-icon-check"></i> User deleted successfully!' });

@@ -4,26 +4,43 @@
   // Focus the element on page load
   // Unless the user is on a small device, because this could obscure the page with a keyboard
 
-  angular.module('shared')
-    .directive('singleChoiceQuestion', ['OptionsService','QuestionsService','_', singleChoiceQuestion]);
+  angular.module('lms')
+    .directive('fillBlankQuestion', ['OptionsService','QuestionsService','fileManagerConfig','_', fillBlankQuestion]);
 
-  function singleChoiceQuestion(OptionsService,QuestionsService,_) {
+  function fillBlankQuestion(OptionsService,QuestionsService,fileManagerConfig,_) {
       
       return {
           scope: {
               question: "=",
-              mode: "="     // edit. view, study
+              answer:"=",
+              mode: "="         // edit, view, study, result
           },
-          templateUrl:'/modules/shared/client/directives/single-choice-question/single-choice-question.directive.client.view.html',
+          templateUrl:'/modules/lms/client/directives/fill-blank-question/fill-blank-question.directive.client.view.html',
           link: function (scope, element, attributes) {
+              scope.tinymce_options = fileManagerConfig;
               if (scope.question._id)
                   scope.question.options = OptionsService.byQuestion({questionId:scope.question._id},function() {
-                      _.each(scope.question.options,function(option) {
-                          option.isCorrect = _.contains(scope.question.correctOptions,option._id);
-                      });
+                      if (scope.mode !='study' && scope.mode !='result')
+                          _.each(scope.question.options,function(option) {
+                              option.selected = _.contains(scope.question.correctOptions,option._id);
+                          });
+                      else {
+                          if (scope.answer) {
+                              _.each(scope.question.options ,function(option) {
+                                  option.selected = _.contains(scope.answer.options,option._id)
+                              });
+                          }
+                          _.each(scope.question.options ,function(option) {
+                              option.isCorrect = _.contains(scope.question.correctOptions,option._id);
+                          });
+                       }
                   });
               else
                   scope.question.options = [];
+              
+              scope.translateContent = function() {
+                  return scope.question.description.replace("#BLANK#", "<u>&nbsp;&nbsp;&nbsp;&nbsp;</u>");
+              }
               
               scope.addOption = function() {
                   var option = new OptionsService();
@@ -38,11 +55,13 @@
               }
               
               scope.selectOption = function(option) {
-                  _.each(scope.question.options,function(obj) {
-                     obj.isCorrect = false; 
-                  });
-                  option.isCorrect = true;
-                  scope.question.correctOptions = [option._id];
+                  if (scope.mode !='study') {
+                      scope.question.correctOptions = [];
+                      _.each(scope.question.options,function(obj) {
+                         if (obj.selected)
+                             scope.question.correctOptions.push(obj._id);
+                      });            
+                  }
               }
               
               scope.removeOption = function(option) {
