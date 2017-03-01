@@ -241,6 +241,7 @@
                             <div class="uk-modal-dialog uk-modal-dialog-lightbox" style=" max-width: calc(100% - 0px); margin: 0px 0px; position: initial;">
                                 <button type="button" class="uk-modal-close uk-close uk-close-alt" ng-click="certificate.showimage = !certificate.showimage"></button>
                                 <img data-ng-src="data:image/png;base64,{{certificate.base64data}}" />
+                                <div><a ng-href="data:image/png;base64,{{certificate.base64data}}" target="_blank" download style="position: absolute; bottom: 0; margin-bottom: 15px; right: 15px;"><i class="uk-icon-download" style="font-size: larger;"></i></a></div>
                             </div>
                         </div>
                     </td>
