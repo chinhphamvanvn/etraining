@@ -21,14 +21,14 @@ function CoursesQuizSectionController($scope, $state, $window, Authentication, $
     vm.moveDown = moveDown;
     vm.update = update;
     vm.questions = [];
-    
+
     _.each(vm.quiz.questions,function(q) {
         var question = QuestionsService.get({questionId:q.id},function() {
-            question.order = q.order
+            question.order = q.order;
             vm.questions.push(question);
         });
     });
-        
+
     function moveUp(question) {
         var prevQuestion = _.find(vm.questions,function(q) {
             return q.order < question.order;
@@ -39,7 +39,7 @@ function CoursesQuizSectionController($scope, $state, $window, Authentication, $
             prevQuestion.order = order;
         }
     }
-    
+
     function moveDown(question) {
         var nextQuestion = _.find(vm.questions,function(q) {
             return q.order > question.order;
@@ -50,7 +50,7 @@ function CoursesQuizSectionController($scope, $state, $window, Authentication, $
             nextQuestion.order = order;
         }
     }
-        
+
     function update() {
         vm.quiz.questions = _.map(vm.questions,function(obj) {
             return {id:obj._id,score:1,order:obj.order};
@@ -66,12 +66,12 @@ function CoursesQuizSectionController($scope, $state, $window, Authentication, $
             _.each(question.options,function(option) {
                 allPromise.push(option.$update().$promise);
             });
-        })
+        });
         $q.all(allPromise).then(function() {
             $state.go('workspace.lms.courses.section.view.quiz',{courseId:vm.course._id,sectionId:vm.section._id});
         });
     }
-    
+
     function addQuestion(type) {
         var question = new QuestionsService();
         question.type=type;
@@ -83,19 +83,19 @@ function CoursesQuizSectionController($scope, $state, $window, Authentication, $
             vm.questions.push(question);
         })
     }
-    
+
     function removeQuestion(question) {
         if (question._id)  {
             QuestionsService.delete({questionId:question._id},function() {
                 vm.questions = _.reject(vm.questions,function(o) {
                     return o._id == question._id;
                 })
-            })                      
+            })
         } else
             vm.questions = _.reject(vm.questions,function(o) {
                 return o.order == question.order && !o._id;
             })
     }
-  
+
 }
 }());
