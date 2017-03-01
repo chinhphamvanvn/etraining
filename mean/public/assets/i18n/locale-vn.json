@@ -94,6 +94,8 @@
 	"PAGE.PERFORMANCE.QUESTION_BANK.CREATE_TITLE":"Tạo câu hỏi mới",
 	"PAGE.PERFORMANCE.QUESTION_BANK.UPDATE_TITLE":"Cập nhật nội dung câu hỏi",
 	"PAGE.PERFORMANCE.QUESTION_BANK.VIEW_TITLE":"Nội dung câu hỏi",
+	"PAGE.PERFORMANCE.SCHEDULE.TITLE":"Lịch thi",
+	"PAGE.PERFORMANCE.SCHEDULE.NEW_TITLE":"Thêm lịch thi",
 	"PAGE.REPORTS.MEMBER_BY_COURSE.SELECT_COURSE":"Chọn khóa học",
 	"PAGE.REPORTS.MEMBER_BY_COURSE.COURSE_LIST":"Danh sách khóa học",
 	"PAGE.REPORTS.COURSE_BY_MEMBER.USER_LIST":"Danh sách người dùng",
@@ -412,8 +414,6 @@
 	"MODEL.EXAM.PUBLISHED":"Xuât bản",
 	"MODEL.EXAM.DURATION":"Thời gian làm bài",
 	"MODEL.EXAM.LOGO":"Logo",
-	"MODEL.EXAM.START_DATE":"Ngày bắt đầu",
-	"MODEL.EXAM.END_DATE":"Ngày kết thúc",
 	"MODEL.EXAM.MAX_ATTEMPT":"Số lần làm lại",
 	"MODEL.EXAM.BENCHMARK":"Điểm sàn",
 	"MODEL.EXAM.QUESTION_SELECT":"Chế độ lựa chọn câu hỏi",
@@ -424,6 +424,10 @@
 	"MODEL.EXAM.QUESTION_LIST":"Danh sách câu hỏi",
 	"MODEL.EXAM.ALLOW_NAVIGATE":"Cho phép quay lại câu hỏi cũ",
 	"MODEL.EXAM.SHOW_ANSWER":"Hiển thị kết quả sau khi trả lời",
+	"MODEL.SCHEDULE.START_DATE":"Ngày bắt đầu",
+	"MODEL.SCHEDULE.END_DATE":"Ngày kết thúc",
+	"MODEL.SCHEDULE.COLOR":"Màu đánh dấu",
+	"MODEL.SCHEDULE.NAME":"Tên",
 	"MODEL.GROUP.NAME":"Tên",
 	"COMMON.LEVEL.INFO":"Tin tức",
 	"COMMON.LEVEL.WARNING":"Cảnh báo",
@@ -551,3 +555,4 @@
 	"REPORT.SINGLE_MEMBER_ATTEMPT.COUNT":"Số lần xem",
 	"REPORT.SINGLE_MEMBER_ATTEMPT.OUTLINE":"Chương trình học"
 }
+

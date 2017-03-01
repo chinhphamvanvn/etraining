@@ -5,9 +5,9 @@
     .module('performance')
     .controller('ExamsScheduleController', ExamsScheduleController);
 
-  ExamsScheduleController.$inject = ['$scope', '$state', 'uiCalendarConfig','$compile','Authentication', 'ExamsService', '$timeout', '$location', '$window', 'GroupsService', 'Notification','$q','treeUtils', '$translate', '_'];
+  ExamsScheduleController.$inject = ['$scope', '$state', 'uiCalendarConfig','$compile','Authentication', 'SchedulesService', '$timeout', '$location', '$window', 'GroupsService', 'Notification','$q','treeUtils', '$translate', '_'];
 
-  function ExamsScheduleController($scope,$state, uiCalendarConfig, $compile, Authentication, ExamsService, $timeout, $location, $window, GroupsService, Notification, $q, treeUtils, $translate, _) {
+  function ExamsScheduleController($scope,$state, uiCalendarConfig, $compile, Authentication, SchedulesService, $timeout, $location, $window, GroupsService, Notification, $q, treeUtils, $translate, _) {
     var vm = this;
     vm.user = Authentication.user; 
    
@@ -71,25 +71,20 @@
             },
             select: function (start, end) {
                 UIkit.modal.prompt('' +
-                    '<h3 class="heading_b uk-margin-medium-bottom">'+$translate.instant('PAGE.EXAM.SCHEDULE.NEW_EXAM')+'</h3><div class="uk-margin-medium-bottom" id="calendar_colors">' +
-                    $translate.instant('MODEL.EXAM.COLOR') +
+                    '<h3 class="heading_b uk-margin-medium-bottom">'+$translate.instant('PAGE.PERFORMANCE.SCHEDULE.NEW_TITLE')+'</h3><div class="uk-margin-medium-bottom" id="calendar_colors">' +
+                    $translate.instant('MODEL.SCHEDULE.COLOR') +
                     vm.calendarColorPicker +
                     '</div>' +
-                    $translate.instant('MODEL.EXAM.NAME'),
+                    $translate.instant('MODEL.SCHEDULE.NAME'),
                     '', function (newvalue) {
                         if ($.trim(newvalue) !== '') {
                             var  eventColor = $('#calendar_colors_wrapper').find('input').val();
-                            var exam = new ExamsService();
-                            exam.name = newvalue;
-                            exam.start = start;
-                            exam.end = end;
-                            exam.duration = 30;
-                            exam.maxAttempt =1;
-                            exam.benchmark = 50;
-                            exam.questionSelect = 'auto';
-                            exam.color =  eventColor ? eventColor : '';
-                            exam.$save(function() {
-                                $state.go('admin.workspace.exam.edit',{examId:exam._id});
+                            var schedule = new SchedulesService();
+                            schedule.name = newvalue;
+                            schedule.start = start;
+                            schedule.end = end;
+                            schedule.color =  eventColor ? eventColor : '';
+                            schedule.$save(function() {
                             },function(errorResponse) {
                                 Notification.error({ message: errorResponse.data.message, title: '<i class="uk-icon-ban"></i> Exam created error!' });
                             })
@@ -105,14 +100,14 @@
             timeFormat: '(HH)(:mm)'
         }
     };
-    vm.exams = ExamsService.query(function() {
+    vm.schedules = SchedulesService.query(function() {
         vm.calendar_events.slice(0, vm.calendar_events.length);
-        _.each(vm.exams,function(exam) {
-            var event = {title: exam.name, color: exam.color, _id: exam._id}
-            if (exam.start) 
-                event.start = moment(exam.start).format('YYYY-MM-DD');
-            if (exam.end) 
-                event.end = moment(exam.end).format('YYYY-MM-DD');
+        _.each(vm.vm.schedules,function(schedule) {
+            var event = {title: schedule.name, color: schedule.color, _id: schedule._id}
+            if (schedule.start) 
+                event.start = moment(schedule.start).format('YYYY-MM-DD');
+            if (schedule.end) 
+                event.end = moment(schedule.end).format('YYYY-MM-DD');
             vm.calendar_events.push(event);
         })
     });
