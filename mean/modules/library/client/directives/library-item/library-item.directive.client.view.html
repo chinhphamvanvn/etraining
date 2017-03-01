@@ -8,13 +8,16 @@
                         </div>
                         <div class="uk-width-3-4">
                             <div class="uk-grid uk-grid-small">
-                                <div class="uk-width-4-5">
+                                <div class="uk-width-3-4">
                                     <div class="media-title">{{itemMedia.name}}</div>
                                     <div class="media-des">{{itemMedia.description}}</div>
-                                  <a  class="md-btn md-btn-small md-btn-flat md-btn-icon md-btn-flat-primary " target="_self" href="{{itemMedia.contentURL}}"download="{{itemMedia.filename}}" style="background: #e3f2fd;">
-                                    <i class="material-icons">file_download</i>{{'ACTION.DOWNLOAD'|translate}}
-                                  </a>
                                   <!--<a  class="md-btn md-btn-small md-btn-flat md-btn-flat-primary uk-float-right" style="margin-right: 5px;">{{'ACTION.BOOKMARK'|translate}}</a>-->
+                                </div>
+                                <div class="uk-width-1-4">
+                                    <a  class="md-btn md-btn-small md-btn-flat md-btn-icon md-btn-flat-primary " target="_self" href="{{itemMedia.contentURL}}"download="{{itemMedia.filename}}" style="background: #e3f2fd;">
+                                        <i class="material-icons">file_download</i>
+                                        <span class="textdownload" style="font-size: 12px;     text-transform: capitalize;">{{'ACTION.DOWNLOAD'|translate}}</span>
+                                    </a>
                                 </div>
                             </div>
                         </div>

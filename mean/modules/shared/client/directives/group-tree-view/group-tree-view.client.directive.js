@@ -5,10 +5,10 @@
   // Unless the user is on a small device, because this could obscure the page with a keyboard
 
   angular.module('shared')
-    .directive('groupTreeView', ['GroupsService','$timeout','treeUtils','_', groupTreeView]);
+    .directive('groupTreeView', ['GroupsService','$timeout','treeUtils','_', '$translate', groupTreeView]);
 
-  function groupTreeView(GroupsService,$timeout,treeUtils,_) {
-      
+  function groupTreeView(GroupsService, $timeout, treeUtils, _, $translate) {
+
       return {
           scope: {
               treeId:"=",
@@ -20,8 +20,17 @@
           },
           templateUrl:'/modules/shared/client/directives/group-tree-view/group-tree-view.directive.client.view.html',
           link: function (scope, element, attributes) {
+              var all = $translate.instant('COMMON.PRESENT_MODE.ALL');
+
               GroupsService.byCategory({category:scope.category}, function(groups) {
                   var tree = treeUtils.buildGroupTree(groups);
+                  var allTree = [{
+                    title: all,
+                    expanded: true,
+                    folder: true,
+                    key: 'all',
+                    children: tree
+                  }]; // Add select all checkbox
                   if (scope.initial) {
                       var selectNode = treeUtils.findGroupNode(tree, scope.initial);
                       selectNode.selected = true;
@@ -37,20 +46,25 @@
                           autoScroll: true,
                           generateIds: true,
                           disabled:scope.disabled,
-                          source: tree,
+                          source: allTree,
                           toggleEffect: { effect: "blind", options: {direction: "vertical", scale: "box"}, duration: 200 },
                           select: function(event, data) {
                               scope.$apply(function() {
-                                  var nodeIds = _.map( data.tree.getSelectedNodes(), function(obj) {
+                                  var nodeIds = _.map(data.tree.getSelectedNodes(), function(obj) {
                                       return obj.data._id;
                                   });
+
+                                  nodeIds = _.filter(nodeIds, function(id) {
+                                    return (typeof id != 'undefined');
+                                  }); // remove id of all checkbox
+
                                   if (scope.select)
                                       scope.select(nodeIds);
                               });
                           }
                       });
                   });
-             }); 
+             });
           }
       }
   }
