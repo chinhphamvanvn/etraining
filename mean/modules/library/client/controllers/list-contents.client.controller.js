@@ -13,11 +13,66 @@
     vm.remove = remove;
     vm.finishEditLibTree = finishEditLibTree;
 
-    vm.selectGroup = function (groups) {
-      vm.group = groups;
-      if (groups && groups.length)
-        vm.medium = LibraryMediaService.byGroup({groupId: groups[0]})
+    vm.groups = GroupsService.listLibraryGroup(function() {
+        vm.nodes = treeUtils.buildGroupTree(vm.groups);
+        vm.nodeList = treeUtils.buildGroupListInOrder(vm.nodes);
+    });
+
+    vm.allMedias = LibraryMediaService.query(function() {
+      vm.allMedias = _.filter(vm.allMedias, function(m) {
+        return m.published;
+      });
+
+      vm.medium = vm.allMedias;
+    });
+
+    vm.getAllMedias = function() {
+      vm.medium = vm.allMedias;
     };
+
+    vm.expand =  expand;
+    vm.collapse = collapse;
+    vm.toggleExpand = toggleExpand;
+
+    function toggleExpand(node) {
+        node.data.mediumList = [];
+        vm.group = [node.data._id];
+        var childsNode = treeUtils.buildGroupListInOrder([node]);
+        childsNode.map(function(child) {
+            LibraryMediaService.byGroup({groupId:child.data._id},function(medium) {
+                child.data.medium = _.filter(medium,function(media) {
+                    return media.published;
+                });
+            });
+            if (child.data.medium && child.data.medium.length > 0) {
+                node.data.mediumList = node.data.mediumList.concat(child.data.medium);
+            }
+        });
+        if(node.data.mediumList.length > 0) {
+            vm.medium = node.data.mediumList;
+        }
+
+        // if (node.children.length == 0)
+        //     return;
+        // if (node.expand)
+        //     collapse(node);
+        // else
+        //     expand(node);
+    }
+
+    function expand(node) {
+        treeUtils.expandCourseNode(node,true);
+    }
+
+    function collapse(node) {
+        treeUtils.expandCourseNode(node,false);
+    }
+
+    // vm.selectGroup = function (groups) {
+    //   vm.group = groups;
+    //   // if (groups && groups.length)
+    //   //   vm.medium = LibraryMediaService.byGroup({groupId: groups[0]})
+    // };
 
     function createMediaItem() {
       if (!vm.group || vm.group.length == 0) {
