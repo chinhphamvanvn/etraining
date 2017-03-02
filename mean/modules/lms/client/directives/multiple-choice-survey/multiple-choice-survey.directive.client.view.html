@@ -1,0 +1,144 @@
+<div ng-if="mode=='edit'">
+    <div class="uk-grid ">
+        <div class="uk-width-medium-1-2 parsley-row">
+            <label for="question_title">
+                {{'MODEL.QUESTION.TITLE'|translate}}
+                <span class="req">*</span>
+            </label>
+            <input type="text" name="question_title" id="question_title" 
+                required class="md-input" md-input ng-model="question.title" />
+        </div>
+    </div>
+    <div class="uk-grid">
+        <div class="uk-width-medium-1-1 parsley-row">
+            <textarea ui-tinymce="tinymce_options" ng-model="question.description" cols="30" rows="12"></textarea>
+        </div>
+    </div>
+    <div class="uk-grid" data-uk-grid-margin>
+        <div class="uk-width-1-1">
+            <div id="question_options">
+                <div class="uk-grid" data-uk-grid-margin
+                    ng-repeat="option in question.options | orderBy: 'order'">
+                    <div class="uk-width-medium-9-10">
+                        <label for="option_{{option.order}}">{{'MODEL.OPTION.CONTENT'|translate}}</label>
+                        <input type="text" class="md-input"
+                            id="option_{{option.order}}" md-input
+                            ng-model="option.content" />
+                    </div>
+                    <div class="uk-width-medium-1-10" >
+                        <a  ng-click="removeOption(option)" data-uk-tooltip="{cls:'uk-tooltip-small',pos:'top'}" title="{{'ACTION.DELETE'|translate}}"><i class="md-icon material-icons uk-text-danger">delete</i></a>
+                    </div>
+                </div>
+                <div class="uk-text-center">
+                    <a href="#"
+                        class="md-btn md-btn-flat md-btn-flat-primary"
+                        ng-click="addOption()">{{'PAGE.LMS.MY_COURSES.TEACHER_BOARD.COURSE_OUTLINE.TEST.ADD_OPTION'|translate}}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div ng-if="mode=='view'">
+    <div class="uk-grid ">
+        <div class="uk-width-medium-1-2 parsley-row">
+            <p>{{question.title}}</p> 
+        </div>
+    </div>
+    <div class="uk-grid">
+        <div class="uk-width-medium-1-1 parsley-row">
+            <p ng-bind-html="question.description" />
+        </div>
+    </div>
+    <div class="uk-grid" data-uk-grid-margin>
+        <div class="uk-width-1-1">
+            <div id="question_options">
+                <label >{{'MODEL.OPTION.CONTENT'|translate}}</label>
+                <div class="uk-grid" data-uk-grid-margin
+                    ng-repeat="option in question.options | orderBy: 'order'">
+                    <div class="uk-width-medium-1-1">
+                        
+                        <p>{{$index+1}} .{{option.content}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div ng-if="mode=='survey'">
+    <div class="uk-grid ">
+        <div class="uk-width-medium-1-2 parsley-row">
+            <label >
+                {{question.title}}
+            </label>
+        </div>
+    </div>
+    <hr>
+    <div class="uk-grid">
+        <div class="uk-width-medium-1-1 parsley-row">
+            <p ng-bind-html="question.description"/>
+        </div>
+    </div>
+    <div class="uk-grid" data-uk-grid-margin>
+        <div class="uk-width-1-1">
+            <div id="question_options">
+                <div class="uk-grid" data-uk-grid-margin
+                    ng-repeat="option in question.options | orderBy: 'order'">
+                    <div class="uk-width-medium-2-10 uk-text-center" >
+                        <span class="icheck-inline">
+                            <input type="checkbox" 
+                                id="option_{{option._id}}" icheck 
+                                ng-model="option.selected"
+                                 />
+                        </span>
+                    </div>
+                    <div class="uk-width-medium-8-10">
+                        <label for="option_{{option._id}}" class="inline-label">{{option.order}}.</label>
+                        <label for="option_{{option.order}}">{{option.content}}</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div ng-if="mode=='result'">
+    <div class="uk-grid">
+        <div class="uk-width-medium-1-2 parsley-row">
+            <label >
+                {{question.title}}
+            </label>
+        </div>
+    </div>
+    <hr>
+    <div class="uk-grid">
+        <div class="uk-width-medium-1-1 parsley-row">
+           <p ng-bind-html="translateContent()"></p>
+        </div>
+    </div>
+    <div class="uk-grid" data-uk-grid-margin>
+        <div class="uk-width-1-1">
+            <div id="question_options">
+                <div class="uk-grid" data-uk-grid-margin
+                    ng-repeat="option in question.options | orderBy: 'order'">
+                    <div class="uk-width-medium-2-10 uk-text-center" >
+                        <span class="icheck-inline">
+                            <input type="checkbox" ng-disabled="true"
+                                id="option_{{option._id}}" icheck 
+                                ng-model="option.selected" ng-change="selectOption(option)"
+                                 />
+                        </span>
+                    </div>
+                    <div class="uk-width-medium-8-10">
+                        <label for="option_{{option._id}}" class="inline-label">{{option.order}}.</label>
+                        <label for="option_{{option.order}}">{{option.content}}</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

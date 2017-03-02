@@ -102,7 +102,7 @@
     };
     vm.schedules = SchedulesService.query(function() {
         vm.calendar_events.slice(0, vm.calendar_events.length);
-        _.each(vm.vm.schedules,function(schedule) {
+        _.each(vm.schedules,function(schedule) {
             var event = {title: schedule.name, color: schedule.color, _id: schedule._id}
             if (schedule.start) 
                 event.start = moment(schedule.start).format('YYYY-MM-DD');
