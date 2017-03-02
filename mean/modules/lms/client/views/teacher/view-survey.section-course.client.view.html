@@ -33,7 +33,9 @@
                                                 </h3>
                                             </div>
                                             <div class="md-card-content">
-                                                <multiple-choice-survey mode="'view'" exam="vm.survey" question="question"></multiple-choice-survey>
+                                                <div ng-if="vm.question.type=='mc'">
+                                                    <multiple-choice-survey mode="'view'" exam="vm.survey" question="question"></multiple-choice-survey>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

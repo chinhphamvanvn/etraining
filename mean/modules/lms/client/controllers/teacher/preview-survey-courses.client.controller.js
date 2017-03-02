@@ -33,7 +33,6 @@ function CoursesPreviewSurveyController($scope, $state, $window, QuestionsServic
         vm.alert = $translate.instant('ERROR.COURSE_SURVEY.QUESTION_NOT_FOUND');
     
     vm.nextQuestion = nextQuestion;
-    vm.prevQuestion = prevQuestion;
     vm.saveNext = saveNext;
 
     
