@@ -9,7 +9,8 @@
     applicationModuleVendorDependencies: ['ngResource', 'ngMessages','ngSanitize', 'ngFileUpload', 'ui.router', 
                                           'ui-notification', 'ui.bootstrap', 'pascalprecht.translate', 'ncy-angular-breadcrumb',
                                           'LocalStorageModule', 'underscore', 'datatables', 'datatables.buttons',
-                                          angularDragula(angular),'kendo.directives','ng.deviceDetector','ngCsv'],
+                                          angularDragula(angular),'kendo.directives','ng.deviceDetector','ngCsv',
+                                          'ui.calendar','easypiechart','metricsgraphics'],
     registerModule: registerModule
   };
 

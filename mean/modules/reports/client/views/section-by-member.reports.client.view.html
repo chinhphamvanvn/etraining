@@ -13,7 +13,6 @@
                             <select-user-dialog callback="vm.generateReport"></select-user-dialog>
                                 
                          </div>
-                        <div class="dt_colVis_buttons"></div>
                             <table  class="uk-table uk-table-hover" cellspacing="0" width="100%">
                                 <thead>
                                     <tr>
@@ -60,7 +59,7 @@
                                 </tbody>
                             </table>
                             <div>           
-                        <a class="md-btn md-btn-primary  md-btn-wave-light md-btn-icon" ng-csv="vm.getExportData()" csv-header="vm.getExportHeader()" filename="report.user_by_course.csv" field-separator=";" decimal-separator=".">
+                        <a class="md-btn md-btn-primary  md-btn-wave-light md-btn-icon" ng-csv="vm.getExportData()" csv-header="vm.getExportHeader()" filename="report.section_by_member.csv" field-separator=";" decimal-separator=".">
                          <i class="material-icons">save</i>
                                 {{'ACTION.EXPORT'|translate}}
                             </a>

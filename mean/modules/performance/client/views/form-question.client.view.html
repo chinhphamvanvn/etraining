@@ -14,7 +14,18 @@
                 <form ng-submit="vm.save()" class="uk-form-stacked" id="questionForm" novalidate>
                         <div class="uk-grid" data-uk-grid-margin >
                             <div class="uk-width-medium-1-1">
-                                <lms-question mode="'edit'"  question="vm.question"></lms-question>
+                                <div ng-if="vm.question.type=='mc'">
+                                     <multiple-choice-question mode="'edit'"  question="vm.question"></lms-question>
+                                </div>
+                               <div ng-if="vm.question.type=='sc'">
+                                     <single-choice-question mode="'edit'"  question="vm.question"></single-choice-question>
+                                </div>
+                                <div ng-if="vm.question.type=='tf'">
+                                     <true-false-question mode="'edit'"  question="vm.question"></true-false-question>
+                                </div>
+                                <div ng-if="vm.question.type=='fb'">
+                                     <fill-blank-question mode="'edit'"  question="vm.question"></fill-blank-question>
+                                </div>
                             </div>
                         </div>      
                             
@@ -33,22 +44,6 @@
             </div>
         </div>        
     </div>
-    <div id="page_content_inner">
-        <div class="uk-text-center">
-             <div class="uk-button-dropdown" data-uk-dropdown>
-                    <a   class="md-btn md-btn-flat md-btn-wave-light md-btn-icon uk-margin-right  ">
-                        <i  class="uk-icon-plus uk-text-success"></i>
-                        {{'ACTION.CREATE_QUESTION' |        translate}}
-                    </a>
-                    <div class="uk-dropdown">
-                        <ul class="uk-nav uk-nav-dropdown">
-                            <li><a ng-click="vm.createQuestion('sc')">{{'COMMON.QUESTION_TYPE.SC'|translate}}</a></li>
-                            <li><a ng-click="vm.createQuestion('mc')">{{'COMMON.QUESTION_TYPE.MC'|translate}}</a></li>
-                        </ul>
-                    </div>
-                </div>
-          </div>
-      </div>
 </div>
 
 

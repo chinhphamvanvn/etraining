@@ -35,15 +35,23 @@
             <div class="uk-width-medium-1-2">
                 <div class="md-card" ng-show="!vm.editMode">
                     <div class="md-card-content">       
-                        
-                        <div class="uk-margin" >
-                             <a class="md-btn md-btn-default md-btn-wave-light md-btn-icon uk-margin-right  "
-                             ng-click="vm.createQuestion()" >
-                                <i class="uk-icon-plus uk-text-success"></i>
-                                {{'ACTION.CREATE_QUESTION' | translate}}
-                            </a>
-                            
-                        </div>   
+                         <div class="md-fab-wrapper md-fab-in-card">
+                            <div class="md-fab md-fab-primary md-fab-sheet" md-fab-sheet>
+                              <i class="material-icons">add</i>
+                              <div class="md-fab-sheet-actions">
+                                <a ng-click="vm.createQuestion('sc')"
+                                   class="md-color-white">{{'COMMON.QUESTION_TYPE.SC'|translate}}</a>
+                                <a ng-click="vm.createQuestion('mc')"
+                                   class="md-color-white">{{'COMMON.QUESTION_TYPE.MC'|translate}}</a>
+                                <a ng-click="vm.createQuestion('tf')"
+                                   class="md-color-white">{{'COMMON.QUESTION_TYPE.TF'|translate}}</a>
+                                <a ng-click="vm.createQuestion('fb')"
+                                   class="md-color-white">{{'COMMON.QUESTION_TYPE.FB'|translate}}</a>
+                              </div>
+                            </div>
+                          </div>
+              
+                
                         
                          <table  class="uk-table uk-table-hover" cellspacing="0" width="100%">
                                 <thead>
@@ -60,6 +68,8 @@
                                         <th>
                                         <span ng-show="question.type=='sc'">{{'COMMON.QUESTION_TYPE.SC'|translate}}</span>
                                         <span ng-show="question.type=='mc'">{{'COMMON.QUESTION_TYPE.MC'|translate}}</span>
+                                        <span ng-show="question.type=='tf'">{{'COMMON.QUESTION_TYPE.TF'|translate}}</span>
+                                        <span ng-show="question.type=='fb'">{{'COMMON.QUESTION_TYPE.FB'|translate}}</span>
                                         </th>
                                         
                                         <th>

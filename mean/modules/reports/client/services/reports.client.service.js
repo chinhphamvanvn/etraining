@@ -43,11 +43,16 @@
                   isArray:true,
                   url:'/api/reports/memberCompleteStats/:day',
                 },
-                memberAttemptStats: {
+                courseAttemptStats: {
                     method: 'GET',
                     isArray:true,
-                    url:'/api/reports/memberAttemptStats/:day/:editionId',
+                    url:'/api/reports/courseAttemptStats/:day/:editionId',
                   },
+                  memberAttemptStats: {
+                      method: 'GET',
+                      isArray:true,
+                      url:'/api/reports/memberAttemptStats/:memberId/:editionId',
+                    },
     });
   }
 }());

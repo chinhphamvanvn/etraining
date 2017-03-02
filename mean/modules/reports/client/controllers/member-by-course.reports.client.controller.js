@@ -55,6 +55,7 @@
                vm.summary.percentCompleteMember = Math.floor(vm.summary.totalCompleteMember*100 / vm.summary.toalMember);
                courseUtils.courseTime(course._id).then(function(time) {
                    vm.summary.time += time;
+                   course.time = time;
                })
             });
         });
@@ -63,7 +64,7 @@
     
     function getExportData() {
         var data  = []
-        _.each(vm.selectedCourses,function(course) {
+        _.each(vm.courses,function(course) {
             data.push({
                         code:course.code,
                         name:course.name,
