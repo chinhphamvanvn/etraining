@@ -29,6 +29,9 @@
                   {
                       extend:    'csvHtml5',
                       text:      '<i class="uk-icon-file-excel-o"></i> '+$translate.instant("ACTION.EXPORT"),
+                      exportOptions: {
+                          columns: [ 1, 2, 3, 4, 5, 6, 8, 9 ]
+                      }
                   },
                   {
                       extend:    'colvis',
