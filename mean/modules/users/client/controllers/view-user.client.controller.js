@@ -65,7 +65,7 @@
                                 member.timeSpent += (endTime.getTime() - startTime.getTime())/1000;
                             });
 
-                            console.log(member.percentage);
+                            // console.log(member.percentage);
                             var memberCsv = {
                                 name: member.course.name,
                                 registered: member.registered,
