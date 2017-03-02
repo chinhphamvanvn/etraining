@@ -14,6 +14,8 @@
     vm.member = member;
     vm.section = section;
     vm.autoSectionAuto = false;
+    vm.endCourse = $scope.endCourse;
+
     var videoSelector = document.querySelector('#selectorVideo');
 
     if (vm.section.video) {

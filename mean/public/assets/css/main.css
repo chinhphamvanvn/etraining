@@ -14208,15 +14208,23 @@ body {
   transform: translate(-50%, -50%);
 }
 .lecture-video .lecture-video__next-alert .title,
+.lecture-video .lecture-video__next-alert .pause {
+  cursor: pointer;
+  display: inline-block;
+}
+.lecture-video .lecture-video__next-alert .title,
 .lecture-video .lecture-video__next-alert .counter,
 .lecture-video .lecture-video__next-alert .pause {
   color: #fff;
+}
+.lecture-video .lecture-video__next-alert .title {
+  margin-bottom: 0;
 }
 .lecture-video .lecture-video__next-alert .counter,
 .lecture-video .lecture-video__next-alert .pause {
   font-size: 2.5rem;
 }
 .lecture-video .lecture-video__next-alert .counter {
-  max-width: 50px;
+  min-width: 50px;
   margin-right: 15px;
 }

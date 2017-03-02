@@ -11,8 +11,11 @@
                  autoplay controls></video>
 
           <div class="lecture-video__next-alert"
-            ng-show="vm.autoSectionAuto">
-            <span class="title uppercase">{{'ACTION.NEXT'|translate}}</span> <br>
+            ng-show="vm.autoSectionAuto && !vm.endCourse">
+            <span class="title uppercase" ng-click="vm.nextSection()">
+              {{'ACTION.NEXT'|translate}}
+              <i class="uk-icon-angle-double-right"></i>
+            </span> <br>
             <span class="counter">{{vm.counter}}</span>
             <i class="uk-icon-pause pause" ng-click="vm.stopNextSectionAuto()"></i>
           </div>
