@@ -2,18 +2,19 @@
 <div id="page_content">
     <div id="page_heading" data-uk-sticky="{ top: 48, media: 960 }">
         <div class="heading_actions">
-            <span class="icheck-inline" >                                    
+            <span class="icheck-inline" >
                 <input type="checkbox" class="switchery switchery-small" ui-switch color="#7cb342"  name="switch_visible" id="switch_visible"   ng-model="vm.section.visible" />
                 <label for="switch_visible" class="inline-label">{{'MODEL.SECTION.VISIBLE'|translate}}</label>
-            </span>            
-        </div>
-       <h1 ><label>{{'MODEL.SECTION.NAME'|translate}}</label>
-                        <input type="text" class="md-input uk-form-width-large" md-input ng-model="vm.section.name" />
-       </h1>
-        <span class="uk-text-upper uk-text-small">
-            <a ui-sref="workspace.lms.courses.me"><i class="material-icons uk-text-primary" >keyboard_arrow_left</i>{{'PAGE.LMS.MY_COURSES.TITLE' | translate}}</a> 
-            <a ui-sref="workspace.lms.courses.outline.edit({courseId:vm.course._id,editionId:vm.edition._id})"><i class="material-icons uk-text-primary" >keyboard_arrow_left</i>{{vm.course.name}}</a> 
             </span>
+        </div>
+        <h1 >
+            <label>{{'MODEL.SECTION.NAME'|translate}}</label>
+            <input type="text" class="md-input uk-form-width-large" md-input ng-model="vm.section.name" />
+        </h1>
+        <span class="uk-text-upper uk-text-small">
+            <a ui-sref="workspace.lms.courses.me"><i class="material-icons uk-text-primary" >keyboard_arrow_left</i>{{'PAGE.LMS.MY_COURSES.TITLE' | translate}}</a>
+            <a ui-sref="workspace.lms.courses.outline.edit({courseId:vm.course._id,editionId:vm.edition._id})"><i class="material-icons uk-text-primary" >keyboard_arrow_left</i>{{vm.course.name}}</a>
+        </span>
     </div>
     <div class="md-fab-wrapper">
         <div class="md-fab md-fab-toolbar md-fab-small md-fab-accent" md-fab-toolbar>
@@ -26,52 +27,45 @@
     </div>
     <div id="page_content_inner">
         <div class="md-card">
-                          
             <div class="md-card-content">
-                <form  class="uk-form-stacked" name="examForm"
-                    id="examForm" novalidate>
+                <form class="uk-form-stacked" name="examForm" id="examForm" novalidate>
                     <div class="md-fab-wrapper md-fab-in-card">
-                            <div class="md-fab md-fab-primary md-fab-sheet" md-fab-sheet>
-                                <i class="material-icons">add</i>
-                                <div class="md-fab-sheet-actions">
-                                    <a ng-click="vm.addQuestion('mc')"class="md-color-white">{{'ACTION.CREATE_QUESTION'|translate}}</a>
-                                  
-                                </div>
+                        <div class="md-fab md-fab-primary md-fab-sheet" md-fab-sheet>
+                            <i class="material-icons">add</i>
+                            <div class="md-fab-sheet-actions">
+                                <a ng-click="vm.addQuestion('mc')"class="md-color-white">{{'ACTION.CREATE_QUESTION'|translate}}</a>
                             </div>
                         </div>
-  
-                            <div id="questions">
-                                <div class="uk-grid" data-uk-grid-margin  ng-repeat="question in vm.questions | orderBy: 'order'">
-                                    <div  class="uk-width-1-1 uk-margin-top" >
-                                        <div class="md-card">
-                                            <div class="md-card-toolbar">
-                                                <div class="md-card-toolbar-actions">
-                                                    <i class="uk-icon-arrow-up uk-icon-small uk-margin-right" ng-click="vm.moveUp(question)" data-uk-tooltip="{cls:'uk-tooltip-small',pos:'top'}" title="{{'ACTION.UP'|translate}}"></i>
-                           <i class="uk-icon-arrow-down uk-icon-small uk-margin-right" ng-click="vm.moveDown(question)" data-uk-tooltip="{cls:'uk-tooltip-small',pos:'top'}" title="{{'ACTION.DOWN'|translate}}"></i>
-                                                    <a  ng-click="vm.removeQuestion(question)" data-uk-tooltip="{cls:'uk-tooltip-small',pos:'top'}" title="{{'ACTION.DELETE'|translate}}"><i class="md-icon material-icons uk-text-danger">delete</i></a>
-                                                    <card-toggle></card-toggle>
-                                                    
-                                                </div>
-                                                <h3 class="md-card-toolbar-heading-text">
-                                                  {{question.title}}
-                                                </h3>
-                                            </div>
-                                            <div class="md-card-content">
-                                                <div ng-if="vm.question.type=='mc'">
-                                                    <multiple-choice-survey mode="'edit'" question="question"></multiple-choice-survey>
-                                                </div>
-                                            </div>
+                    </div>
+
+                    <div id="questions">
+                        <div class="uk-grid" data-uk-grid-margin  ng-repeat="question in vm.questions | orderBy: 'order'">
+                            <div  class="uk-width-1-1 uk-margin-top" >
+                                <div class="md-card">
+                                    <div class="md-card-toolbar">
+                                        <div class="md-card-toolbar-actions">
+                                            <i class="uk-icon-arrow-up uk-icon-small uk-margin-right" ng-click="vm.moveUp(question)" data-uk-tooltip="{cls:'uk-tooltip-small',pos:'top'}" title="{{'ACTION.UP'|translate}}"></i>
+                                            <i class="uk-icon-arrow-down uk-icon-small uk-margin-right" ng-click="vm.moveDown(question)" data-uk-tooltip="{cls:'uk-tooltip-small',pos:'top'}" title="{{'ACTION.DOWN'|translate}}"></i>
+                                            <a  ng-click="vm.removeQuestion(question)" data-uk-tooltip="{cls:'uk-tooltip-small',pos:'top'}" title="{{'ACTION.DELETE'|translate}}"><i class="md-icon material-icons uk-text-danger">delete</i></a>
+                                            <card-toggle></card-toggle>
+                                        </div>
+                                        <h3 class="md-card-toolbar-heading-text">
+                                          {{question.title}}
+                                        </h3>
+                                    </div>
+                                    <div class="md-card-content">
+                                    <!-- ng-if="vm.question.type=='mc'" -->
+                                        <div >
+                                            <multiple-choice-survey mode="'edit'" question="question"></multiple-choice-survey>
                                         </div>
                                     </div>
-                                 </div>
-                            </div>   
-                       
+                                </div>
+                            </div>
+                         </div>
+                    </div>
                 </form>
             </div>
-        </div>       
+        </div>
     </div>
-
-</div>      
-    
-
+</div>
 
