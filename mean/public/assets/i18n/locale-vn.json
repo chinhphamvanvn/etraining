@@ -347,6 +347,8 @@
 	"MODEL.COURSE.PREQUISITE.TYPE":"Thể loại",
 	"MODEL.COURSE.PREQUISITE.COURSE":"Khóa học đã hoàn thành",
   "MODEL.COURSE.SEARCH": "Nhập tên khóa học cần tìm",
+  "MODEL.COURSE.QUIZ.COMPLETE": "Bạn đã hoàn thành bài kiểm tra!",
+  "MODEL.COURSE.SURVEY.COMPLETE": "Bạn đã hoàn thành bài khảo sát!",
 	"MODEL.EDITION.PUBLISH":"Xuất bản",
 	"MODEL.EDITION.NAME":"Tên",
 	"MODEL.SECTION.NAME":"Tên",

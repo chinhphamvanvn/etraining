@@ -15,11 +15,11 @@ function CoursesStudyController($scope, $state, $window, HtmlsService,ExamsServi
     vm.edition = edition;
     $scope.prevSection = prevSection;
     $scope.nextSection = nextSection;
+    $scope.endCourse = false;
     vm.expand =  expand;
     vm.collapse = collapse;
     vm.toggleExpand = toggleExpand;
-    $scope.nextSection = nextSection;
-    
+
     vm.sections = EditionSectionsService.byEdition({editionId:vm.edition._id}, function() {
         vm.sections = _.filter(vm.sections,function(section) {
             return section.visible;
@@ -29,7 +29,7 @@ function CoursesStudyController($scope, $state, $window, HtmlsService,ExamsServi
             treeUtils.expandCourseNode(node,false);
         });
         vm.nodeList = treeUtils.buildCourseListInOrder(vm.nodes);
-        
+
         vm.attempts = AttemptsService.byMember({memberId:vm.member._id},function() {
             _.each(vm.sections,function(section) {
                 section.read = _.find(vm.attempts,function(attempt) {
@@ -39,7 +39,7 @@ function CoursesStudyController($scope, $state, $window, HtmlsService,ExamsServi
             var latestAttempt = _.max(vm.attempts, function(attempt){return new Date(attempt.start).getTime()});
             if (latestAttempt) {
                 var lastNode = _.find(vm.nodeList,function(node){
-                    return node.data._id == latestAttempt.section; 
+                    return node.data._id == latestAttempt.section;
                 });
                 if (lastNode) {
                     selectNode(lastNode)
@@ -47,12 +47,22 @@ function CoursesStudyController($scope, $state, $window, HtmlsService,ExamsServi
             }
         });
     });
-    
+
 
     function selectContentNode(node) {
         vm.selectedNode = node;
         vm.selectedContentNode = node;
         vm.section = node.data;
+        $scope.endCourse = false;
+
+        var index = _.findIndex(vm.nodeList, function (node) {
+            return node.id == vm.selectedNode.id;
+          }) + 1;
+
+        if (index === vm.nodeList.length) {
+          $scope.endCourse = true;
+        }
+
         if (node.data.contentType=='html')
             $state.go('workspace.lms.courses.join.study.html',{sectionId:node.data._id});
         if (node.data.contentType=='test')
@@ -62,7 +72,7 @@ function CoursesStudyController($scope, $state, $window, HtmlsService,ExamsServi
         if (node.data.contentType=='survey')
             $state.go('workspace.lms.courses.join.study.survey',{sectionId:node.data._id});
     }
-    
+
     function toggleExpand(node) {
         if (vm.selectedNode != node) {
             selectNode(node);
@@ -74,7 +84,7 @@ function CoursesStudyController($scope, $state, $window, HtmlsService,ExamsServi
         else
             expand(node);
     }
-    
+
     function selectNode(node) {
         vm.selectedNode = node;
         var parentNode = vm.selectedNode.parent;
@@ -84,15 +94,15 @@ function CoursesStudyController($scope, $state, $window, HtmlsService,ExamsServi
         if (vm.selectedNode.data.hasContent)
             selectContentNode( vm.selectedNode);
     }
-    
+
     function expand(node) {
         treeUtils.expandCourseNode(node,true);
     }
-    
+
     function collapse(node) {
         treeUtils.expandCourseNode(node,false);
     }
-    
+
     function prevSection() {
         var index = 0;
         if (vm.selectedNode) {
@@ -106,15 +116,16 @@ function CoursesStudyController($scope, $state, $window, HtmlsService,ExamsServi
                 selectContentNode(vm.nodeList[index]);
             }
         }
-        
+
     }
-    
+
     function nextSection() {
         var index = 0;
         if (vm.selectedNode) {
             index = _.findIndex(vm.nodeList,function(node) {
                 return node.id == vm.selectedContentNode.id;
             })+1;
+            if (index === vm.nodeList.lenght - 1) $scope.endCourse = true;
             while (index <vm.nodeList.length && !vm.nodeList[index].data.hasContent)
                 index++;
             if (index <vm.nodeList.length )  {
@@ -123,6 +134,6 @@ function CoursesStudyController($scope, $state, $window, HtmlsService,ExamsServi
             }
         }
     }
-   
+
 }
 }());

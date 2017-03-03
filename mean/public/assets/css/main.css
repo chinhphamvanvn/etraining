@@ -14094,6 +14094,9 @@ body {
 .lowercase {
   text-transform: lowercase;
 }
+.uppercase {
+  text-transform: uppercase;
+}
 /* C3js chart style ================================ */
 #login_chart,
 #member_register_chart,
@@ -14103,7 +14106,7 @@ body {
 #course_attempt_chart {
   min-height: 400px;
 }
-/* List courses and library style =================== */
+/* List courses and library admin style =================== */
 .uk-grid + .md-card-courses,
 .uk-grid + .md-card-medias {
   margin-top: 0;
@@ -14200,4 +14203,39 @@ span.fancytree-node > span.fancytree-icon {
 }
 div.fancytree-checkbox > .fancytree-container {
   background-color: lavender;
+}
+/* List courses and library user style =================== */
+.lecture-video {
+  display: inline-block;
+  position: relative;
+}
+.lecture-video .lecture-video__next-alert {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%);
+  padding: 35px 45px;
+  background: rgba(0, 0, 0, 0.5);
+}
+.lecture-video .lecture-video__next-alert .title,
+.lecture-video .lecture-video__next-alert .pause {
+  cursor: pointer;
+  display: inline-block;
+}
+.lecture-video .lecture-video__next-alert .title,
+.lecture-video .lecture-video__next-alert .counter,
+.lecture-video .lecture-video__next-alert .pause {
+  color: #fff;
+}
+.lecture-video .lecture-video__next-alert .title {
+  margin-bottom: 0;
+}
+.lecture-video .lecture-video__next-alert .counter,
+.lecture-video .lecture-video__next-alert .pause {
+  font-size: 2.5rem;
+}
+.lecture-video .lecture-video__next-alert .counter {
+  min-width: 50px;
+  margin-right: 15px;
 }
