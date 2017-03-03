@@ -67,7 +67,7 @@ function CoursesStudySurveyController($scope, $state, $window, QuestionsService,
         if (!vm.question.answer) {
             vm.question.answer =  new AnswersService();
         }
-        if (!vm.question.options) {
+        if (!vm.question.options || vm.question.options.length == 0) {
             vm.question.options =  OptionsService.byQuestion({questionId:vm.question._id}, function(){
                 _.each(vm.question.options ,function(option) {
                     option.selected = _.contains(vm.question.answer.options,option._id)
