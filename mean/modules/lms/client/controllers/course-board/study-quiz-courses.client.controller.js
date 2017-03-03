@@ -1,14 +1,14 @@
-(function () {
-  'use strict';
+(function() {
+    'use strict';
 
 // Courses controller
-  angular
+angular
     .module('lms')
     .controller('CoursesStudyQuizController', CoursesStudyQuizController);
 
-  CoursesStudyQuizController.$inject = ['$scope', '$state', '$window', 'QuestionsService', 'ExamsService', 'AnswersService', 'OptionsService', 'EditionSectionsService', 'Authentication', 'AttemptsService', 'editionResolve', 'CoursesService', 'Notification', 'sectionResolve', 'memberResolve', '$timeout', '$interval', '$translate', '$q', '_'];
+CoursesStudyQuizController.$inject = ['$scope', '$state', '$window', 'QuestionsService','ExamsService','AnswersService', 'OptionsService','EditionSectionsService','Authentication','AttemptsService', 'editionResolve', 'CoursesService', 'Notification', 'sectionResolve','memberResolve','$timeout', '$interval','$translate', '$q','_'];
 
-  function CoursesStudyQuizController($scope, $state, $window, QuestionsService, ExamsService, AnswersService, OptionsService, EditionSectionsService, Authentication, AttemptsService, edition, CoursesService, Notification, section, member, $timeout, $interval, $translate, $q, _) {
+function CoursesStudyQuizController($scope, $state, $window, QuestionsService,ExamsService,AnswersService,OptionsService,EditionSectionsService, Authentication, AttemptsService,edition, CoursesService, Notification, section,member,$timeout, $interval,$translate ,$q, _) {
     var vm = this;
     vm.edition = edition;
     vm.member = member;
@@ -76,10 +76,19 @@
 
 
     function selectQuestion(index) {
-      vm.question = vm.questions[index];
-      if (!vm.question.answer) {
-        vm.question.answer = new AnswersService();
-      }
+        vm.question = vm.questions[index];
+        vm.options =  OptionsService.byQuestion({questionId:vm.question._id}, function(){
+        });
+        if(!vm.question.options) {
+          vm.question.options = vm.options;
+          _.map(vm.question.options, function(item) {
+            item.isCorrect = false;
+          });
+        }
+
+        if (!vm.question.answer) {
+            vm.question.answer =  new AnswersService();
+        }
 
       if (vm.question.answer.option || vm.question.answer.options)
         vm.question.attempted = true;
