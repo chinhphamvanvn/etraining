@@ -39,6 +39,8 @@
       return {title: obj + ' ' + $translate.instant('COMMON.DAY'), value: obj}
     });
 
+    vm.userStatsDay = vm.userStatsDayOptions[2].value;
+
     vm.userStatsDayConfig = {
       create: false,
       maxItems: 1,
@@ -50,6 +52,8 @@
     vm.courseStatsDayOptions = _.map([7, 15, 30], function (obj) {
       return {title: obj + ' ' + $translate.instant('COMMON.DAY'), value: obj}
     });
+
+    vm.courseStatsDay = vm.courseStatsDayOptions[2].value;
 
     vm.courseStatsDayConfig = {
       create: false,
