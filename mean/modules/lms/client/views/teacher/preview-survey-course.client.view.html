@@ -14,29 +14,9 @@
                     </div>
                     
                     <div class="md-card-content">
-                        <h3 class="heading_b">{{question.title}}</h3>
-                        <p ng-bind-html="vm.question.description"></p>
-                        
-                        <hr>
-                        <h5 class="uk-margin-small-bottom uk-text-muted">{{'PAGE.LMS.MY_COURSES.COURSE_SURVEY.OPTION'|translate}}</h5>
-                        <ul class="uk-list uk-list-large">
-                            <li ng-repeat="option in vm.options">
-                                <div class="">
-                                    <span class="icheck-inline" ng-show="vm.question.type=='sc' || vm.question.type=='mc'">
-                                        <input type="radio"
-                                            name="question{{vm.question._id}}"
-                                            id="question_option{{option._id}}"
-                                            ng-value="true"
-                                            icheck ng-model="option.selected" />  
-                                        <label
-                                            for="question_option{{option._id}}"
-                                            class="inline-label">{{option.content}}</label>
-                                                                              
-                                    </span>
-                                </div>
-                            </li>
-                            
-                        </ul>
+                        <div ng-if="vm.question.type=='mc'">
+                            <multiple-choice-survey mode="'survey'" question="vm.question"></multiple-choice-survey>
+                        </div>
                         <div class="uk-text-center uk-margin-top">
                         
                             <a ng-show="vm.index < vm.questions.length-1" class="md-btn  md-btn-wave-light md-btn-icon" ng-click="vm.saveNext()"><i class="uk-icon-arrow-right "></i>

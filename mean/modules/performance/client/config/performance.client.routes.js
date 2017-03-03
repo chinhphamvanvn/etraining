@@ -60,7 +60,7 @@
           roles: [ 'admin']
         }
       })
-      .state('admin.workspace.performance.exams', {
+      .state('admin.workspace.performance.schedule', {
         url: '/exams',
         templateUrl: '/modules/performance/client/views/list-exams.client.view.html',
         controller: 'ExamsScheduleController',
