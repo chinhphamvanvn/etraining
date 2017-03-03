@@ -1,8 +1,8 @@
-(function () {
-  'use strict';
+(function() {
+    'use strict';
 
 // Courses controller
-  angular
+angular
     .module('lms')
     .controller('CoursesStudySurveyController', CoursesStudySurveyController);
 
@@ -56,7 +56,7 @@
         });
       })
     } else
-      vm.alert = $translate.instant('ERROR.COURSE_SURVEY.QUESTION_NOT_FOUND');
+        vm.alert = $translate.instant('ERROR.COURSE_SURVEY.QUESTION_NOT_FOUND');
 
     vm.nextQuestion = nextQuestion;
     vm.saveNext = saveNext;
@@ -64,22 +64,22 @@
 
 
     function selectQuestion(index) {
-      vm.question = vm.questions[index];
-      if (!vm.question.answer) {
-        vm.question.answer = new AnswersService();
-      }
-      if (!vm.question.options) {
-        vm.question.options = OptionsService.byQuestion({questionId: vm.question._id}, function () {
-          _.each(vm.question.options, function (option) {
-            option.selected = _.contains(vm.question.answer.options, option._id)
-          });
-        });
-      }
+        vm.question = vm.questions[index];
+        if (!vm.question.answer) {
+            vm.question.answer =  new AnswersService();
+        }
+        if (!vm.question.options || vm.question.options.length == 0) {
+            vm.question.options =  OptionsService.byQuestion({questionId:vm.question._id}, function(){
+                _.each(vm.question.options ,function(option) {
+                    option.selected = _.contains(vm.question.answer.options,option._id)
+                });
+            });
+        }
 
-      if (vm.question.answer.option || vm.question.answer.options)
-        vm.question.attempted = true;
-      else
-        vm.question.attempted = false;
+        if (vm.question.answer.option || vm.question.answer.options)
+            vm.question.attempted = true;
+        else
+            vm.question.attempted = false;
     }
 
     function nextQuestion() {
