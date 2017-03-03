@@ -14213,8 +14213,10 @@ div.fancytree-checkbox > .fancytree-container {
   position: absolute;
   right: 0;
   top: 50%;
-  -webkit-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%);
+  padding: 35px 45px;
+  background: rgba(0, 0, 0, 0.5);
 }
 .lecture-video .lecture-video__next-alert .title,
 .lecture-video .lecture-video__next-alert .pause {
