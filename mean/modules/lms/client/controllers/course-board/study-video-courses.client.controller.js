@@ -57,7 +57,7 @@
 
     function handleVideoEnd() {
       vm.autoSectionAuto = true;
-      vm.counter = 1000;
+      vm.counter = 10;
       vm.onTimeout = function () {
         vm.counter--;
         if (vm.counter > 0) {
