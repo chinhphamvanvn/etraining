@@ -16,9 +16,18 @@ var ScheduleSchema = new Schema({
     required: 'Please fill Schedule name',
     trim: true
   },
+  status: {
+      type: String,
+      enum: ['draft','available', 'unavailable'],
+      default: 'draft'
+  },
   color: {
       type: String  
     },
+    benchmark: {
+        type: Number,
+        default: 50
+      },
   start: {
     type: Date,
     default: Date.now

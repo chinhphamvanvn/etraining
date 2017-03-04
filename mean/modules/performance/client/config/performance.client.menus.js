@@ -24,7 +24,7 @@
       });
     menuService.addSubMenuItem('sidebar', 'admin.workspace.performance',{
         title: 'PAGE.WORKSPACE.SIDEBAR.PERFORMANCE.ASSESSMENT',
-        state: 'admin.workspace.performance.exams',
+        state: 'admin.workspace.performance.schedules.list',
         roles: ['admin'],
         position: 2
       });

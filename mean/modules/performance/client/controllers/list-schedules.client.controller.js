@@ -3,11 +3,11 @@
 
   angular
     .module('performance')
-    .controller('ExamsScheduleController', ExamsScheduleController);
+    .controller('ScheduleListController', ScheduleListController);
 
-  ExamsScheduleController.$inject = ['$scope', '$state', 'uiCalendarConfig','$compile','Authentication', 'SchedulesService', '$timeout', '$location', '$window', 'GroupsService', 'Notification','$q','treeUtils', '$translate', '_'];
+  ScheduleListController.$inject = ['$scope', '$state', 'uiCalendarConfig','$compile','Authentication', 'SchedulesService', '$timeout', '$location', '$window', 'GroupsService', 'Notification','$q','treeUtils', '$translate', '_'];
 
-  function ExamsScheduleController($scope,$state, uiCalendarConfig, $compile, Authentication, SchedulesService, $timeout, $location, $window, GroupsService, Notification, $q, treeUtils, $translate, _) {
+  function ScheduleListController($scope,$state, uiCalendarConfig, $compile, Authentication, SchedulesService, $timeout, $location, $window, GroupsService, Notification, $q, treeUtils, $translate, _) {
     var vm = this;
     vm.user = Authentication.user; 
    
@@ -67,7 +67,7 @@
             selectable: true,
             selectHelper: true,
             eventClick:function( date, jsEvent, view){
-                $state.go('admin.workspace.exam.view',{examId:date._id});
+                $state.go('admin.workspace.performance.schedules.view',{scheduleId:date._id});
             },
             select: function (start, end) {
                 UIkit.modal.prompt('' +
@@ -85,6 +85,7 @@
                             schedule.end = end;
                             schedule.color =  eventColor ? eventColor : '';
                             schedule.$save(function() {
+                                $state.go('admin.workspace.performance.schedules.edit',{scheduleId:schedule._id});
                             },function(errorResponse) {
                                 Notification.error({ message: errorResponse.data.message, title: '<i class="uk-icon-ban"></i> Exam created error!' });
                             })

@@ -45,7 +45,7 @@ var ExamSchema = new Schema({
         default: false,
       },
       questions: {
-          type: [new Schema({
+          type: [{
               id: {
                   type: Schema.ObjectId,
                   ref: 'Question'
@@ -58,7 +58,7 @@ var ExamSchema = new Schema({
                   type: Number,
                   default: 1
               }
-          })]
+          }]
        },
       questionSelection: {
         type: String,
