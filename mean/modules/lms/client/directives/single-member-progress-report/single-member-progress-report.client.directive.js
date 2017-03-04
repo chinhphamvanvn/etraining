@@ -56,17 +56,24 @@
               scope.getExportData = function() {
                   var data  = []
                   _.each(scope.sections,function(section) {
+                      if(section.attemptStatus == "empty"){
+                        section.firstAt = "";
+                        section.lastAt = "";
+                      } else {
+                        section.firstAt = moment(new Date(section.firstAttempt.created)).format('DD/MM/YYYY');
+                        section.lastAt = moment(new Date(section.lastAttempt.created)).format('DD/MM/YYYY');
+                      }
                       data.push({
                                   username:section.member.member.username,
                                   firstName:section.member.member.firstName,
                                   lastName:section.member.member.lastName,
                                   code: scope.course.code,
                                   name: scope.course.name,
-                                  enrollStatus: section.member.enrollmentStatus,                                
+                                  enrollStatus: section.member.enrollmentStatus,
                                   type:section.contentType,
                                   sectionName: section.name,
-                                  firstAttempt:moment(new Date(section.firstAttempt.created)).format('DD/MM/YYYY'),
-                                  lastAttempt:moment(new Date(section.lastAttempt.created)).format('DD/MM/YYYY'),
+                                  firstAttempt: section.firstAt,
+                                  lastAttempt: section.lastAt,
                                   completed:section.attemptStatus})
                   });
                   return data;

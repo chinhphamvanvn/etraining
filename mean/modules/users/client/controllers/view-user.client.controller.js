@@ -27,8 +27,19 @@
        else
            $state.go('workspace.users.edit');
     }
-    
-    
+
+    function toTimeString(seconds){
+        // seconds--;
+        function pad(num) {
+            return ("0"+num).slice(-2);
+        }
+        var hh = Math.floor(seconds / 3600);
+        var mm = Math.floor((seconds - hh*3600 ) /60);
+        var ss = Math.floor(seconds - hh*3600 - mm* 60);
+        var result =  pad(hh)+"hr : "+pad(mm)+"m : "+pad(ss)+"s";
+        return result;
+    }
+
     vm.members = CourseMembersService.byUser({userId:vm.user._id},function() {
         vm.members = _.filter(vm.members,function(member) {
             return member.role =='student';
@@ -65,14 +76,14 @@
                                 member.timeSpent += (endTime.getTime() - startTime.getTime())/1000;
                             });
 
-                            console.log(member.percentage);
+                            // console.log(member.percentage);
                             var memberCsv = {
                                 name: member.course.name,
                                 registered: member.registered,
                                 status: member.status,
                                 enrollmentStatus: member.enrollmentStatus,
-                                percentage: member.percentage,
-                                timeSpent: member.timeSpent
+                                percentage: member.percentage + " %",
+                                timeSpent: toTimeString(member.timeSpent)
                             };
 
                             vm.memberListCsv.push(memberCsv);
