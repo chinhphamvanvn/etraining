@@ -24,10 +24,6 @@ var ScheduleSchema = new Schema({
   color: {
       type: String  
     },
-    benchmark: {
-        type: Number,
-        default: 50
-      },
   start: {
     type: Date,
     default: Date.now
@@ -36,6 +32,17 @@ var ScheduleSchema = new Schema({
     type: Date,
     default: Date.now
   },
+  exam: {
+      type: Schema.ObjectId,
+      ref: 'Exam'
+    },
+  competency: {
+      type: Schema.ObjectId,
+      ref: 'Competency'
+    },
+    competencyLevel: {
+        type: String,
+      },
   created: {
     type: Date,
     default: Date.now

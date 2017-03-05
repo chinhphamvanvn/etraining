@@ -47,9 +47,9 @@
     
     function remove(question) {
         UIkit.modal.confirm($translate.instant('COMMON.CONFIRM_PROMPT'), function() {
-                vm.question.$remove(function() {
-                    vm.question = _.reject(vm.question ,function(question) {
-                        return question._id == question._id;
+                question.$remove(function() {
+                    vm.questions = _.reject(vm.questions ,function(q) {
+                        return q._id == question._id;
                     })
                 });
             });

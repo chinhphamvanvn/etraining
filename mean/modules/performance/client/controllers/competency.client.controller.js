@@ -13,9 +13,11 @@
       if (!vm.competency._id)
           vm.competency.levels = [];
       vm.save = save;
-      vm.addLevel = addlevel;
+      vm.addLevel = addLevel;
       vm.removeLevel = removeLevel;
-     
+      vm.upLevel = upLevel;
+      vm.downLevel = downLevel;
+
       function save() {
           var allPromise = [];
           allPromise.push(vm.competency.$update().$promise);
@@ -23,7 +25,7 @@
               allPromise.push(option.$update().$promise);
           });
           $q.all(allPromise).then(function() {
-              $state.go('admin.workspace.performance.competency.view',{competencyId:vm.competency._id});
+              $state.go('admin.workspace.performance.competency.list');
           });
       }
       
@@ -40,7 +42,7 @@
       
       function upLevel(level) {
           var nextLevel = _.find(vm.competency.levels ,function(l) {
-              return l.order > level;
+              return l.order > level.order;
           });
           if (nextLevel) {
               var order = level.order;
@@ -51,7 +53,7 @@
       
       function downLevel(level) {
           var prevLevel = _.find(vm.competency.levels ,function(l) {
-              return l.order < level;
+              return l.order < level.order;
           });
           if (prevLevel) {
               var order = level.order;

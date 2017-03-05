@@ -5,9 +5,9 @@
   // Unless the user is on a small device, because this could obscure the page with a keyboard
 
   angular.module('shared')
-    .directive('groupTreeEdit', ['AdminService','LibraryMediaService','CoursesService', 'QuestionsService', 'GroupsService','$timeout','Notification','treeUtils','$translate','_', groupTreeEdit]);
+    .directive('groupTreeEdit', ['AdminService','LibraryMediaService','CoursesService','CompetenciesService', 'QuestionsService', 'GroupsService','$timeout','Notification','treeUtils','$translate','_', groupTreeEdit]);
 
-  function groupTreeEdit(AdminService,LibraryMediaService,CoursesService, QuestionsService, GroupsService,$timeout,Notification,treeUtils,$translate, _) {
+  function groupTreeEdit(AdminService,LibraryMediaService,CoursesService, CompetenciesService, QuestionsService, GroupsService,$timeout,Notification,treeUtils,$translate, _) {
       
       return {
           scope: {
@@ -220,6 +220,18 @@
                       QuestionsService.byGroup({groupId:group._id},function(contents) {
                           if (contents.length >0 ) {
                               UIkit.modal.alert($translate.instant('ERROR.QUESTION.REMOVE_UNEMPTY_QUESTION_GROUP'));
+                          } else
+                              group.$remove(function (response) {
+                                  Notification.success({ message: '<i class="uk-icon-ok"></i> Group removed successfully!' });
+                                  reloadTree();
+                                 }, function (errorResponse) {
+                                   Notification.error({ message: errorResponse.data.message, title: '<i class="uk-icon-ban"></i> Group removed error!' });
+                               });
+                      });
+                  if (group.category=='competency')
+                      CompetenciesService.byGroup({groupId:group._id},function(contents) {
+                          if (contents.length >0 ) {
+                              UIkit.modal.alert($translate.instant('ERROR.COMPETENCY.REMOVE_UNEMPTY_COMPETENCY_GROUP'));
                           } else
                               group.$remove(function (response) {
                                   Notification.success({ message: '<i class="uk-icon-ok"></i> Group removed successfully!' });

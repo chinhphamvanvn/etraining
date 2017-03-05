@@ -101,6 +101,18 @@
           roles: ['admin'],
         }
       })
+      .state('admin.workspace.performance.schedules.candidate', {
+        url: '/candidate/:scheduleId',
+        templateUrl: '/modules/performance/client/views/list-exam-candidates.client.view.html',
+        controller: 'ExamCandidatesController',
+        controllerAs: 'vm',
+        resolve: {
+            scheduleResolve: getSchedule
+        },
+        data: {
+          roles: ['admin'],
+        }
+      })
       .state('admin.workspace.performance.competency', {
         url: '/competency',
         abstract:true,
@@ -124,7 +136,7 @@
         controller: 'CompetencyController',
         controllerAs: 'vm',
         resolve : {
-            questionResolve:getQuestion,
+            competencyResolve:getCompetency,
         },        
         data: {
           roles: [ 'admin']
@@ -136,7 +148,7 @@
         controller: 'CompetencyController',
         controllerAs: 'vm',
         resolve : {
-            questionResolve:getQuestion,
+            competencyResolve:getCompetency,
         },        
         data: {
           roles: [ 'admin']
@@ -168,6 +180,8 @@
         scheduleId: $stateParams.scheduleId
     }).$promise;
   }
+  
+
 
 
 }());

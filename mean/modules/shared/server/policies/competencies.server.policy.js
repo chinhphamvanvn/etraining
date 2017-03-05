@@ -20,7 +20,11 @@ exports.invokeRolesPolicies = function () {
     }, {
       resources: '/api/competencies/:competencyId',
       permissions: '*'
-    }]
+    },
+    {
+        resources: '/api/competencies/byGroup/:groupId',
+        permissions: '*'
+      }]
   }, {
     roles: ['user'],
     allows: [{
@@ -29,7 +33,11 @@ exports.invokeRolesPolicies = function () {
     }, {
       resources: '/api/competencies/:competencyId',
       permissions: ['get']
-    }]
+    },
+    {
+        resources: '/api/competencies/byGroup/:groupId',
+        permissions: 'get'
+      }]
   }, {
     roles: ['guest'],
     allows: [{

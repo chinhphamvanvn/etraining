@@ -20,7 +20,15 @@ exports.invokeRolesPolicies = function () {
     }, {
       resources: '/api/candidates/:candidateId',
       permissions: '*'
-    }]
+    },
+    {
+        resources: '/api/candidates/byExam/:examId',
+        permissions: '*'
+      },
+      {
+          resources: '/api/candidates/byUser/:userId',
+          permissions: '*'
+        }]
   }, {
     roles: ['user'],
     allows: [{
@@ -29,7 +37,15 @@ exports.invokeRolesPolicies = function () {
     }, {
       resources: '/api/candidates/:candidateId',
       permissions: ['get']
-    }]
+    },
+    {
+        resources: '/api/candidates/byExam/:examId',
+        permissions: 'get'
+      },
+      {
+          resources: '/api/candidates/byUser/:userId',
+          permissions: 'get'
+        }]
   }, {
     roles: ['guest'],
     allows: [{

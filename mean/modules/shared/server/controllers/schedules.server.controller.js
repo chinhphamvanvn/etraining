@@ -6,6 +6,7 @@
 var path = require('path'),
   mongoose = require('mongoose'),
   Schedule = mongoose.model('Schedule'),
+  Exam = mongoose.model('Exam'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
   _ = require('lodash');
 
@@ -15,16 +16,26 @@ var path = require('path'),
 exports.create = function(req, res) {
   var schedule = new Schedule(req.body);
   schedule.user = req.user;
-
-  schedule.save(function(err) {
-    if (err) {
-      return res.status(400).send({
-        message: errorHandler.getErrorMessage(err)
-      });
-    } else {
-      res.jsonp(schedule);
-    }
+  var exam = new Exam({});
+  exam.save(function(err) {
+      if (err) {
+          return res.status(400).send({
+            message: errorHandler.getErrorMessage(err)
+          });
+        } else {
+            schedule.exam = exam._id;
+            schedule.save(function(err) {
+                if (err) {
+                  return res.status(400).send({
+                    message: errorHandler.getErrorMessage(err)
+                  });
+                } else {
+                  res.jsonp(schedule);
+                }
+              });
+        }
   });
+  
 };
 
 /**

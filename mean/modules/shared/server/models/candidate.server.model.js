@@ -9,7 +9,7 @@ var mongoose = require('mongoose'),
 /**
  * Candidate Schema
  */
-var CandidateSchema = new Schema({
+var ExamCandidateSchema = new Schema({
     exam: {
         type: Schema.ObjectId,
         ref: 'Exam'
@@ -21,10 +21,6 @@ var CandidateSchema = new Schema({
     candidate: {
         type: Schema.ObjectId,
         ref: 'User'
-    },
-    enrollmentStatus: {
-        type: String,
-        enum: ['registered','inprogress','completed'],
     },
     status: {
         type: String,
@@ -52,4 +48,4 @@ var CandidateSchema = new Schema({
     }
 });
 
-mongoose.model('Candidate', CandidateSchema);
+mongoose.model('ExamCandidate', ExamCandidateSchema);

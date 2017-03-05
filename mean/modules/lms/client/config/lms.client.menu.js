@@ -17,6 +17,13 @@
       roles: ['user']
     });
     menuService.addMenuItem('sidebar', {
+        title: 'PAGE.WORKSPACE.SIDEBAR.LMS.MY_EXAM',
+        state: 'workspace.lms.exams.me',
+        icon:'alarm_add',
+        position: 25,
+        roles: ['user']
+      });
+    menuService.addMenuItem('sidebar', {
         title: 'PAGE.WORKSPACE.SIDEBAR.LMS.COURSE_LIST',
         state: 'workspace.lms.courses.list',
         icon:'search',

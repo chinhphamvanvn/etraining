@@ -13,11 +13,11 @@
             <div class="md-card-content">
                 <form ng-submit="vm.save()" class="uk-form-stacked" id="competencyForm" novalidate>
                         <div class="uk-grid" data-uk-grid-margin >
-                            <div class="uk-width-medium-1-4 parsley-row">
+                            <div class="uk-width-medium-1-2 parsley-row">
                                     <label for="competency_name">{{'MODEL.COMPETENCY.NAME'|translate}}<span class="req">*</span></label>
                                     <input type="text" name="competency_name" id="competency_name" data-parsley-trigger="change" required class="md-input"  md-input ng-model="vm.competency.name" />
                                 </div>
-                            <div class="uk-width-medium-3-4 parsley-row">          
+                            <div class="uk-width-medium-1-1 parsley-row">          
                                         <label for="competency_category_select">{{'MODEL.COMPETENCY.CATEGORY'|translate}}</label>
                                         <div  id="competency_category_select">
                                             <span class="icheck-inline" >
@@ -35,10 +35,27 @@
                                         </div>
                 
                                 </div>
-                            <div class="uk-width-medium-1-2" ng-if="vm.competency.gradeModel=='level'">>
+                              <div class="uk-width-medium-1-1 parsley-row">          
+                                        <label for="competency_grade_select">{{'MODEL.COMPETENCY.GRADE_MODEL'|translate}}</label>
+                                        <div  id="competency_grade_select">
+                                            <span class="icheck-inline" >
+                                                <input type="radio" name="competency_grade" id="competency_tf" ng-disabled="true" value="true-false" icheck ng-model="vm.competency.gradeModel" />
+                                                <label for="competency_tf" class="inline-label">{{'COMMON.COMPETENCY_GRADE_MODEL.TF'|translate}}</label>
+                                            </span>
+                                            <span class="icheck-inline" >
+                                                <input type="radio" name="competency_grade" id="competency_level" ng-disabled="true" value="level" icheck ng-model="vm.competency.gradeModel" />
+                                                <label for="competency_level" class="inline-label">{{'COMMON.COMPETENCY_GRADE_MODEL.LEVEL'|translate}}</label>
+                                            </span>
+                                        </div>
+                
+                                </div>
+                            <div class="uk-width-medium-1-2" ng-if="vm.competency.gradeModel=='level'">
                                 <div class="uk-grid" data-uk-grid-margin  ng-repeat="level in vm.competency.levels | orderBy: 'order'">
                                     <div class="uk-width-medium-2-10 uk-text-center" >
-
+                                            <i class="uk-icon-arrow-up uk-icon-small uk-margin-right" ng-click="vm.downLevel(level)"
+                                                 data-uk-tooltip="{cls:'uk-tooltip-small',pos:'top'}" title="{{'ACTION.UP'|translate}}"></i>
+                                              <i class="uk-icon-arrow-down uk-icon-small uk-margin-right" ng-click="vm.upLevel(level)"
+                                                 data-uk-tooltip="{cls:'uk-tooltip-small',pos:'top'}" title="{{'ACTION.DOWN'|translate}}"></i>
                                     </div>
                                     <div class="uk-width-medium-7-10">
                                         <input type="text" class="md-input"   md-input  ng-model="level.name" />

@@ -50,10 +50,6 @@ var ExamSchema = new Schema({
                   type: Schema.ObjectId,
                   ref: 'Question'
               },
-              score: {
-                  type: Number,
-                  default: 1
-              },
               order: {
                   type: Number,
                   default: 1
@@ -84,11 +80,22 @@ var ExamSchema = new Schema({
         type: Boolean,
         default: false
       },
-      type: {
-          type: String,
-          enum: ['quiz', 'exam','survey'],
-          default: 'quiz',
+      earlySubmitPrevetion: {
+          type: Boolean,
+          default: false
         },
+        earlySubmit: {
+            type: Number,
+            default: 1
+          },
+          preDueWarning: {
+              type: Boolean,
+              default: false
+            },
+            preDue: {
+                type: Number,
+                default: 1
+              },
       created: {
         type: Date,
         default: Date.now

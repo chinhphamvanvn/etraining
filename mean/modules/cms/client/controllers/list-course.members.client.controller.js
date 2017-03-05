@@ -160,6 +160,7 @@
                      member.member = user._id;
                      member.registerAgent = Authentication.user._id;
                      member.course = vm.course._id;
+                     member.edition = vm.edition._id;
                      member.status = 'active';
                      member.role = 'teacher';
                      member.registered = new Date();

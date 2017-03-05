@@ -14,7 +14,12 @@
     }, {
       update: {
         method: 'PUT'
-      }
+      },
+      byCandidate: {
+          url:'/api/submissions/byCandidate/:candidateId',
+          method: 'GET',
+          isArray: true
+        },
     });
   }
 }());

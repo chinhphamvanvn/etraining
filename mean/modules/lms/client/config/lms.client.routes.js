@@ -40,7 +40,7 @@
         }
       })
       .state('workspace.lms.courses.search', {
-        url: '/search?keyword',
+        url: '/search/:keyword',
         templateUrl: '/modules/lms/client/views/list-courses.client.view.html',
         controller: 'LmsCoursesSearchController',
         controllerAs: 'vm',
@@ -509,7 +509,116 @@
           roles: ['user'],
           courseRoles: ['teacher']
         }
-      });
+      })
+      .state('workspace.lms.exams', {
+        abstract: true,
+        url: '/exams',
+        template: '<ui-view/>'
+      })
+      .state('workspace.lms.exams.me', {
+        url: '/me',
+        templateUrl: '/modules/lms/client/views/my-exams.client.view.html',
+        controller: 'MyExamsListController',
+        controllerAs: 'vm',
+        data: {
+            roles: [ 'user'],
+            courseRoles: [ 'teacher','student']
+        }
+      })
+      .state('workspace.lms.exams.edit', {
+        url: '/edit/:scheduleId/:examId',
+        templateUrl: '/modules/lms/client/views/instructor/form-exam.client.view.html',
+        controller: 'ExamsController',
+        controllerAs: 'vm',
+        resolve: {
+            examResolve: getExam,
+            scheduleResolve:getSchedule
+        },
+        data: {
+            roles: [ 'user'],
+            courseRoles: [ 'teacher','student']
+        }
+      })
+      .state('workspace.lms.exams.view', {
+        url: '/view/:scheduleId/:examId',
+        templateUrl: '/modules/lms/client/views/instructor/view-exam.client.view.html',
+        controller: 'ExamsController',
+        controllerAs: 'vm',
+        resolve: {
+            examResolve: getExam,
+            scheduleResolve:getSchedule
+        },
+        data: {
+            roles: [ 'user'],
+            courseRoles: [ 'teacher','student']
+        }
+      })
+      .state('workspace.lms.exams.preview', {
+        url: '/preview/:examId',
+        templateUrl: '/modules/lms/client/views/instructor/preview-exam.client.view.html',
+        controller: 'ExamsPreviewController',
+        controllerAs: 'vm',
+        resolve: {
+            examResolve: getExam,
+        },
+        data: {
+            roles: [ 'user'],
+            courseRoles: [ 'teacher','student']
+        }
+      })
+      .state('workspace.lms.exams.grade', {
+        url: '/grade/:examId',
+        templateUrl: '/modules/lms/client/views/instructor/form-exam.client.view.html',
+        controller: 'ExamsGradeController',
+        controllerAs: 'vm',
+        resolve: {
+            examResolve: getExam,
+        },
+        data: {
+            roles: [ 'user'],
+            courseRoles: [ 'teacher','student']
+        }
+      })
+       .state('workspace.lms.exams.scoreboard', {
+        url: '/scoreboard/:examId',
+        templateUrl: '/modules/lms/client/views/instructor/score.board-exam.client.view.html',
+        controller: 'ExamsScoreboardController',
+        controllerAs: 'vm',
+        resolve: {
+            examResolve: getExam,
+        },
+        data: {
+            roles: [ 'user'],
+            courseRoles: [ 'teacher','student']
+        }
+      })
+       .state('workspace.lms.exams.study', {
+        url: '/study/:examId',
+        templateUrl: '/modules/lms/client/views/instructor/score.board-exam.client.view.html',
+        controller: 'ExamsStudyController',
+        controllerAs: 'vm',
+        resolve: {
+            examResolve: getExam,
+        },
+        data: {
+            roles: [ 'user'],
+            courseRoles: [ 'teacher','student']
+        }
+      })
+       .state('workspace.lms.exams.gradebook', {
+        url: '/gradebook/:examId',
+        templateUrl: '/modules/lms/client/views/instructor/score.board-exam.client.view.html',
+        controller: 'ExamsGradebookyController',
+        controllerAs: 'vm',
+        resolve: {
+            examResolve: getExam,
+        },
+        data: {
+            roles: [ 'user'],
+            courseRoles: [ 'teacher','student']
+        }
+      })
+      ;
   }
 
   getCourse.$inject = ['$stateParams', 'CoursesService'];
@@ -687,4 +796,21 @@
   function getUser( UsersService) {
       return UsersService.me().$promise;
   }
+  
+  getExam.$inject = ['$stateParams', 'ExamsService'];
+
+  function getExam($stateParams, ExamsService) {
+    return ExamsService.get({
+        examId: $stateParams.examId
+    }).$promise;
+  }
+  
+  getSchedule.$inject = ['$stateParams', 'SchedulesService'];
+
+  function getSchedule($stateParams, SchedulesService) {
+    return SchedulesService.get({
+        scheduleId: $stateParams.scheduleId
+    }).$promise;
+  }
+
 }());

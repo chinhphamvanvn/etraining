@@ -30,7 +30,7 @@
       });
     menuService.addSubMenuItem('sidebar', 'admin.workspace.performance',{
         title: 'PAGE.WORKSPACE.SIDEBAR.PERFORMANCE.COMPETENCY',
-        state: 'admin.workspace.performance.competency',
+        state: 'admin.workspace.performance.competency.list',
         roles: ['admin'],
         position: 3
       });

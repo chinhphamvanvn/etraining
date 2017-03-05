@@ -1,0 +1,61 @@
+
+
+<div id="page_content">
+    <div id="page_content_inner">
+        <div class="md-card uk-margin-medium-bottom">
+                        <div class="md-card-toolbar">
+                    <h3 class="md-card-toolbar-heading-text large">
+                        {{'PAGE.LMS.MY_COURSES.COURSE_GRADE.STUDENT_LIST'|translate}}
+                    </h3>
+                </div>
+                <div class="md-card-content">
+                        <table  class="uk-table uk-table-nowrap uk-table-condensed">
+                            <thead>
+                            <tr>
+                                <th class="uk-width-1-10 uk-text-center">{{'MODEL.USER.AVATAR'|translate}}</th>
+                                <th class="uk-width-2-10 uk-text-center">{{'MODEL.USER.DISPLAY_NAME'|translate}}</th>
+                                <th class="uk-width-1-10 uk-text-center">{{'MODEL.MEMBER.REGISTER_DATE'|translate}}</th>
+                                <th class="uk-width-1-10  uk-text-center">{{'MODEL.MEMBER.STATUS'|translate}}</th>
+                                <th class="uk-width-1-10 uk-text-center">{{'MODEL.MEMBER.ENROLL_STATUS'|translate}}</th>
+                                <th class="uk-width-2-10 uk-text-center" ng-if="vm.course.model=='group'">{{'MODEL.MEMBER.CLASSROOM' | translate}}</th>
+                                <th class="uk-width-2-10 ">{{'COMMON.ACTION' | translate}}</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="member in vm.members">
+                                <td class="uk-text-center"><img class="md-user-image" src="{{member.member.profileImageURL}}" alt=""/></td>
+                                <td class="uk-text-center">{{member.member.displayName}}
+                                </td>
+                                <td class="uk-text-center">{{member.registered | date:'dd-MM-yyyy'}}</td>
+                                <td class="uk-text-center">
+                                    <span ng-show="member.status=='active'" class="uk-badge uk-badge-success">active</span>
+                                    <span ng-show="member.status=='withdrawn'" class="uk-badge uk-badge-warning">withdrawn</span>
+                                    <span ng-show="member.status=='suspended'" class="uk-badge uk-badge-danger">suspended</span>
+                                </td>
+                                <td class="uk-text-center">
+                                    <span ng-show="member.enrollmentStatus=='completed'" class="uk-badge uk-badge-success">{{'COMMON.ENROLL.COMPLETED'|translate}}</span>
+                                    <span ng-show="member.enrollmentStatus=='in-study'" class="uk-badge uk-badge-primary">{{'COMMON.ENROLL.INSTUDY'|translate}}</span>
+                                    <span ng-show="member.enrollmentStatus=='registered'" class="uk-badge ">{{'COMMON.ENROLL.REGISTERED'|translate}}</span>
+                                    <span ng-show="member.certificate" class="uk-form-help-block">{{'PAGE.LMS.MY_COURSES.TEACHER_BOARD.GRADE_BOARD.CERTIFIED'|translate}}</span>
+                                </td>
+                                <td class="uk-text-center" ng-if="vm.course.model=='group'">{{member.classroom.name}}</td>
+                                <td class="">
+                                <a  ui-sref="workspace.lms.courses.join.gradeboard-member({memberId:member._id})" data-uk-tooltip="{pos:'right'}" title="{{'PAGE.LMS.MY_COURSES.STUDENT_BOARD.GRADEBOOK'|translate}}"><i class="md-icon material-icons ">grade</i></a>
+                                     <a ng-show="member.status=='active'" ng-click="vm.suspend(member)" data-uk-tooltip="{pos:'right'}" title="{{'ACTION.SUSPEND'|translate}}"><i class="md-icon material-icons uk-text-warning">lock</i></a>
+                                    <a  ng-show="member.status=='suspended'" ng-click="vm.activate(member)" data-uk-tooltip="{pos:'right'}" title="{{'ACTION.ACTIVATE'|translate}}"><i class="md-icon material-icons uk-text-warning">lock_open</i></a>
+                                    <a ng-show="!member.certificate" ng-click="vm.certify(member)" data-uk-tooltip="{pos:'right'}" title="{{'ACTION.CERTIFY'|translate}}"><i class="md-icon material-icons uk-text-primary">content_paste</i></a>
+                                </td>
+                            </tr>
+                            
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+                
+            </div>
+        
+    </div>
+
+
+

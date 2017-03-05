@@ -12,9 +12,7 @@ var mongoose = require('mongoose'),
 var CompetencySchema = new Schema({
   name: {
     type: String,
-    default: '',
-    required: 'Please fill Competency name',
-    trim: true
+    default: ''
   },
   group: {
       type: Schema.ObjectId,
@@ -39,8 +37,9 @@ var CompetencySchema = new Schema({
                 type: Number,
                 default: 1
             }
-        )]
-     },ted: {
+        }]
+     },
+    granted: {
     type: Date,
     default: Date.now
   },

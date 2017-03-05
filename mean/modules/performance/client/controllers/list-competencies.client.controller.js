@@ -5,51 +5,51 @@
     .module('performance')
     .controller('CompetencyListController', CompetencyListController);
 
-  CompetencyListController.$inject = ['$scope', '$rootScope','$state', 'Authentication','GroupsService','QuestionsService', '$timeout', '$window', 'treeUtils','$translate', '_'];
+  CompetencyListController.$inject = ['$scope', '$rootScope','$state', 'Authentication','GroupsService','CompetenciesService', '$timeout', '$window', 'treeUtils','$translate', '_'];
   
-  function CompetencyListController($scope, $rootScope, $state, Authentication, GroupsService, QuestionsService, $timeout, $window, treeUtils,$translate, _) {
+  function CompetencyListController($scope, $rootScope, $state, Authentication, GroupsService, CompetenciesService, $timeout, $window, treeUtils,$translate, _) {
     var vm = this;
     vm.authentication = Authentication;
-    vm.finishEditQuestionTree = finishEditQuestionTree;
-    vm.createQuestion = createQuestion;
+    vm.finishEditCompetencyTree = finishEditCompetencyTree;
+    vm.createCompetency = createCompetency;
     vm.remove = remove;
     vm.selectGroup = selectGroup;
     
     function selectGroup(groups) {
         vm.groups = groups;
-        vm.questions  = [];
+        vm.competencies  = [];
         _.each(vm.groups,function(group) {
-            QuestionsService.byCategory({groupId:group},function(questions) {
-                vm.questions = vm.questions.concat(questions); 
+            CompetenciesService.byGroup({groupId:group},function(skills) {
+                vm.competencies = vm.competencies.concat(skills); 
             })
         })
     }
     
-    function finishEditQuestionTree() {
+    function finishEditCompetencyTree() {
         $window.location.reload();
     }
     
     
-    function createQuestion(type) {
+    function createCompetency(type) {
         if (!vm.groups) {
-            UIkit.modal.alert($translate.instant('ERROR.QUESTION.EMPTY_QUESTION_GROUP'));
+            UIkit.modal.alert($translate.instant('ERROR.COMPETENCY.EMPTY_COMPETENCY_GROUP'));
             return;
         }
-        var question =  new QuestionsService();
-        question.category = vm.groups[0];
-        question.type = type;
-        question.$save(function() {
-            $state.go('admin.workspace.performance.question.edit',{questionId:question._id})
+        var skill =  new CompetenciesService();
+        skill.group = vm.groups[0];
+        skill.gradeModel = type;
+        skill.$save(function() {
+            $state.go('admin.workspace.performance.competency.edit',{competencyId:skill._id})
         });
         
          
     }
     
-    function remove(question) {
+    function remove(skill) {
         UIkit.modal.confirm($translate.instant('COMMON.CONFIRM_PROMPT'), function() {
-                vm.question.$remove(function() {
-                    vm.question = _.reject(vm.question ,function(question) {
-                        return question._id == question._id;
+                skill.$remove(function() {
+                    vm.competencies = _.reject(vm.competencies ,function(competency) {
+                        return competency._id == skill._id;
                     })
                 });
             });

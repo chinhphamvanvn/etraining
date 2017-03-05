@@ -92,6 +92,18 @@ exports.list = function(req, res) {
   });
 };
 
+exports.listByGroup = function(req, res) {
+    Competency.find({group:req.group._id}).sort('-created').populate('user', 'displayName').exec(function(err, competencies) {
+      if (err) {
+        return res.status(400).send({
+          message: errorHandler.getErrorMessage(err)
+        });
+      } else {
+        res.jsonp(competencies);
+      }
+    });
+  };
+
 /**
  * Competency middleware
  */

@@ -14,7 +14,12 @@
     }, {
       update: {
         method: 'PUT'
-      }
+      },
+      byGroup : {
+          method: 'GET',
+          url: '/api/competencies/byGroup/:groupId',
+          isArray: true
+        }
     });
   }
 }());

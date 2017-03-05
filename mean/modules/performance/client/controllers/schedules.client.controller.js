@@ -6,13 +6,15 @@ angular
     .module('performance')
     .controller('SchedulesController', SchedulesController);
 
-SchedulesController.$inject = ['$scope', '$state', '$window', 'Authentication', '$timeout', 'scheduleResolve', 'SchedulesService', 'Notification', 'GroupsService','$translate','_'];
+SchedulesController.$inject = ['$scope', '$state', '$window', 'Authentication', '$timeout', 'scheduleResolve', 'SchedulesService', 'Notification','GroupsService', 'CompetenciesService','$translate','_'];
 
-function SchedulesController($scope, $state, $window, Authentication, $timeout, schedule, SchedulesService, Notification, GroupsService,$translate, _) {
+function SchedulesController($scope, $state, $window, Authentication, $timeout, schedule, SchedulesService, Notification,GroupsService, CompetenciesService,$translate, _) {
     var vm = this;
 
     vm.authentication = Authentication;
     vm.schedule = schedule;
+    if (vm.schedule.competency)
+        vm.competency = CompetenciesService.get({competencyId:vm.schedule.competency})
     vm.remove = remove;
     vm.save = save;
     vm.cancel = cancel;
@@ -46,12 +48,12 @@ function SchedulesController($scope, $state, $window, Authentication, $timeout, 
 
     $schedule_start.on('change', function() {
         end_date.options.minDate = $schedule_start.val();
-        vm.schedule.startDate = moment($schedule_start.val(),'DD.MM.YYYY');
+        vm.schedule.start = moment($schedule_start.val(),'DD.MM.YYYY');
     });
 
     $schedule_end.on('change', function() {
         start_date.options.maxDate = $schedule_end.val();
-        vm.schedule.endDate = moment($schedule_end.val(),'DD.MM.YYYY');
+        vm.schedule.end = moment($schedule_end.val(),'DD.MM.YYYY');
     });
 
     
@@ -59,7 +61,8 @@ function SchedulesController($scope, $state, $window, Authentication, $timeout, 
         vm.schedule.status = 'available';
         vm.schedule.$update(
           function() {
-            Notification.success({ message: '<i class="uk-icon-check"></i> Schedule activated successfully!'})},
+            Notification.success({ message: '<i class="uk-icon-check"></i> Schedule activated successfully!'});
+          },
           function() {
             Notification.success({ message: '<i class="uk-icon-check"></i> Schedule activated failed!' });
         })
@@ -74,26 +77,59 @@ function SchedulesController($scope, $state, $window, Authentication, $timeout, 
                 Notification.success({ message: '<i class="uk-icon-check"></i> Schedule deactivated failed!' });
         });   
     }     
+    
+    vm.competencyConfig = {
+            create: false,
+            maxItems: 1,
+            valueField: 'value',
+            labelField: 'title',
+            searchField: 'title',
+            onChange: function(args) {
+                vm.competency = _.find(vm.competencies,function(skill) {
+                    return skill._id == args;
+                });
+            }
+        };
+    vm.competencyOptions = [];
+    vm.competencies = CompetenciesService.query(function() {
+        vm.competencyOptions = _.map(vm.competencies, function(obj) {
+            return {
+                id: obj._id,
+                title: obj.name,
+                value: obj._id
+            }
+        });
+    });
+    
+    vm.groupConfig = {
+            create: false,
+            maxItems: 1,
+            valueField: 'value',
+            labelField: 'title',
+            searchField: 'title'
+        };
+        vm.groupOptions = [];
+        GroupsService.listCourseGroup(function(data) {
+            vm.groupOptions = _.map(data, function(obj) {
+                return {
+                    id: obj._id,
+                    title: obj.name,
+                    value: obj._id
+                }
+            });
+        });
 
 
     function save() {
-        if (!vm.schedule._id)
-            vm.schedule.$save(onSaveSuccess, onSaveFailure);
-        else
-            vm.schedule.$update(onSaveSuccess, onSaveFailure);
+            vm.schedule.$update(function() {
+                Notification.success({ message: '<i class="uk-icon-check"></i> Schedule saved successfully!'     });
+                $state.go('admin.workspace.performance.schedules.view',{scheduleId:vm.schedule._id});
+
+            }, function(errorResponse) {
+                Notification.error({ message: errorResponse.data.message,      title: '<i class="uk-icon-ban"></i> Schedule saved error!'})
+            });
     }
-    
-
-    function onSaveSuccess(response) {
-        Notification.success({ message: '<i class="uk-icon-check"></i> Schedule saved successfully!'     }); 
-    }
-
-
-    function onSaveFailure(errorResponse) {
-        Notification.error({ message: errorResponse.data.message,      title: '<i class="uk-icon-ban"></i> Schedule saved error!'
-        });
-    }
-
+   
     // Remove existing Schedule
     function remove() {
         UIkit.modal.confirm($translate.instant('COMMON.CONFIRM_PROMPT'), function() {
