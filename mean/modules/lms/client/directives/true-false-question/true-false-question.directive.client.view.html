@@ -138,8 +138,8 @@
                     ng-repeat="option in question.options | orderBy: 'order'">
                     <div class="uk-width-medium-2-10 uk-text-center" >
                         <span class="icheck-inline">
-                            <input type="checkbox" 
-                                id="option_{{option._id}}" icheck 
+                            <input type="checkbox"
+                                id="option_{{option._id}}" icheck
                                 ng-model="option.selected" ng-change="selectOption(option)"
                                  />
                         </span>

@@ -26,7 +26,7 @@ function CoursesStudyController($scope, $state, $window, HtmlsService,ExamsServi
         });
         vm.nodes = treeUtils.buildCourseTree(vm.sections);
         _.each(vm.nodes,function(node) {
-            treeUtils.expandCourseNode(node,false);
+            treeUtils.expandCourseNode(node,true);
         });
         vm.nodeList = treeUtils.buildCourseListInOrder(vm.nodes);
 

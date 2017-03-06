@@ -45,7 +45,15 @@
                   });
               }
               
-          
+              scope.selectOption = function(option) {
+                  if (scope.mode !='view') {
+                      _.each(scope.question.options,function(obj) {
+                         obj.selected = false; 
+                      });
+                      option.selected = true;
+                      scope.question.correctOptions = [option._id];
+                  }
+              }
               
               scope.removeOption = function(option) {
                   if (option._id)  {
