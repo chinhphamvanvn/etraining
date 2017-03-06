@@ -17,19 +17,19 @@
       vm.changeFreezeMode = changeFreezeMode;
       vm.nodeList = [];
       vm.total = 0;
-      
+
       EditionSectionsService.byEdition({editionId:vm.edition._id}, function(sections) {
           var nodes = treeUtils.buildCourseTree(sections);
           vm.nodeList = treeUtils.buildCourseListInOrder(nodes);
           vm.nodeList = _.filter(vm.nodeList,function(node) {
               return node.data.hasContent && node.data.contentType=='test';
           });
-          
+
           _.each(vm.nodeList,function(node) {
               node.min = '0';
               node.max = '100';
               var mark = _.find(vm.scheme.marks, function(m) {
-                 return m.quiz == node.data._id; 
+                 return m.quiz == node.data._id;
               });
               if (mark ) {
                   node.checked = true;
@@ -42,7 +42,7 @@
               vm.total += node.weight;
           })
       });
-      
+
       function update() {
           vm.scheme.marks = _.map(vm.nodeList,function(obj) {
               return  {quiz: obj.data._id, weight: obj.weight};
@@ -53,7 +53,7 @@
                Notification.error({ message: errorResponse.data.message, title: '<i class="uk-icon-ban"></i> Grade scheme updated error!' });
            });
       }
-      
+
       function changeFreezeMode() {
           var freezeNodes  = _.filter(vm.nodeList,function(n) {
               return n.checked;
@@ -64,10 +64,10 @@
           var sum = 0;
           _.each(freezeNodes,function(n) {sum = sum + n.weight});
           _.each(activeNodes,function(n) {
-             n.max = (100 - sum)+''; 
+             n.max = (100 - sum)+'';
           });
       }
-      
+
       function changeWeight(node) {
           var weight = node.weight;
           var balanceNodes  = _.filter(vm.nodeList,function(n) {
@@ -85,9 +85,9 @@
                   i = (i+1) % balanceNodes.length;
               }
           }
-          
+
       }
-      
+
     }
 
   }());

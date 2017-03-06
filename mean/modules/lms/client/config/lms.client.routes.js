@@ -489,7 +489,7 @@
             memberResolve: getMember,
             editionResolve: getEdition,
             courseResolve: getCourse,
-            gradeResolve: getGradescheme,
+            gradeResolve: getGradescheme
         },
         data: {
           roles: ['user'],
