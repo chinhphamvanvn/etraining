@@ -6,9 +6,9 @@
     .module('lms')
     .controller('CoursesGradeboardController', CoursesGradeboardController);
 
-  CoursesGradeboardController.$inject = ['$scope', '$state', '$window', 'Authentication', '$timeout', 'editionResolve', 'courseResolve', 'memberResolve', 'gradeResolve', 'userResolve', 'Notification', 'CourseEditionsService', 'CertificatesService', 'CourseMembersService', 'EditionSectionsService', 'treeUtils', '$translate', '_'];
+  CoursesGradeboardController.$inject = ['$scope', '$state', '$window', 'Authentication', '$timeout', 'editionResolve', 'courseResolve', 'memberResolve', 'gradeResolve', 'userResolve', 'Notification', 'CourseEditionsService', 'CertificatesService', 'CourseMembersService', 'EditionSectionsService', 'treeUtils', 'ExamsService', 'AttemptsService', 'QuestionsService', '$translate', '_'];
 
-  function CoursesGradeboardController($scope, $state, $window, Authentication, $timeout, edition, course, member, gradescheme, user, Notification, CourseEditionsService, CertificatesService, CourseMembersService, EditionSectionsService, treeUtils, $translate, _) {
+  function CoursesGradeboardController($scope, $state, $window, Authentication, $timeout, edition, course, member, gradescheme, user, Notification, CourseEditionsService, CertificatesService, CourseMembersService, EditionSectionsService, treeUtils, ExamsService, AttemptsService, QuestionsService, $translate, _) {
     var vm = this;
     vm.course = course;
     vm.edition = edition;
@@ -131,7 +131,50 @@
         vm.total += node.weight;
       });
     }).then(function () {// Get result of exam
+      var sections = _.filter(vm.sections,function(section) {
+        return section.visible;
+      });
+      var nodes = treeUtils.buildCourseTree(sections);
+      vm.members.map(function (member) {
+        _.each(nodes, function (root) {
+          root.childList = _.filter(treeUtils.buildCourseListInOrder(root.children), function (node) {
+            return node.data.hasContent && node.data.contentType == 'test' && node.data.quiz;
+          });
 
+          _.each(root.childList, function (node) {
+            var section = node.data;
+            node.quiz = ExamsService.get({examId: node.data.quiz}, function () {
+              node.quiz.correctCount = 0;
+              _.each(node.quiz.questions, function (q) {
+                q.mark = 0;
+              });
+              var attempts = AttemptsService.bySectionAndMember({
+                editionId: vm.edition._id,
+                memberId: member._id,
+                sectionId: section._id
+              }, function () {
+                var latestAttempt = _.max(attempts, function (attempt) {
+                  return new Date(attempt.start).getTime()
+                });
+                _.each(latestAttempt.answers, function (answer) {
+                  var quizQuestion = _.find(node.quiz.questions, function (q) {
+                    return q.id == answer.question;
+                  });
+                  quizQuestion.detail = QuestionsService.get({questionId: quizQuestion.id});
+                  quizQuestion.answer = answer;
+                  if (answer.isCorrect) {
+                    quizQuestion.mark = 1;
+                    node.quiz.correctCount++;
+                  } else
+                    quizQuestion.mark = 0;
+
+                  console.log('nodes', member);
+                });
+              });
+            });
+          });
+        });
+      });
     });
 
     function certify(member) {
