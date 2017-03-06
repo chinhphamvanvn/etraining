@@ -53,6 +53,10 @@ var ExamSchema = new Schema({
               order: {
                   type: Number,
                   default: 1
+              },
+              score: {
+                  type: Number,
+                  default: 1
               }
           }]
        },
@@ -96,6 +100,7 @@ var ExamSchema = new Schema({
                 type: Number,
                 default: 1
               },
+
       created: {
         type: Date,
         default: Date.now

@@ -18,6 +18,9 @@ module.exports = function(app) {
   app.route('/api/questions/byCategory/:groupId').all(questionsPolicy.isAllowed)
   .get(questions.listByCategory);
   
+  app.route('/api/questions/byIds/:questionIds').all(questionsPolicy.isAllowed)
+  .get(questions.listByIds);
+  
   app.route('/api/questions/:questionId').all(questionsPolicy.isAllowed)
     .get(questions.read)
     .put(questions.update)

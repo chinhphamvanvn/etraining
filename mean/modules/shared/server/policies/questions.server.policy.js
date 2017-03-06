@@ -25,6 +25,10 @@ exports.invokeRolesPolicies = function () {
             resources: '/api/questions/byCategory/:groupId',
             permissions: '*'
           },
+          {
+              resources: '/api/questions/byIds/:questionIdd',
+              permissions: '*'
+          },
         {
       resources: '/api/questions/:questionId',
       permissions: '*'
@@ -42,6 +46,10 @@ exports.invokeRolesPolicies = function () {
             resources: '/api/questions/byCategory/:groupId',
             permissions: 'get'
           },
+          {
+              resources: '/api/questions/byIds/:questionIdd',
+              permissions: 'get'
+          },            
       {
       resources: '/api/questions/:questionId',
       permissions: ['get']

@@ -24,7 +24,12 @@
               method: 'GET',
               url: '/api/questions/byCategory/:groupId',
               isArray: true
-            }
+            },
+            byIds : {
+                method: 'GET',
+                url: '/api/questions/byIds/:questionIds',
+                isArray: true
+              }
     });
   }
 }());
