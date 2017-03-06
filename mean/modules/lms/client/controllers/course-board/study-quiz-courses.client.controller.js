@@ -46,12 +46,8 @@ function CoursesStudyQuizController($scope, $state, $window, QuestionsService,Ex
             }, vm.remainTime * 1000);
             vm.intervalToken = $interval(updateClock, 1000);
 
-            var allPromise = [];
-            _.each(vm.quiz.questions, function (q, index) {
-              allPromise.push(QuestionsService.get({questionId: q.id}).$promise);
-            });
-            $q.all(allPromise).then(function (questions) {
-              vm.questions = questions;
+            var questionIds = _.pluck(vm.qzui.questions,'id');
+            vm.questions = QuestionsService.byIds({questionIds:questionIds},function() {
               vm.index = 0;
               if (vm.questions.length > 0)
                 selectQuestion(vm.index)

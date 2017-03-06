@@ -1,6 +1,13 @@
 
 <div id="page_content">
     <div id="page_heading" data-uk-sticky="{ top: 48, media: 960 }">
+        <div class="heading_actions ">
+            
+            <a
+                class="md-btn  " ui-sref="workspace.lms.exams.preview({scheduleId:vm.schedule._id,examId:vm.exam._id})"><i class="material-icons uk-text-success">play_arrow</i> {{'ACTION.PREVIEW' | translate }}
+            </a>
+        </div>
+        
        <h1 >{{vm.schedule.name}}                        
        </h1>
         <span class="uk-text-upper uk-text-small">

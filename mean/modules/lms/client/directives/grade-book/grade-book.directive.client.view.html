@@ -12,41 +12,9 @@
                                 <div ng-repeat="childNode in node.childList" class="uk-margin-bottom">
                                 <h3 class="heading_c uk-margin-bottom uk-text-primary" >
                                     {{childNode.data.name}} ({{childNode.quiz.correctCount}}/{{childNode.quiz.questions.length}})
-                                    <a data-uk-modal="{target:'#modal_{{childNode.id}}'}"><i class="material-icons">info_outline</i></a>
+                                    <exam-result exam="childNode.quiz" answers="childNode.latestAttempt.answers"></exam-result>
                                 </h3>
-                                <div class="uk-modal" id="modal_{{childNode.id}}">
-                                    <div class="uk-modal-dialog">
-                                        <button type="button" class="uk-modal-close uk-close"></button>
-                                        
-                                        <div class="uk-modal-header">
-                                            <h3 class="uk-modal-title">{{'DIALOG.EXAM_RESULT.TITLE'|translate}} </h3>
-                                        </div>
-                                        
-                                        <div class="md-card" ng-repeat="question in childNode.quiz.questions track by $index">
-                                            <div class="md-card-toolbar">
-                                            <div class="md-card-toolbar-heading-text">
-                                                <span>{{'PAGE.LMS.MY_COURSES.COURSE_STUDY.QUESTION'|translate}} {{$index+1}}/{{childNode.quiz.questions.length}}
-                                                </span>
-                                                
-                                            </div>
-                                        </div>
-                                            <div class="md-card-content">
-                                                 <div ng-if="question.detail.type=='mc'">
-                                                     <multiple-choice-question mode="'result'"  question="question.detail" answer="question.answer"></lms-question>
-                                                </div>
-                                               <div ng-if="question.detail.type=='sc'">
-                                                     <single-choice-question mode="'result'"  question="question.detail" answer="question.answer"></single-choice-question>
-                                                </div>
-                                                <div ng-if="question.detail.type=='tf'">
-                                                     <true-false-question mode="'result'"  question="question.detail" answer="question.answer"></true-false-question>
-                                                </div>
-                                                <div ng-if="question.detail.type=='fb'">
-                                                     <fill-blank-question mode="'result'"  question="question.detail" answer="question.answer"></fill-blank-question>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                
                                 <span class="sub-heading uk-margin-right" ng-show="!childNode.quiz || childNode.quiz.questions.length==0">{{'ERROR.COURSE_STUDY.QUESTION_NOT_FOUND'|translate}}</span>
                                     <span class="sub_heading uk-margin-right" ng-show="childNode.quiz.questions.length">{{'PAGE.LMS.MY_COURSES.COURSE_GRADE.EXAM_RESULT'|translate}}: </span>
                                 <span ng-repeat="question in childNode.quiz.questions" class="uk-margin-right">{{question.mark}}/1 </span>

@@ -560,6 +560,7 @@
         controllerAs: 'vm',
         resolve: {
             examResolve: getExam,
+            scheduleResolve:getSchedule
         },
         data: {
             roles: [ 'user'],
