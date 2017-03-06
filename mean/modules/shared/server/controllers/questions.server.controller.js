@@ -106,8 +106,8 @@ exports.listByCategoryAndLevel = function(req, res) {
 };
 
 exports.listByIds = function(req, res) {
-    console.log(req.params.questionIds);
-    Question.find({_id:{$in:req.params.questionIds} }).sort('-created').populate('user', 'displayName').populate('category').exec(function(err, questions) {
+    var questionIds = req.params.questionIds.split(',');
+    Question.find({_id:{$in:questionIds} }).sort('-created').populate('user', 'displayName').populate('category').exec(function(err, questions) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)

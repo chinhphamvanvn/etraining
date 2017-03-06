@@ -32,7 +32,7 @@ exports.invokeRolesPolicies = function () {
       permissions: ['get', 'post']
     }, {
       resources: '/api/submissions/:submissionId',
-      permissions: ['get']
+      permissions: ['get','put']
     },
     {
         resources: '/api/submissions/byCandidate/:candidateId',

@@ -13,9 +13,9 @@ function ExamsController($scope, $state, $window, Authentication, $timeout, exam
     vm.authentication = Authentication;
     vm.exam = exam;
     vm.schedule = schedule;
-    vm.addQuestion = addQuestion;
     vm.removeQuestion = removeQuestion;
     vm.selectQuestions = selectQuestions;
+    vm.selectQuestionGroup = selectQuestionGroup;
     vm.moveUp = moveUp;
     vm.moveDown = moveDown;
     vm.update = update;
@@ -38,16 +38,18 @@ function ExamsController($scope, $state, $window, Authentication, $timeout, exam
                 }
             });
         });
-        
-     vm.selectedQuestions = QuestionsService.byIds({questionIds:_.pluck(vm.exam.questions,'id')},function() {
-         _.each(vm.selectedQuestions,function(question) {
-             var examQuestion = _.find(vm.exam.questions,function(q) {
-                 return q.id == question._id;
+     vm.selectedQuestions = [];
+     var selectedIds = _.pluck(vm.exam.questions,'id');
+     if (selectedIds.length)
+         vm.selectedQuestions = QuestionsService.byIds({questionIds:_.pluck(vm.exam.questions,'id')},function() {
+             _.each(vm.selectedQuestions,function(question) {
+                 var examQuestion = _.find(vm.exam.questions,function(q) {
+                     return q.id == question._id;
+                 });
+                 question.score = examQuestion.score;
+                 question.order = examQuestion.order;
              });
-             question.score = examQuestion.score;
-             question.order = examQuestion.order;
          });
-     });
      
      function moveUp(question) {
          var prevQuestion = _.find(vm.selectedQuestions,function(q) {
@@ -73,12 +75,12 @@ function ExamsController($scope, $state, $window, Authentication, $timeout, exam
 
 
     function update() {
-         vm.exam.questions = _.map(vm.selectQuestions,function(q) {
+         vm.exam.questions = _.map(vm.selectedQuestions,function(q) {
              return {id:q._id,order:q.order,score:q.score}
          });
         vm.exam.$update( function() {
             Notification.success({ message: '<i class="uk-icon-check"></i> Exam saved successfully!'});
-            $state.go('admin.workspace.lms.exams.view',{examId:vm.exam._id,scheduleId:vm.schedule._id})
+            $state.go('workspace.lms.exams.view',{examId:vm.exam._id,scheduleId:vm.schedule._id})
           },
           function() {
             Notification.success({ message: '<i class="uk-icon-check"></i> Exam saved failed!' });
@@ -102,7 +104,7 @@ function ExamsController($scope, $state, $window, Authentication, $timeout, exam
     function selectQuestionGroup(groups) {
         vm.questions = [];
         _.each(groups,function(group) {
-           QuestionsService.byGroup({groupId:group},function(questions) {
+           QuestionsService.byCategory({groupId:group},function(questions) {
                vm.questions = vm.questions.concat(questions);
            })     
         });
@@ -110,8 +112,11 @@ function ExamsController($scope, $state, $window, Authentication, $timeout, exam
 
     function removeQuestion(question) {
         vm.selectedQuestions = _.reject(vm.selectedQuestions,function(o) {
-            return o.order == question.order && !o._id;
+            return o.order == question.order;
         });
+        _.each(vm.selectedQuestions,function(q,idx) {
+            q.order = idx + 1;
+        })
     }
 
 }

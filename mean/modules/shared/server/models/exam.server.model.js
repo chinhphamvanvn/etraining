@@ -84,7 +84,7 @@ var ExamSchema = new Schema({
         type: Boolean,
         default: false
       },
-      earlySubmitPrevetion: {
+      earlySubmitPrevention: {
           type: Boolean,
           default: false
         },
