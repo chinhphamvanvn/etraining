@@ -31,49 +31,49 @@ function CoursesOutlineEditController($scope, $state, $window, Authentication, $
     vm.moveSection = moveSection;
     vm.sections = [];
     vm.expandMode = true;
-    
+
     vm.sections = EditionSectionsService.byEdition({editionId:vm.edition._id}, function() {
         buildCourseTree();
     });
-    
+
     function buildCourseTree(){
         vm.nodes = treeUtils.buildCourseTree(vm.sections);
         vm.expandMode = true;
         vm.nodeArray = treeUtils.buildCourseListInOrder(vm.nodes);
     }
-    
+
     function changePublishStatus() {
         vm.edition.$update(function() {
             Notification.success({ message: '<i class="uk-icon-ok"></i> Course publish status change successfully!' });
         },function(errorResponse) {
             Notification.error({ message: errorResponse.data.message, title: '<i class="uk-icon-ban"></i> Course publish status change error!' });
         });
-    } 
-    
+    }
+
     function expandAll() {
         vm.expandMode = true;
         _.each(vm.nodes,function(node) {
             treeUtils.expandCourseNode(node,true)
         });
     }
-    
+
     function collapseAll() {
         vm.expandMode = false;
         _.each(vm.nodes,function(node) {
             treeUtils.expandCourseNode(node,false)
         })
     }
-    
+
     function expand(node) {
         treeUtils.expandCourseNode(node,true);
     }
-    
+
     function collapse(node) {
         treeUtils.expandCourseNode(node,false);
     }
 
     function addSection() {
-        UIkit.modal.prompt($translate.instant('MODEL.GROUP.NAME'), '', function(val){ 
+        UIkit.modal.prompt($translate.instant('MODEL.GROUP.NAME'), '', function(val){
             var section = new EditionSectionsService();
             section.name = val;
             section.edition = vm.edition._id;
@@ -88,9 +88,9 @@ function CoursesOutlineEditController($scope, $state, $window, Authentication, $
               });
          });
     }
-    
+
     function addSubsection(node) {
-        UIkit.modal.prompt($translate.instant('MODEL.GROUP.NAME'), '', function(val){ 
+        UIkit.modal.prompt($translate.instant('MODEL.GROUP.NAME'), '', function(val){
             var section = new EditionSectionsService();
             section.parent = node.data._id;
             section.name = val;
@@ -106,16 +106,16 @@ function CoursesOutlineEditController($scope, $state, $window, Authentication, $
               });
          });
     }
-    
+
     function hasUnitSection(node) {
         var unit = _.find(node.children,function(child) {
             return child.data.hasContent;
         });
         return unit != null;
     }
-    
+
     function addUnit(node,contentType) {
-        UIkit.modal.prompt($translate.instant('MODEL.GROUP.NAME'), '', function(val){ 
+        UIkit.modal.prompt($translate.instant('MODEL.GROUP.NAME'), '', function(val){
             var section = new EditionSectionsService();
             section.parent = node.data._id;
             section.name = val;
@@ -132,7 +132,7 @@ function CoursesOutlineEditController($scope, $state, $window, Authentication, $
               });
          });
     }
-    
+
     function editSection(node) {
         var section = node.data;
         if (section.hasContent) {
@@ -146,7 +146,7 @@ function CoursesOutlineEditController($scope, $state, $window, Authentication, $
                 $state.go('workspace.lms.courses.section.edit.video',{courseId:vm.edition.course,editionId:vm.edition._id,sectionId:node.data._id});
         }
         else
-            UIkit.modal.prompt($translate.instant('MODEL.GROUP.NAME'), '', function(val){ 
+            UIkit.modal.prompt($translate.instant('MODEL.GROUP.NAME'), '', function(val){
             section.name = val;
             section.$update(function () {
                }, function (errorResponse) {
@@ -154,7 +154,7 @@ function CoursesOutlineEditController($scope, $state, $window, Authentication, $
              });
         });
     }
-    
+
     function editVisible(node) {
         var section = node.data;
         section.$update(function () {
@@ -162,7 +162,7 @@ function CoursesOutlineEditController($scope, $state, $window, Authentication, $
              Notification.error({ message: errorResponse.data.message, title: '<i class="uk-icon-ban"></i> Section updated error!' });
          });
     }
-    
+
     function goUp(node) {
         if (node.index -1 < 0)
             return;
@@ -184,9 +184,9 @@ function CoursesOutlineEditController($scope, $state, $window, Authentication, $
            }, function (errorResponse) {
              Notification.error({ message: errorResponse.data.message, title: '<i class="uk-icon-ban"></i> Section updated error!' });
          });
-        
+
     }
-    
+
     function goDown(node) {
         var section = node.data;
         var siblings = node.parent ? node.parent.children : vm.nodes;
@@ -208,9 +208,9 @@ function CoursesOutlineEditController($scope, $state, $window, Authentication, $
            }, function (errorResponse) {
              Notification.error({ message: errorResponse.data.message, title: '<i class="uk-icon-ban"></i> Section updated error!' });
          });
-        
+
     }
-    
+
     function moveSection(node, newParentNode) {
         var section = node.data;
         section.parent = newParentNode.data._id;
@@ -221,7 +221,7 @@ function CoursesOutlineEditController($scope, $state, $window, Authentication, $
                 Notification.error({ message: errorResponse.data.message, title: '<i class="uk-icon-ban"></i> Section updated error!' });
             });
     }
-    
+
     function validateParentNode(node, parentNode) {
         if (node.id == parentNode.id)
             return false;
@@ -251,7 +251,7 @@ function CoursesOutlineEditController($scope, $state, $window, Authentication, $
         }
         return true;
     }
-    
+
     function removeSection(node) {
         var section = node.data;
         if (node.children.length>0) {

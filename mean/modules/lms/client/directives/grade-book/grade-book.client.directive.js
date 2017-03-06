@@ -8,7 +8,7 @@
     .directive('gradebook', ['EditionSectionsService','ExamsService','AttemptsService','QuestionsService', 'OptionsService',  'treeUtils','$translate',  '_', gradebook]);
 
   function gradebook(EditionSectionsService,ExamsService,AttemptsService, QuestionsService, OptionsService, treeUtils,$translate, _) {
-      
+
       return {
           scope: {
               course: "=",
@@ -25,7 +25,7 @@
                   scope.nodes = treeUtils.buildCourseTree(sections);
                   _.each(scope.nodes,function(root) {
                       root.childList = _.filter(treeUtils.buildCourseListInOrder(root.children),function(node) {
-                         return node.data.hasContent && node.data.contentType=='test' && node.data.quiz ; 
+                         return node.data.hasContent && node.data.contentType=='test' && node.data.quiz ;
                       });
                       reloadChart();
                       _.each(root.childList,function(node) {
@@ -41,23 +41,23 @@
                                       var quizQuestion = _.find(node.quiz.questions,function(q) {
                                           return q.id == answer.question;
                                       });
-                                      quizQuestion.detail = QuestionsService.get({questionId:quizQuestion.id})
+                                      quizQuestion.detail = QuestionsService.get({questionId:quizQuestion.id});
                                       quizQuestion.answer = answer;
                                       if (answer.isCorrect) {
-                                          quizQuestion.mark = 1;
+                                          quizQuestion.mark = quizQuestion.score;
                                           node.quiz.correctCount++;
                                       } else
                                           quizQuestion.mark = 0;
+
                                       reloadChart();
                                   });
-                                  
-                              }); 
+                              });
                           });
-                          
+
                       });
                   });
               });
-              
+
               var progress_chart_id = 'progress_chart';
               var progress_chart = c3.generate({
                   bindto: '#'+progress_chart_id,
@@ -90,7 +90,7 @@
                       pattern: ['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728', '#9467bd', '#8c564b', '#e377c2', '#7f7f7f', '#bcbd22', '#17becf']
                   }
               });
-              
+
               function reloadChart() {
                   var quizName = ['x'];
                   var studentScore =[$translate.instant('REPORT.STUDENT_MARK.SCORE')];
@@ -101,10 +101,10 @@
                       _.each(root.childList,function(node) {
                           quizName.push(node.data.name);
                           var scheme = _.find(scope.gradescheme.marks,function(scheme) {
-                             return scheme.quiz == node.data._id; 
+                             return scheme.quiz == node.data._id;
                           });
                           quizScore.push(scheme.weight);
-                          sumQuizScore += quizScore[quizScore.length-1] 
+                          sumQuizScore += quizScore[quizScore.length-1]
                           if (node.quiz && node.quiz.questions && node.quiz.questions.length>0)
                               studentScore.push(node.quiz.correctCount *scheme.weight/node.quiz.questions.length);
                           else
@@ -119,7 +119,7 @@
                       columns: [
                             quizName,
                             studentScore,
-                            quizScore,
+                            quizScore
                       ]
                   });
               }
