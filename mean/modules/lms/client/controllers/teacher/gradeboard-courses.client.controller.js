@@ -106,6 +106,16 @@
                     quizQuestion.mark = 0;
                 });
                 node.quiz.correctPercent = Math.floor((node.quiz.correctCount*100)/node.quiz.questions.length);
+
+                console.log('============', vm.gradescheme);
+                var mark = _.find(vm.gradescheme.marks, function(m) {
+                  return node.id == m.quiz;
+                });
+                if (mark) {
+                  node.weight = mark.weight;
+                } else {
+                  node.weight = 0;
+                }
               });
             });
           });
