@@ -17,73 +17,10 @@
     vm.user = user;
     vm.gradescheme = gradescheme;
 
-    // vm.examList = EditionSectionsService.byEdition({editionId: vm.edition._id}, function (sections) {
-    //   var nodes = treeUtils.buildCourseTree(sections);
-    //   vm.examList = treeUtils.buildCourseListInOrder(nodes);
-    //
-    //   vm.examList = _.filter(vm.examList, function (node) {
-    //     return node.data.hasContent && node.data.contentType == 'test';
-    //   });
-    //
-    //   _.each(vm.examList, function (node) {
-    //     node.min = '0';
-    //     node.max = '100';
-    //     var mark = _.find(vm.gradescheme.marks, function (m) {
-    //       return m.quiz == node.data._id;
-    //     });
-    //     if (mark) {
-    //       node.checked = true;
-    //       node.weight = mark.weight;
-    //       node.max = node.weight;
-    //     } else {
-    //       node.weight = 0;
-    //       node.checked = false;
-    //     }
-    //     vm.total += node.weight;
-    //   });
-    // });
-
     function examPromise() {
       return EditionSectionsService.byEdition({editionId: vm.edition._id}, function (sections) {
-        // var nodes = treeUtils.buildCourseTree(sections);
-        // vm.examList = treeUtils.buildCourseListInOrder(nodes);
-        //
-        // vm.examList = _.filter(vm.examList, function (node) {
-        //   return node.data.hasContent && node.data.contentType == 'test';
-        // });
-        //
-        // _.each(vm.examList, function (node) {
-        //   node.min = '0';
-        //   node.max = '100';
-        //   var mark = _.find(vm.gradescheme.marks, function (m) {
-        //     return m.quiz == node.data._id;
-        //   });
-        //   if (mark) {
-        //     node.checked = true;
-        //     node.weight = mark.weight;
-        //     node.max = node.weight;
-        //   } else {
-        //     node.weight = 0;
-        //     node.checked = false;
-        //   }
-        //   vm.total += node.weight;
-        // });
       }).$promise;
     }
-
-    // vm.members = CourseMembersService.byCourse({courseId: vm.course._id}, function () {
-    //   vm.members = _.filter(vm.members, function (m) {
-    //     return m.role == 'student';
-    //   });
-    //
-    //   _.each(vm.members, function (member) {
-    //     CertificatesService.byMember({memberId: member._id}, function (certificate) {
-    //       member.certificate = certificate;
-    //     }, function () {
-    //       member.certificate = null;
-    //     })
-    //   })
-    // });
 
     function membersPromise() {
       return CourseMembersService.byCourse({courseId: vm.course._id}, function () {
@@ -162,21 +99,19 @@
                   var quizQuestion = _.find(node.quiz.questions, function (q) {
                     return q.id == answer.question;
                   });
-                  quizQuestion.detail = QuestionsService.get({questionId: quizQuestion.id});
-                  quizQuestion.answer = answer;
                   if (answer.isCorrect) {
                     quizQuestion.mark = 1;
                     node.quiz.correctCount++;
                   } else
                     quizQuestion.mark = 0;
                 });
+                node.quiz.correctPercent = Math.floor((node.quiz.correctCount*100)/node.quiz.questions.length);
               });
             });
           });
         });
         member.quizList = nodes;
       });
-      console.log('======', vm.members);
     });
 
     function certify(member) {
