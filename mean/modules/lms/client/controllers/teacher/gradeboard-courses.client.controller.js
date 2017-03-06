@@ -90,8 +90,7 @@
       }).$promise;
     }
 
-    membersPromise()
-      .then(function (members) {
+    membersPromise().then(function (members) {
         vm.members = _.filter(members, function (m) {
           return m.role == 'student';
         });
@@ -103,35 +102,37 @@
             member.certificate = null;
           })
         })
-      }).then(function() {
-        return examPromise();
-      }).then(function(sections) {
-        vm.sections = sections;
-        // Get examList information
-        var nodes = treeUtils.buildCourseTree(sections);
-        vm.examList = treeUtils.buildCourseListInOrder(nodes);
+    }).then(function () {
+      return examPromise();
+    }).then(function (sections) { // Get examList information
+      vm.sections = sections;
 
-        vm.examList = _.filter(vm.examList, function (node) {
-          return node.data.hasContent && node.data.contentType == 'test';
-        });
+      var nodes = treeUtils.buildCourseTree(sections);
+      vm.examList = treeUtils.buildCourseListInOrder(nodes);
 
-        _.each(vm.examList, function (node) {
-          node.min = '0';
-          node.max = '100';
-          var mark = _.find(vm.gradescheme.marks, function (m) {
-            return m.quiz == node.data._id;
-          });
-          if (mark) {
-            node.checked = true;
-            node.weight = mark.weight;
-            node.max = node.weight;
-          } else {
-            node.weight = 0;
-            node.checked = false;
-          }
-          vm.total += node.weight;
-        });
+      vm.examList = _.filter(vm.examList, function (node) {
+        return node.data.hasContent && node.data.contentType == 'test';
       });
+
+      _.each(vm.examList, function (node) {
+        node.min = '0';
+        node.max = '100';
+        var mark = _.find(vm.gradescheme.marks, function (m) {
+          return m.quiz == node.data._id;
+        });
+        if (mark) {
+          node.checked = true;
+          node.weight = mark.weight;
+          node.max = node.weight;
+        } else {
+          node.weight = 0;
+          node.checked = false;
+        }
+        vm.total += node.weight;
+      });
+    }).then(function () {// Get result of exam
+
+    });
 
     function certify(member) {
       var modal = UIkit.modal.blockUI('<div class=\'uk-text-center\'>Processing...<br/><img class=\'uk-margin-top\' src=\'/assets/img/spinners/spinner.gif\' alt=\'\'>');

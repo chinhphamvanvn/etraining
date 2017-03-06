@@ -48,6 +48,7 @@
                                           node.quiz.correctCount++;
                                       } else
                                           quizQuestion.mark = 0;
+
                                       reloadChart();
                                   });
                               });
