@@ -129,24 +129,25 @@
                                 <table  class=" uk-table uk-table-hover uk-table-nowrap  uk-table-condensed">
                                     <thead>
                                         <tr>
-                                            <th class="uk-width-2-10"></th>
-                                            <th class="uk-width-1-10"></th>
+                                            <th class="uk-text-center uk-text-upper uk-width-2-10">{{'COMMON.ACTION'|translate}}</th>
+                                            <th class="uk-text-center uk-text-upper uk-width-1-10">{{'MODEL.QUESTION.SCORE'|translate}}</th>
                                             <th class="uk-text-center uk-text-upper uk-width-4-10">{{'MODEL.QUESTION.TITLE'|translate}}</th>
                                             <th class="uk-text-center uk-text-upper uk-width-2-10">{{'MODEL.QUESTION.TYPE'|translate}}</th>
                                             <th class="uk-text-center uk-text-upper uk-width-1-10">{{'MODEL.QUESTION.LEVEL'|translate}}</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr ng-repeat="question in vm.selectedQuestions | orderBy:'order'">
+                                        <tr ng-repeat="question in vm.selectedQuestions | orderBy:'order'" ng-mouseenter="question.show=true" ng-mouseleave="question.show=false">
                                             <td  class="uk-width-2-10">
                                                 <i class="uk-icon-arrow-up  uk-margin-right" ng-click="vm.moveUp(question)"
                                                  data-uk-tooltip="{cls:'uk-tooltip-small',pos:'top'}" title="{{'ACTION.UP'|translate}}"></i>
                                               <i class="uk-icon-arrow-down  uk-margin-right" ng-click="vm.moveDown(question)"
                                                  data-uk-tooltip="{cls:'uk-tooltip-small',pos:'top'}" title="{{'ACTION.DOWN'|translate}}"></i>
                                                  <a  ng-click="vm.removeQuestion(question)" data-uk-tooltip="{cls:'uk-tooltip-small',pos:'top'}" title="{{'ACTION.DELETE'|translate}}"><i class="md-icon material-icons uk-text-danger">delete</i></a>
+                                                 
                                             </td>
                                             <td class="uk-text-center uk-width-1-10">{{question.order}}</td>
-                                            <td class="uk-text-center  uk-width-4-10">{{question.title}}</td>
+                                            <td class="uk-text-center  uk-width-4-10">{{question.title}} <question-info question="question" show="question.show"></question-info></td>
                                             <td class="uk-text-center uk-width-2-10">
                                                 <span ng-if="question.type=='mc'">{{'COMMON.QUESTION_TYPE.MC'|translate}}</span>
                                                 <span ng-if="question.type=='sc'">{{'COMMON.QUESTION_TYPE.SC'|translate}}</span>

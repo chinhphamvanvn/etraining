@@ -1,0 +1,76 @@
+
+<div id="page_content">
+    <div id="page_heading" data-uk-sticky="{ top: 48, media: 960 }">
+       <h1 >{{'PAGE.LMS.MY_EXAMS.GRADE_SCHEME.TITLE' | translate}} : {{vm.schedule.name}}</h1>
+        <span class="uk-text-upper uk-text-small">
+            <a ui-sref="workspace.lms.exams.me"><i class="material-icons uk-text-primary" >keyboard_arrow_left</i>{{'PAGE.LMS.MY_EXAMS.TITLE' | translate}}</a> 
+            </span>
+    </div>
+    <div id="page_content_inner">
+        <div class="md-card" >
+            <div class="md-card-content">
+             <div class="uk-grid uk-margin" data-uk-grid-margin>
+                <div class="uk-width-1-1">
+                    <label for="benchamrk_slider" class="uk-form-label">{{'MODEL.EXAM.BENCHMARK'|translate}}</label>
+                    <div id="benchamrk_slider" name="benchamrk_slider"  grid="true"  ion-slider ng-model="vm.exam.benchmark" min="0" max="100"></div>
+                </div>
+                <div  data-uk-grid-margin   ng-show="vm.exam.questionSelection=='auto'">
+                    <div class="uk-card uk-card-default uk-card-body uk-width-1-2@m">
+                    <p class="uk-text-italic">{{'PAGE.LMS.MY_EXAMS.GRADE_SCHEME.DEFAULT_QUESTION_SCORE'|translate}} </p>
+                    <p class="uk-text-italic">{{'PAGE.LMS.MY_EXAMS.GRADE_SCHEME.TOTAL_QUESTION'|translate}} : {{vm.exam.questionNumber}}</p>
+                    <p class="uk-text-italic">{{'PAGE.LMS.MY_EXAMS.GRADE_SCHEME.MINUMUM_QUESTION'|translate}} : {{ Math.round(vm.exam.benchmark*vm.exam.questionNumber/100) }}</p>
+                    </div>
+                </div>
+                <div 
+                    ng-show="vm.exam.questionSelection=='manual'">
+                    <div class=" uk-overflow-container">
+                    <table  class=" uk-table uk-table-hover uk-table-nowrap  uk-table-condensed">
+                        <thead>
+                            <tr>
+                                <th class="uk-text-center uk-text-upper uk-width-2-10">{{'MODEL.QUESTION.SCORE'|translate}}</th>
+                                <th class="uk-text-center uk-text-upper uk-width-1-10">{{'MODEL.QUESTION.ORDER'|translate}}</th>
+                                <th class="uk-text-center uk-text-upper uk-width-4-10">{{'MODEL.QUESTION.TITLE'|translate}}</th>
+                                <th class="uk-text-center uk-text-upper uk-width-2-10">{{'MODEL.QUESTION.TYPE'|translate}}</th>
+                                <th class="uk-text-center uk-text-upper uk-width-1-10">{{'MODEL.QUESTION.LEVEL'|translate}}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="question in vm.selectedQuestions | orderBy:'order'" ng-mouseenter="question.show=true" ng-mouseleave="question.show=false">
+                                <td  class="uk-width-2-10">
+                                    <input type="number"
+                                            class="md-input"
+                                            ng-model="question.score"
+                                            min="1" md-input />
+                                </td>
+                                <td class="uk-text-center uk-width-1-10">{{question.order}}</td>
+                                <td class="uk-text-center  uk-width-4-10">{{question.title}} <question-info question="question" show="question.show"></question-info></td>
+                                <td class="uk-text-center uk-width-2-10">
+                                    <span ng-if="question.type=='mc'">{{'COMMON.QUESTION_TYPE.MC'|translate}}</span>
+                                    <span ng-if="question.type=='sc'">{{'COMMON.QUESTION_TYPE.SC'|translate}}</span>
+                                    <span ng-if="question.type=='tf'">{{'COMMON.QUESTION_TYPE.TF'|translate}}</span>
+                                    <span ng-if="question.type=='fb'">{{'COMMON.QUESTION_TYPE.FB'|translate}}</span>
+                                </td>
+                                <td class="uk-text-center uk-width-1-10">
+                                    <span ng-if="question.level=='easy'">{{'COMMON.DIFFICULTY.EASY'|translate}}</span>
+                                    <span ng-if="question.level=='medium'">{{'COMMON.DIFFICULTY.MEDIUM'|translate}}</span>
+                                    <span ng-if="question.level=='hard'">{{'COMMON.DIFFICULTY.HARD'|translate}}</span>
+                                </td>
+                                
+                            </tr>
+                        </tbody>
+                    </table>
+                    </div>
+                </div>
+             </div>
+             </div>
+        </div>        
+    </div>
+
+</div>      
+    
+ <div class="md-fab-wrapper">
+    <a class="md-fab md-fab-accent md-fab-wave-light" data-uk-tooltip="{pos:'left'}" title="{{'ACTION.UPDATE'|translate}}" ng-click="vm.update()" >
+        <i class="material-icons">save</i>
+    </a>
+</div>
+    

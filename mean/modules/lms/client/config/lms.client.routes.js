@@ -554,7 +554,7 @@
         }
       })
       .state('workspace.lms.exams.preview', {
-        url: '/preview/:examId',
+        url: '/preview/:examId/:scheduleId',
         templateUrl: '/modules/lms/client/views/instructor/preview-exam.client.view.html',
         controller: 'ExamsPreviewController',
         controllerAs: 'vm',
@@ -567,12 +567,13 @@
         }
       })
       .state('workspace.lms.exams.grade', {
-        url: '/grade/:examId',
-        templateUrl: '/modules/lms/client/views/instructor/form-exam.client.view.html',
+        url: '/grade/:examId/:scheduleId',
+        templateUrl: '/modules/lms/client/views/instructor/grade-exam.client.view.html',
         controller: 'ExamsGradeController',
         controllerAs: 'vm',
         resolve: {
             examResolve: getExam,
+            scheduleResolve:getSchedule
         },
         data: {
             roles: [ 'user'],
@@ -580,7 +581,7 @@
         }
       })
        .state('workspace.lms.exams.scoreboard', {
-        url: '/scoreboard/:examId',
+        url: '/scoreboard/:examId/:scheduleId',
         templateUrl: '/modules/lms/client/views/instructor/score.board-exam.client.view.html',
         controller: 'ExamsScoreboardController',
         controllerAs: 'vm',
@@ -593,7 +594,7 @@
         }
       })
        .state('workspace.lms.exams.study', {
-        url: '/study/:examId',
+        url: '/study/:examId/:scheduleId',
         templateUrl: '/modules/lms/client/views/instructor/score.board-exam.client.view.html',
         controller: 'ExamsStudyController',
         controllerAs: 'vm',
@@ -606,7 +607,7 @@
         }
       })
        .state('workspace.lms.exams.gradebook', {
-        url: '/gradebook/:examId',
+        url: '/gradebook/:examId/:scheduleId',
         templateUrl: '/modules/lms/client/views/instructor/score.board-exam.client.view.html',
         controller: 'ExamsGradebookyController',
         controllerAs: 'vm',
