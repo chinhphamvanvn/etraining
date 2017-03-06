@@ -134,8 +134,10 @@
       var sections = _.filter(vm.sections,function(section) {
         return section.visible;
       });
-      var nodes = treeUtils.buildCourseTree(sections);
-      vm.members.map(function (member) {
+      vm.nodes = treeUtils.buildCourseTree(sections);
+
+      _.each(vm.members, function (member) {
+        var nodes = angular.copy(vm.nodes);
         _.each(nodes, function (root) {
           root.childList = _.filter(treeUtils.buildCourseListInOrder(root.children), function (node) {
             return node.data.hasContent && node.data.contentType == 'test' && node.data.quiz;
@@ -167,14 +169,14 @@
                     node.quiz.correctCount++;
                   } else
                     quizQuestion.mark = 0;
-
-                  console.log('nodes', member);
                 });
               });
             });
           });
         });
+        member.quizList = nodes;
       });
+      console.log('======', vm.members);
     });
 
     function certify(member) {

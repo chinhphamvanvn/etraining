@@ -58,19 +58,22 @@
             <td class="uk-text-center"><img class="md-user-image" src="{{member.member.profileImageURL}}" alt=""/></td>
             <td class="uk-text-center">{{member.member.displayName}}
             </td>
-            <td class="uk-text-center">{{member.registered | date:'dd-MM-yyyy'}}</td>
-            <td class="uk-text-center">
-              <span ng-show="member.status=='active'" class="uk-badge uk-badge-success">active</span>
-              <span ng-show="member.status=='withdrawn'" class="uk-badge uk-badge-warning">withdrawn</span>
-              <span ng-show="member.status=='suspended'" class="uk-badge uk-badge-danger">suspended</span>
+            <!--<td class="uk-text-center">{{member.registered | date:'dd-MM-yyyy'}}</td>-->
+            <!--<td class="uk-text-center">-->
+              <!--<span ng-show="member.status=='active'" class="uk-badge uk-badge-success">active</span>-->
+              <!--<span ng-show="member.status=='withdrawn'" class="uk-badge uk-badge-warning">withdrawn</span>-->
+              <!--<span ng-show="member.status=='suspended'" class="uk-badge uk-badge-danger">suspended</span>-->
+            <!--</td>-->
+            <!--<td class="uk-text-center">-->
+              <!--<span ng-show="member.enrollmentStatus=='completed'" class="uk-badge uk-badge-success">{{'COMMON.ENROLL.COMPLETED'|translate}}</span>-->
+              <!--<span ng-show="member.enrollmentStatus=='in-study'" class="uk-badge uk-badge-primary">{{'COMMON.ENROLL.INSTUDY'|translate}}</span>-->
+              <!--<span ng-show="member.enrollmentStatus=='registered'" class="uk-badge ">{{'COMMON.ENROLL.REGISTERED'|translate}}</span>-->
+              <!--<span ng-show="member.certificate" class="uk-form-help-block">{{'PAGE.LMS.MY_COURSES.TEACHER_BOARD.GRADE_BOARD.CERTIFIED'|translate}}</span>-->
+            <!--</td>-->
+            <!--<td class="uk-text-center" ng-if="vm.course.model=='group'">{{member.classroom.name}}</td>-->
+            <td ng-repeat="quiz in member.quizList">
+              <span ng-repeat="q in quiz.childList">{{q.quiz.correctCount}}/{{q.quiz.questions.length}}</span>
             </td>
-            <td class="uk-text-center">
-              <span ng-show="member.enrollmentStatus=='completed'" class="uk-badge uk-badge-success">{{'COMMON.ENROLL.COMPLETED'|translate}}</span>
-              <span ng-show="member.enrollmentStatus=='in-study'" class="uk-badge uk-badge-primary">{{'COMMON.ENROLL.INSTUDY'|translate}}</span>
-              <span ng-show="member.enrollmentStatus=='registered'" class="uk-badge ">{{'COMMON.ENROLL.REGISTERED'|translate}}</span>
-              <span ng-show="member.certificate" class="uk-form-help-block">{{'PAGE.LMS.MY_COURSES.TEACHER_BOARD.GRADE_BOARD.CERTIFIED'|translate}}</span>
-            </td>
-            <td class="uk-text-center" ng-if="vm.course.model=='group'">{{member.classroom.name}}</td>
             <td class="">
               <a ui-sref="workspace.lms.courses.join.gradeboard-member({memberId:member._id})"
                  data-uk-tooltip="{pos:'right'}" title="{{'PAGE.LMS.MY_COURSES.STUDENT_BOARD.GRADEBOOK'|translate}}"><i
