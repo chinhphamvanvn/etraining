@@ -27,8 +27,8 @@
                                 <div class="uk-article">
                                     <h1 class="uk-article-title uk-text-primary">{{candidate.schedule.name}} </h1>
                                     <p class="uk-article-meta">
-                                        <span class="uk-margin-right">{{'MODEL.SCHEDULE.START_DATE'|translate}} : {{candidate.schedule.start | date:'dd/MM/yyyy'}}</span>
-                                        <span class="uk-margin-right">{{'MODEL.SCHEDULE.END_DATE'|translate}} : {{candidate.schedule.end | date:'dd/MM/yyyy'}}</span>
+                                        <span class="uk-margin-right uk-article-meta">{{'MODEL.SCHEDULE.START_DATE'|translate}} : {{candidate.schedule.start | date:'dd/MM/yyyy'}}</span>
+                                        <span class="uk-margin-right uk-article-meta">{{'MODEL.SCHEDULE.END_DATE'|translate}} : {{candidate.schedule.end | date:'dd/MM/yyyy'}}</span>
                                     </p>
                                 </div>
                                 </div>
@@ -43,7 +43,7 @@
                                     <i class="uk-icon-hand-pointer-o"></i>
                                     {{'ACTION.JOIN'|translate}}
                                 </a>
-                            {{'PAGE.LMS.MY_EXAMS.PROGRESS'|translate}} {{ candidate.exam.percentage }}%
+                            {{'PAGE.LMS.MY_EXAMS.PROGRESS'|translate}} {{ candidate.exam.attemptCount }} / {{ candidate.exam.maxAttempt }}
                         </h3>
                     </div>
                     

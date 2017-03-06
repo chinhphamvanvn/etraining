@@ -6,9 +6,9 @@ angular
     .module('lms')
     .controller('ExamsController', ExamsController);
 
-ExamsController.$inject = ['$scope', '$state', '$window', 'Authentication', '$timeout', 'examResolve', 'scheduleResolve','Notification','QuestionsService','ExamsService', 'GroupsService','$q','_'];
+ExamsController.$inject = ['$scope', '$state', '$window', 'Authentication', '$timeout', 'examResolve', 'scheduleResolve','Notification','QuestionsService','ExamsService', 'GroupsService','$q','fileManagerConfig','_'];
 
-function ExamsController($scope, $state, $window, Authentication, $timeout, exam,schedule, Notification, QuestionsService, ExamsService, GroupsService, $q, _) {
+function ExamsController($scope, $state, $window, Authentication, $timeout, exam,schedule, Notification, QuestionsService, ExamsService, GroupsService, $q, fileManagerConfig,_) {
     var vm = this;
     vm.authentication = Authentication;
     vm.exam = exam;
@@ -20,6 +20,7 @@ function ExamsController($scope, $state, $window, Authentication, $timeout, exam
     vm.moveDown = moveDown;
     vm.update = update;
     vm.questions = [];
+    vm.tinymce_options = fileManagerConfig;
     
     vm.groupConfig = {
             create: false,
