@@ -1,11 +1,19 @@
 <div id="page_content">
     <div id="page_content_inner">
         <div class="md-card uk-margin-medium-bottom">
-                        <div class="md-card-toolbar">
-                    <h3 class="md-card-toolbar-heading-text large">
-                        {{'PAGE.LMS.MY_COURSES.TEACHER_BOARD.SURVEY_RESULT'|translate}}
-                    </h3>
-                </div>
+            <div class="md-card-toolbar">
+                <h3 class="md-card-toolbar-heading-text large">
+                    {{'PAGE.LMS.MY_COURSES.TEACHER_BOARD.SURVEY_RESULT'|translate}}
+                </h3>
+                <button class="md-btn buttons-csv buttons-html5" type="button"
+                    ng-csv="vm.memberListCsv" 
+                    csv-header="vm.headerArrCsv"
+                    filename="ReportServey.csv" style="margin-top: 8px; float: right; margin-right: 30px;">
+                    <i class="uk-icon-file-excel-o" aria-hidden="true"></i>
+                    {{"ACTION.EXPORT" | translate}}
+                </button>
+            </div>
+            <div class="md-card-content">
                 <div class="md-card-content">
                     <div class="uk-accordion" data-uk-accordion ng-repeat="section in vm.sections">
                             <h3 class="uk-accordion-title md-bg-teal-50"><span class="uk-text-bold">{{section.name}}</span>
@@ -36,11 +44,9 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
-        
+        </div>
     </div>
-
-
+</div>
 

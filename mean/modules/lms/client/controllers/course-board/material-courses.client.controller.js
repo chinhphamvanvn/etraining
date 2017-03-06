@@ -14,11 +14,25 @@ function CoursesMaterialController($scope, $state, $window, Authentication, $tim
     vm.edition = edition;
     vm.member = member;
     vm.course = course;
-    vm.materials = CourseMaterialsService.byCourse({editionId:vm.edition._id});
+    vm.materials = CourseMaterialsService.byCourse({editionId:vm.edition._id},function(){
+        _.map(vm.materials,function(material) {
+            var namefile = material.filename.split('.');
+            if(namefile[1] == 'png' || namefile[1] == 'jpeg' || namefile[1] == 'jpg' || namefile[1] == 'gif') {
+                material.fileType = 'image'
+            } else {
+                if(namefile[1] == 'mp4' || namefile[1] == 'mp3' || namefile[1] == 'wmv'){
+                    material.fileType = 'video'
+                } else {
+                    material.fileType = 'file'
+                }
+            }
+        });
+    });
+    
     vm.edit =  edit;
     vm.remove = remove;
     vm.download = download;
-    
+
     var progressbar = $("#file_upload-progressbar"),
     bar         = progressbar.find('.uk-progress-bar'),
     settings    = {

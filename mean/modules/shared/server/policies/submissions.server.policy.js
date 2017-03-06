@@ -20,11 +20,7 @@ exports.invokeRolesPolicies = function () {
     }, {
       resources: '/api/submissions/:submissionId',
       permissions: '*'
-    },
-    {
-        resources: '/api/submissions/byCandidate/:candidateId',
-        permissions: '*'
-      }]
+    }]
   }, {
     roles: ['user'],
     allows: [{
@@ -32,12 +28,8 @@ exports.invokeRolesPolicies = function () {
       permissions: ['get', 'post']
     }, {
       resources: '/api/submissions/:submissionId',
-      permissions: ['get','put']
-    },
-    {
-        resources: '/api/submissions/byCandidate/:candidateId',
-        permissions: 'get'
-      }]
+      permissions: ['get']
+    }]
   }, {
     roles: ['guest'],
     allows: [{

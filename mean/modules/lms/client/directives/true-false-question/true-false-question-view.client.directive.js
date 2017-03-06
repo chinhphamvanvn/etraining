@@ -54,7 +54,7 @@
                   });
              
               scope.selectOption = function(option) {
-                  if (scope.mode !='study') {
+                  if (scope.mode !='view') {
                       _.each(scope.question.options,function(obj) {
                          obj.selected = false; 
                       });

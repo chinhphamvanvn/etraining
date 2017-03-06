@@ -12,15 +12,37 @@ function CoursesSurveyController($scope, $state, $window, Authentication, $timeo
     var vm = this;
     vm.course = course;
     vm.edition = edition;
+    vm.memberListCsv = [];
+    vm.headerArrCsv = [$translate.instant("PAGE.LMS.MY_COURSES.TEACHER_BOARD.COURSE_OUTLINE.SURVEY"),$translate.instant("PAGE.LMS.MY_COURSES.TEACHER_BOARD.SURVEY_CANDIDATE_COUNT"),$translate.instant("PAGE.LMS.MY_COURSES.TEACHER_BOARD.COURSE_OUTLINE.SURVEY.SESSION_INFO"),$translate.instant("PAGE.LMS.MY_COURSES.COURSE_SURVEY.OPTION"),$translate.instant("PAGE.LMS.MY_COURSES.TEACHER_BOARD.SURVEY_CANDIDATE_CHECK_COUNT"),$translate.instant("PAGE.LMS.MY_COURSES.TEACHER_BOARD.SURVEY_CANDIDATE_PERCENT")];
+
     vm.sections = EditionSectionsService.surveyByCourse({editionId:vm.edition._id}, function( ) {
         _.each(vm.sections,function(section) {
              section.attempts =  AttemptsService.bySection({sectionId:section._id,editionId:vm.edition._id},function() {
                  section.attempts = _.filter(section.attempts,function(obj) {
                      return obj.status =='completed';
-                 })
+                 });
+                 var itemSurvey1 = {
+                    servey: section.name,
+                    total: section.attempts.length,
+                    question: "",
+                    choose: "",
+                    number: "",
+                    percent: ""
+                }
+                vm.memberListCsv.push(itemSurvey1);
+
                  _.each(section.survey.questions,function(question) {
                     question.detail = QuestionsService.get({questionId:question.id});
                     question.options = OptionsService.byQuestion({questionId:question.id},function() {
+                        var itemSurvey2 = {
+                            servey: "",
+                            total: "",
+                            question: question.detail.title,
+                            choose: "",
+                            number: "",
+                            percent: ""
+                        }
+                        vm.memberListCsv.push(itemSurvey2);
                         _.each(question.options,function(option) {
                             option.count = 0;
                             _.each(section.attempts,function(attempt) {
@@ -29,12 +51,37 @@ function CoursesSurveyController($scope, $state, $window, Authentication, $timeo
                                         option.count++;
                                 });
                             });
-                            if (section.attempts.length)
+                            if (section.attempts.length){
                                 option.percentage = Math.floor(option.count * 100 /section.attempts.length); 
+                            }
+
+                            var itemSurvey = {
+                                servey: "",
+                                total: "",
+                                question: "",
+                                choose: option.content,
+                                number: option.count +" / "+ itemSurvey1.total,
+                                percent: option.percentage + " % "
+                            }
+                            vm.memberListCsv.push(itemSurvey);
+
                         });
-                    }) 
+                    });
+
                  });
              });
+            if(vm.memberListCsv.length > 0){
+                var itemSurvey3 = {
+                    servey: "",
+                    total: "",
+                    question: "",
+                    choose: "",
+                    number: "",
+                    percent: ""
+                }
+                vm.memberListCsv.push(itemSurvey3);
+                vm.memberListCsv.push(itemSurvey3);
+            }
         });
     });
 }

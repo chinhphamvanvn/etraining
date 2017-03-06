@@ -24,7 +24,7 @@ function CoursesOutlinePreviewController($scope, $state, $window, HtmlsService,E
         });
         vm.nodes = treeUtils.buildCourseTree(vm.sections);
         _.each(vm.nodes,function(node) {
-            treeUtils.expandCourseNode(node,false);
+            treeUtils.expandCourseNode(node,true);
         });
         vm.nodeList = treeUtils.buildCourseListInOrder(vm.nodes);
         if ($state.params.sectionId) {
