@@ -11,6 +11,9 @@ module.exports = function(app) {
   app.route('/api/submissions').all(submissionsPolicy.isAllowed)
     .get(submissions.list)
     .post(submissions.create);
+  
+  app.route('/api/submissions/byCandidate/:candidateId').all(submissionsPolicy.isAllowed)
+  .get(submissions.listByCandidate)
 
   app.route('/api/submissions/:submissionId').all(submissionsPolicy.isAllowed)
     .get(submissions.read)

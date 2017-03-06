@@ -44,7 +44,7 @@
                                       quizQuestion.detail = QuestionsService.get({questionId:quizQuestion.id})
                                       quizQuestion.answer = answer;
                                       if (answer.isCorrect) {
-                                          quizQuestion.mark = quizQuestion.score;
+                                          quizQuestion.mark = 1;
                                           node.quiz.correctCount++;
                                       } else
                                           quizQuestion.mark = 0;

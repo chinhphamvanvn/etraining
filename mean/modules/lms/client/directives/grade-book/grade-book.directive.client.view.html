@@ -49,7 +49,7 @@
                                 </div>
                                 <span class="sub-heading uk-margin-right" ng-show="!childNode.quiz || childNode.quiz.questions.length==0">{{'ERROR.COURSE_STUDY.QUESTION_NOT_FOUND'|translate}}</span>
                                     <span class="sub_heading uk-margin-right" ng-show="childNode.quiz.questions.length">{{'PAGE.LMS.MY_COURSES.COURSE_GRADE.EXAM_RESULT'|translate}}: </span>
-                                <span ng-repeat="question in childNode.quiz.questions" class="uk-margin-right">{{question.mark}}/{{question.score}} </span>
+                                <span ng-repeat="question in childNode.quiz.questions" class="uk-margin-right">{{question.mark}}/1 </span>
                                 </div>
                             </div>
                             

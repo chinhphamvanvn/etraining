@@ -92,6 +92,18 @@ exports.list = function(req, res) {
   });
 };
 
+exports.listByCandidate = function(req, res) {
+    Submission.find({candidate:req.candidate._id}).sort('-created').populate('user', 'displayName').populate('answers').exec(function(err, submissions) {
+      if (err) {
+        return res.status(400).send({
+          message: errorHandler.getErrorMessage(err)
+        });
+      } else {
+        res.jsonp(submissions);
+      }
+    });
+  };
+
 /**
  * Submission middleware
  */

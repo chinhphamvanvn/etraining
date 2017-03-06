@@ -191,6 +191,14 @@ module.exports = {
                             category:'alert'
                          },
                          {
+                             name:'alertCandidateEnroll',
+                             edit: true,
+                             type:'Boolean',
+                             valueBoolean:true,
+                             code:'ALERT_CANDIDATE_ENROLL',
+                             category:'alert'
+                          },
+                         {
                              name:'alertMemberEnroll',
                              edit: true,
                              type:'Boolean',

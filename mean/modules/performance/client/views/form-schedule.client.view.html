@@ -1,0 +1,149 @@
+<div id="page_content">
+    <div id="page_heading" data-uk-sticky="{ top: 48, media: 960 }">
+        <div class="heading_actions">
+            <button
+                ng-class="{'disabled':vm.schedule.status=='available'}"
+                class="md-btn md-btn-icon " ng-click="vm.activate()">
+                <i class="material-icons uk-text-success">lock_open</i>
+                {{'ACTION.SCHEDULE_ACTIVATE' | translate }}
+            </button>
+            <button
+                ng-class="{'disabled':vm.schedule.status=='unavailable' || vm.schedule.status=='draft'}"
+                class="md-btn md-btn-icon " ng-click="vm.deactivate()">
+                <i class="material-icons uk-text-warning">lock</i>
+                {{'ACTION.SCHEDULE_DEACTIVATE' | translate }}
+            </button>
+        </div>
+        <h1>{{'PAGE.PERFORMANCE.ASSESSMENT.UPDATE_TITLE' |
+            translate}}</h1>
+        <span class="uk-text-upper uk-text-small">
+            <a ui-sref="admin.workspace.performance.schedules.list">
+                <i class="material-icons uk-text-primary">keyboard_arrow_left</i>
+                {{'PAGE.PERFORMANCE.SCHEDULE.TITLE' | translate}}
+            </a>
+        </span>
+    </div>
+    <div id="page_content_inner">
+        <div class="md-card uk-margin-large-bottom">
+            <div class="md-card-content">
+                <form ng-submit="vm.save()" class="uk-form-stacked"
+                    id="scheduleForm" novalidate>
+                    <ul class="uk-tab uk-tab-grid"
+                        data-uk-tab="{connect:'#tabs_4'}">
+                        <li class="uk-width-1-3 uk-active">
+                            <a href="#">{{'PAGE.PERFORMANCE.ASSESSMENT.SCHEDULE_INFO'|translate}}</a>
+                        </li>
+                        <li class="uk-width-1-3">
+                            <a href="#">{{'PAGE.PERFORMANCE.ASSESSMENT.COMPETENCY'|translate}}</a>
+                        </li>
+                    </ul>
+                    <ul id="tabs_4" class="uk-switcher uk-margin">
+                        <li>
+                            <div class="uk-grid uk-margin-top">
+                                <div
+                                    class="uk-width-medium-3-4 parsley-row">
+                                    <label for="schedule_name">
+                                        {{'MODEL.SCHEDULE.NAME'|translate}}
+                                        <span class="req">*</span>
+                                    </label>
+                                    <input type="text"
+                                        name="schedule_name"
+                                        id="schedule_name"
+                                        data-parsley-trigger="change"
+                                        required class="md-input"
+                                        md-input
+                                        ng-model="vm.schedule.name" />
+                                </div>
+                            </div>
+                            <div
+                                class="uk-grid uk-grid-width-large-1-2 uk-grid-width-xlarge-1-2"
+                                data-uk-grid-margin>
+                                <div class="parsley-row">
+                                    <div class="uk-input-group">
+                                        <span
+                                            class="uk-input-group-addon">
+                                            <i
+                                                class="uk-input-group-icon uk-icon-calendar"></i>
+                                        </span>
+                                        <label for="uk_schedule_start">{{'MODEL.SCHEDULE.START_DATE'|translate}}</label>
+                                        <input class="md-input"
+                                            type="text"
+                                            id="uk_schedule_start"
+                                            md-input
+                                            value="{{vm.schedule.start |date:'dd.MM.yyyy'}}">
+                                    </div>
+                                </div>
+                                <div class="parsley-row">
+                                    <div class="uk-input-group">
+                                        <span
+                                            class="uk-input-group-addon">
+                                            <i
+                                                class="uk-input-group-icon uk-icon-calendar"></i>
+                                        </span>
+                                        <label for="uk_schedule_end">{{'MODEL.SCHEDULE.END_DATE'|translate}}</label>
+                                        <input class="md-input"
+                                            type="text"
+                                            id="uk_schedule_end"
+                                            md-input
+                                            value="{{vm.schedule.end | date:'dd.MM.yyyy'}}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="uk-grid" data-uk-grid-margin>
+                            </div>
+                        </li>
+                        <li>
+                            <div
+                                class="uk-grid"
+                                data-uk-grid-margin>
+                                <div class=" uk-width-1-2">
+                                    <label class="uk-form-label">{{'MODEL.SCHEDULE.COMPETENCY'|translate}}</label>
+                                    <input name="schedule_competency" id="schedule_competency" type="text" config="vm.competencyConfig" options="vm.competencyOptions" ng-model="vm.schedule.competency" selectize />
+                                </div>
+                                <div class=" uk-width-1-2" ng-show="vm.competency.gradeModel=='level'">
+                                    <label class="uk-form-label">{{'MODEL.SCHEDULE.COMPETENCY_LEVEL'|translate}}</label>
+                                    <span class="icheck-inline" ng-repeat="level in vm.competency.levels">
+                                        <input type="radio" name="competency_level" id="competency_level{{level.order}}" ng-value="level.name" icheck ng-model="vm.schedule.competencyLevel" />
+                                        <label for="competency_level{{level.order}}" class="inline-label">{{level.name}}</label>
+                                    </span>
+                                </div>
+                                </div>
+                        </li>
+                    </ul>
+                    <div class="md-fab-wrapper">
+                        <div
+                            class="md-fab md-fab-toolbar md-fab-small md-fab-accent"
+                            md-fab-toolbar>
+                            <i class="material-icons">&#xE8BE;</i>
+                            <div class="md-fab-toolbar-actions">
+                                <button form="scheduleForm"
+                                    id="schedule_edit_save"
+                                    data-uk-tooltip="{cls:'uk-tooltip-small',pos:'bottom'}"
+                                    title="Save">
+                                    <i
+                                        class="material-icons md-color-white">&#xE161;</i>
+                                </button>
+                                <a id="user_edit_cancel"
+                                    ng-click="vm.cancel()"
+                                    data-uk-tooltip="{cls:'uk-tooltip-small',pos:'bottom'}"
+                                    title="Cancel">
+                                    <i
+                                        class="material-icons md-color-white">&#xE5CD;</i>
+                                </a>
+                                <button
+                                    ng-if="vm.schedule._id && vm.schedule.status=='draft'"
+                                    ng-click="vm.remove()"
+                                    id="user_edit_delete"
+                                    data-uk-tooltip="{cls:'uk-tooltip-small',pos:'bottom'}"
+                                    title="Delete">
+                                    <i
+                                        class="material-icons md-color-red">&#xE872;</i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

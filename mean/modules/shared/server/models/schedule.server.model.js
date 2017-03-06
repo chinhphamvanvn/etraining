@@ -16,6 +16,11 @@ var ScheduleSchema = new Schema({
     required: 'Please fill Schedule name',
     trim: true
   },
+  status: {
+      type: String,
+      enum: ['draft','available', 'unavailable'],
+      default: 'draft'
+  },
   color: {
       type: String  
     },
@@ -27,6 +32,17 @@ var ScheduleSchema = new Schema({
     type: Date,
     default: Date.now
   },
+  exam: {
+      type: Schema.ObjectId,
+      ref: 'Exam'
+    },
+  competency: {
+      type: Schema.ObjectId,
+      ref: 'Competency'
+    },
+    competencyLevel: {
+        type: String,
+      },
   created: {
     type: Date,
     default: Date.now

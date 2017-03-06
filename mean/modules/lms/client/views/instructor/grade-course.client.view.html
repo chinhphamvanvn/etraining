@@ -1,0 +1,55 @@
+
+<div id="page_content">
+    <div id="page_heading" data-uk-sticky="{ top: 48, media: 960 }">
+       <h1 >{{'PAGE.LMS.MY_COURSES.TEACHER_BOARD.GRADE_SCHEME' | translate}} : {{vm.course.name}}</h1>
+        <span class="uk-text-upper uk-text-small">
+            <a ui-sref="workspace.lms.courses.me"><i class="material-icons uk-text-primary" >keyboard_arrow_left</i>{{'PAGE.LMS.MY_COURSES.TITLE' | translate}}</a> 
+            </span>
+    </div>
+    <div id="page_content_inner">
+        <div class="md-card" >
+            <div class="md-card-content">
+             <div class="uk-grid uk-margin" data-uk-grid-margin>
+             <div class="uk-width-1-1">
+                    <span class="icheck-inline" >
+                        <input type="checkbox" name="grade_issue_certificate" id="grade_issue_certificate"  icheck ng-model="vm.scheme.issueCertificate" />
+                        <label for="grade_issue_certificate" class="inline-label">{{'MODEL.GRADESCHEME.ISSUE_CERTIFICATE'|translate}}</label>
+                    </span> 
+                </div>
+                <div class="uk-width-1-1">
+                    <label for="benchamrk_slider" class="uk-form-label">{{'MODEL.GRADESCHEME.BENCHMARK'|translate}}</label>
+                    <div id="benchamrk_slider" name="benchamrk_slider"  grid="true"  ion-slider ng-model="vm.scheme.benchmark" min="0" max="100"></div>
+                </div>
+                <div class="uk-width-1-1">
+                   <div ng-class="{true:'uk-text-success', false:'uk-text-danger'}[vm.total==100]"> {{'PAGE.LMS.MY_COURSES.GRADE_SCHEME'|translate}} : {{vm.total}}%</div>
+                   <ul class="md-list md-list-addon">
+                                <li ng-repeat="node in vm.nodeList">
+                                    <div class="md-list-addon-element">
+                                        <input type="checkbox" icheck ng-checked="node.checked" ng-model="node.checked" ng-change="vm.changeFreezeMode()"/>
+                                    </div>
+                                    <div class="md-list-content">
+                                        <span class="md-list-heading">{{node.data.name}}</span>
+                                        <span class="uk-text-small uk-text-muted">{{node.title}}</span>
+                                        <div class="uk-margin" >
+                                            <span class="uk-form-help-block">{{'MODEL.GRADESCHEME.WEIGHT'|translate}} : {{node.weight}}%</span>
+                                            <div id="weight_slider" name="weight_slider"  grid="true"  ion-slider ng-model="node.weight" min="{{node.min}}" max="{{node.max}}" ng-max="node.max" ng-change="vm.changeWeight(node)" ng-disabled="node.checked"></div>
+                                        </div>
+                                    </div>
+                                </li>
+                                
+                                
+                            </ul>
+                </div>
+             </div>
+             </div>
+        </div>        
+    </div>
+
+</div>      
+    
+ <div class="md-fab-wrapper">
+    <a class="md-fab md-fab-accent md-fab-wave-light" data-uk-tooltip="{pos:'left'}" title="{{'ACTION.UPDATE'|translate}}" ng-click="vm.update()" >
+        <i class="material-icons">save</i>
+    </a>
+</div>
+    

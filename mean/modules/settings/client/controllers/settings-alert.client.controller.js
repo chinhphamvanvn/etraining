@@ -17,6 +17,9 @@
           vm.alertUserDelete = _.find(vm.settings,function(setting) {
               return setting.code == 'ALERT_USER_DELETE';
           });
+          vm.alertCandidateEnroll = _.find(vm.settings,function(setting) {
+              return setting.code == 'ALERT_CANDIDATE_ENROLL';
+          });
           vm.alertMemberEnroll = _.find(vm.settings,function(setting) {
               return setting.code == 'ALERT_MEMBER_ENROLL';
           });

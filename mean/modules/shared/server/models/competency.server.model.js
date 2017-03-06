@@ -12,9 +12,7 @@ var mongoose = require('mongoose'),
 var CompetencySchema = new Schema({
   name: {
     type: String,
-    default: '',
-    required: 'Please fill Competency name',
-    trim: true
+    default: ''
   },
   group: {
       type: Schema.ObjectId,
@@ -27,24 +25,21 @@ var CompetencySchema = new Schema({
   },
   gradeModel: {
       type: String,
-      enum: ['score','true-false'],
-      default: 'score'
+      enum: ['level','true-false'],
+      default: 'level'
     },
-  maxScore: {
-    type: Number,
-    default: 100
-  },
-  levels: {
-      type: [new Schema({
-          benchmark: {
-              type: Number
-          },
-          name: {
-            type: String
-          }
-      })]
-   },
-  created: {
+    levels: {
+        type: [{
+            name: {
+                type: String,
+            },
+            order: {
+                type: Number,
+                default: 1
+            }
+        }]
+     },
+    granted: {
     type: Date,
     default: Date.now
   },

@@ -11,6 +11,9 @@ module.exports = function(app) {
   app.route('/api/competencies').all(competenciesPolicy.isAllowed)
     .get(competencies.list)
     .post(competencies.create);
+  
+  app.route('/api/competencies/byGroup/:groupId').all(competenciesPolicy.isAllowed)
+  .get(competencies.listByGroup)
 
   app.route('/api/competencies/:competencyId').all(competenciesPolicy.isAllowed)
     .get(competencies.read)
