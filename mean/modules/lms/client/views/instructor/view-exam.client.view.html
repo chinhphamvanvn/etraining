@@ -1,89 +1,119 @@
 
 <div id="page_content">
     <div id="page_heading" data-uk-sticky="{ top: 48, media: 960 }">
-        <div class="heading_actions">
-            <span class="icheck-inline" >                                    
-                <input type="checkbox" class="switchery switchery-small" ui-switch color="#7cb342"  name="switch_visible" id="switch_visible"  ng-disabled="true" ng-model="vm.section.visible" />
-                <label for="switch_visible" class="inline-label">{{'MODEL.SECTION.VISIBLE'|translate}}</label>
-            </span>            
-        </div>
-       <h1 >{{vm.section.name}}                        
+       <h1 >{{vm.schedule.name}}                        
        </h1>
         <span class="uk-text-upper uk-text-small">
-            <a ui-sref="workspace.lms.courses.me"><i class="material-icons uk-text-primary" >keyboard_arrow_left</i>{{'PAGE.LMS.MY_COURSES.TITLE' | translate}}</a> 
-            <a ui-sref="workspace.lms.courses.outline.edit({courseId:vm.course._id})"><i class="material-icons uk-text-primary" >keyboard_arrow_left</i>{{vm.course.name}}</a> 
+            <a ui-sref="workspace.lms.exams.me"><i class="material-icons uk-text-primary" >keyboard_arrow_left</i>{{'PAGE.LMS.MY_EXAMS.TITLE' | translate}}</a> 
             </span>
     </div>
     <div id="page_content_inner">
                 <div class="md-card">
             <div class="md-card-content large-padding">
         <div class="uk-grid" data-uk-grid-margin>
-            <div class="uk-width-medium-3-4">
+            <div class="uk-width-medium-2-3">
                 <h5 class="uk-margin-small-bottom uk-text-upper">{{'PAGE.LMS.MY_COURSES.TEACHER_BOARD.COURSE_OUTLINE.TEST.QUESTION_INFO'|translate}}</h5>
-                        <div id="questions">
-                                <div class="uk-grid" data-uk-grid-margin  ng-repeat="question in vm.questions | orderBy: 'order'">
-                                    <div  class="uk-width-1-1 uk-margin-top" >
-                                        <div class="md-card">
-                                            <div class="md-card-toolbar">
-                                                <div class="md-card-toolbar-actions">
-                                                    <card-toggle></card-toggle>
-                                                </div>
-                                                <h3 class="md-card-toolbar-heading-text">
-                                                  {{question.title}}
-                                                  <span ng-if="question.type=='mc'" class="uk-text-italic uk-text-small"> - {{'COMMON.QUESTION_TYPE.MC'|translate}}</span>
-                                                    <span ng-if="question.type=='sc'" class="uk-text-italic uk-text-small"> - {{'COMMON.QUESTION_TYPE.SC'|translate}}</span>
-                                                    <span ng-if="question.type=='tf'" class="uk-text-italic uk-text-small"> - {{'COMMON.QUESTION_TYPE.TF'|translate}}</span>
-                                                    <span ng-if="question.type=='fb'" class="uk-text-italic uk-text-small"> - {{'COMMON.QUESTION_TYPE.FB'|translate}}</span>
-                                                </h3>
-                                            </div>
-                                            <div class="md-card-content">
-                                                 <div ng-if="question.type=='mc'">
-                                                     <multiple-choice-question mode="'view'"  question="question"></lms-question>
-                                                </div>
-                                               <div ng-if="question.type=='sc'">
-                                                     <single-choice-question mode="'view'"  question="question"></single-choice-question>
-                                                </div>
-                                                <div ng-if="question.type=='tf'">
-                                                     <true-false-question mode="'view'"  question="question"></true-false-question>
-                                                </div>
-                                                <div ng-if="question.type=='fb'">
-                                                     <fill-blank-question mode="'view'"  question="question"></fill-blank-question>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                 </div>
-                            </div>   
+                 <div class="uk-grid" data-uk-grid-margin>
+                    <div class="uk-width-medium-1-2">
+                        <label>{{'MODEL.EXAM.QUESTION_SELECT'|translate}} : </label>
+                        <span ng-show="vm.exam.questionSelection=='manual'">{{'COMMON.QUESTION_SELECT.MANUAL'|translate}}</span>
+                        <span ng-show="vm.exam.questionSelection=='auto'">{{'COMMON.QUESTION_SELECT.AUTO'|translate}}</span>
+                    </div>
+                    <div class="uk-grid" data-uk-grid-margin ng-show="vm.exam.questionSelection=='auto'">
+                        <div class="uk-width-1-1">
+                            <label>{{'MODEL.EXAM.QUESTION_NUMBER'|translate}} : {{vm.exam.questionNumber}}</label>
+                        </div>
+                        <div class="uk-width-1-1">
+                            <label>{{'MODEL.EXAM.QUESTION_LEVEL'|translate}}</label>
+                            <span ng-if="vm.exam.questionLevel=='easy'">{{'COMMON.DIFFICULTY.EASY'|translate}}</span>
+                            <span ng-if="vm.exam.questionLevel=='medium'">{{'COMMON.DIFFICULTY.MEDIUM'|translate}}</span>
+                            <span ng-if="vm.exam.questionLevel=='hard'">{{'COMMON.DIFFICULTY.HARD'|translate}}</span>
+                        </div>
+                        <div class="uk-width-1-1">
+                            <label>{{'MODEL.EXAM.QUESTION_CAT'|translate}} : {{vm.category.name}}</label>
+                        </div>
+                        
+                    </div>
+                    
+                    <div  ng-show="vm.exam.questionSelection=='manual'">
+                        <div class=" uk-overflow-container">
+                        <table  class=" uk-table uk-table-hover uk-table-nowrap  uk-table-condensed">
+                            <thead>
+                                <tr>
+                                    <th class="uk-text-center uk-width-1-10"></th>
+                                    <th class=" uk-text-upper uk-width-4-10">{{'MODEL.QUESTION.TITLE'|translate}}</th>
+                                    <th class=" uk-text-upper uk-width-3-10">{{'MODEL.QUESTION.TYPE'|translate}}</th>
+                                    <th class=" uk-text-upper uk-width-2-10">{{'MODEL.QUESTION.LEVEL'|translate}}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="question in vm.selectedQuestions | orderBy:'order'">
+                                    <td class="uk-text-center uk-width-1-10">{{question.order}}</td>
+                                    <td class="  uk-width-4-10">{{question.title}}</td>
+                                    <td class=" uk-width-3-10">
+                                        <span ng-if="question.type=='mc'">{{'COMMON.QUESTION_TYPE.MC'|translate}}</span>
+                                        <span ng-if="question.type=='sc'">{{'COMMON.QUESTION_TYPE.SC'|translate}}</span>
+                                        <span ng-if="question.type=='tf'">{{'COMMON.QUESTION_TYPE.TF'|translate}}</span>
+                                        <span ng-if="question.type=='fb'">{{'COMMON.QUESTION_TYPE.FB'|translate}}</span>
+                                    </td>
+                                    <td class=" uk-width-2-10">
+                                        <span ng-if="question.level=='easy'">{{'COMMON.DIFFICULTY.EASY'|translate}}</span>
+                                        <span ng-if="question.level=='medium'">{{'COMMON.DIFFICULTY.MEDIUM'|translate}}</span>
+                                        <span ng-if="question.level=='hard'">{{'COMMON.DIFFICULTY.HARD'|translate}}</span>
+                                    </td>
+                                    
+                                </tr>
+                            </tbody>
+                        </table>
+                        </div>
+                    </div>
+                </div>
     
             </div>
-            <div class="uk-width-medium-1-4">
+            <div class="uk-width-medium-1-3">
                 <h5 class="uk-margin-small-bottom uk-text-upper">{{'PAGE.LMS.MY_COURSES.TEACHER_BOARD.COURSE_OUTLINE.TEST.SESSION_INFO'|translate}}</h5>
                 <ul class="md-list uk-margin-remove">
                     <li>
                         <div class="md-list-content">
                             <span class="md-list-heading uk-text-truncate"><a href="#">{{'MODEL.EXAM.DURATION'|translate}}</a></span>
-                            <span class="uk-text-small uk-text-muted">{{vm.quiz.duration}} (minutes)</span>
+                            <span class="uk-text-small uk-text-muted">{{vm.exam.duration}} (minutes)</span>
                         </div>
                     </li>
                     <li>
                         <div class="md-list-content">
                             <span class="md-list-heading uk-text-truncate"><a href="#">{{'MODEL.EXAM.MAX_ATTEMPT'|translate}}</a></span>
-                            <span class="uk-text-small uk-text-muted">{{vm.quiz.maxAttempt}}</span>
+                            <span class="uk-text-small uk-text-muted">{{vm.exam.maxAttempt}}</span>
                         </div>
                     </li>
                     <li>
                         <div class="md-list-content">
                             <span class="md-list-heading uk-text-truncate"><a href="#">{{'MODEL.EXAM.ALLOW_NAVIGATE'|translate}}</a></span>
-                            <span class="uk-badge uk-badge-success" ng-show="vm.quiz.allowNavigate">Ok</span>
-                                <span class="uk-badge uk-badge-danger" ng-show="!vm.quiz.allowNavigate">Nok</span>
+                            <span class="uk-badge uk-badge-success" ng-show="vm.exam.allowNavigate">Ok</span>
+                                <span class="uk-badge uk-badge-danger" ng-show="!vm.exam.allowNavigate">Nok</span>
                             
                         </div>
                     </li>
                     <li>
                         <div class="md-list-content">
                             <span class="md-list-heading uk-text-truncate"><a href="#">{{'MODEL.EXAM.SHOW_ANSWER'|translate}}</a></span>
-                            <span class="uk-badge uk-badge-success" ng-show="vm.quiz.showAnswer">Ok</span>
-                                <span class="uk-badge uk-badge-danger" ng-show="!vm.quiz.showAnswer">Nok</span>
+                            <span class="uk-badge uk-badge-success" ng-show="vm.exam.showAnswer">Ok</span>
+                                <span class="uk-badge uk-badge-danger" ng-show="!vm.exam.showAnswer">Nok</span>
+                            
+                        </div>
+                    </li>
+                    <li>
+                        <div class="md-list-content">
+                            <span class="md-list-heading uk-text-truncate"><a href="#">{{'MODEL.EXAM.EARLY_SUBMIT_PREVENTION'|translate}}</a></span>
+                            <span class="uk-badge uk-badge-success" ng-show="vm.exam.earlySubmitPrevention">{{vm.exam.earlySubmit}} minutes</span>
+                                <span class="uk-badge uk-badge-danger" ng-show="!vm.exam.earlySubmitPrevention">Nok</span>
+                            
+                        </div>
+                    </li>
+                    <li>
+                        <div class="md-list-content">
+                            <span class="md-list-heading uk-text-truncate"><a href="#">{{'MODEL.EXAM.PRE_DUE_WARNING'|translate}}</a></span>
+                            <span class="uk-badge uk-badge-success" ng-show="vm.exam.preDueWarning">{{vm.exam.preDue}} minutes</span>
+                                <span class="uk-badge uk-badge-danger" ng-show="!vm.exam.preDueWarning">Nok</span>
                             
                         </div>
                     </li>
@@ -98,7 +128,7 @@
 </div>      
     
  <div class="md-fab-wrapper">
-    <a class="md-fab md-fab-accent md-fab-wave-light" ui-sref="workspace.lms.courses.section.edit.quiz({courseId:vm.course._id,sectionId:vm.section._id})" >
+    <a class="md-fab md-fab-accent md-fab-wave-light" ui-sref="workspace.lms.exams.edit({examId:vm.exam._id,scheduleId:vm.schedule._id})" >
         <i class="material-icons">&#xE150;</i>
     </a>
 </div>

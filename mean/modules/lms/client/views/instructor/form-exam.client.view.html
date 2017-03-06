@@ -122,37 +122,47 @@
                                     <span class="uk-form-help-block">{{'MODEL.EXAM.QUESTION_CAT'|translate}}</span>
                                 </div>
                             </div>
-                            <div
+                            <div 
                                 ng-show="vm.exam.questionSelection=='manual'">
-                                <button class="md-btn" data-uk-modal="{target:'#select_question'}">{{'PAGE.LMS.MY_EXAM.SELECT_QUESTION'|translate}}</button>
-                                <table  class="uk-table uk-table-hover uk-table-nowrap  uk-table-condensed">
+                                <button class="md-btn" data-uk-modal="{target:'#select_question'}">{{'PAGE.LMS.MY_EXAMS.SELECT_QUESTION'|translate}}</button>
+                                <div class=" uk-overflow-container">
+                                <table  class=" uk-table uk-table-hover uk-table-nowrap  uk-table-condensed">
                                     <thead>
                                         <tr>
-                                            <th></th>
-                                            <th></th>
-                                            <th class="uk-text-center uk-text-upper">{{'MODEL.QUESTION.TITLE'|translate}}</th>
-                                            <th class="uk-text-center uk-text-upper">{{'MODEL.QUESTION.TYPE'|translate}}</th>
-                                            <th class="uk-text-center uk-text-upper">{{'MODEL.QUESTION.LEVEL'|translate}}</th>
-                                            <th></th>
+                                            <th class="uk-width-2-10"></th>
+                                            <th class="uk-width-1-10"></th>
+                                            <th class="uk-text-center uk-text-upper uk-width-4-10">{{'MODEL.QUESTION.TITLE'|translate}}</th>
+                                            <th class="uk-text-center uk-text-upper uk-width-2-10">{{'MODEL.QUESTION.TYPE'|translate}}</th>
+                                            <th class="uk-text-center uk-text-upper uk-width-1-10">{{'MODEL.QUESTION.LEVEL'|translate}}</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr ng-repeat="question in vm.questions">
-                                            <td>
-                                                <i class="uk-icon-arrow-up uk-icon-small uk-margin-right" ng-click="vm.downLevel(level)"
+                                        <tr ng-repeat="question in vm.selectedQuestions | orderBy:'order'">
+                                            <td  class="uk-width-2-10">
+                                                <i class="uk-icon-arrow-up  uk-margin-right" ng-click="vm.moveUp(question)"
                                                  data-uk-tooltip="{cls:'uk-tooltip-small',pos:'top'}" title="{{'ACTION.UP'|translate}}"></i>
-                                              <i class="uk-icon-arrow-down uk-icon-small uk-margin-right" ng-click="vm.upLevel(level)"
+                                              <i class="uk-icon-arrow-down  uk-margin-right" ng-click="vm.moveDown(question)"
                                                  data-uk-tooltip="{cls:'uk-tooltip-small',pos:'top'}" title="{{'ACTION.DOWN'|translate}}"></i>
+                                                 <a  ng-click="vm.removeQuestion(question)" data-uk-tooltip="{cls:'uk-tooltip-small',pos:'top'}" title="{{'ACTION.DELETE'|translate}}"><i class="md-icon material-icons uk-text-danger">delete</i></a>
                                             </td>
-                                            <td class="uk-text-center">{{question.order}}</td>
-                                            <td class="uk-text-center">{{question.title}}</td>
-                                            <td class="uk-text-center">{{question.type}}</td>
-                                            <td class="uk-text-center">{{question.level}}</td>
-                                            <td><a  ng-click="removeOption(option)" data-uk-tooltip="{cls:'uk-tooltip-small',pos:'top'}" title="{{'ACTION.DELETE'|translate}}"><i class="md-icon material-icons uk-text-danger">delete</i></a>
+                                            <td class="uk-text-center uk-width-1-10">{{question.order}}</td>
+                                            <td class="uk-text-center  uk-width-4-10">{{question.title}}</td>
+                                            <td class="uk-text-center uk-width-2-10">
+                                                <span ng-if="question.type=='mc'">{{'COMMON.QUESTION_TYPE.MC'|translate}}</span>
+                                                <span ng-if="question.type=='sc'">{{'COMMON.QUESTION_TYPE.SC'|translate}}</span>
+                                                <span ng-if="question.type=='tf'">{{'COMMON.QUESTION_TYPE.TF'|translate}}</span>
+                                                <span ng-if="question.type=='fb'">{{'COMMON.QUESTION_TYPE.FB'|translate}}</span>
                                             </td>
+                                            <td class="uk-text-center uk-width-1-10">
+                                                <span ng-if="question.level=='easy'">{{'COMMON.DIFFICULTY.EASY'|translate}}</span>
+                                                <span ng-if="question.level=='medium'">{{'COMMON.DIFFICULTY.MEDIUM'|translate}}</span>
+                                                <span ng-if="question.level=='hard'">{{'COMMON.DIFFICULTY.HARD'|translate}}</span>
+                                            </td>
+                                            
                                         </tr>
                                     </tbody>
                                 </table>
+                                </div>
                             </div>
                         </li>
                         <li>
@@ -249,13 +259,13 @@
 <div class="uk-modal " id="select_question">
     <div class="uk-modal-dialog uk-modal-dialog-large">
         <div class="uk-alert uk-text-center uk-alert-info">
-            <h3 class="heading_b">{{'PAGE.LMS.MY_EXAM.SELECT_QUESTION'
+            <h3 class="heading_b">{{'PAGE.LMS.MY_EXAMS.SELECT_QUESTION'
                 | translate}}</h3>
         </div>
         <div class="uk-overflow-container">
             <div class="uk-grid" data-uk-grid-margin>
                 <div class="uk-width-medium-2-5 ">
-                    <h3 class="heading_a">{{'PAGE.LMS.MY_EXAM.QUESTION_GROUP'|translate}}</h3>
+                    <h3 class="heading_a">{{'PAGE.LMS.MY_EXAMS.FILTER_BY_GROUP'|translate}}</h3>
                     <group-tree-view tree-id="'questionTree'"
                         mode="'multiple'" category="'question'"
                         select="vm.selectQuestionGroup"></group-tree-view>
@@ -281,8 +291,17 @@
                                         table-check-row>
                                 </td>
                                 <td class="uk-text-center">{{question.title}}</td>
-                                <td class="uk-text-center">{{question.type}}</td>
-                                <td class="uk-text-center">{{question.level}}</td>
+                                <td class="uk-text-center uk-width-2-10">
+                                    <span ng-if="question.type=='mc'">{{'COMMON.QUESTION_TYPE.MC'|translate}}</span>
+                                    <span ng-if="question.type=='sc'">{{'COMMON.QUESTION_TYPE.SC'|translate}}</span>
+                                    <span ng-if="question.type=='tf'">{{'COMMON.QUESTION_TYPE.TF'|translate}}</span>
+                                    <span ng-if="question.type=='fb'">{{'COMMON.QUESTION_TYPE.FB'|translate}}</span>
+                                </td>
+                                <td class="uk-text-center uk-width-1-10">
+                                    <span ng-if="question.level=='easy'">{{'COMMON.DIFFICULTY.EASY'|translate}}</span>
+                                    <span ng-if="question.level=='medium'">{{'COMMON.DIFFICULTY.MEDIUM'|translate}}</span>
+                                    <span ng-if="question.level=='hard'">{{'COMMON.DIFFICULTY.HARD'|translate}}</span>
+                                </td>
                             </tr>
                         </tbody>
                     </table>

@@ -542,7 +542,7 @@
       .state('workspace.lms.exams.view', {
         url: '/view/:scheduleId/:examId',
         templateUrl: '/modules/lms/client/views/instructor/view-exam.client.view.html',
-        controller: 'ExamsController',
+        controller: 'ExamViewController',
         controllerAs: 'vm',
         resolve: {
             examResolve: getExam,

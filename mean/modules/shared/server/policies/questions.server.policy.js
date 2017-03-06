@@ -26,7 +26,7 @@ exports.invokeRolesPolicies = function () {
             permissions: '*'
           },
           {
-              resources: '/api/questions/byIds/:questionIdd',
+              resources: '/api/questions/byIds/:questionIds',
               permissions: '*'
           },
         {
@@ -47,7 +47,7 @@ exports.invokeRolesPolicies = function () {
             permissions: 'get'
           },
           {
-              resources: '/api/questions/byIds/:questionIdd',
+              resources: '/api/questions/byIds/:questionIds',
               permissions: 'get'
           },            
       {
