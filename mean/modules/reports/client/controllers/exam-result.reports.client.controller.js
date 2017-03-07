@@ -79,9 +79,9 @@
                         fullname:candidate.candidate.displayName,
                         username:candidate.candidate.username,
                         position:candidate.candidate.position,
-                        firstSubmit:moment(new Date(candidate.firstSubmit)).format('DD/MM/YYYY'),
+                        firstSubmit:candidate.firstSubmit? moment(new Date(candidate.firstSubmit)).format('DD/MM/YYYY'):'',
                         score: candidate.score,
-                        submit:candidate.candidate,
+                        submit:candidate.submit,
                         result:candidate.result})
         });
         return data;
