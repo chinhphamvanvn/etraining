@@ -36,15 +36,13 @@
                                   q.mark = 0;
                               });
                               var attempts = AttemptsService.bySectionAndMember({editionId:scope.edition._id,memberId:scope.member._id,sectionId:section._id},function() {
-                                  var latestAttempt = _.max(attempts, function(attempt){return new Date(attempt.start).getTime()});
-                                  _.each(latestAttempt.answers, function(answer) {
+                                  node.latestAttempt = _.max(attempts, function(attempt){return new Date(attempt.start).getTime()});
+                                  _.each(node.latestAttempt.answers, function(answer) {
                                       var quizQuestion = _.find(node.quiz.questions,function(q) {
                                           return q.id == answer.question;
                                       });
-                                      quizQuestion.detail = QuestionsService.get({questionId:quizQuestion.id});
-                                      quizQuestion.answer = answer;
                                       if (answer.isCorrect) {
-                                          quizQuestion.mark = quizQuestion.score;
+                                          quizQuestion.mark = 1;
                                           node.quiz.correctCount++;
                                       } else
                                           quizQuestion.mark = 0;

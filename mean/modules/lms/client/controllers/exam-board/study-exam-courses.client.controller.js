@@ -106,6 +106,8 @@ function ExamsStudyController($scope, $rootScope,$state, $window, QuestionsServi
 
     function updateClock() {
       vm.remainTime--;
+      if (vm.exam.preDueWarning && vm.remainTime < vm.exam.preDue * 60)
+          vm.timeUp = true;
     }
 
 
@@ -132,6 +134,15 @@ function ExamsStudyController($scope, $rootScope,$state, $window, QuestionsServi
     }
 
     function submitExam() {
+      if (vm.exam.earlySubmitPrevention) {
+          var now = new Date();
+          var start = new Date(vm.submit.start);
+          if (start.getTime() + vm.exam.earlySubmit*60*1000 > now.getTime() ) {
+              UIkit.modal.alert($translate.instant('ERROR.EXAM.EARLY_SUBMIT_PREVENTION'));
+              return;
+          }
+      }
+      
       save(function () {
         UIkit.modal.confirm($translate.instant('COMMON.CONFIRM_PROMPT'), function () {
           vm.submit.status = 'completed';
