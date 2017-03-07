@@ -81,7 +81,7 @@ exports.delete = function(req, res) {
  * List of Submissions
  */
 exports.list = function(req, res) {
-  Submission.find().sort('-created').populate('user', 'displayName').exec(function(err, submissions) {
+  Submission.find().sort('-created').populate('user', 'displayName').populate('answers').exec(function(err, submissions) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -103,6 +103,30 @@ exports.listByCandidate = function(req, res) {
       }
     });
   };
+  
+  exports.listByExamAndCandidate = function(req, res) {
+      Submission.find({candidate:req.candidate._id,exam:req.exam._id}).sort('-created').populate('user', 'displayName').populate('answers').exec(function(err, submits) {
+        if (err) {
+          return res.status(400).send({
+            message: errorHandler.getErrorMessage(err)
+          });
+        } else {
+          res.jsonp(submits);
+        }
+      });
+    };
+    
+    exports.listByExam = function(req, res) {
+        Submission.find({exam:req.exam._id}).sort('-created').populate('user', 'displayName').populate('answers').exec(function(err, submits) {
+          if (err) {
+            return res.status(400).send({
+              message: errorHandler.getErrorMessage(err)
+            });
+          } else {
+            res.jsonp(submits);
+          }
+        });
+      };
 
 /**
  * Submission middleware
@@ -115,7 +139,7 @@ exports.submissionByID = function(req, res, next, id) {
     });
   }
 
-  Submission.findById(id).populate('user', 'displayName').exec(function (err, submission) {
+  Submission.findById(id).populate('user', 'displayName').populate('answers').exec(function (err, submission) {
     if (err) {
       return next(err);
     } else if (!submission) {

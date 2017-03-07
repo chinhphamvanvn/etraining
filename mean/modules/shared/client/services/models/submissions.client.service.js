@@ -20,6 +20,16 @@
           method: 'GET',
           isArray: true
         },
+        byExamAndCandidate: {
+            url:'/api/submissions/byExamAndCandidate/:examId/:candidateId',
+            method: 'GET',
+            isArray: true
+          },
+          byExam: {
+              url:'/api/submissions/byExam/:examId',
+              method: 'GET',
+              isArray: true
+            },
     });
   }
 }());

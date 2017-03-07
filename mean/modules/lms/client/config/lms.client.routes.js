@@ -607,13 +607,15 @@
             courseRoles: [ 'teacher','student']
         }
       })
-       .state('workspace.lms.exams.gradebook', {
-        url: '/gradebook/:examId/:scheduleId',
-        templateUrl: '/modules/lms/client/views/instructor/score.board-exam.client.view.html',
-        controller: 'ExamsGradebookyController',
+       .state('workspace.lms.exams.score', {
+        url: '/score/:examId/:scheduleId/:candidateId',
+        templateUrl: '/modules/lms/client/views/exam-board/scorebook-exam.client.view.html',
+        controller: 'ExamsScorebookController',
         controllerAs: 'vm',
         resolve: {
             examResolve: getExam,
+            scheduleResolve:getSchedule,
+            candidateResolve:getCandidate
         },
         data: {
             roles: [ 'user'],
@@ -812,6 +814,14 @@
   function getSchedule($stateParams, SchedulesService) {
     return SchedulesService.get({
         scheduleId: $stateParams.scheduleId
+    }).$promise;
+  }
+  
+  getCandidate.$inject = ['$stateParams', 'ExamCandidatesService'];
+
+  function getCandidate($stateParams, ExamCandidatesService) {
+    return ExamCandidatesService.get({
+        candidateId: $stateParams.candidateId
     }).$promise;
   }
 
