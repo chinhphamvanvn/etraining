@@ -76,7 +76,7 @@
       vm.nodes = treeUtils.buildCourseTree(sections);
 
       _.each(vm.members, function (member) {
-        vm.totalScore = 0;
+        var totalScore = 0;
         var nodes = angular.copy(vm.nodes);
         _.each(nodes, function (root) {
           root.childList = _.filter(treeUtils.buildCourseListInOrder(root.children), function (node) {
@@ -87,9 +87,9 @@
             var section = node.data;
             node.quiz = ExamsService.get({examId: node.data.quiz}, function () {
               node.quiz.correctCount = 0;
-              _.each(node.quiz.questions, function (q) {
-                q.mark = 0;
-              });
+              // _.each(node.quiz.questions, function (q) {
+              //   q.mark = 0;
+              // });
               var attempts = AttemptsService.bySectionAndMember({
                 editionId: vm.edition._id,
                 memberId: member._id,
@@ -103,10 +103,8 @@
                     return q.id == answer.question;
                   });
                   if (answer.isCorrect) {
-                    quizQuestion.mark = 1;
                     node.quiz.correctCount++;
-                  } else
-                    quizQuestion.mark = 0;
+                  }
                 });
                 node.quiz.correctPercent = Math.floor((node.quiz.correctCount*100)/node.quiz.questions.length);
 
@@ -115,11 +113,11 @@
                 });
                 if (mark) {
                   node.weight = mark.weight;
-                  vm.totalScore += (node.weight/100)*node.quiz.correctPercent;
-                  member.totalScore = vm.totalScore;
+                  totalScore += (node.weight/100)*node.quiz.correctPercent;
                 } else {
                   node.weight = 0;
                 }
+                member.totalScore = totalScore;
               });
             });
           });
