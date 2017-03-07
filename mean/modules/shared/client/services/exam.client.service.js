@@ -84,6 +84,7 @@
                         });
                     });
                 },
+                candidateScoreBySubmit:candidateScoreBySubmit,
                 candidateScore : function (candidateId,examId) {
                     return $q(function(resolve, reject) {
                         var score = 0;

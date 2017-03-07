@@ -6,9 +6,9 @@ angular
     .module('lms')
     .controller('ExamsScorebookController', ExamsScorebookController);
 
-ExamsScorebookController.$inject = ['$scope', '$state', '$window', 'Authentication', '$timeout', 'examResolve','scheduleResolve','candidateResolve', 'Notification','AnswersService', 'OptionsService', 'QuestionsService', 'ExamsService','SubmissionsService', 'AttemptsService','treeUtils','$translate', '_'];
+ExamsScorebookController.$inject = ['$scope', '$state', '$window', 'Authentication', '$timeout', 'examResolve','scheduleResolve','candidateResolve', 'Notification','AnswersService', 'OptionsService', 'QuestionsService', 'ExamsService','SubmissionsService', 'AttemptsService','treeUtils','$translate','examUtils', '_'];
 
-function ExamsScorebookController($scope, $state, $window, Authentication, $timeout, exam, schedule, candidate, Notification,AnswersService, OptionsService, QuestionsService, ExamsService, SubmissionsService,AttemptsService ,treeUtils, $translate, _) {
+function ExamsScorebookController($scope, $state, $window, Authentication, $timeout, exam, schedule, candidate, Notification,AnswersService, OptionsService, QuestionsService, ExamsService, SubmissionsService,AttemptsService ,treeUtils, $translate, examUtils,_) {
     var vm = this;
     vm.authentication = Authentication;
     vm.exam = exam;
@@ -19,6 +19,9 @@ function ExamsScorebookController($scope, $state, $window, Authentication, $time
             var start = new Date(submit.start);
             var end = new Date(submit.end);
             submit.duration = Math.floor((end.getTime() - start.getTime())/1000);
+            examUtils.candidateScoreByBusmit(vm.candidate._id,vm.exam._id,submit._id).then(function(score) {
+                submit.score = score;
+            })
         });
     })
     
