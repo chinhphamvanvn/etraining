@@ -45,6 +45,7 @@
             <th class="uk-width-2-10 uk-text-center" ng-if="vm.course.model=='group'">{{'MODEL.MEMBER.CLASSROOM' |
               translate}}
             </th>
+            <th>Tong diem</th>
             <th class="uk-width-2-10 uk-text-center">{{'COMMON.ACTION' | translate}}</th>
           </tr>
           </thead>
@@ -59,6 +60,7 @@
             <td class="uk-text-center" ng-repeat="quiz in member.quizList">
               <span ng-repeat="q in quiz.childList">{{q.quiz.correctPercent}}</span>
             </td>
+            <td class="uk-text-center">{{member.totalScore}}</td>
             <td class="uk-text-center">
               <a ng-show="member.status=='active'" ng-click="vm.suspend(member)" data-uk-tooltip="{pos:'right'}"
                  title="{{'ACTION.SUSPEND'|translate}}"><i class="md-icon material-icons uk-text-warning">lock</i></a>
@@ -72,6 +74,7 @@
 
           </tbody>
         </table>
+        <button ng-csv="vm.csvArray" filename="gradebook_students.csv">Export to csv</button>
       </div>
 
     </div>

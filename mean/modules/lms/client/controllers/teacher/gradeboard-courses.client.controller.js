@@ -16,6 +16,8 @@
     vm.certify = certify;
     vm.user = user;
     vm.gradescheme = gradescheme;
+    vm.csvHeader = [];
+    vm.csvArray = [];
 
     function examPromise() {
       return EditionSectionsService.byEdition({editionId: vm.edition._id}, function (sections) {
@@ -74,6 +76,8 @@
       vm.nodes = treeUtils.buildCourseTree(sections);
 
       _.each(vm.members, function (member) {
+        vm.totalScore = 0;
+        var csv = {};
         var nodes = angular.copy(vm.nodes);
         _.each(nodes, function (root) {
           root.childList = _.filter(treeUtils.buildCourseListInOrder(root.children), function (node) {
@@ -107,15 +111,19 @@
                 });
                 node.quiz.correctPercent = Math.floor((node.quiz.correctCount*100)/node.quiz.questions.length);
 
-                console.log('============', vm.gradescheme);
                 var mark = _.find(vm.gradescheme.marks, function(m) {
                   return node.id == m.quiz;
                 });
                 if (mark) {
                   node.weight = mark.weight;
+                  vm.totalScore += (node.weight/100)*node.quiz.correctPercent;
+                  member.totalScore = vm.totalScore;
+                  csv.totalScore = vm.totalScore;
                 } else {
                   node.weight = 0;
                 }
+                csv.name = node.quiz.correctPerson;
+                console.log('csv', csv);
               });
             });
           });
