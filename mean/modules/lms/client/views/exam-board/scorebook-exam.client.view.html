@@ -12,9 +12,11 @@
                     
                     <div class="md-card-content">
                             <div class="uk-article">
+                            
+                            <div class="uk-grid uk-grid-divider">
+                                <div class="uk-width-1-3">
                                     <h1 class="uk-article-title">{{'PAGE.LMS.MY_EXAMS.SCOREBOOK.SUBMIT'|translate}} : {{$index+1}} </h1>
-                             </div>
-                            <div class="uk-grid">
+                                </div>
                                 <div class="uk-width-1-3">
                    
                                     <p class="uk-article-meta">{{'MODEL.SUBMIT.START_DATE'|translate}} : {{submit.start | date:'dd/MM/yyyy HH:mm:ss'}}</p>
@@ -23,15 +25,17 @@
                                   
                                    
                                 </div>
-                                <div class="uk-width-2-3">
+                                <div class="uk-width-1-3">
                    
                                    
                                    <p class="uk-article-meta uk-text-primary">{{'MODEL.EXAM.BENCHMARK'|translate}} : {{vm.exam.benchmark}}%</p>
-                                   <p class="uk-article-meta uk-text-success" ng-show="submit.score >=vm.exam.benchmark"><span>{{'PAGE.LMS.MY_EXAMS.SCOREBOOK.RESUTL'|translate}} : {{submit.score}}%</span><exam-result exam="vm.exam" answers="submit.answers"></exam-result></p>
-                                   <p class="uk-article-meta uk-text-danger" ng-show="submit.score < vm.exam.benchmark"><span>{{'PAGE.LMS.MY_EXAMS.SCOREBOOK.RESUTL'|translate}} : {{submit.score}}%</span><exam-result exam="vm.exam" answers="submit.answers"></exam-result></p>
-                                   
+                                   <p class="uk-article-meta uk-text-success" ng-show="submit.score >=vm.exam.benchmark">{{'PAGE.LMS.MY_EXAMS.SCOREBOOK.RESUTL'|translate}} : {{submit.score}}%</p>
+                                   <p class="uk-article-meta uk-text-danger" ng-show="submit.score < vm.exam.benchmark">{{'PAGE.LMS.MY_EXAMS.SCOREBOOK.RESUTL'|translate}} : {{submit.score}}%</p>
+                                   <p class="uk-article-meta">{{'ACTION.VIEW_SCORE'|translate}} <exam-result exam="vm.exam" answers="submit.answers"></exam-result></p>
                                 </div>
                             </div>
+                                    
+                             </div>
                         </div>
                     </div>
                 </div>

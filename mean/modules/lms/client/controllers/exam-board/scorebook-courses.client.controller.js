@@ -19,8 +19,10 @@ function ExamsScorebookController($scope, $state, $window, Authentication, $time
             var start = new Date(submit.start);
             var end = new Date(submit.end);
             submit.duration = Math.floor((end.getTime() - start.getTime())/1000);
+            
             examUtils.candidateScoreByBusmit(vm.candidate._id,vm.exam._id,submit._id).then(function(score) {
                 submit.score = score;
+                console.log(submit.score);
             })
         });
     })
