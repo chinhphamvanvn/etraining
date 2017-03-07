@@ -18,51 +18,48 @@
           templateUrl:'/modules/lms/client/directives/true-false-question/true-false-question.directive.client.view.html',
           link: function (scope, element, attributes) {
               scope.tinymce_options = fileManagerConfig;
-              scope.$watch('question',function() { 
-                  if (scope.question._id)
-                      scope.question.options = OptionsService.byQuestion({questionId:scope.question._id},function() {
-                          if (scope.question.options.length) {
-                              if (scope.mode !='study' && scope.mode !='result')
-                                  _.each(scope.question.options,function(option) {
-                                      option.selected = _.contains(scope.question.correctOptions,option._id);
-                                  })
-                              else {
-                                  if (scope.answer) {
-                                      _.each(scope.question.options ,function(option) {
-                                          option.selected = _.contains(scope.answer.options,option._id)
-                                      });
-                                  }
+              if (scope.question._id)
+                  scope.question.options = OptionsService.byQuestion({questionId:scope.question._id},function() {
+                      if (scope.question.options.length) {
+                          if (scope.mode !='study' && scope.mode !='result')
+                              _.each(scope.question.options,function(option) {
+                                  option.selected = _.contains(scope.question.correctOptions,option._id);
+                              })
+                          else {
+                              if (scope.answer) {
                                   _.each(scope.question.options ,function(option) {
-                                      option.isCorrect = _.contains(scope.question.correctOptions,option._id);
+                                      option.selected = _.contains(scope.answer.options,option._id)
                                   });
-                               }
-                          } else {
-                              var option1 =  new OptionsService();
-                              option1.order  = 1;
-                              option1.question = scope.question._id;
-                              option1.content = $translate.instant('COMMON.TRUE');
-                              option1.$save(function() {
-                                  scope.question.options.push(option1);
+                              }
+                              _.each(scope.question.options ,function(option) {
+                                  option.isCorrect = _.contains(scope.question.correctOptions,option._id);
                               });
-                              var option2 =  new OptionsService();
-                              option2.order  = 2;
-                              option2.question = scope.question._id;
-                              option2.content = $translate.instant('COMMON.FALSE');
-                              option2.$save(function() {
-                                  scope.question.options.push(option2);
-                              });
-                          }
-                      });
-              });
+                           }
+                      } else {
+                          var option1 =  new OptionsService();
+                          option1.order  = 1;
+                          option1.question = scope.question._id;
+                          option1.content = $translate.instant('COMMON.TRUE');
+                          option1.$save(function() {
+                              scope.question.options.push(option1);
+                          });
+                          var option2 =  new OptionsService();
+                          option2.order  = 2;
+                          option2.question = scope.question._id;
+                          option2.content = $translate.instant('COMMON.FALSE');
+                          option2.$save(function() {
+                              scope.question.options.push(option2);
+                          });
+                      }
+                  });
              
               scope.selectOption = function(option) {
                   if (scope.mode !='view') {
                       _.each(scope.question.options,function(obj) {
-                          if (obj._id!=option._id)
-                              obj.selected = false; 
+                         obj.selected = false; 
                       });
-                      if (option.selected && scope.mode =='edit')
-                          scope.question.correctOptions = [option._id];
+                      option.selected = true;
+                      scope.question.correctOptions = [option._id];
                   }
               }
           }

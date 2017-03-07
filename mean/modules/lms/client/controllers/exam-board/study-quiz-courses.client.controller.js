@@ -4,11 +4,11 @@
 // Courses controller
 angular
     .module('lms')
-    .controller('CoursesStudyQuizController', CoursesStudyQuizController);
+    .controller('ExamsStudyController', ExamsStudyController);
 
-CoursesStudyQuizController.$inject = ['$scope', '$state', '$window', 'QuestionsService','ExamsService','AnswersService', 'OptionsService','EditionSectionsService','Authentication','AttemptsService', 'editionResolve', 'CoursesService', 'Notification', 'sectionResolve','memberResolve','$timeout', '$interval','$translate', '$q','_'];
+ExamsStudyController.$inject = ['$scope', '$state', '$window', 'QuestionsService','ExamsService','AnswersService', 'OptionsService','EditionSectionsService','Authentication','AttemptsService', 'editionResolve', 'CoursesService', 'Notification', 'sectionResolve','memberResolve','$timeout', '$interval','$translate', '$q','_'];
 
-function CoursesStudyQuizController($scope, $state, $window, QuestionsService,ExamsService,AnswersService,OptionsService,EditionSectionsService, Authentication, AttemptsService,edition, CoursesService, Notification, section,member,$timeout, $interval,$translate ,$q, _) {
+function ExamsStudyController($scope, $state, $window, QuestionsService,ExamsService,AnswersService,OptionsService,EditionSectionsService, Authentication, AttemptsService,edition, CoursesService, Notification, section,member,$timeout, $interval,$translate ,$q, _) {
     var vm = this;
     vm.edition = edition;
     vm.member = member;
@@ -46,8 +46,12 @@ function CoursesStudyQuizController($scope, $state, $window, QuestionsService,Ex
             }, vm.remainTime * 1000);
             vm.intervalToken = $interval(updateClock, 1000);
 
-            var questionIds = _.pluck(vm.quiz.questions,'id');
-            vm.questions = QuestionsService.byIds({questionIds:questionIds},function() {
+            var allPromise = [];
+            _.each(vm.quiz.questions, function (q, index) {
+              allPromise.push(QuestionsService.get({questionId: q.id}).$promise);
+            });
+            $q.all(allPromise).then(function (questions) {
+              vm.questions = questions;
               vm.index = 0;
               if (vm.questions.length > 0)
                 selectQuestion(vm.index)
