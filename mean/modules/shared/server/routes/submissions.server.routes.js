@@ -12,6 +12,10 @@ module.exports = function(app) {
     .get(submissions.list)
     .post(submissions.create);
   
+  app.route('/api/submissions/byExamAndCandidate/:examId/:candidateId').all(submissionsPolicy.isAllowed)
+  .get(submissions.listByExamAndCandidate)
+  app.route('/api/submissions/byExam/:examId').all(submissionsPolicy.isAllowed)
+  .get(submissions.listByExam)
   app.route('/api/submissions/byCandidate/:candidateId').all(submissionsPolicy.isAllowed)
   .get(submissions.listByCandidate)
 

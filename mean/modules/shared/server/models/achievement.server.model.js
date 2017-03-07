@@ -26,6 +26,23 @@ var CompetencyAchievementSchema = new Schema({
               type: Schema.ObjectId,
               ref: 'Exam'
             },
+            course: {
+                type: Schema.ObjectId,
+                ref: 'Course'
+            },
+            edition: {
+                type: Schema.ObjectId,
+                ref: 'CourseEdition'
+            },
+            member: {
+                type: Schema.ObjectId,
+                ref: 'CourseMember'
+            },
+            source: {
+                type: String,
+                enum: ['exam','course'],
+                default: 'exam'
+              },
          level: {
               type: String,
             }, 

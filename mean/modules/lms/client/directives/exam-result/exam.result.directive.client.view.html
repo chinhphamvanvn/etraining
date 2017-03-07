@@ -11,7 +11,7 @@
         <div class="md-card" ng-repeat="question in exam.questions track by $index">
             <div class="md-card-toolbar">
             <div class="md-card-toolbar-heading-text">
-                <span>{{'PAGE.LMS.MY_COURSES.COURSE_STUDY.QUESTION'|translate}} {{$index+1}}/{{childNode.quiz.questions.length}}
+                <span>{{'PAGE.LMS.MY_COURSES.COURSE_STUDY.QUESTION'|translate}} {{$index+1}}/{{exam.questions.length}}
                 </span>
                 
             </div>

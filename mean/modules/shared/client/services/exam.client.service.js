@@ -5,6 +5,33 @@
   .module('shared')
     .service('examUtils', ['SubmissionsService','ExamsService','GroupsService','QuestionsService','treeUtils', '$q','_',
         function (SubmissionsService,ExamsService,GroupsService,QuestionsService,treeUtils, $q,_) {
+            function candidateScoreBySubmit(candidateId,examId,submissionId) {
+                return $q(function(resolve, reject) {
+                    ExamsService.get({examId:examId},function(exam) {
+                        SubmissionsService.get({submissionId:submissionId},function(submit) {
+                            if (exam.questionSelection=='auto') {
+                               var correct =  _.filter(submit.answers, function(answer) {
+                                    return (answer.isCorrect) ;
+                                }).length;
+                               resolve(correct * 100 / exam.questionNumber);
+                            }
+                            if (exam.questionSelection=='manual') {
+                                var total = 0;
+                                var score;
+                                _.each(exam.questions,function(question) {
+                                    total += question.score;
+                                    answer = _.filter(submit.answers,function(obj) {
+                                        return obj.question == question.id;
+                                    });
+                                    if (answer && answer.isCorrect)
+                                        score += question.score;
+                                })
+                                resolve(score * 100 / total);
+                             }
+                        });
+                    }); 
+                });                    
+            }
             return {
                 candidateProgress: function(candidateId,examId) {
                     return $q(function(resolve, reject) {
@@ -56,6 +83,18 @@
                            resolve(randomQuestions);
                         });
                     });
+                },
+                candidateScore : function (candidateId,examId) {
+                    return $q(function(resolve, reject) {
+                        var score = 0;
+                        SubmissionsService.byExamAndCandidate({examId:examId,candidateId:candidateId},function(submits) {
+                            var latestSubmit = _.max(submits, function(submit){return new Date(submit.start).getTime()});
+                            candidateScoreBySubmit.then(function(score) {
+                                resolve(score);
+                            }) 
+                            
+                        }); 
+                    });                    
                 }
                 
             };

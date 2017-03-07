@@ -48,6 +48,10 @@
                                     <i class="uk-icon-hand-pointer-o"></i>
                                     {{'ACTION.JOIN'|translate}}
                                 </a>
+                              <a class="md-btn md-btn-flat md-btn-flat-primary   md-btn-icon uk-margin-right" ui-sref="workspace.lms.exams.score({candidateId:candidate._id,examId:candidate.exam._id,scheduleId:candidate.schedule._id})">
+                                    <i class="uk-icon-eye"></i>
+                                    {{'ACTION.VIEW_SCORE'|translate}}
+                                </a>
                             {{'PAGE.LMS.MY_EXAMS.PROGRESS'|translate}} {{ candidate.exam.attemptCount }} / {{ candidate.exam.maxAttempt }}
                         </h3>
                     </div>

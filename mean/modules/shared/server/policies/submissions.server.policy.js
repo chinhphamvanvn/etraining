@@ -24,7 +24,15 @@ exports.invokeRolesPolicies = function () {
     {
         resources: '/api/submissions/byCandidate/:candidateId',
         permissions: '*'
-      }]
+      },
+      {
+          resources: '/api/submissions/byExam/:examId',
+          permissions: '*'
+        },
+      {
+          resources: '/api/submissions/byExamAndCandidate/:examId/:candidateId',
+          permissions: '*'
+        }]
   }, {
     roles: ['user'],
     allows: [{
@@ -37,16 +45,18 @@ exports.invokeRolesPolicies = function () {
     {
         resources: '/api/submissions/byCandidate/:candidateId',
         permissions: '*'
-      }]
+      },
+      {
+          resources: '/api/submissions/byExam/:examId',
+          permissions: 'get'
+        },
+      {
+          resources: '/api/submissions/byExamAndCandidate/:examId/:candidateId',
+          permissions: 'get'
+        }]
   }, {
     roles: ['guest'],
-    allows: [{
-      resources: '/api/submissions',
-      permissions: ['get']
-    }, {
-      resources: '/api/submissions/:submissionId',
-      permissions: ['get']
-    }]
+    allows: []
   }]);
 };
 
