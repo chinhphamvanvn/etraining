@@ -588,6 +588,7 @@
         controllerAs: 'vm',
         resolve: {
             examResolve: getExam,
+            scheduleResolve:getSchedule,
         },
         data: {
             roles: [ 'user'],
@@ -595,12 +596,14 @@
         }
       })
        .state('workspace.lms.exams.study', {
-        url: '/study/:examId/:scheduleId',
-        templateUrl: '/modules/lms/client/views/instructor/score.board-exam.client.view.html',
+        url: '/study/:examId/:scheduleId/:candidateId',
+        templateUrl: '/modules/lms/client/views/exam-board/study-exam.client.view.html',
         controller: 'ExamsStudyController',
         controllerAs: 'vm',
         resolve: {
             examResolve: getExam,
+            scheduleResolve:getSchedule,
+            candidateResolve:getCandidate
         },
         data: {
             roles: [ 'user'],
