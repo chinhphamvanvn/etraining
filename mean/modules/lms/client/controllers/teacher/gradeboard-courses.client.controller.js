@@ -77,7 +77,6 @@
 
       _.each(vm.members, function (member) {
         vm.totalScore = 0;
-        vm.csv = {};
         var nodes = angular.copy(vm.nodes);
         _.each(nodes, function (root) {
           root.childList = _.filter(treeUtils.buildCourseListInOrder(root.children), function (node) {
@@ -118,21 +117,15 @@
                   node.weight = mark.weight;
                   vm.totalScore += (node.weight/100)*node.quiz.correctPercent;
                   member.totalScore = vm.totalScore;
-                  vm.csv.totalScore = vm.totalScore;
                 } else {
                   node.weight = 0;
                 }
-                vm.csv[node.data.name] = node.quiz.correctPercent;
-                // console.log('node', node);
-                console.log('csv', vm.csv);
               });
             });
           });
         });
-        vm.csvArray.push(angular.copy(vm.csv));
         member.quizList = nodes;
       });
-      console.log('vm.csvArray', vm.csvArray);
     });
 
     function certify(member) {
