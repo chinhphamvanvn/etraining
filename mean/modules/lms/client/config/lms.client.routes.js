@@ -816,5 +816,13 @@
         scheduleId: $stateParams.scheduleId
     }).$promise;
   }
+  
+  getCandidate.$inject = ['$stateParams', 'ExamCandidatesService'];
+
+  function getCandidate($stateParams, ExamCandidatesService) {
+    return ExamCandidatesService.get({
+        candidateId: $stateParams.candidateId
+    }).$promise;
+  }
 
 }());
