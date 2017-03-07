@@ -16,6 +16,21 @@
                         });
                     });                    
                 },
+                pendingSubmit: function(candidateId,examId) {
+                    return $q(function(resolve, reject) {
+                        var exam = ExamsService.get({examId:examId}, function() {
+                            var submits = SubmissionsService.byCandidate({candidateId:candidateId},function() {
+                                var now = new Date();
+                                var pendingSubmit = _.find(submits,function(submit) {
+                                    var start = new Date(submit.start);
+                                    return submit.status=='pending' && start.getTime() + exam.duration * 60 * 1000 > now.getTime();
+                                })
+                                var progress  =  {pending:pendingSubmit, percentage: Math.floor(submits.length * 100 / exam.maxAttempt),count:submits.length};
+                                resolve(progress);
+                            });
+                        });
+                    });                    
+                },
                 questionRandom:function(category,level,number) {
                     var questions = [];
                     GroupsService.listQuestionGroup(function(groups) {

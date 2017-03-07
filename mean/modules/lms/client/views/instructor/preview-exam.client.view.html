@@ -49,17 +49,31 @@
                         <div ng-if="vm.question.type=='fb'">
                              <fill-blank-question mode="'study'"  question="vm.question"></fill-blank-question>
                         </div>
-                        <div class="uk-text-center uk-margin-top">
-                        
-                            <a ng-show="vm.index < vm.questions.length-1" class="md-btn  md-btn-wave-light md-btn-icon" ng-click="vm.saveNext()"><i class="uk-icon-arrow-right "></i>
-                                {{'ACTION.NEXT'|translate}}
-                            </a>
-                            <a ng-show="vm.quiz.allowNavigate && vm.index > 0" class="md-btn  md-btn-wave-light md-btn-icon" ng-click="vm.savePrev()"><i class="uk-icon-arrow-left "></i>
+                        <br>
+                        <hr>
+                        <div class="uk-grid uk-margin-top">
+                            <div class="uk-width-1-3">
+                                <a ng-show="vm.index < vm.questions.length-1"
+                                    class="uk-align-left md-btn  md-btn-wave-light md-btn-icon"
+                                    ng-click="vm.saveNext()">
+                                    <i class="uk-icon-arrow-right "></i>
+                                    {{'ACTION.NEXT'|translate}}
+                                </a>
+                             </div>
+                          
+                            <div class="uk-width-1-3 uk-text-center">
+                            <a class=" md-btn md-btn-primary md-btn-wave-light"
+                                ng-show="vm.index == vm.questions.length-1">
+                                {{'ACTION.SUBMIT_EXAM'|translate}} </a>
+                            </div>
+                               <div class="uk-width-1-3 ">
+                            <a ng-show="vm.index > 0"
+                                class="uk-align-right md-btn  md-btn-wave-light md-btn-icon"
+                                ng-click="vm.savePrev()">
+                                <i class="uk-icon-arrow-left "></i>
                                 {{'ACTION.PREV'|translate}}
                             </a>
-                            <a class="md-btn md-btn-primary md-btn-wave-light" ng-show="vm.index == vm.questions.length-1" >
-                                {{'ACTION.SUBMIT_EXAM'|translate}}
-                            </a>
+                            </div>
                         </div>
                     </div>
                 </div>

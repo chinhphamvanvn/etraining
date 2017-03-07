@@ -18,25 +18,27 @@
           templateUrl:'/modules/lms/client/directives/single-choice-question/single-choice-question.directive.client.view.html',
           link: function (scope, element, attributes) {
               scope.tinymce_options = fileManagerConfig;
-              if (scope.question._id)
-                  scope.question.options = OptionsService.byQuestion({questionId:scope.question._id},function() {
-                      if (scope.mode !='study' && scope.mode !='result')
-                          _.each(scope.question.options,function(option) {
-                              option.selected = _.contains(scope.question.correctOptions,option._id);
-                          });
-                      else {
-                          if (scope.answer) {
-                              _.each(scope.question.options ,function(option) {
-                                  option.selected = _.contains(scope.answer.options,option._id)
+              scope.$watch('question',function() {
+                  if (scope.question._id)
+                      scope.question.options = OptionsService.byQuestion({questionId:scope.question._id},function() {
+                          if (scope.mode !='study' && scope.mode !='result')
+                              _.each(scope.question.options,function(option) {
+                                  option.selected = _.contains(scope.question.correctOptions,option._id);
                               });
-                          }
-                          _.each(scope.question.options ,function(option) {
-                              option.isCorrect = _.contains(scope.question.correctOptions,option._id);
-                          });
-                       }
-                  });
-              else
-                  scope.question.options = [];
+                          else {
+                              if (scope.answer) {
+                                  _.each(scope.question.options ,function(option) {
+                                      option.selected = _.contains(scope.answer.options,option._id)
+                                  });
+                              }
+                              _.each(scope.question.options ,function(option) {
+                                  option.isCorrect = _.contains(scope.question.correctOptions,option._id);
+                              });
+                           }
+                      });
+                  else
+                      scope.question.options = [];
+              });
               
               scope.addOption = function() {
                   var option = new OptionsService();
@@ -53,10 +55,11 @@
               scope.selectOption = function(option) {
                   if (scope.mode !='view') {
                       _.each(scope.question.options,function(obj) {
-                         obj.selected = false; 
+                         if (obj._id!=option._id)
+                             obj.selected = false; 
                       });
-                      option.selected = true;
-                      scope.question.correctOptions = [option._id];
+                      if (option.selected && scope.mode =='edit')
+                          scope.question.correctOptions = [option._id];
                   }
               }
               

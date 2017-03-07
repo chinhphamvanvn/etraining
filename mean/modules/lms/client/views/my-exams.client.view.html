@@ -30,6 +30,11 @@
                                         <span class="uk-margin-right uk-article-meta">{{'MODEL.SCHEDULE.START_DATE'|translate}} : {{candidate.schedule.start | date:'dd/MM/yyyy'}}</span>
                                         <span class="uk-margin-right uk-article-meta">{{'MODEL.SCHEDULE.END_DATE'|translate}} : {{candidate.schedule.end | date:'dd/MM/yyyy'}}</span>
                                     </p>
+                                    <p class="uk-article-lead">{{'MODEL.EXAM.DESCRIPTION'|translate}}</p>
+                                    <p ng-bind-html="candidate.exam.description"></p>
+                                    <p class="uk-article-lead">{{'MODEL.EXAM.INSTRUCTION'|translate}}</p>
+                                    <p ng-bind-html="candidate.exam.instruction"></p>
+                                    <hr class="uk-article-divider">
                                 </div>
                                 </div>
                             </div>
@@ -39,7 +44,7 @@
                     
                     <div class="md-card-toolbar md-bg-light-green-100">
                         <h3 class="md-card-toolbar-heading-text">
-                            <a class="md-btn md-btn-flat md-btn-flat-primary   md-btn-icon uk-margin-right" ui-sref="workspace.lms.exams.join({examId:candidate.exam._id,scheduleId:candidate.schedule._id})">
+                            <a class="md-btn md-btn-flat md-btn-flat-primary   md-btn-icon uk-margin-right" ui-sref="workspace.lms.exams.study({candidateId:candidate._id,examId:candidate.exam._id,scheduleId:candidate.schedule._id})">
                                     <i class="uk-icon-hand-pointer-o"></i>
                                     {{'ACTION.JOIN'|translate}}
                                 </a>
@@ -57,6 +62,10 @@
                                         <span class="uk-margin-right uk-article-meta">{{'MODEL.SCHEDULE.START_DATE'|translate}} : {{candidate.schedule.start | date:'dd/MM/yyyy'}}</span>
                                         <span class="uk-margin-right uk-article-meta">{{'MODEL.SCHEDULE.END_DATE'|translate}} : {{candidate.schedule.end | date:'dd/MM/yyyy'}}</span>
                                     </p>
+                                   <p class="uk-article-lead">{{'MODEL.EXAM.DESCRIPTION'|translate}}</p>
+                                    <p ng-bind-html="candidate.exam.description"></p>
+                                    <p class="uk-article-lead">{{'MODEL.EXAM.INSTRUCTION'|translate}}</p>
+                                    <p ng-bind-html="candidate.exam.instruction"></p>
                                 </div>
                                 </div>
                             </div>

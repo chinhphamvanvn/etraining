@@ -18,25 +18,28 @@
           templateUrl:'/modules/lms/client/directives/fill-blank-question/fill-blank-question.directive.client.view.html',
           link: function (scope, element, attributes) {
               scope.tinymce_options = fileManagerConfig;
-              if (scope.question._id)
-                  scope.question.options = OptionsService.byQuestion({questionId:scope.question._id},function() {
-                      if (scope.mode !='study' && scope.mode !='result')
-                          _.each(scope.question.options,function(option) {
-                              option.selected = _.contains(scope.question.correctOptions,option._id);
-                          });
-                      else {
-                          if (scope.answer) {
-                              _.each(scope.question.options ,function(option) {
-                                  option.selected = _.contains(scope.answer.options,option._id)
+              scope.$watch('question',function() {
+                  if (scope.question._id)
+                      scope.question.options = OptionsService.byQuestion({questionId:scope.question._id},function() {
+                          if (scope.mode !='study' && scope.mode !='result')
+                              _.each(scope.question.options,function(option) {
+                                  option.selected = _.contains(scope.question.correctOptions,option._id);
                               });
-                          }
-                          _.each(scope.question.options ,function(option) {
-                              option.isCorrect = _.contains(scope.question.correctOptions,option._id);
-                          });
-                       }
-                  });
-              else
-                  scope.question.options = [];
+                          else {
+                              if (scope.answer) {
+                                  _.each(scope.question.options ,function(option) {
+                                      option.selected = _.contains(scope.answer.options,option._id)
+                                  });
+                              }
+                              _.each(scope.question.options ,function(option) {
+                                  option.isCorrect = _.contains(scope.question.correctOptions,option._id);
+                              });
+                           }
+                      });
+                  else
+                      scope.question.options = [];
+              })
+              
               
               scope.translateContent = function() {
                   return scope.question.description.replace("#BLANK#", "<u>&nbsp;&nbsp;&nbsp;&nbsp;</u>");
@@ -55,12 +58,11 @@
               }
               
               scope.selectOption = function(option) {
-                  if (scope.mode !='study') {
-                      scope.question.correctOptions = [];
-                      _.each(scope.question.options,function(obj) {
-                         if (obj.selected)
-                             scope.question.correctOptions.push(obj._id);
-                      });            
+                  if (scope.mode =='edit') {
+                      var correctOptions = _.filter(scope.question.options,function(opt) {
+                          return opt.selected;
+                      });
+                      scope.question.correctOptions = _.pluck(correctOptions,'_id');
                   }
               }
               
