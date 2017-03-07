@@ -127,21 +127,6 @@
         });
         member.quizList = nodes;
       });
-    }).then(function() {
-      vm.members.map(function(member) {
-        console.log('========', member);
-        if (member.member) {
-          var memberCsv = {};
-          memberCsv.name = member.member.displayName;
-          member.quizList.map(function(quiz) {
-            memberCsv[quiz.childList[0].data.name] = quiz.childList[0].quiz.correctPercent;
-            console.log('=========', quiz.childList[0].quiz.correctPercent);
-          });
-          memberCsv.totalScore = member.totalScore;
-          vm.csvArray.push(memberCsv);
-        }
-      });
-      console.log('csv array', vm.csvArray);
     });
 
     function certify(member) {
