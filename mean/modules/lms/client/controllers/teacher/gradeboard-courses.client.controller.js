@@ -77,7 +77,6 @@
 
       _.each(vm.members, function (member) {
         vm.totalScore = 0;
-        vm.csv = {};
         var nodes = angular.copy(vm.nodes);
         _.each(nodes, function (root) {
           root.childList = _.filter(treeUtils.buildCourseListInOrder(root.children), function (node) {
@@ -109,6 +108,7 @@
                   } else
                     quizQuestion.mark = 0;
                 });
+
                 node.quiz.correctPercent = Math.floor((node.quiz.correctCount*100)/node.quiz.questions.length);
 
                 var mark = _.find(vm.gradescheme.marks, function(m) {
@@ -118,21 +118,30 @@
                   node.weight = mark.weight;
                   vm.totalScore += (node.weight/100)*node.quiz.correctPercent;
                   member.totalScore = vm.totalScore;
-                  vm.csv.totalScore = vm.totalScore;
                 } else {
                   node.weight = 0;
                 }
-                vm.csv[node.data.name] = node.quiz.correctPercent;
-                // console.log('node', node);
-                console.log('csv', vm.csv);
               });
             });
           });
         });
-        vm.csvArray.push(angular.copy(vm.csv));
         member.quizList = nodes;
       });
-      console.log('vm.csvArray', vm.csvArray);
+    }).then(function() {
+      vm.members.map(function(member) {
+        console.log('========', member);
+        if (member.member) {
+          var memberCsv = {};
+          memberCsv.name = member.member.displayName;
+          member.quizList.map(function(quiz) {
+            memberCsv[quiz.childList[0].data.name] = quiz.childList[0].quiz.correctPercent;
+            console.log('=========', quiz.childList[0].quiz.correctPercent);
+          });
+          memberCsv.totalScore = member.totalScore;
+          vm.csvArray.push(memberCsv);
+        }
+      });
+      console.log('csv array', vm.csvArray);
     });
 
     function certify(member) {
