@@ -28,12 +28,17 @@ function CoursesSurveyController($scope, $state, $window, Authentication, $timeo
                     choose: "",
                     number: "",
                     percent: ""
-                }
-                vm.memberListCsv.push(itemSurvey1);
+                };
+                var numberinit = 0;
 
                  _.each(section.survey.questions,function(question) {
                     question.detail = QuestionsService.get({questionId:question.id});
                     question.options = OptionsService.byQuestion({questionId:question.id},function() {
+                        numberinit++;
+                        if(itemSurvey1.servey){
+                            vm.memberListCsv.push(itemSurvey1);
+                            itemSurvey1 = {};
+                        }
                         var itemSurvey2 = {
                             servey: "",
                             total: "",
@@ -60,28 +65,28 @@ function CoursesSurveyController($scope, $state, $window, Authentication, $timeo
                                 total: "",
                                 question: "",
                                 choose: option.content,
-                                number: option.count +" / "+ itemSurvey1.total,
+                                number: option.count +" / "+ section.attempts.length,
                                 percent: option.percentage + " % "
                             }
                             vm.memberListCsv.push(itemSurvey);
 
                         });
+                        if(numberinit == section.survey.questions.length){
+                            var itemSurvey3 = {
+                                servey: "",
+                                total: "",
+                                question: "",
+                                choose: "",
+                                number: "",
+                                percent: ""
+                            }
+                            vm.memberListCsv.push(itemSurvey3);
+                            vm.memberListCsv.push(itemSurvey3);
+                        }
                     });
 
                  });
-             });
-            if(vm.memberListCsv.length > 0){
-                var itemSurvey3 = {
-                    servey: "",
-                    total: "",
-                    question: "",
-                    choose: "",
-                    number: "",
-                    percent: ""
-                }
-                vm.memberListCsv.push(itemSurvey3);
-                vm.memberListCsv.push(itemSurvey3);
-            }
+            });
         });
     });
 }
