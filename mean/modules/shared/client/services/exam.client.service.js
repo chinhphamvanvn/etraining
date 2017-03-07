@@ -5,7 +5,7 @@
   .module('shared')
     .service('examUtils', ['SubmissionsService','ExamsService','GroupsService','QuestionsService','treeUtils', '$q','_',
         function (SubmissionsService,ExamsService,GroupsService,QuestionsService,treeUtils, $q,_) {
-            function candidateScoreBySubmit(candidateId,examId,submissionId) {
+            function candidateScoreByBusmit(candidateId,examId,submissionId) {
                 return $q(function(resolve, reject) {
                     ExamsService.get({examId:examId},function(exam) {
                         SubmissionsService.get({submissionId:submissionId},function(submit) {
@@ -17,10 +17,10 @@
                             }
                             if (exam.questionSelection=='manual') {
                                 var total = 0;
-                                var score;
+                                var score = 0;
                                 _.each(exam.questions,function(question) {
                                     total += question.score;
-                                    answer = _.filter(submit.answers,function(obj) {
+                                   var answer = _.filter(submit.answers,function(obj) {
                                         return obj.question == question.id;
                                     });
                                     if (answer && answer.isCorrect)
@@ -84,6 +84,7 @@
                         });
                     });
                 },
+                candidateScoreByBusmit:candidateScoreByBusmit,
                 candidateScore : function (candidateId,examId) {
                     return $q(function(resolve, reject) {
                         var score = 0;

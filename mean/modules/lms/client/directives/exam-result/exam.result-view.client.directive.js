@@ -12,7 +12,7 @@
       return {
           scope: {
               exam: "=",
-              answers: "="
+              answers: "=",
           },
           templateUrl:'/modules/lms/client/directives/exam-result/exam.result.directive.client.view.html',
           link: function (scope, element, attributes) {

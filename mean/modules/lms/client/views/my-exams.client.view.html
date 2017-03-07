@@ -40,7 +40,7 @@
                             </div>
                         </div>
                     </div>
-                    <div  ng-if="candidate.role=='student'"  class="md-card md-card-hover" card-progress="{{candidate.exam.percentage}}">
+                    <div  ng-if="candidate.role=='student'"  class="md-card md-card-hover" card-progress="{{candidate.percentage}}">
                     
                     <div class="md-card-toolbar md-bg-light-green-100">
                         <h3 class="md-card-toolbar-heading-text">
@@ -52,14 +52,14 @@
                                     <i class="uk-icon-eye"></i>
                                     {{'ACTION.VIEW_SCORE'|translate}}
                                 </a>
-                            {{'PAGE.LMS.MY_EXAMS.PROGRESS'|translate}} {{ candidate.exam.attemptCount }} / {{ candidate.exam.maxAttempt }}
+                              
+                            {{'PAGE.LMS.MY_EXAMS.PROGRESS'|translate}} {{ candidate.attemptCount }} / {{ candidate.exam.maxAttempt }}
                         </h3>
                     </div>
                     
                     <div class="md-card-content">
                             <div class="uk-grid">
                                 <div class="uk-width-1-1">
-                   
                                 <div class="uk-article">
                                     <h1 class="uk-article-title uk-text-primary">{{candidate.schedule.name}} </h1>
                                     <p class="uk-article-meta">

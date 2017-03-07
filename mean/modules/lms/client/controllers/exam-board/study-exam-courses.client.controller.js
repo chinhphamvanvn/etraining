@@ -138,7 +138,7 @@ function ExamsStudyController($scope, $rootScope,$state, $window, QuestionsServi
           var now = new Date();
           var start = new Date(vm.submit.start);
           if (start.getTime() + vm.exam.earlySubmit*60*1000 > now.getTime() ) {
-              UIkit.modal.alert($translate.instant('ERROR.EXAM.EARLY_SUBMIT_PREVENTION'));
+              UIkit.modal.alert($translate.instant('ERROR.EXAM.SUBMIT_TOO_EARLY'));
               return;
           }
       }
@@ -198,7 +198,8 @@ function ExamsStudyController($scope, $rootScope,$state, $window, QuestionsServi
       else
         answer.$save(function () {
             vm.submit.answers = _.map(vm.questions, function (obj) {
-                return obj.answer._id;
+                if (obj.answer && obj.answer._id)
+                    return obj.answer._id;
               });
             vm.submit.$update(function() {
                 callback();
