@@ -17,27 +17,14 @@
       <multiple-choice-survey mode="'survey'" question="vm.question"></multiple-choice-survey>
       <div class="uk-text-center uk-margin-top">
 
-<br>
-                <hr>
-                <div class="uk-grid uk-margin-top">
-                    <div class="uk-width-1-3">
-                        <a ng-show="vm.index < vm.questions.length-1"
-                            class="uk-align-left md-btn  md-btn-wave-light md-btn-icon"
-                            ng-click="vm.saveNext()">
-                            <i class="uk-icon-arrow-right "></i>
-                            {{'ACTION.NEXT'|translate}}
-                        </a>
-                     </div>
-                  
-                    <div class="uk-width-1-3 uk-text-center">
-                    <a class=" md-btn md-btn-primary md-btn-wave-light"
-                        ng-show="vm.index == vm.questions.length-1"
-                        ng-click="vm.submitQuiz()">
-                        {{'ACTION.SUBMIT_SURVEY'|translate}} </a>
-                    </div>
-                </div>
-                
-
+        <a ng-show="vm.index < vm.questions.length-1" class="md-btn  md-btn-wave-light md-btn-icon"
+           ng-click="vm.saveNext()"><i class="uk-icon-arrow-right "></i>
+          {{'ACTION.NEXT'|translate}}
+        </a>
+        <a class="md-btn md-btn-primary md-btn-wave-light" ng-show="vm.index == vm.questions.length-1"
+           ng-click="vm.submitQuiz()">
+          {{'ACTION.SUBMIT_SURVEY'|translate}}
+        </a>
       </div>
     </div>
   </div>

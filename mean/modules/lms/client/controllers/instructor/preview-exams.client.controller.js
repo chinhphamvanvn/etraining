@@ -60,6 +60,14 @@ function ExamsPreviewController($scope, $state, $window, QuestionsService,ExamsS
     
     function selectQuestion(index) {
         vm.question = vm.questions[index];
+        vm.options =  OptionsService.byQuestion({questionId:vm.question._id}, function(){
+        });
+        if(!vm.question.options || vm.question.options.length == 0){
+          vm.question.options = vm.options;
+          _.map(vm.question.options, function(item) {
+            item.isCorrect = false;
+          });
+        }
     }
     
     function nextQuestion() {
