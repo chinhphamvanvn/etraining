@@ -18,16 +18,16 @@
         </div>
             <div class="md-card-content">
                  <div ng-if="question.detail.type=='mc'">
-                     <multiple-choice-question mode="'result'"  question="question.detail" answer="question.answer"></lms-question>
+                     <multiple-choice-question mode="'result'" showAnswer="exam.showAnswer"  question="question.detail" answer="question.answer"></lms-question>
                 </div>
                <div ng-if="question.detail.type=='sc'">
-                     <single-choice-question mode="'result'"  question="question.detail" answer="question.answer"></single-choice-question>
+                     <single-choice-question mode="'result'"  showAnswer="exam.showAnswer" question="question.detail" answer="question.answer"></single-choice-question>
                 </div>
                 <div ng-if="question.detail.type=='tf'">
-                     <true-false-question mode="'result'"  question="question.detail" answer="question.answer"></true-false-question>
+                     <true-false-question mode="'result'"  showAnswer="exam.showAnswer" question="question.detail" answer="question.answer"></true-false-question>
                 </div>
                 <div ng-if="question.detail.type=='fb'">
-                     <fill-blank-question mode="'result'"  question="question.detail" answer="question.answer"></fill-blank-question>
+                     <fill-blank-question mode="'result'"  showAnswer="exam.showAnswer" question="question.detail" answer="question.answer"></fill-blank-question>
                 </div>
             </div>
         </div>

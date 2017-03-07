@@ -198,7 +198,8 @@ function ExamsStudyController($scope, $rootScope,$state, $window, QuestionsServi
       else
         answer.$save(function () {
             vm.submit.answers = _.map(vm.questions, function (obj) {
-                return obj.answer._id;
+                if (obj.answer && obj.answer._id)
+                    return obj.answer._id;
               });
             vm.submit.$update(function() {
                 callback();
