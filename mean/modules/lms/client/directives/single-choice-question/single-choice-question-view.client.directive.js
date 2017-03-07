@@ -30,6 +30,11 @@
                                   option.selected = _.contains(scope.answer.options,option._id)
                               });
                           }
+                          if(scope.mode == 'study' && scope.question.attempted) {
+                              _.each(scope.question.options ,function(option) {
+                                  option.selected = false;
+                              });
+                          }
                           _.each(scope.question.options ,function(option) {
                               option.isCorrect = _.contains(scope.question.correctOptions,option._id);
                           });
@@ -51,12 +56,18 @@
               }
               
               scope.selectOption = function(option) {
-                  if (scope.mode !='view') {
+                  if (scope.mode !='view' && scope.mode !='study') {
                       _.each(scope.question.options,function(obj) {
                          obj.selected = false; 
                       });
                       option.selected = true;
                       scope.question.correctOptions = [option._id];
+                  }
+                  if (scope.mode =='study') {
+                      _.each(scope.question.options,function(obj) {
+                         obj.selected = false; 
+                      });
+                      option.selected = true;
                   }
               }
               

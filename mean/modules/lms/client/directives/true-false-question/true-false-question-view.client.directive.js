@@ -54,12 +54,18 @@
                   });
              
               scope.selectOption = function(option) {
-                  if (scope.mode !='view') {
+                  if (scope.mode !='view' && scope.mode !='study') {
                       _.each(scope.question.options,function(obj) {
                          obj.selected = false; 
                       });
                       option.selected = true;
                       scope.question.correctOptions = [option._id];
+                  }
+                  if (scope.mode =='study') {
+                      _.each(scope.question.options,function(obj) {
+                         obj.selected = false; 
+                      });
+                      option.selected = true;
                   }
               }
           }

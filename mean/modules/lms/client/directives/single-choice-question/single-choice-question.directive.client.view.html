@@ -140,10 +140,10 @@
         <div class="uk-width-1-1">
             <div id="question_options">
                 <div class="uk-grid" data-uk-grid-margin
-                    ng-repeat="option in question.options | orderBy: 'order'">
-                    <div class="uk-width-medium-2-10 uk-text-center" >
+                    ng-repeat="option in question.options | orderBy: 'order'" ng-init="option.selected = false;">
+                    <div class="uk-width-medium-2-10 uk-text-center" > 
                         <span class="icheck-inline">
-                            <input type="checkbox"
+                            <input type="radio" name="radiosingle"
                                 id="option_{{option._id}}" icheck 
                                 ng-model="option.selected" ng-change="selectOption(option)"
                                  />
