@@ -18,21 +18,20 @@
           templateUrl:'/modules/lms/client/directives/multiple-choice-survey/multiple-choice-survey.directive.client.view.html',
           link: function (scope, element, attributes) {
               scope.tinymce_options = fileManagerConfig;
-              if(!scope.question) {
-                scope.question = {};
-              }
-              if (scope.question && scope.question._id){
-                  scope.question.options = OptionsService.byQuestion({questionId:scope.question._id},function() {
-                      if (scope.mode =='survey' || scope.mode !='result')
-                          if (scope.answer) {
-                              _.each(scope.question.options ,function(option) {
-                                  option.selected = _.contains(scope.answer.options,option._id)
-                              });
-                          }
-                  });
-              } else{
-                  scope.question.options = [];
-              }
+              scope.$watch('question',function() {
+                  if (scope.question && scope.question._id){
+                      scope.question.options = OptionsService.byQuestion({questionId:scope.question._id},function() {
+                          if (scope.mode =='survey' || scope.mode !='result')
+                              if (scope.answer) {
+                                  _.each(scope.question.options ,function(option) {
+                                      option.selected = _.contains(scope.answer.options,option._id)
+                                  });
+                              }
+                      });
+                  } else{
+                      scope.question.options = [];
+                  }
+              })
               scope.addOption = function() {
                   var option = new OptionsService();
                   if (scope.question.options.length==0)
@@ -46,12 +45,11 @@
               }
               
               scope.selectOption = function(option) {
-                  if (scope.mode !='view') {
-                      _.each(scope.question.options,function(obj) {
-                         obj.selected = false; 
+                  if (scope.mode =='edit') {
+                      var correctOptions = _.filter(scope.question.options,function(opt) {
+                          return opt.selected;
                       });
-                      option.selected = true;
-                      scope.question.correctOptions = [option._id];
+                      scope.question.correctOptions = _.pluck(correctOptions,'_id');
                   }
               }
               

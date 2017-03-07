@@ -31,7 +31,7 @@ exports.invokeRolesPolicies = function () {
       permissions: ['get', 'post']
     }, {
         resources: '/api/answers/byAttempt/:attemptId',
-        permissions: ['get']
+        permissions: ['get','put']
       },{
       resources: '/api/answers/:answerId',
       permissions: ['get','put']

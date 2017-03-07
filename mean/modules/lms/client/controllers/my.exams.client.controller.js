@@ -16,7 +16,7 @@ function MyExamsListController($scope, $state, $window, Authentication, $timeout
             if (candidate.role=='student')
                 examUtils.candidateProgress(candidate._id,candidate.exam._id).then(function(progress) {
                     candidate.exam.percentage = progress.percentage;
-                    candidate.exam.attemptCount = progress.attemptCount;
+                    candidate.exam.attemptCount = progress.count;
                 });
         });
     });
