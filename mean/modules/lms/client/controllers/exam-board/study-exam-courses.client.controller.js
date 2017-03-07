@@ -56,7 +56,7 @@ function ExamsStudyController($scope, $rootScope,$state, $window, QuestionsServi
               return obj.answer._id;
             });
           vm.submit.$update(function () {
-            $state.go('workspace.lms.courses.me');
+            $state.go('workspace.lms.exams.me');
           });
         }, vm.remainTime * 1000);
         vm.intervalToken = $interval(updateClock, 1000);
@@ -148,10 +148,11 @@ function ExamsStudyController($scope, $rootScope,$state, $window, QuestionsServi
           vm.submit.status = 'completed';
           vm.submit.end = new Date();
           vm.submit.answers = _.map(vm.questions, function (obj) {
-            return obj.answer._id;
+              if (obj.answer && obj.answer._id)
+                  return obj.answer._id;
           });
           vm.submit.$update(function () {
-              $state.go('workspace.lms.courses.me');
+              $state.go('workspace.lms.exams.me');
             });
         });
       })

@@ -589,6 +589,22 @@
         resolve: {
             examResolve: getExam,
             scheduleResolve:getSchedule,
+            userResolve:getUser
+        },
+        data: {
+            roles: [ 'user'],
+            courseRoles: [ 'teacher','student']
+        }
+      })
+       .state('workspace.lms.exams.scoreboard-candidate', {
+        url: '/scoreboard-candidate/:examId/:scheduleId/:candidateId',
+        templateUrl: '/modules/lms/client/views/instructor/score.book-exam.client.view.html',
+        controller: 'ExamsScoreboardCandidateController',
+        controllerAs: 'vm',
+        resolve: {
+            examResolve: getExam,
+            scheduleResolve:getSchedule,
+            candidateResolve:getCandidate
         },
         data: {
             roles: [ 'user'],

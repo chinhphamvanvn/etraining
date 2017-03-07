@@ -5,29 +5,32 @@
   // Unless the user is on a small device, because this could obscure the page with a keyboard
 
   angular.module('lms')
-    .directive('examResult', ['QuestionsService','_',examResult]);
+    .directive('examResult', ['SubmissionsService','examUtils','_',examResult]);
 
-  function examResult(QuestionsService, _) {
+  function examResult(SubmissionsService,examUtils, _) {
       
       return {
           scope: {
               exam: "=",
-              answers: "=",
+              candidate: "=",
           },
           templateUrl:'/modules/lms/client/directives/exam-result/exam.result.directive.client.view.html',
           link: function (scope, element, attributes) {
-              scope.$watch('answers',function() {
-                  if (scope.answers)
-                      _.each(scope.answers, function(answer) {
-                          var question = _.find(scope.exam.questions,function(q) {
-                              return q.id == answer.question;
+              scope.$watchGroup(['exam','candidate'],function() {
+                  if (scope.exam && scope.candidate) {
+                      scope.submits = SubmissionsService.byExamAndCandidate({examId:scope.exam._id,candidateId:scope.candidate._id},function() {
+                          _.each(scope.submits,function(submit) {
+                              var start = new Date(submit.start);
+                              var end = new Date(submit.end);
+                              submit.duration = Math.floor((end.getTime() - start.getTime())/1000);
+                              examUtils.candidateScoreByBusmit(scope.candidate._id,scope.exam._id,submit._id).then(function(score) {
+                                  submit.score = score;
+                              })
                           });
-                          if (question) {
-                              question.detail = QuestionsService.get({questionId:question.id});
-                              question.answer = answer;
-                          }
-                      });
-              })              
+                      })       
+                  }
+              })
+              
           }
       }
   }

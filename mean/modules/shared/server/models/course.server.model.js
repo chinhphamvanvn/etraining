@@ -100,6 +100,10 @@ var CourseSchema = new Schema({
               ref: 'Course'
               } ]
    },
+   competency: {
+       type: Schema.ObjectId,
+       ref: 'Competency'
+     },
   created: {
     type: Date,
     default: Date.now

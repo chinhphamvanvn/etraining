@@ -12,6 +12,11 @@ module.exports = function(app) {
     .get(achievements.list)
     .post(achievements.create);
 
+  app.route('/api/achievements/byUser/:achiever').all(achievementsPolicy.isAllowed)
+  .get(achievements.listByUser);
+  app.route('/api/achievements/byUserAndCompetency/:achiever/:competencyId').all(achievementsPolicy.isAllowed)
+  .get(achievements.listByUserAndCompetency)
+  
   app.route('/api/achievements/:achievementId').all(achievementsPolicy.isAllowed)
     .get(achievements.read)
     .put(achievements.update)

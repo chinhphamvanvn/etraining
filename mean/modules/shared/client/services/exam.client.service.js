@@ -13,20 +13,20 @@
                                var correct =  _.filter(submit.answers, function(answer) {
                                     return (answer.isCorrect) ;
                                 }).length;
-                               resolve(correct * 100 / exam.questionNumber);
+                               resolve(Math.floor(correct * 100 / exam.questionNumber));
                             }
                             if (exam.questionSelection=='manual') {
                                 var total = 0;
                                 var score = 0;
                                 _.each(exam.questions,function(question) {
                                     total += question.score;
-                                   var answer = _.filter(submit.answers,function(obj) {
+                                   var answer = _.find(submit.answers,function(obj) {
                                         return obj.question == question.id;
                                     });
                                     if (answer && answer.isCorrect)
                                         score += question.score;
                                 })
-                                resolve(score * 100 / total);
+                                resolve(Math.floor(score * 100 / total));
                              }
                         });
                     }); 
@@ -87,13 +87,15 @@
                 candidateScoreByBusmit:candidateScoreByBusmit,
                 candidateScore : function (candidateId,examId) {
                     return $q(function(resolve, reject) {
-                        var score = 0;
                         SubmissionsService.byExamAndCandidate({examId:examId,candidateId:candidateId},function(submits) {
-                            var latestSubmit = _.max(submits, function(submit){return new Date(submit.start).getTime()});
-                            candidateScoreBySubmit.then(function(score) {
-                                resolve(score);
-                            }) 
-                            
+                            if (submits && submits.length) {
+                                var latestSubmit = _.max(submits, function(submit){return new Date(submit.start).getTime()});
+                                candidateScoreByBusmit(candidateId,examId,latestSubmit._id).then(function(score) {
+                                    resolve(score);
+                                }) 
+                            }
+                            else
+                                resolve(0);                            
                         }); 
                     });                    
                 }

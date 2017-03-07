@@ -23,23 +23,7 @@ var CompetencySchema = new Schema({
     enum: ['skill','attitude','knowledge'],
     default: 'skill'
   },
-  gradeModel: {
-      type: String,
-      enum: ['level','true-false'],
-      default: 'level'
-    },
-    levels: {
-        type: [{
-            name: {
-                type: String,
-            },
-            order: {
-                type: Number,
-                default: 1
-            }
-        }]
-     },
-    granted: {
+    created: {
     type: Date,
     default: Date.now
   },

@@ -14,7 +14,15 @@
     }, {
       update: {
         method: 'PUT'
-      }
+      },
+      byUser: {
+          method: 'GET',
+          url:'/api/achievements/byUser/:achiever',
+          isArray:true
+        },byUserAndCompetency: {
+            method: 'GET',
+            url:'/api/achievements/byUserAndCompetency/:achiever/:competencyId',
+          },
     });
   }
 }());

@@ -30,14 +30,13 @@
     }
     
     
-    function createCompetency(type) {
+    function createCompetency() {
         if (!vm.groups) {
             UIkit.modal.alert($translate.instant('ERROR.COMPETENCY.EMPTY_COMPETENCY_GROUP'));
             return;
         }
         var skill =  new CompetenciesService();
         skill.group = vm.groups[0];
-        skill.gradeModel = type;
         skill.$save(function() {
             $state.go('admin.workspace.performance.competency.edit',{competencyId:skill._id})
         });

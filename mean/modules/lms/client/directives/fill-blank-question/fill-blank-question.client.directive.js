@@ -59,12 +59,11 @@
               }
               
               scope.selectOption = function(option) {
-                  if (scope.mode !='study') {
-                      scope.question.correctOptions = [];
-                      _.each(scope.question.options,function(obj) {
-                         if (obj.selected)
-                             scope.question.correctOptions.push(obj._id);
-                      });            
+                  if (scope.mode =='edit') {
+                      var correctOptions = _.filter(scope.questions.options,function(option) {
+                          return option.selected;
+                      })
+                      scope.question.correctOptions = _.pluck(correctOptions,'_id');
                   }
               }
               

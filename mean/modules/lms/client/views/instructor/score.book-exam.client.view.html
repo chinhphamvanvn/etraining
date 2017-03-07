@@ -1,12 +1,20 @@
 <div id="page_content">
+    <div id="page_heading" data-uk-sticky="{ top: 48, media: 960 }">
+        <h1>{{'PAGE.LMS.MY_EXAMS.SCOREBOARD_MEMBER.TITLE'|translate}} : {{vm.candidate.candidate.displayName}}</h1>
+        <span class="uk-text-upper uk-text-small">
+            <a ui-sref="workspace.lms.exams.scoreboard({examId:vm.exam._id,scheduleId:vm.schedule._id})">
+                <i class="material-icons uk-text-primary">keyboard_arrow_left</i>
+                {{'PAGE.LMS.MY_EXAMS.SCOREBOARD.TITLE'|translate}} : {{vm.schedule.name}}
+            </a>
+        </span>
+    </div>
+    
     <div id="page_content_inner">
-        <div class="md-card uk-height-viewport">
-            <div class="md-card-content">
-                <h3 class="heading_b">
-                        {{'PAGE.LMS.MY_COURSES.STUDENT_BOARD.PROGRESS_CHART'|translate}} : {{vm.member.member.displayName}}
-                    </h3>
-                <gradebook course="vm.course" edition="vm.edition" member = "vm.member" gradescheme="vm.gradescheme"></gradebook>
+         <exam-result exam="vm.exam" candidate="vm.candidate"></exam-result>
+                
             </div>
+        
     </div>
-      </div>
-    </div>
+
+
+
