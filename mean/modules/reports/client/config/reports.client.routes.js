@@ -46,5 +46,14 @@
           roles: [ 'admin']
         }
       })
+      .state('admin.workspace.reports.exam-result', {
+        url: '/exam-result',
+        templateUrl: '/modules/reports/client/views/exam-result.reports.client.view.html',
+        controller: 'ExamResultReportsController',
+        controllerAs: 'vm',
+        data: {
+          roles: [ 'admin']
+        }
+      });
   }
 }());

@@ -37,7 +37,12 @@
                     return $q(function(resolve, reject) {
                         var exam = ExamsService.get({examId:examId}, function() {
                             var submits = SubmissionsService.byCandidate({candidateId:candidateId},function() {
-                                var progress  =  { percentage: Math.floor(submits.length * 100 / exam.maxAttempt),count:submits.length};
+                                var firstSubmit = _.max(submits, function(submit){return new Date(submit.start).getTime()});
+                                var lastSubmit = _.min(submits, function(submit){return new Date(submit.start).getTime()});
+                                var progress  =  { percentage: Math.floor(submits.length * 100 / exam.maxAttempt),
+                                        count:submits.length,
+                                        firstSubmit:firstSubmit,
+                                        lastSubmit:lastSubmit};
                                 resolve(progress);
                             });
                         });

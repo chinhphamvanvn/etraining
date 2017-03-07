@@ -34,5 +34,11 @@
         roles: ['admin'],
         position: 2
       });
+    menuService.addSubMenuItem('sidebar', 'admin.workspace.reports',{
+        title: 'PAGE.WORKSPACE.SIDEBAR.REPORTS.EXAM_RESULT',
+        state: 'admin.workspace.reports.exam-result',
+        roles: ['admin'],
+        position: 4
+      });
   }
 }());
