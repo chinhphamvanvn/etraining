@@ -22,13 +22,38 @@
                   sections = _.filter(sections,function(section) {
                       return section.visible;
                   });
+                  scope.examListCsv = [];
+                  scope.headerArrCsv = [];
                   scope.nodes = treeUtils.buildCourseTree(sections);
 
                   scope.examList = treeUtils.buildCourseListInOrder(scope.nodes);
                   scope.examList = _.filter(scope.examList, function (node) {
                     return node.data.hasContent && node.data.contentType == 'test';
                   });
+                  scope.headerArrCsv[0] = " ";
+                  scope.inumber = 1;
+                  scope.examObj = {};
                   _.each(scope.examList, function (node) {
+                      scope.headerArrCsv[scope.inumber] = node.data.name;
+                      scope.inumber++;
+                  });
+                  scope.examObj[0] = $translate.instant("PAGE.LMS.MY_COURSES.COURSE_GRADE.QUIZ_RATE");
+                  _.each(scope.gradescheme.marks, function (mark,index) {
+                      scope.examObj[index + 1] = mark.weight;
+                  });
+                  scope.examListCsv.push(scope.examObj);
+                  scope.examObj = {};
+                  scope.examObj[0] = $translate.instant("MODEL.GRADESCHEME.BENCHMARK");
+                  scope.examObj[1] = scope.gradescheme.benchmark;
+                  scope.examListCsv.push(scope.examObj);
+                  scope.examObj = {};
+                  scope.examObj[0] = $translate.instant("REPORT.STUDENT_MARK.MAX_SCORE");
+                  scope.examObj1 = {};
+                  scope.examObj1[0] = $translate.instant("PAGE.LMS.MY_EXAMS.SCOREBOOK.TITLE");
+                  scope.inumber = 0;
+                  scope.inumber1 = 0;
+
+                  _.each(scope.examList, function (node,index) {
                       var mark = _.find(scope.gradescheme.marks, function(m) {
                           return node.id == m.quiz;
                       });
@@ -40,13 +65,19 @@
 
                       var section = node.data;
                       node.quiz = ExamsService.get({examId:node.data.quiz},function() {
+                          scope.examObj[index + 1] = node.quiz.questions.length;
                           node.quiz.correctCount  = 0;
                           _.each(node.quiz.questions,function(q) {
                               q.mark = 0;
                           });
+                          if(scope.inumber == scope.examList.length){
+                              scope.examListCsv.push(scope.examObj);
+                          } else {
+                             scope.inumber++;
+                          }
                           var attempts = AttemptsService.bySectionAndMember({editionId:scope.edition._id,memberId:scope.member._id,sectionId:section._id},function() {
                               node.latestAttempts = attempts;
-                              console.log(attempts);
+                              scope.examDetail = "";
                               _.each(node.latestAttempts, function(latestAttempt) {
                                   latestAttempt.correctCount = 0;
                                   latestAttempt.questions = node.quiz.questions;
@@ -62,7 +93,14 @@
 
                                       reloadChart();
                                   });
+                                  scope.examDetail = scope.examDetail + " | " + latestAttempt.correctCount;
                               });
+                              scope.examObj1[index + 1] = scope.examDetail;
+                              if(scope.inumber1 == scope.examList.length){
+                                  scope.examListCsv.push(scope.examObj1);
+                              } else {
+                                 scope.inumber1++;
+                              }
                           });
                       });
                   });

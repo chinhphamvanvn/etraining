@@ -43,6 +43,13 @@
                         </tr>
                     </tbody>
                 </table>
+                <button class="md-btn buttons-csv buttons-html5" type="button"
+                    ng-csv="examListCsv" 
+                    csv-header="headerArrCsv"
+                    filename="ReportExam.csv" style="margin-top: 8px; float: right; margin-right: 30px;">
+                    <i class="uk-icon-file-excel-o" aria-hidden="true"></i>
+                    {{"ACTION.EXPORT" | translate}}
+                </button>
             </div>
         </div>
     </div>
