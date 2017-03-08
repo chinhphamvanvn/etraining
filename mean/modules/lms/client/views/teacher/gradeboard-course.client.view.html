@@ -80,7 +80,13 @@
 
           </tbody>
         </table>
-        <!--<button ng-csv="vm.csvArray" filename="gradebook_students.csv">Export to csv</button>-->
+        <button class="md-btn md-btn-primary  md-btn-wave-light md-btn-icon ng-binding ng-isolate-scope waves-effect waves-button waves-light"
+          ng-csv="vm.csvArray"
+          csv-header="vm.csvHeader"
+          filename="gradeboad_students.csv">
+            <i class="material-icons">save</i>
+            {{'ACTION.EXPORT'|translate}}
+        </button>
       </div>
 
     </div>

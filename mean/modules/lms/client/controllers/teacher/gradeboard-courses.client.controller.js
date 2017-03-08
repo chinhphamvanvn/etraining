@@ -69,7 +69,7 @@
         }
         vm.total += node.weight;
       });
-    }).then(function () {// Get result of exam
+    }).then(function () {// Get result of exam for each student
       var nodes = treeUtils.buildCourseTree(vm.sections);
       vm.nodes = treeUtils.buildCourseListInOrder(nodes);
       vm.nodes = _.filter(vm.nodes, function (node) {
@@ -77,11 +77,13 @@
       });
 
       vm.nodes.reduce(function(prev, curr) {
+        // Get info of exam and save curr.quiz
         return prev.then(function() {
           return ExamsService.get({examId: curr.data.quiz}, function() {}).$promise.then(function(quiz) {curr.quiz = quiz});
         });
       }, $q.resolve()).then(function() {
-        vm.members.reduce(function(prev, curr) {
+        // Get score for each student
+        return vm.members.reduce(function(prev, curr) {
           var totalScore = 0;
           var nodes = angular.copy(vm.nodes);
           return prev.then(function() {
@@ -122,6 +124,33 @@
             });
           });
         }, $q.resolve());
+      }).then(function() {// Export to csv
+        var pass        = $translate.instant('COMMON.PASS'),
+            fall        = $translate.instant('COMMON.FAIL'),
+            displayName = $translate.instant('MODEL.USER.DISPLAY_NAME'),
+            totalScore  = $translate.instant('PAGE.LMS.MY_COURSES.GRADE_SCHEME_SHORT'),
+            result      = $translate.instant('PAGE.LMS.MY_COURSES.COURSE_GRADE.EXAM_RESULT');
+        vm.csvArray = [];
+        vm.csvHeader = [];
+
+        vm.csvHeader.push(displayName);
+        vm.examList.map(function(exam) {
+          vm.csvHeader.push(exam.data.name);
+        });
+        vm.csvHeader.push(totalScore);
+        vm.csvHeader.push(result);
+
+        vm.members.map(function(member) {
+          var csvObj = {};
+          csvObj[0 + 'name'] = member.member.displayName;
+          member.examList.map(function(exam, index) {
+            csvObj['exam_' + index] = exam.quiz.correctPercent;
+          });
+          csvObj.totalScore = member.totalScore;
+          csvObj.result = (member.totalScore >= vm.gradescheme.benchmark) ? pass : fall;
+          vm.csvArray.push(csvObj);
+        });
+        console.log(vm.csvArray);
       });
     });
 
