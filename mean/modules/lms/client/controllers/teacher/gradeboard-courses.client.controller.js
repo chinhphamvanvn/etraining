@@ -6,9 +6,9 @@
     .module('lms')
     .controller('CoursesGradeboardController', CoursesGradeboardController);
 
-  CoursesGradeboardController.$inject = ['$scope', '$state', '$window', 'Authentication', '$timeout', 'editionResolve', 'courseResolve', 'memberResolve', 'gradeResolve', 'userResolve', 'Notification', 'CourseEditionsService', 'CertificatesService', 'CourseMembersService', 'EditionSectionsService', 'treeUtils', 'ExamsService', 'AttemptsService', 'QuestionsService', '$translate', '_'];
+  CoursesGradeboardController.$inject = ['$scope', '$state', '$window', 'Authentication', '$timeout', 'editionResolve', 'courseResolve', 'memberResolve', 'gradeResolve', 'userResolve', 'Notification', 'CourseEditionsService', 'CertificatesService', 'CourseMembersService', 'EditionSectionsService', 'treeUtils', 'ExamsService', 'AttemptsService', 'QuestionsService', '$q', '$translate', '_'];
 
-  function CoursesGradeboardController($scope, $state, $window, Authentication, $timeout, edition, course, member, gradescheme, user, Notification, CourseEditionsService, CertificatesService, CourseMembersService, EditionSectionsService, treeUtils, ExamsService, AttemptsService, QuestionsService, $translate, _) {
+  function CoursesGradeboardController($scope, $state, $window, Authentication, $timeout, edition, course, member, gradescheme, user, Notification, CourseEditionsService, CertificatesService, CourseMembersService, EditionSectionsService, treeUtils, ExamsService, AttemptsService, QuestionsService, $q, $translate, _) {
     var vm = this;
     vm.course = course;
     vm.edition = edition;
@@ -70,59 +70,58 @@
         vm.total += node.weight;
       });
     }).then(function () {// Get result of exam
-      var sections = _.filter(vm.sections,function(section) {
-        return section.visible;
+      var nodes = treeUtils.buildCourseTree(vm.sections);
+      vm.nodes = treeUtils.buildCourseListInOrder(nodes);
+      vm.nodes = _.filter(vm.nodes, function (node) {
+        return node.data.hasContent && node.data.contentType == 'test';
       });
-      vm.nodes = treeUtils.buildCourseTree(sections);
 
-      _.each(vm.members, function (member) {
-        var totalScore = 0;
-        var nodes = angular.copy(vm.nodes);
-        _.each(nodes, function (root) {
-          root.childList = _.filter(treeUtils.buildCourseListInOrder(root.children), function (node) {
-            return node.data.hasContent && node.data.contentType == 'test' && node.data.quiz;
-          });
-
-          _.each(root.childList, function (node) {
-            var section = node.data;
-            node.quiz = ExamsService.get({examId: node.data.quiz}, function () {
-              node.quiz.correctCount = 0;
-              // _.each(node.quiz.questions, function (q) {
-              //   q.mark = 0;
-              // });
-              var attempts = AttemptsService.bySectionAndMember({
+      vm.nodes.reduce(function(prev, curr) {
+        return prev.then(function() {
+          return ExamsService.get({examId: curr.data.quiz}, function() {}).$promise.then(function(quiz) {curr.quiz = quiz});
+        });
+      }, $q.resolve()).then(function() {
+        vm.members.reduce(function(prev, curr) {
+          var totalScore = 0;
+          var nodes = angular.copy(vm.nodes);
+          return prev.then(function() {
+            return nodes.reduce(function(prevNode, currNode) {
+              return AttemptsService.bySectionAndMember({
                 editionId: vm.edition._id,
-                memberId: member._id,
-                sectionId: section._id
-              }, function () {
+                memberId: curr._id,
+                sectionId: currNode.data._id
+              }, function() {}).$promise.then(function(attempts) {
+                currNode.quiz.correctCount = 0;
                 var latestAttempt = _.max(attempts, function (attempt) {
-                  return new Date(attempt.start).getTime()
+                  return new Date(attempt.start).getTime();
                 });
+
                 _.each(latestAttempt.answers, function (answer) {
-                  var quizQuestion = _.find(node.quiz.questions, function (q) {
-                    return q.id == answer.question;
-                  });
                   if (answer.isCorrect) {
-                    node.quiz.correctCount++;
+                    currNode.quiz.correctCount++;
                   }
                 });
-                node.quiz.correctPercent = Math.floor((node.quiz.correctCount*100)/node.quiz.questions.length);
+
+                currNode.quiz.correctPercent = Math.floor((currNode.quiz.correctCount * 100) / currNode.quiz.questions.length);
 
                 var mark = _.find(vm.gradescheme.marks, function(m) {
-                  return node.id == m.quiz;
+                  return currNode.id == m.quiz;
                 });
+
                 if (mark) {
-                  node.weight = mark.weight;
-                  totalScore += (node.weight/100)*node.quiz.correctPercent;
+                  currNode.weight = mark.weight;
+                  totalScore += (currNode.weight / 100) * currNode.quiz.correctPercent;
                 } else {
-                  node.weight = 0;
+                  currNode.weight = 0;
                 }
-                member.totalScore = totalScore;
+
+                curr.totalScore = totalScore;
               });
+            }, $q.resolve()).then(function() {
+              curr.examList = nodes;
             });
           });
-        });
-        member.quizList = nodes;
+        }, $q.resolve());
       });
     });
 

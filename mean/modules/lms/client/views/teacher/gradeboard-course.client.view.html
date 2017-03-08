@@ -58,8 +58,8 @@
                 {{member.member.displayName}}
               </a>
             </td>
-            <td class="uk-text-center" ng-repeat="quiz in member.quizList">
-              <span ng-repeat="q in quiz.childList">{{q.quiz.correctPercent}}</span>
+            <td class="uk-text-center" ng-repeat="exam in member.examList">
+              {{exam.quiz.correctPercent}}
             </td>
             <td class="uk-text-center">{{member.totalScore}}</td>
             <td class="uk-text-center">
