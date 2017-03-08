@@ -117,7 +117,7 @@
                   currNode.weight = 0;
                 }
 
-                curr.totalScore = totalScore;
+                curr.totalScore = Math.floor(totalScore);
               });
             }, $q.resolve()).then(function() {
               curr.examList = nodes;
@@ -150,7 +150,6 @@
           csvObj.result = (member.totalScore >= vm.gradescheme.benchmark) ? pass : fall;
           vm.csvArray.push(csvObj);
         });
-        console.log(vm.csvArray);
       });
     });
 

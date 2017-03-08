@@ -6,15 +6,15 @@
     .controller('CourseByMemberReportsController', CourseByMemberReportsController);
 
   CourseByMemberReportsController.$inject = ['$scope', '$rootScope','$state', 'Authentication', 'GroupsService','AdminService', 'CoursesService','CourseMembersService','AttemptsService','$timeout', '$window','$translate','courseUtils', 'treeUtils','_'];
-  
+
   function CourseByMemberReportsController($scope, $rootScope, $state, Authentication,GroupsService,AdminService, CoursesService,CourseMembersService, AttemptsService, $timeout,$window,$translate, courseUtils,treeUtils,_) {
     var vm = this;
     vm.authentication = Authentication;
     vm.generateReport = generateReport;
     vm.getExportData = getExportData;
     vm.getExportHeader = getExportHeader;
-    
-    
+
+
     function generateReport(users) {
         vm.members = [];
         _.each(users,function(user) {
@@ -23,7 +23,7 @@
                    member.time  = 0;
                    member.score  = 0;
                    AttemptsService.byMember({memberId:member._id},function(attempts) {
-                       member.lastAttempt = _.max(attempts, function(attempt){return new Date(attempt.start).getTime()}); 
+                       member.lastAttempt = _.max(attempts, function(attempt){return new Date(attempt.start).getTime()});
                        member.firstAttempt = _.min(attempts, function(attempt){return new Date(attempt.start).getTime()});
                    });
                    courseUtils.memberTime(member._id).then(function(time) {
@@ -38,9 +38,9 @@
         });
     }
 
-    
+
     function getExportData() {
-        var data  = []
+        var data  = [];
         _.each(vm.members,function(member) {
             data.push({
                         username:member.member.username,
@@ -56,8 +56,8 @@
         });
         return data;
     }
-    
-    
+
+
     function getExportHeader() {
         return [
                 $translate.instant('MODEL.USER.USERNAME'),
@@ -72,6 +72,6 @@
                 $translate.instant('REPORT.COURSE_BY_MEMBER.TIME'),
                 ];
     }
-   
+
   }
 }());
