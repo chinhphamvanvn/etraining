@@ -117,7 +117,7 @@
                   currNode.weight = 0;
                 }
 
-                curr.totalScore = totalScore;
+                curr.totalScore = Math.floor(totalScore);
               });
             }, $q.resolve()).then(function() {
               curr.examList = nodes;

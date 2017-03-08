@@ -13,13 +13,11 @@
 
                         var latestAttempt = _.max(attempts, function(attempt){return new Date(attempt.start).getTime()});
 
-                        console.log('========', latestAttempt);
                         _.each(latestAttempt.answers, function(answer) {
                             if (answer.isCorrect) {
                                 score++;
                             }
                         });
-                        console.log('============', score);
                         GradeSchemesService.byEdition({editionId:editionId},function(gradescheme) {
                             var scheme = _.find(gradescheme.marks,function(scheme) {
                                 return scheme.quiz == sectionId;
