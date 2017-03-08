@@ -5,7 +5,7 @@
  */
 var path = require('path'),
   mongoose = require('mongoose'),
-  LibraryMedium = mongoose.model('LibraryMediumSchema'),
+  LibraryMedium = mongoose.model('LibraryMedium'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
   _ = require('lodash'),
   fs = require('fs'),

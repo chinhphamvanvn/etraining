@@ -6,9 +6,9 @@
     .module('lms')
     .controller('CoursesGradeboardController', CoursesGradeboardController);
 
-  CoursesGradeboardController.$inject = ['$scope', '$state', '$window', 'Authentication', '$timeout', 'editionResolve', 'courseResolve', 'memberResolve', 'gradeResolve', 'userResolve', 'Notification', 'CourseEditionsService', 'CertificatesService', 'CourseMembersService', 'EditionSectionsService', 'treeUtils', 'ExamsService', 'AttemptsService', 'QuestionsService', '$translate', '_'];
+  CoursesGradeboardController.$inject = ['$scope', '$state', '$window', 'Authentication', '$timeout', 'editionResolve', 'courseResolve', 'memberResolve', 'gradeResolve', 'userResolve', 'Notification', 'CourseEditionsService', 'CertificatesService', 'CourseMembersService', 'EditionSectionsService', 'treeUtils', 'CompetencyAchievementsService','ExamsService', 'AttemptsService', 'QuestionsService', '$translate', '_'];
 
-  function CoursesGradeboardController($scope, $state, $window, Authentication, $timeout, edition, course, member, gradescheme, user, Notification, CourseEditionsService, CertificatesService, CourseMembersService, EditionSectionsService, treeUtils, ExamsService, AttemptsService, QuestionsService, $translate, _) {
+  function CoursesGradeboardController($scope, $state, $window, Authentication, $timeout, edition, course, member, gradescheme, user, Notification, CourseEditionsService, CertificatesService, CourseMembersService, EditionSectionsService, treeUtils,CompetencyAchievementsService, ExamsService, AttemptsService, QuestionsService, $translate, _) {
     var vm = this;
     vm.course = course;
     vm.edition = edition;
@@ -145,8 +145,21 @@
       certificate.authorizer = vm.user._id;
       certificate.$save(function () {
         member.certificate = certificate;
+        // grant competency if there is
+        if (vm.course.competency) {
+            var achievement = new CompetencyAchievementsService();
+            achievement.achiever = member.member._id;
+            achievement.competency = vm.course.competency;
+            achievement.source = 'course';
+            achievement.issueBy = new Date();
+            achievement.granter = vm.user._id;
+            achievement.$save(function() {
+            });
+        }
         modal.hide();
       });
     }
+    
+
   }
 }());

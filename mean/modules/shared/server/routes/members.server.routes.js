@@ -15,6 +15,9 @@ module.exports = function(app) {
   app.route('/api/members/byCourse/:courseId').all(membersPolicy.isAllowed)
   .get(members.memberByCourse);
   
+  app.route('/api/members/byClass/:classroomId').all(membersPolicy.isAllowed)
+  .get(members.memberByClass);
+  
   app.route('/api/members/byUser/:userId').all(membersPolicy.isAllowed)
   .get(members.memberByUser);
   
