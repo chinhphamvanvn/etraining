@@ -10,42 +10,27 @@ var mongoose = require('mongoose'),
  * Achievement Schema
  */
 var CompetencyAchievementSchema = new Schema({
-    candidate: {
-        type: Schema.ObjectId,
-        ref: 'Candidate'
-      },
       competency: {
           type: Schema.ObjectId,
           ref: 'Competency'
         },
-        schedule: {
+        achiever: {
             type: Schema.ObjectId,
-            ref: 'Schedule'
+            ref: 'User'
           },
-          exam: {
+          granter: {
               type: Schema.ObjectId,
-              ref: 'Exam'
+              ref: 'User'
             },
-            course: {
-                type: Schema.ObjectId,
-                ref: 'Course'
-            },
-            edition: {
-                type: Schema.ObjectId,
-                ref: 'CourseEdition'
-            },
-            member: {
-                type: Schema.ObjectId,
-                ref: 'CourseMember'
-            },
+            issueBy: {
+                type: Date,
+                default: Date.now
+              },
             source: {
                 type: String,
                 enum: ['exam','course'],
                 default: 'exam'
               },
-         level: {
-              type: String,
-            }, 
   created: {
     type: Date,
     default: Date.now

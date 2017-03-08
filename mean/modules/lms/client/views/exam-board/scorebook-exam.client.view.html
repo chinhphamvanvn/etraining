@@ -1,48 +1,16 @@
 
 <div id="page_content">
     <div id="page_heading" data-uk-sticky="{ top: 48, media: 960 }">
-       <h1 >{{'PAGE.LMS.MY_EXAMS.SCOREBOOK.TITLE' | translate}} : {{vm.schedule.name}}</h1>
+        <h1>{{'PAGE.LMS.MY_EXAMS.SCOREBOOK.TITLE' | translate}} :
+            {{vm.schedule.name}}</h1>
         <span class="uk-text-upper uk-text-small">
-            <a ui-sref="workspace.lms.exams.me"><i class="material-icons uk-text-primary" >keyboard_arrow_left</i>{{'PAGE.LMS.MY_EXAMS.TITLE' | translate}}</a> 
-            </span>
+            <a ui-sref="workspace.lms.exams.me">
+                <i class="material-icons uk-text-primary">keyboard_arrow_left</i>
+                {{'PAGE.LMS.MY_EXAMS.TITLE' | translate}}
+            </a>
+        </span>
     </div>
     <div id="page_content_inner">
-
-                    <div  class="md-card md-card-hover" ng-repeat="submit in vm.submits">
-                    
-                    <div class="md-card-content">
-                            <div class="uk-article">
-                            
-                            <div class="uk-grid uk-grid-divider">
-                                <div class="uk-width-1-3">
-                                    <h1 class="uk-article-title">{{'PAGE.LMS.MY_EXAMS.SCOREBOOK.SUBMIT'|translate}} : {{$index+1}} </h1>
-                                </div>
-                                <div class="uk-width-1-3">
-                   
-                                    <p class="uk-article-meta">{{'MODEL.SUBMIT.START_DATE'|translate}} : {{submit.start | date:'dd/MM/yyyy HH:mm:ss'}}</p>
-                                    <p class="uk-article-meta">{{'MODEL.SUBMIT.END_DATE'|translate}} : {{submit.end | date:'dd/MM/yyyy HH:mm:ss'}}</p>
-                                    <p class="uk-article-meta">{{'PAGE.LMS.MY_EXAMS.SCOREBOOK.DURATION'|translate}} : {{submit.duration | timeString}}</p>
-                                  
-                                   
-                                </div>
-                                <div class="uk-width-1-3">
-                   
-                                   
-                                   <p class="uk-article-meta uk-text-primary">{{'MODEL.EXAM.BENCHMARK'|translate}} : {{vm.exam.benchmark}}%</p>
-                                   <p class="uk-article-meta uk-text-success" ng-show="submit.score >=vm.exam.benchmark">{{'PAGE.LMS.MY_EXAMS.SCOREBOOK.RESUTL'|translate}} : {{submit.score}}%</p>
-                                   <p class="uk-article-meta uk-text-danger" ng-show="submit.score < vm.exam.benchmark">{{'PAGE.LMS.MY_EXAMS.SCOREBOOK.RESUTL'|translate}} : {{submit.score}}%</p>
-                                   <p class="uk-article-meta">{{'ACTION.VIEW_SCORE'|translate}} <exam-result exam="vm.exam" answers="submit.answers"></exam-result></p>
-                                </div>
-                            </div>
-                                    
-                             </div>
-                        </div>
-                    </div>
-                </div>
-                
-          
-
-</div>      
-    
-
-    
+       <exam-result exam="vm.exam" candidate="vm.candidate"></exam-result>
+    </div>
+</div>

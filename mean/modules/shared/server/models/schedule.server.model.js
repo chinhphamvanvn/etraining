@@ -40,9 +40,6 @@ var ScheduleSchema = new Schema({
       type: Schema.ObjectId,
       ref: 'Competency'
     },
-    competencyLevel: {
-        type: String,
-      },
   created: {
     type: Date,
     default: Date.now

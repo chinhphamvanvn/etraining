@@ -77,9 +77,9 @@ function CoursesStudyQuizController($scope, $state, $window, QuestionsService,Ex
         });
         if(!vm.question.options || vm.question.options.length == 0) {
           vm.question.options = vm.options;
-          _.map(vm.question.options, function(item) {
-            item.isCorrect = false;
-          });
+          // _.map(vm.question.options, function(item) {
+          //   item.isCorrect = false;
+          // });
         }
 
         if (!vm.question.answer) {

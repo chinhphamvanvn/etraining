@@ -44,7 +44,7 @@
                     
                     <div class="md-card-toolbar md-bg-light-green-100">
                         <h3 class="md-card-toolbar-heading-text">
-                            <a class="md-btn md-btn-flat md-btn-flat-primary   md-btn-icon uk-margin-right" ui-sref="workspace.lms.exams.study({candidateId:candidate._id,examId:candidate.exam._id,scheduleId:candidate.schedule._id})">
+                            <a class="md-btn md-btn-flat md-btn-flat-primary   md-btn-icon uk-margin-right" ng-click="vm.study(candidate)">
                                     <i class="uk-icon-hand-pointer-o"></i>
                                     {{'ACTION.JOIN'|translate}}
                                 </a>

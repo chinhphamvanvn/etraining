@@ -5,9 +5,9 @@
   // Unless the user is on a small device, because this could obscure the page with a keyboard
 
   angular.module('cms')
-    .directive('courseView', ['GroupsService','CoursesService','$q','_', courseView]);
+    .directive('courseView', ['GroupsService','CoursesService','CompetenciesService','$q','_', courseView]);
 
-  function courseView(GroupsService,CoursesService,$q,_) {
+  function courseView(GroupsService,CoursesService,CompetenciesService,$q,_) {
       
       return {
           scope: {
@@ -19,7 +19,8 @@
                   scope.course.loaded = true;
                   if (scope.course.group) 
                       scope.course.group = GroupsService.get({groupId:scope.course.group});
-                  
+                  if (scope.course.competency) 
+                      scope.competency = CompetenciesService.get({competencyId:scope.course.competency});
                    var allPromise = [];
                  _.each(scope.course.prequisites,function(courseId) {
                      allPromise.push(CoursesService.get({courseId:scope.course._id}).$promise);

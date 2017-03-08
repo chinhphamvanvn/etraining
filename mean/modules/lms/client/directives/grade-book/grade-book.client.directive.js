@@ -101,13 +101,15 @@
                           var scheme = _.find(scope.gradescheme.marks,function(scheme) {
                              return scheme.quiz == node.data._id;
                           });
-                          quizScore.push(scheme.weight);
-                          sumQuizScore += quizScore[quizScore.length-1]
-                          if (node.quiz && node.quiz.questions && node.quiz.questions.length>0)
-                              studentScore.push(node.quiz.correctCount *scheme.weight/node.quiz.questions.length);
-                          else
-                              studentScore.push(0);
-                          sumStudentScore += studentScore[studentScore.length-1]
+                          if(scheme){
+                            quizScore.push(scheme.weight);
+                            sumQuizScore += quizScore[quizScore.length-1]
+                            if (node.quiz && node.quiz.questions && node.quiz.questions.length>0)
+                                studentScore.push(node.quiz.correctCount *scheme.weight/node.quiz.questions.length);
+                            else
+                                studentScore.push(0);
+                            sumStudentScore += studentScore[studentScore.length-1]
+                          }
                       });
                   });
                   quizName.push($translate.instant('REPORT.STUDENT_MARK.SUMMARY'));

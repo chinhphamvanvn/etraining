@@ -12,7 +12,7 @@
                                 <div ng-repeat="childNode in node.childList" class="uk-margin-bottom">
                                 <h3 class="heading_c uk-margin-bottom uk-text-primary" >
                                     {{childNode.data.name}} ({{childNode.quiz.correctCount}}/{{childNode.quiz.questions.length}})
-                                    <exam-result exam="childNode.quiz" answers="childNode.latestAttempt.answers"></exam-result>
+                                    <answer-sheet exam="childNode.quiz" answers="childNode.latestAttempt.answers"></answer-sheet>
                                 </h3>
                                 
         <span class="sub-heading uk-margin-right" ng-show="!childNode.quiz || childNode.quiz.questions.length==0">{{'ERROR.COURSE_STUDY.QUESTION_NOT_FOUND'|translate}}</span>

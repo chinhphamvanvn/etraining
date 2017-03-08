@@ -259,10 +259,15 @@
                             <thead>
                             <tr>
                                 <th class="uk-width-2-10 uk-text-center">{{'MODEL.COMPETENCY.NAME'|translate}}</th>
-                                <th class="uk-width-2-10 uk-text-center">{{'MODEL.COMPETENCY.LEVEL'|translate}}</th>
+                                <th class="uk-width-2-10 uk-text-center">{{'MODEL.ACHIEVEMENT.ISSUE_DATE'|translate}}</th>
                             </tr>
                             </thead>
-                            
+                            <tbody>
+                            <tr ng-repeat="skill in vm.skills">
+                                <td class="uk-text-center">{{skill.competency.name}}</td>
+                                <td class="uk-text-center">{{skill.issueBy | date:'dd/MM/yyyy'}}</td>
+                            </tr>
+                            </tbody>
                         </table>
     </div>
 </div>
