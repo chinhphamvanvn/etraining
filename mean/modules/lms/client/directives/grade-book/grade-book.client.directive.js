@@ -23,27 +23,90 @@
                       return section.visible;
                   });
                   scope.nodes = treeUtils.buildCourseTree(sections);
-                  _.each(scope.nodes,function(root) {
-                      root.childList = _.filter(treeUtils.buildCourseListInOrder(root.children),function(node) {
-                         return node.data.hasContent && node.data.contentType=='test' && node.data.quiz ;
+                  // _.each(scope.nodes,function(root) {
+                  //     root.childList = _.filter(treeUtils.buildCourseListInOrder(root.children),function(node) {
+                  //        return node.data.hasContent && node.data.contentType=='test' && node.data.quiz ;
+                  //     });
+                  //     reloadChart();
+                  //     _.each(root.childList,function(node) {
+                  //         var section = node.data;
+                  //         node.quiz = ExamsService.get({examId:node.data.quiz},function() {
+                  //             node.quiz.correctCount  = 0;
+                  //             _.each(node.quiz.questions,function(q) {
+                  //                 q.mark = 0;
+                  //             });
+                  //             var attempts = AttemptsService.bySectionAndMember({editionId:scope.edition._id,memberId:scope.member._id,sectionId:section._id},function() {
+                  //                 // node.latestAttempt = _.max(attempts, function(attempt){return new Date(attempt.start).getTime()});
+                  //                 // _.each(node.latestAttempt.answers, function(answer) {
+                  //                 //     var quizQuestion = _.find(node.quiz.questions,function(q) {
+                  //                 //         return q.id == answer.question;
+                  //                 //     });
+                  //                 //     if (answer.isCorrect) {
+                  //                 //         quizQuestion.mark = 1;
+                  //                 //         node.quiz.correctCount++;
+                  //                 //     } else
+                  //                 //         quizQuestion.mark = 0;
+
+                  //                 //     reloadChart();
+                  //                 // });
+                  //                 node.latestAttempts = attempts;
+                  //                 console.log(node.latestAttempts);
+                  //                 _.each(node.latestAttempts, function(latestAttempt) {
+                  //                     latestAttempt.correctCount = 0;
+                  //                     latestAttempt.questions = node.quiz.questions;
+                  //                     _.each(latestAttempt.answers, function(answer) {
+                  //                         var quizQuestion = _.find(latestAttempt.questions,function(q) {
+                  //                             return q.id == answer.question;
+                  //                         });
+                  //                         if (answer.isCorrect) {
+                  //                             quizQuestion.mark = 1;
+                  //                             node.quiz.correctCount++;
+                  //                             latestAttempt.correctCount++;
+                  //                         } else
+                  //                             quizQuestion.mark = 0;
+
+                  //                         reloadChart();
+                  //                     });
+                  //                 });
+                  //             });
+                  //         });
+
+                  //     });
+                  // });
+
+                  scope.examList = treeUtils.buildCourseListInOrder(scope.nodes);
+                  scope.examList = _.filter(scope.examList, function (node) {
+                    return node.data.hasContent && node.data.contentType == 'test';
+                  });
+                  _.each(scope.examList, function (node) {
+                      var mark = _.find(scope.gradescheme.marks, function(m) {
+                          return node.id == m.quiz;
                       });
-                      reloadChart();
-                      _.each(root.childList,function(node) {
-                          var section = node.data;
-                          node.quiz = ExamsService.get({examId:node.data.quiz},function() {
-                              node.quiz.correctCount  = 0;
-                              _.each(node.quiz.questions,function(q) {
-                                  q.mark = 0;
-                              });
-                              var attempts = AttemptsService.bySectionAndMember({editionId:scope.edition._id,memberId:scope.member._id,sectionId:section._id},function() {
-                                  node.latestAttempt = _.max(attempts, function(attempt){return new Date(attempt.start).getTime()});
-                                  _.each(node.latestAttempt.answers, function(answer) {
-                                      var quizQuestion = _.find(node.quiz.questions,function(q) {
+                      if (mark) {
+                          node.weight = mark.weight;
+                      } else {
+                          node.weight = 0;
+                      }
+
+                      var section = node.data;
+                      node.quiz = ExamsService.get({examId:node.data.quiz},function() {
+                          node.quiz.correctCount  = 0;
+                          _.each(node.quiz.questions,function(q) {
+                              q.mark = 0;
+                          });
+                          var attempts = AttemptsService.bySectionAndMember({editionId:scope.edition._id,memberId:scope.member._id,sectionId:section._id},function() {
+                              node.latestAttempts = attempts;
+                              console.log(attempts);
+                              _.each(node.latestAttempts, function(latestAttempt) {
+                                  latestAttempt.correctCount = 0;
+                                  latestAttempt.questions = node.quiz.questions;
+                                  _.each(latestAttempt.answers, function(answer) {
+                                      var quizQuestion = _.find(latestAttempt.questions,function(q) {
                                           return q.id == answer.question;
                                       });
                                       if (answer.isCorrect) {
                                           quizQuestion.mark = 1;
-                                          node.quiz.correctCount++;
+                                          latestAttempt.correctCount++;
                                       } else
                                           quizQuestion.mark = 0;
 
@@ -51,7 +114,6 @@
                                   });
                               });
                           });
-
                       });
                   });
               });
@@ -89,28 +151,63 @@
                   }
               });
 
+              // function reloadChart() {
+              //     var quizName = ['x'];
+              //     var studentScore =[$translate.instant('REPORT.STUDENT_MARK.SCORE')];
+              //     var quizScore =[$translate.instant('REPORT.STUDENT_MARK.MAX_SCORE')];
+              //     var sumStudentScore = 0;
+              //     var sumQuizScore = 0;
+              //     _.each(scope.nodes,function(root) {
+              //         _.each(root.childList,function(node) {
+              //             quizName.push(node.data.name);
+              //             var scheme = _.find(scope.gradescheme.marks,function(scheme) {
+              //                return scheme.quiz == node.data._id;
+              //             });
+              //             if(scheme){
+              //               quizScore.push(scheme.weight);
+              //               sumQuizScore += quizScore[quizScore.length-1]
+              //               if (node.quiz && node.quiz.questions && node.quiz.questions.length>0)
+              //                   studentScore.push(node.quiz.correctCount *scheme.weight/node.quiz.questions.length);
+              //               else
+              //                   studentScore.push(0);
+              //               sumStudentScore += studentScore[studentScore.length-1]
+              //             }
+              //         });
+              //     });
+              //     quizName.push($translate.instant('REPORT.STUDENT_MARK.SUMMARY'));
+              //     studentScore.push(sumStudentScore);
+              //     quizScore.push(sumQuizScore);
+              //     progress_chart.load({
+              //         columns: [
+              //               quizName,
+              //               studentScore,
+              //               quizScore
+              //         ]
+              //     });
+              // }
               function reloadChart() {
                   var quizName = ['x'];
                   var studentScore =[$translate.instant('REPORT.STUDENT_MARK.SCORE')];
                   var quizScore =[$translate.instant('REPORT.STUDENT_MARK.MAX_SCORE')];
                   var sumStudentScore = 0;
                   var sumQuizScore = 0;
-                  _.each(scope.nodes,function(root) {
-                      _.each(root.childList,function(node) {
-                          quizName.push(node.data.name);
-                          var scheme = _.find(scope.gradescheme.marks,function(scheme) {
-                             return scheme.quiz == node.data._id;
-                          });
-                          if(scheme){
-                            quizScore.push(scheme.weight);
-                            sumQuizScore += quizScore[quizScore.length-1]
-                            if (node.quiz && node.quiz.questions && node.quiz.questions.length>0)
-                                studentScore.push(node.quiz.correctCount *scheme.weight/node.quiz.questions.length);
-                            else
-                                studentScore.push(0);
-                            sumStudentScore += studentScore[studentScore.length-1]
-                          }
+                  _.each(scope.examList,function(node) {
+                      quizName.push(node.data.name);
+                      var scheme = _.find(scope.gradescheme.marks,function(scheme) {
+                         return scheme.quiz == node.data._id;
                       });
+                      if(scheme){
+                        quizScore.push(scheme.weight);
+                        sumQuizScore += quizScore[quizScore.length-1];
+                        if (node.quiz && node.quiz.questions && node.quiz.questions.length>0){
+                            var latestAttemptChart = _.max(node.latestAttempts, function(attempt){return new Date(attempt.start).getTime()});
+                            studentScore.push(latestAttemptChart.correctCount *scheme.weight/node.quiz.questions.length);
+                        }
+                        else{
+                            studentScore.push(0);
+                        }
+                        sumStudentScore += studentScore[studentScore.length-1]
+                      }
                   });
                   quizName.push($translate.instant('REPORT.STUDENT_MARK.SUMMARY'));
                   studentScore.push(sumStudentScore);
