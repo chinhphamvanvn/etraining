@@ -9,22 +9,29 @@
                 return $q(function(resolve, reject) {
                     var score = 0;
                     AttemptsService.bySectionAndMember({editionId:editionId,memberId:memberId,sectionId:sectionId},function(attempts) {
+                        if (attempts.length === 0) {return resolve(0);}
+
                         var latestAttempt = _.max(attempts, function(attempt){return new Date(attempt.start).getTime()});
+
+                        console.log('========', latestAttempt);
                         _.each(latestAttempt.answers, function(answer) {
                             if (answer.isCorrect) {
                                 score++;
-                            } 
+                            }
                         });
+                        console.log('============', score);
                         GradeSchemesService.byEdition({editionId:editionId},function(gradescheme) {
                             var scheme = _.find(gradescheme.marks,function(scheme) {
-                                return scheme.quiz == sectionId; 
-                             });
-                            resolve(score * scheme.weight /latestAttempt.answers.length );
+                                return scheme.quiz == sectionId;
+                            });
+
+                            var weight = scheme ? scheme.weight : 0;
+                            score = (latestAttempt.answers.length !== 0) ? Math.floor(score*weight/latestAttempt.answers.length) : 0;
+                            resolve(score );
                         });
-                        
-                    }); 
-                });                    
-            }
+                    });
+                });
+            };
             return {
                 memberProgress: function(memberId,editionId) {
                     return $q(function(resolve, reject) {
@@ -45,7 +52,7 @@
                                 resolve(Math.floor(complete * 100 / total));
                             });
                         });
-                    });                    
+                    });
                 },
                 courseTime: function(courseId) {
                     return $q(function(resolve, reject) {
@@ -60,7 +67,7 @@
                             });
                             resolve(time);
                         })
-                    });                    
+                    });
                 },
                 memberTime: function(memberId) {
                     return $q(function(resolve, reject) {
@@ -75,7 +82,7 @@
                             });
                             resolve(time);
                         });
-                    });                    
+                    });
                 },
                 memberScoreBySection: memberScoreBySection,
                 memberScoreByCourse: function(memberId,editionId) {
@@ -91,10 +98,11 @@
                                 _.each(scores,function(score) {
                                     courseScore  += score;
                                 });
+                                console.log('=========', courseScore)
                                 resolve(courseScore);
                             })
-                        }); 
-                    });                    
+                        });
+                    });
                 }
             };
         }]

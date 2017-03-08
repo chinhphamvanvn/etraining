@@ -150,7 +150,6 @@
           csvObj.result = (member.totalScore >= vm.gradescheme.benchmark) ? pass : fall;
           vm.csvArray.push(csvObj);
         });
-        console.log(vm.csvArray);
       });
     });
 
