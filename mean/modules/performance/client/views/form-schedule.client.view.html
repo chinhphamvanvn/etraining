@@ -100,13 +100,7 @@
                                     <label class="uk-form-label">{{'MODEL.SCHEDULE.COMPETENCY'|translate}}</label>
                                     <input name="schedule_competency" id="schedule_competency" type="text" config="vm.competencyConfig" options="vm.competencyOptions" ng-model="vm.schedule.competency" selectize />
                                 </div>
-                                <div class=" uk-width-1-2" ng-show="vm.competency.gradeModel=='level'">
-                                    <label class="uk-form-label">{{'MODEL.SCHEDULE.COMPETENCY_LEVEL'|translate}}</label>
-                                    <span class="icheck-inline" ng-repeat="level in vm.competency.levels">
-                                        <input type="radio" name="competency_level" id="competency_level{{level.order}}" ng-value="level.name" icheck ng-model="vm.schedule.competencyLevel" />
-                                        <label for="competency_level{{level.order}}" class="inline-label">{{level.name}}</label>
-                                    </span>
-                                </div>
+
                                 </div>
                         </li>
                     </ul>

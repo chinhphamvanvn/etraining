@@ -206,7 +206,7 @@ exports.candidateByID = function(req, res, next, id) {
     });
   }
 
-  ExamCandidate.findById(id).populate('user', 'displayName').exec(function (err, candidate) {
+  ExamCandidate.findById(id).populate('user', 'displayName').populate('candidate').exec(function (err, candidate) {
     if (err) {
       return next(err);
     } else if (!candidate) {

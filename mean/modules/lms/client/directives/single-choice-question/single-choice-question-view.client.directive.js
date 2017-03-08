@@ -40,6 +40,8 @@
                   else
                       scope.question.options = []; 
               });
+              
+              
               scope.addOption = function() {
                   var option = new OptionsService();
                   if (scope.question.options.length==0)
@@ -53,19 +55,12 @@
               }
               
               scope.selectOption = function(option) {
-                  if (scope.mode !='view' && scope.mode !='study') {
-                      _.each(scope.question.options,function(obj) {
-                         obj.selected = false; 
-                      });
-                      option.selected = true;
+                  _.each(scope.question.options,function(obj) {
+                      if (obj._id != option._id)
+                          obj.selected = false; 
+                  });
+                  if (scope.mode =='edit')
                       scope.question.correctOptions = [option._id];
-                  }
-                  if (scope.mode =='study') {
-                      _.each(scope.question.options,function(obj) {
-                         obj.selected = false; 
-                      });
-                      option.selected = true;
-                  }
               }
               
               scope.removeOption = function(option) {

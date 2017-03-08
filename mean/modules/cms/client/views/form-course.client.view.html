@@ -19,7 +19,7 @@
                  <ul class="uk-tab uk-tab-grid" data-uk-tab="{connect:'#tabs_4'}">
                                 <li class="uk-width-1-3 uk-active"><a href="#">{{'PAGE.CMS.COURSES.BASIC_INFO'|translate}}</a></li>
                                 <li class="uk-width-1-3"><a href="#">{{'MODEL.COURSE.ENROLL_POLICY'|translate}}</a></li>
-                                <li class="uk-width-1-3"><a href="#">{{'PAGE.CMS.COURSES.PREQUISITE'|translate}}</a></li>
+                                <li class="uk-width-1-3"><a href="#">{{'PAGE.CMS.COURSES.OTHER'|translate}}</a></li>
                             </ul>
                             <ul id="tabs_4" class="uk-switcher uk-margin">
                                 <li>
@@ -200,9 +200,13 @@
                                 </li>
                                 <li>
                                 <div class="uk-grid uk-margin-large-bottom" data-uk-grid-margin>
-                                <div class="uk-width-1-1" style="min-height: 250px;">
+                                <div class="uk-width-1-2" style="min-height: 250px;">
                                     <label class="uk-form-label">{{'MODEL.COURSE.PREQUISITE.COURSE'|translate}}</label>
                                     <selectize   config="vm.prequisiteConfig" position="bottom" options="vm.prequisiteOptions" ng-model="vm.course.prequisites" name="course_prequisite" ></selectize>
+                                </div>
+                                <div class=" uk-width-1-2">
+                                    <label class="uk-form-label">{{'MODEL.COURSE.COMPETENCY'|translate}}</label>
+                                    <input name="course_competency" id="course_competency" type="text" config="vm.competencyConfig" options="vm.competencyOptions" ng-model="vm.course.competency" selectize />
                                 </div>
                             </div>
                             

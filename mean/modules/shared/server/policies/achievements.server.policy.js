@@ -20,7 +20,15 @@ exports.invokeRolesPolicies = function () {
     }, {
       resources: '/api/achievements/:achievementId',
       permissions: '*'
-    }]
+    },
+    {
+        resources: '/api/achievements/byUser/:achiever',
+        permissions: '*'
+      },
+    , {
+        resources: '/api/achievements/byUserAndCompetency/:achiever/:competencyId',
+        permissions: '*'
+      }]
   }, {
     roles: ['user'],
     allows: [{
@@ -29,7 +37,15 @@ exports.invokeRolesPolicies = function () {
     }, {
       resources: '/api/achievements/:achievementId',
       permissions: ['get']
-    }]
+    },
+    {
+        resources: '/api/achievements/byUser/:achiever',
+        permissions: 'get'
+      },
+    , {
+        resources: '/api/achievements/byUserAndCompetency/:achiever/:competencyId',
+        permissions: 'get'
+      }]
   }, {
     roles: ['guest'],
     allows: [{

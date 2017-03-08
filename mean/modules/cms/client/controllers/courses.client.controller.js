@@ -6,9 +6,9 @@ angular
     .module('cms')
     .controller('CoursesController', CoursesController);
 
-CoursesController.$inject = ['$scope', '$state', '$window', 'Authentication', '$timeout', 'courseResolve', 'CoursesService', 'Notification', 'GroupsService', 'Upload', 'fileManagerConfig','$translate','_'];
+CoursesController.$inject = ['$scope', '$state', '$window', 'Authentication', '$timeout', 'courseResolve', 'CoursesService', 'Notification', 'GroupsService', 'Upload','CompetenciesService', 'fileManagerConfig','$translate','_'];
 
-function CoursesController($scope, $state, $window, Authentication, $timeout, course, CoursesService, Notification, GroupsService,Upload ,fileManagerConfig,$translate, _) {
+function CoursesController($scope, $state, $window, Authentication, $timeout, course, CoursesService, Notification, GroupsService,Upload ,CompetenciesService,fileManagerConfig,$translate, _) {
     var vm = this;
 
     vm.authentication = Authentication;
@@ -57,6 +57,29 @@ function CoursesController($scope, $state, $window, Authentication, $timeout, co
         searchField: 'title',
         create: false,
     };
+    
+    vm.competencyConfig = {
+            create: false,
+            maxItems: 1,
+            valueField: 'value',
+            labelField: 'title',
+            searchField: 'title',
+            onChange: function(args) {
+                vm.competency = _.find(vm.competencies,function(skill) {
+                    return skill._id == args;
+                });
+            }
+        };
+    vm.competencyOptions = [];
+    vm.competencies = CompetenciesService.query(function() {
+        vm.competencyOptions = _.map(vm.competencies, function(obj) {
+            return {
+                id: obj._id,
+                title: obj.name,
+                value: obj._id
+            }
+        });
+    });
 
     var $course_start = $('#uk_course_start'),
         $course_end = $('#uk_course_end'),
