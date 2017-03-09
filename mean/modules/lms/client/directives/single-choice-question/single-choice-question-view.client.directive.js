@@ -76,6 +76,10 @@
                       })                      
                   } 
               }
+
+              scope.translateContent = function() {
+                  return scope.question.description.replace("#BLANK#", "<u>&nbsp;&nbsp;&nbsp;&nbsp;</u>");
+              }
           }
       }
   }

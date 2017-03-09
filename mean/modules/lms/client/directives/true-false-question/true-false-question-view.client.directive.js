@@ -66,6 +66,10 @@
                   if (scope.mode =='edit')
                       scope.question.correctOptions = [option._id];
               }
+
+              scope.translateContent = function() {
+                  return scope.question.description.replace("#BLANK#", "<u>&nbsp;&nbsp;&nbsp;&nbsp;</u>");
+              }
           }
       }
   }
