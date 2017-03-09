@@ -400,6 +400,7 @@
 	"MODEL.COURSE.CODE":"Mã",
 	"MODEL.COURSE.COMPETENCY":"Kỹ năng đạt được",
 	"MODEL.COURSE.GROUP":"Danh mục",
+	"MODEL.COURSE.SUMMARY":"Tóm tắt",
 	"MODEL.COURSE.DETAIL":"Mô tả khóa học",
 	"MODEL.COURSE.DIFFICULTY":"Cấp độ",
 	"MODEL.COURSE.MODEL":"Hình thức học",
@@ -678,6 +679,7 @@
 	"REPORT.EXAM_RESULT.CANDIDATE":"Thí sinh",
 	"REPORT.EXAM_RESULT.SCORE":"Điểm số",
 	"REPORT.EXAM_RESULT.RESULT":"Kết quả",
-	"REPORT.EXAM_RESULT.SUBMIT":"Lần làm bài"
+	"REPORT.EXAM_RESULT.SUBMIT":"Lần làm bài",
+	"MODEL.COURSE.SUMMARY": "Tóm tắt nội dung"
 }
 
