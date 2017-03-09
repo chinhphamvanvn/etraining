@@ -84,6 +84,10 @@ var ExamSchema = new Schema({
         type: Boolean,
         default: false
       },
+      shuffleOption: {
+          type: Boolean,
+          default: false
+        },
       earlySubmitPrevention: {
           type: Boolean,
           default: false
