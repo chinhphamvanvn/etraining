@@ -30,7 +30,7 @@
                        member.time = time;
                    });
                    courseUtils.memberScoreByCourse(member._id,member.edition).then(function(score) {
-                       member.score = score;
+                       member.score = score.totalScore;
                    });
                    vm.members.push(member);
                }) ;
