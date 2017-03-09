@@ -79,7 +79,7 @@
         var pass = $translate.instant('COMMON.PASS'),
           fall = $translate.instant('COMMON.FAIL'),
           displayName = $translate.instant('MODEL.USER.DISPLAY_NAME'),
-          totalScore = $translate.instant('PAGE.LMS.MY_COURSES.GRADE_SCHEME_SHORT'),
+          totalScore = $translate.instant('PAGE.LMS.MY_COURSES.GRADE_SCHEME'),
           result = $translate.instant('PAGE.LMS.MY_COURSES.COURSE_GRADE.EXAM_RESULT');
         vm.csvArray = [];
         vm.csvHeader = [];
