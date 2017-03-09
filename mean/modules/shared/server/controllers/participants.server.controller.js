@@ -141,8 +141,8 @@ exports.create = function(req, res) {
                    reject({message:'Cannot find API Salt'});
                else {
                    var roomUrl = setting.valueString;
-                   roomUrl += '/trustedLogin?';
-                   var payload = JSON.stringify({meetingId:conferenceMember.meetingId,email:conferenceMember.email,password:conferenceMember.password});
+                   roomUrl += '/#/trustedlogin?';
+                   var payload = JSON.stringify({meetingId:participant.meetingId,memberId:participant.memberId});
                    var checksum = sha1(payload+apiSalt);
                    roomUrl += 'payload=' + new Buffer(payload).toString('base64') +"&checksum=" + checksum;
                    resolve(roomUrl);
