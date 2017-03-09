@@ -99,7 +99,7 @@ exports.gradeSchemeByEditionID = function(req, res) {
     GradeScheme.findOne({edition:req.edition._id}).sort('-created').populate('user', 'displayName').exec(function(err, scheme) {
     if (err || !scheme) {
       return res.status(422).send({
-        message: errorHandler.getErrorMessage(err)
+        message: errorHandler.getErrorMessage('Scheme not found')
       });
     } else {
       res.jsonp(scheme);
