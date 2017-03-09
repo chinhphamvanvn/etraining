@@ -44,7 +44,7 @@
             </th>
             <th class="uk-text-center">{{"PAGE.LMS.MY_COURSES.GRADE_SCHEME" | translate}}</th>
             <th class="uk-text-center">{{"PAGE.LMS.MY_COURSES.COURSE_GRADE.EXAM_RESULT" | translate}}</th>
-            <th class="uk-width-2-10 uk-text-center">{{'COMMON.ACTION' | translate}}</th>
+            <th>{{'COMMON.ACTION' | translate}}</th>
           </tr>
           </thead>
           <tbody>
@@ -64,7 +64,7 @@
               <span ng-show="member.totalScore < vm.gradescheme.benchmark">{{"COMMON.FAIL" | translate}}</span>
             </td>
 
-            <td class="uk-text-center">
+            <td>
               <a ng-show="member.status=='active'" ng-click="vm.suspend(member)" data-uk-tooltip="{pos:'right'}"
                  title="{{'ACTION.SUSPEND'|translate}}"><i class="md-icon material-icons uk-text-warning">lock</i></a>
               <a ng-show="member.status=='suspended'" ng-click="vm.activate(member)" data-uk-tooltip="{pos:'right'}"
