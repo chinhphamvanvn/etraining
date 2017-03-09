@@ -34,11 +34,11 @@
         roles: ['admin'],
         position: 3
       });
-    menuService.addSubMenuItem('sidebar', 'admin.workspace.performance',{
+   /* menuService.addSubMenuItem('sidebar', 'admin.workspace.performance',{
         title: 'PAGE.WORKSPACE.SIDEBAR.PERFORMANCE.GAP_ANALYSIS',
         state: 'admin.workspace.performance.gap',
         roles: ['admin'],
         position: 4
-      });
+      });*/
   }
 }());
