@@ -162,6 +162,14 @@ module.exports = {
                          code:'BUILT_INT_CONFERENCE_API_SALT',
                          category:'conference'
                       },
+                      {
+                          name:'vietInterviewConferenceRoomUrl',
+                          edit: true,
+                          type:'String',
+                          valueString:'',
+                          code:'BUILT_INT_CONFERENCE_ROOM_URL',
+                          category:'conference'
+                       },
                      {
                           name:'alertUserCreate',
                           edit: true,

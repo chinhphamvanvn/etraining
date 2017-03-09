@@ -21,6 +21,11 @@
             isArray:true,
             url:'/api/members/byCourse/:courseId'
           },
+          byClass: {
+              method: 'GET',
+              isArray:true,
+              url:'/api/members/byClass/:classroomId'
+            },
           byUser: {
               method: 'GET',
               isArray:true,

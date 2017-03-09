@@ -22,6 +22,9 @@
         vm.settingBuiltinConferenceApiSalt = _.find(vm.settings,function(setting) {
             return setting.code == 'BUILT_INT_CONFERENCE_API_SALT';
         });
+        vm.settingBuiltinConferenceRoomURL = _.find(vm.settings,function(setting) {
+            return setting.code == 'BUILT_INT_CONFERENCE_ROOM_URL';
+        });
     }) 
     vm.saveSetting = saveSetting;
     

@@ -450,6 +450,42 @@
           courseRoles: [ 'student']
         }
       })
+      .state('workspace.lms.courses.join.classroom', {
+        abstract: true,
+        url: '/classroom',
+        template: '<ui-view/>'
+      })
+      .state('workspace.lms.courses.join.classroom.student', {
+        url: '/student/:classroomId',
+        templateUrl: '/modules/lms/client/views/course-board/classroom-course.client.view.html',
+        controller: 'CoursesStudentClassroomController',
+        controllerAs: 'vm',
+        resolve: {
+            memberResolve: getMember,
+            editionResolve: getEdition,
+            courseResolve: getCourse,
+            classroomResolve:getClassroom
+        },
+        data: {
+          roles: ['user'],
+          courseRoles: [ 'student']
+        }
+      })
+      .state('workspace.lms.courses.join.classroom.teacher', {
+        url: '/teacher',
+        templateUrl: '/modules/lms/client/views/teacher/classroom-course.client.view.html',
+        controller: 'CoursesTeacherClassroomController',
+        controllerAs: 'vm',
+        resolve: {
+            memberResolve: getMember,
+            editionResolve: getEdition,
+            courseResolve: getCourse,
+        },
+        data: {
+          roles: ['user'],
+          courseRoles: [ 'teacher']
+        }
+      })
       .state('workspace.lms.courses.join.gradeboard', {
         url: '/gradeboard',
         templateUrl: '/modules/lms/client/views/teacher/gradeboard-course.client.view.html',
@@ -841,6 +877,14 @@
   function getCandidate($stateParams, ExamCandidatesService) {
     return ExamCandidatesService.get({
         candidateId: $stateParams.candidateId
+    }).$promise;
+  }
+  
+  getClassroom.$inject = ['$stateParams', 'ClassroomsService'];
+
+  function getClassroom($stateParams, ClassroomsService) {
+    return ClassroomsService.get({
+        classroomId: $stateParams.classroomId
     }).$promise;
   }
 
