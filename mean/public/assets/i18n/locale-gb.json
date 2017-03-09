@@ -630,7 +630,7 @@
 	"ERROR.COMPETENCY.EMPTY_COMPETENCY_GROUP":"Chưa chọn danh mục",
 	"ERROR.EXAM.MAX_ATTEMPT_EXCEED":"Bạn đã hết lượt làm bài thi",
 	"ERROR.EXAM.QUESTION_NOT_FOUND":"Bài thi không có câu hỏi",
-	"ERROR.EXAM.SUBMIT_TOO_EARLY":"Bạn không thể nộp bài thi vì chưa đền giờ",
+	"ERROR.EXAM.SUBMIT_TOO_EARLY":"Bạn không thể nộp bài thi vì chưa đến giờ",
 	"ERROR.EXAM.NOT_AVAILABLE":"Kỳ thi chưa mở",
 	"ERROR.EXAM.NOT_START_YET":"Kỳ thi chưa bắt đầu",
 	"ERROR.EXAM.ALREADY_FINISH":"Kỳ thi đã kết thúc",
