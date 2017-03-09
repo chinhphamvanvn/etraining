@@ -1,83 +1,104 @@
 <div id="page_content">
-    <div id="page_content_inner">
-        <h3 class="heading_b uk-margin-bottom">{{'PAGE.LMS.MY_EXAMS.TITLE' | translate}}</h3>
-        <div class="uk-grid blog_article" data-uk-grid-margin >
-            <div class="uk-width-1-1">
-                <div  ng-repeat="candidate in vm.candidates" class="uk-margin">
-                    <div ng-if="candidate.role=='teacher'" class="md-card md-card-hover" >
-                    <div class="md-card-toolbar">
-                         <h3 class="md-card-toolbar-heading-text">
-                                <a class="md-btn md-btn-flat md-btn-flat-primary   md-btn-icon uk-margin-right" ui-sref="workspace.lms.exams.edit({examId:candidate.exam._id,scheduleId:candidate.schedule._id})">
-                                    <i class="uk-icon-book"></i>
-                                    {{'PAGE.LMS.MY_EXAMS.CONTENT'|translate}}
-                                </a>
-                                <a class="md-btn md-btn-flat md-btn-flat-primary   md-btn-icon uk-margin-right" ui-sref="workspace.lms.exams.grade({examId:candidate.exam._id,scheduleId:candidate.schedule._id})">
-                                    <i class="uk-icon-star-half-o"></i>
-                                    {{'PAGE.LMS.MY_EXAMS.GRADE_SCHEME'|translate}}
-                                </a>
-                                <a class="md-btn md-btn-flat md-btn-flat-primary   md-btn-icon uk-margin-right" ui-sref="workspace.lms.exams.scoreboard({examId:candidate.exam._id,scheduleId:candidate.schedule._id})">
-                                    <i class="uk-icon-hand-pointer-o"></i>
-                                    {{'ACTION.VIEW_SCORE'|translate}}
-                                </a>
-                        </h3>
-                    </div>
-                    <div class="md-card-content">
-                            <div class="uk-grid">
-                                <div class="uk-width-1-1">
-                                <div class="uk-article">
-                                    <h1 class="uk-article-title uk-text-primary">{{candidate.schedule.name}} </h1>
-                                    <p class="uk-article-meta">
-                                        <span class="uk-margin-right uk-article-meta">{{'MODEL.SCHEDULE.START_DATE'|translate}} : {{candidate.schedule.start | date:'dd/MM/yyyy'}}</span>
-                                        <span class="uk-margin-right uk-article-meta">{{'MODEL.SCHEDULE.END_DATE'|translate}} : {{candidate.schedule.end | date:'dd/MM/yyyy'}}</span>
-                                    </p>
-                                    <p class="uk-article-lead">{{'MODEL.EXAM.DESCRIPTION'|translate}}</p>
-                                    <p ng-bind-html="candidate.exam.description"></p>
-                                    <p class="uk-article-lead">{{'MODEL.EXAM.INSTRUCTION'|translate}}</p>
-                                    <p ng-bind-html="candidate.exam.instruction"></p>
-                                    <hr class="uk-article-divider">
-                                </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div  ng-if="candidate.role=='student'"  class="md-card md-card-hover" card-progress="{{candidate.percentage}}">
-                    
-                    <div class="md-card-toolbar md-bg-light-green-100">
-                        <h3 class="md-card-toolbar-heading-text">
-                            <a class="md-btn md-btn-flat md-btn-flat-primary   md-btn-icon uk-margin-right" ng-click="vm.study(candidate)">
-                                    <i class="uk-icon-hand-pointer-o"></i>
-                                    {{'ACTION.JOIN'|translate}}
-                                </a>
-                              <a class="md-btn md-btn-flat md-btn-flat-primary   md-btn-icon uk-margin-right" ui-sref="workspace.lms.exams.score({candidateId:candidate._id,examId:candidate.exam._id,scheduleId:candidate.schedule._id})">
-                                    <i class="uk-icon-eye"></i>
-                                    {{'ACTION.VIEW_SCORE'|translate}}
-                                </a>
-                              
-                            {{'PAGE.LMS.MY_EXAMS.PROGRESS'|translate}} {{ candidate.attemptCount }} / {{ candidate.exam.maxAttempt }}
-                        </h3>
-                    </div>
-                    
-                    <div class="md-card-content">
-                            <div class="uk-grid">
-                                <div class="uk-width-1-1">
-                                <div class="uk-article">
-                                    <h1 class="uk-article-title uk-text-primary">{{candidate.schedule.name}} </h1>
-                                    <p class="uk-article-meta">
-                                        <span class="uk-margin-right uk-article-meta">{{'MODEL.SCHEDULE.START_DATE'|translate}} : {{candidate.schedule.start | date:'dd/MM/yyyy'}}</span>
-                                        <span class="uk-margin-right uk-article-meta">{{'MODEL.SCHEDULE.END_DATE'|translate}} : {{candidate.schedule.end | date:'dd/MM/yyyy'}}</span>
-                                    </p>
-                                   <p class="uk-article-lead">{{'MODEL.EXAM.DESCRIPTION'|translate}}</p>
-                                    <p ng-bind-html="candidate.exam.description"></p>
-                                    <p class="uk-article-lead">{{'MODEL.EXAM.INSTRUCTION'|translate}}</p>
-                                    <p ng-bind-html="candidate.exam.instruction"></p>
-                                </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                </div>
+  <div id="page_content_inner">
+    <h3 class="heading_b uk-margin-bottom">{{'PAGE.LMS.MY_EXAMS.TITLE' | translate}}</h3>
+    <div class="uk-grid blog_article" data-uk-grid-margin>
+      <div class="uk-width-1-1">
+        <div ng-repeat="candidate in vm.candidates" class="uk-margin">
+          <div ng-if="candidate.role=='teacher'" class="md-card md-card-hover">
+            <div class="md-card-toolbar">
+              <h3 class="md-card-toolbar-heading-text">
+                <a class="md-btn md-btn-flat md-btn-flat-primary   md-btn-icon uk-margin-right"
+                   ui-sref="workspace.lms.exams.edit({examId:candidate.exam._id,scheduleId:candidate.schedule._id})">
+                  <i class="uk-icon-book"></i>
+                  {{'PAGE.LMS.MY_EXAMS.CONTENT'|translate}}
+                </a>
+                <a class="md-btn md-btn-flat md-btn-flat-primary   md-btn-icon uk-margin-right"
+                   ui-sref="workspace.lms.exams.grade({examId:candidate.exam._id,scheduleId:candidate.schedule._id})">
+                  <i class="uk-icon-star-half-o"></i>
+                  {{'PAGE.LMS.MY_EXAMS.GRADE_SCHEME'|translate}}
+                </a>
+                <a class="md-btn md-btn-flat md-btn-flat-primary   md-btn-icon uk-margin-right"
+                   ui-sref="workspace.lms.exams.scoreboard({examId:candidate.exam._id,scheduleId:candidate.schedule._id})">
+                  <i class="uk-icon-hand-pointer-o"></i>
+                  {{'ACTION.VIEW_SCORE'|translate}}
+                </a>
+              </h3>
             </div>
+            <div class="md-card-content">
+              <div class="uk-grid">
+                <div class="uk-width-1-1">
+                  <div class="uk-article">
+                    <h2 class="uk-article-title uk-text-primary exam-title">{{candidate.schedule.name}} </h2>
+
+                    <div class="uk-article-meta exam-duration">
+                      <span class="uk-margin-right uk-article-meta">{{'MODEL.SCHEDULE.START_DATE'|translate}} : {{candidate.schedule.start | date:'dd/MM/yyyy'}}</span>
+                      <span class="uk-margin-right uk-article-meta">{{'MODEL.SCHEDULE.END_DATE'|translate}} : {{candidate.schedule.end | date:'dd/MM/yyyy'}}</span>
+                    </div>
+
+                    <div class="uk-accordion" data-uk-accordion="{showfirst: false}">
+                      <h3 class="uk-accordion-title">{{'MODEL.EXAM.DESCRIPTION'|translate}}</h3>
+                      <div class="uk-accordion-content">
+                        <p ng-bind-html="candidate.exam.description"></p>
+                      </div>
+                      <h3 class="uk-accordion-title">{{'MODEL.EXAM.INSTRUCTION'|translate}}</h3>
+                      <div class="uk-accordion-content">
+                        <p ng-bind-html="candidate.exam.instruction"></p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div ng-if="candidate.role=='student'" class="md-card md-card-hover" card-progress="{{candidate.percentage}}">
+
+            <div class="md-card-toolbar md-bg-light-green-100">
+              <h3 class="md-card-toolbar-heading-text">
+                <a class="md-btn md-btn-flat md-btn-flat-primary   md-btn-icon uk-margin-right"
+                   ng-click="vm.study(candidate)">
+                  <i class="uk-icon-hand-pointer-o"></i>
+                  {{'ACTION.JOIN'|translate}}
+                </a>
+                <a class="md-btn md-btn-flat md-btn-flat-primary   md-btn-icon uk-margin-right"
+                   ui-sref="workspace.lms.exams.score({candidateId:candidate._id,examId:candidate.exam._id,scheduleId:candidate.schedule._id})">
+                  <i class="uk-icon-eye"></i>
+                  {{'ACTION.VIEW_SCORE'|translate}}
+                </a>
+
+                {{'PAGE.LMS.MY_EXAMS.PROGRESS'|translate}} {{ candidate.attemptCount }} / {{ candidate.exam.maxAttempt
+                }}
+              </h3>
+            </div>
+
+            <div class="md-card-content">
+              <div class="uk-grid">
+                <div class="uk-width-1-1">
+                  <div class="uk-article">
+                    <h1 class="uk-article-title uk-text-primary">{{candidate.schedule.name}}</h1>
+
+                    <p class="uk-article-meta">
+                      <span class="uk-margin-right uk-article-meta">{{'MODEL.SCHEDULE.START_DATE'|translate}} : {{candidate.schedule.start | date:'dd/MM/yyyy'}}</span>
+                      <span class="uk-margin-right uk-article-meta">{{'MODEL.SCHEDULE.END_DATE'|translate}} : {{candidate.schedule.end | date:'dd/MM/yyyy'}}</span>
+                    </p>
+
+                    <div class="uk-accordion" data-uk-accordion="{showfirst: false}">
+                      <h3 class="uk-accordion-title">{{'MODEL.EXAM.DESCRIPTION'|translate}}</h3>
+                      <div class="uk-accordion-content">
+                        <p ng-bind-html="candidate.exam.description"></p>
+                      </div>
+                      <h3 class="uk-accordion-title">{{'MODEL.EXAM.INSTRUCTION'|translate}}</h3>
+                      <div class="uk-accordion-content">
+                        <p ng-bind-html="candidate.exam.instruction"></p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
+
+      </div>
     </div>
+  </div>
+</div>

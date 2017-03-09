@@ -30,7 +30,7 @@ config/env/local-*.js
 # ============================
 modules/*/client/scss/*.css
 modules/*/client/less/*.css
-public/assets/css/**/*.css
+public/assets/css/**
 
 # Ignoring MEAN.JS's gh-pages branch for documenation
 _site/
