@@ -53,4 +53,4 @@ var LibraryMediumSchema = new Schema({
   }
 });
 
-mongoose.model('LibraryMediumSchema', LibraryMediumSchema);
+mongoose.model('LibraryMedium', LibraryMediumSchema);

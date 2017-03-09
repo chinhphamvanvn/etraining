@@ -42,10 +42,7 @@
             <th class="uk-width-1-10 uk-text-center"
                 ng-repeat="exam in vm.examList">{{exam.data.name}} (&#37;)
             </th>
-            <th class="uk-width-2-10 uk-text-center" ng-if="vm.course.model=='group'">{{'MODEL.MEMBER.CLASSROOM' |
-              translate}}
-            </th>
-            <th class="uk-text-center">{{"PAGE.LMS.MY_COURSES.GRADE_SCHEME_SHORT" | translate}}</th>
+            <th class="uk-text-center">{{"PAGE.LMS.MY_COURSES.GRADE_SCHEME" | translate}}</th>
             <th class="uk-text-center">{{"PAGE.LMS.MY_COURSES.COURSE_GRADE.EXAM_RESULT" | translate}}</th>
             <th class="uk-width-2-10 uk-text-center">{{'COMMON.ACTION' | translate}}</th>
           </tr>
@@ -58,8 +55,8 @@
                 {{member.member.displayName}}
               </a>
             </td>
-            <td class="uk-text-center" ng-repeat="exam in member.examList">
-              {{exam.quiz.correctPercent}}
+            <td class="uk-text-center" ng-repeat="score in member.scores">
+              {{score.correctPercent}}
             </td>
             <td class="uk-text-center">{{member.totalScore}}</td>
             <td class="uk-text-center">

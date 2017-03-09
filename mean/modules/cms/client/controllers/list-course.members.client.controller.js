@@ -181,6 +181,7 @@
                  var exist = _.find(vm.students,function(student) {
                      return student.member._id == user._id && student.status=='active';
                  });
+                 // if course is self-study, then allow single enrollment per user
                  if (!exist) {
                      var member = new CourseMembersService();
                      member.course = vm.course._id;
@@ -194,10 +195,19 @@
                      member.role = 'student';
                      member.registered = new Date();
                      member.$save(function() {
-                         Notification.success({ message: '<i class="uk-icon-check"></i> Member '+member.user.displayName + 'enroll successfully!'});
+                         Notification.success({ message: '<i class="uk-icon-check"></i> Member '+ user.displayName + 'enroll successfully!'});
                          vm.students.push(member);
                      }, function(errorResponse) {
                          Notification.error({ message: errorResponse.data.message, title: '<i class="uk-icon-ban"></i> Member '+user.displayName + 'failed to enroll successfully!' });
+                     });
+                 }
+                 // if course is group model, then allow to change classroom
+                 else if (exist && course.model=='group') {
+                     exist.classroom = vm.selectedClass;
+                     exist.$update(function() {
+                         Notification.success({ message: '<i class="uk-icon-check"></i> Member '+ user.displayName + 'updated successfully!'});
+                     }, function(errorResponse) {
+                         Notification.error({ message: errorResponse.data.message, title: '<i class="uk-icon-ban"></i> Member '+ user.displayName + 'failed to updated!' });
                      });
                  }
          })
