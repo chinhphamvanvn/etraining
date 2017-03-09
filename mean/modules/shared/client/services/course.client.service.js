@@ -35,7 +35,7 @@
                 var weight = scheme ? scheme.weight : 0;
 
                 score = (latestAttempt.answers.length !== 0) ? Math.floor(correctCount * weight / latestAttempt.answers.length) : 0;
-                correctPercent = (latestAttempt.answers.length !== 0) ? Math.floor(correctCount*100/latestAttempt.answers.length) : 0;
+                correctPercent = (latestAttempt.answers.length !== 0) ? Math.floor(correctCount * 100 / latestAttempt.answers.length) : 0;
                 resolve({score: score, correctPercent: correctPercent});
               });
             });
@@ -96,7 +96,7 @@
           memberScoreBySection: memberScoreBySection,
           memberScoreByCourse: function (memberId, editionId) {
             return $q(function (resolve, reject) {
-              // var allPromises = [];
+              var allPromises = [];
               EditionSectionsService.byEdition({editionId: editionId}, function (sectionsList) {
                 var sections = treeUtils.buildCourseTree(sectionsList);
                 sections = treeUtils.buildCourseListInOrder(sections);
@@ -104,15 +104,10 @@
                   return section.data.hasContent && section.data.contentType == 'test';
                 });
 
-                var scores = [];
-                sections.reduce(function (prev, curr) {
-                  return prev.then(function () {
-                    return memberScoreBySection(memberId, curr.id, editionId).then(function (score) {
-                      console.log(score);
-                      scores.push(score);
-                    });
-                  });
-                }, $q.resolve()).then(function () {
+                _.each(sections, function (section) {
+                  allPromises.push(memberScoreBySection(memberId, section.id, editionId));
+                });
+                $q.all(allPromises).then(function (scores) {
                   var courseScore = {
                     scores: scores
                   };
@@ -121,24 +116,8 @@
                     totalScore += score.score;
                   });
                   courseScore.totalScore = totalScore;
-                  resolve(courseScore);
-                });
-
-                // _.each(sections,function(section) {
-                //     if (section.contentType=='test' && section.quiz)
-                //         allPromises.push(memberScoreBySection(memberId,section._id,editionId));
-                // });
-                // $q.all(allPromises).then(function(scores) {
-                //   var totalScore = 0;
-                //   var courseScore = {
-                //       scores: scores
-                //     };
-                //     _.each(scores,function(score) {
-                //         totalScore  += score;
-                //     });
-                //     courseScore.totalScore = totalScore;
-                //     resolve(courseScore);
-                // })
+                  resolve(courseScore)
+                })
               });
             });
           }
