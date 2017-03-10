@@ -113,7 +113,10 @@
       certificate.issueDate = new Date();
       certificate.authorizer = vm.user._id;
       certificate.$save(function () {
-        member.certificate = certificate;
+        member.enrollmentStatus =='completed';
+        member.$update(function() {
+            member.certificate = certificate;
+        });        
         if (vm.course.competency) {
             var achievement = new CompetencyAchievementsService();
             achievement.achiever = member.member._id;
