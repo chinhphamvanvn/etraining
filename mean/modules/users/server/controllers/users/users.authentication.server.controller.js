@@ -34,11 +34,20 @@ exports.signup = function (req, res) {
   async.waterfall([
        // Create new user
        function (done) {
+           Setting.findOne({code:'REGISTER_GROUP'}).exec(function(err,setting) {
+               if (!err && setting && setting.valueString)  {
+                   done(err, setting.valueString);
+               } else
+                   done(null)
+           })
+       },
+       function (defaultGroup,done) {
         // Init user and add missing fields
            var user = new User(req.body);
            user.provider = 'local';
            user.displayName = user.firstName + ' ' + user.lastName;
-
+           if (!user.group)
+               user.group = defaultGroup;
            // Then save the user
            user.save(function (err) {
              if (err) {

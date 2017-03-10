@@ -11,7 +11,18 @@
                                     <label for="settings_contact_email">{{'PAGE.SETTING.CONTACT_EMAIL'|translate}}</label>
                                     <input class="md-input" type="text" id="settings_contact_email" name="settings_contact_email" ng-model="vm.settingContactEmail.valueString" md-input/>
                                 </div>
-      
+<!--                                 <div class="uk-form-row"> -->
+<!--                                     <label for="settings_auto_register">{{'PAGE.SETTING.REGISTER_MODE'|translate}}</label> -->
+<!--                                     <div > -->
+<!--                                          <input type="checkbox" ui-switch ng-model="vm.settingRegisterMode.valueBoolean" id="settings_auto_register" name="settings_auto_register" /> -->
+<!--                                      </div> -->
+<!--                                 </div> -->
+                                <div class="uk-form-row">
+                                    <label for="settings_auto_register">{{'PAGE.SETTING.REGISTER_GROUP'|translate}}</label>
+                                    <div >
+                                         <input name="settings_auto_register" id="settings_auto_register" type="text" config="vm.groupConfig" options="vm.groupOptions" ng-model="vm.settingRegisterGroup.valueString" selectize />
+                                     </div>
+                                </div>
                             </div>
                         </div>
                     </div>
