@@ -682,6 +682,7 @@
 	"REPORT.EXAM_RESULT.SCORE":"Điểm số",
 	"REPORT.EXAM_RESULT.RESULT":"Kết quả",
 	"REPORT.EXAM_RESULT.SUBMIT":"Lần làm bài",
-	"MODEL.COURSE.SUMMARY": "Tóm tắt nội dung"
+	"MODEL.COURSE.SUMMARY": "Tóm tắt nội dung",
+	"MODEL.CANDIDATE.NUMBER": "Số lần thi"
 }
 
