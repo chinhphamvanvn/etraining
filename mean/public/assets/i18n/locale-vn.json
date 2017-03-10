@@ -624,6 +624,7 @@
 	"ERROR.LIBRARY.REMOVE_UNEMPTY_LIBRARY_GROUP":"Không thể xóa danh mục có nội dung",
 	"ERROR.LIBRARY.EMPTY_LIBRARY_GROUP":"Chưa chọn danh mục",
 	"ERROR.COURSE.REMOVE_UNEMPTY_COURSE_GROUP":"Không thể xóa danh mục có khóa học",
+	"ERROR.CLASSROOM.REMOVE_UNEMPTY_CLASSROOM":"Không thể xóa lớp học có học viên",
 	"ERROR.COURSE.EMPTY_COURSE_GROUP":"Chưa chọn danh mục",
 	"ERROR.QUESTION.REMOVE_UNEMPTY_QUESTION_GROUP":"Không thể xóa danh mục có câu hỏi",
 	"ERROR.QUESTION.EMPTY_QUESTION_GROUP":"Chưa chọn danh mục",

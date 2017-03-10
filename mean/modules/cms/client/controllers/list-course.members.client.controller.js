@@ -35,6 +35,8 @@
       vm.activate = activate;
       vm.remove = remove;
       vm.addClassroom = addClassroom;
+      vm.editClassroom = editClassroom;
+      vm.removeClassroom = removeClassroom;
       vm.displayUsers = [];
     
       $timeout(function() {
@@ -221,6 +223,38 @@
          }, function(errorResponse) {
              Notification.error({ message: errorResponse.data.message, title: '<i class="uk-icon-ban"></i> Class saved failed!' });
          });
+     }
+     
+     function editClassroom(classroom) {
+         UIkit.modal.prompt($translate.instant('MODEL.CLASSROOM.NAME'), '', function(val){ 
+              classroom.name = val;
+              classroom.$update(function (response) {
+                  Notification.success({ message: '<i class="uk-icon-ok"></i> Classroom updated successfully!' });
+                  reloadTree();
+                 }, function (errorResponse) {
+                   Notification.error({ message: errorResponse.data.message, title: '<i class="uk-icon-ban"></i> Classroom  updated error!' });
+               });
+          });
+     }
+     
+     function removeClassroom(classroom) {
+         if (_.find(vm.students,function(student) {
+             return student.classroom && (student.classroom == classroom._id || student.classroom._id == classroom._id);
+         }) || _.find(vm.teachers,function(teacher) {
+             return teacher.classroom && (teacher.classroom == classroom._id || teacher.classroom._id == classroom._id);
+         }) ) {
+             UIkit.modal.alert($translate.instant('ERROR.CLASSROOM.REMOVE_UNEMPTY_CLASSROOM'));
+             return;
+         }
+         classroom.$remove(function (response) {
+             Notification.success({ message: '<i class="uk-icon-ok"></i> Classroom removed successfully!' });
+             vm.classes = _.reject(vm.classes,function(obj) {
+                 return obj._id == classroom._id;
+             })
+             reloadTree();
+            }, function (errorResponse) {
+              Notification.error({ message: errorResponse.data.message, title: '<i class="uk-icon-ban"></i> Classroom  removed error!' });
+          });
      }
      
      function suspend(member) {

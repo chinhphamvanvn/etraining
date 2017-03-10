@@ -62,7 +62,12 @@
         <div class="md-card-content">
             <div class="uk-accordion" data-uk-accordion>
                 <div ng-repeat="classroom in vm.classes">
-                    <h3 class="uk-accordion-title" ng-class="classroom.titleClass"><span class="uk-text-bold">{{classroom.name}}</span>
+                    <h3 class="uk-accordion-title" ng-class="classroom.titleClass">
+                        <span class="uk-text-bold uk-margin-right">{{classroom.name}}</span>
+                        <span>
+                            <a ng-click="vm.editClassroom(classroom)" data-uk-tooltip="{pos:'bottom'}" title="{{'ACTION.EDIT'|translate}}"><i class="material-icons">edit</i></a>
+                            <a ng-click="vm.removeClassroom(classroom)" data-uk-tooltip="{pos:'bottom'}" title="{{'ACTION.DELETE'|translate}}"><i class="material-icons uk-text-danger">delete</i></a>
+                        </span>
                         <span class="uk-float-right uk-text-italic uk-margin-right">{{'MODEL.CLASSROOM.END_DATE'|translate}} : {{classroom.endDate | date :'dd-MM-yyyy'}}</span>
                         <span class="uk-float-right uk-text-italic uk-margin-right">{{'MODEL.CLASSROOM.START_DATE'|translate}} : {{classroom.startDate | date :'dd-MM-yyyy'}}</span>
                     </h3>
