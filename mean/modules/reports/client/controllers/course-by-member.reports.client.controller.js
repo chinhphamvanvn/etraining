@@ -19,6 +19,9 @@
         vm.members = [];
         _.each(users,function(user) {
             CourseMembersService.byUser({userId:user._id},function(members) {
+                members = _.filter(members,function(member) {
+                    return member.role=='student';
+                });
                _.each(members,function(member) {
                    member.time  = 0;
                    member.score  = 0;

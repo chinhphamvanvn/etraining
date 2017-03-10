@@ -48,6 +48,9 @@
         }
         vm.candidates = [];
         ExamCandidatesService.byExam({examId:schedule.exam},function(candidates) {
+            candidates = _.filter(candidates,function(candidate) {
+                return candidate.role=='student';
+            });
            _.each(candidates,function(candidate) {
                examUtils.candidateProgress(candidate._id,candidate.exam._id).then(function(progress) {
                    candidate.submit = progress.count;

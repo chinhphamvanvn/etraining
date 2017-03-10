@@ -30,6 +30,9 @@
         vm.courses = courses;
         _.each(courses,function(course) {
             CourseMembersService.byCourse({courseId:course._id},function(members) {
+                members = _.filter(members,function(member) {
+                    return member.role=='student';
+                });
                course.toalMember =  members.length;
                course.totalRegisterMember = _.filter(members,function(member) {
                    return member.enrollmentStatus == 'registered';
