@@ -65,7 +65,7 @@
               
               scope.selectOption = function(option) {
                   if (scope.mode =='edit') {
-                      var correctOptions = _.filter(scope.questions.options,function(option) {
+                      var correctOptions = _.filter(scope.question.options,function(option) {
                           return option.selected;
                       })
                       scope.question.correctOptions = _.pluck(correctOptions,'_id');
