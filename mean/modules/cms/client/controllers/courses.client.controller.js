@@ -173,6 +173,10 @@ function CoursesController($scope, $state, $window, Authentication, $timeout, co
 
 
     function save() {
+        if (!vm.course.group) {
+             UIkit.modal.alert($translate.instant('ERROR.COURSE.EMPTY_COURSE_GROUP'));
+             return;
+        }
         if (!vm.course._id)
             vm.course.$save(onSaveSuccess, onSaveFailure);
         else

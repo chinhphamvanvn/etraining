@@ -29,6 +29,7 @@
                     expanded: true,
                     folder: true,
                     key: 'all',
+                    id:null,
                     children: tree
                   }]; // Add select all checkbox
                   if (scope.initial) {
