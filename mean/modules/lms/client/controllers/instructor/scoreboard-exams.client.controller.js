@@ -6,9 +6,9 @@ angular
     .module('lms')
     .controller('ExamsScoreboardController', ExamsScoreboardController);
 
-ExamsScoreboardController.$inject = ['$scope', '$state', '$window', 'Authentication', '$timeout', 'examResolve','scheduleResolve','userResolve','Notification', 'ExamCandidatesService', 'CompetencyAchievementsService','ExamsService','examUtils', '_'];
+ExamsScoreboardController.$inject = ['$scope', '$state', '$window', 'Authentication', '$timeout', 'examResolve','scheduleResolve','userResolve','Notification', 'ExamCandidatesService', 'CompetencyAchievementsService','ExamsService','examUtils', '_', 'SubmissionsService'];
 
-function ExamsScoreboardController($scope, $state, $window, Authentication, $timeout, exam, schedule,user, Notification, ExamCandidatesService,CompetencyAchievementsService, ExamsService ,examUtils, _) {
+function ExamsScoreboardController($scope, $state, $window, Authentication, $timeout, exam, schedule,user, Notification, ExamCandidatesService,CompetencyAchievementsService, ExamsService ,examUtils, _, SubmissionsService) {
     var vm = this;
     vm.user = user;
     vm.exam = exam;
@@ -30,11 +30,20 @@ function ExamsScoreboardController($scope, $state, $window, Authentication, $tim
             examUtils.candidateScore(candidate._id,vm.exam._id).then(function(score) {
                 candidate.score = score;
             });
+            candidate.submits = {};
+            candidate.submits = SubmissionsService.byExamAndCandidate({examId:vm.exam._id,candidateId:candidate._id},function() {
+                _.each(candidate.submits,function(submit) {
+                    examUtils.candidateScoreByBusmit(candidate._id,vm.exam._id,submit._id).then(function(score) {
+                        submit.score = score;
+                        console.log(submit.score);
+                    });
+                });
+            });
+            console.log(candidate.submits);
             examUtils.candidateProgress(candidate._id,vm.exam._id).then(function(progress) {
                 candidate.attemptCount = progress.count;
-            })
-            
-        })
+            });
+        });
     } );
     
     function authorize(candidate) {
