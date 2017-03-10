@@ -67,6 +67,16 @@ function CoursesMaterialController($scope, $state, $window, Authentication, $tim
                 material.downloadURL = data.downloadURL;
                 material.filename = data.filename;
                 material.$save(function() {
+                    var namefile = material.filename.split('.');
+                    if(namefile[1] == 'png' || namefile[1] == 'jpeg' || namefile[1] == 'jpg' || namefile[1] == 'gif') {
+                        material.fileType = 'image'
+                    } else {
+                        if(namefile[1] == 'mp4' || namefile[1] == 'mp3' || namefile[1] == 'wmv'){
+                            material.fileType = 'video'
+                        } else {
+                            material.fileType = 'file'
+                        }
+                    }
                     vm.materials.push(material);
                 })
             });

@@ -28,6 +28,17 @@
            $state.go('workspace.users.edit');
     }
 
+    function toTimeString(seconds){
+        function pad(num) {
+            return ("0"+num).slice(-2);
+        }
+        var hh = Math.floor(seconds / 3600);
+        var mm = Math.floor((seconds - hh*3600 ) /60);
+        var ss = Math.floor(seconds - hh*3600 - mm* 60);
+        var result =  pad(hh)+"hr : "+pad(mm)+"m : "+pad(ss)+"s";
+        return result;
+    }
+
 
     vm.members = CourseMembersService.byUser({userId:vm.user._id},function() {
         vm.members = _.filter(vm.members,function(member) {
@@ -42,20 +53,19 @@
             });
             courseUtils.memberProgress(member._id,member.edition).then(function(percentage) {
                 member.percentage = percentage;
+                courseUtils.memberTime(member._id).then(function(time) {
+                    member.timeSpent = time;
+                    var memberCsv = {
+                        name: member.course.name,
+                        registered: member.registered,
+                        status: member.status,
+                        enrollmentStatus: member.enrollmentStatus,
+                        percentage: member.percentage + " %",
+                        timeSpent: toTimeString(member.timeSpent)
+                    };
+                    vm.memberListCsv.push(memberCsv);
+                });
             });
-            courseUtils.memberTime(member._id).then(function(time) {
-                member.timeSpent = time;
-            });
-            var memberCsv = {
-                    name: member.course.name,
-                    registered: member.registered,
-                    status: member.status,
-                    enrollmentStatus: member.enrollmentStatus,
-                    percentage: member.percentage + " %",
-                    timeSpent: member.timeSpent
-                };
-
-             vm.memberListCsv.push(memberCsv);
         });
     });
   }
