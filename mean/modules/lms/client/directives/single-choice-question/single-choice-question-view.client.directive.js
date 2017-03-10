@@ -49,6 +49,9 @@
                       scope.question.options = []; 
               });
               
+              scope.translateContent = function() {
+                  return scope.question.description;
+              }
               
               scope.addOption = function() {
                   var option = new OptionsService();

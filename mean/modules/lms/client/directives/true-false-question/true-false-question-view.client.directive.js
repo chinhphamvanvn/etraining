@@ -65,6 +65,9 @@
                       });
               })
               
+              scope.translateContent = function() {
+                  return scope.question.description;
+              }
              
               scope.selectOption = function(option) {
                   _.each(scope.question.options,function(obj) {

@@ -20,7 +20,7 @@
           templateUrl:'/modules/lms/client/directives/fill-blank-question/fill-blank-question.directive.client.view.html',
           link: function (scope, element, attributes) {
               scope.tinymce_options = fileManagerConfig;
-              scope.watch('question',function() {
+              scope.$watch('question',function() {
                   if (scope.question._id)
                       scope.question.options = OptionsService.byQuestion({questionId:scope.question._id},function(options) {
                           if (scope.mode =='study' && scope.shuffle) {

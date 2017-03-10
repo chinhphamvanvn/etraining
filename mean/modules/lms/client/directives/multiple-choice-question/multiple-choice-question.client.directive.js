@@ -72,6 +72,10 @@
                   }
               }
               
+              scope.translateContent = function() {
+                  return scope.question.description;
+              }
+              
               scope.removeOption = function(option) {
                   if (option._id)  {
                       OptionsService.delete({optionId:option._id},function() {
