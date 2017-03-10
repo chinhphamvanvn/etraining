@@ -46,7 +46,7 @@ exports.bulkCreate = function (req, res) {
             newUser.save(function (err) {
                 if (err) {
                   console.log(err);
-                  resolve();
+                  reject(err);
                 } else {     
                    resolve();
                 }            
@@ -60,9 +60,11 @@ exports.bulkCreate = function (req, res) {
             {
                 res.json({success:true});
             },
-            function () 
+            function (err) 
             {
-                res.json({success:true});
+                return res.status(422).send({
+                    message: errorHandler.getErrorMessage(err)
+                  });
             });
 
 }
