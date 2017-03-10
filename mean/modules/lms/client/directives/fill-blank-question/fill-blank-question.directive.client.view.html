@@ -5,15 +5,15 @@
                 {{'MODEL.QUESTION.TITLE'|translate}}
                 <span class="req">*</span>
             </label>
-            <input type="text" name="question_title" id="question_title" 
+            <input type="text" name="question_title" id="question_title"
                 required class="md-input" md-input ng-model="question.title" />
         </div>
-        <div class="uk-width-medium-1-2 parsley-row">          
+        <div class="uk-width-medium-1-2 parsley-row">
                 <label for="question_level_select">{{'MODEL.QUESTION.LEVEL'|translate}}</label>
                 <div  id="question_level_select">
                     <span class="icheck-inline" >
                         <input type="radio" name="question_level_{{question._id}}" id="question_easy_{{question._id}}"  value="easy" icheck ng-model="question.level" />
-                        <label for="question_easy" class="inline-label">{{'COMMON.DIFFICULTY.EASY'|translate}}</label> 
+                        <label for="question_easy" class="inline-label">{{'COMMON.DIFFICULTY.EASY'|translate}}</label>
                     </span>
                     <span class="icheck-inline" >
                         <input type="radio" name="question_level_{{question._id}}" id="question_medium_{{question._id}}"  value="medium" icheck ng-model="question.level" />
@@ -38,8 +38,8 @@
                     ng-repeat="option in question.options | orderBy: 'order'">
                     <div class="uk-width-medium-2-10 uk-text-center" >
                         <span class="icheck-inline">
-                            <input type="checkbox" 
-                                id="option_{{option._id}}" icheck 
+                            <input type="checkbox"
+                                id="option_{{option._id}}" icheck
                                 ng-model="option.selected" ng-change="selectOption(option)"
                                  />
                             <label for="option_{{option._id}}" class="inline-label">{{option.order}}</label>
@@ -71,14 +71,14 @@
             <label for="question_title">
                 {{'MODEL.QUESTION.TITLE'|translate}}
             </label>
-            <p>{{question.title}}</p> 
+            <p>{{question.title}}</p>
         </div>
-        <div class="uk-width-medium-1-2 parsley-row">          
+        <div class="uk-width-medium-1-2 parsley-row">
                 <label for="question_level_select">{{'MODEL.QUESTION.LEVEL'|translate}}</label>
                 <div  id="question_level_select">
                     <span class="icheck-inline" >
                         <input ng-disabled="true" type="radio" name="question_level_{{question._id}}" id="question_easy_{{question._id}}"  value="easy" icheck ng-model="question.level" />
-                        <label for="question_easy" class="inline-label">{{'COMMON.DIFFICULTY.EASY'|translate}}</label> 
+                        <label for="question_easy" class="inline-label">{{'COMMON.DIFFICULTY.EASY'|translate}}</label>
                     </span>
                     <span class="icheck-inline" >
                         <input  ng-disabled="true" type="radio" name="question_level_{{question._id}}" id="question_medium_{{question._id}}"  value="medium" icheck ng-model="question.level" />
@@ -107,8 +107,8 @@
                     <div class="uk-width-medium-2-10 uk-text-center" >
                         <span class="icheck-inline">
                             <input type="checkbox" ng-disabled="true"
-                                id="option_{{option._id}}" icheck 
-                                ng-model="option.selected" 
+                                id="option_{{option._id}}" icheck
+                                ng-model="option.selected"
                                  />
                             <label for="option_{{option._id}}" class="inline-label">{{option.order}}</label>
                         </span>
@@ -143,8 +143,8 @@
                     ng-repeat="option in question.options | orderBy: 'order'">
                     <div class="uk-width-medium-2-10 uk-text-center" >
                         <span class="icheck-inline">
-                            <input type="checkbox" 
-                                id="option_{{option._id}}" icheck 
+                            <input type="checkbox"
+                                id="option_{{option._id}}" icheck
                                 ng-model="option.selected" ng-change="selectOption(option)"
                                  />
                         </span>
@@ -161,17 +161,17 @@
 
 
 <div ng-if="mode=='result'">
-    <div class="uk-grid">
-        <div class="uk-width-medium-1-2 ">
-            <label >
-                {{question.title}}
-            </label>
-        </div>
-    </div>
-    <hr>
+    <!--<div class="uk-grid">-->
+        <!--<div class="uk-width-medium-1-2 ">-->
+            <!--<label >-->
+                <!--{{question.title}}-->
+            <!--</label>-->
+        <!--</div>-->
+    <!--</div>-->
+    <!--<hr>-->
     <div class="uk-grid">
         <div class="uk-width-medium-1-1 ">
-           <p ng-bind-html="translateContent()"></p>
+           <p class="quiz-question" ng-bind-html="translateContent()"></p>
         </div>
     </div>
     <div class="uk-grid" data-uk-grid-margin>
@@ -182,14 +182,15 @@
                     <div class="uk-width-medium-2-10 uk-text-center" >
                         <span class="icheck-inline">
                             <input type="checkbox" ng-disabled="true"
-                                id="option_{{option._id}}" icheck 
+                                id="option_{{option._id}}" icheck
                                 ng-model="option.selected" ng-change="selectOption(option)"
                                  />
                         </span>
                     </div>
-                    <div class="uk-width-medium-8-10">
-                        <label for="option_{{option._id}}" class="inline-label">{{option.order}}.</label>
-                        <label for="option_{{option.order}}">{{option.content}}</label>
+                    <div class="uk-text-left uk-width-medium-8-10">
+                        <!--<label for="option_{{option._id}}" class="inline-label">{{option.order}}.</label>-->
+                        <!--<label for="option_{{option.order}}">{{option.content}}</label>-->
+                        <span>{{option.content}}</span>
                         <span ng-show="option.isCorrect && showAnswer"><i class="material-icons uk-text-success">check_circle</i></span>
                     </div>
                 </div>
