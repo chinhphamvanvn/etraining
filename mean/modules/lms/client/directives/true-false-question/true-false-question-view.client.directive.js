@@ -13,6 +13,7 @@
           scope: {
               question: "=",
               answer:"=",
+              shuffle:"=",
               showAnswer:"=",
               mode: "="         // edit.view/study, result
           },
@@ -21,7 +22,15 @@
               scope.tinymce_options = fileManagerConfig;
               scope.$watch('question',function() {
                   if (scope.question._id)
-                      scope.question.options = OptionsService.byQuestion({questionId:scope.question._id},function() {
+                      scope.question.options = OptionsService.byQuestion({questionId:scope.question._id},function(options) {
+                          if (scope.mode =='study' && scope.shuffle) {
+                              if (!question.shuffleIndex)
+                                  question.shuffleIndex = Math.floor(Math.random()*options.length);
+                              scope.question.options = [];
+                              for (var i=0;i<options.length;i++)
+                                  scope.question.options.push(options[(question.shuffleIndex + i) % options.length])
+                          }
+                          
                           if (scope.question.options.length) {
                               if (scope.mode !='study' && scope.mode !='result')
                                   _.each(scope.question.options,function(option) {
@@ -65,6 +74,10 @@
                   option.selected = true;
                   if (scope.mode =='edit')
                       scope.question.correctOptions = [option._id];
+              }
+
+              scope.translateContent = function() {
+                  return scope.question.description.replace("#BLANK#", "<u>&nbsp;&nbsp;&nbsp;&nbsp;</u>");
               }
           }
       }

@@ -19,7 +19,7 @@
                     <i class="material-icons md-color-white">&#xE161;</i>
                 </button>
                 <a id="section_edit_cancel"
-                    ui-sref="workspace.lms.exams.view({examId:vm.exam._id,scheduleId:vm.schedue._id})"
+                    ui-sref="workspace.lms.exams.view({examId:vm.exam._id,scheduleId:vm.schedule._id})"
                     data-uk-tooltip="{cls:'uk-tooltip-small',pos:'bottom'}"
                     title="{{'ACTION.CLOSE'|translate}}">
                     <i class="material-icons md-color-white">&#xE5CD;</i>
@@ -81,6 +81,17 @@
                                                 class="inline-label">{{'COMMON.QUESTION_SELECT.AUTO'|translate}}</label>
                                         </span>
                                     </div>
+                                </div>
+                                <div class="uk-width-medium-1-2">
+                                    <span class="icheck-inline">
+                                        <input type="checkbox" name="shuffleOption"
+                                            id="shuffleOption" icheck 
+                                            ng-model="vm.exam.shuffleOption"
+                                             />
+                                         <label for="shuffleOption">{{'MODEL.EXAM.SHUFFLE_OPTION'|translate}}</label>
+                                    </span>
+        
+                    
                                 </div>
                             </div>
                             <div class="uk-grid" data-uk-grid-margin

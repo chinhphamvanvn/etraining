@@ -51,22 +51,22 @@
                 <div class="uk-grid uk-grid-divider">
                     <div class="uk-width-7-10">
                         <div ng-if="vm.question.type=='mc'">
-                            <multiple-choice-question mode="'study'"
+                            <multiple-choice-question mode="'study'" shuffle="vm.exam.shuffleOption"
                                 question="vm.question"
                                 answer="vm.question.answer"></multiple-choice-question>
                         </div>
                         <div ng-if="vm.question.type=='sc'">
-                            <single-choice-question mode="'study'"
+                            <single-choice-question mode="'study'"shuffle="vm.exam.shuffleOption"
                                 question="vm.question"
                                 answer="vm.question.answer"></single-choice-question>
                         </div>
                         <div ng-if="vm.question.type=='tf'">
-                            <true-false-question mode="'study'"
+                            <true-false-question mode="'study'" shuffle="vm.exam.shuffleOption"
                                 question="vm.question"
                                 answer="vm.question.answer"></true-false-question>
                         </div>
                         <div ng-if="vm.question.type=='fb'">
-                            <fill-blank-question mode="'study'"
+                            <fill-blank-question mode="'study'" shuffle="vm.exam.shuffleOption"
                                 question="vm.question"
                                 answer="vm.question.answer"></fill-blank-question>
                         </div>

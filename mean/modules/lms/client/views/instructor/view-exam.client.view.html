@@ -200,6 +200,20 @@
                                         ng-show="!vm.exam.preDueWarning">Nok</span>
                                 </div>
                             </li>
+                            <li>
+                                <div class="md-list-content">
+                                    <span
+                                        class="md-list-heading uk-text-truncate">
+                                        <a href="#">{{'MODEL.EXAM.SHUFFLE_OPTION'|translate}}</a>
+                                    </span>
+                                    <span
+                                        class="uk-badge uk-badge-success"
+                                        ng-show="vm.exam.shuffleOption">{{'COMMON.YES'|translate}}</span>
+                                    <span
+                                        class="uk-badge uk-badge-danger"
+                                        ng-show="!vm.exam.shuffleOption">{{'COMMON.NO'|translate}}</span>
+                                </div>
+                            </li>
                         </ul>
                     </div>
                 </div>
