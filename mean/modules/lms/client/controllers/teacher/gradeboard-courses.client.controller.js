@@ -113,7 +113,7 @@
       certificate.issueDate = new Date();
       certificate.authorizer = vm.user._id;
       certificate.$save(function () {
-        member.enrollmentStatus =='completed';
+        member.enrollmentStatus ='completed';
         member.$update(function() {
             member.certificate = certificate;
         });        
