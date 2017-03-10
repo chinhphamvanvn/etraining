@@ -79,20 +79,22 @@
                               _.each(node.latestAttempts, function(latestAttempt) {
                                   latestAttempt.correctCount = 0;
                                   latestAttempt.questions = node.quiz.questions;
-                                  _.each(latestAttempt.answers, function(answer) {
-                                      var quizQuestion = _.find(latestAttempt.questions,function(q) {
-                                          return q.id == answer.question;
-                                      });
-                                      if (answer.isCorrect) {
-                                          quizQuestion.mark = 1;
-                                          latestAttempt.correctCount++;
-                                      } else
-                                          quizQuestion.mark = 0;
-
-                                      reloadChart();
-                                  });
+                                  if(latestAttempt.answers.length > 0){
+                                    _.each(latestAttempt.answers, function(answer) {
+                                        var quizQuestion = _.find(latestAttempt.questions,function(q) {
+                                            return q.id == answer.question;
+                                        });
+                                        if (answer.isCorrect) {
+                                            quizQuestion.mark = 1;
+                                            latestAttempt.correctCount++;
+                                        } else{
+                                            quizQuestion.mark = 0;
+                                        }
+                                    });
+                                  }
                                   scope.examDetail = scope.examDetail + latestAttempt.correctCount + "  | ";
                               });
+                              reloadChart();
                               scope.examObj1[index + 1] = scope.examDetail;
                               scope.inumber1++;
                               if(scope.inumber1 == scope.examList.length){
