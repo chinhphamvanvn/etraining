@@ -126,9 +126,9 @@
         AdminService.bulkCreate({users:userList},function() {
             modal.hide();
             $window.location.reload();
-        },function(err) {
+        },function(errorResponse) {
             modal.hide();
-            $window.location.reload();
+            Notification.error({ message: errorResponse.data.message, title: '<i class="uk-icon-ban"></i> Update import error!' });
         })
     }
 
