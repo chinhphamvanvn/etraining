@@ -685,6 +685,7 @@
 	"REPORT.EXAM_RESULT.RESULT":"Kết quả",
 	"REPORT.EXAM_RESULT.SUBMIT":"Lần làm bài",
 	"MODEL.COURSE.SUMMARY": "Tóm tắt nội dung",
-	"MODEL.CANDIDATE.NUMBER": "Số lần thi"
+	"MODEL.CANDIDATE.NUMBER": "Số lần thi",
+	"MODAL.EXAM_STUDY.PROMPT": "Bạn đồng ý tham gia kỳ thi?"
 }
 
