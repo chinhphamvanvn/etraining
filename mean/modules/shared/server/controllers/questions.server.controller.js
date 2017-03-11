@@ -43,7 +43,7 @@ exports.bulkCreate = function (req, res) {
                         });
                         optionPromises.push(optionPromise);                        
                     });
-                    _.each(wrongptions,function(content) {
+                    _.each(wrongOptions,function(content) {
                         var optionPromise =  new Promise(function (resolve, reject) {
                             var option = new Option({content:content,question:newQuestion._id});
                             option.save(function(err) {
