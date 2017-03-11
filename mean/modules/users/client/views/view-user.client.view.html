@@ -226,10 +226,10 @@
             </thead>
             <tbody>
                 <tr ng-repeat="certificate in vm.certificates" ng-init="certificate.showimage = false;">
-                    <td class="uk-text-center">{{certificate.course.name}}
+                    <td class="" style="white-space: normal; min-width: 270px;">{{certificate.course.name}}
                     </td>
                     <td class="uk-text-center">{{certificate.issueDate | date:'dd-MM-yyyy'}}</td>
-                    <td class="uk-text-center">{{certificate.authorizer.displayName}}
+                    <td class="uk-text-center">{{certificate.authorizer.displayName}}</td>
 
                     <td class="uk-text-center">
                         <a class="md-btn" ng-click="certificate.showimage = !certificate.showimage">
