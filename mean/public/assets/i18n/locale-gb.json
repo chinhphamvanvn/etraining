@@ -370,6 +370,7 @@
 	"ACTION.SCHEDULE_DEACTIVATE":"Đóng",
 	"ACTION.MARK":"Đánh dấu",
 	"ACTION.UNMARK":"Xóa đánh dấu",
+	"ACTION.START_QUIZ":"Bắt đầu làm bài",
 	"ACTION.AUTHORIZE_COMPETENCY":"Xác nhận kỹ năng",
 	"DIALOG.EXAM_STUDY.PROMPT":"Bạn có đồng ý tham gia kỳ thi ?",
 	"DIALOG.EXAM_RESULT.TITLE": "Kết quả kiểm tra",
