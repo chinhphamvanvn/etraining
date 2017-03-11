@@ -5,16 +5,38 @@
     .module('settings')
     .controller('SystemSettingsController', SystemSettingsController);
 
-  SystemSettingsController.$inject = ['$scope', '$rootScope','$state', 'Authentication', 'SettingsService', '$timeout', '$window','$q','_'];
+  SystemSettingsController.$inject = ['$scope', '$rootScope','$state', 'Authentication', 'SettingsService', 'GroupsService', '$window','$q','_'];
   
-  function SystemSettingsController($scope, $rootScope, $state, Authentication, SettingsService,$timeout,$window,$q, _) {
+  function SystemSettingsController($scope, $rootScope, $state, Authentication, SettingsService,GroupsService,$window,$q, _) {
     var vm = this;
+    vm.groupConfig = {
+            create: false,
+            maxItems: 1,
+            valueField: 'value',
+            labelField: 'title',
+            searchField: 'title',
+        };
+    vm.groupOptions = [];
+    
+    vm.groups = GroupsService.byCategory({category:'organization'}, function() {
+        vm.groupOptions = _.map(vm.groups, function(obj) {
+            return {
+                id: obj._id,
+                title: obj.name,
+                value: obj._id
+            }
+        });
+    });
+    
     vm.settings = SettingsService.query(function() {
         vm.settingContactEmail = _.find(vm.settings,function(setting) {
             return setting.code == 'CONTACT_EMAIL';
         });
         vm.settingRegisterMode = _.find(vm.settings,function(setting) {
             return setting.code == 'REGISTER_MODE';
+        });
+        vm.settingRegisterGroup = _.find(vm.settings,function(setting) {
+            return setting.code == 'REGISTER_GROUP';
         });
         vm.settingBuiltinConferenceApiURL = _.find(vm.settings,function(setting) {
             return setting.code == 'BUILT_INT_CONFERENCE_API';
