@@ -119,7 +119,15 @@ module.exports = {
                       value:'open',
                       code:'REGISTER_MODE',
                       category:'system'
-                   }
+                   },
+                   {
+                       name:'registerGroup',
+                       edit: true,
+                       type:'String',
+                       valueString:'',
+                       code:'REGISTER_GROUP',
+                       category:'system'
+                    }
                   ,{
                       name:'maxLoginAttempt',
                       value:'6',

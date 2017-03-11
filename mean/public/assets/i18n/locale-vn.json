@@ -27,6 +27,7 @@
 	"PAGE.PROFILE.CERTIFICATE":"Chứng chỉ",
 	"PAGE.PROFILE.COMPETENCY":"Kỹ năng",
 	"PAGE.SETTING.REGISTER_MODE":"Tự động đăng ký",
+	"PAGE.SETTING.REGISTER_GROUP":"Phòng ban mặc định cho người dùng tự động đăng ký",
 	"PAGE.SETTING.MAX_LOGIN_ATTEMPT":"Số lần đăng nhập lỗi tối đa",
 	"PAGE.SETTING.CONCURRENT_LOGIN":"Cho phép đăng nhập đồng thời một tài khoản",
 	"PAGE.SETTING.CONTACT_EMAIL":"Email hỗ trợ",
