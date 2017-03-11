@@ -12,7 +12,9 @@ function CoursesPreviewHtmlController($scope, $state, $window, HtmlsService,Exam
     var vm = this;
     vm.edition = edition;
     vm.section = section;
-    
-   
+    if (vm.section.html) {
+        vm.html = HtmlsService.get({htmlId:vm.section.html},function() {});
+    }
+
 }
 }());
