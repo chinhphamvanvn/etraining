@@ -8,7 +8,7 @@
     .directive('fillBlankQuestion', ['OptionsService','QuestionsService','fileManagerConfig','_', fillBlankQuestion]);
 
   function fillBlankQuestion(OptionsService,QuestionsService,fileManagerConfig,_) {
-      
+
       return {
           scope: {
               question: "=",
@@ -24,13 +24,13 @@
                   if (scope.question._id)
                       scope.question.options = OptionsService.byQuestion({questionId:scope.question._id},function(options) {
                           if (scope.mode =='study' && scope.shuffle) {
-                              if (!question.shuffleIndex)
-                                  question.shuffleIndex = Math.floor(Math.random()*options.length);
+                              if (!scope.question.shuffleIndex)
+                                  scope.question.shuffleIndex = Math.floor(Math.random()*options.length);
                               scope.question.options = [];
                               for (var i=0;i<options.length;i++)
-                                  scope.question.options.push(options[(question.shuffleIndex + i) % options.length])
+                                  scope.question.options.push(options[(scope.question.shuffleIndex + i) % options.length])
                           }
-                          
+
                           if (scope.mode !='study' && scope.mode !='result')
                               _.each(scope.question.options,function(option) {
                                   option.selected = _.contains(scope.question.correctOptions,option._id);
@@ -49,12 +49,12 @@
                   else
                       scope.question.options = [];
               })
-              
-              
+
+
               scope.translateContent = function() {
                   return scope.question.description.replace("#BLANK#", "<u>&nbsp;&nbsp;&nbsp;&nbsp;</u>");
               }
-              
+
               scope.addOption = function() {
                   var option = new OptionsService();
                   if (scope.question.options.length==0)
@@ -66,7 +66,7 @@
                       scope.question.options.push(option);
                   });
               }
-              
+
               scope.selectOption = function(option) {
                   if (scope.mode =='edit') {
                       var correctOptions = _.filter(scope.question.options,function(option) {
@@ -75,7 +75,7 @@
                       scope.question.correctOptions = _.pluck(correctOptions,'_id');
                   }
               }
-              
+
               scope.removeOption = function(option) {
                   if (option._id)  {
                       OptionsService.delete({optionId:option._id},function() {
@@ -85,8 +85,8 @@
                           scope.question.correctOptions = _.reject(scope.question.correctOptions,function(o) {
                               return o == option._id;
                           })
-                      })                      
-                  } 
+                      })
+                  }
               }
           }
       }

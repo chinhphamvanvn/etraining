@@ -24,11 +24,11 @@
                   if (scope.question._id)
                       scope.question.options = OptionsService.byQuestion({questionId:scope.question._id},function(options) {
                           if (scope.mode =='study' && scope.shuffle) {
-                              if (!question.shuffleIndex)
-                                  question.shuffleIndex = Math.floor(Math.random()*options.length);
+                              if (!scope.question.shuffleIndex)
+                                  scope.question.shuffleIndex = Math.floor(Math.random()*options.length);
                               scope.question.options = [];
                               for (var i=0;i<options.length;i++)
-                                  scope.question.options.push(options[(question.shuffleIndex + i) % options.length])
+                                  scope.question.options.push(options[(scope.question.shuffleIndex + i) % options.length])
                           }
                           if (scope.mode !='study' && scope.mode !='result')
                               _.each(scope.question.options,function(option) {
@@ -66,7 +66,6 @@
               };
 
               scope.selectOption = function(option) {
-                  console.log('=========', option);
                   _.each(scope.question.options,function(obj) {
                       if (obj._id != option._id)
                           obj.selected = false;
