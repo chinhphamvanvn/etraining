@@ -20,6 +20,7 @@ function CoursesPreviewQuizController($scope, $state, $window, QuestionsService,
             
             var questionIds = _.pluck(vm.quiz.questions,'id');
             vm.questions = QuestionsService.byIds({questionIds:questionIds},function() {
+              vm.questions = _.sortBy(vm.questions, function(question){return new Date(question.created).getTime()});
                vm.index = 0;
                if (vm.questions.length>0)
                    selectQuestion(vm.index)
