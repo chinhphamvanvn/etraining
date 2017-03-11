@@ -153,7 +153,7 @@
                   UIkit.modal.prompt($translate.instant('MODEL.GROUP.NAME'), '', function(val){ 
                       val = val.trim();
                       if (!val) {
-                          UIkit.modal.alert($translate.instant('ERROR.GROUP.EMPTY_NAME_NOT_ALLOW');
+                          UIkit.modal.alert($translate.instant('ERROR.GROUP.EMPTY_NAME_NOT_ALLOW'));
                           return;
                       }                          
                       var group = new GroupsService();

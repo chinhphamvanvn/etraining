@@ -635,6 +635,7 @@
 	"ERROR.COURSE.EMPTY_COURSE_GROUP":"Chưa chọn danh mục",
 	"ERROR.QUESTION.REMOVE_UNEMPTY_QUESTION_GROUP":"Không thể xóa danh mục có câu hỏi",
 	"ERROR.QUESTION.EMPTY_QUESTION_GROUP":"Chưa chọn danh mục",
+	"ERROR.QUESTION.EMPTY_QUESTION_OPTION":"Bạn chưa chọn câu trả lời",
 	"ERROR.COMPETENCY.REMOVE_UNEMPTY_COMPETENCY_GROUP":"Không thể xóa danh mục có câu hỏi",
 	"ERROR.COMPETENCY.EMPTY_COMPETENCY_GROUP":"Chưa chọn danh mục",
 	"ERROR.EXAM.MAX_ATTEMPT_EXCEED":"Bạn đã hết lượt làm bài thi",

@@ -61,7 +61,11 @@
                         ng-click="addOption()">{{'PAGE.LMS.MY_COURSES.TEACHER_BOARD.COURSE_OUTLINE.TEST.ADD_OPTION'|translate}}</a>
                 </div>
             </div>
+            <div class="uk-alert uk-alert-warning uk-text-center" ng-show="question.correctOptions.length==0">
+            {{'ERROR.QUESTION.EMPTY_QUESTION_OPTION'|translate}}
         </div>
+        </div>
+      
     </div>
 </div>
 
