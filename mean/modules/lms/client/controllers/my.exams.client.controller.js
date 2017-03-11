@@ -38,7 +38,10 @@ function MyExamsListController($scope, $state, $window, Authentication, $timeout
             UIkit.modal.alert($translate.instant('ERROR.EXAM.ALREADY_FINISH'));
             return;
         }
-        $state.go('workspace.lms.exams.study',{candidateId:candidate._id,examId:candidate.exam._id,scheduleId:candidate.schedule._id});
+        UIkit.modal.confirm($translate.instant('MODAL.EXAM_STUDY.PROMPT'), function() {
+            $state.go('workspace.lms.exams.study',{candidateId:candidate._id,examId:candidate.exam._id,scheduleId:candidate.schedule._id});
+        }
+        
     }
 }
     
