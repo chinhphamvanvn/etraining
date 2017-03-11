@@ -17,7 +17,11 @@ exports.invokeRolesPolicies = function () {
     allows: [{
       resources: '/api/questions',
       permissions: '*'
-    },  {
+    },  
+    {
+        resources: '/api/questions/bulk',
+        permissions: '*'
+      },{
           resources: '/api/questions/byCategoryAndLevel/:groupId/:level',
           permissions: '*'
         },
