@@ -2,15 +2,15 @@
   'use strict';
 
   angular
-    .module('users.admin')
-    .controller('UserImportController', UserImportController);
+    .module('performance')
+    .controller('QuestionImportController', QuestionImportController);
 
-  UserImportController.$inject = ['$scope', '$state',  '$filter', '$compile','Authentication', 'AdminService', '$timeout', '$location', '$window', 'GroupsService','UsersService', 'DTOptionsBuilder','DTColumnDefBuilder', 'Notification','treeUtils','$translate',  '_'];
+  QuestionImportController.$inject = ['$scope', '$state',  '$filter', '$compile','Authentication', 'AdminService', '$timeout', '$location', '$window', 'GroupsService','QuestionsService', 'DTOptionsBuilder','DTColumnDefBuilder', 'Notification','treeUtils','$translate',  '_'];
 
-  function UserImportController($scope,$state, $filter, $compile, Authentication, AdminService, $timeout, $location, $window, GroupsService,UsersService, DTOptionsBuilder, DTColumnDefBuilder, Notification, treeUtils,$translate, _) {
+  function QuestionImportController($scope,$state, $filter, $compile, Authentication, AdminService, $timeout, $location, $window, GroupsService,QuestionsService, DTOptionsBuilder, DTColumnDefBuilder, Notification, treeUtils,$translate, _) {
     var vm = this;
     vm.user = Authentication.user;
-    vm.users = [];
+    vm.questions = [];
     vm.headers = [];
     vm.importData = importData;
     vm.selectedGroup = selectedGroup;
@@ -30,53 +30,35 @@
             [
                 {
                     id: 1,
-                    title: $translate.instant('MODEL.USER.FIRST_NAME'),
-                    value: "firstName",
+                    title: $translate.instant('MODEL.QUESTION.TITLE'),
+                    value: "title",
                     parent_id: 1
                 },
                 {
                     id: 2,
-                    title: $translate.instant('MODEL.USER.LAST_NAME'),
-                    value: "lastName",
+                    title: $translate.instant('MODEL.QUESTION.DESC'),
+                    value: "description",
                     parent_id: 1
                 },
                 {
                     id: 3,
-                    title: $translate.instant('MODEL.USER.USERNAME'),
-                    value: "username",
+                    title: $translate.instant('MODEL.QUESTION.LEVEL'),
+                    value: "level",
                     parent_id: 1
                 },
                 {
                     id: 4,
-                    title: $translate.instant('MODEL.USER.EMAIL'),
-                    value: "email",
+                    title: $translate.instant('MODEL.QUESTION.TYPE'),
+                    value: "type",
                     parent_id: 1
                 },
                 {
                     id: 5,
-                    title: $translate.instant('MODEL.USER.PHONE'),
-                    value: "phone",
-                    parent_id: 1
-                },
-                {
-                    id: 6,
-                    title: $translate.instant('MODEL.USER.POSITION'),
-                    value: "position",
-                    parent_id: 1
-                },
-                {
-                    id: 7,
-                    title: $translate.instant('MODEL.USER.FACEBOOK'),
-                    value: "facebook",
+                    title: $translate.instant('MODEL.QUESTION.OPTIONS'),
+                    value: "options",
                     parent_id: 1
                 }
-                ,
-                {
-                    id: 8,
-                    title: $translate.instant('MODEL.USER.TWITTER'),
-                    value: "twitter",
-                    parent_id: 1
-                }
+              
             ];
 
 
@@ -100,7 +82,7 @@
             for (var i=0;i<vm.csv.result.columnCount;i++)
                 vm.headers.push({name:vm.csv.result.headers[i]});
         }
-        vm.users = vm.csv.result.rows;
+        vm.questions = vm.csv.result.rows;
         $scope.$apply();
     }
 
@@ -110,24 +92,28 @@
             return;
         }
         var modal = UIkit.modal.blockUI('<div class=\'uk-text-center\'>Processing...<br/><img class=\'uk-margin-top\' src=\'/assets/img/spinners/spinner.gif\' alt=\'\'>');
-        var userList = [];
-        _.each(vm.users,function(user) {
-            if (!user.removed) {
-                var createUser  = {};
+        var questionList = [];
+        _.each(vm.questions,function(question) {
+            if (!question.removed) {
+                var createQuestion  = {};
                 _.each(vm.headers,function(header,index) {
-                    if (header.column && !header.deleted)
-                        createUser[header.column] = user[index];
+                    if (header.column && !header.deleted) {
+                        createQuestion[header.column] = question[index];
+                        if (header.column=='options') {
+                            createQuestion[header.column] = question[index].split(';');
+                        }
+                    }
                 });
-                createUser.group = vm.group[0];
-                userList.push(createUser);
+                createQuestion.category = vm.group[0];
+                questionList.push(createQuestion);
             }
         });
-        AdminService.bulkCreate({users:userList},function() {
+        QuestionsService.bulkCreate({questions:questionList},function() {
             modal.hide();
             $window.location.reload();
         },function(errorResponse) {
             modal.hide();
-            Notification.error({ message: errorResponse.data.message, title: '<i class="uk-icon-ban"></i> User import error!' });
+            Notification.error({ message: errorResponse.data.message, title: '<i class="uk-icon-ban"></i> Question import error!' });
         })
     }
 

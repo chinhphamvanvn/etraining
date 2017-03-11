@@ -15,6 +15,10 @@
       update: {
         method: 'PUT'
       },
+      bulkCreate: {
+          method: 'POST',
+          url: '/api/questions/bulk/:questions'
+        },
       byCategoryAndLevel : {
             method: 'GET',
             url: '/api/questions/byCategoryAndLevel/:groupId/:level',
