@@ -8,9 +8,14 @@ var questionsPolicy = require('../policies/questions.server.policy'),
 
 module.exports = function(app) {
   // Questions Routes
+    app.route('/api/questions/bulk')
+    .post(questionsPolicy.isAllowed, questions.bulkCreate);
+    
   app.route('/api/questions').all(questionsPolicy.isAllowed)
     .get(questions.list)
     .post(questions.create);
+  
+ 
 
   app.route('/api/questions/byCategoryAndLevel/:groupId/:level').all(questionsPolicy.isAllowed)
   .get(questions.listByCategoryAndLevel);

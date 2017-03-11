@@ -6,8 +6,65 @@
 var path = require('path'),
   mongoose = require('mongoose'),
   Question = mongoose.model('Question'),
+  Option = mongoose.model('Option'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
   _ = require('lodash');
+
+
+
+exports.bulkCreate = function (req, res) {
+    var questions = req.body.questions;
+    var promises = [];
+    _.each(questions,function(question) {        
+        var promise =  new Promise(function (resolve, reject) {
+            var newQuestion = new Question(question);
+            var options = questions.options;
+            console.log(newQuestion);
+            newQuestion.save(function (err) {
+                if (err) {
+                  reject(err);
+                } else {     
+                    var optionPromises = [];
+                    _.each(options,function(content) {
+                        var optionPromise =  new Promise(function (resolve, reject) {
+                            var option = new Option({content:content,question:newQuestion._id});
+                            option.save(function(err) {
+                                if (err)
+                                    reject(err);
+                                else
+                                    resolve();
+                            });
+                        });
+                        optionPromises.push(optionPromise);                        
+                    })
+                    Promise.all(optionPromises).then(
+                            function () 
+                            {
+                                resolve();
+                            },
+                            function (err) 
+                            {
+                                reject();
+                            });
+                }            
+            });
+        });
+        promises.push(promise);
+    });
+    
+    Promise.all(promises).then(
+            function () 
+            {
+                res.json({success:true});
+            },
+            function (err) 
+            {
+                return res.status(422).send({
+                    message: errorHandler.getErrorMessage(err)
+                  });
+            });
+
+}
 
 /**
  * Create a Question
