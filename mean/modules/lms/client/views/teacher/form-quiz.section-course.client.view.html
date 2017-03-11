@@ -110,7 +110,7 @@
                 <div class="uk-width-1-2 arsley-row">
                   <div class="uk-input-group">
                     <label for="exam_duration">{{'MODEL.EXAM.DURATION'|translate}}
-                      (minutes)</label>
+                      ({{"MODEL.MINUTE" | translate}})</label>
                     <input id="exam_duration"
                            kendo-numeric-text-box
                            k-min="1" k-max="360"
@@ -123,7 +123,7 @@
                     <label for="exam_attempt">{{'MODEL.EXAM.MAX_ATTEMPT'|translate}}</label>
                     <input id="exam_attempt"
                            kendo-numeric-text-box
-                           k-min="-1" k-max="10"
+                           k-min="1" k-max="10"
                            k-ng-model="vm.quiz.maxAttempt"
                            style="width: 100%;"/>
                   </div>
