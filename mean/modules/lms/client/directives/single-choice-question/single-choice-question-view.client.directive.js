@@ -8,7 +8,7 @@
     .directive('singleChoiceQuestion', ['OptionsService','QuestionsService','fileManagerConfig','_', singleChoiceQuestion]);
 
   function singleChoiceQuestion(OptionsService,QuestionsService,fileManagerConfig,_) {
-      
+
       return {
           scope: {
               question: "=",
@@ -46,13 +46,13 @@
                            }
                       });
                   else
-                      scope.question.options = []; 
+                      scope.question.options = [];
               });
-              
+
               scope.translateContent = function() {
                   return scope.question.description;
-              }
-              
+              };
+
               scope.addOption = function() {
                   var option = new OptionsService();
                   if (scope.question.options.length==0)
@@ -63,18 +63,19 @@
                   option.$save(function() {
                       scope.question.options.push(option);
                   });
-              }
-              
+              };
+
               scope.selectOption = function(option) {
+                  console.log('=========', option);
                   _.each(scope.question.options,function(obj) {
                       if (obj._id != option._id)
-                          obj.selected = false; 
+                          obj.selected = false;
                   });
                   option.selected = true;
                   if (scope.mode =='edit')
                       scope.question.correctOptions = [option._id];
-              }
-              
+              };
+
               scope.removeOption = function(option) {
                   if (option._id)  {
                       OptionsService.delete({optionId:option._id},function() {
@@ -84,8 +85,8 @@
                           scope.question.correctOptions = _.reject(scope.question.correctOptions,function(o) {
                               return o == option._id;
                           })
-                      })                      
-                  } 
+                      })
+                  }
               }
           }
       }
