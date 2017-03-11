@@ -107,8 +107,9 @@ function ExamsStudyController($scope, $rootScope,$state, $window, QuestionsServi
     function updateClock() {
       vm.remainTime--;
       if (vm.exam.preDueWarning && vm.remainTime < vm.exam.preDue * 60) {
+          if (!vm.timeUp)
+              UIkit.modal.alert($translate.instant('ALERT.EXAM.TIME_UP',{ minute: vm.exam.preDue }));
           vm.timeUp = true;
-          UIkit.modal.alert($translate.instant('ALERT.EXAM.TIME_UP',{ minute: vm.exam.preDue }));
       }
     }
 
