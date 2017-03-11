@@ -18,21 +18,40 @@ exports.bulkCreate = function (req, res) {
     _.each(questions,function(question) {        
         var promise =  new Promise(function (resolve, reject) {
             var newQuestion = new Question(question);
-            var options = questions.options;
+            var correctOptions = questions.correctOptions;
+            var wrongOptions = questions.wrongOptions;
             console.log(newQuestion);
+            newQuestion.correctOptions = [];
             newQuestion.save(function (err) {
                 if (err) {
                   reject(err);
                 } else {     
                     var optionPromises = [];
-                    _.each(options,function(content) {
+                    _.each(correctOptions,function(content) {
                         var optionPromise =  new Promise(function (resolve, reject) {
                             var option = new Option({content:content,question:newQuestion._id});
                             option.save(function(err) {
                                 if (err)
                                     reject(err);
-                                else
+                                else{
+                                    newQuestion.correctOptions.push(option._id);
+                                    newQuestion.save(function(err) {
+                                        resolve();
+                                    });                                    
+                                }
+                            });
+                        });
+                        optionPromises.push(optionPromise);                        
+                    });
+                    _.each(wrongptions,function(content) {
+                        var optionPromise =  new Promise(function (resolve, reject) {
+                            var option = new Option({content:content,question:newQuestion._id});
+                            option.save(function(err) {
+                                if (err)
+                                    reject(err);
+                                else{
                                     resolve();
+                                }
                             });
                         });
                         optionPromises.push(optionPromise);                        

@@ -32,7 +32,7 @@
                                  <span class="sub_heading">{{'MODEL.EXAM.INSTRUCTION'|translate}}</span>
                                 <p ng-bind-html="vm.exam.instruction"></p>
                             </div>
-                            <div class="uk-width-medium-1-2">
+                            <div class="uk-width-medium-1-1">
                                  <span class="sub_heading">{{'MODEL.EXAM.QUESTION_SELECT'|translate}}
                                     : </span>
                                 <span class="uk-text-italic"
@@ -40,7 +40,7 @@
                                 <span class="uk-text-italic"
                                     ng-show="vm.exam.questionSelection=='auto'">{{'COMMON.QUESTION_SELECT.AUTO'|translate}}</span>
                             </div>
-                            <div class="uk-grid" data-uk-grid-margin
+                            <div class="uk-width-medium-1-1 uk-grid" data-uk-grid-margin
                                 ng-show="vm.exam.questionSelection=='auto'">
                                 <div class="uk-width-1-1">
                                     <label>{{'MODEL.EXAM.QUESTION_NUMBER'|translate}}
@@ -60,7 +60,7 @@
                                         : {{vm.category.name}}</label>
                                 </div>
                             </div>
-                            <div
+                            <div class="uk-width-medium-1-1"
                                 ng-show="vm.exam.questionSelection=='manual'">
                                 <div class=" uk-overflow-container">
                                     <table

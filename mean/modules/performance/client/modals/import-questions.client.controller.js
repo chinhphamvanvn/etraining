@@ -54,8 +54,14 @@
                 },
                 {
                     id: 5,
-                    title: $translate.instant('MODEL.QUESTION.OPTIONS'),
-                    value: "options",
+                    title: $translate.instant('MODEL.QUESTION.CORRECT_OPTIONS'),
+                    value: "correctOptions",
+                    parent_id: 1
+                },
+                {
+                    id: 6,
+                    title: $translate.instant('MODEL.QUESTION.WRONG_OPTIONS'),
+                    value: "wrongOptions",
                     parent_id: 1
                 }
               
@@ -99,7 +105,7 @@
                 _.each(vm.headers,function(header,index) {
                     if (header.column && !header.deleted) {
                         createQuestion[header.column] = question[index];
-                        if (header.column=='options') {
+                        if (header.column=='correctOptions' || header.column=='wrongOptions') {
                             createQuestion[header.column] = question[index].split(';');
                         }
                     }

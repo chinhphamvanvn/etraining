@@ -68,12 +68,13 @@
               }
               
               scope.selectOption = function(option) {
-                  if (scope.mode =='edit') {
-                      var correctOptions = _.filter(scope.question.options,function(option) {
-                          return option.selected;
-                      })
-                      scope.question.correctOptions = _.pluck(correctOptions,'_id');
-                  }
+                  _.each(scope.question.options,function(obj) {
+                      if (obj._id != option._id)
+                          obj.selected = false; 
+                  });
+                  option.selected = true;
+                  if (scope.mode =='edit')
+                      scope.question.correctOptions = [option._id];
               }
               
               scope.removeOption = function(option) {
