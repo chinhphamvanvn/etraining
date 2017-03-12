@@ -82,7 +82,7 @@
             {{'ERROR.QUESTION.EMPTY_QUESTION_OPTION'|translate}}
         </div>
         </div>
-       
+
     </div>
 </div>
 <div ng-if="mode=='view'">
@@ -213,7 +213,7 @@
                     </div>
                     <div class="uk-width-medium-8-10 uk-text-left">
                         <!-- <label for="option_{{option._id}}" class="inline-label">{{option.order}}.</label> -->
-                        <span >{{option.content}}</span>
+                        <span class="text-wrap">{{option.content}}</span>
                         <span ng-show="option.isCorrect && showAnswer">
                             <i class="material-icons uk-text-success">check_circle</i>
                         </span>
