@@ -25,7 +25,7 @@
                            ['x'],
                           [$translate.instant('COMMON.ENROLL.COMPLETED')],
                       ],
-                      type: 'spline',
+                      type: 'bar',
                       labels: true
                   },
                   axis: {

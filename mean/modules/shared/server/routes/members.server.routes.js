@@ -22,7 +22,7 @@ module.exports = function(app) {
   .get(members.memberByUser);
   
   app.route('/api/members/withdraw/:memberId').all(membersPolicy.isAllowed)
-  .post(members.withdraw);
+  .put(members.withdraw);
   
   app.route('/api/members/byUserAndCourse/:userId/:courseId').all(membersPolicy.isAllowed)
   .get(members.memberByUserAndCourse);

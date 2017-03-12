@@ -32,7 +32,7 @@
               url:'/api/members/byUser/:userId'
             },
             withdraw: {
-                method: 'POST',
+                method: 'PUT',
                 url:'/api/members/withdraw/:memberId'
               },
             byUserAndCourse: {

@@ -53,24 +53,28 @@ function LibraryController($scope, $state, $window, Authentication, $timeout, Li
             };
     function toggleExpand(node) {
         node.data.mediumList = [];
+        vm.number = 0;
         var childsNode = treeUtils.buildGroupListInOrder([node]);
         childsNode.map(function(child) {
             LibraryMediaService.byGroup({groupId:child.data._id},function(medium) {
+                vm.number++;
                 child.data.medium = _.filter(medium,function(media) {
                     return media.published;
                 });
+                if (child.data.medium && child.data.medium.length > 0) {
+                    node.data.mediumList = node.data.mediumList.concat(child.data.medium);
+                }
+                if(vm.number == childsNode.length) {
+                    if(node.data.mediumList.length > 0) {
+                        vm.selectMedia = node.data.mediumList;
+                        vm.sort = "asc";
+                    } else {
+                        vm.selectMedia = [];
+                    }
+                }
             });
-            if (child.data.medium && child.data.medium.length > 0) {
-                node.data.mediumList = node.data.mediumList.concat(child.data.medium);
-            }
         });
 
-        if(node.data.mediumList.length > 0) {
-            vm.selectMedia = node.data.mediumList;
-            vm.sort = "asc";
-        } else {
-            vm.selectedCourse = [];
-        }
         if (node.children.length == 0)
             return;
         if (node.expand)

@@ -84,7 +84,7 @@ function ExamsStudyController($scope, $rootScope,$state, $window, QuestionsServi
                     vm.alert = $translate.instant('ERROR.EXAM.QUESTION_NOT_FOUND');
             });
         }
-        if (vm.exam.questionSelection == 'ato') {
+        if (vm.exam.questionSelection == 'auto') {
             examUtils.questionRandom(vm.exam.questionCategory,vm.exam.questionLevel,vm.exam.questionNumber).then(function(questions) {
                 vm.questions = questions;
                 vm.submit.answers = [];
@@ -149,6 +149,7 @@ function ExamsStudyController($scope, $rootScope,$state, $window, QuestionsServi
       save(function () {
         UIkit.modal.confirm($translate.instant('COMMON.CONFIRM_PROMPT'), function () {
           $interval.cancel(vm.intervalToken);
+          $timeout.cancel(vm.timeoutToken);
           vm.submit.status = 'completed';
           vm.submit.end = new Date();
           vm.submit.answers = _.map(vm.questions, function (obj) {

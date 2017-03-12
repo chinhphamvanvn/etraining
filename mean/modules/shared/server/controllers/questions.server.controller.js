@@ -26,9 +26,10 @@ exports.bulkCreate = function (req, res) {
                     var correctOptions = question.correctOptions;
                     var wrongOptions = question.wrongOptions;
                     var optionPromises = [];
+                    var order  = 1;
                     _.each(correctOptions,function(content) {
                         var optionPromise =  new Promise(function (resolve, reject) {
-                            var option = new Option({content:content,question:newQuestion._id});
+                            var option = new Option({content:content,question:newQuestion._id,order:order++});
                             option.save(function(err) {
                                 console.log(option);
                                 if (err)
@@ -45,7 +46,7 @@ exports.bulkCreate = function (req, res) {
                     });
                     _.each(wrongOptions,function(content) {
                         var optionPromise =  new Promise(function (resolve, reject) {
-                            var option = new Option({content:content,question:newQuestion._id});
+                            var option = new Option({content:content,question:newQuestion._id,order:order++});
                             option.save(function(err) {
                                 console.log(option);
                                 if (err)
