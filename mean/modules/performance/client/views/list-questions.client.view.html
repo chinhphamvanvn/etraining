@@ -71,19 +71,19 @@
                             <tbody>
                                 <tr ng-repeat="question in vm.questions">
                                     <td style="vertical-align: middle">{{question.title}}</td>
-                                    <th>
+                                    <td>
                                         <span ng-show="question.type == 'sc'">{{'COMMON.QUESTION_TYPE.SC'|translate}}</span>
                                         <span ng-show="question.type == 'mc'">{{'COMMON.QUESTION_TYPE.MC'|translate}}</span>
                                         <span ng-show="question.type == 'tf'">{{'COMMON.QUESTION_TYPE.TF'|translate}}</span>
                                         <span ng-show="question.type == 'fb'">{{'COMMON.QUESTION_TYPE.FB'|translate}}</span>
-                                    </th>
+                                    </td>
 
-                                    <th style="padding: 8px 0px; width: 93px">
+                                    <td style="padding: 8px 0px; width: 93px">
                                         <a ui-sref="admin.workspace.performance.question.edit({questionId:question._id})"  data-uk-tooltip="{pos:'right'}" title="{{'ACTION.EDIT'|translate}}" class="fl-left"><i class="md-icon material-icons fix-icon-size">edit</i></a>
                                         <a ui-sref="admin.workspace.performance.question.view({questionId:question._id})"  data-uk-tooltip="{pos:'right'}" title="{{'ACTION.VIEW'|translate}}" class="fl-left"><i class="md-icon material-icons fix-icon-size">info_outline</i></a>
                                         <a data-uk-tooltip="{pos:'right'}" title="{{'ACTION.DELETE'|translate}}" ng-click="vm.remove(question)" class="fl-left"><i class="md-icon material-icons uk-text-danger fix-icon-size">delete</i></a>
                                         <div class="clear"></div>
-                                    </th>
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>

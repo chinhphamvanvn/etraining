@@ -2,8 +2,12 @@
   <div class="uk-alert uk-alert-danger" data-uk-alert ng-show="vm.alert">
     {{vm.alert}}
   </div>
-
-  <div class="md-card" ng-show="!vm.alert">
+  <div ng-show="!vm.alert && !vm.startQuiz" class="uk-text-center">
+    <a class="md-btn md-btn-primary md-btn-wave-light" ng-click="vm.startStudy()">
+          {{'ACTION.START_QUIZ'|translate}}
+        </a>
+  </div>
+  <div class="md-card" ng-show="!vm.alert && vm.startQuiz">
     <div class="md-card-toolbar"
          ng-class="{'md-bg-green-200':vm.question.attempted,'md-bg-grey-100':!vm.question.attempted }">
       <div class="md-card-toolbar-actions">

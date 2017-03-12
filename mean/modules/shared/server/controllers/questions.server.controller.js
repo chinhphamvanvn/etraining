@@ -15,22 +15,22 @@ var path = require('path'),
 exports.bulkCreate = function (req, res) {
     var questions = req.body.questions;
     var promises = [];
-    _.each(questions,function(question) {        
+    _.each(questions,function(question) {       
         var promise =  new Promise(function (resolve, reject) {
             var newQuestion = new Question(question);
-            var correctOptions = questions.correctOptions;
-            var wrongOptions = questions.wrongOptions;
-            console.log(newQuestion);
             newQuestion.correctOptions = [];
             newQuestion.save(function (err) {
                 if (err) {
                   reject(err);
                 } else {     
+                    var correctOptions = question.correctOptions;
+                    var wrongOptions = question.wrongOptions;
                     var optionPromises = [];
                     _.each(correctOptions,function(content) {
                         var optionPromise =  new Promise(function (resolve, reject) {
                             var option = new Option({content:content,question:newQuestion._id});
                             option.save(function(err) {
+                                console.log(option);
                                 if (err)
                                     reject(err);
                                 else{
@@ -47,6 +47,7 @@ exports.bulkCreate = function (req, res) {
                         var optionPromise =  new Promise(function (resolve, reject) {
                             var option = new Option({content:content,question:newQuestion._id});
                             option.save(function(err) {
+                                console.log(option);
                                 if (err)
                                     reject(err);
                                 else{

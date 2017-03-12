@@ -62,7 +62,7 @@
 
 
     function getExportHeader() {
-        return [
+        return  [
                 $translate.instant('MODEL.USER.USERNAME'),
                 $translate.instant('MODEL.COURSE.CODE'),
                 $translate.instant('MODEL.COURSE.NAME'),
