@@ -64,29 +64,47 @@
                     });                    
                 },
                 questionRandom:function(category,level,number) {
-                    var questions = [];
-                    GroupsService.listQuestionGroup(function(groups) {
-                        var nodes = treeUtils.buildGroupTree(groups);
-                        var parentNode = treeUtils.findGroupNode(nodes,category);
-                        var childNodes = treeUtils.buildGroupListInOrder([parentNode]);
-                        var allPromises = [];
-                        _.each(childNodes,function(node) {
-                            allPromises.push(QuestionsService.byCategoryAndLevel({groupId:node.data._id,level:level}));
+                    return $q(function(resolve, reject) {
+                        QuestionsService.byCategoryAndLevel({groupId:node.data._id,level:level},function(questions) {
+                            if (!questions.length)
+                                resolve([]);
+                            else {
+                                var randomQuestions = [];
+                                while (number) {
+                                    var index = Math.floor( (Math.random()*questions.length));
+                                    randomQuestions.push(questions[index]);
+                                    number--;
+                                }
+                                resolve(randomQuestions);
+                            }
                         });
-                        $q.all(allPromises).then(function(questionsList) {
-                           _.each(questionsList,function(qList) {
-                               questions = questions.concat(qList);
-                           });
-                           if (!questions.length)
-                               resolve([])
-                           var randomQuestions = [];
-                           while (number) {
-                               var index = Math.floor( (Math.random()*questions.length));
-                               randomQuestions.push(questions[index]);
-                               number--;
-                           }
-                           resolve(randomQuestions);
-                        });
+                     /*   var questions = [];
+                        GroupsService.listQuestionGroup(function(groups) {
+                            var nodes = treeUtils.buildGroupTree(groups);
+                            var parentNode = treeUtils.findGroupNode(nodes,category);
+                            var childNodes = treeUtils.buildGroupListInOrder([parentNode]);
+                            var allPromises = [];
+                            _.each(childNodes,function(node) {
+                                allPromises.push(QuestionsService.byCategoryAndLevel({groupId:node.data._id,level:level}));
+                            });
+                            $q.all(allPromises).then(function(questionsList) {
+                               _.each(questionsList,function(qList) {
+                                   questions = questions.concat(qList);
+                               });
+                               if (!questions.length)
+                                   resolve([]);
+                               else {
+                                   var randomQuestions = [];
+                                   while (number) {
+                                       var index = Math.floor( (Math.random()*questions.length));
+                                       randomQuestions.push(questions[index]);
+                                       number--;
+                                   }
+                                   resolve(randomQuestions);
+                               }
+                               
+                            });
+                        });*/
                     });
                 },
                 candidateScoreByBusmit:candidateScoreByBusmit,
