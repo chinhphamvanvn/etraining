@@ -149,6 +149,7 @@ function ExamsStudyController($scope, $rootScope,$state, $window, QuestionsServi
       save(function () {
         UIkit.modal.confirm($translate.instant('COMMON.CONFIRM_PROMPT'), function () {
           $interval.cancel(vm.intervalToken);
+          $timeout.cancel(vm.timeoutToken);
           vm.submit.status = 'completed';
           vm.submit.end = new Date();
           vm.submit.answers = _.map(vm.questions, function (obj) {
