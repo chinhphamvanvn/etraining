@@ -14,13 +14,19 @@
     vm.createQuestion = createQuestion;
     vm.remove = remove;
     vm.selectGroup = selectGroup;
+    vm.currPage = 1;
+    vm.itemsPerPage = 10;
 
     function selectGroup(groups) {
+      console.log('select groups');
         vm.groups = groups;
+        vm.currPage = 1;
+        vm.questions = [];
         vm.totalQuestions  = [];
         _.each(vm.groups,function(group) {
             QuestionsService.byCategory({groupId:group},function(questions) {
                 vm.totalQuestions = vm.totalQuestions.concat(questions);
+                vm.questions = vm.totalQuestions.slice(0, vm.itemsPerPage);
             })
         })
     }
