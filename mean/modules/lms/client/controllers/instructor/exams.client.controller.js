@@ -79,14 +79,13 @@
       vm.exam.questions = _.map(vm.selectedQuestions, function (q) {
         return {id: q._id, order: q.order, score: q.score}
       });
-      console.log(vm.exam);
-      // vm.exam.$update(function () {
-      //     Notification.success({message: '<i class="uk-icon-check"></i> Exam saved successfully!'});
-      //     $state.go('workspace.lms.exams.view', {examId: vm.exam._id, scheduleId: vm.schedule._id})
-      //   },
-      //   function () {
-      //     Notification.success({message: '<i class="uk-icon-check"></i> Exam saved failed!'});
-      //   });
+      vm.exam.$update(function () {
+          Notification.success({message: '<i class="uk-icon-check"></i> Exam saved successfully!'});
+          $state.go('workspace.lms.exams.view', {examId: vm.exam._id, scheduleId: vm.schedule._id})
+        },
+        function () {
+          Notification.success({message: '<i class="uk-icon-check"></i> Exam saved failed!'});
+        });
     }
 
     function selectQuestions() {
