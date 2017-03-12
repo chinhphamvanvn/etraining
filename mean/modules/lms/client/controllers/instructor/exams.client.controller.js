@@ -21,7 +21,7 @@ function ExamsController($scope, $state, $window, Authentication, $timeout, exam
     vm.update = update;
     vm.questions = [];
     vm.tinymce_options = fileManagerConfig;
-    
+
     vm.groupConfig = {
             create: false,
             maxItems: 1,
@@ -51,7 +51,7 @@ function ExamsController($scope, $state, $window, Authentication, $timeout, exam
                  question.order = examQuestion.order;
              });
          });
-     
+
      function moveUp(question) {
          var prevQuestion = _.find(vm.selectedQuestions,function(q) {
              return q.order < question.order;
@@ -97,17 +97,18 @@ function ExamsController($scope, $state, $window, Authentication, $timeout, exam
                     question.score = 1;
                     question.order = vm.selectedQuestions.length + 1;
                     vm.selectedQuestions.push(question);
-                }                
+                }
             }
         })
     }
 
     function selectQuestionGroup(groups) {
+       console.log('select group');
         vm.questions = [];
         _.each(groups,function(group) {
            QuestionsService.byCategory({groupId:group},function(questions) {
                vm.questions = vm.questions.concat(questions);
-           })     
+           })
         });
     }
 

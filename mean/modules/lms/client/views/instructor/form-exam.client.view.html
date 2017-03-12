@@ -101,7 +101,7 @@
                                         <label for="exam_attempt">{{'MODEL.EXAM.QUESTION_NUMBER'|translate}}</label>
                                         <input id="exam_attempt"
                                             kendo-numeric-text-box
-                                            k-min="-1" k-max="10"
+                                            k-min="1" k-max="10"
                                             k-ng-model="vm.exam.questionNumber"
                                             style="width: 100%;" />
                                     </div>
@@ -145,6 +145,8 @@
                                         options="vm.groupOptions"
                                         ng-model="vm.exam.questionCategory"
                                         selectize />
+                                    {{vm.exam.questionCategory}}
+
                                     <span class="uk-form-help-block">{{'MODEL.EXAM.QUESTION_CAT'|translate}}</span>
                                 </div>
                             </div>
@@ -317,8 +319,8 @@
                                         class="check_row"
                                         table-check-row>
                                 </td>
-                                <td class="uk-text-center">{{question.title}}</td>
-                                <td class="uk-text-center uk-width-2-10">
+                                <td>{{question.title | limitTo: 30}}</td>
+                                <td class="uk-width-2-10">
                                     <span ng-if="question.type=='mc'">{{'COMMON.QUESTION_TYPE.MC'|translate}}</span>
                                     <span ng-if="question.type=='sc'">{{'COMMON.QUESTION_TYPE.SC'|translate}}</span>
                                     <span ng-if="question.type=='tf'">{{'COMMON.QUESTION_TYPE.TF'|translate}}</span>
