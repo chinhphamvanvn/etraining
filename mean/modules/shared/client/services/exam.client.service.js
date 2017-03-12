@@ -68,7 +68,7 @@
                     GroupsService.listQuestionGroup(function(groups) {
                         var nodes = treeUtils.buildGroupTree(groups);
                         var parentNode = treeUtils.findGroupNode(nodes,category);
-                        var childNodes = treeUtils.buildGroupListInOrder(parentNode);
+                        var childNodes = treeUtils.buildGroupListInOrder([parentNode]);
                         var allPromises = [];
                         _.each(childNodes,function(node) {
                             allPromises.push(QuestionsService.byCategoryAndLevel({groupId:node.data._id,level:level}));
