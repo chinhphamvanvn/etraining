@@ -74,6 +74,11 @@ function CoursesOutlineEditController($scope, $state, $window, Authentication, $
 
     function addSection() {
         UIkit.modal.prompt($translate.instant('MODEL.GROUP.NAME'), '', function(val){
+            val = val.trim();
+            if (!val) {
+                UIkit.modal.alert($translate.instant('ERROR.GROUP.EMPTY_NAME_NOT_ALLOW'));
+                return;
+            } 
             var section = new EditionSectionsService();
             section.name = val;
             section.edition = vm.edition._id;
@@ -147,6 +152,11 @@ function CoursesOutlineEditController($scope, $state, $window, Authentication, $
         }
         else
             UIkit.modal.prompt($translate.instant('MODEL.GROUP.NAME'), '', function(val){
+            val = val.trim();
+            if (!val) {
+                UIkit.modal.alert($translate.instant('ERROR.GROUP.EMPTY_NAME_NOT_ALLOW'));
+                return;
+            } 
             section.name = val;
             section.$update(function () {
                }, function (errorResponse) {
