@@ -44,6 +44,10 @@
                   });
               }
               
+              scope.translateContent = function() {
+                  return scope.question.description;
+              }
+              
               scope.selectOption = function(option) {
                   if (scope.mode !='view') {
                       _.each(scope.question.options,function(obj) {
