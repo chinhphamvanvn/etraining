@@ -41,7 +41,8 @@
                                         <th>{{candidate.firstSubmit | date:'dd/MM/yyyy'}}</th>
                                         <th>{{candidate.score}}</th>
                                         <th>{{candidate.submit}}</th>
-                                        <th>{{candidate.result}}</th>
+                                        <th><span ng-show="candidate.result">{{'COMMON.PASS'|translate}}</span>
+                                        <span ng-show="!candidate.result">{{'COMMON.FAIL'|translate}}</span> </th>
                                     </tr>
                                 </tbody>
                             </table>

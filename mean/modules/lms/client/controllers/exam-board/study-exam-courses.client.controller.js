@@ -106,7 +106,7 @@ function ExamsStudyController($scope, $rootScope,$state, $window, QuestionsServi
 
     function updateClock() {
       vm.remainTime--;
-      if (vm.exam.preDueWarning && vm.remainTime < vm.exam.preDue * 60) {
+      if (vm.exam.preDueWarning && vm.remainTime == vm.exam.preDue * 60) {
           if (!vm.timeUp)
               UIkit.modal.alert($translate.instant('ALERT.EXAM.TIME_UP',{ minute: vm.exam.preDue }));
           vm.timeUp = true;
@@ -148,6 +148,7 @@ function ExamsStudyController($scope, $rootScope,$state, $window, QuestionsServi
       
       save(function () {
         UIkit.modal.confirm($translate.instant('COMMON.CONFIRM_PROMPT'), function () {
+          $interval.cancel(vm.intervalToken);
           vm.submit.status = 'completed';
           vm.submit.end = new Date();
           vm.submit.answers = _.map(vm.questions, function (obj) {

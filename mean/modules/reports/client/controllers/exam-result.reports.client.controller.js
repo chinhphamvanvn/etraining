@@ -61,9 +61,9 @@
                    candidate.score = score;
                    vm.summary.score += score;
                    if (candidate.score < candidate.exam.benchmark) 
-                       candidate.result = 'NOK';
+                       candidate.result = false;
                    else {
-                       candidate.result = 'OK';
+                       candidate.result = true;
                        vm.summary.passRate++;
                    }
                });
@@ -85,7 +85,7 @@
                         firstSubmit:candidate.firstSubmit? moment(new Date(candidate.firstSubmit)).format('DD/MM/YYYY'):'',
                         score: candidate.score,
                         submit:candidate.submit,
-                        result:candidate.result})
+                        result:candidate.result ? $translate.instant('COMMON.PASS') :$translate.instant('COMMON.FAIL') })
         });
         return data;
     }

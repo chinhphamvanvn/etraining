@@ -53,7 +53,11 @@
                     </div>
                 </div>
             </div>
+            <div class="uk-alert uk-alert-warning uk-text-center" ng-show="question.correctOptions.length==0">
+            {{'ERROR.QUESTION.EMPTY_QUESTION_OPTION'|translate}}
         </div>
+        </div>
+        
     </div>
 </div>
 
@@ -135,11 +139,10 @@
                     ng-repeat="option in question.options | orderBy: 'order'">
                     <div class="uk-width-medium-2-10 uk-text-center" >
                         <span class="icheck-inline">
-                            <input type="radio" name="radiotruefalse"
+                            <input type="checkbox" name="radiosingle"
                                 id="option_{{option._id}}" icheck
                                 ng-model="option.selected"
-                                ng-checked="option.selected ? true : ''"
-                                ng-change="selectOption(option)"/>
+                                ng-change="selectOption(option)" />
                         </span>
                     </div>
                     <div class="uk-width-medium-8-10">

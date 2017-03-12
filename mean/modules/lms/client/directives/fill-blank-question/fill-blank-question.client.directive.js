@@ -68,7 +68,11 @@
               }
 
               scope.selectOption = function(option) {
-                  if (scope.mode =='edit') {
+                  _.each(scope.question.options,function(obj) {
+                      if (obj._id != option._id)
+                          obj.selected = false; 
+                  });
+                  if (scope.mode =='edit' ) {
                       var correctOptions = _.filter(scope.question.options,function(option) {
                           return option.selected;
                       })
