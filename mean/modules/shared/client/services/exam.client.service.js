@@ -65,7 +65,7 @@
                 },
                 questionRandom:function(category,level,number) {
                     return $q(function(resolve, reject) {
-                        QuestionsService.byCategoryAndLevel({groupId:node.data._id,level:level},function(questions) {
+                        QuestionsService.byCategoryAndLevel({groupId:category,level:level},function(questions) {
                             if (!questions.length)
                                 resolve([]);
                             else {
