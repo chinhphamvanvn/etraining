@@ -101,7 +101,7 @@
                                         <label for="exam_attempt">{{'MODEL.EXAM.QUESTION_NUMBER'|translate}}</label>
                                         <input id="exam_attempt"
                                             kendo-numeric-text-box
-                                            k-min="1" k-max="10"
+                                            k-min="1" k-max="100"
                                             k-ng-model="vm.exam.questionNumber"
                                             style="width: 100%;" />
                                     </div>
@@ -116,7 +116,10 @@
                                                 value="easy" icheck
                                                 ng-model="vm.exam.questionLevel" />
                                             <label for="question_easy"
-                                                class="inline-label">{{'COMMON.DIFFICULTY.EASY'|translate}}</label>
+                                                class="inline-label">
+                                              {{'COMMON.DIFFICULTY.EASY'|translate}}
+                                              <span ng-show="vm.exam.questionCategory">({{vm.statisticQuestion.easy.length}})</span>
+                                            </label>
                                         </span>
                                         <span class="icheck-inline">
                                             <input type="radio"
@@ -125,7 +128,10 @@
                                                 value="medium" icheck
                                                 ng-model="vm.exam.questionLevel" />
                                             <label for="question_medium"
-                                                class="inline-label">{{'COMMON.DIFFICULTY.MEDIUM'|translate}}</label>
+                                                class="inline-label">
+                                              {{'COMMON.DIFFICULTY.MEDIUM'|translate}}
+                                              <span ng-show="vm.exam.questionCategory">({{vm.statisticQuestion.medium.length}})</span>
+                                            </label>
                                         </span>
                                         <span class="icheck-inline">
                                             <input type="radio"
@@ -134,7 +140,10 @@
                                                 value="hard" icheck
                                                 ng-model="vm.exam.questionLevel" />
                                             <label for="question_hard"
-                                                class="inline-label">{{'COMMON.DIFFICULTY.HARD'|translate}}</label>
+                                                class="inline-label">
+                                              {{'COMMON.DIFFICULTY.HARD'|translate}}
+                                              <span ng-show="vm.exam.questionCategory">({{vm.statisticQuestion.hard.length}})</span>
+                                            </label>
                                         </span>
                                     </div>
                                 </div>
@@ -144,8 +153,8 @@
                                         config="vm.groupConfig"
                                         options="vm.groupOptions"
                                         ng-model="vm.exam.questionCategory"
+                                        ng-change="vm.selectQuestionGroup([vm.exam.questionCategory])"
                                         selectize />
-                                    {{vm.exam.questionCategory}}
 
                                     <span class="uk-form-help-block">{{'MODEL.EXAM.QUESTION_CAT'|translate}}</span>
                                 </div>
