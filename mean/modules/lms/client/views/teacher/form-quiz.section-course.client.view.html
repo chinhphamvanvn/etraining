@@ -50,25 +50,28 @@
                 <div class="uk-grid" data-uk-grid-margin ng-repeat="question in vm.questions | orderBy: 'order'">
                   <div class="uk-width-1-1 uk-margin-top">
                     <div class="md-card">
-                      <div class="md-card-toolbar">
-                        <div class="md-card-toolbar-actions">
-                          <i class="uk-icon-arrow-up uk-icon-small uk-margin-right" ng-click="vm.moveUp(question)"
-                             data-uk-tooltip="{cls:'uk-tooltip-small',pos:'top'}" title="{{'ACTION.UP'|translate}}"></i>
-                          <i class="uk-icon-arrow-down uk-icon-small uk-margin-right" ng-click="vm.moveDown(question)"
-                             data-uk-tooltip="{cls:'uk-tooltip-small',pos:'top'}"
-                             title="{{'ACTION.DOWN'|translate}}"></i>
-                          <a ng-click="vm.removeQuestion(question)" data-uk-tooltip="{cls:'uk-tooltip-small',pos:'top'}"
-                             title="{{'ACTION.DELETE'|translate}}"><i class="md-icon material-icons uk-text-danger">delete</i></a>
-                          <card-toggle></card-toggle>
-
+                      <div class="md-card-toolbar quiz-toolbar">
+                        <div class="uk-grid">
+                          <div  class="uk-width-7-10">
+                            <h3 class="md-card-toolbar-heading-text text-wrap quiz-heading">
+                              {{question.title}}
+                              <span ng-if="question.type=='mc'" class="uk-text-italic uk-text-small"> - {{'COMMON.QUESTION_TYPE.MC'|translate}}</span>
+                              <span ng-if="question.type=='sc'" class="uk-text-italic uk-text-small"> - {{'COMMON.QUESTION_TYPE.SC'|translate}}</span>
+                              <span ng-if="question.type=='tf'" class="uk-text-italic uk-text-small"> - {{'COMMON.QUESTION_TYPE.TF'|translate}}</span>
+                              <span ng-if="question.type=='fb'" class="uk-text-italic uk-text-small"> - {{'COMMON.QUESTION_TYPE.FB'|translate}}</span>
+                            </h3>
+                          </div>
+                          <div class="md-card-toolbar-actions uk-width-3-10 uk-text-right">
+                            <i class="uk-icon-arrow-up uk-icon-small uk-margin-right" ng-click="vm.moveUp(question)"
+                               data-uk-tooltip="{cls:'uk-tooltip-small',pos:'top'}" title="{{'ACTION.UP'|translate}}"></i>
+                            <i class="uk-icon-arrow-down uk-icon-small uk-margin-right" ng-click="vm.moveDown(question)"
+                               data-uk-tooltip="{cls:'uk-tooltip-small',pos:'top'}"
+                               title="{{'ACTION.DOWN'|translate}}"></i>
+                            <a ng-click="vm.removeQuestion(question)" data-uk-tooltip="{cls:'uk-tooltip-small',pos:'top'}"
+                               title="{{'ACTION.DELETE'|translate}}"><i class="md-icon material-icons uk-text-danger">delete</i></a>
+                            <card-toggle></card-toggle>
+                          </div>
                         </div>
-                        <h3 class="md-card-toolbar-heading-text">
-                          {{question.title}}
-                          <span ng-if="question.type=='mc'" class="uk-text-italic uk-text-small"> - {{'COMMON.QUESTION_TYPE.MC'|translate}}</span>
-                          <span ng-if="question.type=='sc'" class="uk-text-italic uk-text-small"> - {{'COMMON.QUESTION_TYPE.SC'|translate}}</span>
-                          <span ng-if="question.type=='tf'" class="uk-text-italic uk-text-small"> - {{'COMMON.QUESTION_TYPE.TF'|translate}}</span>
-                          <span ng-if="question.type=='fb'" class="uk-text-italic uk-text-small"> - {{'COMMON.QUESTION_TYPE.FB'|translate}}</span>
-                        </h3>
                       </div>
                       <div class="md-card-content">
                         <div ng-if="question.type=='mc'">

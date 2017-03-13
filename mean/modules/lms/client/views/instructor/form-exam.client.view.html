@@ -148,13 +148,19 @@
                                     </div>
                                 </div>
                                 <div class="uk-width-1-2 parsley-row">
-                                    <input name="question_group"
-                                        id="question_group" type="text"
-                                        config="vm.groupConfig"
-                                        options="vm.groupOptions"
-                                        ng-model="vm.exam.questionCategory"
-                                        ng-change="vm.selectQuestionGroup([vm.exam.questionCategory])"
-                                        selectize />
+                                    <!--<input name="question_group"-->
+                                        <!--id="question_group" type="text"-->
+                                        <!--config="vm.groupConfig"-->
+                                        <!--options="vm.groupOptions"-->
+                                        <!--ng-model="vm.exam.questionCategory"-->
+                                        <!--ng-change="vm.selectQuestionGroup([vm.exam.questionCategory])"-->
+                                        <!--selectize />-->
+                                  <input name="question_group"
+                                         id="question_group" type="text"
+                                         config="vm.groupConfig"
+                                         options="vm.groupOptions"
+                                         ng-model="vm.exam.questionCategory"
+                                         selectize />
 
                                     <span class="uk-form-help-block">{{'MODEL.EXAM.QUESTION_CAT'|translate}}</span>
                                 </div>
