@@ -29,7 +29,7 @@
                                         </th>
                                         <th>{{Math.floor(vm.summary.score/vm.candidates.length)}}</th>
                                         <th>{{Math.floor(vm.summary.submit/vm.candidates.length)}}</th>
-                                        <th>{{vm.summary.passRate}}%</th>
+                                        <th>{{Math.floor(vm.summary.passRate*100/vm.candidates.length)}}%</th>
                                     </tr>
                                 </tfoot>
                                 <tbody>

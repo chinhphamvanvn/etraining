@@ -66,45 +66,20 @@
                 questionRandom:function(category,level,number) {
                     return $q(function(resolve, reject) {
                         QuestionsService.byCategoryAndLevel({groupId:category,level:level},function(questions) {
-                            if (!questions.length)
-                                resolve([]);
+                            if (!questions.length || number > questions.length)
+                                reject();
                             else {
                                 var randomQuestions = [];
                                 while (number) {
                                     var index = Math.floor( (Math.random()*questions.length));
                                     randomQuestions.push(questions[index]);
                                     number--;
+                                    questions =  questions.splice(index,1);
                                 }
                                 resolve(randomQuestions);
                             }
                         });
-                     /*   var questions = [];
-                        GroupsService.listQuestionGroup(function(groups) {
-                            var nodes = treeUtils.buildGroupTree(groups);
-                            var parentNode = treeUtils.findGroupNode(nodes,category);
-                            var childNodes = treeUtils.buildGroupListInOrder([parentNode]);
-                            var allPromises = [];
-                            _.each(childNodes,function(node) {
-                                allPromises.push(QuestionsService.byCategoryAndLevel({groupId:node.data._id,level:level}));
-                            });
-                            $q.all(allPromises).then(function(questionsList) {
-                               _.each(questionsList,function(qList) {
-                                   questions = questions.concat(qList);
-                               });
-                               if (!questions.length)
-                                   resolve([]);
-                               else {
-                                   var randomQuestions = [];
-                                   while (number) {
-                                       var index = Math.floor( (Math.random()*questions.length));
-                                       randomQuestions.push(questions[index]);
-                                       number--;
-                                   }
-                                   resolve(randomQuestions);
-                               }
-                               
-                            });
-                        });*/
+                    
                     });
                 },
                 candidateScoreByBusmit:candidateScoreByBusmit,

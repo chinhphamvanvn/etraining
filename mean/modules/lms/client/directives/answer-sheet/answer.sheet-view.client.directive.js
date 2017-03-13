@@ -13,10 +13,10 @@
           scope: {
               exam: "=",
               answers: "=",
+              sheetId:"="
           },
           templateUrl:'/modules/lms/client/directives/answer-sheet/answer.sheet.directive.client.view.html',
           link: function (scope, element, attributes) {
-              scope.modalId = (new Date()).getTime();
               scope.questions = [];
               scope.$watch('answers',function() {
                   if (scope.answers) {
