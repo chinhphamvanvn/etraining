@@ -74,7 +74,7 @@
                                                 <th
                                                     class=" uk-text-upper uk-width-3-10">{{'MODEL.QUESTION.TYPE'|translate}}</th>
                                                 <th
-                                                    class=" uk-text-upper uk-width-2-10">{{'MODEL.QUESTION.LEVEL'|translate}}</th>
+                                                    class="uk-text-center uk-text-upper uk-width-2-10">{{'MODEL.QUESTION.LEVEL'|translate}}</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -90,7 +90,7 @@
                                                         show="question.show"></question-info>
                                                 </td>
                                                 <td
-                                                    class="  uk-width-4-10">{{question.title}}</td>
+                                                    class="  uk-width-4-10">{{question.title | limitTo: 30}}</td>
                                                 <td
                                                     class=" uk-width-3-10">
                                                     <span
@@ -102,8 +102,7 @@
                                                     <span
                                                         ng-if="question.type=='fb'">{{'COMMON.QUESTION_TYPE.FB'|translate}}</span>
                                                 </td>
-                                                <td
-                                                    class=" uk-width-2-10">
+                                                <td class="uk-text-center uk-width-2-10">
                                                     <span
                                                         ng-if="question.level=='easy'">{{'COMMON.DIFFICULTY.EASY'|translate}}</span>
                                                     <span
