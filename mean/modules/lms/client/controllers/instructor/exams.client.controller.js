@@ -6,9 +6,9 @@
     .module('lms')
     .controller('ExamsController', ExamsController);
 
-  ExamsController.$inject = ['$scope', '$state', '$window', 'Authentication', '$timeout', 'examResolve', 'scheduleResolve', 'Notification', 'QuestionsService', 'ExamsService', 'GroupsService', '$q', 'fileManagerConfig', '_'];
+  ExamsController.$inject = ['$scope', '$state', '$window', 'Authentication', '$timeout', 'examResolve', 'scheduleResolve', 'Notification', 'QuestionsService', 'ExamsService', 'GroupsService', '$q', 'fileManagerConfig', '_', '$translate'];
 
-  function ExamsController($scope, $state, $window, Authentication, $timeout, exam, schedule, Notification, QuestionsService, ExamsService, GroupsService, $q, fileManagerConfig, _) {
+  function ExamsController($scope, $state, $window, Authentication, $timeout, exam, schedule, Notification, QuestionsService, ExamsService, GroupsService, $q, fileManagerConfig, _, $translate) {
     var vm = this;
     vm.authentication = Authentication;
     vm.exam = exam;
@@ -21,6 +21,7 @@
     vm.update = update;
     vm.questions = [];
     vm.tinymce_options = fileManagerConfig;
+    var numberQuestionTooLarge = $translate.instant('ERROR.EXAM.NUMBER_QUESTION_TOO_LARGE');
 
     vm.groupConfig = {
       create: false,
@@ -39,6 +40,7 @@
         }
       });
     });
+
     vm.selectedQuestions = [];
     var selectedIds = _.pluck(vm.exam.questions, 'id');
     if (selectedIds.length)
@@ -76,6 +78,23 @@
 
 
     function update() {
+      // Alert if number question bigger in category of 'auto' mode
+      if (vm.exam.questionSelection === 'auto') {
+        if (vm.exam.questionLevel === 'easy'
+          && (vm.exam.questionNumber > vm.statisticQuestion.easy.length)) {
+          Notification.error({message: numberQuestionTooLarge});
+          return;
+        } else if (vm.exam.questionLevel === 'medium'
+          && (vm.exam.questionNumber > vm.statisticQuestion.medium.length)) {
+          Notification.error({message: numberQuestionTooLarge});
+          return;
+        } else if (vm.exam.questionLevel === 'medium'
+          && (vm.exam.questionNumber > vm.statisticQuestion.medium.length)) {
+          Notification.error({message: numberQuestionTooLarge});
+          return;
+        }
+      }
+
       vm.exam.questions = _.map(vm.selectedQuestions, function (q) {
         return {id: q._id, order: q.order, score: q.score}
       });
@@ -102,6 +121,18 @@
       })
     }
 
+    if (vm.exam.questionSelection === 'auto') {
+      selectQuestionGroup([vm.exam.questionCategory]);
+    }
+
+    $scope.$watch(angular.bind(vm, function () {
+      return vm.exam.questionCategory;
+    }), function (newVal, oldVal) {
+      if (newVal !== oldVal) {
+        selectQuestionGroup([newVal])
+      }
+    });
+
     function selectQuestionGroup(groups) {
       vm.statisticQuestion = {};
       vm.questions = [];
@@ -110,6 +141,7 @@
           QuestionsService.byCategory({groupId: group}, function (questions) {
             vm.questions = vm.questions.concat(questions);
 
+            // Get number of question in category
             vm.statisticQuestion.easy = _.filter(vm.questions, function (question) {
               return question.level == 'easy';
             });
