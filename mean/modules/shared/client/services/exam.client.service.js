@@ -74,7 +74,7 @@
                                     var index = Math.floor( (Math.random()*questions.length));
                                     randomQuestions.push(questions[index]);
                                     number--;
-                                    questions =  questions.splice(index,1);
+                                    questions.splice(index,1);
                                 }
                                 resolve(randomQuestions);
                             }
