@@ -7,7 +7,7 @@
             <h3 class="uk-modal-title">{{'DIALOG.EXAM_RESULT.TITLE'|translate}} </h3>
         </div>
         
-        <div class="md-card" ng-repeat="question in questions track by $index | orderBy:'order'">
+        <div class="md-card" ng-repeat="question in questions  | orderBy:'order'">
             <div class="md-card-toolbar">
             <div class="md-card-toolbar-heading-text">
                 <span>{{'PAGE.LMS.MY_COURSES.COURSE_STUDY.QUESTION'|translate}} {{$index+1}}/{{questionNumber}}
