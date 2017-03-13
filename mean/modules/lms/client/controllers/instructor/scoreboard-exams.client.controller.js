@@ -39,7 +39,6 @@ function ExamsScoreboardController($scope, $state, $window, Authentication, $tim
                     });
                 });
             });
-            console.log(candidate.submits);
             examUtils.candidateProgress(candidate._id,vm.exam._id).then(function(progress) {
                 candidate.attemptCount = progress.count;
             });
