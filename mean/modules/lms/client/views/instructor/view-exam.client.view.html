@@ -128,7 +128,7 @@
                                     </span>
                                     <span
                                         class="uk-text-small uk-text-muted">{{vm.exam.duration}}
-                                        (minutes)</span>
+                                        ({{"MODEL.MINUTE" | translate}})</span>
                                 </div>
                             </li>
                             <li>
@@ -149,10 +149,10 @@
                                     </span>
                                     <span
                                         class="uk-badge uk-badge-success"
-                                        ng-show="vm.exam.allowNavigate">Ok</span>
+                                        ng-show="vm.exam.allowNavigate">{{"COMMON.YES" | translate}}</span>
                                     <span
                                         class="uk-badge uk-badge-danger"
-                                        ng-show="!vm.exam.allowNavigate">Nok</span>
+                                        ng-show="!vm.exam.allowNavigate">{{"COMMON.NO" | translate}}</span>
                                 </div>
                             </li>
                             <li>
@@ -163,10 +163,10 @@
                                     </span>
                                     <span
                                         class="uk-badge uk-badge-success"
-                                        ng-show="vm.exam.showAnswer">Ok</span>
+                                        ng-show="vm.exam.showAnswer">{{"COMMON.YES" | translate}}</span>
                                     <span
                                         class="uk-badge uk-badge-danger"
-                                        ng-show="!vm.exam.showAnswer">Nok</span>
+                                        ng-show="!vm.exam.showAnswer">{{"COMMON.NO" | translate}}</span>
                                 </div>
                             </li>
                             <li>
@@ -178,10 +178,10 @@
                                     <span
                                         class="uk-badge uk-badge-success"
                                         ng-show="vm.exam.earlySubmitPrevention">{{vm.exam.earlySubmit}}
-                                        minutes</span>
+                                        ({{"MODEL.MINUTE" | translate}})</span>
                                     <span
                                         class="uk-badge uk-badge-danger"
-                                        ng-show="!vm.exam.earlySubmitPrevention">Nok</span>
+                                        ng-show="!vm.exam.earlySubmitPrevention">{{"COMMON.NO" | translate}}</span>
                                 </div>
                             </li>
                             <li>
@@ -193,10 +193,10 @@
                                     <span
                                         class="uk-badge uk-badge-success"
                                         ng-show="vm.exam.preDueWarning">{{vm.exam.preDue}}
-                                        minutes</span>
+                                        ({{"MODEL.MINUTE" | translate}})</span>
                                     <span
                                         class="uk-badge uk-badge-danger"
-                                        ng-show="!vm.exam.preDueWarning">Nok</span>
+                                        ng-show="!vm.exam.preDueWarning">{{"COMMON.NO" | translate}}</span>
                                 </div>
                             </li>
                             <li>
