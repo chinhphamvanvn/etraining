@@ -11,6 +11,10 @@
   text-transform: uppercase;
 }
 
+.capitalize {
+  text-transform: capitalize;
+}
+
 .text-wrap {
   white-space: normal;
 }
@@ -21,6 +25,25 @@
 
 .course-card-home {
   margin-top: 25px;
+}
+
+/* Homepage ======================================== */
+.course-title {
+  font-size: 1.05rem;
+  padding: 0;
+  line-height: 20px;
+  min-height: 40px;
+  max-height: 40px;
+}
+
+.course-info {
+  min-height: 40px;
+  max-height: 40px;
+  .author {
+    padding-top: 5px;
+    font-size: 13px;
+    text-transform: capitalize;
+  }
 }
 
 /* C3js chart style ================================ */
@@ -97,65 +120,73 @@
   border: 1px solid #cecece;
   min-width: 220px;
   .selectize-control.single,
-  .selectize-input{
+  .selectize-input {
     border-bottom: 1px solid #cecece;
     margin-top: 0;
   }
 }
 
 /* Custom CSS */
-.fix-icon-size{
-    width: 31px !important;
-    height: 31px !important;
-    line-height: 31px !important;
+.fix-icon-size {
+  width: 31px !important;
+  height: 31px !important;
+  line-height: 31px !important;
 }
-.fl-left{
-    float:left;
+
+.fl-left {
+  float: left;
 }
-.clear{
-    clear: both;
+
+.clear {
+  clear: both;
 }
+
 /* End Custom CSS */
 
-@media (max-width:500px){
+@media (max-width: 500px) {
   .sortCour {
     margin-right: 0px;
     margin-top: 0px;
   }
+
   .detailCoures {
     padding-bottom: 25px;
   }
 }
 
-@media (max-width:800px){
+@media (max-width: 800px) {
   .textdownload {
     display: none;
   }
 }
 
 .imageCourseHome {
-    width: 100%;
-    height: auto;
+  width: 100%;
+  height: auto;
 }
-@media (max-width:479px){
-    .imageCourseHome {
-        width: 60%;
-        height: 50%;
-    }
+
+@media (max-width: 479px) {
+  .imageCourseHome {
+    width: 60%;
+    height: 50%;
+  }
 }
+
 .level-date-home > span {
-    font-size: 13px;
-    color: #212121;
+  font-size: 13px;
+  color: #212121;
 }
 
 span.fancytree-node > span.fancytree-title {
-    left: -15px !important;
+  left: -15px !important;
 }
+
 span.fancytree-node > span.fancytree-icon {
-    display: none;
+  display: none;
 }
+
 div.fancytree-checkbox > .fancytree-container {
-    background-color: lavender;
+  background-color: lavender;
 }
 
 /* List courses and library user style =================== */
@@ -202,6 +233,7 @@ div.fancytree-checkbox > .fancytree-container {
   color: #444444;
   font-size: 17px;
 }
+
 .tableChartScore tbody tr td {
   font-style: normal;
   font-weight: 400;
@@ -212,6 +244,7 @@ div.fancytree-checkbox > .fancytree-container {
 .exam-title {
   margin-bottom: 2px;
 }
+
 .exam-duration {
   margin-bottom: 15px;
 }
