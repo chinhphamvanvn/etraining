@@ -180,6 +180,7 @@ function ExamsStudyController($scope, $rootScope,$state, $window, QuestionsServi
       var answer = vm.question.answer;
       answer.question = vm.question._id;
       answer.exam = vm.exam._id;
+      answer.order = vm.index + 1;
       if (vm.question.type == 'mc' || vm.question.type == 'sc' || vm.question.type == 'tf' || vm.question.type == 'fb') {
         var selectedOptions = _.filter(vm.question.options, function (option) {
           return option.selected;

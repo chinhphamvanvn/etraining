@@ -20,17 +20,32 @@
               scope.questions = [];
               scope.$watch('answers',function() {
                   if (scope.answers) {
-                      _.each(scope.answers, function(answer) {
-                          if (_.find(scope.exam.questions,function(q) {
-                              return q.id == answer.question;
-                          }) ) {
+                      if (scope.exam.questionSelection=='manual') {
+                          scope.questionNumber = scope.exam.questions.length;
+                          _.each(scope.answers, function(answer) {
+                              if (_.find(scope.exam.questions,function(q) {
+                                  return q.id == answer.question;
+                              }) ) {
+                                  var question = QuestionsService.get({questionId:answer.question},function() {
+                                      question.answer = answer;
+                                      question.order = answer.order;
+                                      scope.questions.push(question);
+                                  } );
+                              }
+                              
+                          });
+                      }
+                      else {
+                          scope.questionNumber = scope.exam.questionNumber;
+                          _.each(scope.answers, function(answer) {
                               var question = QuestionsService.get({questionId:answer.question},function() {
                                   question.answer = answer;
+                                  question.order = answer.order;
                                   scope.questions.push(question);
                               } );
-                          }
-                          
-                      });
+                          });
+                      }
+                      
                   }
               })              
           }
