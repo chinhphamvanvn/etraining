@@ -1,23 +1,23 @@
-<style type="text/css">
-
-</style>
 <div class="md-card md-card-hover">
-    <a ui-sref="workspace.lms.courses.join.intro({ courseId: course._id ,editionId:edition._id})">
-    <div class="" style="border-bottom: none;">
+  <a ui-sref="workspace.lms.courses.join.intro({ courseId: course._id ,editionId:edition._id})">
+    <div class="uk-grid">
+      <div class="uk-width-1-1" style="border-bottom: none;">
         <div class="uk-text-center">
-            <img class="imageCourseHome" ng-src="{{course.logoURL}}" alt="" style="border-radius: 5px 5px 0 0;">
-            </style>
+          <img class="imageCourseHome" ng-src="{{course.logoURL}}" alt="">
         </div>
-    </div>
-    <div class="md-card-content">
-        <h3 class="course-title">
+      </div>
+      <div class="uk-width-1-1">
+        <div class="md-card-content">
+          <h3 class="course-title">
             {{course.name | truncateWord: 8}}
-        </h3>
-        <div class="level-date-home course-info">
+          </h3>
+          <div class="level-date-home course-info">
             <span class="uk-text-truncate author">{{course.user.displayName}}</span>
             <span class="date">{{course.startDate | date :'dd-MM-yyyy'}}</span>&nbsp;&nbsp;
             <span class="capitalize">{{course.level}} </span>
+          </div>
         </div>
+      </div>
     </div>
-    </a>
+  </a>
 </div>
