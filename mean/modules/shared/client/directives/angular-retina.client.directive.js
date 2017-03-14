@@ -1,6 +1,6 @@
 (function () {
   'use strict';
-  
+
     var infix = '@2x', data_url_regex = /^data:([a-z]+\/[a-z]+(;[a-z\-]+\=[a-z\-]+)?)?(;base64)?,(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$/;
     var ngRetina = angular.module('shared.retina').config([
         '$provide',
@@ -53,12 +53,13 @@
                         img_url_2x = attrs.at2x;
                     if (!img_url_2x) {
                         img_url_2x = getHighResolutionURL(img_url);
-                        $http.head(img_url_2x).success(function (data, status) {
-                            setImgSrc(img_url_2x);
-                            $window.sessionStorage.setItem(img_url, img_url_2x);
-                        }).error(function (data, status, headers, config) {
-                            setImgSrc(img_url);
-                            $window.sessionStorage.setItem(img_url, img_url);
+                      $http.head(img_url_2x)
+                        .then(function (data, status) {
+                          setImgSrc(img_url_2x);
+                          $window.sessionStorage.setItem(img_url, img_url_2x);
+                        }).catch(function (data, status, headers, config) {
+                          setImgSrc(img_url);
+                          $window.sessionStorage.setItem(img_url, img_url);
                         });
                     } else {
                         setImgSrc(img_url_2x);
