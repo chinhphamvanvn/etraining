@@ -46,6 +46,13 @@
   }
 }
 
+/* Dashboard ======================================== */
+.chart-container {
+  overflow: auto;
+  width: 100%;
+}
+
+
 /* C3js chart style ================================ */
 #login_chart,
 #member_register_chart,
@@ -187,6 +194,50 @@ div.fancytree-checkbox > .fancytree-container {
 }
 
 /* List courses and library user style =================== */
+.title-extend {
+  font-size: 25px;
+  line-height: 30px;
+  margin-top: 5px;
+}
+.my-course-content {
+  .title:extend(.title-extend) {};
+  .summary {
+    font-size: 15px;
+  }
+}
+
+.my-exam-content {
+  .title:extend(.title-extend) {
+    margin-bottom: 5px;
+  };
+  .description,
+  .instruction {
+    font-size: 15px;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 960px) {
+  .title-extend {
+    font-size: 20px;
+    line-height: 25px;
+  }
+  .my-course-content,
+  .my-exam-content {
+    .title:extend(.title-extend) {};
+  }
+}
+
+@media (max-width: 767px) {
+  .title-extend {
+    font-size: 18px;
+    line-height: 23px;
+  }
+  .my-course-content,
+  .my-exam-content {
+    .title:extend(.title-extend) {};
+  }
+}
+
 .lecture-video {
   display: inline-block;
   position: relative;
@@ -236,14 +287,6 @@ div.fancytree-checkbox > .fancytree-container {
   font-weight: 400;
   color: #444444;
   font-size: 18px;
-}
-
-.exam-title {
-  margin-bottom: 2px;
-}
-
-.exam-duration {
-  margin-bottom: 15px;
 }
 
 .quiz-title,
