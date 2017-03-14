@@ -22,7 +22,7 @@
     SettingsService.registerMode().then(function(data) {
         vm.registerSetting = data;
     });
-    
+
     vm.registerFormActive = $state.current.data.action == 'register';
     var $login_card = $('#login_card'),
     $login_form = $('#login_form'),
@@ -31,7 +31,7 @@
     $login_password_reset = $('#login_password_reset'),
     $loginValidate = $('#loginValidate'),
     $registerValidate = $('#registerValidate');
-    
+
     $loginValidate
         .parsley()
         .on('form:validated',function() {
@@ -52,7 +52,7 @@
                 $scope.$apply();
             }
         });
-    
+
     if (!vm.registerFormActive) {
         utils.card_show_hide($login_card,undefined,login_form_show,undefined);
     } else {
@@ -130,7 +130,7 @@
     function onUserSigninError(response) {
       Notification.error({ message: response.data.message, title: '<i class="uk-icon-ban"></i> Signin Error!', delay: 6000 });
     }
-    
+
     // show login form (hide other forms)
     function login_form_show() {
         $login_form
@@ -184,7 +184,7 @@
         $event.preventDefault();
         utils.card_show_hide($login_card,undefined,password_reset_show,undefined);
     };
-    
+
     function askForPasswordReset() {
         UsersService.requestPasswordReset(vm.credentials)
           .then(function() {

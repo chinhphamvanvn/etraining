@@ -1,4 +1,3 @@
-
 <div id="page_content">
     <div id="page_heading" data-uk-sticky="{ top: 48, media: 960 }">
        <h1 >{{'PAGE.LMS.MY_EXAMS.GRADE_SCHEME.TITLE' | translate}} : {{vm.schedule.name}}</h1>
@@ -21,10 +20,10 @@
                     <p class="uk-text-italic">{{'PAGE.LMS.MY_EXAMS.GRADE_SCHEME.MINUMUM_QUESTION'|translate}} : {{ Math.round(vm.exam.benchmark*vm.exam.questionNumber/100) }}</p>
                     </div>
                 </div>
-                <div
+                <div class="uk-width-1-1"
                     ng-show="vm.exam.questionSelection=='manual'">
-                    <div class=" uk-overflow-container">
-                    <table  class=" uk-table uk-table-hover uk-table-nowrap  uk-table-condensed">
+                    <div class="uk-overflow-container">
+                    <table  class=" uk-table uk-table-hover">
                         <thead>
                             <tr>
                                 <th class="uk-text-center uk-text-upper uk-width-2-10">{{'MODEL.QUESTION.SCORE'|translate}}</th>
