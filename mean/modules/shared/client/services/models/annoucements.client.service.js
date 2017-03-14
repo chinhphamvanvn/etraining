@@ -20,6 +20,10 @@
           method: 'GET',
           isArray:true
         }, 
+        distribute: {
+            url:'/api/annoucements/distribute/:annoucementId/:users',
+            method: 'POST',
+          }, 
     });
   }
 }());

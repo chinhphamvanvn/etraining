@@ -30,6 +30,11 @@ var AnnoucementSchema = new Schema({
     enum: ['info', 'warning', 'primary'],
     default: 'info'
   },
+  scope: {
+      type: String,
+      enum: ['private', 'public'],
+      default: 'public'
+    },
   created: {
     type: Date,
     default: Date.now

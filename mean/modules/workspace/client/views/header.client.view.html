@@ -43,7 +43,8 @@
                                                     </div>
                                                     <div class="md-list-content">
                                                         <span class="md-list-heading">{{alert.title}}</span>
-                                                        <span class="uk-text-small uk-text-muted">{{alert.content}}</span>
+                                                        <span class="uk-text-small uk-text-muted" ng-if="alert.type=='alert">{{alert.content}}</span>
+                                                        <p ng-if="alert.type=='message'" ng-bind-html="alert.content"></p>
                                                     </div>
                                                 </li>
                                             </ul>

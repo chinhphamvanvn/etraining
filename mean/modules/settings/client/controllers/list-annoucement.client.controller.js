@@ -13,6 +13,7 @@
     vm.remove = remove;
     vm.annoucements = AnnoucementsService.query();
     vm.publish = publish;
+    vm.distributeMessage = distributeMessage;
     
     function publish(message) {
 
@@ -30,6 +31,17 @@
                 return item._id == message._id;
             }));
          });
+    }
+    
+    function distributeMessage(users) {
+        console.log(vm.selectedMessage._id);
+        var userIds = _.pluck(users,'_id');
+        console.log(userIds);
+
+        vm.selectedMessage.$distribute({users:userIds},function() {
+            Notification.success({ message: '<i class="uk-icon-ok"></i> Annoucement sent successfully!' });
+        })
+
     }
   }
 }());

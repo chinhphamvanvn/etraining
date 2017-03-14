@@ -22,6 +22,10 @@ exports.invokeRolesPolicies = function () {
         permissions: '*'
       },
       {
+          resources: '/api/annoucements/distribute/:annoucementId/:users',
+          permissions: 'post'
+        },
+      {
       resources: '/api/annoucements/:annoucementId',
       permissions: '*'
     }]

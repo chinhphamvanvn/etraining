@@ -12,6 +12,7 @@
       return {
           scope: {
               callback:"=", 
+              dialogId:"="
           },
           templateUrl:'/modules/shared/client/directives/select-course-dialog/select-course-view.directive.client.view.html',
           link: function (scope, element, attributes) {

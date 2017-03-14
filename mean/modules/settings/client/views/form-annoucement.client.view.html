@@ -51,6 +51,15 @@
                                  {{'MODEL.ANNOUCEMENT.STATUS' | translate}}::
                                 <input type="checkbox" class="switchery switchery-large" ui-switch ng-model="vm.annoucement.published" checked id="switch_demo_large" />
                             </p>
+                             <p>{{'MODEL.ANNOUCEMENT.SCOPE' | translate}}:</p>
+                       <p>
+                                    <input type="radio" name="radio_level" id="radio_level_1" icheck ng-model="vm.annoucement.scope" value="public" />
+                                    <label for="radio_level_1" class="inline-label">{{'COMMON.SCOPE.PUBLIC'|translate}}</label>
+                                </p>
+                                <p>
+                                    <input type="radio" name="radio_level" id="radio_level_2" icheck ng-model="vm.annoucement.scope" value="private" />
+                                    <label for="radio_level_2" class="inline-label ">{{'COMMON.SCOPE.PRIVATE'|translate}}</label>
+                                </p>
                         </div>
                         
                     </div>
