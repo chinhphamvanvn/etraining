@@ -32,7 +32,7 @@ exports.invokeRolesPolicies = function () {
       permissions: ['get', 'post']
     },
     {
-        resources: '/api/messages/alert',
+        resources: '/api/messages/waiting',
         permissions: ['get']
       },{
       resources: '/api/messages/:messageId',
