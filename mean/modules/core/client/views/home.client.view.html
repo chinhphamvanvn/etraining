@@ -64,18 +64,12 @@
       <li>
         <a href="#sect-bulletin"
            data-uk-smooth-scroll="{offset: 48}">
-                    <!--<span class="menu_icon">-->
-                        <!--<i class="material-icons">message</i>-->
-                    <!--</span>-->
           <span class="menu_title">{{'PAGE.HOME.BULLETIN'|translate}}</span>
         </a>
       </li>
       <li>
         <a href="#sect-program"
            data-uk-smooth-scroll="{offset: 48}">
-                    <!--<span class="menu_icon">-->
-                        <!--<i class="material-icons">collections</i>-->
-                    <!--</span>-->
           <span class="menu_title">{{'PAGE.HOME.COURSES'|translate}}
                     </span>
         </a>
@@ -83,17 +77,16 @@
       <li>
         <a ng-click="vm.gotoWorkspace()"
            ng-show="vm.authentication.user">
-          <!--<i class="material-icons">work</i>-->
           {{'PAGE.HOME.WORKSPACE'|translate}}
         </a>
       </li>
       <li>
-        <a ui-sref="authentication.signup"
+        <a ng-click="vm.gotoSignup()"
            ng-show="!vm.authentication.user
            && (!vm.registerSetting ||vm.registerSetting.valueString=='open')">{{'ACTION.SIGN_UP'|translate}}</a>
       </li>
       <li>
-        <a ui-sref="authentication.signin"
+        <a ng-click="vm.gotoSignin()"
            ng-show="!vm.authentication.user">{{'ACTION.SIGN_IN'|translate}}</a>
       </li>
     </ul>
