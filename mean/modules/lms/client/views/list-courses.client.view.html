@@ -59,13 +59,15 @@
           </div>
 
           <div class="uk-width-large-2-3 search-course-list" ng-show="vm.selectedCourse" style="min-height: 90vh;">
-            <div class="detailCoures" style="padding-top: 10px; font-size: 17px;">
-              <span>
-                <span style="font-weight: bold;">{{vm.selectedCourse.length}}</span>
-                <span class="lowercase">{{"MODEL.MEMBER.COURSE" | translate}}</span>
-              </span>
-              <div class="sort-select">
-                <input config="vm.selectize_val_config" options="vm.optionCoures" ng-model="sortCoures" required
+            <div class="uk-grid detailCoures" style="padding-top: 10px; font-size: 17px;">
+              <div class="uk-width-small-1-2 uk-vertical-align">
+                <div class="uk-vertical-align-middle">
+                  <span style="font-weight: bold;">{{vm.selectedCourse.length}}</span>
+                  <span class="lowercase">{{"MODEL.MEMBER.COURSE" | translate}}</span>
+                </div>
+              </div>
+              <div class="uk-width-small-1-2">
+                <input class="sort-select" config="vm.selectize_val_config" options="vm.optionCoures" ng-model="sortCoures" required
                        name="val_select" selectize ng-change="vm.chooseSort(sortCoures)"/>
               </div>
             </div>
