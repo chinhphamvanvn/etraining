@@ -14,7 +14,7 @@
     vm.switchPanel = switchPanel;
     vm.viewProfile = viewProfile;
     vm.hasAdminRole = _.contains(vm.user.roles,'admin');    
-    vm.alerts = MessagesService.waitingAlert({userId:vm.user._id});
+    vm.alerts = MessagesService.waiting({userId:vm.user._id});
     vm.closeAlert = closeAlert;
 
 

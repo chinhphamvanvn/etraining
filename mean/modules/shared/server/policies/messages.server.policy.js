@@ -19,7 +19,7 @@ exports.invokeRolesPolicies = function () {
       permissions: '*'
     }, 
     {
-        resources: '/api/messages/alert',
+        resources: '/api/messages/waiting',
         permissions: '*'
       },{
       resources: '/api/messages/:messageId',
