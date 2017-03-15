@@ -34,10 +34,11 @@ exports.create = function(req, res) {
                         });
                       } else {
                           ExamCandidate.findOne(candidate).populate('candidate').exec(function (err, item) {
+                              alertCandidate(candidate,schedule);
+                              sendMailToStudent(candidate,schedule);
                               res.json(item);
                            });              
-                          alertStudent(candidate,schedule);
-                          sendMailToStudent(candidate,schedule);
+                          
                       }
                 }, function(err) {
                         return res.status(422).send({
