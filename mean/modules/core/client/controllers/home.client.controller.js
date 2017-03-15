@@ -20,10 +20,11 @@
     });
 
     function gotoWorkspace() {
-        if (_.contains(vm.user.roles,'admin'))
-            $state.go('admin.workspace.dashboard');
-        else
-            $state.go('workspace.lms.courses.me');
+      UIkit.offcanvas.hide(false);
+      if (_.contains(vm.user.roles,'admin'))
+          $state.go('admin.workspace.dashboard');
+      else
+          $state.go('workspace.lms.courses.me');
     }
 
     function gotoSignup() {
