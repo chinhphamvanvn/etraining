@@ -4,6 +4,7 @@
     <div class="uk-grid blog_article" data-uk-grid-margin>
       <div class="uk-width-1-1">
         <div ng-repeat="member in vm.members" class="uk-margin">
+
           <div ng-if="member.role=='teacher'" class="md-card md-card-hover">
             <div class="md-card-toolbar">
               <h3 class="md-card-toolbar-heading-text">
@@ -38,9 +39,11 @@
                   <div class="uk-article">
                     {{'MODEL.COURSE.CODE'|translate}}: {{member.course.code}}
                     <h3 class="uk-article-title uk-text-primary title">{{member.course.name}}</h3>
+
                     <p class="uk-article-meta">
                       {{'MODEL.COURSE.START_DATE'|translate}} : {{member.course.startDate | date:'dd/MM/yyyy'}}
                     </p>
+
                     <div class="uk-accordion" data-uk-accordion="{showfirst: false}">
                       <h3 class="uk-accordion-title">{{"MODEL.COURSE.SUMMARY" | translate}}</h3>
                       <div class="uk-accordion-content">
@@ -54,6 +57,7 @@
             </div>
 
           </div>
+
           <div ng-if="member.role=='student'" class="md-card md-card-hover"
                card-progress="{{member.course.percentage}}">
 
@@ -65,14 +69,14 @@
               <h3 class="md-card-toolbar-heading-text">
                 <a class="md-btn md-btn-flat md-btn-flat-primary   md-btn-icon uk-margin-right"
                    ui-sref="workspace.lms.courses.join.intro({courseId:member.course._id})">
-                  <i class="uk-icon-hand-pointer-o"></i>
+                  <i class="uk-icon-hand-pointer-o uk-hidden-small"></i>
                   {{'ACTION.JOIN'|translate}}
                 </a>
                 {{'PAGE.LMS.MY_COURSES.PROGRESS'|translate}} {{ member.course.percentage }}%
               </h3>
             </div>
 
-            <div class="md-card-content">
+            <div class="md-card-content my-course-content">
               <div class="uk-grid">
                 <div class="uk-width-1-1">
                   <figure class="uk-thumbnail thumbnail_left">
@@ -80,11 +84,18 @@
                   </figure>
                   <div class="uk-article">
                     {{'MODEL.COURSE.CODE'|translate}}: {{member.course.code}}
-                    <h1 class="uk-article-title uk-text-primary">{{member.course.name}} </h1>
+                    <h3 class="uk-article-title uk-text-primary title">{{member.course.name}}</h3>
+
                     <p class="uk-article-meta">
                       {{'MODEL.COURSE.START_DATE'|translate}} : {{member.course.startDate | date:'dd/MM/yyyy'}}
                     </p>
-                    <p class="uk-article-lead">{{member.course.summary}}</p>
+
+                    <div class="uk-accordion" data-uk-accordion="{showfirst: false}">
+                      <h3 class="uk-accordion-title">{{"MODEL.COURSE.SUMMARY" | translate}}</h3>
+                      <div class="uk-accordion-content">
+                        <p class="uk-article-lead summary">{{member.course.summary}}</p>
+                      </div>
+                    </div>
                     <hr class="uk-article-divider">
                   </div>
                 </div>
