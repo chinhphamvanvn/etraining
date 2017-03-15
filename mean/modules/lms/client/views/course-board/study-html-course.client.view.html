@@ -1,11 +1,12 @@
-
-<div class="uk-grid" data-uk-grid-margin>
-    <div class="uk-width-medium-1-1">
-    	<div style="height: 55vh; overflow: scroll;">
-        	<p ng-bind-html="vm.html.content"></p>
-        </div>
-        <hr>
-        <a ng-click="vm.nextSection()"  class="md-btn md-btn-small md-btn-flat md-btn-flat-primary"><i class="uk-icon-arrow-right "></i> {{'ACTION.NEXT'|translate}}</a>
-        <a  ng-click="vm.prevSection()"  class="md-btn md-btn-small md-btn-flat md-btn-flat-primary"><i   class="uk-icon-arrow-left"></i> {{'ACTION.PREV'|translate}}</a>
- 	</div>
+<div class="uk-grid">
+  <div class="uk-width-medium-1-1">
+    <div class="content-html">
+      <p ng-bind-html="vm.html.content"></p>
+    </div>
+    <hr>
+    <a ng-click="vm.nextSection()" class="md-btn md-btn-small md-btn-flat md-btn-flat-primary"><i
+      class="uk-icon-arrow-right "></i> {{'ACTION.NEXT'|translate}}</a>
+    <a ng-click="vm.prevSection()" class="md-btn md-btn-small md-btn-flat md-btn-flat-primary"><i
+      class="uk-icon-arrow-left"></i> {{'ACTION.PREV'|translate}}</a>
+  </div>
 </div>
