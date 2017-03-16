@@ -1,4 +1,5 @@
 /* General style =================================== */
+@radius: 5px;
 *, body {
   font-size: 16px;
 }
@@ -21,6 +22,20 @@
 
 .no-margin-top {
   margin-top: 0 !important;
+}
+
+.border-radius {
+  border-radius: @radius;
+}
+
+.border-radius-top {
+  border-top-left-radius: @radius;
+  border-top-right-radius: @radius;
+}
+
+.border-radius-bottom {
+  border-bottom-left-radius: @radius;
+  border-bottom-right-radius: @radius;
 }
 
 .course-card-home {
@@ -62,7 +77,6 @@
   overflow: auto;
   width: 100%;
 }
-
 
 /* C3js chart style ================================ */
 #login_chart,
@@ -176,6 +190,7 @@
   .courses-container {
     padding-bottom: 70px;
   }
+
   .textdownload {
     display: none;
   }
@@ -205,13 +220,21 @@ div.fancytree-checkbox > .fancytree-container {
 }
 
 /* Admin of teacher and student =================== */
+.page_content_inner {
+  margin-top: 15px;
+  margin-bottom: 70px;
+}
+
 .title-extend {
   font-size: 25px;
   line-height: 30px;
   margin-top: 5px;
 }
+
 .my-course-content {
-  .title:extend(.title-extend) {};
+  .title:extend(.title-extend) {
+  }
+;
   .summary {
     font-size: 15px;
   }
@@ -220,7 +243,8 @@ div.fancytree-checkbox > .fancytree-container {
 .my-exam-content {
   .title:extend(.title-extend) {
     margin-bottom: 5px;
-  };
+  }
+;
   .description,
   .instruction {
     font-size: 15px;
@@ -248,14 +272,29 @@ div.fancytree-checkbox > .fancytree-container {
   overflow-y: auto;
 }
 
+@media (min-width: 961px) {
+  .lecture-content-container {
+    position: relative;
+    left: 30%;
+  }
+
+  .course-outline-container {
+    position: relative;
+    right: 70%;
+  }
+}
+
 @media (min-width: 768px) and (max-width: 960px) {
   .title-extend {
     font-size: 20px;
     line-height: 25px;
   }
+
   .my-course-content,
   .my-exam-content {
-    .title:extend(.title-extend) {};
+    .title:extend(.title-extend) {
+    }
+  ;
   }
 }
 
@@ -264,14 +303,18 @@ div.fancytree-checkbox > .fancytree-container {
     font-size: 18px;
     line-height: 23px;
   }
+
   .my-exam-toolbar {
     .attempt-count {
       font-size: 13px;
     }
   }
+
   .my-course-content,
   .my-exam-content {
-    .title:extend(.title-extend) {};
+    .title:extend(.title-extend) {
+    }
+  ;
   }
 }
 
@@ -282,8 +325,11 @@ div.fancytree-checkbox > .fancytree-container {
 }
 
 .lecture-video {
-  display: inline-block;
+  display: block;
   position: relative;
+  video {
+    width: 100%;
+  }
   .lecture-video__next-alert {
     position: absolute;
     right: 0;
@@ -362,4 +408,6 @@ div.fancytree-checkbox > .fancytree-container {
   font-size: 1rem;
   font-weight: 400;
 }
+
+
 
