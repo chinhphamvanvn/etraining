@@ -63,7 +63,7 @@
 }
 
 .course-info {
-  min-height: 40px;
+  min-height: 20px;
   max-height: 40px;
   .author {
     padding-top: 5px;
@@ -442,7 +442,7 @@ div.content-meta-data {
     vertical-align: middle;
     float: none;
     margin-left: -20px;
-    padding: 1px 10px 2px;
+    padding: 1px 10px 0px;
   }
 
 @media (min-width: 768px){
@@ -488,6 +488,7 @@ span.date::before, span.capitalize::before {
 @media (max-width: 767px) {
   .lang_selections {
      margin: 0px;
+     width: 10%;
   }
   .lang_selections .selectize-dropdown {
     margin-left: -55px;
@@ -495,6 +496,21 @@ span.date::before, span.capitalize::before {
   .uk-navbar-brand {
     width: 80%;
     text-align: center;
+  }
+  div.bulletin {
+    display: none;
+  }
+  .container-home > .heading_b + .content-search {
+    margin-top: 15px;
+  }
+  div.courses-container-data {
+    padding-top: 0px;
+  }
+  .container-home > .content-search + .content-data {
+    margin-top: -15px;
+  }
+  .course-card-home {
+    margin-top: 15px;
   }
 }
 
