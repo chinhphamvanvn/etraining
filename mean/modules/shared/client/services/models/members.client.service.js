@@ -35,6 +35,10 @@
                 method: 'PUT',
                 url:'/api/members/withdraw/:memberId'
               },
+              complete: {
+                  method: 'PUT',
+                  url:'/api/members/complete/:memberId'
+                },
             byUserAndCourse: {
                 method: 'GET',
                 url:'/api/members/byUserAndCourse/:userId/:courseId'

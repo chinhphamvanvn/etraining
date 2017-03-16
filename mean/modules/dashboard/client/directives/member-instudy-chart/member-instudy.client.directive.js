@@ -25,7 +25,7 @@
                            ['x'],
                           [$translate.instant('COMMON.ENROLL.INSTUDY')],
                       ],
-                      type: 'spline',
+                      type: 'bar',
                       labels: true
                   },
                   axis: {

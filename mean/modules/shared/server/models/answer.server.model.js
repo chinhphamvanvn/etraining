@@ -21,6 +21,10 @@ var AnswerSchema = new Schema({
     isCorrect: {
         type: Boolean
     },
+    order: {
+        type: Number,
+        default: 1
+    },
     score: {
         type: Number,
         default: 0

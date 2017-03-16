@@ -11,9 +11,12 @@ var path = require('path'),
   User = mongoose.model('User'),
   Setting = mongoose.model('Setting'),
   Message = mongoose.model('Message'),
+  config = require(path.resolve('./config/config')),
+  nodemailer = require('nodemailer'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
   _ = require('lodash');
 
+var smtpTransport = nodemailer.createTransport(config.mailer.options);
 /**
  * Create a Member
  */
@@ -43,6 +46,7 @@ exports.create = function(req, res) {
                         CourseMember.findOne(member).populate('member').exec(function (err, item) {
                             res.json(item)});              
                         alertTeacher(member,course);
+                        sendMailToStudent(member,course);
                     }
               });
           }, function(err) {
@@ -81,6 +85,30 @@ exports.create = function(req, res) {
               } 
           });
       });
+  }
+  
+  function sendMailToStudent(student,course) {
+      var httpTransport = 'http://';
+      if (config.secure && config.secure.ssl === true) {
+        httpTransport = 'https://';
+      }
+      var baseUrl = req.app.get('domain') || httpTransport + req.headers.host;
+      User.findById(student.member).exec(function(err,studentUser) {
+          res.render(path.resolve('modules/shared/server/templates/course-registeration-welcome-email'), {
+              name: studentUser.displayName,
+              courseName:course.name,
+              appName: config.app.title
+            }, function (err, emailHTML) {
+                    var mailOptions = {
+                            to: studentUser.email,
+                            from: config.mailer.from,
+                            subject: 'e-Training Course Notification',
+                            html: emailHTML
+                          };
+                  smtpTransport.sendMail(mailOptions);
+              });
+      });
+      
   }
   
   function getCourse() {
@@ -128,9 +156,6 @@ exports.create = function(req, res) {
       });
     }
 };
-  
-  
-  
   
 
 /**
@@ -198,6 +223,49 @@ exports.withdraw = function(req, res) {
         });
     }
   };
+  
+ 
+  exports.complete = function(req, res) {
+      var member = req.member;
+      member = _.extend(member, req.body);
+      member.status ='completed';
+      member.save(function(err) {
+        if (err) {
+          return res.status(400).send({
+            message: errorHandler.getErrorMessage(err)
+          });
+        } else {
+          res.jsonp(member);
+          alertTeacher(member);
+        }
+      });
+      
+      function sendMailToStudent(student,course) {
+          var httpTransport = 'http://';
+          if (config.secure && config.secure.ssl === true) {
+            httpTransport = 'https://';
+          }
+          var baseUrl = req.app.get('domain') || httpTransport + req.headers.host;
+          User.findById(student.member).exec(function(err,studentUser) {
+              Course.findById(student.course).exec(function(err,course) {
+                  res.render(path.resolve('modules/shared/server/templates/course-completion-email'), {
+                      name: studentUser.displayName,
+                      courseName:course.name,
+                      appName: config.app.title
+                    }, function (err, emailHTML) {
+                            var mailOptions = {
+                                    to: studentUser.email,
+                                    from: config.mailer.from,
+                                    subject: 'e-Training Course Notification',
+                                    html: emailHTML
+                                  };
+                          smtpTransport.sendMail(mailOptions);
+                      });
+              });
+          });
+          
+      }
+    };
 
 /**
  * Delete an Member

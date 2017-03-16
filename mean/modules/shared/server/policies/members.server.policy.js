@@ -56,6 +56,10 @@ exports.invokeRolesPolicies = function () {
             resources: '/api/members/withdraw/:memberId',
             permissions: 'put'
           },
+          {
+              resources: '/api/members/complete/:memberId',
+              permissions: 'put'
+            },
       {
           resources: '/api/members/byUser/:userId',
           permissions: 'get'

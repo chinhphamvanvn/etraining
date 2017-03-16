@@ -7,8 +7,12 @@ var path = require('path'),
   mongoose = require('mongoose'),
   ExamCandidate = mongoose.model('ExamCandidate'),
   Schedule = mongoose.model('Schedule'),
+  config = require(path.resolve('./config/config')),
+  nodemailer = require('nodemailer'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
   _ = require('lodash');
+
+var smtpTransport = nodemailer.createTransport(config.mailer.options);
 
 /**
  * Create a Candidate
@@ -30,9 +34,11 @@ exports.create = function(req, res) {
                         });
                       } else {
                           ExamCandidate.findOne(candidate).populate('candidate').exec(function (err, item) {
+                              alertCandidate(candidate,schedule);
+                              sendMailToStudent(candidate,schedule);
                               res.json(item);
                            });              
-                          alertStudent(candidate,schedule);
+                          
                       }
                 }, function(err) {
                         return res.status(422).send({
@@ -102,6 +108,29 @@ exports.create = function(req, res) {
         });
     }
     
+    function sendMailToStudent(student,schedule) {
+        var httpTransport = 'http://';
+        if (config.secure && config.secure.ssl === true) {
+          httpTransport = 'https://';
+        }
+        var baseUrl = req.app.get('domain') || httpTransport + req.headers.host;
+        User.findById(student.candidate).exec(function(err,studentUser) {
+            res.render(path.resolve('modules/shared/server/templates/exam-registeration-welcome-email'), {
+                name: studentUser.displayName,
+                examName:schedule.name,
+                appName: config.app.title
+              }, function (err, emailHTML) {
+                      var mailOptions = {
+                              to: studentUser.email,
+                              from: config.mailer.from,
+                              subject: 'e-Training Exam Notification',
+                              html: emailHTML
+                            };
+                    smtpTransport.sendMail(mailOptions);
+                });
+        });
+        
+    }
 
 
   };

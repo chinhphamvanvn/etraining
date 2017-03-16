@@ -167,14 +167,14 @@ gulp.task('watch', function () {
  // gulp.watch(defaultAssets.server.allJS, ['eslint']).on('change', plugins.refresh.changed);
  // gulp.watch(defaultAssets.client.js, ['eslint']).on('change', plugins.refresh.changed);
 //  gulp.watch(defaultAssets.client.css, ['csslint']).on('change', plugins.refresh.changed);
-  gulp.watch(defaultAssets.client.sass, ['sass', 'csslint']).on('change', plugins.refresh.changed);
-  gulp.watch(defaultAssets.client.less, ['less', 'csslint']).on('change', plugins.refresh.changed);
+  //gulp.watch(defaultAssets.client.sass, ['sass', 'csslint']).on('change', plugins.refresh.changed);
+  //gulp.watch(defaultAssets.client.less, ['less', 'csslint']).on('change', plugins.refresh.changed);
 
   if (process.env.NODE_ENV === 'production') {
-    gulp.watch(defaultAssets.server.gulpConfig, ['templatecache', 'eslint']);
+   // gulp.watch(defaultAssets.server.gulpConfig, ['templatecache', 'eslint']);
     gulp.watch(defaultAssets.client.views, ['templatecache']).on('change', plugins.refresh.changed);
   } else {
-    gulp.watch(defaultAssets.server.gulpConfig, ['eslint']);
+   // gulp.watch(defaultAssets.server.gulpConfig, ['eslint']);
     gulp.watch(defaultAssets.client.views).on('change', plugins.refresh.changed);
   }
 });
@@ -498,7 +498,7 @@ gulp.task('lint', function (done) {
 
 // Lint project files and minify them into two production files.
 gulp.task('build', function (done) {
-  runSequence('env:dev', 'wiredep:prod', 'less', 'sass', ['uglify', 'cssmin'], done);
+  runSequence('env:prod', 'less', 'sass', ['uglify', 'cssmin'], done);
 });
 
 // Run the project tests
@@ -537,7 +537,8 @@ gulp.task('debug', function (done) {
   runSequence('env:dev', ['copyLocalEnvConfig', 'makeUploadsDir'], 'lint', ['nodemon-nodebug', 'watch'], done);
 });
 
+
 // Run the project in production mode
 gulp.task('prod', function (done) {
-  runSequence(['copyLocalEnvConfig', 'makeUploadsDir', 'templatecache'], 'build', 'env:prod', 'lint', ['nodemon-nodebug', 'watch'], done);
+  runSequence(['copyLocalEnvConfig', 'makeUploadsDir', 'templatecache'], 'build', 'env:prod', ['nodemon', 'watch'], done);
 });

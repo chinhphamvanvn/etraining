@@ -26,7 +26,7 @@ function ExamsPreviewController($scope, $state, $window, QuestionsService,ExamsS
                 vm.alert = $translate.instant('ERROR.COURSE_STUDY.QUESTION_NOT_FOUND');
         });
     }
-    if (vm.exam.questionSelection == 'ato') {
+    if (vm.exam.questionSelection == 'auto') {
         examUtils.questionRandom(vm.exam.questionCategory,vm.exam.questionLevel,vm.exam.questionNumber).then(function(questions) {
             vm.questions = questions;
                 vm.index = 0;

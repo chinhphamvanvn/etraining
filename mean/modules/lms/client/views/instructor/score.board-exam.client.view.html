@@ -22,7 +22,6 @@
                         <tr>
                             <th class=" uk-text-center">{{'MODEL.USER.AVATAR'|translate}}</th>
                             <th class=" ">{{'MODEL.USER.DISPLAY_NAME'|translate}}</th>
-                            <th class=" ">{{'MODEL.USER.EMAIL'|translate}}</th>
                             <th class=" ">{{'MODEL.CANDIDATE.REGISTER_DATE'|translate}}</th>
                             <th class="  ">{{'MODEL.CANDIDATE.STATUS'|translate}}</th>
                             <th class=" ">{{'MODEL.CANDIDATE.SCORE'|translate}}</th>
@@ -36,7 +35,6 @@
                         <tr ng-repeat="candidate in vm.candidates">
                             <td class="uk-text-center"><img class="md-user-image" src="{{candidate.candidate.profileImageURL}}" alt=""/></td>
                             <td >{{candidate.candidate.displayName}}</td>
-                            <td >{{candidate.candidate.email}}  </td>
                             <td>{{candidate.registered | date:'dd-MM-yyyy'}}</td>
                             <td >
                                 <span ng-show="candidate.status=='active'" class="uk-badge uk-badge-success">active</span>

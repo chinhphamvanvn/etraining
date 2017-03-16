@@ -12,15 +12,29 @@
     vm.user = Authentication.user;
     vm.authentication = Authentication;
     vm.gotoWorkspace = gotoWorkspace;
+    vm.gotoSignup = gotoSignup;
+    vm.gotoSignin = gotoSignin;
+
     SettingsService.registerMode().then(function(data) {
         vm.registerSetting = data;
     });
 
     function gotoWorkspace() {
-        if (_.contains(vm.user.roles,'admin'))
-            $state.go('admin.workspace.dashboard');
-        else
-            $state.go('workspace.lms.courses.me');
+      UIkit.offcanvas.hide(false);
+      if (_.contains(vm.user.roles,'admin'))
+          $state.go('admin.workspace.dashboard');
+      else
+          $state.go('workspace.lms.courses.me');
+    }
+
+    function gotoSignup() {
+      UIkit.offcanvas.hide(false);
+      $state.go('authentication.signup');
+    }
+
+    function gotoSignin() {
+      UIkit.offcanvas.hide(false);
+      $state.go('authentication.signin');
     }
 
     vm.annoucements = AnnoucementsService.listPublished();

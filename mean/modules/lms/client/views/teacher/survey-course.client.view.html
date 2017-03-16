@@ -6,7 +6,7 @@
                     {{'PAGE.LMS.MY_COURSES.TEACHER_BOARD.SURVEY_RESULT'|translate}}
                 </h3>
                 <button class="md-btn buttons-csv buttons-html5" type="button"
-                    ng-csv="vm.memberListCsv" 
+                    ng-csv="vm.memberListCsv"
                     csv-header="vm.headerArrCsv"
                     filename="ReportServey.csv" style="margin-top: 8px; float: right; margin-right: 30px;">
                     <i class="uk-icon-file-excel-o" aria-hidden="true"></i>
@@ -22,7 +22,8 @@
                             <div class="uk-accordion-content">
                                  <div ng-repeat = "question in section.survey.questions">
                                     <h5 class="sub_heading">
-                                       {{'PAGE.LMS.MY_COURSES.COURSE_SURVEY.QUESTION'|translate}}: {{question.detail.title}}
+                                       {{'PAGE.LMS.MY_COURSES.COURSE_SURVEY.QUESTION'|translate}}:
+                                        <p class="question-survey" ng-bind-html="question.detail.description"></p>
                                     </h5>
                                     <table  class="uk-table uk-table-nowrap uk-table-condensed">
                                         <thead>
@@ -48,5 +49,4 @@
             </div>
         </div>
     </div>
-</div>
 

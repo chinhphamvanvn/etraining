@@ -11,11 +11,11 @@
       var vm = this;
       vm.media = media;
       vm.save = save;
-      
+
       var progressbar = $("#file_upload-progressbar"),
       bar         = progressbar.find('.uk-progress-bar'),
       settings    = {
-          
+
           action: '/api/media/upload', // upload url
           param: 'newMediaContent',
           method: 'POST',
@@ -39,15 +39,17 @@
                   progressbar.addClass("uk-hidden");
               }, 250);
               var data = JSON.parse(response);
-              vm.media.contentURL = data.downloadURL;
-              vm.media.filename = data.filename;
+              $scope.$apply(function() {
+                vm.media.contentURL = data.downloadURL;
+                vm.media.filename = data.filename;
+              });
           }
       };
 
       var select = UIkit.uploadSelect($("#file_upload-select"), settings),
       drop   = UIkit.uploadDrop($("#file_upload-drop"), settings);
-     
-      
+
+
       function save() {
           saveMedia()
           .then(saveImage)
@@ -58,9 +60,9 @@
               Notification.error({ message: '<i class="uk-icon-ban"></i> Library item saved error!' });
              // $state.go('admin.workspace.library.content.list');
           });
-          
+
       }
-      
+
       function saveMedia() {
           return $q(function(resolve, reject) {
               if (vm.media._id) {
@@ -78,10 +80,10 @@
               }
           });
       }
-      
+
       function saveImage() {
           return $q(function(resolve, reject) {
-              if (!vm.mediaImage) 
+              if (!vm.mediaImage)
                   resolve();
               else {
                   Upload.upload({
@@ -93,11 +95,11 @@
                         resolve();
                     },function(errorResponse) {
                         resolve();
-                    }); 
+                    });
               }
           });
       }
-    
+
 
     }
   }());

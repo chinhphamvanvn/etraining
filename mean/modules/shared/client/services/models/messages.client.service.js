@@ -15,11 +15,11 @@
       update: {
         method: 'PUT'
       },
-      waitingAlert : {
-          method: 'GET',
-          url: '/api/messages/alert',
-          isArray: true
-        } 
+        waiting : {
+            method: 'GET',
+            url: '/api/messages/waiting',
+            isArray: true
+          } 
     });
   }
 }());

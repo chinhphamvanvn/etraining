@@ -12,8 +12,8 @@ module.exports = function(app) {
     .get(messages.list)
     .post(messages.create);
 
-  app.route('/api/messages/alert').all(messagesPolicy.isAllowed)
-  .get(messages.listWaitingAlert);
+  app.route('/api/messages/waiting').all(messagesPolicy.isAllowed)
+  .get(messages.listWaiting);
   
   app.route('/api/messages/:messageId').all(messagesPolicy.isAllowed)
     .get(messages.read)

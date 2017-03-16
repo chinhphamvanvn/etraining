@@ -171,8 +171,8 @@ exports.list = function(req, res) {
 };
 
   
-exports.listByCategoryAndLevel = function(req, res) {
-    Question.find({category:req.group._id, level:req.params.level }).sort('-created').populate('user', 'displayName').populate('category').exec(function(err, questions) {
+exports.listByCategoryAndLevel = function(req, res) {;
+    Question.find({category:req.params.groupId, level:req.params.level }).sort('-created').populate('user', 'displayName').populate('category').exec(function(err, questions) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)

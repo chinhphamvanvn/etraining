@@ -114,7 +114,7 @@
       certificate.authorizer = vm.user._id;
       certificate.$save(function () {
         member.enrollmentStatus ='completed';
-        member.$update(function() {
+        member.$complete(function() {
             member.certificate = certificate;
         });        
         if (vm.course.competency) {

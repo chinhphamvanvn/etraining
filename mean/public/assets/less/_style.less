@@ -11,9 +11,47 @@
   text-transform: uppercase;
 }
 
+.capitalize {
+  text-transform: capitalize;
+}
+
+.text-wrap {
+  white-space: normal;
+}
+
+.no-margin-top {
+  margin-top: 0 !important;
+}
+
 .course-card-home {
   margin-top: 25px;
 }
+
+/* Homepage ======================================== */
+.course-title {
+  font-size: 1.05rem;
+  padding: 0;
+  line-height: 20px;
+  min-height: 40px;
+  max-height: 40px;
+}
+
+.course-info {
+  min-height: 40px;
+  max-height: 40px;
+  .author {
+    padding-top: 5px;
+    font-size: 13px;
+    text-transform: capitalize;
+  }
+}
+
+/* Dashboard ======================================== */
+.chart-container {
+  overflow: auto;
+  width: 100%;
+}
+
 
 /* C3js chart style ================================ */
 #login_chart,
@@ -89,68 +127,149 @@
   border: 1px solid #cecece;
   min-width: 220px;
   .selectize-control.single,
-  .selectize-input{
+  .selectize-input {
     border-bottom: 1px solid #cecece;
     margin-top: 0;
   }
 }
 
 /* Custom CSS */
-.fix-icon-size{
-    width: 31px !important;
-    height: 31px !important;
-    line-height: 31px !important;
+.fix-icon-size {
+  width: 31px !important;
+  height: 31px !important;
+  line-height: 31px !important;
 }
-.fl-left{
-    float:left;
+
+.fl-left {
+  float: left;
 }
-.clear{
-    clear: both;
+
+.clear {
+  clear: both;
 }
+
 /* End Custom CSS */
 
-@media (max-width:500px){
+@media (max-width: 500px) {
   .sortCour {
     margin-right: 0px;
     margin-top: 0px;
   }
+
   .detailCoures {
     padding-bottom: 25px;
   }
 }
 
-@media (max-width:800px){
+@media (max-width: 800px) {
+  .courses-container {
+    padding-bottom: 70px;
+  }
   .textdownload {
     display: none;
   }
 }
 
 .imageCourseHome {
-    width: 100%;
-    height: auto;
+  width: 100%;
+  height: auto;
+  border-radius: 5px 5px 0 0;
 }
-@media (max-width:479px){
-    .imageCourseHome {
-        width: 60%;
-        height: 50%;
-    }
-}
+
 .level-date-home > span {
-    font-size: 13px;
-    color: #212121;
+  font-size: 13px;
+  color: #212121;
 }
 
 span.fancytree-node > span.fancytree-title {
-    left: -15px !important;
-}
-span.fancytree-node > span.fancytree-icon {
-    display: none;
-}
-div.fancytree-checkbox > .fancytree-container {
-    background-color: lavender;
+  left: -15px !important;
 }
 
-/* List courses and library user style =================== */
+span.fancytree-node > span.fancytree-icon {
+  display: none;
+}
+
+div.fancytree-checkbox > .fancytree-container {
+  background-color: lavender;
+}
+
+/* Admin of teacher and student =================== */
+.title-extend {
+  font-size: 25px;
+  line-height: 30px;
+  margin-top: 5px;
+}
+.my-course-content {
+  .title:extend(.title-extend) {};
+  .summary {
+    font-size: 15px;
+  }
+}
+
+.my-exam-content {
+  .title:extend(.title-extend) {
+    margin-bottom: 5px;
+  };
+  .description,
+  .instruction {
+    font-size: 15px;
+  }
+}
+
+.search-categories-list {
+  margin-bottom: 35px;
+}
+
+.search-course-content {
+  .link-course-search {
+    color: #444;
+  }
+}
+
+.course-outline {
+  max-height: 65vh;
+  overflow-y: auto;
+  margin-bottom: 30px;
+}
+
+.content-html {
+  height: 55vh;
+  overflow-y: auto;
+}
+
+@media (min-width: 768px) and (max-width: 960px) {
+  .title-extend {
+    font-size: 20px;
+    line-height: 25px;
+  }
+  .my-course-content,
+  .my-exam-content {
+    .title:extend(.title-extend) {};
+  }
+}
+
+@media (max-width: 767px) {
+  .title-extend {
+    font-size: 18px;
+    line-height: 23px;
+  }
+  .my-exam-toolbar {
+    .attempt-count {
+      font-size: 13px;
+    }
+  }
+  .my-course-content,
+  .my-exam-content {
+    .title:extend(.title-extend) {};
+  }
+}
+
+@media (max-width: 479px) {
+  .sort-select {
+    float: none;
+  }
+}
+
 .lecture-video {
   display: inline-block;
   position: relative;
@@ -194,6 +313,7 @@ div.fancytree-checkbox > .fancytree-container {
   color: #444444;
   font-size: 17px;
 }
+
 .tableChartScore tbody tr td {
   font-style: normal;
   font-weight: 400;
@@ -201,37 +321,34 @@ div.fancytree-checkbox > .fancytree-container {
   font-size: 18px;
 }
 
-.exam-title {
-  margin-bottom: 2px;
-}
-.exam-duration {
-  margin-bottom: 15px;
-}
-
 .quiz-title,
 .quiz-question {
   white-space: normal;
   text-align: left;
 }
-.page_quiz_content {
-  .md-card {
-    .quiz-toolbar,
-    .quiz-heading {
-      height: initial;
-    }
-    .quiz-toolbar {
-      min-height: 48px;
-    }
-    .quiz-heading {
-      width: 90%;
-      line-height: 22px;
-      padding-top: 12px;
-    }
+
+.md-card {
+  .quiz-toolbar,
+  .quiz-heading {
+    height: initial;
+  }
+  .quiz-toolbar {
+    min-height: 48px;
+  }
+  .quiz-heading {
+    width: 90%;
+    line-height: 22px;
+    padding-top: 12px;
   }
 }
 
 .questions-list {
   height: 60vh;
   overflow: auto;
+}
+
+.question-survey p {
+  font-size: 1rem;
+  font-weight: 400;
 }
 

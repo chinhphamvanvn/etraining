@@ -25,7 +25,8 @@
                      options='lang.langSwitcherOptions'
                      ng-model="lang.langSwitcherModel"></selectize>
         </div>
-        <div class="uk-navbar-flip">
+
+        <div class="uk-navbar-flip uk-hidden-small">
           <a ng-click="vm.gotoWorkspace()"
              ng-show="vm.authentication.user"
              class="md-btn md-btn-success header_cta uk-margin-left">
@@ -39,6 +40,7 @@
              ng-show="!vm.authentication.user"
              class="md-btn md-btn-primary header_cta uk-margin-left">{{'ACTION.SIGN_IN'|translate}}</a>
         </div>
+
         <div class="uk-navbar-flip">
           <ul class="uk-navbar-nav" id="main_navigation">
             <li>
@@ -49,6 +51,7 @@
               <a href="#sect-program">
                 {{'PAGE.HOME.COURSES'|translate}} </a>
             </li>
+
           </ul>
         </div>
       </div>
@@ -61,30 +64,40 @@
       <li>
         <a href="#sect-bulletin"
            data-uk-smooth-scroll="{offset: 48}">
-                    <span class="menu_icon">
-                        <i class="material-icons">message</i>
-                    </span>
           <span class="menu_title">{{'PAGE.HOME.BULLETIN'|translate}}</span>
         </a>
       </li>
       <li>
         <a href="#sect-program"
            data-uk-smooth-scroll="{offset: 48}">
-                    <span class="menu_icon">
-                        <i class="material-icons">collections</i>
-                    </span>
           <span class="menu_title">{{'PAGE.HOME.COURSES'|translate}}
                     </span>
         </a>
       </li>
+      <li>
+        <a ng-click="vm.gotoWorkspace()"
+           ng-show="vm.authentication.user">
+          {{'PAGE.HOME.WORKSPACE'|translate}}
+        </a>
+      </li>
+      <li>
+        <a ng-click="vm.gotoSignup()"
+           ng-show="!vm.authentication.user
+           && (!vm.registerSetting ||vm.registerSetting.valueString=='open')">{{'ACTION.SIGN_UP'|translate}}</a>
+      </li>
+      <li>
+        <a ng-click="vm.gotoSignin()"
+           ng-show="!vm.authentication.user">{{'ACTION.SIGN_IN'|translate}}</a>
+      </li>
     </ul>
   </div>
 </div>
+
 <div class="md-bg-grey-50">
   <div class="uk-block bulletin" id="sect-bulletin">
     <div class="uk-container uk-container-center">
       <div class="uk-grid ">
-        <div class="uk-width-6-10 uk-container-center">
+        <div class="uk-width-large-6-10 uk-width-9-10 uk-container-center">
           <div class="md-card">
             <div class="md-card-content">
               <div class="uk-slidenav-position"
@@ -124,7 +137,7 @@
       </div>
     </div>
   </div>
-  <div class="uk-block " id="sect-program">
+  <div class="uk-block courses-container" id="sect-program">
     <div class="uk-container uk-container-center">
       <h3 class="heading_b uk-text-center md-color-blue-500">{{'PAGE.HOME.AVAILABLE_COURSE_LIST'|translate}}</h3>
       <div class="uk-grid">

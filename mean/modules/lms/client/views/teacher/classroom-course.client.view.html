@@ -1,97 +1,113 @@
-
-
 <div id="page_content" ng-show="!vm.alert">
-    <div id="page_content_inner">
-        <div class="uk-width-medium-1-1 uk-container-center">
-            <div class="md-card md-card-single" single-card>
-                <div class="md-card-toolbar">
-                    <h3 class="md-card-toolbar-heading-text large">
-                        {{'PAGE.LMS.MY_COURSES.TEACHER_BOARD.CLASSROOM'|translate}}
-                    </h3>
-                </div>
-                <div class="md-card-content">
-                     <label class="uk-form-label">{{'PAGE.LMS.MY_COURSES.TEACHER_BOARD.CLASSROOM.SELECT_CLASS'|translate}}</label>
-                    <div class="uk-grid uk-margin">
-                    <div class=" uk-width-1-2">
-                        <input ng-change="vm.selectClass()" name="select_class" id="select_class" type="text" config="vm.classConfig" options="vm.classOptions" ng-model="vm.classroomId" selectize />
-                    </div>
-                    <div class=" uk-width-1-2" >
-                        <a class="md-btn md-btn-primary" ng-click="vm.createConference()" ng-show="vm.classroom && (!vm.conference || !vm.conference._id)">{{'ACTION.CREATE_CONFERENCE'|translate}}</a>
-                        <a class="md-btn md-btn "  target="_blank" href="{{vm.member.conferenceMember.loginURL}}" ng-show="vm.classroom && vm.conference && vm.conference._id && vm.member.conferenceMember">{{'ACTION.JOIN'|translate}}</a>
-                    </div>
-                    </div>
-                    <div class=" uk-margin" ng-class="vm.classroom.titleClass">
-                        <span class="uk-text-small uk-text-italic ">{{'MODEL.CLASSROOM.END_DATE'|translate}} : {{vm.classroom.endDate | date :'dd-MM-yyyy'}}</span>
-                        <span class="uk-text-small uk-text-italic ">{{'MODEL.CLASSROOM.START_DATE'|translate}} : {{vm.classroom.startDate | date :'dd-MM-yyyy'}}</span>
-                        
-                    </div>
-                        <div class="uk-overflow-container" >
-                            <table class="uk-table uk-table-nowrap  uk-table-condensed">
-                                <thead>
-                                    <tr>
-                                        <th
-                                            class="uk-width-1-10 uk-text-center">{{'MODEL.USER.AVATAR'|translate}}</th>
-                                        <th
-                                            class="uk-width-2-10 uk-text-center">{{'MODEL.USER.DISPLAY_NAME'|translate}}</th>
-                                        <th
-                                            class="uk-width-1-10 uk-text-center">{{'MODEL.MEMBER.REGISTER_DATE'|translate}}</th>
-                                        <th
-                                            class="uk-width-1-10 uk-text-center">{{'MODEL.MEMBER.ENROLL_STATUS'|translate}}</th>
-                                        <th
-                                            class="uk-width-1-10 uk-text-center">{{'MODEL.MEMBER.STATUS'|translate}}</th>
-                                        <th
-                                            class="uk-width-1-10 uk-text-center">{{'PAGE.LMS.MY_COURSES.TEACHER_BOARD.CLASSROOM.PRESENTER'|translate}}</th>
-                                        <th
-                                            class="uk-width-2-10 uk-text-center">{{'PAGE.LMS.MY_COURSES.TEACHER_BOARD.CLASSROOM.MEMBER'  | translate}}
-                                            
-                                         </th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr
-                                        ng-repeat="member in vm.members">
-                                        <td class="uk-text-center">
-                                            <img class="md-user-image"
-                                                src="{{member.member.profileImageURL}}"
-                                                alt="" />
-                                        </td>
-                                        <td class="uk-text-center">{{member.member.displayName}}</td>
-                                        <td class="uk-text-center">{{member.registered
-                                            | date:'dd-MM-yyyy'}}</td>
-                                        <td class="uk-text-center">
-                                            <span
-                                                ng-show="member.enrollmentStatus=='registered'"
-                                                class="uk-badge uk-badge-default">registered</span>
-                                            <span
-                                                ng-show="member.enrollmentStatus=='in-study'"
-                                                class="uk-badge uk-badge-primary">studying</span>
-                                            <span
-                                                ng-show="member.enrollmentStatus=='complete'"
-                                                class="uk-badge uk-badge-success">completed</span>
-                                        </td>
-                                        <td class="uk-text-center">
-                                            <span
-                                                ng-show="member.status=='active'"
-                                                class="uk-badge uk-badge-success">active</span>
-                                            <span
-                                                ng-show="member.status=='withdrawn'"
-                                                class="uk-badge uk-badge-warning">withdrawn</span>
-                                            <span
-                                                ng-show="member.status=='suspended'"
-                                                class="uk-badge uk-badge-danger">suspended</span>
-                                        </td>
-                                        <td class="uk-text-center uk-table-middle small_col"><input type="checkbox" icheck ng-disabled="!member.conferenceMember"
-                                                                          ng-model="member.conferenceMember.isPresenter"></td>
-                                        <td class="uk-text-center" >
-                                        <a class="md-btn md-btn-success md-btn-mini md-btn-wave-light" ng-click="vm.addConferenceMember(member)" ng-show="vm.conference && vm.conference._id && !member.conferenceMember">{{'ACTION.ADD_CONFERENCE_MEMBER'|translate}}</a>
-                                            <a class="md-btn md-btn-danger md-btn-mini md-btn-wave-light" ng-click="vm.removeConferenceMember(member)" ng-show="vm.conference && vm.conference._id && member.conferenceMember" >{{'ACTION.REMOVE_CONFERENCE_MEMBER'|translate}}</a>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                    </div>
-                </div>
-            </div>
+  <div id="page_content_inner">
+    <div class="uk-width-medium-1-1 uk-container-center">
+      <div class="md-card md-card-single" single-card>
+        <div class="md-card-toolbar">
+          <h3 class="md-card-toolbar-heading-text large">
+            {{'PAGE.LMS.MY_COURSES.TEACHER_BOARD.CLASSROOM'|translate}}
+          </h3>
         </div>
+        <div class="md-card-content" style="overflow: auto">
+          <label class="uk-form-label">{{'PAGE.LMS.MY_COURSES.TEACHER_BOARD.CLASSROOM.SELECT_CLASS'|translate}}</label>
+          <div class="uk-grid uk-margin">
+            <div class=" uk-width-1-2">
+              <input ng-change="vm.selectClass()" name="select_class" id="select_class" type="text"
+                     config="vm.classConfig" options="vm.classOptions" ng-model="vm.classroomId" selectize/>
+            </div>
+            <div class=" uk-width-1-2">
+              <a class="md-btn md-btn-primary" ng-click="vm.createConference()"
+                 ng-show="vm.classroom && (!vm.conference || !vm.conference._id)">{{'ACTION.CREATE_CONFERENCE'|translate}}</a>
+              <a class="md-btn md-btn " target="_blank" href="{{vm.member.conferenceMember.loginURL}}"
+                 ng-show="vm.classroom && vm.conference && vm.conference._id && vm.member.conferenceMember">{{'ACTION.JOIN'|translate}}</a>
+            </div>
+          </div>
+          <div class=" uk-margin" ng-class="vm.classroom.titleClass">
+            <span class="uk-text-small uk-text-italic ">{{'MODEL.CLASSROOM.END_DATE'|translate}} : {{vm.classroom.endDate | date :'dd-MM-yyyy'}}</span>
+            <span class="uk-text-small uk-text-italic ">{{'MODEL.CLASSROOM.START_DATE'|translate}} : {{vm.classroom.startDate | date :'dd-MM-yyyy'}}</span>
+
+          </div>
+          <div class="uk-overflow-container">
+            <table class="uk-table uk-table-nowrap uk-table-condensed">
+              <thead>
+              <tr>
+                <th
+                  class="uk-width-1-10 uk-text-center">{{'MODEL.USER.AVATAR'|translate}}
+                </th>
+                <th
+                  class="uk-width-2-10 uk-text-center">{{'MODEL.USER.DISPLAY_NAME'|translate}}
+                </th>
+                <th
+                  class="uk-width-1-10 uk-text-center">{{'MODEL.MEMBER.REGISTER_DATE'|translate}}
+                </th>
+                <th
+                  class="uk-width-1-10 uk-text-center">{{'MODEL.MEMBER.ENROLL_STATUS'|translate}}
+                </th>
+                <th
+                  class="uk-width-1-10 uk-text-center">{{'MODEL.MEMBER.STATUS'|translate}}
+                </th>
+                <th
+                  class="uk-width-1-10 uk-text-center">
+                  {{'PAGE.LMS.MY_COURSES.TEACHER_BOARD.CLASSROOM.PRESENTER'|translate}}
+                </th>
+                <th
+                  class="uk-width-2-10 uk-text-center">{{'PAGE.LMS.MY_COURSES.TEACHER_BOARD.CLASSROOM.MEMBER' |
+                  translate}}
+
+                </th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr
+                ng-repeat="member in vm.members">
+                <td class="uk-text-center">
+                  <img class="md-user-image"
+                       src="{{member.member.profileImageURL}}"
+                       alt=""/>
+                </td>
+                <td class="uk-text-center">{{member.member.displayName}}</td>
+                <td class="uk-text-center">{{member.registered
+                  | date:'dd-MM-yyyy'}}
+                </td>
+                <td class="uk-text-center">
+                                            <span
+                                              ng-show="member.enrollmentStatus=='registered'"
+                                              class="uk-badge uk-badge-default">registered</span>
+                  <span
+                    ng-show="member.enrollmentStatus=='in-study'"
+                    class="uk-badge uk-badge-primary">studying</span>
+                  <span
+                    ng-show="member.enrollmentStatus=='complete'"
+                    class="uk-badge uk-badge-success">completed</span>
+                </td>
+                <td class="uk-text-center">
+                                            <span
+                                              ng-show="member.status=='active'"
+                                              class="uk-badge uk-badge-success">active</span>
+                  <span
+                    ng-show="member.status=='withdrawn'"
+                    class="uk-badge uk-badge-warning">withdrawn</span>
+                  <span
+                    ng-show="member.status=='suspended'"
+                    class="uk-badge uk-badge-danger">suspended</span>
+                </td>
+                <td class="uk-text-center uk-table-middle small_col"><input type="checkbox" icheck
+                                                                            ng-disabled="!member.conferenceMember"
+                                                                            ng-model="member.conferenceMember.isPresenter">
+                </td>
+                <td class="uk-text-center">
+                  <a class="md-btn md-btn-success md-btn-mini md-btn-wave-light"
+                     ng-click="vm.addConferenceMember(member)"
+                     ng-show="vm.conference && vm.conference._id && !member.conferenceMember">{{'ACTION.ADD_CONFERENCE_MEMBER'|translate}}</a>
+                  <a class="md-btn md-btn-danger md-btn-mini md-btn-wave-light"
+                     ng-click="vm.removeConferenceMember(member)"
+                     ng-show="vm.conference && vm.conference._id && member.conferenceMember">{{'ACTION.REMOVE_CONFERENCE_MEMBER'|translate}}</a>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
 </div>

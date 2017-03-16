@@ -84,7 +84,7 @@ function ExamsStudyController($scope, $rootScope,$state, $window, QuestionsServi
                     vm.alert = $translate.instant('ERROR.EXAM.QUESTION_NOT_FOUND');
             });
         }
-        if (vm.exam.questionSelection == 'ato') {
+        if (vm.exam.questionSelection == 'auto') {
             examUtils.questionRandom(vm.exam.questionCategory,vm.exam.questionLevel,vm.exam.questionNumber).then(function(questions) {
                 vm.questions = questions;
                 vm.submit.answers = [];
@@ -180,6 +180,7 @@ function ExamsStudyController($scope, $rootScope,$state, $window, QuestionsServi
       var answer = vm.question.answer;
       answer.question = vm.question._id;
       answer.exam = vm.exam._id;
+      answer.order = vm.index + 1;
       if (vm.question.type == 'mc' || vm.question.type == 'sc' || vm.question.type == 'tf' || vm.question.type == 'fb') {
         var selectedOptions = _.filter(vm.question.options, function (option) {
           return option.selected;

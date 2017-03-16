@@ -12,6 +12,9 @@ module.exports = function(app) {
     .get(annoucements.list)
     .post(annoucements.create);
   
+  app.route('/api/annoucements/distribute/:annoucementId/:users').all(annoucementsPolicy.isAllowed)
+  .post(annoucements.distribute)
+  
   app.route('/api/annoucements/public').all(annoucementsPolicy.isAllowed)
   .get(annoucements.listPublished)
 

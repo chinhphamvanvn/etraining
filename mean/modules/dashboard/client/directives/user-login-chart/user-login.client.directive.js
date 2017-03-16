@@ -25,7 +25,7 @@
                            ['x'],
                           [$translate.instant('PAGE.DASHBOARD.USER_STATS.LOGIN_COUNT')],
                       ],
-                      type: 'spline',
+                      type: 'area-spline',
                       labels: true
                   },
                   axis: {
