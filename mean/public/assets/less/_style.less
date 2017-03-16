@@ -1,5 +1,4 @@
 /* General style =================================== */
-@radius: 5px;
 *, body {
   font-size: 16px;
 }
@@ -24,33 +23,8 @@
   margin-top: 0 !important;
 }
 
-.border-radius {
-  border-radius: @radius;
-}
-
-.border-radius-top {
-  border-top-left-radius: @radius;
-  border-top-right-radius: @radius;
-}
-
-.border-radius-bottom {
-  border-bottom-left-radius: @radius;
-  border-bottom-right-radius: @radius;
-}
-
 .course-card-home {
   margin-top: 25px;
-}
-
-/* Header ======================================== */
-#header_main .uk-navbar .uk-navbar-nav > li > a {
-  height: 2px;
-}
-
-@media (max-width: 767px) {
-  #header_main #sSwitch_primary {
-    padding: 12px 0 !important;
-  }
 }
 
 /* Homepage ======================================== */
@@ -77,6 +51,7 @@
   overflow: auto;
   width: 100%;
 }
+
 
 /* C3js chart style ================================ */
 #login_chart,
@@ -190,7 +165,6 @@
   .courses-container {
     padding-bottom: 70px;
   }
-
   .textdownload {
     display: none;
   }
@@ -220,21 +194,13 @@ div.fancytree-checkbox > .fancytree-container {
 }
 
 /* Admin of teacher and student =================== */
-.page_content_inner {
-  margin-top: 15px;
-  margin-bottom: 70px;
-}
-
 .title-extend {
   font-size: 25px;
   line-height: 30px;
   margin-top: 5px;
 }
-
 .my-course-content {
-  .title:extend(.title-extend) {
-  }
-;
+  .title:extend(.title-extend) {};
   .summary {
     font-size: 15px;
   }
@@ -243,8 +209,7 @@ div.fancytree-checkbox > .fancytree-container {
 .my-exam-content {
   .title:extend(.title-extend) {
     margin-bottom: 5px;
-  }
-;
+  };
   .description,
   .instruction {
     font-size: 15px;
@@ -272,29 +237,14 @@ div.fancytree-checkbox > .fancytree-container {
   overflow-y: auto;
 }
 
-@media (min-width: 961px) {
-  .push-large-3-10 {
-    position: relative;
-    left: 30%;
-  }
-
-  .pull-large-7-10 {
-    position: relative;
-    left: -70%;
-  }
-}
-
 @media (min-width: 768px) and (max-width: 960px) {
   .title-extend {
     font-size: 20px;
     line-height: 25px;
   }
-
   .my-course-content,
   .my-exam-content {
-    .title:extend(.title-extend) {
-    }
-  ;
+    .title:extend(.title-extend) {};
   }
 }
 
@@ -303,18 +253,14 @@ div.fancytree-checkbox > .fancytree-container {
     font-size: 18px;
     line-height: 23px;
   }
-
   .my-exam-toolbar {
     .attempt-count {
       font-size: 13px;
     }
   }
-
   .my-course-content,
   .my-exam-content {
-    .title:extend(.title-extend) {
-    }
-  ;
+    .title:extend(.title-extend) {};
   }
 }
 
@@ -325,11 +271,8 @@ div.fancytree-checkbox > .fancytree-container {
 }
 
 .lecture-video {
-  display: block;
+  display: inline-block;
   position: relative;
-  video {
-    width: 100%;
-  }
   .lecture-video__next-alert {
     position: absolute;
     right: 0;
@@ -409,97 +352,3 @@ div.fancytree-checkbox > .fancytree-container {
   font-weight: 400;
 }
 
-// @import url('https://fonts.googleapis.com/css?family=Roboto+Slab');
-
-.container-home {
-    max-width: 1050px;
-  }
-  @media (min-width: 1220px) {
-    .container-home {
-      max-width: 1250px;
-    }
-  }
-
-h3.course-title {
-    font-weight: 700;
-    // font-family: 'Roboto Slab', serif;
-    font-size: 18px;
-    color: #222222;
-    line-height: 22px;
-    margin: 0 0 5px 0;
-    min-height: inherit;
-    overflow: hidden;
-    max-height: 2.2em;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-  }
-
-div.content-meta-data {
-    position: relative;
-    white-space: normal;
-    display: inline-block;
-    vertical-align: middle;
-    float: none;
-    margin-left: -20px;
-    padding: 1px 10px 2px;
-  }
-
-@media (min-width: 768px){
-    div.content-meta-data {
-      padding: 19px 15px 10px;
-      display: block;
-      float: left;
-      margin-left: 0px;
-    }
-    .content-meta-data > .title-author-info {
-      height: 70px;
-      font-size: 13px;
-    }
-  }
-
-.title-author-info > span.author {
-    color: #222222;
-    font-size: 14px;
-    margin-bottom: 11px;
-    margin-top: 6px;
-  }
-span.date {
-   font-weight: bold;
-  }
-span.date, span.capitalize {
-    color: #222222;
-    font-size: 13px;
-  }
-
-span.date::before, span.capitalize::before {
-    content: "•";
-    padding-left: 3px;
-    padding-right: 5px;
-    font-size: 15px;
-    top: 3px;
-    position: relative;
-  }
-
-.lang_selections .selectize-dropdown {
-    width: 130px !important;
-}
-
-@media (max-width: 767px) {
-  .lang_selections {
-     margin: 0px;
-  }
-  .lang_selections .selectize-dropdown {
-    margin-left: -55px;
-  }
-  .uk-navbar-brand {
-    width: 80%;
-    text-align: center;
-  }
-}
-
-@media only screen and (min-width: 768px) and (max-width: 959px) {
-   .lang_selections .selectize-dropdown {
-    margin-left: -25px;
-  }
-}

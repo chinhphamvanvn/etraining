@@ -1,42 +1,34 @@
-<div class="uk-grid">
+<div class="uk-grid" data-uk-grid-margin>
   <div class="uk-width-1-1">
-    <div class="lecture-video">
-      <video id="selectorVideo" src="{{vm.video.videoURL | trust}}"
-             autoplay controls></video>
+    <ul class="uk-tab" data-uk-tab="{connect:'#tabs_1'}">
+      <li class="uk-active"><a href="#">{{'MODEL.VIDEO.MAIN_VIDEO'|translate}}</a></li>
+      <li><a href="#">{{'MODEL.VIDEO.TRANSCRIPT'|translate}}</a></li>
+    </ul>
+    <ul id="tabs_1" class="uk-switcher uk-margin">
+      <li>
+        <div class="lecture-video">
+          <video id="selectorVideo" src="{{vm.video.videoURL | trust}}"
+                 autoplay controls></video>
 
-      <div class="lecture-video__next-alert uk-hidden-small"
-           ng-show="vm.autoSectionAuto && !vm.endCourse">
+          <div class="lecture-video__next-alert"
+            ng-show="vm.autoSectionAuto && !vm.endCourse">
             <span class="title uppercase" ng-click="vm.nextSection()">
               {{'ACTION.NEXT'|translate}}
               <i class="uk-icon-angle-double-right"></i>
             </span> <br>
-        <span class="counter">{{vm.counter}}</span>
-        <i class="uk-icon-pause pause" ng-click="vm.stopNextSectionAuto()"></i>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="uk-grid">
-  <div class="uk-width-1-1">
-    <ul class="uk-tab" data-uk-tab="{connect:'#tabs_1'}">
-      <li class="uk-active"><a href="#">{{'MODEL.VIDEO.TRANSCRIPT'|translate}}</a></li>
-    </ul>
-
-    <ul id="tabs_1" class="uk-switcher uk-margin">
+            <span class="counter">{{vm.counter}}</span>
+            <i class="uk-icon-pause pause" ng-click="vm.stopNextSectionAuto()"></i>
+          </div>
+        </div>
+      </li>
       <li>{{vm.video.transcript}}</li>
+
     </ul>
     <hr>
-    <div class="uk-text-center">
-      <div class="md-btn-group">
-        <a ng-click="vm.prevSection()" class="md-btn md-btn-wave">
-          <i class="uk-icon-chevron-left"></i> {{'ACTION.PREV'|translate}}
-        </a>
-        <a ng-click="vm.nextSection()" class="md-btn md-btn-wave">
-          {{'ACTION.NEXT'|translate}} <i class="uk-icon-chevron-right"></i>
-        </a>
-      </div>
-    </div>
+    <a ng-click="vm.nextSection()" class="md-btn md-btn-small md-btn-flat md-btn-flat-primary"><i
+      class="uk-icon-arrow-right "></i> {{'ACTION.NEXT'|translate}}</a>
+    <a ng-click="vm.prevSection()" class="md-btn md-btn-small md-btn-flat md-btn-flat-primary"><i
+      class="uk-icon-arrow-left"></i> {{'ACTION.PREV'|translate}}</a>
   </div>
 </div>
 
