@@ -4,14 +4,15 @@
         <div class="uk-grid" data-uk-grid-margin >
             <div class="uk-width-medium-1-1">
                 <div class="md-card">
-                    <div class="md-card-content">             
-                        <div>         
-                        <a class="md-btn  md-btn-wave-light md-btn-icon" data-uk-modal="{target:'#select_course'}">
-                                {{'PAGE.REPORTS.MEMBER_BY_COURSE.SELECT_COURSE'|translate}}
-                        <i class="material-icons">&#xE313;</i>
-                    </a>  
-                        <select-course-dialog  callback="vm.generateReport" dialog-id="'select_course'"></select-course-dialog>
-                         </div>
+                    <div class="md-card-content">
+                        <div>
+                            <a class="md-btn  md-btn-wave-light md-btn-icon" data-uk-modal="{target:'#select_course'}">
+                                    {{'PAGE.REPORTS.MEMBER_BY_COURSE.SELECT_COURSE'|translate}}
+                            <i class="material-icons">&#xE313;</i>
+                            </a>
+                            <select-course-dialog  callback="vm.generateReport" dialog-id="'select_course'"></select-course-dialog>
+                        </div>
+                        <div class="uk-overflow-container">
                             <table  class="uk-table uk-table-hover uk-table-condensed" cellspacing="0" width="100%">
                                 <thead>
                                     <tr>
@@ -65,21 +66,21 @@
                                         <th>{{course.percentInstudyMember}}%</th>
                                         <th>{{course.totalCompleteMember}}</th>
                                         <th>{{course.percentCompleteMember}}%</th>
-                                        <th>{{course.time | timeString}}</th>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <div>           
-                        <a class="md-btn md-btn-primary  md-btn-wave-light md-btn-icon" ng-csv="vm.getExportData()" csv-header="vm.getExportHeader()" filename="report.member_by_course.csv" field-separator=";" decimal-separator=".">
-                         <i class="material-icons">save</i>
+                                    <th>{{course.time | timeString}}</th>
+                                </tr>
+                            </tbody>
+                        </table>
+                        </div>
+                        <div>
+                            <a class="md-btn md-btn-primary  md-btn-wave-light md-btn-icon" ng-csv="vm.getExportData()" csv-header="vm.getExportHeader()" filename="report.member_by_course.csv" field-separator=";" decimal-separator=".">
+                                <i class="material-icons">save</i>
                                 {{'ACTION.EXPORT'|translate}}
                             </a>
-                         </div>
-                         </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-
     </div>
 </div>
 

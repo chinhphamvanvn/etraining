@@ -66,25 +66,25 @@
           <span class="menu_title">{{'PAGE.HOME.BULLETIN'|translate}}</span>
         </a>
       </li>
-      <li>
+      <li class="small-navar">
         <a href="#sect-program"
            data-uk-smooth-scroll="{offset: 48}">
           <span class="menu_title">{{'PAGE.HOME.COURSES'|translate}}
                     </span>
         </a>
       </li>
-      <li>
+      <li class="small-navar">
         <a ng-click="vm.gotoWorkspace()"
            ng-show="vm.authentication.user">
           {{'PAGE.HOME.WORKSPACE'|translate}}
         </a>
       </li>
-      <li>
+      <li class="small-navar">
         <a ng-click="vm.gotoSignup()"
            ng-show="!vm.authentication.user
            && (!vm.registerSetting ||vm.registerSetting.valueString=='open')">{{'ACTION.SIGN_UP'|translate}}</a>
       </li>
-      <li>
+      <li class="small-navar">
         <a ng-click="vm.gotoSignin()"
            ng-show="!vm.authentication.user">{{'ACTION.SIGN_IN'|translate}}</a>
       </li>
