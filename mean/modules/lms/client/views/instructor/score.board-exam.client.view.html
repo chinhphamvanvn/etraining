@@ -16,59 +16,61 @@
                     {{'PAGE.LMS.MY_EXAMS.SCOREBOARD.CANDIDATE_LIST'|translate}}
                 </h3>
             </div>
-            <div class="md-card-content">
-                <table  class="uk-table uk-table-nowrap uk-table-condensed ">
-                    <thead>
-                        <tr>
-                            <th class=" uk-text-center">{{'MODEL.USER.AVATAR'|translate}}</th>
-                            <th class=" ">{{'MODEL.USER.DISPLAY_NAME'|translate}}</th>
-                            <th class=" ">{{'MODEL.CANDIDATE.REGISTER_DATE'|translate}}</th>
-                            <th class="  ">{{'MODEL.CANDIDATE.STATUS'|translate}}</th>
-                            <th class=" ">{{'MODEL.CANDIDATE.SCORE'|translate}}</th>
-                            <th class="uk-text-center">{{'MODEL.CANDIDATE.NUMBER'|translate}}</th>
-                            <th class="uk-text-center">{{'MODEL.CANDIDATE.SUBMIT'|translate}}</th>
-                            <th class=" ">{{'MODEL.CANDIDATE.RESULT'|translate}}</th>
-                            <th class="uk-text-center" ng-show="vm.schedule.competency">{{'ACTION.AUTHORIZE_COMPETENCY' | translate}}</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr ng-repeat="candidate in vm.candidates">
-                            <td class="uk-text-center"><img class="md-user-image" src="{{candidate.candidate.profileImageURL}}" alt=""/></td>
-                            <td >{{candidate.candidate.displayName}}</td>
-                            <td>{{candidate.registered | date:'dd-MM-yyyy'}}</td>
-                            <td >
-                                <span ng-show="candidate.status=='active'" class="uk-badge uk-badge-success">active</span>
-                                <span ng-show="candidate.status=='withdrawn'" class="uk-badge uk-badge-warning">withdrawn</span>
-                                <span ng-show="candidate.status=='suspended'" class="uk-badge uk-badge-danger">suspended</span>
-                            </td>
-                            <td class="">
-                                <span ng-repeat="submit in candidate.submits"> 
-                                    <span class="uk-text-success" ng-show="submit.score >=vm.exam.benchmark">{{submit.score}}% &nbsp;</span>
-                                    <span class="uk-text-danger" ng-show="submit.score < vm.exam.benchmark">{{submit.score}}% &nbsp;</span>
-                                </span>
-                                <!-- <span class="uk-text-success" ng-show="candidate.score >=vm.exam.benchmark"> {{candidate.score}}%</span>
-                                <span class="uk-text-danger" ng-show="candidate.score < vm.exam.benchmark">{{candidate.score}}%</span> -->
-                            </td>
-                            <td class="uk-text-center">
-                               <span class="uk-text-small">{{candidate.attemptCount}} / {{vm.exam.maxAttempt}}</span>
-                            </td>
-                            <td class="uk-text-center">
-                                <a ui-sref="workspace.lms.exams.scoreboard-candidate({candidateId:candidate._id,examId:vm.exam._id,scheduleId:vm.schedule._id})"><i
-                                class="md-icon material-icons uk-text-primary">info_outline</i></a>
-                            </td>
-                            <td class="uk-text-center">
-                                <span class="uk-text-success" ng-show="candidate.score >=vm.exam.benchmark">{{'COMMON.PASS'|translate}}</span>
-                                <span class="uk-text-danger" ng-show="candidate.score < vm.exam.benchmark">{{'COMMON.FAIL'|translate}}</span>
-                            </td>
-                            <td class="uk-text-center" ng-show="vm.schedule.competency">
-                              <a ng-show="!candidate.achievement" ng-click="vm.authorize(candidate)" data-uk-tooltip="{pos:'right'}"
-                                 title="{{'ACTION.AUTHORIZE_COMPETENCY'|translate}}"><i
-                                class="md-icon material-icons uk-text-primary">content_paste</i></a>
-                                <span class="uk-text-small" ng-show="candidate.achievement">{{candidate.achievement.competency.name}}</span>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+            <div class="content-table-gradebook md-card-content">
+                <div class="uk-overflow-container">
+                    <table  class="uk-table uk-table-nowrap uk-table-condensed ">
+                        <thead>
+                            <tr>
+                                <th class=" uk-text-center">{{'MODEL.USER.AVATAR'|translate}}</th>
+                                <th class=" ">{{'MODEL.USER.DISPLAY_NAME'|translate}}</th>
+                                <th class=" ">{{'MODEL.CANDIDATE.REGISTER_DATE'|translate}}</th>
+                                <th class="  ">{{'MODEL.CANDIDATE.STATUS'|translate}}</th>
+                                <th class=" ">{{'MODEL.CANDIDATE.SCORE'|translate}}</th>
+                                <th class="uk-text-center">{{'MODEL.CANDIDATE.NUMBER'|translate}}</th>
+                                <th class="uk-text-center">{{'MODEL.CANDIDATE.SUBMIT'|translate}}</th>
+                                <th class=" ">{{'MODEL.CANDIDATE.RESULT'|translate}}</th>
+                                <th class="uk-text-center" ng-show="vm.schedule.competency">{{'ACTION.AUTHORIZE_COMPETENCY' | translate}}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="candidate in vm.candidates">
+                                <td class="uk-text-center"><img class="md-user-image" src="{{candidate.candidate.profileImageURL}}" alt=""/></td>
+                                <td >{{candidate.candidate.displayName}}</td>
+                                <td>{{candidate.registered | date:'dd-MM-yyyy'}}</td>
+                                <td >
+                                    <span ng-show="candidate.status=='active'" class="uk-badge uk-badge-success">active</span>
+                                    <span ng-show="candidate.status=='withdrawn'" class="uk-badge uk-badge-warning">withdrawn</span>
+                                    <span ng-show="candidate.status=='suspended'" class="uk-badge uk-badge-danger">suspended</span>
+                                </td>
+                                <td class="">
+                                    <span ng-repeat="submit in candidate.submits"> 
+                                        <span class="uk-text-success" ng-show="submit.score >=vm.exam.benchmark">{{submit.score}}% &nbsp;</span>
+                                        <span class="uk-text-danger" ng-show="submit.score < vm.exam.benchmark">{{submit.score}}% &nbsp;</span>
+                                    </span>
+                                    <!-- <span class="uk-text-success" ng-show="candidate.score >=vm.exam.benchmark"> {{candidate.score}}%</span>
+                                    <span class="uk-text-danger" ng-show="candidate.score < vm.exam.benchmark">{{candidate.score}}%</span> -->
+                                </td>
+                                <td class="uk-text-center">
+                                   <span class="uk-text-small">{{candidate.attemptCount}} / {{vm.exam.maxAttempt}}</span>
+                                </td>
+                                <td class="uk-text-center">
+                                    <a ui-sref="workspace.lms.exams.scoreboard-candidate({candidateId:candidate._id,examId:vm.exam._id,scheduleId:vm.schedule._id})"><i
+                                    class="md-icon material-icons uk-text-primary">info_outline</i></a>
+                                </td>
+                                <td class="uk-text-center">
+                                    <span class="uk-text-success" ng-show="candidate.score >=vm.exam.benchmark">{{'COMMON.PASS'|translate}}</span>
+                                    <span class="uk-text-danger" ng-show="candidate.score < vm.exam.benchmark">{{'COMMON.FAIL'|translate}}</span>
+                                </td>
+                                <td class="uk-text-center" ng-show="vm.schedule.competency">
+                                  <a ng-show="!candidate.achievement" ng-click="vm.authorize(candidate)" data-uk-tooltip="{pos:'right'}"
+                                     title="{{'ACTION.AUTHORIZE_COMPETENCY'|translate}}"><i
+                                    class="md-icon material-icons uk-text-primary">content_paste</i></a>
+                                    <span class="uk-text-small" ng-show="candidate.achievement">{{candidate.achievement.competency.name}}</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
