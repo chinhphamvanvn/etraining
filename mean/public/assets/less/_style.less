@@ -500,6 +500,9 @@ span.date::before, span.capitalize::before {
   div.bulletin {
     display: none;
   }
+  li.small-bulletin{
+    display: none;
+  }
   .container-home > .heading_b + .content-search {
     margin-top: 15px;
   }
@@ -521,8 +524,26 @@ span.date::before, span.capitalize::before {
 }
 
 @media only screen and (min-width: 768px) and (max-width: 959px) {
-   .lang_selections .selectize-dropdown {
+  .lang_selections .selectize-dropdown {
     margin-left: -25px;
+  }
+  .container-home > .heading_b + .content-search {
+    margin-top: 5px;
+  }
+  div.courses-container-data {
+    padding-top: 5px;
+  }
+  .container-home > .content-search + .content-data {
+    margin-top: -10px;
+  }
+  .course-card-home {
+    margin-top: 15px;
+  }
+  h3.heading_b {
+    font-size: 26px;
+  }
+  .main-search-box input {
+    height: 25px;
   }
 }
 
