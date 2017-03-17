@@ -4,15 +4,15 @@
             <div class="sidebar_logo">
                 <a ui-sref="workspace.dashboard" class="sSidebar_hide sidebar_logo_large">
                     <img style="border:none;" class="logo_regular" ng-src="/assets/img/brand/logo.png" width="70" height="15" alt="" add-image-prop />
-                    <img style="border:none;" class="logo_light" ng-src="/assets/img/brand/logo.pngg" width="70" height="15" alt="" add-image-prop />
+                    <img style="border:none;" class="logo_light" ng-src="/assets/img/brand/logo.png" width="70" height="15" alt="" add-image-prop />
                 </a>
                 <a  ui-sref="workspace.dashboard"  class="sSidebar_show sidebar_logo_small">
                     <img style="border:none;" class="logo_regular" src="/assets/img/brand/logo.png" width="70" height="15" alt="" add-image-prop/>
-                    <img style="border:none;" class="logo_light" src="/assets/img/brand/logo.pngg" width="70" height="15" alt="" add-image-prop/>
+                    <img style="border:none;" class="logo_light" src="/assets/img/brand/logo.png" width="70" height="15" alt="" add-image-prop/>
                 </a>
-                
+
             </div>
-  
+
             <div class="sidebar_actions" ng-if="vm.hasAdminRole" ng-click="vm.switchPanel()">
                  <a ng-show="viewerRole=='user' && vm.user.roles.includes('admin')" class="md-btn md-btn-success md-btn-mini md-btn-wave-light md-btn-icon">
                         <i class="uk-icon-exchange"></i>
@@ -21,8 +21,8 @@
                   <a ng-show="viewerRole=='admin' && vm.user.roles.includes('user')"  class="md-btn md-btn-default md-btn-mini md-btn-wave-light md-btn-icon" >
                         <i class="uk-icon-exchange"></i>
                                 {{'PAGE.WORKSPACE.SIDEBAR.USER_PANEL'|translate}}
-                  </a>                
-            </div>            
+                  </a>
+            </div>
         </div>
         <div class="menu_section">
             <ul>
