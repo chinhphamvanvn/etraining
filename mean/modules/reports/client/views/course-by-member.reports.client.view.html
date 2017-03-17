@@ -4,14 +4,15 @@
         <div class="uk-grid" data-uk-grid-margin >
             <div class="uk-width-medium-1-1">
                 <div class="md-card">
-                    <div class="md-card-content">             
-                        <div>     
-                         <a class="md-btn  md-btn-wave-light md-btn-icon" data-uk-modal="{target:'#select_user'}">
+                    <div class="md-card-content">
+                        <div>
+                            <a class="md-btn  md-btn-wave-light md-btn-icon" data-uk-modal="{target:'#select_user'}">
                                 {{'PAGE.REPORTS.COURSE_BY_MEMBER.SELECT_DEPARTMENT'|translate}}
-                        <i class="material-icons">&#xE313;</i>
-                    </a>       
-                        <select-user-dialog callback="vm.generateReport" dialog-id="'select_user'"></select-user-dialog>
-                         </div>
+                                <i class="material-icons">&#xE313;</i>
+                            </a>
+                            <select-user-dialog callback="vm.generateReport" dialog-id="'select_user'"></select-user-dialog>
+                        </div>
+                        <div class="uk-overflow-container">
                             <table  class="uk-table uk-table-hover uk-table-condensed" cellspacing="0" width="100%">
                                 <thead>
                                     <tr>
@@ -54,17 +55,17 @@
                                     </tr>
                                 </tbody>
                             </table>
-                            <div>           
-                        <a class="md-btn md-btn-primary  md-btn-wave-light md-btn-icon" ng-csv="vm.getExportData()" csv-header="vm.getExportHeader()" filename="report.course_by_member.csv" field-separator=";" decimal-separator=".">
-                         <i class="material-icons">save</i>
-                                {{'ACTION.EXPORT'|translate}}
+                        </div>
+                        <div>
+                            <a class="md-btn md-btn-primary  md-btn-wave-light md-btn-icon" ng-csv="vm.getExportData()" csv-header="vm.getExportHeader()" filename="report.course_by_member.csv" field-separator=";" decimal-separator=".">
+                                <i class="material-icons">save</i>
+                                    {{'ACTION.EXPORT'|translate}}
                             </a>
-                         </div>
-                         </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-
     </div>
 </div>
 
