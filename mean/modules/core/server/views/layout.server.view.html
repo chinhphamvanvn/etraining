@@ -1,4 +1,9 @@
-<html lang="en" class={{appClass}} document-events ng-class="{
+<!DOCTYPE html>
+<html lang="en" class={{appClass}}
+      document-events
+      ng-click="onClick($event)"
+      ng-keyup="onKeyUp($event)"
+      ng-class="{
         'page_loading': pageLoading,
         'page_loaded': pageLoaded}" >
 <head>
@@ -53,8 +58,8 @@
       <strong>This page requires JavaScript.</strong> Please enable it in your browser.
     </div>
   </noscript>
-  
 
+</div>
 
   <!--Embedding The User Object-->
   <script type="text/javascript">
@@ -69,7 +74,7 @@
     var sharedConfig = {{{ sharedConfig }}};
     owaspPasswordStrengthTest.config(sharedConfig.owasp);
   </script>
-  
+
   <!-- google web fonts -->
     <script>
         WebFontConfig = {

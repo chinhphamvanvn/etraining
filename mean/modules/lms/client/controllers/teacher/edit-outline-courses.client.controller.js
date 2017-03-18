@@ -121,6 +121,11 @@ function CoursesOutlineEditController($scope, $state, $window, Authentication, $
 
     function addUnit(node,contentType) {
         UIkit.modal.prompt($translate.instant('MODEL.GROUP.NAME'), '', function(val){
+            val = val.trim();
+            if (!val) {
+                UIkit.modal.alert($translate.instant('ERROR.GROUP.EMPTY_NAME_NOT_ALLOW'));
+                return;
+            } 
             var section = new EditionSectionsService();
             section.parent = node.data._id;
             section.name = val;

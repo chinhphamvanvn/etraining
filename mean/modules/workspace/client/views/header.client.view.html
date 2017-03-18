@@ -3,18 +3,18 @@
         <div class="header_main_content">
             <nav class="uk-navbar">
                 <div class="main_logo_top" ng-if="topMenuActive || fullHeaderActive">
-                    <a><img ng-src="/assets/img/brand/logo.png" alt="" add-image-prop/></a>
+                    <a><img src="/assets/img/brand/logo.png" alt="logo"/></a>
                 </div>
                 <!-- main sidebar switch -->
                 <div>
                     <ul class="uk-navbar-nav user_actions">
-                        <li data-uk-tooltip="{cls:'uk-tooltip-small',pos:'top'}" title="Expand / collapse">
+                        <li>
                             <sidebar-primary-toggle></sidebar-primary-toggle>
                         </li>
-                        <li data-uk-tooltip="{cls:'uk-tooltip-small',pos:'top'}" title="Zoom in/out">
+                        <li>
                             <a href="#" class="user_action_icon uk-visible-large" id="full_screen_toggle" full-screen-toggle><i class="material-icons md-24 md-light">&#xE5D0;</i></a>
                         </li>
-                        <li data-uk-tooltip="{cls:'uk-tooltip-small',pos:'top'}" title="Print">
+                        <li>
                             <a href="#"  class="user_action_icon uk-visible-large" print-page ><i class=" material-icons md-24 md-light">&#xE8AD;</i></a>
                         </li>
                     </ul>
@@ -64,7 +64,7 @@
                         </li>
                         <li>
                             <div class="lang_selections" ng-controller="LanguageController as lang" >
-                                <selectize 
+                                <selectize
                                     config='lang.langSwitcherConfig'
                                     options='lang.langSwitcherOptions'
                                     ng-model="lang.langSwitcherModel"></selectize>

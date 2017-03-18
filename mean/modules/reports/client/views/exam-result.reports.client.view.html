@@ -4,11 +4,12 @@
         <div class="uk-grid" data-uk-grid-margin >
             <div class="uk-width-medium-1-1">
                 <div class="md-card">
-                    <div class="md-card-content">             
-                        <div >
-                                    <label class="uk-form-label">{{'PAGE.REPORTS.EXAM_RESULT.SELECT_EXAM'|translate}}</label>
-                                    <input ng-change="vm.selectSchedule()" name="exam" id="exam" type="text" config="vm.scheduleConfig" options="vm.scheduleOptions" ng-model="vm.scheduleId" selectize />
-                                </div>
+                    <div class="content-table-gradebook md-card-content">
+                        <div>
+                            <label class="uk-form-label">{{'PAGE.REPORTS.EXAM_RESULT.SELECT_EXAM'|translate}}</label>
+                            <input ng-change="vm.selectSchedule()" name="exam" id="exam" type="text" config="vm.scheduleConfig" options="vm.scheduleOptions" ng-model="vm.scheduleId" selectize />
+                        </div>
+                        <div class="uk-overflow-container">
                             <table  class="uk-table uk-table-hover uk-table-condensed" cellspacing="0" width="100%">
                                 <thead>
                                     <tr>
@@ -46,17 +47,17 @@
                                     </tr>
                                 </tbody>
                             </table>
-                            <div>           
-                        <a class="md-btn md-btn-primary  md-btn-wave-light md-btn-icon" ng-csv="vm.getExportData()" csv-header="vm.getExportHeader()" filename="report.exam_resulte.csv" field-separator=";" decimal-separator=".">
-                         <i class="material-icons">save</i>
+                        </div>
+                        <div>
+                            <a class="md-btn md-btn-primary  md-btn-wave-light md-btn-icon" ng-csv="vm.getExportData()" csv-header="vm.getExportHeader()" filename="report.exam_resulte.csv" field-separator=";" decimal-separator=".">
+                                <i class="material-icons">save</i>
                                 {{'ACTION.EXPORT'|translate}}
                             </a>
-                         </div>
-                         </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-
     </div>
 </div>
 

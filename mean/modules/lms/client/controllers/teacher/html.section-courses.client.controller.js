@@ -6,9 +6,9 @@ angular
     .module('lms')
     .controller('CoursesHTMLSectionController', CoursesHTMLSectionController);
 
-CoursesHTMLSectionController.$inject = ['$scope', '$state', '$window', 'Authentication', '$timeout', 'courseResolve', 'sectionResolve','editionResolve', 'htmlResolve', 'Notification', 'EditionSectionsService', 'fileManagerConfig','$q', '_'];
+CoursesHTMLSectionController.$inject = ['$scope', '$state', '$window', 'Authentication', '$timeout', 'courseResolve', 'sectionResolve','editionResolve', 'htmlResolve', 'Notification', 'EditionSectionsService', 'fileManagerConfig','$q', '_','$translate'];
 
-function CoursesHTMLSectionController($scope, $state, $window, Authentication, $timeout, course, section,edition, html,Notification, EditionSectionsService ,fileManagerConfig, $q, _) {
+function CoursesHTMLSectionController($scope, $state, $window, Authentication, $timeout, course, section,edition, html,Notification, EditionSectionsService ,fileManagerConfig, $q, _,$translate) {
     var vm = this;
     vm.authentication = Authentication;
     vm.course = course;
@@ -20,13 +20,19 @@ function CoursesHTMLSectionController($scope, $state, $window, Authentication, $
     
     function saveSection() {
         return $q(function(resolve, reject) {
-            vm.section.html = vm.html._id;
-            vm.section.$update(function() {
-                resolve();
-            },function(errorResponse) {
-                Notification.error({ message: errorResponse.data.message, title: '<i class="uk-icon-ban"></i> Section HTML updated error!' });
-                reject();
-            })
+            var name = vm.section.name.trim();
+                if (!name) {
+                    UIkit.modal.alert($translate.instant('ERROR.GROUP.EMPTY_NAME_NOT_ALLOW'));
+                    return;
+                } else{
+                vm.section.html = vm.html._id;
+                vm.section.$update(function() {
+                    resolve();
+                },function(errorResponse) {
+                    Notification.error({ message: errorResponse.data.message, title: '<i class="uk-icon-ban"></i> Section HTML updated error!' });
+                    reject();
+                })
+            }
         });
     }
     
