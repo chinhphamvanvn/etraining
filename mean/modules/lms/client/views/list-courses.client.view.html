@@ -1,8 +1,11 @@
 <div id="page_content">
   <div id="page_content_inner">
     <div class="uk-grid admin-header-container">
-      <h3 class="heading_b admin-page-title uk-width-large-6-10 uk-width-medium-1-2">{{'PAGE.WORKSPACE.SIDEBAR.LMS.COURSE_LIST.TITLE' |
-        translate}}</h3>
+      <div class="uk-width-large-6-10 uk-width-medium-1-2">
+        <h3 class="heading_b admin-page-title">
+          {{'PAGE.WORKSPACE.SIDEBAR.LMS.COURSE_LIST.TITLE' |
+          translate}}</h3>
+      </div>
       <div class="search-box uk-width-large-4-10 uk-width-medium-1-2">
         <a class="uk-icon-hover uk-icon-search uk-align-right vi-btn-search"
            ng-click="vm.gotoSearch()"></a>
@@ -67,7 +70,8 @@
                 </div>
               </div>
               <div class="uk-width-small-1-2">
-                <input class="sort-select" config="vm.selectize_val_config" options="vm.optionCoures" ng-model="sortCoures" required
+                <input class="sort-select" config="vm.selectize_val_config" options="vm.optionCoures"
+                       ng-model="sortCoures" required
                        name="val_select" selectize ng-change="vm.chooseSort(sortCoures)"/>
               </div>
             </div>

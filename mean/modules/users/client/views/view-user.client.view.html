@@ -1,271 +1,290 @@
-    <div id="page_content">
-        <div id="page_content_inner">
-            <div class="uk-grid" data-uk-grid-margin data-uk-grid-match id="user_profile">
-                <div class="uk-width-large-7-10">
-                    <div class="md-card">
-                        <div class="user_heading">
-                             <div class="user_heading_menu" data-uk-dropdown="{pos:'bottom-right',mode:'click'}">
-                                <i class="md-icon uk-icon-bar-chart  md-icon-light"></i>
-                                <div class="uk-dropdown uk-dropdown-small">
-                                    <ul class="uk-nav">
-                                        <li class="uk-nav-header">
-                                        <a  data-uk-modal="{target:'#modal_course'}">
-                                        {{'PAGE.PROFILE.COURSE'|translate}}
-                                        </a>
-                                        </li>
-                                        <li class="uk-nav-header" >
-                                        <a  data-uk-modal="{target:'#modal_certificate'}">
-                                        {{'PAGE.PROFILE.CERTIFICATE'|translate}}
-                                        </a>
-                                        </li>
-                                        <li class="uk-nav-header"  >
-                                        <a  data-uk-modal="{target:'#modal_competency'}">
-                                        {{'PAGE.PROFILE.COMPETENCY'|translate}}
-                                        </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="user_heading_avatar">
-                                <div class="fileinput-new thumbnail">
-                                    <img ng-src="{{vm.user.profileImageURL?vm.user.profileImageURL:'/assets/img/avatars/user.png'}}" alt="user avatar"/>
-                                </div>
-                            </div>
-                            <div class="user_heading_content">
-                                <h2 class="heading_b uk-margin-bottom">
-                                    <span class="uk-text-truncate">{{vm.user.displayName}}</span>
-                                    <span class="sub-heading">{{vm.user.position}}</span>
-                                </h2>
-                                <ul class="user_stats">
-                                    <li>
-                                        <h4 class="heading_a">{{vm.members.length}}<span class="sub-heading">{{'PAGE.PROFILE.COURSE'|translate}}</span></h4>
-                                    </li>
-                                    <li>
-                                        <h4 class="heading_a">{{vm.certificates.length}}<span class="sub-heading">{{'PAGE.PROFILE.CERTIFICATE'|translate}}</span></h4>
-                                    </li>
-                                    <li>
-                                        <h4 class="heading_a">{{vm.skills.length}}<span class="sub-heading">{{'PAGE.PROFILE.COMPETENCY'|translate}}</span></h4>
-                                    </li>
-                                </ul>
-                            </div>
-                            <a class="md-fab md-fab-small md-fab-accent" ng-click="vm.edit()">
-                                <i class="material-icons">&#xE150;</i>
-                            </a>
-                        </div>
-                        <div class="user_content">
-                            <ul id="user_profile_tabs" class="uk-tab" data-uk-tab="{connect:'#user_profile_tabs_content', animation:'slide-horizontal'}" data-uk-sticky="{ top: 48, media: 960 }">
-                                <li class="uk-active"><a href="#">{{'PAGE.PROFILE.BASIC'|translate}}</a></li>
-                                <li><a href="#">{{'PAGE.PROFILE.COMPANY'|translate}}</a></li>
-                            </ul>
-                            <ul id="user_profile_tabs_content" class="uk-switcher uk-margin">
-                                <li>
-                                    <div class="uk-grid uk-margin-medium-top uk-margin-large-bottom" data-uk-grid-margin>
-                                        <div class="uk-width-large-1-2">
-                                            <h4 class="heading_c uk-margin-small-bottom">{{'PAGE.PROFILE.CONTACT_INFO'|translate}}</h4>
-                                            <ul class="md-list md-list-addon">
-                                                <li>
-                                                    
-                                                    <div class="md-list-addon-element">
-                                                        <i class="md-list-addon-icon material-icons">&#xE158;</i>
-                                                    </div>
-                                                    <div class="md-list-content">
-                                                        <span class="md-list-heading">{{vm.user.email}}</span>
-                                                        <span class="uk-text-small uk-text-muted">{{'MODEL.USER.EMAIL'|translate}}</span>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div class="md-list-addon-element">
-                                                        <i class="md-list-addon-icon material-icons">&#xE0CD;</i>
-                                                    </div>
-                                                    <div class="md-list-content">
-                                                        <span class="md-list-heading">{{vm.user.phone}}</span>
-                                                        <span class="uk-text-small uk-text-muted">{{'MODEL.USER.PHONE'|translate}}</span>
-                                                    </div>
-                                                </li>
-                                              
-                                            </ul>
-                                        </div>
-                                        <div class="uk-width-large-1-2">
-                                            <h4 class="heading_c uk-margin-small-bottom">{{'PAGE.PROFILE.SOCIAL_ACCOUNT'|translate}}</h4>
-                                            <ul class="md-list md-list-addon">
-                                               
-                                                <li>
-                                                    <div class="md-list-addon-element">
-                                                        <i class="md-list-addon-icon uk-icon-facebook-official"></i>
-                                                    </div>
-                                                    <div class="md-list-content">
-                                                        <span class="md-list-heading">{{vm.user.facebook}}</span>
-                                                        <span class="uk-text-small uk-text-muted">Facebook</span>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div class="md-list-addon-element">
-                                                        <i class="md-list-addon-icon uk-icon-twitter"></i>
-                                                    </div>
-                                                    <div class="md-list-content">
-                                                        <span class="md-list-heading">{{vm.user.twitter}}</span>
-                                                        <span class="uk-text-small uk-text-muted">Twitter</span>
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>   
-                                                                 
-                                </li>
-                                <li>
-                                   <div class="md-card">
-                                        <div class="md-card-content">
-                                                 <group-tree-view tree-id="'orgTree'" mode="'single'" category="'organization'" initial="vm.user.group" disabled="true"></group-tree-view>
-                                   </div>
-                                    </div>   
-                                </li>
-
-                            </ul>
-                            <p class="uk-form-help-block">
-                                        {{'PAGE.PROFILE.REGISTER_SINCE'|translate}} {{vm.user.created | date:'dd-MM-yyyy'}}
-                                    </p>
-                        </div>
-                        
-                    </div>
-                    
-                </div>
-                <div class="uk-width-large-3-10">
-                    <div class="md-card">
-                        <div class="md-card-content">
-                            <div class="uk-margin-medium-bottom">
-                                <div class="uk-margin-medium-bottom">
-                                <h3 class="heading_c uk-margin-bottom">{{'PAGE.PROFILE.ACTIVITY'|translate}}</h3>
-                                <ul class="md-list md-list-addon">
-                                    <li ng-repeat="log in vm.logs">
-                                        <div class="md-list-addon-element">
-                                            <i class="md-list-addon-icon material-icons uk-text-warning" ng-if="log.type == 'warning'">&#xE8B2;</i>
-                                            <i class="md-list-addon-icon material-icons uk-text-success" ng-if="log.type == 'success'">&#xE88F;</i>
-                                            <i class="md-list-addon-icon material-icons uk-text-danger" ng-if="log.type == 'danger'">&#xE001;</i>
-                                            <i class="md-list-addon-icon material-icons uk-text-default" ng-if="log.type == 'info'">&#xE001;</i>
-                                        </div>
-                                        <div class="md-list-content">
-                                            <span class="uk-text-small uk-text-muted uk-text-truncate"> {{log.content}}</span>
-                                            <span class="uk-text-small uk-text-muted uk-text-truncate"> <span>
-                                            {{ log.created | momentDate:'YYYY-MM-DD' :'DD/MM/YYYY' }}</span></span>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                            </div>
-                           
-                        </div>
-                    </div>
-                </div>
+<div id="page_content">
+  <div id="page_content_inner">
+    <div class="uk-grid" data-uk-grid-margin data-uk-grid-match id="user_profile">
+      <div class="uk-width-large-7-10">
+        <div class="md-card">
+          <div class="user_heading">
+            <div class="user_heading_menu" data-uk-dropdown="{pos:'bottom-right',mode:'click'}">
+              <i class="md-icon uk-icon-bar-chart  md-icon-light"></i>
+              <div class="uk-dropdown uk-dropdown-small">
+                <ul class="uk-nav">
+                  <li class="uk-nav-header">
+                    <a data-uk-modal="{target:'#modal_course'}">
+                      {{'PAGE.PROFILE.COURSE'|translate}}
+                    </a>
+                  </li>
+                  <li class="uk-nav-header">
+                    <a data-uk-modal="{target:'#modal_certificate'}">
+                      {{'PAGE.PROFILE.CERTIFICATE'|translate}}
+                    </a>
+                  </li>
+                  <li class="uk-nav-header">
+                    <a data-uk-modal="{target:'#modal_competency'}">
+                      {{'PAGE.PROFILE.COMPETENCY'|translate}}
+                    </a>
+                  </li>
+                </ul>
+              </div>
             </div>
-        </div>
-    </div>
+            <div class="user_heading_avatar">
+              <div class="fileinput-new thumbnail">
+                <img ng-src="{{vm.user.profileImageURL?vm.user.profileImageURL:'/assets/img/avatars/user.png'}}"
+                     alt="user avatar"/>
+              </div>
+            </div>
+            <div class="user_heading_content">
+              <h2 class="heading_b uk-margin-bottom">
+                <span class="uk-text-truncate">{{vm.user.displayName}}</span>
+                <span class="sub-heading">{{vm.user.position}}</span>
+              </h2>
+              <ul class="user_stats">
+                <li>
+                  <h4 class="heading_a">{{vm.members.length}}<span class="sub-heading">{{'PAGE.PROFILE.COURSE'|translate}}</span>
+                  </h4>
+                </li>
+                <li>
+                  <h4 class="heading_a">{{vm.certificates.length}}<span class="sub-heading">{{'PAGE.PROFILE.CERTIFICATE'|translate}}</span>
+                  </h4>
+                </li>
+                <li>
+                  <h4 class="heading_a">{{vm.skills.length}}<span class="sub-heading">{{'PAGE.PROFILE.COMPETENCY'|translate}}</span>
+                  </h4>
+                </li>
+              </ul>
+            </div>
+            <a class="md-fab md-fab-small md-fab-accent" ng-click="vm.edit()">
+              <i class="material-icons">&#xE150;</i>
+            </a>
+          </div>
+          <div class="user_content">
+            <ul id="user_profile_tabs" class="uk-tab"
+                data-uk-tab="{connect:'#user_profile_tabs_content', animation:'slide-horizontal'}"
+                data-uk-sticky="{ top: 48, media: 960 }">
+              <li class="uk-active"><a href="#">{{'PAGE.PROFILE.BASIC'|translate}}</a></li>
+              <li><a href="#">{{'PAGE.PROFILE.COMPANY'|translate}}</a></li>
+            </ul>
+            <ul id="user_profile_tabs_content" class="uk-switcher uk-margin">
+              <li>
+                <div class="uk-grid uk-margin-medium-top uk-margin-large-bottom" data-uk-grid-margin>
+                  <div class="uk-width-large-1-2">
+                    <h4 class="heading_c uk-margin-small-bottom">{{'PAGE.PROFILE.CONTACT_INFO'|translate}}</h4>
+                    <ul class="md-list md-list-addon">
+                      <li>
 
-  <div id="modal_course" class="uk-modal">
-    <div class="uk-modal-dialog uk-modal-dialog-large">
-        <button type="button" class="uk-modal-close uk-close uk-close-alt"></button>
-        <button class="md-btn buttons-csv buttons-html5" type="button"
-            ng-csv="vm.memberListCsv" 
+                        <div class="md-list-addon-element">
+                          <i class="md-list-addon-icon material-icons">&#xE158;</i>
+                        </div>
+                        <div class="md-list-content">
+                          <span class="md-list-heading">{{vm.user.email}}</span>
+                          <span class="uk-text-small uk-text-muted">{{'MODEL.USER.EMAIL'|translate}}</span>
+                        </div>
+                      </li>
+                      <li>
+                        <div class="md-list-addon-element">
+                          <i class="md-list-addon-icon material-icons">&#xE0CD;</i>
+                        </div>
+                        <div class="md-list-content">
+                          <span class="md-list-heading">{{vm.user.phone}}</span>
+                          <span class="uk-text-small uk-text-muted">{{'MODEL.USER.PHONE'|translate}}</span>
+                        </div>
+                      </li>
+
+                    </ul>
+                  </div>
+                  <div class="uk-width-large-1-2">
+                    <h4 class="heading_c uk-margin-small-bottom">{{'PAGE.PROFILE.SOCIAL_ACCOUNT'|translate}}</h4>
+                    <ul class="md-list md-list-addon">
+
+                      <li>
+                        <div class="md-list-addon-element">
+                          <i class="md-list-addon-icon uk-icon-facebook-official"></i>
+                        </div>
+                        <div class="md-list-content">
+                          <span class="md-list-heading">{{vm.user.facebook}}</span>
+                          <span class="uk-text-small uk-text-muted">Facebook</span>
+                        </div>
+                      </li>
+                      <li>
+                        <div class="md-list-addon-element">
+                          <i class="md-list-addon-icon uk-icon-twitter"></i>
+                        </div>
+                        <div class="md-list-content">
+                          <span class="md-list-heading">{{vm.user.twitter}}</span>
+                          <span class="uk-text-small uk-text-muted">Twitter</span>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+
+              </li>
+              <li>
+                <div class="md-card">
+                  <div class="md-card-content">
+                    <group-tree-view tree-id="'orgTree'" mode="'single'" category="'organization'"
+                                     initial="vm.user.group" disabled="true"></group-tree-view>
+                  </div>
+                </div>
+              </li>
+
+            </ul>
+            <p class="uk-form-help-block">
+              {{'PAGE.PROFILE.REGISTER_SINCE'|translate}} {{vm.user.created | date:'dd-MM-yyyy'}}
+            </p>
+          </div>
+
+        </div>
+
+      </div>
+      <div class="uk-width-large-3-10">
+        <div class="md-card">
+          <div class="md-card-content">
+            <div class="uk-margin-medium-bottom">
+              <div class="uk-margin-medium-bottom">
+                <h3 class="heading_c uk-margin-bottom">{{'PAGE.PROFILE.ACTIVITY'|translate}}</h3>
+                <ul class="md-list md-list-addon">
+                  <li ng-repeat="log in vm.logs">
+                    <div class="md-list-addon-element">
+                      <i class="md-list-addon-icon material-icons uk-text-warning" ng-if="log.type == 'warning'">
+                        &#xE8B2;</i>
+                      <i class="md-list-addon-icon material-icons uk-text-success" ng-if="log.type == 'success'">
+                        &#xE88F;</i>
+                      <i class="md-list-addon-icon material-icons uk-text-danger" ng-if="log.type == 'danger'">
+                        &#xE001;</i>
+                      <i class="md-list-addon-icon material-icons uk-text-default" ng-if="log.type == 'info'">
+                        &#xE001;</i>
+                    </div>
+                    <div class="md-list-content">
+                      <span class="uk-text-small uk-text-muted uk-text-truncate"> {{log.content}}</span>
+                      <span class="uk-text-small uk-text-muted uk-text-truncate"> <span>
+                                            {{ log.created | momentDate:'YYYY-MM-DD' :'DD/MM/YYYY' }}</span></span>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="modal_course" class="uk-modal">
+  <div class="uk-modal-dialog uk-modal-dialog-large">
+    <button type="button" class="uk-modal-close uk-close uk-close-alt"></button>
+    <button class="md-btn buttons-csv buttons-html5 uk-hidden-small" type="button"
+            ng-csv="vm.memberListCsv"
             csv-header="vm.headerArrCsv"
             filename="Report.csv" style="margin-top: -18px;">
-            <i class="uk-icon-file-excel-o" aria-hidden="true"></i>
-            {{"ACTION.EXPORT" | translate}}
-        </button>
-        <table  class="uk-table uk-table-nowrap uk-table-condensed uk-table-hover">
-            <thead>
-                <tr>
-                    <th class="uk-width-2-10 uk-text-center">{{'MODEL.COURSE.NAME'|translate}}</th>
-                    <th class="uk-width-1-10 uk-text-center">{{'MODEL.MEMBER.REGISTER_DATE'|translate}}</th>
-                    <th class="uk-width-1-10  uk-text-center">{{'MODEL.MEMBER.STATUS'|translate}}</th>
-                    <th class="uk-width-1-10 uk-text-center">{{'MODEL.MEMBER.ENROLL_STATUS'|translate}}</th>
-                    <th class="uk-width-3-10 uk-text-center">{{'COMMON.PROGRESS_PERCENTAGE'|translate}}</th>
-                    <th class="uk-width-2-10 uk-text-center">{{'COMMON.TIME_SPEND'|translate}}</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr ng-repeat="member in vm.members">
-                    <td class="uk-text-center">{{member.course.name}}
-                    </td>
-                    <td class="uk-text-center">{{member.registered | date:'dd-MM-yyyy'}}</td>
-                    <td class="uk-text-center">
-                        <span ng-show="member.status=='active'" class="uk-badge uk-badge-success">active</span>
-                        <span ng-show="member.status=='withdrawn'" class="uk-badge uk-badge-warning">withdrawn</span>
-                        <span ng-show="member.status=='suspended'" class="uk-badge uk-badge-danger">suspended</span>
-                    </td>
-                    <td class="uk-text-center">
-                        <span ng-show="member.enrollmentStatus=='completed'" class="uk-badge uk-badge-success">{{'COMMON.ENROLL.COMPLETED'|translate}}</span>
-                        <span ng-show="member.enrollmentStatus=='in-study'" class="uk-badge uk-badge-primary">{{'COMMON.ENROLL.INSTUDY'|translate}}</span>
-                        <span ng-show="member.enrollmentStatus=='registered'" class="uk-badge ">{{'COMMON.ENROLL.REGISTERED'|translate}}</span>
-                        <span ng-show="member.certificate" class="uk-form-help-block">{{'PAGE.LMS.MY_COURSES.TEACHER_BOARD.GRADE_BOARD.CERTIFIED'|translate}}</span>
-                    </td>
-                    <td class="uk-text-center" >
-                        <div class="uk-progress ">
-                            <div class="uk-progress-bar" style="width:{{member.percentage}}%">{{member.percentage}}%</div>
-                        </div>
-                    </td>
-                    <td class="uk-text-center">
-                        {{member.timeSpent | timeString}}
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+      <i class="uk-icon-file-excel-o" aria-hidden="true"></i>
+      {{"ACTION.EXPORT" | translate}}
+    </button>
+    <div class="uk-overflow-container">
+      <table class="uk-table uk-table-nowrap uk-table-condensed uk-table-hover">
+      <thead>
+      <tr>
+        <th class="uk-width-2-10 uk-text-center">{{'MODEL.COURSE.NAME'|translate}}</th>
+        <th class="uk-width-1-10 uk-text-center uk-hidden-small">{{'MODEL.MEMBER.REGISTER_DATE'|translate}}</th>
+        <th class="uk-width-1-10  uk-text-center uk-hidden-small">{{'MODEL.MEMBER.STATUS'|translate}}</th>
+        <th class="uk-width-1-10 uk-text-center">{{'MODEL.MEMBER.ENROLL_STATUS'|translate}}</th>
+        <th class="uk-width-3-10 uk-text-center">{{'COMMON.PROGRESS_PERCENTAGE'|translate}}</th>
+        <th class="uk-width-2-10 uk-text-center uk-hidden-small">{{'COMMON.TIME_SPEND'|translate}}</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr ng-repeat="member in vm.members">
+        <td>{{member.course.name}}</td>
+        <td class="uk-text-center uk-hidden-small">{{member.registered | date:'dd-MM-yyyy'}}</td>
+        <td class="uk-text-center uk-hidden-small">
+          <span ng-show="member.status=='active'" class="uk-badge uk-badge-success">active</span>
+          <span ng-show="member.status=='withdrawn'" class="uk-badge uk-badge-warning">withdrawn</span>
+          <span ng-show="member.status=='suspended'" class="uk-badge uk-badge-danger">suspended</span>
+        </td>
+        <td>
+          <span ng-show="member.enrollmentStatus=='completed'" class="uk-badge uk-badge-success">{{'COMMON.ENROLL.COMPLETED'|translate}}</span>
+          <span ng-show="member.enrollmentStatus=='in-study'" class="uk-badge uk-badge-primary">{{'COMMON.ENROLL.INSTUDY'|translate}}</span>
+          <span ng-show="member.enrollmentStatus=='registered'" class="uk-badge ">{{'COMMON.ENROLL.REGISTERED'|translate}}</span>
+          <span ng-show="member.certificate" class="uk-form-help-block">{{'PAGE.LMS.MY_COURSES.TEACHER_BOARD.GRADE_BOARD.CERTIFIED'|translate}}</span>
+        </td>
+        <td class="uk-text-center">
+          <div class="uk-progress ">
+            <div class="uk-progress-bar" style="width:{{member.percentage}}%">{{member.percentage}}%</div>
+          </div>
+        </td>
+        <td class="uk-text-center uk-hidden-small">
+          {{member.timeSpent | timeString}}
+        </td>
+      </tr>
+      </tbody>
+    </table>
     </div>
+  </div>
 </div>
 
 
-  <div id="modal_certificate" class="uk-modal" style="pointer-events: none;">
-    <div class="uk-modal-dialog " style="pointer-events: auto;">
-        <button type="button" class="uk-modal-close uk-close uk-close-alt"></button>
-        <table  class="uk-table uk-table-nowrap  uk-table-condensed">
-            <thead>
-                <tr>
-                    <th class="uk-width-2-10 uk-text-center">{{'MODEL.COURSE.NAME'|translate}}</th>
-                    <th class="uk-width-2-10 uk-text-center">{{'MODEL.CERTIFICATE.ISSUE_DATE'|translate}}</th>
-                    <th class="uk-width-2-10  uk-text-center">{{'MODEL.CERTIFICATE.AUTHORIZER'|translate}}</th>
-                    <th class="uk-width-4-10 uk-text-center"></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr ng-repeat="certificate in vm.certificates" ng-init="certificate.showimage = false;">
-                    <td class="" style="white-space: normal; min-width: 270px;">{{certificate.course.name}}
-                    </td>
-                    <td class="uk-text-center">{{certificate.issueDate | date:'dd-MM-yyyy'}}</td>
-                    <td class="uk-text-center">{{certificate.authorizer.displayName}}</td>
+<div id="modal_certificate" class="uk-modal" style="pointer-events: none;">
+  <div class="uk-modal-dialog " style="pointer-events: auto;">
+    <button type="button" class="uk-modal-close uk-close uk-close-alt"></button>
+    <div class="uk-overflow-container">
+      <table class="uk-table uk-table-nowrap  uk-table-condensed">
+      <thead>
+      <tr>
+        <th class="uk-width-2-10 uk-text-center">{{'MODEL.COURSE.NAME'|translate}}</th>
+        <th class="uk-width-2-10 uk-text-center uk-hidden-small">{{'MODEL.CERTIFICATE.ISSUE_DATE'|translate}}</th>
+        <th class="uk-width-2-10  uk-text-center uk-hidden-small">{{'MODEL.CERTIFICATE.AUTHORIZER'|translate}}</th>
+        <th class="uk-width-4-10 uk-text-center"></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr ng-repeat="certificate in vm.certificates" ng-init="certificate.showimage = false;" class="uk-table-middle">
+        <td style="white-space: normal; min-width: 270px;">{{certificate.course.name}}
+        </td>
+        <td class="uk-text-center uk-hidden-small">{{certificate.issueDate | date:'dd-MM-yyyy'}}</td>
+        <td class="uk-text-center uk-hidden-small">{{certificate.authorizer.displayName}}</td>
 
-                    <td class="uk-text-center">
-                        <a class="md-btn" ng-click="certificate.showimage = !certificate.showimage">
-                            <img class="img_thumb"  data-ng-src="data:image/png;base64,{{certificate.base64data}}">
-                        </a>
-                        <div ng-show="certificate.showimage" class="uk-modal uk-open" style="display: block; z-index: 1500; opacity: 1; overflow: visible !important; margin-top: 0px;">
-                            <div class="uk-modal-dialog uk-modal-dialog-lightbox" style=" max-width: calc(100% - 0px); margin: 0px 0px; position: initial;">
-                                <button type="button" class="uk-modal-close uk-close uk-close-alt" ng-click="certificate.showimage = !certificate.showimage"></button>
-                                <img data-ng-src="data:image/png;base64,{{certificate.base64data}}" />
-                                <div><a ng-href="data:image/png;base64,{{certificate.base64data}}" target="_blank" download style="position: absolute; bottom: 0; margin-bottom: 15px; right: 15px;"><i class="uk-icon-download" style="font-size: larger;"></i></a></div>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+        <td class="uk-text-center">
+          <a class="md-btn" ng-click="certificate.showimage = !certificate.showimage">
+            <img class="img_thumb" data-ng-src="data:image/png;base64,{{certificate.base64data}}">
+          </a>
+          <div ng-show="certificate.showimage" class="uk-modal uk-open"
+               style="display: block; z-index: 1500; opacity: 1; overflow: visible !important; margin-top: 0px;">
+            <div class="uk-modal-dialog uk-modal-dialog-lightbox"
+                 style=" max-width: calc(100% - 0px); margin: 0px 0px; position: initial;">
+              <button type="button" class="uk-modal-close uk-close uk-close-alt"
+                      ng-click="certificate.showimage = !certificate.showimage"></button>
+              <img data-ng-src="data:image/png;base64,{{certificate.base64data}}"/>
+              <div><a ng-href="data:image/png;base64,{{certificate.base64data}}" target="_blank" download
+                      style="position: absolute; bottom: 0; margin-bottom: 15px; right: 15px;"><i
+                class="uk-icon-download" style="font-size: larger;"></i></a></div>
+            </div>
+          </div>
+        </td>
+      </tr>
+      </tbody>
+    </table>
     </div>
+  </div>
 </div>
 
 
 <div id="modal_competency" class="uk-modal">
-    <div class="uk-modal-dialog">
-        <button type="button" class="uk-modal-close uk-close uk-close-alt"></button>
-        <table  class="uk-table uk-table-nowrap uk-table-condensed uk-table-hover">
-                            <thead>
-                            <tr>
-                                <th class="uk-width-2-10 uk-text-center">{{'MODEL.COMPETENCY.NAME'|translate}}</th>
-                                <th class="uk-width-2-10 uk-text-center">{{'MODEL.ACHIEVEMENT.ISSUE_DATE'|translate}}</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr ng-repeat="skill in vm.skills">
-                                <td class="uk-text-center">{{skill.competency.name}}</td>
-                                <td class="uk-text-center">{{skill.issueBy | date:'dd/MM/yyyy'}}</td>
-                            </tr>
-                            </tbody>
-                        </table>
-    </div>
+  <div class="uk-modal-dialog">
+    <button type="button" class="uk-modal-close uk-close uk-close-alt"></button>
+    <table class="uk-table uk-table-nowrap uk-table-condensed uk-table-hover">
+      <thead>
+      <tr>
+        <th class="uk-width-2-10 uk-text-center">{{'MODEL.COMPETENCY.NAME'|translate}}</th>
+        <th class="uk-width-2-10 uk-text-center">{{'MODEL.ACHIEVEMENT.ISSUE_DATE'|translate}}</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr ng-repeat="skill in vm.skills">
+        <td>{{skill.competency.name}}</td>
+        <td class="uk-text-center">{{skill.issueBy | date:'dd/MM/yyyy'}}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
 </div>

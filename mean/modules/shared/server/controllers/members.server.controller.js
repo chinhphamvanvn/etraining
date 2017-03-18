@@ -228,7 +228,7 @@ exports.withdraw = function(req, res) {
   exports.complete = function(req, res) {
       var member = req.member;
       member = _.extend(member, req.body);
-      member.status ='completed';
+      member.enrollmentStatus ='completed';
       member.save(function(err) {
         if (err) {
           return res.status(400).send({
@@ -236,11 +236,11 @@ exports.withdraw = function(req, res) {
           });
         } else {
           res.jsonp(member);
-          alertTeacher(member);
+          sendMailToStudent(member);
         }
       });
       
-      function sendMailToStudent(student,course) {
+      function sendMailToStudent(student) {
           var httpTransport = 'http://';
           if (config.secure && config.secure.ssl === true) {
             httpTransport = 'https://';
