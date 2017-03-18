@@ -16,6 +16,7 @@
     vm.certify = certify;
     vm.user = user;
     vm.gradescheme = gradescheme;
+    vm.scoreMap = {};
 
     function examPromise() {
       return EditionSectionsService.byEdition({editionId: vm.edition._id}, function (sections) {
@@ -43,7 +44,7 @@
       return examPromise();
     }).then(function (sections) { // Get examList information
       vm.sections = sections;
-
+      
       var nodes = treeUtils.buildCourseTree(sections);
       vm.examList = treeUtils.buildCourseListInOrder(nodes);
 
@@ -71,8 +72,7 @@
       vm.members.reduce(function (prev, curr) {
         return prev.then(function () {
           return courseUtils.memberScoreByCourse(curr._id, vm.edition._id).then(function (scores) {
-            curr.totalScore = scores.totalScore;
-            curr.scores = scores.scores;
+              vm.scoreMap[curr._id] = {totalScore:scores.totalScore,scores:scores.scores}
           });
         });
       }, $q.resolve()).then(function () { // Export to csv file
@@ -94,11 +94,11 @@
         vm.members.map(function (member) {
           var csvObj = {};
           csvObj[0 + 'name'] = member.member.displayName;
-          member.scores.map(function (score, index) {
+          vm.scoreMap[member._id].scores.map(function (score, index) {
             csvObj['score_' + index] = score.correctPercent;
           });
-          csvObj.totalScore = member.totalScore;
-          csvObj.result = (member.totalScore >= vm.gradescheme.benchmark) ? pass : fall;
+          csvObj.totalScore = vm.scoreMap[member._id].totalScore;
+          csvObj.result = (vm.scoreMap[member._id].totalScore >= vm.gradescheme.benchmark) ? pass : fall;
           vm.csvArray.push(csvObj);
         });
       });
