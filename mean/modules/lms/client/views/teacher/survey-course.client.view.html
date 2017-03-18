@@ -22,7 +22,7 @@
                             <div class="uk-accordion-content">
                                  <div ng-repeat = "question in section.survey.questions">
                                     <h5 class="sub_heading">
-                                       {{'PAGE.LMS.MY_COURSES.COURSE_SURVEY.QUESTION'|translate}}:
+                                       {{'PAGE.LMS.MY_COURSES.COURSE_SURVEY.QUESTION'|translate}}: <span style="font-size: 14px;">{{question.detail.title}}</span>
                                         <p class="question-survey" ng-bind-html="question.detail.description"></p>
                                     </h5>
                                     <table  class="uk-table uk-table-nowrap uk-table-condensed">

@@ -233,11 +233,9 @@
 
                     <td class="uk-text-center">
                         <a class="md-btn" ng-click="certificate.showimage = !certificate.showimage">
-                        <!-- data-uk-modal="{target:'#modal_lightbox{{certificate._id}}'}" -->
                             <img class="img_thumb"  data-ng-src="data:image/png;base64,{{certificate.base64data}}">
                         </a>
-                        <div ng-show="certificate.showimage" class="uk-modal uk-open" style="display: block; z-index: 1500; opacity: 1; overflow: visible !important; margin-top: -70px;">
-                        <!-- id="#modal_lightbox{{certificate._id}}" -->
+                        <div ng-show="certificate.showimage" class="uk-modal uk-open" style="display: block; z-index: 1500; opacity: 1; overflow: visible !important; margin-top: 0px;">
                             <div class="uk-modal-dialog uk-modal-dialog-lightbox" style=" max-width: calc(100% - 0px); margin: 0px 0px; position: initial;">
                                 <button type="button" class="uk-modal-close uk-close uk-close-alt" ng-click="certificate.showimage = !certificate.showimage"></button>
                                 <img data-ng-src="data:image/png;base64,{{certificate.base64data}}" />
