@@ -1,55 +1,47 @@
 <div class="uk-alert uk-alert-warning uk-margin" data-uk-alert
-    ng-show="vm.alert">
-    <p class="uk-text-center">
-        <span>{{vm.alert}}</span>
-        <br>
+	ng-show="vm.alert">
+	<p class="uk-text-center">
+		<span>{{vm.alert}}</span> <br>
 </div>
 <div id="page_content" ng-show="!vm.alert">
-    <div id="page_content_inner">
-        <div class="uk-width-medium-1-1 uk-container-center">
-            <div class="md-card md-card-single" single-card>
-                <div class="md-card-toolbar">
-                    <h3 class="md-card-toolbar-heading-text large">
-                        {{'PAGE.LMS.MY_COURSES.STUDENT_BOARD.CLASSROOM'|translate}}
-                    </h3>
-                </div>
-                <div class="md-card-content">
+	<div id="page_content_inner">
+		<div class="uk-width-medium-1-1 uk-container-center">
+			<div class="md-card md-card-single" single-card>
+				<div class="md-card-toolbar">
+					<h3 class="md-card-toolbar-heading-text large">
+						{{'PAGE.LMS.MY_COURSES.STUDENT_BOARD.CLASSROOM'|translate}}</h3>
+				</div>
+				<div class="md-card-content">
 
-                    <div class="uk-overflow-container">
-                        <div class="uk-grid">
-                            <div class=" uk-width-1-2 uk-text-center" >
-                            <a class="md-btn md-btn "  target="_blank" href="{{vm.participant.loginURL}}" ng-show="vm.participant">{{'ACTION.JOIN'|translate}}</a>
-                    </div>
-                    <div class=" uk-width-1-2" >
-                    </div>
-                       <div class=" uk-width-1-2" >
-                        <table
-                            class="uk-table uk-table-nowrap  uk-table-condensed">
-                            <thead>
-                                <tr>
-                                    
-                                    <th
-                                        class=" ">{{'MODEL.USER.DISPLAY_NAME'|translate}}</th>
-                                    <th
-                                        class=" uk-text-center">{{'PAGE.LMS.MY_COURSES.STUDENT_BOARD.CLASSROOM.PRESENTER'|translate}}</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr ng-repeat="participant in vm.participants">
-    
-                                    <td class="">{{participant.name}}</td>
-                                    <td
-                                        class="uk-text-center uk-table-middle small_col">
-                                        <input type="checkbox" icheck
-                                            ng-disabled="true"
-                                            ng-model="participant.isPresenter">
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+					<div class="uk-overflow-container">
+						<div class="uk-grid">
+							<div class=" uk-width-1-2 uk-text-center">
+								<a class="md-btn md-btn " target="_blank"
+									href="{{vm.participant.loginURL}}" ng-show="vm.participant">{{'ACTION.JOIN'|translate}}</a>
+							</div>
+							<div class=" uk-width-1-2"></div>
+							<div class=" uk-width-1-2">
+								<table class="uk-table uk-table-nowrap  uk-table-condensed">
+									<thead>
+										<tr>
+
+											<th class=" ">{{'MODEL.USER.DISPLAY_NAME'|translate}}</th>
+											<th class=" uk-text-center">{{'PAGE.LMS.MY_COURSES.STUDENT_BOARD.CLASSROOM.PRESENTER'|translate}}</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr ng-repeat="participant in vm.participants">
+
+											<td class="">{{participant.name}}</td>
+											<td class="uk-text-center uk-table-middle small_col"><input
+												type="checkbox" icheck ng-disabled="true"
+												ng-model="participant.isPresenter"></td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>

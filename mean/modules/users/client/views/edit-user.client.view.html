@@ -1,206 +1,274 @@
 <div id="page_content">
-    <div id="page_content_inner">
-       
-            <div class="uk-grid" data-uk-grid-margin>
-                <div class="uk-width-large-7-10">
-                    <div class="md-card">
-                        <div class="user_heading" data-uk-sticky="{ top: 48, media: 960 }">
-                            <div class="user_heading_avatar fileinput fileinput-new" data-provides="fileinput" file-input-change fileread="vm.avatar">
-                                <div class="fileinput-new thumbnail">
-                                    <img id="user_avatar_img" ng-src="{{vm.user.profileImageURL?vm.user.profileImageURL:''}}" alt="user avatar"/>
-                                </div>
-                                <div class="fileinput-preview fileinput-exists thumbnail"></div>
-                                <div class="user_avatar_controls">
-                                        <span class="btn-file">
-                                            <span class="fileinput-new"><i class="material-icons">&#xE2C6;</i></span>
-                                            <span class="fileinput-exists"><i class="material-icons">&#xE86A;</i></span>
-                                            <input type="file" name="user_edit_avatar_control" id="user_edit_avatar_control" >
-                                        </span>                                    
-                                    <a href="#" class="btn-file fileinput-exists" data-dismiss="fileinput"><i class="material-icons">&#xE5CD;</i></a>
-                                </div>
-                            </div>
-                            <div class="user_heading_content">
-                                <h2 class="heading_b">
-                                    <span class="uk-text-truncate" id="user_edit_uname">{{vm.user.displayName}}</span>
-                                    <span class="sub-heading" id="user_edit_position">{{vm.user.position}}</span>
-                                </h2>
-                            </div>
-                            <div class="md-fab-wrapper">
-                                <div class="md-fab md-fab-toolbar md-fab-small md-fab-accent" md-fab-toolbar>
-                                    <i class="material-icons">&#xE8BE;</i>
-                                    <div class="md-fab-toolbar-actions">
-                                        <button form="user_edit_form"  id="user_edit_save"  data-uk-tooltip="{cls:'uk-tooltip-small',pos:'bottom'}" title="Save"><i class="material-icons md-color-white">&#xE161;</i></button>
-                                        <a id="user_edit_cancel"  ng-click="vm.cancel()"  data-uk-tooltip="{cls:'uk-tooltip-small',pos:'bottom'}" title="Cancel"><i class="material-icons md-color-white">&#xE5CD;</i></a>
-                                        <button  ng-if="viewerRole=='admin' && !vm.isContextUserSelf()"  ng-click="vm.remove()"  id="user_edit_delete" data-uk-tooltip="{cls:'uk-tooltip-small',pos:'bottom'}" title="Delete"><i class="material-icons md-color-red">&#xE872;</i></button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="user_content">
-                            <ul id="user_edit_tabs" class="uk-tab uk-tab-grid" data-uk-tab="{connect:'#user_edit_tabs_content'}">
-                                <li class="uk-active"><a href="#">{{'PAGE.PROFILE.BASIC'|translate}}</a></li>
-                                <li><a ng-show="viewerRole=='admin'">{{'PAGE.PROFILE.COMPANY'|translate}}</a></li>
-                                <li ng-show="vm.user._id == vm.currentUserId"><a href="#">{{'PAGE.PROFILE.SOCIAL_ACCOUNT'| translate}}</a></li>
-                                <li ng-show="vm.user._id == vm.currentUserId"><a href="#">{{'PAGE.PROFILE.CHANGE_PASS'|translate}}</a></li>
-                            </ul>
-                            <ul id="user_edit_tabs_content" class="uk-switcher uk-margin">
-                                <li>
-                                     <form ng-submit="vm.save()" class="uk-form-stacked" id="user_edit_form" novalidate>
-                                    <div class="uk-margin-top">
-                                        <h3 class="full_width_in_card heading_c">
-                                            {{'PAGE.PROFILE.GENERAL_INFO'|translate}}
-                                        </h3>
-                                        <div class="uk-grid parsley-row" data-uk-grid-margin>
-                                            <div class="uk-width-medium-1-2">
-                                                <label for="user_edit_fname_control">{{'MODEL.USER.FIRST_NAME'|translate}}<span class="req">*</span></label>
-                                                <input data-parsley-trigger="change" class="md-input" type="text" id="user_edit_fname_control" name="fistname" ng-model="vm.user.firstName" required md-input />
-                                            </div>
-                                            <div class="uk-width-medium-1-2">
-                                                <label for="user_edit_lname_control">{{'MODEL.USER.LAST_NAME'|translate}}<span class="req">*</span></label>
-                                                <input data-parsley-trigger="change" class="md-input" type="text" id="user_edit_lname_control" name="lastname" ng-model="vm.user.lastName" required md-input />
-                                            </div>
-                                        </div>
-                                        <div class="uk-grid" data-uk-grid-margin>
-                                            <div class="uk-width-medium-1-2">
-                                                <label for="user_edit_login_control">{{'MODEL.USER.USERNAME'|translate}}</label>
-                                                <input ng-disabled="vm.user._id" class="md-input" type="text" id="user_edit_login_control" name="login" ng-model="vm.user.username" md-input />
-                                            </div>
-                                            <div class="uk-width-medium-1-2">
-                                                <label for="user_edit_pos_control">{{'MODEL.USER.POSITION'|translate}}</label>
-                                                <input class="md-input" type="text" id="user_edit_pos_control" name="position" ng-model="vm.user.position" md-input />
-                                            </div>
-                                        </div>
-                                        <h3 class="full_width_in_card heading_c">
-                                            {{'PAGE.PROFILE.CONTACT_INFO'|translate}}
-                                        </h3>
-                                        <div class="uk-grid">
-                                            <div class="uk-width-1-1">
-                                                <div class="uk-grid uk-grid-width-1-1 uk-grid-width-large-1-2" data-uk-grid-margin>
-                                                    <div>
-                                                        <div class="uk-input-group">
-                                                            <span class="uk-input-group-addon">
-                                                                <i class="md-list-addon-icon material-icons">&#xE158;</i>
-                                                            </span>
-                                                            <label>{{'MODEL.USER.EMAIL'|translate}}</label>
-                                                            <input type="text" class="md-input" name="user_edit_email" ng-model="vm.user.email" md-input />
-                                                        </div>
-                                                    </div>
-                                                    <div>
-                                                        <div class="uk-input-group">
-                                                            <span class="uk-input-group-addon">
-                                                                <i class="md-list-addon-icon material-icons">&#xE0CD;</i>
-                                                            </span>
-                                                            <label>{{'MODEL.USER.PHONE'|translate}}</label>
-                                                            <input type="text" class="md-input" name="user_edit_phone" ng-model="vm.user.phone" md-input />
-                                                        </div>
-                                                    </div>
-                                                    <div>
-                                                        <div class="uk-input-group">
-                                                            <span class="uk-input-group-addon">
-                                                                <i class="md-list-addon-icon uk-icon-facebook-official"></i>
-                                                            </span>
-                                                            <label>Facebook</label>
-                                                            <input type="text" class="md-input" name="user_edit_facebook" ng-model="vm.user.facebook" md-input />
-                                                        </div>
-                                                    </div>
-                                                    <div>
-                                                        <div class="uk-input-group">
-                                                            <span class="uk-input-group-addon">
-                                                                <i class="md-list-addon-icon uk-icon-twitter"></i>
-                                                            </span>
-                                                            <label>Twitter</label>
-                                                            <input type="text" class="md-input" name="user_edit_twitter" ng-model="vm.user.twitter" md-input />
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                         </form>
-                                </li>
-                                 <li>
-                                   <div class="md-card">
-                                        <div class="md-card-content">
-                                                 <group-tree-view tree-id="'orgTree'" mode="'single'" category="'organization'" select="vm.selectGroup" initial="vm.user.group"></group-tree-view>
-                                                 </div>
-                                   </div>
-                                </li>
-                                <li>
-                                <div class="uk-container uk-container-center">
-                                <div class="uk-width-1-1">
-                            <div class="uk-grid uk-grid-width-1-1 uk-grid-width-large-1-3" >
-                                <div  class="uk-margin-top" data-uk-grid-margin ng-show="!vm.isConnectedSocialAccount('facebook')">
-                                    <a  ng-click="vm.callOauthProvider('/api/auth/facebook')" class="md-btn md-btn-facebook  md-btn-icon"><i class="uk-icon-facebook"></i><br>Connect Facebook</a>
-                                </div>
-                                <div  class="uk-margin-top" data-uk-grid-margin ng-show="vm.isConnectedSocialAccount('facebook')">
-                                    <a  ng-click="vm.removeUserSocialAccount('facebook')" class="md-btn md-btn-facebook  md-btn-icon"><i class="uk-icon-facebook"></i><br>Disconnect Facebook</a>
-                                </div>
-                                <div  class="uk-margin-top" data-uk-grid-margin ng-show="!vm.isConnectedSocialAccount('twitter')" >
-                                    <a  ng-click="vm.callOauthProvider('/api/auth/twitter')" class="md-btn md-btn-twitter  md-btn-icon"><i class="uk-icon-twitter"></i><br>Connect Twitter</a>
-                                 </div>
-                                 <div  class="uk-margin-top" data-uk-grid-margin ng-show="vm.isConnectedSocialAccount('twitter')" >
-                                    <a  ng-click="vm.removeUserSocialAccount('twitter')" class="md-btn md-btn-twitter  md-btn-icon"><i class="uk-icon-twitter"></i><br>Disconnect Twitter</a>
-                                 </div>
-                                <div  class="uk-margin-top" data-uk-grid-margin ng-show="!vm.isConnectedSocialAccount('google')" >
-                                    <a ng-click="vm.callOauthProvider('/api/auth/google')" class="md-btn md-btn-gplus  md-btn-icon"><i class="uk-icon-google-plus"></i><br>Connect Google+</a>
-                                </div>
-                                <div  class="uk-margin-top" data-uk-grid-margin ng-show="vm.isConnectedSocialAccount('google')" >
-                                    <a ng-click="vm.removeUserSocialAccount('google')" class="md-btn md-btn-gplus  md-btn-icon"><i class="uk-icon-google-plus"></i><br>Disconnect Google+</a>
-                                </div>
-                              </div>
-                                </div>
-                            </div>
-                                
-                                </li>
-              
-                                <li>
-                                    <form  ng-submit="vm.changeUserPassword()" class="uk-form-stacked" id="user_change_pass_form"  >
-                                    <div class="md-card">
-                                    <div class="md-card-content" data-uk-grid-margin>
-                                        <div class="uk-form-row parsley-row">
-                                                   <label  for="current_pass">{{'PAGE.PROFILE.CURRENT_PASS'|translate}}<span class="req">*</span></label>
-                                                <input data-parsley-trigger="change" type="password" data-parsley-minlength="4" class="md-input uk-form-width-medium" id="current_pass" ng-model="vm.passwordDetails.currentPassword" required md-input />
-                                            </div>
-                                            <div class="uk-form-row parsley-row">
-                                                   <label  for="new_pass">{{'PAGE.PROFILE.NEW_PASS'|translate}}<span class="req">*</span></label>
-                                                <input data-parsley-trigger="change" type="password" data-parsley-minlength="4" class="md-input uk-form-width-medium" id="new_pass" ng-model="vm.passwordDetails.newPassword" required md-input />
-                                            </div>
-                                        <div class="uk-form-row parsley-row">
-                                                   <label  for="new_pass_repeat">{{'PAGE.PROFILE.NEW_PASS_REPEAT'|translate}}<span class="req">*</span></label>
-                                                <input data-parsley-trigger="change" type="password" data-parsley-minlength="4" data-parsley-equalto="#new_pass" class="md-input uk-form-width-medium" id="new_pass_repeat" ng-model="vm.passwordDetails.verifyPassword"  required md-input />
-                                            </div>
-                                             <div class="uk-margin-medium-top">
-                                             <button  ng-click="vm.changeUserPassword()" type="submit" class="md-btn md-btn-primary">{{'ACTION.SUBMIT'|translate}}</button>
-                                         </div>
-                    
-                                        </div>
-                                      </div>
-                                      </form>
-                                </li>
-                                
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="uk-width-large-3-10">
-                    <div class="md-card">
-                        <div class="md-card-content">
-                            <h3 class="heading_c uk-margin-medium-bottom">{{'PAGE.PROFILE.ADMIN_SETTING'|translate}}</h3>
-                            <div class="uk-form-row">
-                                <input  color="#d32f2f" ng-disabled="viewerRole=='user'" type="checkbox"  id="user_edit_active" ui-switch ng-model="vm.user.banned" />
-                                <label for="user_edit_active" class="inline-label">{{'MODEL.USER.BANNED'|translate}}</label>
-                            </div>
-                            <hr class="md-hr">
-                            <div class="uk-form-row">
-                                <label class="uk-form-label">{{'MODEL.USER.ROLE'|translate}}</label>
-                                <selectize  ng-disabled="viewerRole=='user'" config="vm.roleSwitcherConfig" position="bottom" options="vm.roleSwitcherOptions" ng-model="vm.user.roles" name="user_edit_role" ></selectize>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+	<div id="page_content_inner">
 
-   
+		<div class="uk-grid" data-uk-grid-margin>
+			<div class="uk-width-large-7-10">
+				<div class="md-card">
+					<div class="user_heading" data-uk-sticky="{ top: 48, media: 960 }">
+						<div class="user_heading_avatar fileinput fileinput-new"
+							data-provides="fileinput" file-input-change fileread="vm.avatar">
+							<div class="fileinput-new thumbnail">
+								<img id="user_avatar_img"
+									ng-src="{{vm.user.profileImageURL?vm.user.profileImageURL:''}}"
+									alt="user avatar" />
+							</div>
+							<div class="fileinput-preview fileinput-exists thumbnail"></div>
+							<div class="user_avatar_controls">
+								<span class="btn-file"> <span class="fileinput-new"><i
+										class="material-icons">&#xE2C6;</i></span> <span
+									class="fileinput-exists"><i class="material-icons">&#xE86A;</i></span>
+									<input type="file" name="user_edit_avatar_control"
+									id="user_edit_avatar_control">
+								</span> <a href="#" class="btn-file fileinput-exists"
+									data-dismiss="fileinput"><i class="material-icons">&#xE5CD;</i></a>
+							</div>
+						</div>
+						<div class="user_heading_content">
+							<h2 class="heading_b">
+								<span class="uk-text-truncate" id="user_edit_uname">{{vm.user.displayName}}</span>
+								<span class="sub-heading" id="user_edit_position">{{vm.user.position}}</span>
+							</h2>
+						</div>
+						<div class="md-fab-wrapper">
+							<div class="md-fab md-fab-toolbar md-fab-small md-fab-accent"
+								md-fab-toolbar>
+								<i class="material-icons">&#xE8BE;</i>
+								<div class="md-fab-toolbar-actions">
+									<button form="user_edit_form" id="user_edit_save"
+										data-uk-tooltip="{cls:'uk-tooltip-small',pos:'bottom'}"
+										title="Save">
+										<i class="material-icons md-color-white">&#xE161;</i>
+									</button>
+									<a id="user_edit_cancel" ng-click="vm.cancel()"
+										data-uk-tooltip="{cls:'uk-tooltip-small',pos:'bottom'}"
+										title="Cancel"><i class="material-icons md-color-white">&#xE5CD;</i></a>
+									<button ng-if="viewerRole=='admin' && !vm.isContextUserSelf()"
+										ng-click="vm.remove()" id="user_edit_delete"
+										data-uk-tooltip="{cls:'uk-tooltip-small',pos:'bottom'}"
+										title="Delete">
+										<i class="material-icons md-color-red">&#xE872;</i>
+									</button>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="user_content">
+						<ul id="user_edit_tabs" class="uk-tab uk-tab-grid"
+							data-uk-tab="{connect:'#user_edit_tabs_content'}">
+							<li class="uk-active"><a href="#">{{'PAGE.PROFILE.BASIC'|translate}}</a></li>
+							<li><a ng-show="viewerRole=='admin'">{{'PAGE.PROFILE.COMPANY'|translate}}</a></li>
+							<li ng-show="vm.user._id == vm.currentUserId"><a href="#">{{'PAGE.PROFILE.SOCIAL_ACCOUNT'|
+									translate}}</a></li>
+							<li ng-show="vm.user._id == vm.currentUserId"><a href="#">{{'PAGE.PROFILE.CHANGE_PASS'|translate}}</a></li>
+						</ul>
+						<ul id="user_edit_tabs_content" class="uk-switcher uk-margin">
+							<li>
+								<form ng-submit="vm.save()" class="uk-form-stacked"
+									id="user_edit_form" novalidate>
+									<div class="uk-margin-top">
+										<h3 class="full_width_in_card heading_c">
+											{{'PAGE.PROFILE.GENERAL_INFO'|translate}}</h3>
+										<div class="uk-grid parsley-row" data-uk-grid-margin>
+											<div class="uk-width-medium-1-2">
+												<label for="user_edit_fname_control">{{'MODEL.USER.FIRST_NAME'|translate}}<span
+													class="req">*</span></label> <input data-parsley-trigger="change"
+													class="md-input" type="text" id="user_edit_fname_control"
+													name="fistname" ng-model="vm.user.firstName" required
+													md-input />
+											</div>
+											<div class="uk-width-medium-1-2">
+												<label for="user_edit_lname_control">{{'MODEL.USER.LAST_NAME'|translate}}<span
+													class="req">*</span></label> <input data-parsley-trigger="change"
+													class="md-input" type="text" id="user_edit_lname_control"
+													name="lastname" ng-model="vm.user.lastName" required
+													md-input />
+											</div>
+										</div>
+										<div class="uk-grid" data-uk-grid-margin>
+											<div class="uk-width-medium-1-2">
+												<label for="user_edit_login_control">{{'MODEL.USER.USERNAME'|translate}}</label>
+												<input ng-disabled="vm.user._id" class="md-input"
+													type="text" id="user_edit_login_control" name="login"
+													ng-model="vm.user.username" md-input />
+											</div>
+											<div class="uk-width-medium-1-2">
+												<label for="user_edit_pos_control">{{'MODEL.USER.POSITION'|translate}}</label>
+												<input class="md-input" type="text"
+													id="user_edit_pos_control" name="position"
+													ng-model="vm.user.position" md-input />
+											</div>
+										</div>
+										<h3 class="full_width_in_card heading_c">
+											{{'PAGE.PROFILE.CONTACT_INFO'|translate}}</h3>
+										<div class="uk-grid">
+											<div class="uk-width-1-1">
+												<div
+													class="uk-grid uk-grid-width-1-1 uk-grid-width-large-1-2"
+													data-uk-grid-margin>
+													<div>
+														<div class="uk-input-group">
+															<span class="uk-input-group-addon"> <i
+																class="md-list-addon-icon material-icons">&#xE158;</i>
+															</span> <label>{{'MODEL.USER.EMAIL'|translate}}</label> <input
+																type="text" class="md-input" name="user_edit_email"
+																ng-model="vm.user.email" md-input />
+														</div>
+													</div>
+													<div>
+														<div class="uk-input-group">
+															<span class="uk-input-group-addon"> <i
+																class="md-list-addon-icon material-icons">&#xE0CD;</i>
+															</span> <label>{{'MODEL.USER.PHONE'|translate}}</label> <input
+																type="text" class="md-input" name="user_edit_phone"
+																ng-model="vm.user.phone" md-input />
+														</div>
+													</div>
+													<div>
+														<div class="uk-input-group">
+															<span class="uk-input-group-addon"> <i
+																class="md-list-addon-icon uk-icon-facebook-official"></i>
+															</span> <label>Facebook</label> <input type="text"
+																class="md-input" name="user_edit_facebook"
+																ng-model="vm.user.facebook" md-input />
+														</div>
+													</div>
+													<div>
+														<div class="uk-input-group">
+															<span class="uk-input-group-addon"> <i
+																class="md-list-addon-icon uk-icon-twitter"></i>
+															</span> <label>Twitter</label> <input type="text"
+																class="md-input" name="user_edit_twitter"
+																ng-model="vm.user.twitter" md-input />
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</form>
+							</li>
+							<li>
+								<div class="md-card">
+									<div class="md-card-content">
+										<group-tree-view tree-id="'orgTree'" mode="'single'"
+											category="'organization'" select="vm.selectGroup"
+											initial="vm.user.group"></group-tree-view>
+									</div>
+								</div>
+							</li>
+							<li>
+								<div class="uk-container uk-container-center">
+									<div class="uk-width-1-1">
+										<div class="uk-grid uk-grid-width-1-1 uk-grid-width-large-1-3">
+											<div class="uk-margin-top" data-uk-grid-margin
+												ng-show="!vm.isConnectedSocialAccount('facebook')">
+												<a ng-click="vm.callOauthProvider('/api/auth/facebook')"
+													class="md-btn md-btn-facebook  md-btn-icon"><i
+													class="uk-icon-facebook"></i><br>Connect Facebook</a>
+											</div>
+											<div class="uk-margin-top" data-uk-grid-margin
+												ng-show="vm.isConnectedSocialAccount('facebook')">
+												<a ng-click="vm.removeUserSocialAccount('facebook')"
+													class="md-btn md-btn-facebook  md-btn-icon"><i
+													class="uk-icon-facebook"></i><br>Disconnect Facebook</a>
+											</div>
+											<div class="uk-margin-top" data-uk-grid-margin
+												ng-show="!vm.isConnectedSocialAccount('twitter')">
+												<a ng-click="vm.callOauthProvider('/api/auth/twitter')"
+													class="md-btn md-btn-twitter  md-btn-icon"><i
+													class="uk-icon-twitter"></i><br>Connect Twitter</a>
+											</div>
+											<div class="uk-margin-top" data-uk-grid-margin
+												ng-show="vm.isConnectedSocialAccount('twitter')">
+												<a ng-click="vm.removeUserSocialAccount('twitter')"
+													class="md-btn md-btn-twitter  md-btn-icon"><i
+													class="uk-icon-twitter"></i><br>Disconnect Twitter</a>
+											</div>
+											<div class="uk-margin-top" data-uk-grid-margin
+												ng-show="!vm.isConnectedSocialAccount('google')">
+												<a ng-click="vm.callOauthProvider('/api/auth/google')"
+													class="md-btn md-btn-gplus  md-btn-icon"><i
+													class="uk-icon-google-plus"></i><br>Connect Google+</a>
+											</div>
+											<div class="uk-margin-top" data-uk-grid-margin
+												ng-show="vm.isConnectedSocialAccount('google')">
+												<a ng-click="vm.removeUserSocialAccount('google')"
+													class="md-btn md-btn-gplus  md-btn-icon"><i
+													class="uk-icon-google-plus"></i><br>Disconnect Google+</a>
+											</div>
+										</div>
+									</div>
+								</div>
 
-    </div>
+							</li>
+
+							<li>
+								<form ng-submit="vm.changeUserPassword()"
+									class="uk-form-stacked" id="user_change_pass_form">
+									<div class="md-card">
+										<div class="md-card-content" data-uk-grid-margin>
+											<div class="uk-form-row parsley-row">
+												<label for="current_pass">{{'PAGE.PROFILE.CURRENT_PASS'|translate}}<span
+													class="req">*</span></label> <input data-parsley-trigger="change"
+													type="password" data-parsley-minlength="4"
+													class="md-input uk-form-width-medium" id="current_pass"
+													ng-model="vm.passwordDetails.currentPassword" required
+													md-input />
+											</div>
+											<div class="uk-form-row parsley-row">
+												<label for="new_pass">{{'PAGE.PROFILE.NEW_PASS'|translate}}<span
+													class="req">*</span></label> <input data-parsley-trigger="change"
+													type="password" data-parsley-minlength="4"
+													class="md-input uk-form-width-medium" id="new_pass"
+													ng-model="vm.passwordDetails.newPassword" required md-input />
+											</div>
+											<div class="uk-form-row parsley-row">
+												<label for="new_pass_repeat">{{'PAGE.PROFILE.NEW_PASS_REPEAT'|translate}}<span
+													class="req">*</span></label> <input data-parsley-trigger="change"
+													type="password" data-parsley-minlength="4"
+													data-parsley-equalto="#new_pass"
+													class="md-input uk-form-width-medium" id="new_pass_repeat"
+													ng-model="vm.passwordDetails.verifyPassword" required
+													md-input />
+											</div>
+											<div class="uk-margin-medium-top">
+												<button ng-click="vm.changeUserPassword()" type="submit"
+													class="md-btn md-btn-primary">{{'ACTION.SUBMIT'|translate}}</button>
+											</div>
+
+										</div>
+									</div>
+								</form>
+							</li>
+
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="uk-width-large-3-10">
+				<div class="md-card">
+					<div class="md-card-content">
+						<h3 class="heading_c uk-margin-medium-bottom">{{'PAGE.PROFILE.ADMIN_SETTING'|translate}}</h3>
+						<div class="uk-form-row">
+							<input color="#d32f2f" ng-disabled="viewerRole=='user'"
+								type="checkbox" id="user_edit_active" ui-switch
+								ng-model="vm.user.banned" /> <label for="user_edit_active"
+								class="inline-label">{{'MODEL.USER.BANNED'|translate}}</label>
+						</div>
+						<hr class="md-hr">
+						<div class="uk-form-row">
+							<label class="uk-form-label">{{'MODEL.USER.ROLE'|translate}}</label>
+							<selectize ng-disabled="viewerRole=='user'"
+								config="vm.roleSwitcherConfig" position="bottom"
+								options="vm.roleSwitcherOptions" ng-model="vm.user.roles"
+								name="user_edit_role"></selectize>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+
+	</div>
 </div>

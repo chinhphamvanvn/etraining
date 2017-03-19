@@ -1,49 +1,47 @@
 <div class="survey-container" ng-show="!vm.completeCourse">
-  <div class="uk-alert uk-alert-danger" data-uk-alert ng-show="vm.alert">
-    {{vm.alert}}
-  </div>
+	<div class="uk-alert uk-alert-danger" data-uk-alert ng-show="vm.alert">
+		{{vm.alert}}</div>
 
-  <div class="md-card" ng-show="!vm.alert">
-    <div class="md-card-toolbar"
-         ng-class="{'md-bg-green-200':vm.question.attempted,'md-bg-grey-100':!vm.question.attempted }">
-      <div class="md-card-toolbar-heading-text">
-                            <span>{{'PAGE.LMS.MY_COURSES.COURSE_SURVEY.QUESTION'|translate}} {{vm.index+1}}/{{vm.questions.length}}
-                            </span>
+	<div class="md-card" ng-show="!vm.alert">
+		<div class="md-card-toolbar"
+			ng-class="{'md-bg-green-200':vm.question.attempted,'md-bg-grey-100':!vm.question.attempted }">
+			<div class="md-card-toolbar-heading-text">
+				<span>{{'PAGE.LMS.MY_COURSES.COURSE_SURVEY.QUESTION'|translate}}
+					{{vm.index+1}}/{{vm.questions.length}} </span>
 
-      </div>
-    </div>
+			</div>
+		</div>
 
-    <div class="md-card-content">
-      <multiple-choice-survey mode="'survey'" question="vm.question"></multiple-choice-survey>
-      <div class="uk-text-center uk-margin-top">
+		<div class="md-card-content">
+			<multiple-choice-survey mode="'survey'" question="vm.question"></multiple-choice-survey>
+			<div class="uk-text-center uk-margin-top">
 
-        <a ng-show="vm.index < vm.questions.length-1" class="md-btn  md-btn-wave-light md-btn-icon"
-           ng-click="vm.saveNext()"><i class="uk-icon-arrow-right "></i>
-          {{'ACTION.NEXT'|translate}}
-        </a>
-        <a class="md-btn md-btn-primary md-btn-wave-light" ng-show="vm.index == vm.questions.length-1"
-           ng-click="vm.submitQuiz()">
-          {{'ACTION.SUBMIT_SURVEY'|translate}}
-        </a>
-      </div>
-    </div>
-  </div>
-  <hr>
-  <div>
-    <div class="md-btn-group">
-      <a ng-click="vm.prevSection()" class="md-btn md-btn-wave">
-        <i class="uk-icon-chevron-left"></i> {{'ACTION.PREV'|translate}}
-      </a>
-      <a ng-click="vm.nextSection()" class="md-btn md-btn-wave">
-        {{'ACTION.NEXT'|translate}} <i class="uk-icon-chevron-right"></i>
-      </a>
-    </div>
-  </div>
+				<a ng-show="vm.index < vm.questions.length-1"
+					class="md-btn  md-btn-wave-light md-btn-icon"
+					ng-click="vm.saveNext()"><i class="uk-icon-arrow-right "></i>
+					{{'ACTION.NEXT'|translate}} </a> <a
+					class="md-btn md-btn-primary md-btn-wave-light"
+					ng-show="vm.index == vm.questions.length-1"
+					ng-click="vm.submitQuiz()">
+					{{'ACTION.SUBMIT_SURVEY'|translate}} </a>
+			</div>
+		</div>
+	</div>
+	<hr>
+	<div>
+		<div class="md-btn-group">
+			<a ng-click="vm.prevSection()" class="md-btn md-btn-wave"> <i
+				class="uk-icon-chevron-left"></i> {{'ACTION.PREV'|translate}}
+			</a> <a ng-click="vm.nextSection()" class="md-btn md-btn-wave">
+				{{'ACTION.NEXT'|translate}} <i class="uk-icon-chevron-right"></i>
+			</a>
+		</div>
+	</div>
 </div>
 
 <div class="complete-course-container" ng-show="vm.completeCourse">
-  <div class="md-card-content">
-    <h3>{{"MODEL.COURSE.SURVEY.COMPLETE" | translate}}</h3>
-  </div>
+	<div class="md-card-content">
+		<h3>{{"MODEL.COURSE.SURVEY.COMPLETE" | translate}}</h3>
+	</div>
 </div>
 

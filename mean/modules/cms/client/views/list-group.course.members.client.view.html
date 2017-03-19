@@ -1,157 +1,135 @@
 
 <div id="page_content_inner">
-    <h3 class="heading_a uk-margin-bottom">{{'PAGE.CMS.COURSES.ENROLL.TEACHER'     | translate}}</h3>
-    <div class="md-card uk-margin-medium-bottom">
-        <div class="md-card-content">
-            <div class="uk-overflow-container">
-                <table class="uk-table uk-table-nowrap  uk-table-condensed">
-                    <thead>
-                        <tr>
-                            <th class="uk-width-1-10 uk-text-center">{{'MODEL.USER.AVATAR'|translate}}</th>
-                            <th class="uk-width-2-10">{{'MODEL.USER.USERNAME'|translate}}</th>
-                            <th class="uk-width-2-10 uk-text-center">{{'MODEL.USER.DISPLAY_NAME'|translate}}</th>
-                            <th class="uk-width-1-10 uk-text-center">{{'MODEL.MEMBER.REGISTER_DATE'|translate}}</th>
-                            <th class="uk-width-1-10 uk-text-center">{{'MODEL.MEMBER.STATUS'|translate}}</th>
-                            <th class="uk-width-2-10 uk-text-center">{{'COMMON.ACTION'     | translate}}</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr ng-repeat="member in vm.teachers">
-                            <td class="uk-text-center">
-                                <img class="md-user-image" src="{{member.member.profileImageURL}}"  alt="" />
-                            </td>
-                            <td>{{member.member.username}}</td>
-                            <td class="uk-text-center">{{member.member.displayName}}</td>
-                            <td class="uk-text-center">{{member.registered
-                                | date:'dd-MM-yyyy'}}</td>
-                            <td class="uk-text-center">
-                                <span ng-show="member.status=='active'"
-                                    class="uk-badge uk-badge-success">active</span>
-                                <span ng-show="member.status=='withdrawn'"
-                                    class="uk-badge uk-badge-warning">withdrawn</span>
-                                <span ng-show="member.status=='suspended'"
-                                    class="uk-badge uk-badge-danger">suspended</span>
-                            </td>
-                            <td class="uk-text-center">
-                                <a ng-show="member.status=='active'"
-                                    ng-click="vm.suspend(member)"
-                                    data-uk-tooltip="{pos:'right'}"
-                                    title="{{'ACTION.SUSPEND'|translate}}">
-                                    <i class="md-icon material-icons uk-text-warning">lock</i>
-                                </a>
-                                <a ng-show="member.status=='suspended'"
-                                    ng-click="vm.activate(member)"
-                                    data-uk-tooltip="{pos:'right'}"
-                                    title="{{'ACTION.ACTIVATE'|translate}}">
-                                    <i class="md-icon material-icons uk-text-warning">lock_open</i>
-                                </a>
-                                <a ng-click="vm.remove(member)"
-                                    data-uk-tooltip="{pos:'right'}"
-                                    title="{{'ACTION.DELETE'|translate}}">
-                                    <i class="md-icon material-icons uk-text-danger">delete</i>
-                                </a>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-    <h3 class="heading_a uk-margin-bottom">{{'PAGE.CMS.COURSES.ENROLL.STUDENT' | translate}}</h3>
-    <div class="md-card uk-margin-medium-bottom">
-        <div class="md-card-content">
-            <div class="uk-accordion" data-uk-accordion>
-                <div ng-repeat="classroom in vm.classes">
-                    <h3 class="uk-accordion-title" ng-class="classroom.titleClass">
-                        <span class="uk-text-bold uk-margin-right">{{classroom.name}}</span>
-                        <span>
-                            <a ng-click="vm.editClassroom(classroom)" data-uk-tooltip="{pos:'bottom'}" title="{{'ACTION.EDIT'|translate}}"><i class="material-icons">edit</i></a>
-                            <a ng-click="vm.removeClassroom(classroom)" data-uk-tooltip="{pos:'bottom'}" title="{{'ACTION.DELETE'|translate}}"><i class="material-icons uk-text-danger">delete</i></a>
-                        </span>
-                        <span class="uk-float-right uk-text-italic uk-margin-right">{{'MODEL.CLASSROOM.END_DATE'|translate}} : {{classroom.endDate | date :'dd-MM-yyyy'}}</span>
-                        <span class="uk-float-right uk-text-italic uk-margin-right">{{'MODEL.CLASSROOM.START_DATE'|translate}} : {{classroom.startDate | date :'dd-MM-yyyy'}}</span>
-                    </h3>
-                    <div class="uk-accordion-content">
-                        <div class="uk-overflow-container">
-                            <table class="uk-table uk-table-nowrap  uk-table-condensed">
-                                <thead>
-                                    <tr>
-                                        <th
-                                            class="uk-width-1-10 uk-text-center">{{'MODEL.USER.AVATAR'|translate}}</th>
-                                        <th class="uk-width-2-10">{{'MODEL.USER.USERNAME'|translate}}</th>
-                                        <th
-                                            class="uk-width-2-10 uk-text-center">{{'MODEL.USER.DISPLAY_NAME'|translate}}</th>
-                                        <th
-                                            class="uk-width-1-10 uk-text-center">{{'MODEL.MEMBER.REGISTER_DATE'|translate}}</th>
-                                        <th
-                                            class="uk-width-1-10 uk-text-center">{{'MODEL.MEMBER.ENROLL_STATUS'|translate}}</th>
-                                        <th
-                                            class="uk-width-1-10 uk-text-center">{{'MODEL.MEMBER.STATUS'|translate}}</th>
-                                        <th
-                                            class="uk-width-2-10 uk-text-center">{{'COMMON.ACTION'
-                                            | translate}}</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr
-                                        ng-repeat="member in vm.students | classFilter:classroom">
-                                        <td class="uk-text-center">
-                                            <img class="md-user-image"
-                                                src="{{member.member.profileImageURL}}"
-                                                alt="" />
-                                        </td>
-                                        <td>{{member.member.username}}</td>
-                                        <td class="uk-text-center">{{member.member.displayName}}</td>
-                                        <td class="uk-text-center">{{member.registered
-                                            | date:'dd-MM-yyyy'}}</td>
-                                        <td class="uk-text-center">
-                                            <span
-                                                ng-show="member.enrollmentStatus=='registered'"
-                                                class="uk-badge uk-badge-default">registered</span>
-                                            <span
-                                                ng-show="member.enrollmentStatus=='in-study'"
-                                                class="uk-badge uk-badge-primary">studying</span>
-                                            <span
-                                                ng-show="member.enrollmentStatus=='complete'"
-                                                class="uk-badge uk-badge-success">completed</span>
-                                        </td>
-                                        <td class="uk-text-center">
-                                            <span
-                                                ng-show="member.status=='active'"
-                                                class="uk-badge uk-badge-success">active</span>
-                                            <span
-                                                ng-show="member.status=='withdrawn'"
-                                                class="uk-badge uk-badge-warning">withdrawn</span>
-                                            <span
-                                                ng-show="member.status=='suspended'"
-                                                class="uk-badge uk-badge-danger">suspended</span>
-                                        </td>
-                                        <td class="uk-text-center">
-                                            <a ng-show="member.status=='active'"
-                                                ng-click="vm.suspend(member)"
-                                                data-uk-tooltip="{pos:'right'}"
-                                                title="{{'ACTION.SUSPEND'|translate}}">
-                                                <i class="md-icon material-icons uk-text-warning">lock</i>
-                                            </a>
-                                            <a ng-show="member.status=='suspended'"
-                                                ng-click="vm.activate(member)"
-                                                data-uk-tooltip="{pos:'right'}"
-                                                title="{{'ACTION.ACTIVATE'|translate}}">
-                                                <i class="md-icon material-icons uk-text-warning">lock_open</i>
-                                            </a>
-                                            <a ng-click="vm.remove(member)"
-                                                data-uk-tooltip="{pos:'right'}"
-                                                title="{{'ACTION.DELETE'|translate}}">
-                                                <i class="md-icon material-icons uk-text-danger">delete</i>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+	<h3 class="heading_a uk-margin-bottom">{{'PAGE.CMS.COURSES.ENROLL.TEACHER'
+		| translate}}</h3>
+	<div class="md-card uk-margin-medium-bottom">
+		<div class="md-card-content">
+			<div class="uk-overflow-container">
+				<table class="uk-table uk-table-nowrap  uk-table-condensed">
+					<thead>
+						<tr>
+							<th class="uk-width-1-10 uk-text-center">{{'MODEL.USER.AVATAR'|translate}}</th>
+							<th class="uk-width-2-10">{{'MODEL.USER.USERNAME'|translate}}</th>
+							<th class="uk-width-2-10 uk-text-center">{{'MODEL.USER.DISPLAY_NAME'|translate}}</th>
+							<th class="uk-width-1-10 uk-text-center">{{'MODEL.MEMBER.REGISTER_DATE'|translate}}</th>
+							<th class="uk-width-1-10 uk-text-center">{{'MODEL.MEMBER.STATUS'|translate}}</th>
+							<th class="uk-width-2-10 uk-text-center">{{'COMMON.ACTION' |
+								translate}}</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="member in vm.teachers">
+							<td class="uk-text-center"><img class="md-user-image"
+								src="{{member.member.profileImageURL}}" alt="" /></td>
+							<td>{{member.member.username}}</td>
+							<td class="uk-text-center">{{member.member.displayName}}</td>
+							<td class="uk-text-center">{{member.registered |
+								date:'dd-MM-yyyy'}}</td>
+							<td class="uk-text-center"><span
+								ng-show="member.status=='active'"
+								class="uk-badge uk-badge-success">active</span> <span
+								ng-show="member.status=='withdrawn'"
+								class="uk-badge uk-badge-warning">withdrawn</span> <span
+								ng-show="member.status=='suspended'"
+								class="uk-badge uk-badge-danger">suspended</span></td>
+							<td class="uk-text-center"><a
+								ng-show="member.status=='active'" ng-click="vm.suspend(member)"
+								data-uk-tooltip="{pos:'right'}"
+								title="{{'ACTION.SUSPEND'|translate}}"> <i
+									class="md-icon material-icons uk-text-warning">lock</i>
+							</a> <a ng-show="member.status=='suspended'"
+								ng-click="vm.activate(member)" data-uk-tooltip="{pos:'right'}"
+								title="{{'ACTION.ACTIVATE'|translate}}"> <i
+									class="md-icon material-icons uk-text-warning">lock_open</i>
+							</a> <a ng-click="vm.remove(member)" data-uk-tooltip="{pos:'right'}"
+								title="{{'ACTION.DELETE'|translate}}"> <i
+									class="md-icon material-icons uk-text-danger">delete</i>
+							</a></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+	<h3 class="heading_a uk-margin-bottom">{{'PAGE.CMS.COURSES.ENROLL.STUDENT'
+		| translate}}</h3>
+	<div class="md-card uk-margin-medium-bottom">
+		<div class="md-card-content">
+			<div class="uk-accordion" data-uk-accordion>
+				<div ng-repeat="classroom in vm.classes">
+					<h3 class="uk-accordion-title" ng-class="classroom.titleClass">
+						<span class="uk-text-bold uk-margin-right">{{classroom.name}}</span>
+						<span> <a ng-click="vm.editClassroom(classroom)"
+							data-uk-tooltip="{pos:'bottom'}"
+							title="{{'ACTION.EDIT'|translate}}"><i class="material-icons">edit</i></a>
+							<a ng-click="vm.removeClassroom(classroom)"
+							data-uk-tooltip="{pos:'bottom'}"
+							title="{{'ACTION.DELETE'|translate}}"><i
+								class="material-icons uk-text-danger">delete</i></a>
+						</span> <span class="uk-float-right uk-text-italic uk-margin-right">{{'MODEL.CLASSROOM.END_DATE'|translate}}
+							: {{classroom.endDate | date :'dd-MM-yyyy'}}</span> <span
+							class="uk-float-right uk-text-italic uk-margin-right">{{'MODEL.CLASSROOM.START_DATE'|translate}}
+							: {{classroom.startDate | date :'dd-MM-yyyy'}}</span>
+					</h3>
+					<div class="uk-accordion-content">
+						<div class="uk-overflow-container">
+							<table class="uk-table uk-table-nowrap  uk-table-condensed">
+								<thead>
+									<tr>
+										<th class="uk-width-1-10 uk-text-center">{{'MODEL.USER.AVATAR'|translate}}</th>
+										<th class="uk-width-2-10">{{'MODEL.USER.USERNAME'|translate}}</th>
+										<th class="uk-width-2-10 uk-text-center">{{'MODEL.USER.DISPLAY_NAME'|translate}}</th>
+										<th class="uk-width-1-10 uk-text-center">{{'MODEL.MEMBER.REGISTER_DATE'|translate}}</th>
+										<th class="uk-width-1-10 uk-text-center">{{'MODEL.MEMBER.ENROLL_STATUS'|translate}}</th>
+										<th class="uk-width-1-10 uk-text-center">{{'MODEL.MEMBER.STATUS'|translate}}</th>
+										<th class="uk-width-2-10 uk-text-center">{{'COMMON.ACTION'
+											| translate}}</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr ng-repeat="member in vm.students | classFilter:classroom">
+										<td class="uk-text-center"><img class="md-user-image"
+											src="{{member.member.profileImageURL}}" alt="" /></td>
+										<td>{{member.member.username}}</td>
+										<td class="uk-text-center">{{member.member.displayName}}</td>
+										<td class="uk-text-center">{{member.registered |
+											date:'dd-MM-yyyy'}}</td>
+										<td class="uk-text-center"><span
+											ng-show="member.enrollmentStatus=='registered'"
+											class="uk-badge uk-badge-default">registered</span> <span
+											ng-show="member.enrollmentStatus=='in-study'"
+											class="uk-badge uk-badge-primary">studying</span> <span
+											ng-show="member.enrollmentStatus=='complete'"
+											class="uk-badge uk-badge-success">completed</span></td>
+										<td class="uk-text-center"><span
+											ng-show="member.status=='active'"
+											class="uk-badge uk-badge-success">active</span> <span
+											ng-show="member.status=='withdrawn'"
+											class="uk-badge uk-badge-warning">withdrawn</span> <span
+											ng-show="member.status=='suspended'"
+											class="uk-badge uk-badge-danger">suspended</span></td>
+										<td class="uk-text-center"><a
+											ng-show="member.status=='active'"
+											ng-click="vm.suspend(member)" data-uk-tooltip="{pos:'right'}"
+											title="{{'ACTION.SUSPEND'|translate}}"> <i
+												class="md-icon material-icons uk-text-warning">lock</i>
+										</a> <a ng-show="member.status=='suspended'"
+											ng-click="vm.activate(member)"
+											data-uk-tooltip="{pos:'right'}"
+											title="{{'ACTION.ACTIVATE'|translate}}"> <i
+												class="md-icon material-icons uk-text-warning">lock_open</i>
+										</a> <a ng-click="vm.remove(member)"
+											data-uk-tooltip="{pos:'right'}"
+											title="{{'ACTION.DELETE'|translate}}"> <i
+												class="md-icon material-icons uk-text-danger">delete</i>
+										</a></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>

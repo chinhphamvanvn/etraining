@@ -1,63 +1,70 @@
 <div id="page_content">
-    <div id="page_content_inner">
-        <h3 class="heading_b uk-margin-bottom">{{'PAGE.REPORTS.EXAM_RESULT.TITLE' | translate}}</h3>
-        <div class="uk-grid" data-uk-grid-margin >
-            <div class="uk-width-medium-1-1">
-                <div class="md-card">
-                    <div class="content-table-gradebook md-card-content">
-                        <div>
-                            <label class="uk-form-label">{{'PAGE.REPORTS.EXAM_RESULT.SELECT_EXAM'|translate}}</label>
-                            <input ng-change="vm.selectSchedule()" name="exam" id="exam" type="text" config="vm.scheduleConfig" options="vm.scheduleOptions" ng-model="vm.scheduleId" selectize />
-                        </div>
-                        <div class="uk-overflow-container">
-                            <table  class="uk-table uk-table-hover uk-table-condensed" cellspacing="0" width="100%">
-                                <thead>
-                                    <tr>
-                                        <th>{{'MODEL.SCHEDULE.NAME'|translate}}</th>
-                                        <th>{{'MODEL.USER.DISPLAY_NAME'|translate}}</th>
-                                        <th>{{'MODEL.USER.USERNAME'|translate}}</th>
-                                        <th>{{'MODEL.USER.POSITION'|translate}}</th>
-                                        <th>{{'REPORT.EXAM_RESULT.FIRST_SUBMIT'|translate}}</th>
-                                        <th>{{'REPORT.EXAM_RESULT.SCORE'|translate}}</th>
-                                        <th>{{'REPORT.EXAM_RESULT.SUBMIT'|translate}}</th>
-                                        <th>{{'REPORT.EXAM_RESULT.RESULT'|translate}}</th>
-                                    </tr>
-                                </thead>
-                                <tfoot>
-                                    <tr>
-                                        <th colspan="5"class="uk-text-center">
-                                            <span class="uk-float-right uk-text-bold">{{'COMMON.OVERVIEW'|translate}}</span>
-                                        </th>
-                                        <th>{{Math.floor(vm.summary.score/vm.candidates.length)}}</th>
-                                        <th>{{Math.floor(vm.summary.submit/vm.candidates.length)}}</th>
-                                        <th>{{Math.floor(vm.summary.passRate*100/vm.candidates.length)}}%</th>
-                                    </tr>
-                                </tfoot>
-                                <tbody>
-                                    <tr ng-repeat="candidate in vm.candidates">
-                                        <td>{{candidate.schedule.name}}</td>
-                                        <td>{{candidate.candidate.displayName}}</td>
-                                        <th>{{candidate.candidate.username}}</th>
-                                        <th>{{candidate.candidate.position}}</th>
-                                        <th>{{candidate.firstSubmit | date:'dd/MM/yyyy'}}</th>
-                                        <th>{{candidate.score}}</th>
-                                        <th>{{candidate.submit}}</th>
-                                        <th><span ng-show="candidate.result">{{'COMMON.PASS'|translate}}</span>
-                                        <span ng-show="!candidate.result">{{'COMMON.FAIL'|translate}}</span> </th>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div>
-                            <a class="md-btn md-btn-primary  md-btn-wave-light md-btn-icon" ng-csv="vm.getExportData()" csv-header="vm.getExportHeader()" filename="report.exam_resulte.csv" field-separator=";" decimal-separator=".">
-                                <i class="material-icons">save</i>
-                                {{'ACTION.EXPORT'|translate}}
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+	<div id="page_content_inner">
+		<h3 class="heading_b uk-margin-bottom">{{'PAGE.REPORTS.EXAM_RESULT.TITLE'
+			| translate}}</h3>
+		<div class="uk-grid" data-uk-grid-margin>
+			<div class="uk-width-medium-1-1">
+				<div class="md-card">
+					<div class="content-table-gradebook md-card-content">
+						<div>
+							<label class="uk-form-label">{{'PAGE.REPORTS.EXAM_RESULT.SELECT_EXAM'|translate}}</label>
+							<input ng-change="vm.selectSchedule()" name="exam" id="exam"
+								type="text" config="vm.scheduleConfig"
+								options="vm.scheduleOptions" ng-model="vm.scheduleId" selectize />
+						</div>
+						<div class="uk-overflow-container">
+							<table class="uk-table uk-table-hover uk-table-condensed"
+								cellspacing="0" width="100%">
+								<thead>
+									<tr>
+										<th>{{'MODEL.SCHEDULE.NAME'|translate}}</th>
+										<th>{{'MODEL.USER.DISPLAY_NAME'|translate}}</th>
+										<th>{{'MODEL.USER.USERNAME'|translate}}</th>
+										<th>{{'MODEL.USER.POSITION'|translate}}</th>
+										<th>{{'REPORT.EXAM_RESULT.FIRST_SUBMIT'|translate}}</th>
+										<th>{{'REPORT.EXAM_RESULT.SCORE'|translate}}</th>
+										<th>{{'REPORT.EXAM_RESULT.SUBMIT'|translate}}</th>
+										<th>{{'REPORT.EXAM_RESULT.RESULT'|translate}}</th>
+									</tr>
+								</thead>
+								<tfoot>
+									<tr>
+										<th colspan="5" class="uk-text-center"><span
+											class="uk-float-right uk-text-bold">{{'COMMON.OVERVIEW'|translate}}</span>
+										</th>
+										<th>{{Math.floor(vm.summary.score/vm.candidates.length)}}</th>
+										<th>{{Math.floor(vm.summary.submit/vm.candidates.length)}}</th>
+										<th>{{Math.floor(vm.summary.passRate*100/vm.candidates.length)}}%</th>
+									</tr>
+								</tfoot>
+								<tbody>
+									<tr ng-repeat="candidate in vm.candidates">
+										<td>{{candidate.schedule.name}}</td>
+										<td>{{candidate.candidate.displayName}}</td>
+										<th>{{candidate.candidate.username}}</th>
+										<th>{{candidate.candidate.position}}</th>
+										<th>{{candidate.firstSubmit | date:'dd/MM/yyyy'}}</th>
+										<th>{{candidate.score}}</th>
+										<th>{{candidate.submit}}</th>
+										<th><span ng-show="candidate.result">{{'COMMON.PASS'|translate}}</span>
+											<span ng-show="!candidate.result">{{'COMMON.FAIL'|translate}}</span>
+										</th>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<div>
+							<a class="md-btn md-btn-primary  md-btn-wave-light md-btn-icon"
+								ng-csv="vm.getExportData()" csv-header="vm.getExportHeader()"
+								filename="report.exam_resulte.csv" field-separator=";"
+								decimal-separator="."> <i class="material-icons">save</i>
+								{{'ACTION.EXPORT'|translate}}
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 
