@@ -1,7 +1,10 @@
 
-<div ng-include="'/modules/workspace/client/views/header.client.view.html'"></div>
+<div
+	ng-include="'/modules/workspace/client/views/header.client.view.html'"></div>
 <div ui-view ng-class="{ 'uk-height-1-1': page_full_height }"></div>
 <div ng-hide="vm.topMenuActive">
-    <div ng-include="'/modules/workspace/client/views/main-sidebar.client.view.html'"></div>
+	<div
+		ng-include="'/modules/workspace/client/views/main-sidebar.client.view.html'"></div>
 </div>
-<div ng-include="'/modules/workspace/client/views/workspace-footer.client.view.html'"></div>
+<div
+	ng-include="'/modules/workspace/client/views/workspace-footer.client.view.html'"></div>

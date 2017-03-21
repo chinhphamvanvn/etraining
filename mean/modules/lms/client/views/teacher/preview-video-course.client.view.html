@@ -1,16 +1,16 @@
 <div class="uk-grid" data-uk-grid-margin>
-                        <div class="uk-width-1-1">
-                            <ul class="uk-tab" data-uk-tab="{connect:'#tabs_1'}">
-                                <li class="uk-active"><a href="#">{{'MODEL.VIDEO.MAIN_VIDEO'|translate}}</a></li>
-                                <li><a href="#">{{'MODEL.VIDEO.TRANSCRIPT'|translate}}</a></li>
-                            </ul>
-                            <ul id="tabs_1" class="uk-switcher uk-margin">
-                                <li><video id="selectorVideo"   src="{{vm.video.videoURL | trust}}" 
-           autoplay controls></video></li>
-                                <li>{{vm.video.transcript}}</li>
+	<div class="uk-width-1-1">
+		<ul class="uk-tab" data-uk-tab="{connect:'#tabs_1'}">
+			<li class="uk-active"><a href="#">{{'MODEL.VIDEO.MAIN_VIDEO'|translate}}</a></li>
+			<li><a href="#">{{'MODEL.VIDEO.TRANSCRIPT'|translate}}</a></li>
+		</ul>
+		<ul id="tabs_1" class="uk-switcher uk-margin">
+			<li><video id="selectorVideo"
+					src="{{vm.video.videoURL | trust}}" autoplay controls></video></li>
+			<li>{{vm.video.transcript}}</li>
 
-                            </ul>
-                        </div>
-                    </div>
+		</ul>
+	</div>
+</div>
 
 

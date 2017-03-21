@@ -1,34 +1,41 @@
-<a ng-show="show" data-uk-modal="{target:'#modal_question{{question._id}}'}"><i class="material-icons uk-text-primary">info_outline</i></a>
+<a ng-show="show"
+	data-uk-modal="{target:'#modal_question{{question._id}}'}"><i
+	class="material-icons uk-text-primary">info_outline</i></a>
 <div class="uk-modal" id="modal_question{{question._id}}">
-  <div class="uk-modal-dialog">
-    <div class="md-card">
-      <div class="md-card-toolbar quiz-toolbar">
-        <div class="md-card-toolbar-actions">
-          <button type="button" class="uk-modal-close uk-close"></button>
-        </div>
-        <h3 class="md-card-toolbar-heading-text quiz-heading text-wrap uk-text-left">
-          {{question.title}}
-          <span ng-if="question.type=='mc'" class="uk-text-italic uk-text-small"> - {{'COMMON.QUESTION_TYPE.MC'|translate}}</span>
-          <span ng-if="question.type=='sc'" class="uk-text-italic uk-text-small"> - {{'COMMON.QUESTION_TYPE.SC'|translate}}</span>
-          <span ng-if="question.type=='tf'" class="uk-text-italic uk-text-small"> - {{'COMMON.QUESTION_TYPE.TF'|translate}}</span>
-          <span ng-if="question.type=='fb'" class="uk-text-italic uk-text-small"> - {{'COMMON.QUESTION_TYPE.FB'|translate}}</span>
-        </h3>
-      </div>
-      <div class="md-card-content">
-        <div ng-if="question.type=='mc'">
-          <multiple-choice-question mode="'view'" question="question"></multiple-choice-question>
-        </div>
-        <div ng-if="question.type=='sc'">
-          <single-choice-question mode="'view'" question="question"></single-choice-question>
-        </div>
-        <div ng-if="question.type=='tf'">
-          <true-false-question mode="'view'" question="question"></true-false-question>
-        </div>
-        <div ng-if="question.type=='fb'">
-          <fill-blank-question mode="'view'" question="question"></fill-blank-question>
-        </div>
-      </div>
-    </div>
+	<div class="uk-modal-dialog">
+		<div class="md-card">
+			<div class="md-card-toolbar quiz-toolbar">
+				<div class="md-card-toolbar-actions">
+					<button type="button" class="uk-modal-close uk-close"></button>
+				</div>
+				<h3
+					class="md-card-toolbar-heading-text quiz-heading text-wrap uk-text-left">
+					{{question.title}} <span ng-if="question.type=='mc'"
+						class="uk-text-italic uk-text-small"> -
+						{{'COMMON.QUESTION_TYPE.MC'|translate}}</span> <span
+						ng-if="question.type=='sc'" class="uk-text-italic uk-text-small">
+						- {{'COMMON.QUESTION_TYPE.SC'|translate}}</span> <span
+						ng-if="question.type=='tf'" class="uk-text-italic uk-text-small">
+						- {{'COMMON.QUESTION_TYPE.TF'|translate}}</span> <span
+						ng-if="question.type=='fb'" class="uk-text-italic uk-text-small">
+						- {{'COMMON.QUESTION_TYPE.FB'|translate}}</span>
+				</h3>
+			</div>
+			<div class="md-card-content">
+				<div ng-if="question.type=='mc'">
+					<multiple-choice-question mode="'view'" question="question"></multiple-choice-question>
+				</div>
+				<div ng-if="question.type=='sc'">
+					<single-choice-question mode="'view'" question="question"></single-choice-question>
+				</div>
+				<div ng-if="question.type=='tf'">
+					<true-false-question mode="'view'" question="question"></true-false-question>
+				</div>
+				<div ng-if="question.type=='fb'">
+					<fill-blank-question mode="'view'" question="question"></fill-blank-question>
+				</div>
+			</div>
+		</div>
 
-  </div>
+	</div>
 </div>

@@ -1,57 +1,53 @@
 <div id="page_content">
-    <div id="page_content_inner">
-            <div class="md-card">
-                <div class="md-card-toolbar">
-                    <div class="md-card-toolbar-actions">
-                        <div class="uk-float-right">
-                            <input id="select_toolbar"
-                                config="vm.memberStatsDayConfig"
-                                options="vm.memberStatsDayOptions"
-                                ng-model="vm.memberStatsDay" selectize />
-                        </div>
-                    </div>
-                    <div class="md-card-toolbar-heading-text">
-                        {{'PAGE.LMS.MY_COURSES.TEACHER_BOARD.REPORT.COMPREHENSIVE.ATTEMPT_CHART'|translate}}
-                    </div>
-                </div>
-                <div class="md-card-content">
-                    <course-attempt-chart day="vm.memberStatsDay" edition="vm.edition._id">
-                    </course-attempt-chart>
-                </div>
-            </div>
-            
-            <div class="md-card">
-                <div class="md-card-toolbar">
-                    <div class="md-card-toolbar-heading-text">
-                        {{'PAGE.LMS.MY_COURSES.TEACHER_BOARD.REPORT.PER_STUDENT'|translate}}
-                    </div>
-                </div>
-                <div class="md-card-content">
-                   <div class="uk-grid uk-grid-medium" data-uk-grid-margin>
-                                <div class="uk-width-1-5">
-                                    <ul class="uk-tab uk-tab-left" data-uk-tab="{connect:'#tabs_6'}">
-                                        <li><a href="#">{{'PAGE.LMS.MY_COURSES.TEACHER_BOARD.REPORT.COMPREHENSIVE.PROGRESS_CHART'|translate}}</a></li>
-                                        <li><a href="#">{{'PAGE.LMS.MY_COURSES.TEACHER_BOARD.REPORT.PER_STUDENT.TIME_SPENT'|translate}}</a></li>
-                                        <li><a href="#">{{'PAGE.LMS.MY_COURSES.TEACHER_BOARD.REPORT.PER_STUDENT.DAILY_SECTION'|translate}}</a></li>
-                                    </ul>
-                                </div>
-                                <div class="uk-width-4-5">
-                                    <ul id="tabs_6" class="uk-switcher uk-margin-small-top">
-                                        <li>
-                                            <single-member-progress-report course="vm.course" ></single-member-progress-report>
-                                        
-                                        </li>
-                                        <li>
-                                            <single-member-time-report course="vm.course" ></single-member-time-report>
-                                         </li>
-                                        <li>
-                                            <single-member-attempt-report course="vm.course" edition="vm.edition"></single-member-attempt-report>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                </div>
-            </div>
-            
-    </div>
+	<div id="page_content_inner">
+		<div class="md-card">
+			<div class="md-card-toolbar">
+				<div class="md-card-toolbar-actions">
+					<div class="uk-float-right">
+						<input id="select_toolbar" config="vm.memberStatsDayConfig"
+							options="vm.memberStatsDayOptions" ng-model="vm.memberStatsDay"
+							selectize />
+					</div>
+				</div>
+				<div class="md-card-toolbar-heading-text">
+					{{'PAGE.LMS.MY_COURSES.TEACHER_BOARD.REPORT.COMPREHENSIVE.ATTEMPT_CHART'|translate}}
+				</div>
+			</div>
+			<div class="md-card-content">
+				<course-attempt-chart day="vm.memberStatsDay"
+					edition="vm.edition._id"> </course-attempt-chart>
+			</div>
+		</div>
+
+		<div class="md-card">
+			<div class="md-card-toolbar">
+				<div class="md-card-toolbar-heading-text">
+					{{'PAGE.LMS.MY_COURSES.TEACHER_BOARD.REPORT.PER_STUDENT'|translate}}
+				</div>
+			</div>
+			<div class="md-card-content">
+				<div class="uk-grid uk-grid-medium" data-uk-grid-margin>
+					<div class="uk-width-1-5">
+						<ul class="uk-tab uk-tab-left" data-uk-tab="{connect:'#tabs_6'}">
+							<li><a href="#">{{'PAGE.LMS.MY_COURSES.TEACHER_BOARD.REPORT.COMPREHENSIVE.PROGRESS_CHART'|translate}}</a></li>
+							<li><a href="#">{{'PAGE.LMS.MY_COURSES.TEACHER_BOARD.REPORT.PER_STUDENT.TIME_SPENT'|translate}}</a></li>
+							<li><a href="#">{{'PAGE.LMS.MY_COURSES.TEACHER_BOARD.REPORT.PER_STUDENT.DAILY_SECTION'|translate}}</a></li>
+						</ul>
+					</div>
+					<div class="uk-width-4-5">
+						<ul id="tabs_6" class="uk-switcher uk-margin-small-top">
+							<li><single-member-progress-report course="vm.course"></single-member-progress-report>
+
+							</li>
+							<li><single-member-time-report course="vm.course"></single-member-time-report>
+							</li>
+							<li><single-member-attempt-report course="vm.course"
+									edition="vm.edition"></single-member-attempt-report></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
 </div>

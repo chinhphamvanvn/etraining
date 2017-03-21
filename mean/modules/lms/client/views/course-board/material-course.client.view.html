@@ -1,48 +1,59 @@
 <div id="page_content">
-    <div id="page_content_inner">
-        <div class="uk-width-medium-1-1 uk-container-center">
-            <div class="md-card md-card-single" single-card>
-                <div class="md-card-toolbar">
-                    <h3 class="md-card-toolbar-heading-text large">
-                        {{'PAGE.LMS.MY_COURSES.STUDENT_BOARD.MATERIAL'|translate}}
-                    </h3>
-                </div>
-                <div class="md-card-content">
-                    <div class="uk-overflow-container">
-                        <div class="uk-grid">
-                            <div class="uk-width-1-2">
-                                <div ng-show="vm.member.role=='teacher'">
-                                    <span class="uk-form-file md-btn md-btn-primary md-btn-icon" >
-                                        <i class="uk-icon-upload"></i>
-                                        {{'ACTION.CHOOSE_FILE'|translate}}
-                                        <input id="file_upload-select" type="file">
-                                    </span>
-                                    <div id="file_upload-progressbar" class="uk-progress uk-hidden">
-                                        <div class="uk-progress-bar" style="width:0">0%</div>
-                                    </div>
-                                </div>
-                                <table class="uk-table uk-table-nowrap uk-table-condensed">
-                                    <tbody>
-                                        <tr ng-repeat="material in vm.materials">
-                                            <td class="uk-width-4-10  ">
-                                                <span>{{material.name}}</span> &nbsp; &nbsp;
-                                                <span class="uk-icon-file" ng-if="material.fileType == 'file'" style="font-size: 20px;"></span>
-                                                <span class="uk-icon-video-camera" ng-if="material.fileType == 'video'" style="font-size: 20px;"></span>
-                                                <span class="uk-icon-image" ng-if="material.fileType == 'image'" style="font-size: 20px;"></span> &nbsp; &nbsp;
-                                                <a target="_self" href="{{material.downloadURL}}" download="{{material.filename}}"><i class="md-icon material-icons" data-uk-tooltip="{pos:'top'}" title="{{'ACTION.DOWNLOAD'|translate}}">file_download</i></a>
-                                            </td>
-                                            <td ng-show="vm.member.role=='teacher'" class="uk-width-3-10 uk-text-center">
-                                                <a ng-click="vm.edit(material)"><i class="md-icon material-icons" data-uk-tooltip="{pos:'top'}" title="{{'ACTION.EDIT'|translate}}">mode_edit</i></a>
-                                                <a ng-click="vm.remove(material)"><i class="md-icon material-icons uk-text-danger" data-uk-tooltip="{pos:'top'}" title="{{'ACTION.DELETE'|translate}}">delete</i></a>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+	<div id="page_content_inner">
+		<div class="uk-width-medium-1-1 uk-container-center">
+			<div class="md-card md-card-single" single-card>
+				<div class="md-card-toolbar">
+					<h3 class="md-card-toolbar-heading-text large">
+						{{'PAGE.LMS.MY_COURSES.STUDENT_BOARD.MATERIAL'|translate}}</h3>
+				</div>
+				<div class="md-card-content">
+					<div class="uk-overflow-container">
+						<div class="uk-grid">
+							<div class="uk-width-1-2">
+								<div ng-show="vm.member.role=='teacher'">
+									<span class="uk-form-file md-btn md-btn-primary md-btn-icon">
+										<i class="uk-icon-upload"></i>
+										{{'ACTION.CHOOSE_FILE'|translate}} <input
+										id="file_upload-select" type="file">
+									</span>
+									<div id="file_upload-progressbar" class="uk-progress uk-hidden">
+										<div class="uk-progress-bar" style="width: 0">0%</div>
+									</div>
+								</div>
+								<table class="uk-table uk-table-nowrap uk-table-condensed">
+									<tbody>
+										<tr ng-repeat="material in vm.materials">
+											<td class="uk-width-4-10  "><span>{{material.name}}</span>
+												&nbsp; &nbsp; <span class="uk-icon-file"
+												ng-if="material.fileType == 'file'" style="font-size: 20px;"></span>
+												<span class="uk-icon-video-camera"
+												ng-if="material.fileType == 'video'"
+												style="font-size: 20px;"></span> <span class="uk-icon-image"
+												ng-if="material.fileType == 'image'"
+												style="font-size: 20px;"></span> &nbsp; &nbsp; <a
+												target="_self" href="{{material.downloadURL}}"
+												download="{{material.filename}}"><i
+													class="md-icon material-icons"
+													data-uk-tooltip="{pos:'top'}"
+													title="{{'ACTION.DOWNLOAD'|translate}}">file_download</i></a></td>
+											<td ng-show="vm.member.role=='teacher'"
+												class="uk-width-3-10 uk-text-center"><a
+												ng-click="vm.edit(material)"><i
+													class="md-icon material-icons"
+													data-uk-tooltip="{pos:'top'}"
+													title="{{'ACTION.EDIT'|translate}}">mode_edit</i></a> <a
+												ng-click="vm.remove(material)"><i
+													class="md-icon material-icons uk-text-danger"
+													data-uk-tooltip="{pos:'top'}"
+													title="{{'ACTION.DELETE'|translate}}">delete</i></a></td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>

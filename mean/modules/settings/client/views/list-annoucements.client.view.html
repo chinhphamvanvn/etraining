@@ -1,57 +1,71 @@
 <div id="page_content">
-    <div id="page_content_inner">
-        <h3 class="heading_b uk-margin-bottom">{{'PAGE.SETTINGS.BULLETIN.TITLE' | translate}}</h3>
-        <div class="uk-grid" data-uk-grid-margin>
-            <div class="uk-width-medium-1-1" >
+	<div id="page_content_inner">
+		<h3 class="heading_b uk-margin-bottom">{{'PAGE.SETTINGS.BULLETIN.TITLE'
+			| translate}}</h3>
+		<div class="uk-grid" data-uk-grid-margin>
+			<div class="uk-width-medium-1-1">
 
-                 <div class="md-card" ng-repeat="message in vm.annoucements" >
-                        <div class="md-card-toolbar">
-                            <div class="md-card-toolbar-actions">
-                                <a ng-click="vm.remove(message)" class="uk-float-right uk-margin-medium" data-uk-tooltip="{cls:'uk-tooltip-small',pos:'bottom'}" title="{{'ACTION.DELETE'|translate}}">
-                                    <i class="material-icons uk-text-danger"  >delete</i></a>
+				<div class="md-card" ng-repeat="message in vm.annoucements">
+					<div class="md-card-toolbar">
+						<div class="md-card-toolbar-actions">
+							<a ng-click="vm.remove(message)"
+								class="uk-float-right uk-margin-medium"
+								data-uk-tooltip="{cls:'uk-tooltip-small',pos:'bottom'}"
+								title="{{'ACTION.DELETE'|translate}}"> <i
+								class="material-icons uk-text-danger">delete</i></a> <a
+								ui-sref="admin.workspace.settings.annoucements.edit({annoucementId:message._id})"
+								data-uk-tooltip="{cls:'uk-tooltip-small',pos:'bottom'}"
+								title="{{'ACTION.EDIT'|translate}}"
+								class="uk-float-right uk-margin-medium"> <i
+								class="material-icons">edit</i></a>
+						</div>
+						<h3 class="md-card-toolbar-heading-text">
+							<i class="md-icon material-icons uk-text-default"
+								ng-show="message.level=='info'">info</i> <i
+								class="md-icon material-icons uk-text-warning"
+								ng-show="message.level=='warning'">warning</i> <i
+								class="md-icon material-icons uk-text-primary"
+								ng-show="message.level=='primary'">announcement</i> <span
+								ng-if="message.scope=='public'">{{'PAGE.SETTINGS.ANNOUCEMENT.PUBLIC'|translate}}</span>
+							<span ng-if="message.scope=='private'">{{'PAGE.SETTINGS.ANNOUCEMENT.PRIVATE'|translate}}</span>
 
-                                <a ui-sref="admin.workspace.settings.annoucements.edit({annoucementId:message._id})"  data-uk-tooltip="{cls:'uk-tooltip-small',pos:'bottom'}" title="{{'ACTION.EDIT'|translate}}" class="uk-float-right uk-margin-medium">
-                                    <i class="material-icons" >edit</i></a>
-                            </div>
-                            <h3 class="md-card-toolbar-heading-text">
-                                <i class="md-icon material-icons uk-text-default" ng-show="message.level=='info'">info</i>
-                                <i class="md-icon material-icons uk-text-warning" ng-show="message.level=='warning'">warning</i>
-                                <i class="md-icon material-icons uk-text-primary" ng-show="message.level=='primary'">announcement</i>
-                                <span ng-if="message.scope=='public'">{{'PAGE.SETTINGS.ANNOUCEMENT.PUBLIC'|translate}}</span>
-                                   <span ng-if="message.scope=='private'">{{'PAGE.SETTINGS.ANNOUCEMENT.PRIVATE'|translate}}</span>
+						</h3>
+					</div>
+					<div class="md-card-content">
+						<h3>{{message.title}}</h3>
+						<div ng-bind-html="message.content"></div>
+						<hr>
+						<p class="uk-form-help-block">
 
-                            </h3>
-                        </div>
-                        <div class="md-card-content">
-                            <h3>{{message.title}}</h3>
-                            <div ng-bind-html="message.content"></div>
-                           <hr>
-                           <p class="uk-form-help-block">
-
-                                     {{'COMMON.CREATE_BY'|translate}} {{message.user.displayName}} - {{message.created | date:'dd-MM-yyyy'}}
-                                    <span class="uk-float-right" ng-if="message.scope=='public'">
-
-                                    <input ng-change="vm.publish(message)" type="checkbox" class="switchery switchery-small" ui-switch color="#7cb342" ng-model="message.published" id="switch_publish" />
-                                    <label for="switch_publish" class="inline-label">{{'MODEL.ANNOUCEMENT.STATUS'|translate}}</label>
-                                </span>
-                                <span class="uk-float-right" ng-if="message.scope=='private'">
-                                    <a class="md-btn md-btn-mini  md-btn-flat md-btn-flat-primary " data-uk-modal="{target:'#select_user'}" ng-click="vm.selectedMessage=message">{{'ACTION.DISTRIBUTE_ANNOUCEMENT'|translate}}</a>
+							{{'COMMON.CREATE_BY'|translate}} {{message.user.displayName}} -
+							{{message.created | date:'dd-MM-yyyy'}} <span
+								class="uk-float-right" ng-if="message.scope=='public'"> <input
+								ng-change="vm.publish(message)" type="checkbox"
+								class="switchery switchery-small" ui-switch color="#7cb342"
+								ng-model="message.published" id="switch_publish" /> <label
+								for="switch_publish" class="inline-label">{{'MODEL.ANNOUCEMENT.STATUS'|translate}}</label>
+							</span> <span class="uk-float-right" ng-if="message.scope=='private'">
+								<a class="md-btn md-btn-mini  md-btn-flat md-btn-flat-primary "
+								data-uk-modal="{target:'#select_user'}"
+								ng-click="vm.selectedMessage=message">{{'ACTION.DISTRIBUTE_ANNOUCEMENT'|translate}}</a>
 
 
-                                </span>
-                                </p>
-                        </div>
-                    </div>
-            </div>
-        </div>
-    </div>
+							</span>
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 
-<select-user-dialog callback="vm.distributeMessage" dialog-id="'select_user'"></select-user-dialog>
+<select-user-dialog callback="vm.distributeMessage"
+	dialog-id="'select_user'"></select-user-dialog>
 
 <div class="md-fab-wrapper">
-    <a class="md-fab md-fab-accent" ui-sref="admin.workspace.settings.annoucements.new" data-uk-modal="{ center:true }">
-        <i class="material-icons">&#xE145;</i>
-    </a>
+	<a class="md-fab md-fab-accent"
+		ui-sref="admin.workspace.settings.annoucements.new"
+		data-uk-modal="{ center:true }"> <i class="material-icons">&#xE145;</i>
+	</a>
 </div>
 

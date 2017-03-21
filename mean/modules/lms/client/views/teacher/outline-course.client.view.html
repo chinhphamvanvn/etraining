@@ -1,28 +1,30 @@
 
 <div id="page_content">
-    <div id="page_heading" data-uk-sticky="{ top: 48, media: 960 }">
-        <div class="heading_actions ">
-            
-            <div  id="outline_mode_select">
-                <span class="icheck-inline" >
-                    <input  type="radio" name="outline_mode" id="edit_mode"  value="edit" icheck ng-model="vm.outline_mode" ng-change="vm.changeOutlineMode()"/>
-                    <label for="edit_mode" class="inline-label">{{'COMMON.EDIT_MODE'|translate}}</label>
-                </span>
-                <span class="icheck-inline">
-                    <input type="radio" name="outline_mode" id="preview_mode" value="preview" icheck ng-model="vm.outline_mode"  ng-change="vm.changeOutlineMode()"/>
-                    <label for="preview_mode" class="inline-label">{{'COMMON.PREVIEW_MODE'|translate}}</label>
-                </span>
-            </div>
-        </div>
-       <h1 >{{'PAGE.LMS.MY_COURSES.TEACHER_BOARD.COURSE_OUTLINE' | translate}} : {{vm.course.name}}
-       </h1>
-        <span class="uk-text-upper uk-text-small">
-            <a ui-sref="workspace.lms.courses.me"><i class="material-icons uk-text-primary" >keyboard_arrow_left</i>{{'PAGE.LMS.MY_COURSES.TITLE' | translate}}</a> 
-            </span>
-    </div>
-    <div id="page_content_inner">
-         <ui-view></ui-view>
-    </div>
+	<div id="page_heading" data-uk-sticky="{ top: 48, media: 960 }">
+		<div class="heading_actions ">
 
-</div>      
-    
+			<div id="outline_mode_select">
+				<span class="icheck-inline"> <input type="radio"
+					name="outline_mode" id="edit_mode" value="edit" icheck
+					ng-model="vm.outline_mode" ng-change="vm.changeOutlineMode()" /> <label
+					for="edit_mode" class="inline-label">{{'COMMON.EDIT_MODE'|translate}}</label>
+				</span> <span class="icheck-inline"> <input type="radio"
+					name="outline_mode" id="preview_mode" value="preview" icheck
+					ng-model="vm.outline_mode" ng-change="vm.changeOutlineMode()" /> <label
+					for="preview_mode" class="inline-label">{{'COMMON.PREVIEW_MODE'|translate}}</label>
+				</span>
+			</div>
+		</div>
+		<h1>{{'PAGE.LMS.MY_COURSES.TEACHER_BOARD.COURSE_OUTLINE' |
+			translate}} : {{vm.course.name}}</h1>
+		<span class="uk-text-upper uk-text-small"> <a
+			ui-sref="workspace.lms.courses.me"><i
+				class="material-icons uk-text-primary">keyboard_arrow_left</i>{{'PAGE.LMS.MY_COURSES.TITLE'
+				| translate}}</a>
+		</span>
+	</div>
+	<div id="page_content_inner">
+		<ui-view></ui-view>
+	</div>
+
+</div>

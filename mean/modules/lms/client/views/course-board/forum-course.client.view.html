@@ -1,78 +1,109 @@
-<div class="uk-alert uk-alert-warning uk-margin" data-uk-alert ng-show="vm.alert">
-    <p class="uk-text-center">
-    <span>{{vm.alert}}</span>
-    <br> 
-    <a ng-show="vm.member.role=='teacher'" ng-click="vm.createForum()" class="md-btn md-btn-success md-btn-wave-light md-btn-icon" href="javascript:void(0)">
-                                <i class="uk-icon-toggle-on"></i>
-                                {{'ACTION.ACTIVATE'|translate}}
-                            </a>
-                            </p>
+<div class="uk-alert uk-alert-warning uk-margin" data-uk-alert
+	ng-show="vm.alert">
+	<p class="uk-text-center">
+		<span>{{vm.alert}}</span> <br> <a
+			ng-show="vm.member.role=='teacher'" ng-click="vm.createForum()"
+			class="md-btn md-btn-success md-btn-wave-light md-btn-icon"
+			href="javascript:void(0)"> <i class="uk-icon-toggle-on"></i>
+			{{'ACTION.ACTIVATE'|translate}}
+		</a>
+	</p>
 </div>
 <div id="page_content" ng-show="!vm.alert">
-    <div id="page_content_inner">
-        <div class="uk-width-medium-1-1 uk-container-center">
-            <div class="md-card md-card-single" single-card>
-                <div class="md-card-toolbar">
-                    <h3 class="md-card-toolbar-heading-text large">
-                        {{'PAGE.LMS.MY_COURSES.STUDENT_BOARD.FORUM'|translate}}
-                    </h3>
-                </div>
-                <!-- md-card-content-->
-                <div class="" id="todo_list" style="min-height: 75vh;">
-                        <ul class="md-list md-list-addon uk-margin-small-bottom">
-                            <li ng-repeat="topic in vm.topics">
-                                <div class="md-list-addon-element">
-                                   <i ng-show="!topic.expand" ng-click="vm.expand(topic)" class="md-icon material-icons md-36">arrow_drop_down</i>
-                                    <i ng-show="topic.expand" ng-click="vm.collapse(topic)"  class="md-icon material-icons md-36">arrow_drop_up</i>
-                                </div>
-                                <div class="md-list-content">
-                                    <a href="#" class="md-list-action">
-                                        <i class="md-icon material-icons " ng-click="vm.editTopic(topic)" ng-show="vm.member.member==topic.user._id || vm.member.role=='teacher'" data-uk-tooltip="{pos:'top'}" title="{{'ACTION.EDIT'|translate}}">edit</i>
-                                        <i class="md-icon material-icons " ng-click="vm.replyTopic(topic)"  data-uk-tooltip="{pos:'top'}" title="{{'ACTION.REPLY'|translate}}">reply</i>
-                                        <i class="md-icon material-icons uk-text-danger" ng-click="vm.removeTopic(topic)" ng-show="vm.member.role=='teacher'" data-uk-tooltip="{pos:'top'}" title="{{'ACTION.DELETE'|translate}}">delete</i>
-                                    </a>
-                                    <span class="md-list-heading">{{topic.content}}</span>
-                                    <span class="uk-text-small uk-text-muted">Last updated by {{topic.user.displayName}} on {{topic.updated | date :'dd-MM-yyyy'}}</span>
-                                    
-                                </div>
-                                <ul class="md-list md-list-addon  uk-margin-small-bottom">
-                                    <li ng-repeat="post in topic.posts | parentPost">
-                                        <div class="md-list-content">
-                                            <a href="#"
-                                                class="md-list-action">
-                                                <i class="md-icon material-icons " ng-click="vm.editPost(post)" ng-show="vm.member.member==post.user._id || vm.member.role=='teacher'" data-uk-tooltip="{pos:'top'}" title="{{'ACTION.EDIT'|translate}}">edit</i>
-                                                 <i class="md-icon material-icons " ng-click="vm.replyPost(post)"  data-uk-tooltip="{pos:'top'}" title="{{'ACTION.REPLY'|translate}}">reply</i>
-                                                <i class="md-icon material-icons uk-text-danger" ng-click="vm.removePost(post)" ng-show="vm.member.role=='teacher'" data-uk-tooltip="{pos:'top'}" title="{{'ACTION.DELETE'|translate}}">delete</i>
-                                            </a>
-                                            <span>{{post.content}}</span>
-                                            <span class="uk-text-small uk-text-muted">Last updated by {{post.user.displayName}} on {{post.updated | date :'dd-MM-yyyy'}}</span>
-                                        </div>
-                                        
-                                        <ul class="md-list md-list-addon  uk-margin-small-bottom">
-                                        <li ng-repeat="comment in topic.posts | childPost:post">
-                                            <div class="md-list-content">
-                                                <a href="#"
-                                                    class="md-list-action">
-                                                    <i class="md-icon material-icons " ng-click="vm.editPost(comment)" ng-show="vm.member.member==comment.user._id || vm.member.role=='teacher'" data-uk-tooltip="{pos:'top'}" title="{{'ACTION.EDIT'|translate}}">edit</i>
-                                                    <i class="md-icon material-icons uk-text-danger" ng-click="vm.removePost(comment)" ng-show="vm.member.role=='teacher'" data-uk-tooltip="{pos:'top'}" title="{{'ACTION.DELETE'|translate}}">delete</i>
-                                                </a>
-                                                <span class="uk-text-small uk-text-muted">{{post.content}}</span>
-                                                <span class="uk-text-small uk-text-muted">Last updated by {{post.user.displayName}} on {{post.updated | date :'dd-MM-yyyy'}}</span>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
-                </div>
-            </div>
-        </div>
-    </div>
+	<div id="page_content_inner">
+		<div class="uk-width-medium-1-1 uk-container-center">
+			<div class="md-card md-card-single" single-card>
+				<div class="md-card-toolbar">
+					<h3 class="md-card-toolbar-heading-text large">
+						{{'PAGE.LMS.MY_COURSES.STUDENT_BOARD.FORUM'|translate}}</h3>
+				</div>
+				<!-- md-card-content-->
+				<div class="" id="todo_list" style="min-height: 75vh;">
+					<ul class="md-list md-list-addon uk-margin-small-bottom">
+						<li ng-repeat="topic in vm.topics">
+							<div class="md-list-addon-element">
+								<i ng-show="!topic.expand" ng-click="vm.expand(topic)"
+									class="md-icon material-icons md-36">arrow_drop_down</i> <i
+									ng-show="topic.expand" ng-click="vm.collapse(topic)"
+									class="md-icon material-icons md-36">arrow_drop_up</i>
+							</div>
+							<div class="md-list-content">
+								<a href="#" class="md-list-action"> <i
+									class="md-icon material-icons " ng-click="vm.editTopic(topic)"
+									ng-show="vm.member.member==topic.user._id || vm.member.role=='teacher'"
+									data-uk-tooltip="{pos:'top'}"
+									title="{{'ACTION.EDIT'|translate}}">edit</i> <i
+									class="md-icon material-icons " ng-click="vm.replyTopic(topic)"
+									data-uk-tooltip="{pos:'top'}"
+									title="{{'ACTION.REPLY'|translate}}">reply</i> <i
+									class="md-icon material-icons uk-text-danger"
+									ng-click="vm.removeTopic(topic)"
+									ng-show="vm.member.role=='teacher'"
+									data-uk-tooltip="{pos:'top'}"
+									title="{{'ACTION.DELETE'|translate}}">delete</i>
+								</a> <span class="md-list-heading">{{topic.content}}</span> <span
+									class="uk-text-small uk-text-muted">Last updated by
+									{{topic.user.displayName}} on {{topic.updated | date
+									:'dd-MM-yyyy'}}</span>
+
+							</div>
+							<ul class="md-list md-list-addon  uk-margin-small-bottom">
+								<li ng-repeat="post in topic.posts | parentPost">
+									<div class="md-list-content">
+										<a href="#" class="md-list-action"> <i
+											class="md-icon material-icons " ng-click="vm.editPost(post)"
+											ng-show="vm.member.member==post.user._id || vm.member.role=='teacher'"
+											data-uk-tooltip="{pos:'top'}"
+											title="{{'ACTION.EDIT'|translate}}">edit</i> <i
+											class="md-icon material-icons " ng-click="vm.replyPost(post)"
+											data-uk-tooltip="{pos:'top'}"
+											title="{{'ACTION.REPLY'|translate}}">reply</i> <i
+											class="md-icon material-icons uk-text-danger"
+											ng-click="vm.removePost(post)"
+											ng-show="vm.member.role=='teacher'"
+											data-uk-tooltip="{pos:'top'}"
+											title="{{'ACTION.DELETE'|translate}}">delete</i>
+										</a> <span>{{post.content}}</span> <span
+											class="uk-text-small uk-text-muted">Last updated by
+											{{post.user.displayName}} on {{post.updated | date
+											:'dd-MM-yyyy'}}</span>
+									</div>
+
+									<ul class="md-list md-list-addon  uk-margin-small-bottom">
+										<li ng-repeat="comment in topic.posts | childPost:post">
+											<div class="md-list-content">
+												<a href="#" class="md-list-action"> <i
+													class="md-icon material-icons "
+													ng-click="vm.editPost(comment)"
+													ng-show="vm.member.member==comment.user._id || vm.member.role=='teacher'"
+													data-uk-tooltip="{pos:'top'}"
+													title="{{'ACTION.EDIT'|translate}}">edit</i> <i
+													class="md-icon material-icons uk-text-danger"
+													ng-click="vm.removePost(comment)"
+													ng-show="vm.member.role=='teacher'"
+													data-uk-tooltip="{pos:'top'}"
+													title="{{'ACTION.DELETE'|translate}}">delete</i>
+												</a> <span class="uk-text-small uk-text-muted">{{post.content}}</span>
+												<span class="uk-text-small uk-text-muted">Last
+													updated by {{post.user.displayName}} on {{post.updated |
+													date :'dd-MM-yyyy'}}</span>
+											</div>
+										</li>
+									</ul>
+
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 <div class="md-fab-wrapper" ng-show="!vm.alert">
-    <a ng-click="vm.createTopic()" class="md-fab md-fab-accent" href="#new_todo" data-uk-tooltip="{pos:'top'}" title="{{'ACTION.NEW_TOPIC'|translate}}" >
-        <i class="material-icons">&#xE03B;</i>
-    </a>
+	<a ng-click="vm.createTopic()" class="md-fab md-fab-accent"
+		href="#new_todo" data-uk-tooltip="{pos:'top'}"
+		title="{{'ACTION.NEW_TOPIC'|translate}}"> <i
+		class="material-icons">&#xE03B;</i>
+	</a>
 </div>

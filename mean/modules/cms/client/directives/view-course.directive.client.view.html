@@ -1,148 +1,180 @@
 <div class="md-card">
-  <div class="md-card-content large-padding">
-    <div class="uk-grid blog_article uk-grid-divider" data-uk-grid-margin>
-      <div class="uk-width-large-3-4 uk-width-medium-6-10">
-        <figure class="uk-thumbnail thumbnail_left">
-          <img class="img_thumb" src="{{course.logoURL}}"/>
-        </figure>
-        <div class="uk-article">
-          {{course.code}}
+	<div class="md-card-content large-padding">
+		<div class="uk-grid blog_article uk-grid-divider" data-uk-grid-margin>
+			<div class="uk-width-large-3-4 uk-width-medium-6-10">
+				<figure class="uk-thumbnail thumbnail_left">
+					<img class="img_thumb" src="{{course.logoURL}}" />
+				</figure>
+				<div class="uk-article">
+					{{course.code}}
 
-          <h1 class="uk-article-title">{{course.name}} </h1>
-          <p class="uk-article-meta">
-            Created by {{course.user.displayName}} on {{course.created | date :'dd-MM-yyyy'}}
-          </p>
-          <p class="uk-article-lead">{{course.summary}}</p>
-          <hr class="uk-article-divider">
-          <p ng-bind-html="course.detail">
-
-          </p>
+					<h1 class="uk-article-title">{{course.name}}</h1>
+					<p class="uk-article-meta">Created by
+						{{course.user.displayName}} on {{course.created | date
+						:'dd-MM-yyyy'}}</p>
+					<p class="uk-article-lead">{{course.summary}}</p>
+					<hr class="uk-article-divider">
+					<p ng-bind-html="course.detail"></p>
 
 
-        </div>
+				</div>
 
-      </div>
-      <div class="uk-width-large-1-4 uk-width-medium-4-10">
-        <h5 class="uk-margin-small-bottom uk-text-upper">{{'PAGE.CMS.COURSES.BASIC_INFO'|translate}}</h5>
-        <ul class="md-list uk-margin-remove">
-          <li>
-            <div class="md-list-content">
-                            <span class="md-list-heading uk-text-truncate"><a href="#"><i
-                              class="md-icon material-icons uk-text-primary">nature</i> {{'MODEL.COURSE.STATUS'|translate}}</a>
-                            <span class="uk-badge" ng-show="course.status=='initial'">{{'COMMON.STATUS.INITIAL'|translate}}</span>
-                            <span class="uk-badge uk-badge-success" ng-show="course.status=='available'">{{'COMMON.STATUS.AVAIL'|translate}}</span>
-                            <span class="uk-badge uk-badge-warning" ng-show="course.status=='suspended'">{{'COMMON.STATUS.SUSPEND'|translate}}</span>
-                            </span>
-            </div>
-          </li>
-          <li>
-            <div class="md-list-content">
-              <span class="md-list-heading uk-text-truncate"><a href="#"><i
-                class="md-icon material-icons uk-text-primary">folder_open</i> {{'MODEL.COURSE.GROUP'|translate}}</a></span>
-              <span class="uk-text-small uk-text-muted">{{course.group.name}}</span>
-            </div>
-          </li>
-          <li>
-            <div class="md-list-content">
-              <span class="md-list-heading uk-text-truncate"><a href="#"><i
-                class="md-icon material-icons uk-text-primary">party_mode</i> {{'MODEL.COURSE.MODEL'|translate}}</a></span>
-              <span class="uk-text-small uk-text-muted" ng-show="course.model=='self-paced'">{{'COMMON.COURSE_MODEL.SELF_STUDY' | translate}}</span>
-              <span class="uk-text-small uk-text-muted" ng-show="course.model=='group'">{{'COMMON.COURSE_MODEL.GROUP_STUDY' | translate}}</span>
-            </div>
-          </li>
-          <li>
-            <div class="md-list-content">
-              <span class="md-list-heading uk-text-truncate"><a href="#"><i
-                class="md-icon material-icons uk-text-primary">grade</i> {{'MODEL.COURSE.DIFFICULTY'|translate}}</a></span>
-              <span class="uk-text-small uk-text-muted" ng-show="course.level=='easy'">{{'COMMON.DIFFICULTY.EASY' | translate}}</span>
-              <span class="uk-text-small uk-text-muted" ng-show="course.level=='medium'">{{'COMMON.DIFFICULTY.MEDIUM' | translate}}</span>
-              <span class="uk-text-small uk-text-muted" ng-show="course.level=='hard'">{{'COMMON.DIFFICULTY.HARD' | translate}}</span>
-            </div>
-          </li>
+			</div>
+			<div class="uk-width-large-1-4 uk-width-medium-4-10">
+				<h5 class="uk-margin-small-bottom uk-text-upper">{{'PAGE.CMS.COURSES.BASIC_INFO'|translate}}</h5>
+				<ul class="md-list uk-margin-remove">
+					<li>
+						<div class="md-list-content">
+							<span class="md-list-heading uk-text-truncate"><a href="#"><i
+									class="md-icon material-icons uk-text-primary">nature</i>
+									{{'MODEL.COURSE.STATUS'|translate}}</a> <span class="uk-badge"
+								ng-show="course.status=='initial'">{{'COMMON.STATUS.INITIAL'|translate}}</span>
+								<span class="uk-badge uk-badge-success"
+								ng-show="course.status=='available'">{{'COMMON.STATUS.AVAIL'|translate}}</span>
+								<span class="uk-badge uk-badge-warning"
+								ng-show="course.status=='suspended'">{{'COMMON.STATUS.SUSPEND'|translate}}</span>
+							</span>
+						</div>
+					</li>
+					<li>
+						<div class="md-list-content">
+							<span class="md-list-heading uk-text-truncate"><a href="#"><i
+									class="md-icon material-icons uk-text-primary">folder_open</i>
+									{{'MODEL.COURSE.GROUP'|translate}}</a></span> <span
+								class="uk-text-small uk-text-muted">{{course.group.name}}</span>
+						</div>
+					</li>
+					<li>
+						<div class="md-list-content">
+							<span class="md-list-heading uk-text-truncate"><a href="#"><i
+									class="md-icon material-icons uk-text-primary">party_mode</i>
+									{{'MODEL.COURSE.MODEL'|translate}}</a></span> <span
+								class="uk-text-small uk-text-muted"
+								ng-show="course.model=='self-paced'">{{'COMMON.COURSE_MODEL.SELF_STUDY'
+								| translate}}</span> <span class="uk-text-small uk-text-muted"
+								ng-show="course.model=='group'">{{'COMMON.COURSE_MODEL.GROUP_STUDY'
+								| translate}}</span>
+						</div>
+					</li>
+					<li>
+						<div class="md-list-content">
+							<span class="md-list-heading uk-text-truncate"><a href="#"><i
+									class="md-icon material-icons uk-text-primary">grade</i>
+									{{'MODEL.COURSE.DIFFICULTY'|translate}}</a></span> <span
+								class="uk-text-small uk-text-muted"
+								ng-show="course.level=='easy'">{{'COMMON.DIFFICULTY.EASY'
+								| translate}}</span> <span class="uk-text-small uk-text-muted"
+								ng-show="course.level=='medium'">{{'COMMON.DIFFICULTY.MEDIUM'
+								| translate}}</span> <span class="uk-text-small uk-text-muted"
+								ng-show="course.level=='hard'">{{'COMMON.DIFFICULTY.HARD'
+								| translate}}</span>
+						</div>
+					</li>
 
-        </ul>
-        <h5 class="uk-margin-small-bottom uk-text-upper  uk-margin-large">{{'MODEL.COURSE.PREQUISITE'| translate}}</h5>
-        <div class="blog_tags">
-          <a href="#" class="uk-badge" ng-repeat="courseRequire in course.prequisites">{{courseRequire.name}}</a>
-        </div>
-        <h5 class="uk-margin-small-bottom uk-text-upper  uk-margin-large">{{'MODEL.COURSE.COMPETENCY'| translate}}</h5>
-        <div class="blog_tags">
-          <a href="#" class="uk-badge">{{competency.name}}</a>
-        </div>
+				</ul>
+				<h5 class="uk-margin-small-bottom uk-text-upper  uk-margin-large">{{'MODEL.COURSE.PREQUISITE'|
+					translate}}</h5>
+				<div class="blog_tags">
+					<a href="#" class="uk-badge"
+						ng-repeat="courseRequire in course.prequisites">{{courseRequire.name}}</a>
+				</div>
+				<h5 class="uk-margin-small-bottom uk-text-upper  uk-margin-large">{{'MODEL.COURSE.COMPETENCY'|
+					translate}}</h5>
+				<div class="blog_tags">
+					<a href="#" class="uk-badge">{{competency.name}}</a>
+				</div>
 
-        <h5 class="uk-margin-small-bottom uk-text-upper uk-margin-large">
-          {{'PAGE.CMS.COURSES.ENROLLMENT'|translate}}</h5>
-        <ul class="md-list uk-margin-remove">
-          <li>
-            <div class="md-list-content">
-                            <span class="md-list-heading uk-text-truncate"><a href="#"><i
-                              class="md-icon material-icons uk-text-primary">school</i> {{'MODEL.COURSE.ENROLL_STATUS'|translate}}</a>
-                                <span class="uk-badge uk-badge-success" ng-show="course.enrollStatus">Ok</span>
-                                <span class="uk-badge uk-badge-danger" ng-show="!course.enrollStatus">Nok</span>
-                            </span>
-            </div>
-          </li>
-          <li>
-            <div class="md-list-content">
-              <span class="md-list-heading uk-text-truncate"><a href="#"><i
-                class="md-icon material-icons uk-text-primary">filter_list</i> {{'MODEL.COURSE.ENROLL_POLICY'|translate}}</a></span>
-              <span class="uk-text-small uk-text-muted" ng-show="course.enrollPolicy=='open'">{{'COMMON.ENROLL_POLICY.OPEN_DESC'|translate}}</span>
-              <span class="uk-text-small uk-text-muted" ng-show="course.enrollPolicy=='censor'">{{'COMMON.ENROLL_POLICY.CENSOR_DESC'|translate}}</span>
-            </div>
-          </li>
-          <li>
-            <div class="md-list-content">
-              <span class="md-list-heading uk-text-truncate"><a href="#"><i
-                class="md-icon material-icons uk-text-primary">slideshow</i> {{'MODEL.COURSE.PRESENT_MODE'|translate}}</a></span>
-              <span class="uk-text-small uk-text-muted" ng-show="course.displayMode=='open'">{{'COMMON.PRESENT_MODE.ALL'|translate}}</span>
-              <span class="uk-text-small uk-text-muted" ng-show="course.displayMode=='login'">{{'COMMON.PRESENT_MODE.LOGIN'|translate}}</span>
-              <span class="uk-text-small uk-text-muted" ng-show="course.displayMode=='enroll'">{{'COMMON.PRESENT_MODE.ENROLL'|translate}}</span>
-            </div>
-          </li>
-          <li>
-            <div class="md-list-content">
-              <span class="md-list-heading uk-text-truncate"><a href="#"><i
-                class="md-icon material-icons uk-text-primary">date_range</i> {{'MODEL.COURSE.START_DATE'|translate}}</a></span>
-              <span class="uk-text-small uk-text-muted">{{course.startDate | date:'dd/MM/yyyy'}}</span>
-            </div>
-          </li>
-          <li>
-            <div class="md-list-content">
-              <span class="md-list-heading uk-text-truncate"><a href="#"><i
-                class="md-icon material-icons uk-text-primary">date_range</i> {{'MODEL.COURSE.END_DATE'|translate}}</a></span>
-              <span class="uk-text-small uk-text-muted">{{course.endDate | date:'dd/MM/yyyy'}}</span>
-            </div>
-          </li>
-          <li>
-            <div class="md-list-content">
-              <span class="md-list-heading uk-text-truncate"><a href="#"><i
-                class="md-icon material-icons uk-text-primary">date_range</i> {{'MODEL.COURSE.ENROLL_START_DATE'|translate}}</a></span>
-              <span class="uk-text-small uk-text-muted">{{course.enrollStartDate | date:'dd/MM/yyyy'}}</span>
-            </div>
-          </li>
-          <li>
-            <div class="md-list-content">
-              <span class="md-list-heading uk-text-truncate"><a href="#"><i
-                class="md-icon material-icons uk-text-primary">date_range</i> {{'MODEL.COURSE.ENROLL_END_DATE'|translate}}</a></span>
-              <span class="uk-text-small uk-text-muted">{{course.enrollEndDate | date:'dd/MM/yyyy'}}</span>
-            </div>
-          </li>
-          <li>
-            <div class="md-list-content">
-              <span class="md-list-heading uk-text-truncate"><a href="#"><i
-                class="md-icon material-icons uk-text-primary">email</i> {{'MODEL.COURSE.EMAIL'|translate}}</a></span>
-              <span class="uk-text-small uk-text-muted">{{course.email}}</span>
-            </div>
-          </li>
-          <li>
-            <div class="md-list-content">
-              <span class="md-list-heading uk-text-truncate"><a href="#"><i
-                class="md-icon material-icons uk-text-primary">phone</i> {{'MODEL.COURSE.PHONE'|translate}}</a></span>
-              <span class="uk-text-small uk-text-muted">{{course.phone}}</span>
-            </div>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </div>
+				<h5 class="uk-margin-small-bottom uk-text-upper uk-margin-large">
+					{{'PAGE.CMS.COURSES.ENROLLMENT'|translate}}</h5>
+				<ul class="md-list uk-margin-remove">
+					<li>
+						<div class="md-list-content">
+							<span class="md-list-heading uk-text-truncate"><a href="#"><i
+									class="md-icon material-icons uk-text-primary">school</i>
+									{{'MODEL.COURSE.ENROLL_STATUS'|translate}}</a> <span
+								class="uk-badge uk-badge-success" ng-show="course.enrollStatus">Ok</span>
+								<span class="uk-badge uk-badge-danger"
+								ng-show="!course.enrollStatus">Nok</span> </span>
+						</div>
+					</li>
+					<li>
+						<div class="md-list-content">
+							<span class="md-list-heading uk-text-truncate"><a href="#"><i
+									class="md-icon material-icons uk-text-primary">filter_list</i>
+									{{'MODEL.COURSE.ENROLL_POLICY'|translate}}</a></span> <span
+								class="uk-text-small uk-text-muted"
+								ng-show="course.enrollPolicy=='open'">{{'COMMON.ENROLL_POLICY.OPEN_DESC'|translate}}</span>
+							<span class="uk-text-small uk-text-muted"
+								ng-show="course.enrollPolicy=='censor'">{{'COMMON.ENROLL_POLICY.CENSOR_DESC'|translate}}</span>
+						</div>
+					</li>
+					<li>
+						<div class="md-list-content">
+							<span class="md-list-heading uk-text-truncate"><a href="#"><i
+									class="md-icon material-icons uk-text-primary">slideshow</i>
+									{{'MODEL.COURSE.PRESENT_MODE'|translate}}</a></span> <span
+								class="uk-text-small uk-text-muted"
+								ng-show="course.displayMode=='open'">{{'COMMON.PRESENT_MODE.ALL'|translate}}</span>
+							<span class="uk-text-small uk-text-muted"
+								ng-show="course.displayMode=='login'">{{'COMMON.PRESENT_MODE.LOGIN'|translate}}</span>
+							<span class="uk-text-small uk-text-muted"
+								ng-show="course.displayMode=='enroll'">{{'COMMON.PRESENT_MODE.ENROLL'|translate}}</span>
+						</div>
+					</li>
+					<li>
+						<div class="md-list-content">
+							<span class="md-list-heading uk-text-truncate"><a href="#"><i
+									class="md-icon material-icons uk-text-primary">date_range</i>
+									{{'MODEL.COURSE.START_DATE'|translate}}</a></span> <span
+								class="uk-text-small uk-text-muted">{{course.startDate |
+								date:'dd/MM/yyyy'}}</span>
+						</div>
+					</li>
+					<li>
+						<div class="md-list-content">
+							<span class="md-list-heading uk-text-truncate"><a href="#"><i
+									class="md-icon material-icons uk-text-primary">date_range</i>
+									{{'MODEL.COURSE.END_DATE'|translate}}</a></span> <span
+								class="uk-text-small uk-text-muted">{{course.endDate |
+								date:'dd/MM/yyyy'}}</span>
+						</div>
+					</li>
+					<li>
+						<div class="md-list-content">
+							<span class="md-list-heading uk-text-truncate"><a href="#"><i
+									class="md-icon material-icons uk-text-primary">date_range</i>
+									{{'MODEL.COURSE.ENROLL_START_DATE'|translate}}</a></span> <span
+								class="uk-text-small uk-text-muted">{{course.enrollStartDate
+								| date:'dd/MM/yyyy'}}</span>
+						</div>
+					</li>
+					<li>
+						<div class="md-list-content">
+							<span class="md-list-heading uk-text-truncate"><a href="#"><i
+									class="md-icon material-icons uk-text-primary">date_range</i>
+									{{'MODEL.COURSE.ENROLL_END_DATE'|translate}}</a></span> <span
+								class="uk-text-small uk-text-muted">{{course.enrollEndDate
+								| date:'dd/MM/yyyy'}}</span>
+						</div>
+					</li>
+					<li>
+						<div class="md-list-content">
+							<span class="md-list-heading uk-text-truncate"><a href="#"><i
+									class="md-icon material-icons uk-text-primary">email</i>
+									{{'MODEL.COURSE.EMAIL'|translate}}</a></span> <span
+								class="uk-text-small uk-text-muted">{{course.email}}</span>
+						</div>
+					</li>
+					<li>
+						<div class="md-list-content">
+							<span class="md-list-heading uk-text-truncate"><a href="#"><i
+									class="md-icon material-icons uk-text-primary">phone</i>
+									{{'MODEL.COURSE.PHONE'|translate}}</a></span> <span
+								class="uk-text-small uk-text-muted">{{course.phone}}</span>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
 </div>
