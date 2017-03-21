@@ -541,7 +541,7 @@ span.date::before, span.capitalize::before {
       overflow: auto;
   }
   #page_content > #page_content_inner {
-      padding: 10px 0px 50px;
+      padding: 10px 0px 10px;
   }
 }
 
@@ -650,6 +650,20 @@ span.date::before, span.capitalize::before {
         padding: 10px 0;
     }
     #page_content > #page_content_inner {
-        padding: 10px 0px 50px;
+        padding: 10px 0px 10px;
+    }
+    a.md-btn {
+       padding: 2px 5px;
+    }
+    .md-card .md-card-toolbar div.md-card-toolbar-actions {
+      padding-top: 0px;
+    }
+    .md-card-primary > .md-card-toolbar+.md-card-content {
+       margin-top: 15px;
+    }
+}
+@media (max-width: 350px) {
+    .md-card .md-card-toolbar div.md-card-toolbar-actions {
+      padding-top: 0px;
     }
 }
