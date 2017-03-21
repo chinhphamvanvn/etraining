@@ -73,11 +73,7 @@
 </div>
 <div ng-if="mode=='view'">
 	<div class="uk-grid no-margin-top">
-		<!--<div class="uk-width-medium-1-2 parsley-row">-->
-		<!--<label for="question_title">-->
-		<!--{{'MODEL.QUESTION.TITLE'|translate}} </label>-->
-		<!--<p>{{question.title}}</p>-->
-		<!--</div>-->
+
 		<div class="uk-width-medium-1-2 parsley-row">
 			<h4 class="quiz-heading uk-text-left">{{'MODEL.QUESTION.LEVEL'|translate}}</h4>
 			<div id="question_level_select">
@@ -128,14 +124,7 @@
 	</div>
 </div>
 <div ng-if="mode=='study'">
-	<!--<div class="uk-grid ">-->
-	<!--<div class="uk-width-medium-1-2 parsley-row">-->
-	<!--<label >-->
-	<!--{{question.title}}-->
-	<!--</label>-->
-	<!--</div>-->
-	<!--</div>-->
-	<!--<hr>-->
+
 	<div class="uk-grid">
 		<div class="uk-width-medium-1-1 parsley-row">
 			<p ng-bind-html="question.description" />
@@ -145,7 +134,7 @@
 		<div class="uk-width-1-1">
 			<div id="question_options">
 				<div class="uk-grid" data-uk-grid-margin
-					ng-repeat="option in question.options | orderBy: 'order'">
+					ng-repeat="option in question.options ">
 					<div class="uk-width-medium-2-10 uk-text-center">
 						<span class="icheck-inline"> <input type="checkbox"
 							name="radiosingle" id="option_{{option._id}}" icheck
@@ -162,14 +151,7 @@
 	</div>
 </div>
 <div ng-if="mode=='result'">
-	<!--<div class="uk-grid">-->
-	<!--<div class="uk-width-medium-1-2 ">-->
-	<!--<label >-->
-	<!--{{question.title}}-->
-	<!--</label>-->
-	<!--</div>-->
-	<!--</div>-->
-	<!--<hr>-->
+
 	<div class="uk-grid">
 		<div class="uk-width-medium-1-1 ">
 			<p class="quiz-question" ng-bind-html="translateContent()"></p>
