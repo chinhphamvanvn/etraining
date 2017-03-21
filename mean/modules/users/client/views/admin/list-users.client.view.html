@@ -8,7 +8,7 @@
 	<div id="page_content_inner">
 		<h3 class="heading_b uk-margin-bottom">{{'PAGE.USERS.TITLE' |
 			translate}}</h3>
-		<div class="uk-grid uk-grid-small uk-width-1-1" data-uk-grid-margin>
+		<div class="uk-grid uk-grid-small" data-uk-grid-margin>
 			<div class="uk-width-1-1" ng-show="!vm.editMode">
 				<div class="md-card">
 					<div class="md-card-toolbar">
@@ -50,7 +50,7 @@
 							<a class="md-btn md-btn-flat md-btn-icon md-btn-wave-light"
 								ui-sref="admin.workspace.users.create"><i
 								class="uk-icon-plus uk-text-success"></i>{{'ACTION.CREATE'|translate}}</a>
-							<a class="md-btn md-btn-flat md-btn-icon md-btn-wave-light"
+							<a class="md-btn md-btn-flat md-btn-icon md-btn-wave-light uk-hidden-small"
 								data-uk-modal="{target:'#import_user_dialog'}"><i
 								class="uk-icon-upload"></i>{{'ACTION.IMPORT'|translate}}</a>
 						</div>

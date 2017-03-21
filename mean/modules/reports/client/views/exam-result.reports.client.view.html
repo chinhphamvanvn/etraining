@@ -6,7 +6,7 @@
 			<div class="uk-width-medium-1-1">
 				<div class="md-card">
 					<div class="content-table-gradebook md-card-content">
-						<div>
+						<div class="uk-margin-bottom">
 							<label class="uk-form-label">{{'PAGE.REPORTS.EXAM_RESULT.SELECT_EXAM'|translate}}</label>
 							<input ng-change="vm.selectSchedule()" name="exam" id="exam"
 								type="text" config="vm.scheduleConfig"
@@ -54,7 +54,7 @@
 							</table>
 						</div>
 						<div>
-							<a class="md-btn md-btn-primary  md-btn-wave-light md-btn-icon"
+							<a class="md-btn md-btn-primary  md-btn-wave-light md-btn-icon uk-margin-top"
 								ng-csv="vm.getExportData()" csv-header="vm.getExportHeader()"
 								filename="report.exam_resulte.csv" field-separator=";"
 								decimal-separator="."> <i class="material-icons">save</i>
