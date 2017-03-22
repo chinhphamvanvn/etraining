@@ -3,7 +3,7 @@
   'use strict';
 
   angular
-    .module('programs')
+    .module('shared.models')
     .factory('ProgramsService', ProgramsService);
 
   ProgramsService.$inject = ['$resource'];
