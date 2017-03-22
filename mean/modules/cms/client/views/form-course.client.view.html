@@ -259,10 +259,13 @@
 								</div>
 								<div class=" uk-width-1-2">
 									<label class="uk-form-label">{{'MODEL.COURSE.COMPETENCY'|translate}}</label>
-									<input name="course_competency" id="course_competency"
-										type="text" config="vm.competencyConfig"
-										options="vm.competencyOptions" ng-model="vm.course.competency"
-										selectize />
+                  <selectize config="vm.prequisiteConfig" position="bottom"
+                             options="vm.competencyOptions"
+                             ng-model="vm.course.competencies" name="course_competency"></selectize>
+									<!--<input name="course_competency" id="course_competency"-->
+										<!--type="text" config="vm.competencyConfig"-->
+										<!--options="vm.competencyOptions" ng-model="vm.course.competency"-->
+										<!--selectize />-->
 								</div>
 							</div>
 

@@ -13,7 +13,5 @@
 
 		vm.authentication = Authentication;
 		vm.course = course;
-
-
 	}
 }());

@@ -20,19 +20,26 @@
 						scope.course.group = GroupsService.get({
 							groupId : scope.course.group
 						});
-					if (scope.course.competency)
-						scope.competency = CompetenciesService.get({
-							competencyId : scope.course.competency
-						});
+
 					var allPromise = [];
 					_.each(scope.course.prequisites, function(courseId) {
 						allPromise.push(CoursesService.get({
-							courseId : scope.course._id
+							courseId : courseId
 						}).$promise);
 					});
 					$q.all(allPromise).then(function(prequisites) {
 						scope.course.prequisites = prequisites;
 					});
+
+					var allCompetenciesPromise = [];
+					_.each(scope.course.competencies, function(competencyId) {
+            allCompetenciesPromise.push(CompetenciesService.get({
+              competencyId: competencyId
+            }).$promise);
+          });
+					$q.all(allCompetenciesPromise).then(function(competencies) {
+					  scope.course.competencies = competencies;
+          });
 				}
 			}
 		}
