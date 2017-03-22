@@ -26,6 +26,14 @@ exports.invokeRolesPolicies = function () {
         permissions: '*'
       },
       {
+          resources: '/api/candidates/byUserAndSchedule/:userId/:scheduleId',
+          permissions: 'get'
+        },
+      {
+          resources: '/api/candidates/certify/:candidateId/:studentId',
+          permissions: '*'
+        },
+      {
           resources: '/api/candidates/byUser/:userId',
           permissions: '*'
         }]
@@ -38,6 +46,14 @@ exports.invokeRolesPolicies = function () {
       resources: '/api/candidates/:candidateId',
       permissions: ['get']
     },
+    {
+        resources: '/api/candidates/certify/:candidateId/:studentId',
+        permissions: 'post'
+      },
+      {
+          resources: '/api/candidates/byUserAndSchedule/:userId/:scheduleId',
+          permissions: 'get'
+        },
     {
         resources: '/api/candidates/byExam/:examId',
         permissions: 'get'

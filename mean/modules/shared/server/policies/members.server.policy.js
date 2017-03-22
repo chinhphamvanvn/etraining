@@ -57,7 +57,7 @@ exports.invokeRolesPolicies = function () {
             permissions: 'put'
           },
           {
-              resources: '/api/members/complete/:memberId',
+              resources: '/api/members/complete/:memberId/:teacherId',
               permissions: 'put'
             },
       {
