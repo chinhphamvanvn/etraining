@@ -20,23 +20,26 @@
 			link : function(scope, element, attributes) {
 				scope.tinymce_options = fileManagerConfig;
 				scope.$watch('question', function() {
-					if (scope.question._id)
+					if (scope.question._id){
 						scope.question.options = OptionsService.byQuestion({
 							questionId : scope.question._id
 						}, function(options) {
 							if (scope.mode == 'study' && scope.shuffle) {
-								if (!scope.question.shuffleIndex)
+								if (!scope.question.shuffleIndex){
 									scope.question.shuffleIndex = Math.floor(Math.random() * options.length);
+								}
 								scope.question.options = [];
-								for (var i = 0; i < options.length; i++)
-									scope.question.options.push(options[(scope.question.shuffleIndex + i) % options.length])
+								for (var i = 0; i < options.length; i++){
+									scope.question.options.push(options[(scope.question.shuffleIndex + i) % options.length]);
+								}
 							}
 
 							if (scope.question.options.length) {
-								if (scope.mode != 'study' && scope.mode != 'result')
+								if (scope.mode != 'study' && scope.mode != 'result'){
 									_.each(scope.question.options, function(option) {
 										option.selected = _.contains(scope.question.correctOptions, option._id);
-									})else {
+									});
+								} else {
 									if (scope.answer) {
 										_.each(scope.question.options, function(option) {
 											option.selected = _.contains(scope.answer.options, option._id)
@@ -63,7 +66,8 @@
 								});
 							}
 						});
-				})
+					}
+				});
 
 				scope.translateContent = function() {
 					return scope.question.description;
