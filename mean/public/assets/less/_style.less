@@ -524,7 +524,7 @@ span.date::before, span.capitalize::before {
   td, th {
     font-size: 14px;
   }
-  a, span, .c3 text, g, .c3-axis-x-label {
+  a, span, .c3 text, g, .c3-axis-x-label, p, p.summary, div.media-title {
     font-size: 13px;
   }
   #mobile_navigation > .uk-offcanvas-bar > ul > li.small-navar > a {
@@ -542,6 +542,12 @@ span.date::before, span.capitalize::before {
   }
   #page_content > #page_content_inner {
       padding: 10px 0px 10px;
+  }
+  a.md-btn {
+       padding: 2px 5px;
+    }
+  .uk-grid-divider:empty {
+    margin-top: 5px;
   }
 }
 
@@ -623,7 +629,7 @@ span.date::before, span.capitalize::before {
     .course-card-home {
       margin-top: 15px;
     }
-    td, th , a, span, .c3 text, g, .c3-axis-x-label {
+    td, th , a, span, .c3 text, g, .c3-axis-x-label, p, p.summary, div.media-title {
       font-size: 13px;
     }
     text tspan {
@@ -653,13 +659,49 @@ span.date::before, span.capitalize::before {
         padding: 10px 0px 10px;
     }
     a.md-btn {
-       padding: 2px 5px;
+      padding: 2px 0px;
+      font-size: 11px !important;
     }
     .md-card .md-card-toolbar div.md-card-toolbar-actions {
       padding-top: 0px;
     }
     .md-card-primary > .md-card-toolbar+.md-card-content {
        margin-top: 15px;
+    }
+    .md-btn-icon-default > i, .md-btn-icon > i {
+      margin-right: 0px;
+    }
+    .search-box input, .main-search-box input {
+        height: 20px;
+        min-width: 220px;
+    }
+    .search-box .vi-btn-search, .main-search-box .vi-btn-search {
+        height: inherit;
+        line-height: 30px;
+        margin-bottom: 0px;
+    }
+
+    .md-card .md-card-content.large-padding {
+        padding: 16px;
+    }
+    .uk-grid-divider>* {
+      padding-right: 0px;
+    }
+    .detailCoures {
+        padding-bottom: 0px;
+    }
+    .uk-grid-divider:empty {
+       margin-top: 15px;
+    }
+    .md-card .md-card-content.small-padding {
+        margin-left: -15px;
+        margin-right: -15px;
+    }
+    .media-des {
+      margin-bottom: 3px;
+    }
+    .md-btn-icon-small, .md-btn-icon.md-btn-small {
+        min-width: 35px;
     }
 }
 @media (max-width: 350px) {
