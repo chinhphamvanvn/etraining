@@ -82,19 +82,20 @@ function CoursesStudyQuizController($scope, $state, $window, QuestionsService,Ex
     function selectQuestion(index) {
         vm.question = vm.questions[index];
         vm.options =  OptionsService.byQuestion({questionId:vm.question._id}, function(){
+            vm.options = _.sortBy(vm.options,'order');
+            if(!vm.question.options || vm.question.options.length == 0) {
+              vm.question.options = vm.options;
+            }
+
+            if (!vm.question.answer) {
+                vm.question.answer =  new AnswersService();
+            }
+
+            if (vm.question.answer.option || vm.question.answer.options)
+              vm.question.attempted = true;
+            else
+              vm.question.attempted = false;
         });
-        if(!vm.question.options || vm.question.options.length == 0) {
-          vm.question.options = vm.options;
-        }
-
-        if (!vm.question.answer) {
-            vm.question.answer =  new AnswersService();
-        }
-
-      if (vm.question.answer.option || vm.question.answer.options)
-        vm.question.attempted = true;
-      else
-        vm.question.attempted = false;
     }
 
     function nextQuestion() {
