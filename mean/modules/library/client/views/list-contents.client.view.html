@@ -20,26 +20,27 @@
 						<!-- <group-tree-view tree-id="'libTree'" mode="'multiple'" category="'library'"
                              select="vm.selectGroup"></group-tree-view> -->
 						<ul class="uk-nav">
-							<li><span class="sub-heading"> <i
-									ng-show="!node.expand" class="md-icon material-icons md-18">arrow_drop_down</i>
+							<li>
+								<span class="sub-heading">
+									<i ng-show="!node.expand" class="md-icon material-icons md-18">arrow_drop_down</i>
 									<i ng-show="node.expand" class="md-icon material-icons md-18">arrow_drop_up</i>
-									<a ng-click="vm.getAllMedias()" class="uk-text-muted"> <span
-										class="uk-text-large">{{"COMMON.PRESENT_MODE.ALL" |
-											translate}}</span>
-								</a>
-							</span>
+									<a ng-click="vm.getAllMedias()" class="uk-text-muted">
+										<span class="uk-text-large">{{"COMMON.PRESENT_MODE.ALL" | translate}}</span>
+									</a>
+								</span>
 								<ul>
-									<li ng-repeat="node in vm.nodes"><span class="sub-heading">
-											<i ng-show="!node.expand" ng-click="vm.expand(node)"
-											class="md-icon material-icons md-18">arrow_drop_down</i> <i
-											ng-show="node.expand" ng-click="vm.collapse(node)"
-											class="md-icon material-icons md-18">arrow_drop_up</i> <a
-											ng-click="vm.toggleExpand(node)" class="uk-text-muted"> <span
-												class="uk-text-large">{{node.data.name}}</span>
-										</a>
-									</span>
-										<div ng-include="'subList'"></div></li>
-								</ul></li>
+									<li ng-repeat="node in vm.nodes" ng-style="vm.group == node.data._id ? {'background-color': 'skyblue '}:''">
+										<span class="sub-heading">
+											<i ng-show="!node.expand" ng-click="vm.expand(node)" class="md-icon material-icons md-18">arrow_drop_down</i>
+											<i ng-show="node.expand" ng-click="vm.collapse(node)" class="md-icon material-icons md-18">arrow_drop_up</i>
+											<a ng-click="vm.toggleExpand(node)" class="uk-text-muted">
+												<span class="uk-text-large">{{node.data.name}}</span>
+											</a>
+										</span>
+										<div ng-include="'subList'"></div>
+									</li>
+								</ul>
+							</li>
 						</ul>
 					</div>
 				</div>
