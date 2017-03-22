@@ -72,10 +72,9 @@
 								style="min-height: 400px;">
 								<div class=" uk-width-1-2">
 									<label class="uk-form-label">{{'MODEL.SCHEDULE.COMPETENCY'|translate}}</label>
-									<input name="schedule_competency" id="schedule_competency"
-										type="text" config="vm.competencyConfig"
-										options="vm.competencyOptions"
-										ng-model="vm.schedule.competency" selectize />
+                  <selectize config="vm.competencyConfig" position="bottom"
+                             options="vm.competencyOptions"
+                             ng-model="vm.schedule.competencies" name="schedule_competency"></selectize>
 								</div>
 
 							</div>

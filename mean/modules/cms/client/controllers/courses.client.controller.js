@@ -33,7 +33,21 @@
 				}
 			});
 
+    vm.prequisiteConfig = {
+      plugins : {
+        'remove_button' : {
+          label : ''
+        }
+      },
+      maxItems : null,
+      valueField : 'value',
+      labelField : 'title',
+      searchField : 'title',
+      create : false,
+    };
+
 		vm.prequisiteOptions = [];
+
 		CoursesService.query(function(data) {
 			vm.prequisiteOptions = _.map(data, function(obj) {
 				if (obj._id != vm.course._id)
@@ -45,32 +59,21 @@
 			});
 		});
 
-		vm.prequisiteConfig = {
-			plugins : {
-				'remove_button' : {
-					label : ''
-				}
-			},
-			maxItems : null,
-			valueField : 'value',
-			labelField : 'title',
-			searchField : 'title',
-			create : false,
-		};
+    vm.competencyConfig = {
+      plugins : {
+        'remove_button' : {
+          label : ''
+        }
+      },
+      maxItems : null,
+      valueField : 'value',
+      labelField : 'title',
+      searchField : 'title',
+      create : false,
+    };
 
-		vm.competencyConfig = {
-			create : false,
-			maxItems : 1,
-			valueField : 'value',
-			labelField : 'title',
-			searchField : 'title',
-			onChange : function(args) {
-				vm.competency = _.find(vm.competencies, function(skill) {
-					return skill._id == args;
-				});
-			}
-		};
 		vm.competencyOptions = [];
+
 		vm.competencies = CompetenciesService.query(function() {
 			vm.competencyOptions = _.map(vm.competencies, function(obj) {
 				return {

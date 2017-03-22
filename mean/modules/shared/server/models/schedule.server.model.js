@@ -17,13 +17,13 @@ var ScheduleSchema = new Schema({
     trim: true
   },
   status: {
-      type: String,
-      enum: ['draft','available', 'unavailable'],
-      default: 'draft'
+    type: String,
+    enum: ['draft', 'available', 'unavailable'],
+    default: 'draft'
   },
   color: {
-      type: String  
-    },
+    type: String
+  },
   start: {
     type: Date,
     default: Date.now
@@ -33,13 +33,15 @@ var ScheduleSchema = new Schema({
     default: Date.now
   },
   exam: {
-      type: Schema.ObjectId,
-      ref: 'Exam'
-    },
-  competency: {
+    type: Schema.ObjectId,
+    ref: 'Exam'
+  },
+  competencies: {
+    type: [{
       type: Schema.ObjectId,
       ref: 'Competency'
-    },
+    }]
+  },
   created: {
     type: Date,
     default: Date.now

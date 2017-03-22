@@ -33,7 +33,7 @@ function SchedulesController($scope, $state, $window, Authentication, $timeout, 
             }
         });
 
-   
+
     var $schedule_start = $('#uk_schedule_start'),
         $schedule_end = $('#uk_schedule_end');
 
@@ -56,7 +56,7 @@ function SchedulesController($scope, $state, $window, Authentication, $timeout, 
         vm.schedule.end = moment($schedule_end.val(),'DD.MM.YYYY');
     });
 
-    
+
     function activate() {
         vm.schedule.status = 'available';
         vm.schedule.$update(
@@ -67,7 +67,7 @@ function SchedulesController($scope, $state, $window, Authentication, $timeout, 
             Notification.success({ message: '<i class="uk-icon-check"></i> Schedule activated failed!' });
         })
     }
-        
+
     function deactivate() {
         vm.schedule.status = 'unavailable';
         vm.schedule.$update(
@@ -75,22 +75,24 @@ function SchedulesController($scope, $state, $window, Authentication, $timeout, 
                 Notification.success({ message: '<i class="uk-icon-check"></i> Schedule deactivated successfully!'})},
             function() {
                 Notification.success({ message: '<i class="uk-icon-check"></i> Schedule deactivated failed!' });
-        });   
-    }     
-    
+        });
+    }
+
     vm.competencyConfig = {
-            create: false,
-            maxItems: 1,
-            valueField: 'value',
-            labelField: 'title',
-            searchField: 'title',
-            onChange: function(args) {
-                vm.competency = _.find(vm.competencies,function(skill) {
-                    return skill._id == args;
-                });
-            }
-        };
+      plugins : {
+        'remove_button' : {
+          label : ''
+        }
+      },
+      maxItems : null,
+      valueField : 'value',
+      labelField : 'title',
+      searchField : 'title',
+      create : false,
+    };
+
     vm.competencyOptions = [];
+
     vm.competencies = CompetenciesService.query(function() {
         vm.competencyOptions = _.map(vm.competencies, function(obj) {
             return {
@@ -100,7 +102,7 @@ function SchedulesController($scope, $state, $window, Authentication, $timeout, 
             }
         });
     });
-    
+
     vm.groupConfig = {
             create: false,
             maxItems: 1,
@@ -129,7 +131,7 @@ function SchedulesController($scope, $state, $window, Authentication, $timeout, 
                 Notification.error({ message: errorResponse.data.message,      title: '<i class="uk-icon-ban"></i> Schedule saved error!'})
             });
     }
-   
+
     // Remove existing Schedule
     function remove() {
         UIkit.modal.confirm($translate.instant('COMMON.CONFIRM_PROMPT'), function() {

@@ -13,8 +13,16 @@ function SchedulesViewController($scope, $state, $window, Authentication, $timeo
 
     vm.authentication = Authentication;
     vm.schedule = schedule;
-    if (vm.schedule.competency)
-        vm.competency = CompetenciesService.get({competencyId:vm.schedule.competency})
+    // if (vm.schedule.competency)
+    //     vm.competency = CompetenciesService.get({competencyId:vm.schedule.competency})
+    var allCompetenciesPromise = [];
 
+    _.each(vm.schedule.competencies, function(competencyId) {
+      allCompetenciesPromise.push(CompetenciesService.get({competencyId: competencyId}).$promise);
+    });
+
+    $q.all(allCompetenciesPromise).then(function(competencies) {
+      vm.competencies = competencies;
+    });
 }
 }());
