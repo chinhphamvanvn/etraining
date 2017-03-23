@@ -15,6 +15,13 @@
 			<div class="md-card-toolbar">
 				<h3 class="md-card-toolbar-heading-text large">
 					{{'PAGE.LMS.MY_EXAMS.SCOREBOARD.CANDIDATE_LIST'|translate}}</h3>
+				<button class="md-btn buttons-csv buttons-html5" type="button"
+					ng-csv="vm.scoreboardListCsv" csv-header="vm.headerArrCsv"
+					filename="ReportExamList.csv"
+					style="margin-top: 8px; margin-left: 30px;" ng-show="vm.scoreboardListCsv.length == vm.candidates.length">
+					<i class="uk-icon-file-excel-o" aria-hidden="true"></i>
+					{{"ACTION.EXPORT" | translate}}
+				</button>
 			</div>
 			<div class="content-table-gradebook md-card-content">
 				<div class="uk-overflow-container">
