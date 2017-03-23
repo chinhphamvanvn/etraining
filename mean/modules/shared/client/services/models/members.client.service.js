@@ -37,7 +37,7 @@
               },
               complete: {
                   method: 'PUT',
-                  url:'/api/members/complete/:memberId'
+                  url:'/api/members/complete/:memberId/:teacherId'
                 },
             byUserAndCourse: {
                 method: 'GET',

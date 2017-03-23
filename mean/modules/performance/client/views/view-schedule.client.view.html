@@ -53,8 +53,11 @@
 					<li>
 						<div class="uk-grid" data-uk-grid-margin>
 							<div class=" uk-width-1-2">
-								<span class="uk-text-mute">{{'MODEL.SCHEDULE.COMPETENCY'|translate}}
-									: {{vm.competency.name}}</span>
+								<div class="uk-text-mute">
+                  {{'MODEL.SCHEDULE.COMPETENCY'|translate}}:
+                  <span class="uk-badge uk-text-left text-wrap uk-margin-left"
+                        ng-repeat="competency in vm.competencies">{{competency.name}}</span>
+                </div>
 							</div>
 						</div>
 					</li>

@@ -130,6 +130,7 @@
 	"PAGE.PERFORMANCE.SCHEDULE.TITLE":"Lịch thi",
 	"PAGE.PERFORMANCE.SCHEDULE.NEW_TITLE":"Thêm lịch thi",
 	"PAGE.PERFORMANCE.ASSESSMENT.UPDATE_TITLE":"Cập nhật thi sát hạch",
+	"PAGE.PERFORMANCE.ASSESSMENT.ENROLL_TITLE":"Tuyển sinh thi sát hạch",
 	"PAGE.PERFORMANCE.ASSESSMENT.SCHEDULE_INFO":"Thời gian",
 	"PAGE.PERFORMANCE.ASSESSMENT.CANDIDATE":"Thành phần tham gia",
 	"PAGE.PERFORMANCE.ASSESSMENT.COMPETENCY":"Kỹ năng",
@@ -171,7 +172,7 @@
 	"PAGE.CMS.COURSES.TITLE":"Danh sách khóa học",
 	"PAGE.CMS.COURSES.CREATE.TITLE":"Tạo khóa học mới",
 	"PAGE.CMS.COURSES.BASIC_INFO":"Thông tin cơ bản",
-	"PAGE.CMS.COURSES.OTHER":"Thông tín khác",
+	"PAGE.CMS.COURSES.OTHER":"Thông tin khác",
 	"PAGE.CMS.COURSES.ENROLL.TITLE":"Thành viên tham gia khóa học",
 	"PAGE.CMS.COURSES.ENROLL.TEACHER":"Giảng viên",
 	"PAGE.CMS.COURSES.ENROLL.STUDENT":"Học viên",
@@ -705,4 +706,3 @@
 	"MODAL.EXAM_STUDY.PROMPT": "Bạn đồng ý tham gia kỳ thi?",
 	"MODEL.MINUTE": "phút"
 }
-

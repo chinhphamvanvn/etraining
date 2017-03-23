@@ -25,6 +25,14 @@
             isArray:true,
             url:'/api/candidates/byUser/:userId'
           },
+          certify: {
+              method: 'POST',
+              url:'/api/candidates/certify/:candidateId/:studentId'
+            },
+            byUserAndSchedule: {
+                method: 'GET',
+                url:'/api/candidates/byUserAndSchedule/:userId/:scheduleId'
+              }
     });
   }
 }());

@@ -75,13 +75,14 @@
 				<h5 class="uk-margin-small-bottom uk-text-upper  uk-margin-large">{{'MODEL.COURSE.PREQUISITE'|
 					translate}}</h5>
 				<div class="blog_tags">
-					<a href="#" class="uk-badge"
-						ng-repeat="courseRequire in course.prequisites">{{courseRequire.name}}</a>
+					<span class="uk-badge uk-text-left text-wrap"
+						ng-repeat="courseRequire in course.prequisites">{{courseRequire.name}}</span>
 				</div>
 				<h5 class="uk-margin-small-bottom uk-text-upper  uk-margin-large">{{'MODEL.COURSE.COMPETENCY'|
 					translate}}</h5>
 				<div class="blog_tags">
-					<a href="#" class="uk-badge">{{competency.name}}</a>
+					<span class="uk-badge uk-text-left text-wrap"
+            ng-repeat="competency in course.competencies">{{competency.name}}</span>
 				</div>
 
 				<h5 class="uk-margin-small-bottom uk-text-upper uk-margin-large">

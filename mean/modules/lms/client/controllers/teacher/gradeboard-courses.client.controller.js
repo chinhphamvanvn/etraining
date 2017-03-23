@@ -113,30 +113,9 @@
 
 		function certify(member) {
 			var modal = UIkit.modal.blockUI('<div class=\'uk-text-center\'>Processing...<br/><img class=\'uk-margin-top\' src=\'/assets/img/spinners/spinner.gif\' alt=\'\'>');
-			var certificate = new CertificatesService();
-			certificate.member = member._id;
-			certificate.course = vm.course._id;
-			certificate.edition = vm.edition._id;
-			certificate.issueDate = new Date();
-			certificate.authorizer = vm.user._id;
-			certificate.$save(function() {
-				member.enrollmentStatus = 'completed';
-				member.$complete(function() {
-					member.certificate = certificate;
-				});
-				if (vm.course.competency) {
-					var achievement = new CompetencyAchievementsService();
-					achievement.achiever = member.member._id;
-					achievement.competency = vm.course.competency;
-					achievement.source = 'course';
-					achievement.issueBy = new Date();
-					achievement.granter = vm.user._id;
-					achievement.$save(function() {
-						modal.hide();
-					});
-				} else
-					modal.hide();
-
+			member.$complete({teacherId:vm.user._id},function() {
+				member.certificate = true;
+				modal.hide();
 			});
 		}
 	}
