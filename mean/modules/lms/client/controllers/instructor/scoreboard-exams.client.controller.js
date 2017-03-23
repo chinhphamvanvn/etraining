@@ -6,16 +6,18 @@ angular
     .module('lms')
     .controller('ExamsScoreboardController', ExamsScoreboardController);
 
-ExamsScoreboardController.$inject = ['$scope', '$state', '$window', 'Authentication', '$timeout', 'examResolve','scheduleResolve','userResolve','Notification', 'ExamCandidatesService', 'CompetencyAchievementsService','ExamsService','examUtils', '_', 'SubmissionsService','$translate'];
+ExamsScoreboardController.$inject = ['$scope', '$state', '$window', 'Authentication', '$timeout', 'candidateResolve','examResolve','scheduleResolve','userResolve','Notification', 'ExamCandidatesService', 'CompetencyAchievementsService','ExamsService','examUtils', '_', 'SubmissionsService','$translate'];
 
-function ExamsScoreboardController($scope, $state, $window, Authentication, $timeout, exam, schedule,user, Notification, ExamCandidatesService,CompetencyAchievementsService, ExamsService ,examUtils, _, SubmissionsService,$translate) {
+function ExamsScoreboardController($scope, $state, $window, Authentication, $timeout, candidate, exam, schedule,user, Notification, ExamCandidatesService,CompetencyAchievementsService, ExamsService ,examUtils, _, SubmissionsService,$translate) {
     var vm = this;
     vm.user = user;
     vm.exam = exam;
     vm.schedule = schedule;
-    vm.authorize = authorize;
     vm.scoreboardListCsv = [];
     vm.headerArrCsv = [$translate.instant("MODEL.USER.DISPLAY_NAME"),$translate.instant("MODEL.CANDIDATE.REGISTER_DATE"),$translate.instant("MODEL.CANDIDATE.STATUS"),$translate.instant("MODEL.CANDIDATE.SCORE"),$translate.instant("MODEL.CANDIDATE.NUMBER"),$translate.instant("MODEL.CANDIDATE.RESULT")];
+    vm.candidate = candidate;
+    vm.certifyCompetency = certifyCompetency;
+
     vm.candidates = ExamCandidatesService.byExam({examId:vm.exam._id},function() {
         vm.candidates = _.filter(vm.candidates,function(obj) {
             return obj.role=='student';
@@ -63,16 +65,10 @@ function ExamsScoreboardController($scope, $state, $window, Authentication, $tim
         });
     } );
     
-    function authorize(candidate) {
-        var modal = UIkit.modal.blockUI('<div class=\'uk-text-center\'>Processing...<br/><img class=\'uk-margin-top\' src=\'/assets/img/spinners/spinner.gif\' alt=\'\'>');
-        var achievement = new CompetencyAchievementsService();
-        achievement.achiever = candidate.candidate._id;
-        achievement.competency = vm.schedule.competency;
-        achievement.source = 'exam';
-        achievement.issueBy = new Date();
-        achievement.granter = vm.user._id;
-        achievement.$save(function() {
-            candidate.achievement = achievement;
+    function certifyCompetency(candidate) {
+        var modal = UIkit.modal.blockUI('<div class=\'uk-text-center\'>Processing...<br/><img class=\'uk-margin-top\' src=\'/assets/img/spinners/spinner.gif\' alt=\'\'>');        
+        vm.candidate.$certify({studentId:candidate._id},function() {
+            candidate.achievement = true;
             modal.hide();
         });
     }
