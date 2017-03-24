@@ -81,8 +81,8 @@
 
 								</div>
 							</div>
-							<div ng-show="vm.exam.questionSelection=='auto'" class="uk-grid" data-uk-grid-margin>
-								<div class="uk-width-medium-1-2 parsley-row">
+							<div ng-show="vm.exam.questionSelection=='auto'" class="uk-grid" data-uk-grid-margin style="min-height: 200px;">
+								<div class="uk-width-medium-1-2 parsley-row" style="    min-height: 200px; overflow: auto; position: absolute;">
                   <label for="question_group">{{'MODEL.EXAM.QUESTION_CAT'|translate}}</label>
                   <selectize name="question_group" id="question_group" position="bottom"
                     config="vm.groupConfig"
@@ -90,7 +90,7 @@
                     ng-model="vm.groupIds"
                     ng-change="vm.selectQuestionGroup(vm.groupIds);"></selectize>
                 </div>
-                <div class="uk-width-1-1 uk-overflow-container">
+                <div class="uk-width-1-1 uk-overflow-container" style="margin-top: 100px;">
                   <table class="uk-table uk-table-hover uk-table-nowrap uk-table-align-vertical">
                     <tr ng-repeat="group in vm.groups">
                       <td>{{group.title}}</td>
