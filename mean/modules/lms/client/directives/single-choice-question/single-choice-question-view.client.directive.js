@@ -32,6 +32,9 @@
 								for (var i = 0; i < options.length; i++)
 									scope.question.options.push(options[(scope.question.shuffleIndex + i) % options.length])
 							}
+							if (scope.mode == 'study' && !scope.shuffle) {
+								scope.question.options = _.sortBy(scope.question.options,'order');
+							}
 							if (scope.mode != 'study' && scope.mode != 'result')
 								_.each(scope.question.options, function(option) {
 									option.selected = _.contains(scope.question.correctOptions, option._id);

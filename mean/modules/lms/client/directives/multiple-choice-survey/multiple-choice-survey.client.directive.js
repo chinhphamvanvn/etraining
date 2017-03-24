@@ -21,6 +21,7 @@
               scope.$watch('question',function() {
                   if (scope.question && scope.question._id){
                       scope.question.options = OptionsService.byQuestion({questionId:scope.question._id},function() {
+                          scope.question.options = _.sortBy(scope.question.options,'order');
                           if (scope.mode =='survey' || scope.mode !='result')
                               if (scope.answer) {
                                   _.each(scope.question.options ,function(option) {
