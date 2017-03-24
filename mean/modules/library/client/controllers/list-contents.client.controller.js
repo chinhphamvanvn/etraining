@@ -27,6 +27,7 @@
     });
 
     vm.getAllMedias = function() {
+        vm.group = "";
       vm.medium = vm.allMedias;
     };
 
