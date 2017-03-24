@@ -26,7 +26,7 @@ var ExamSchema = new Schema({
         trim: true
       },
       logoURL: {
-        type: String  
+        type: String
       },
       duration: {
         type: Number,
@@ -63,11 +63,29 @@ var ExamSchema = new Schema({
       questionSelection: {
         type: String,
         enum: ['manual', 'auto'],
-        default: 'manual',
+        default: 'manual'
       },
       questionCategory: {
         type: Schema.ObjectId,
         ref: 'Group'
+      },
+      questionCategories: {
+        type: [{
+          id: {
+            type: Schema.ObjectId,
+            ref: 'Group'
+          },
+          title: {
+            type: String
+          },
+          level: {
+            type: String
+          },
+          numberQuestion: {
+            type: Number,
+            default: 1
+          }
+        }]
       },
       questionNumber: {
         type: Number,

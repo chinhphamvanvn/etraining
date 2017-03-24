@@ -6,9 +6,9 @@
     .module('lms')
     .controller('ExamsController', ExamsController);
 
-  ExamsController.$inject = ['$scope', '$state', '$window', 'Authentication', '$timeout', 'examResolve', 'scheduleResolve', 'Notification', 'QuestionsService', 'ExamsService', 'GroupsService', '$q', 'fileManagerConfig', '_', '$translate'];
+  ExamsController.$inject = ['$scope', '$state', '$window', 'Authentication', '$timeout', 'examResolve', 'scheduleResolve', 'Notification', 'QuestionsService', 'ExamsService', 'examUtils', 'GroupsService', '$q', 'fileManagerConfig', '_', '$translate'];
 
-  function ExamsController($scope, $state, $window, Authentication, $timeout, exam, schedule, Notification, QuestionsService, ExamsService, GroupsService, $q, fileManagerConfig, _, $translate) {
+  function ExamsController($scope, $state, $window, Authentication, $timeout, exam, schedule, Notification, QuestionsService, ExamsService, examUtils, GroupsService, $q, fileManagerConfig, _, $translate) {
     var vm = this;
     vm.authentication = Authentication;
     vm.exam = exam;
@@ -19,16 +19,30 @@
     vm.moveUp = moveUp;
     vm.moveDown = moveDown;
     vm.update = update;
+    vm.groups = [];
     vm.questions = [];
+    vm.groupIds = [];
     vm.tinymce_options = fileManagerConfig;
     var numberQuestionTooLarge = $translate.instant('ERROR.EXAM.NUMBER_QUESTION_TOO_LARGE');
 
+    if (vm.exam.questionSelection === 'auto') {
+      _.each(vm.exam.questionCategories, function(category) {
+        vm.groupIds.push(category.id);
+      });
+      selectQuestionGroup(vm.groupIds);
+    }
+
     vm.groupConfig = {
-      create: false,
-      maxItems: 1,
-      valueField: 'value',
-      labelField: 'title',
-      searchField: 'title'
+      plugins : {
+        'remove_button' : {
+          label : ''
+        }
+      },
+      maxItems : null,
+      valueField : 'value',
+      labelField : 'title',
+      searchField : 'title',
+      create : false
     };
     vm.groupOptions = [];
     GroupsService.listQuestionGroup(function (data) {
@@ -78,26 +92,29 @@
 
 
     function update() {
-      // Alert if number question bigger in category of 'auto' mode
       if (vm.exam.questionSelection === 'auto') {
-        if (vm.exam.questionLevel === 'easy'
-          && (vm.exam.questionNumber > vm.statisticQuestion.easy.length)) {
-          Notification.error({message: numberQuestionTooLarge});
-          return;
-        } else if (vm.exam.questionLevel === 'medium'
-          && (vm.exam.questionNumber > vm.statisticQuestion.medium.length)) {
-          Notification.error({message: numberQuestionTooLarge});
-          return;
-        } else if (vm.exam.questionLevel === 'medium'
-          && (vm.exam.questionNumber > vm.statisticQuestion.medium.length)) {
+        if (!validationNumberQuestion(vm.groups)) {
           Notification.error({message: numberQuestionTooLarge});
           return;
         }
+
+        vm.exam.questionCategories = [];
+        _.each(vm.groups, function(group) {
+          var obj = {
+            id: group.id,
+            title: group.title,
+            level: group.level,
+            numberQuestion: group.numberQuestion
+          };
+
+          vm.exam.questionCategories.push(obj);
+        });
       }
 
       vm.exam.questions = _.map(vm.selectedQuestions, function (q) {
         return {id: q._id, order: q.order, score: q.score}
       });
+
       vm.exam.$update(function () {
           Notification.success({message: '<i class="uk-icon-check"></i> Exam saved successfully!'});
           $state.go('workspace.lms.exams.view', {examId: vm.exam._id, scheduleId: vm.schedule._id})
@@ -105,6 +122,28 @@
         function () {
           Notification.success({message: '<i class="uk-icon-check"></i> Exam saved failed!'});
         });
+    }
+
+    function validationNumberQuestion(groups) {
+      var valid = true;
+
+      for (var i = 0; i < groups.length; i++) {
+        if (groups[i].level === 'easy'
+          && (groups[i].numberQuestion > groups[i].questions.easy.length)) {
+          valid = false;
+          break;
+        } else if (groups[i].level === 'medium'
+          && (groups[i].numberQuestion > groups[i].questions.medium.length)) {
+          valid = false;
+          break;
+        } else if (groups[i].level === 'hard'
+          && (groups[i].numberQuestion > groups[i].questions.hard.length)) {
+          valid = false;
+          break;
+        }
+      }
+
+      return valid;
     }
 
     function selectQuestions() {
@@ -121,38 +160,28 @@
       })
     }
 
-    if (vm.exam.questionSelection === 'auto') {
-      selectQuestionGroup([vm.exam.questionCategory]);
-    }
+    function selectQuestionGroup(groupIds) {
+      var groups = [];
+      var groupPromises = [];
+      _.each(groupIds, function(groupId) {
+        groupPromises.push(QuestionsService.byCategory({groupId: groupId}, function(questions) {
+          var questionByLevel = examUtils.countQuestionByLevel(questions);
+          groups.push({id: groupId, questions: questionByLevel});
+        }).$promise);
+      });
 
-    $scope.$watch(angular.bind(vm, function () {
-      return vm.exam.questionCategory;
-    }), function (newVal, oldVal) {
-      if (newVal !== oldVal) {
-        selectQuestionGroup([newVal])
-      }
-    });
+      $q.all(groupPromises).then(function() {
+        _.each(groups, function(group) {
+          var option = _.find(vm.groupOptions, function(option) {
+            return group.id == option.id;
+          });
 
-    function selectQuestionGroup(groups) {
-      vm.statisticQuestion = {};
-      vm.questions = [];
-      _.each(groups, function (group) {
-        if (group) {
-          QuestionsService.byCategory({groupId: group}, function (questions) {
-            vm.questions = vm.questions.concat(questions);
+          group.numberQuestion = 1;
+          group.level = 'easy';
+          group.title = option.title;
+        });
 
-            // Get number of question in category
-            vm.statisticQuestion.easy = _.filter(vm.questions, function (question) {
-              return question.level == 'easy';
-            });
-            vm.statisticQuestion.medium = _.filter(vm.questions, function (question) {
-              return question.level == 'medium';
-            });
-            vm.statisticQuestion.hard = _.filter(vm.questions, function (question) {
-              return question.level == 'hard';
-            });
-          })
-        }
+        vm.groups = groups;
       });
     }
 

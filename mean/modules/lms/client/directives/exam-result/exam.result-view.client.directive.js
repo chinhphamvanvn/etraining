@@ -8,11 +8,11 @@
     .directive('examResult', ['SubmissionsService','examUtils','_',examResult]);
 
   function examResult(SubmissionsService,examUtils, _) {
-      
+
       return {
           scope: {
               exam: "=",
-              candidate: "=",
+              candidate: "="
           },
           templateUrl:'/modules/lms/client/directives/exam-result/exam.result.directive.client.view.html',
           link: function (scope, element, attributes) {
@@ -27,10 +27,10 @@
                                   submit.score = score;
                               })
                           });
-                      })       
+                      })
                   }
               })
-              
+
           }
       }
   }

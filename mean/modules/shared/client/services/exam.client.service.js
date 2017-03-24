@@ -13,7 +13,13 @@
                                var correct =  _.filter(submit.answers, function(answer) {
                                     return (answer.isCorrect) ;
                                 }).length;
-                               resolve(Math.floor(correct * 100 / exam.questionNumber));
+
+                                var totalQuestions = 0;
+                               _.each(exam.questionCategories, function(category) {
+                                 totalQuestions += category.numberQuestion;
+                               });
+
+                               resolve(Math.floor(correct * 100 / totalQuestions));
                             }
                             if (exam.questionSelection=='manual') {
                                 var total = 0;
@@ -29,8 +35,8 @@
                                 resolve(Math.floor(score * 100 / total));
                              }
                         });
-                    }); 
-                });                    
+                    });
+                });
             }
             return {
                 candidateProgress: function(candidateId,examId) {
@@ -46,7 +52,7 @@
                                 resolve(progress);
                             });
                         });
-                    });                    
+                    });
                 },
                 pendingSubmit: function(candidateId,examId) {
                     return $q(function(resolve, reject) {
@@ -61,7 +67,7 @@
                                 resolve(progress);
                             });
                         });
-                    });                    
+                    });
                 },
                 questionRandom:function(category,level,number) {
                     return $q(function(resolve, reject) {
@@ -79,7 +85,7 @@
                                 resolve(randomQuestions);
                             }
                         });
-                    
+
                     });
                 },
                 candidateScoreByBusmit:candidateScoreByBusmit,
@@ -90,14 +96,28 @@
                                 var latestSubmit = _.max(submits, function(submit){return new Date(submit.start).getTime()});
                                 candidateScoreByBusmit(candidateId,examId,latestSubmit._id).then(function(score) {
                                     resolve(score);
-                                }) 
+                                })
                             }
                             else
-                                resolve(0);                            
-                        }); 
-                    });                    
+                                resolve(0);
+                        });
+                    });
+                },
+                countQuestionByLevel: function(questions) {
+                  var questionByLevel = {};
+
+                  questionByLevel.easy = _.filter(questions, function (question) {
+                    return question.level == 'easy';
+                  });
+                  questionByLevel.medium = _.filter(questions, function (question) {
+                    return question.level == 'medium';
+                  });
+                  questionByLevel.hard = _.filter(questions, function (question) {
+                    return question.level == 'hard';
+                  });
+
+                  return questionByLevel;
                 }
-                
             };
         }]
     )
