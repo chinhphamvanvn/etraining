@@ -18,17 +18,17 @@ function ExamsStudyController($scope, $rootScope,$state, $window, QuestionsServi
     vm.attemptCount = 0;
     vm.markCount = 0;
     $scope.Math = $window.Math;
-    
+
     $rootScope.toBarActive = true;
     $rootScope.topMenuActive = true;
-    
+
     $scope.$on('$destroy', function() {
         $rootScope.toBarActive = false;
         $rootScope.topMenuActive = false;
     });
-    
+
     examUtils.pendingSubmit(vm.candidate._id,vm.exam._id).then(function(progress) {
-        
+
         if (!progress.pending) {
             if (progress.count >= vm.exam.maxAttempt) {
                 vm.alert = $translate.instant('ERROR.EXAM.MAX_ATTEMPT_EXCEED');
@@ -43,11 +43,11 @@ function ExamsStudyController($scope, $rootScope,$state, $window, QuestionsServi
             vm.submit.$save();
         } else
             vm.submit = progress.pending;
-        
+
         var now = new Date();
         var start = new Date(vm.submit.start);
         vm.remainTime = vm.exam.duration * 60 - Math.floor( (now.getTime() - start.getTime())/1000);
-        
+
         vm.timeoutToken = $timeout(function () {
           $interval.cancel(vm.intervalToken);
           vm.submit.status = 'completed';
@@ -61,7 +61,7 @@ function ExamsStudyController($scope, $rootScope,$state, $window, QuestionsServi
           });
         }, vm.remainTime * 1000);
         vm.intervalToken = $interval(updateClock, 1000);
-        
+
         if (vm.exam.questionSelection == 'manual') {
             var questionIds = _.pluck(vm.exam.questions,'id');
             vm.questions = QuestionsService.byIds({questionIds:questionIds},function() {
@@ -80,24 +80,37 @@ function ExamsStudyController($scope, $rootScope,$state, $window, QuestionsServi
                 if (vm.index >= vm.questions.length)
                     vm.index = 0;
                 if (vm.questions.length>0)
-                    selectQuestion(vm.index)
+                    selectQuestion(vm.index);
                 else
                     vm.alert = $translate.instant('ERROR.EXAM.QUESTION_NOT_FOUND');
             });
         }
         if (vm.exam.questionSelection == 'auto') {
-            examUtils.questionRandom(vm.exam.questionCategory,vm.exam.questionLevel,vm.exam.questionNumber).then(function(questions) {
-                vm.questions = questions;
-                vm.submit.answers = [];
-                vm.index = 0;
-                if (vm.questions.length>0)
-                    selectQuestion(vm.index)
-                else
-                    vm.alert = $translate.instant('ERROR.EXAM.QUESTION_NOT_FOUND');
+            var questionPromises = [];
+
+            _.each(vm.exam.questionCategories, function(category) {
+              questionPromises.push(examUtils.questionRandom(category.id,category.level,category.numberQuestion));
+            });
+
+            $q.all(questionPromises).then(function(groupQuestionList) {
+              vm.questions = [];
+              vm.submit.answers = [];
+              vm.index = 0;
+
+              _.each(groupQuestionList, function(groupQuestion) {
+                vm.questions = vm.questions.concat(groupQuestion);
+              });
+
+              if (vm.questions.length>0)
+                  selectQuestion(vm.index);
+              else
+                  vm.alert = $translate.instant('ERROR.EXAM.QUESTION_NOT_FOUND');
+            }).catch(function() {
+              console.log('err get groupQuestionList');
             });
         }
     });
-    
+
 
     vm.nextQuestion = nextQuestion;
     vm.prevQuestion = prevQuestion;
@@ -120,7 +133,7 @@ function ExamsStudyController($scope, $rootScope,$state, $window, QuestionsServi
         if (!vm.question.answer) {
             vm.question.answer =  new AnswersService();
         }
- 
+
     }
 
     function nextQuestion() {
@@ -146,7 +159,7 @@ function ExamsStudyController($scope, $rootScope,$state, $window, QuestionsServi
               return;
           }
       }
-      
+
       save(function () {
         UIkit.modal.confirm($translate.instant('COMMON.CONFIRM_PROMPT'), function () {
           $interval.cancel(vm.intervalToken);
@@ -198,7 +211,7 @@ function ExamsStudyController($scope, $rootScope,$state, $window, QuestionsServi
         vm.attemptCount =  _.filter(vm.questions,function(q) {
             return q.attempted
         }).length;
-        
+
       if (answer._id)
         answer.$update(function () {
             callback();
@@ -214,14 +227,14 @@ function ExamsStudyController($scope, $rootScope,$state, $window, QuestionsServi
             })
         })
     }
-    
+
     function mark(question) {
         question.marked = true;
         vm.markCount =  _.filter(vm.questions,function(q) {
             return q.marked
         }).length;
     }
-    
+
     function unmark(question) {
         question.marked = false;
         vm.markCount =  _.filter(vm.questions,function(q) {

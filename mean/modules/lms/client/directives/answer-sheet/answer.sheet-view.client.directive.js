@@ -8,7 +8,7 @@
     .directive('answerSheet', ['QuestionsService','_',answerSheet]);
 
   function answerSheet(QuestionsService, _) {
-      
+
       return {
           scope: {
               exam: "=",
@@ -32,11 +32,15 @@
                                       scope.questions.push(question);
                                   } );
                               }
-                              
+
                           });
                       }
                       else {
-                          scope.questionNumber = scope.exam.questionNumber;
+                          scope.questionNumber = 0;
+                          _.each(scope.exam.questionCategories, function(category) {
+                            scope.questionNumber += category.numberQuestion;
+                          });
+
                           _.each(scope.answers, function(answer) {
                               var question = QuestionsService.get({questionId:answer.question},function() {
                                   question.answer = answer;
@@ -45,9 +49,9 @@
                               } );
                           });
                       }
-                      
+
                   }
-              })              
+              })
           }
       }
   }
