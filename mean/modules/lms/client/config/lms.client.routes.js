@@ -625,7 +625,8 @@
         resolve: {
             examResolve: getExam,
             scheduleResolve:getSchedule,
-            userResolve:getUser
+            userResolve:getUser,
+            candidateResolve:getCandidate,
         },
         data: {
             roles: [ 'user'],
@@ -872,13 +873,15 @@
     }).$promise;
   }
   
-  getCandidate.$inject = ['$stateParams', 'ExamCandidatesService'];
+  getCandidate.$inject = ['$stateParams', 'ExamCandidatesService','localStorageService'];
 
-  function getCandidate($stateParams, ExamCandidatesService) {
-    return ExamCandidatesService.get({
-        candidateId: $stateParams.candidateId
-    }).$promise;
+  function getCandidate($stateParams, ExamCandidatesService,localStorageService) {
+	  if ($stateParams.memberId)
+          return ExamCandidatesService.get({candidateId:$stateParams.candidateId}).$promise;
+	 return ExamCandidatesService.byUserAndSchedule({scheduleId:$stateParams.scheduleId,userId:localStorageService.get('userId')}).$promise;
   }
+  
+
   
   getClassroom.$inject = ['$stateParams', 'ClassroomsService'];
 

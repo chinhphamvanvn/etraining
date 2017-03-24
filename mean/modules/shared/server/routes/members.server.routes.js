@@ -24,7 +24,7 @@ module.exports = function(app) {
   app.route('/api/members/withdraw/:memberId').all(membersPolicy.isAllowed)
   .put(members.withdraw);
   
-  app.route('/api/members/complete/:memberId').all(membersPolicy.isAllowed)
+  app.route('/api/members/complete/:memberId/:teacherId').all(membersPolicy.isAllowed)
   .put(members.complete);
   
   app.route('/api/members/byUserAndCourse/:userId/:courseId').all(membersPolicy.isAllowed)

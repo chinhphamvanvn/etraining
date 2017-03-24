@@ -202,15 +202,14 @@
 									<div class="uk-input-group">
 										<label for="exam_duration">{{'MODEL.EXAM.DURATION'|translate}}
 											({{"MODEL.MINUTE" | translate}})</label> <input id="exam_duration"
-											kendo-numeric-text-box k-min="1" k-max="360"
+											kendo-numeric-text-box k-min="1" k-max="360" onkeypress="return event.charCode >= 48"
 											k-ng-model="vm.exam.duration" style="width: 100%;" />
 									</div>
 								</div>
 								<div class="uk-width-1-2 arsley-row">
 									<div class="uk-input-group">
 										<label for="exam_attempt">{{'MODEL.EXAM.MAX_ATTEMPT'|translate}}</label>
-										<input id="exam_attempt" kendo-numeric-text-box k-min="1"
-											k-max="10" k-ng-model="vm.exam.maxAttempt"
+										<input id="exam_attempt" kendo-numeric-text-box k-min="1" k-max="10" onkeypress="return event.charCode >= 48" k-ng-model="vm.exam.maxAttempt"
 											style="width: 100%;" />
 									</div>
 								</div>
@@ -239,19 +238,20 @@
 										<span class="uk-input-group-addon"> <input
 											type="checkbox" ng-model="vm.exam.earlySubmitPrevention"
 											icheck />
-										</span> <label>{{'MODEL.EXAM.EARLY_SUBMIT_PREVENTION'|translate}}
-											({{"MODEL.MINUTE" | translate}})</label> <input type="number"
-											class="md-input" ng-model="vm.exam.earlySubmit" min="1"
-											md-input />
+										</span>
+										<label>{{'MODEL.EXAM.EARLY_SUBMIT_PREVENTION'|translate}}
+											({{"MODEL.MINUTE" | translate}})</label>
+										<input type="number" onkeypress="return event.charCode >= 48" class="md-input" ng-model="vm.exam.earlySubmit" min="1" onkeypress="return event.charCode >= 48" md-input />
 									</div>
 								</div>
 								<div class="uk-width-1-2 arsley-row">
 									<div class="uk-input-group">
 										<span class="uk-input-group-addon"> <input
 											type="checkbox" ng-model="vm.exam.preDueWarning" icheck />
-										</span> <label>{{'MODEL.EXAM.PRE_DUE_WARNING'|translate}}
-											({{"MODEL.MINUTE" | translate}})</label> <input type="number"
-											class="md-input" ng-model="vm.exam.preDue" min="1" md-input />
+										</span>
+										<label>{{'MODEL.EXAM.PRE_DUE_WARNING'|translate}}
+											({{"MODEL.MINUTE" | translate}})</label>
+										<input type="number" onkeypress="return event.charCode >= 48" class="md-input" ng-model="vm.exam.preDue" min="1" md-input />
 									</div>
 								</div>
 							</div>

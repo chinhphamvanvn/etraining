@@ -57,7 +57,7 @@
                     member.timeSpent = time;
                     var memberCsv = {
                         name: member.course.name,
-                        registered: member.registered,
+                        registered: member.registered.slice(0, 10),
                         status: member.status,
                         enrollmentStatus: member.enrollmentStatus,
                         percentage: member.percentage + " %",
