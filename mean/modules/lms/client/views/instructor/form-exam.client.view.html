@@ -88,7 +88,7 @@
                     config="vm.groupConfig"
                     options="vm.groupOptions"
                     ng-model="vm.groupIds"
-                    ng-change="vm.selectQuestionGroup(vm.groupIds);"></selectize>
+                    ng-change="vm.selectQuestionGroupAuto(vm.groupIds);"></selectize>
                 </div>
                 <div class="uk-width-1-1 uk-overflow-container" style="margin-top: 100px;">
                   <table class="uk-table uk-table-hover uk-table-nowrap uk-table-align-vertical">
@@ -109,7 +109,7 @@
                               ng-model="group.level"/>
                             <label for="{{'question_easy_' + group.id}}" class="inline-label">
                               {{'COMMON.DIFFICULTY.EASY'|translate}}
-                              <span ng-show="vm.exam.questionCategory">({{group.questions.easy.length}})</span>
+                              <span>({{group.questions.easy.length}})</span>
                             </label>
                           </span>
 
@@ -119,7 +119,7 @@
                               icheck ng-model="group.level"/>
                             <label for="{{'question_medium_' + group.id}}" class="inline-label">
                               {{'COMMON.DIFFICULTY.MEDIUM'|translate}}
-                              <span ng-show="vm.exam.questionCategory">({{group.questions.medium.length}})</span>
+                              <span>({{group.questions.medium.length}})</span>
                             </label>
                           </span>
 
@@ -129,7 +129,7 @@
                               ng-model="group.level"/>
                             <label for="{{'question_hard_' + group.id}}" class="inline-label">
                               {{'COMMON.DIFFICULTY.HARD'|translate}}
-                              <span ng-show="vm.exam.questionCategory">({{group.questions.hard.length}})</span>
+                              <span>({{group.questions.hard.length}})</span>
                             </label>
                           </span>
 
@@ -273,7 +273,7 @@
 				<div class="uk-width-medium-2-5 ">
 					<h3 class="heading_a">{{'PAGE.LMS.MY_EXAMS.FILTER_BY_GROUP'|translate}}</h3>
 					<group-tree-view tree-id="'questionTree'" mode="'multiple'"
-						category="'question'" select="vm.selectQuestionGroup"></group-tree-view>
+						category="'question'" select="vm.selectQuestionGroupManual"></group-tree-view>
 				</div>
 				<div class="uk-width-medium-3-5">
 					<table

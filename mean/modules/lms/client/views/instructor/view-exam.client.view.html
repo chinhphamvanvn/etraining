@@ -45,17 +45,17 @@
                     <tr>
                       <th>{{'MODEL.EXAM.QUESTION_CAT'|translate}}</th>
                       <th class="uk-text-center">{{'MODEL.EXAM.QUESTION_NUMBER'|translate}}</th>
-                      <th class="uk-text-center">{{'MODEL.EXAM.QUESTION_LEVEL'|translate}}</th>
+                      <th>{{'MODEL.EXAM.QUESTION_LEVEL'|translate}}</th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr ng-repeat="category in vm.exam.questionCategories">
                       <td>{{category.title}}</td>
                       <td class="uk-text-center">{{category.numberQuestion}}</td>
-                      <td class="uk-text-center">
-                        <span ng-if="vm.exam.questionLevel=='easy'">{{'COMMON.DIFFICULTY.EASY'|translate}}</span>
-                        <span ng-if="vm.exam.questionLevel=='medium'">{{'COMMON.DIFFICULTY.MEDIUM'|translate}}</span>
-                        <span ng-if="vm.exam.questionLevel=='hard'">{{'COMMON.DIFFICULTY.HARD'|translate}}</span>
+                      <td>
+                        <span ng-if="category.level=='easy'">{{'COMMON.DIFFICULTY.EASY'|translate}}</span>
+                        <span ng-if="category.level=='medium'">{{'COMMON.DIFFICULTY.MEDIUM'|translate}}</span>
+                        <span ng-if="category.level=='hard'">{{'COMMON.DIFFICULTY.HARD'|translate}}</span>
                       </td>
                     </tr>
                   </tbody>

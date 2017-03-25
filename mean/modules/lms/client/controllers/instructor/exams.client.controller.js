@@ -15,7 +15,8 @@
     vm.schedule = schedule;
     vm.removeQuestion = removeQuestion;
     vm.selectQuestions = selectQuestions;
-    vm.selectQuestionGroup = selectQuestionGroup;
+    vm.selectQuestionGroupAuto = selectQuestionGroupAuto;
+    vm.selectQuestionGroupManual = selectQuestionGroupManual;
     vm.moveUp = moveUp;
     vm.moveDown = moveDown;
     vm.update = update;
@@ -26,23 +27,23 @@
     var numberQuestionTooLarge = $translate.instant('ERROR.EXAM.NUMBER_QUESTION_TOO_LARGE');
 
     if (vm.exam.questionSelection === 'auto') {
-      _.each(vm.exam.questionCategories, function(category) {
+      _.each(vm.exam.questionCategories, function (category) {
         vm.groupIds.push(category.id);
       });
-      selectQuestionGroup(vm.groupIds);
+      selectQuestionGroupAuto(vm.groupIds);
     }
 
     vm.groupConfig = {
-      plugins : {
-        'remove_button' : {
-          label : ''
+      plugins: {
+        'remove_button': {
+          label: ''
         }
       },
-      maxItems : null,
-      valueField : 'value',
-      labelField : 'title',
-      searchField : 'title',
-      create : false
+      maxItems: null,
+      valueField: 'value',
+      labelField: 'title',
+      searchField: 'title',
+      create: false
     };
     vm.groupOptions = [];
     GroupsService.listQuestionGroup(function (data) {
@@ -99,7 +100,7 @@
         }
 
         vm.exam.questionCategories = [];
-        _.each(vm.groups, function(group) {
+        _.each(vm.groups, function (group) {
           var obj = {
             id: group.id,
             title: group.title,
@@ -160,19 +161,20 @@
       })
     }
 
-    function selectQuestionGroup(groupIds) {
+
+    function selectQuestionGroupAuto(groupIds) {
       var groups = [];
       var groupPromises = [];
-      _.each(groupIds, function(groupId) {
-        groupPromises.push(QuestionsService.byCategory({groupId: groupId}, function(questions) {
+      _.each(groupIds, function (groupId) {
+        groupPromises.push(QuestionsService.byCategory({groupId: groupId}, function (questions) {
           var questionByLevel = examUtils.countQuestionByLevel(questions);
           groups.push({id: groupId, questions: questionByLevel});
         }).$promise);
       });
 
-      $q.all(groupPromises).then(function() {
-        _.each(groups, function(group) {
-          var option = _.find(vm.groupOptions, function(option) {
+      $q.all(groupPromises).then(function () {
+        _.each(groups, function (group) {
+          var option = _.find(vm.groupOptions, function (option) {
             return group.id == option.id;
           });
 
@@ -183,6 +185,15 @@
 
         vm.groups = groups;
       });
+    }
+
+    function selectQuestionGroupManual(groups) {
+      vm.questions = [];
+      _.each(groups, function (group) {
+        QuestionsService.byCategory({groupId: group}, function (questions) {
+          vm.questions = vm.questions.concat(questions);
+        })
+      })
     }
 
     function removeQuestion(question) {
