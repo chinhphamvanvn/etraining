@@ -36,11 +36,6 @@
                           });
                       }
                       else {
-                          scope.questionNumber = 0;
-                          _.each(scope.exam.questionCategories, function(category) {
-                            scope.questionNumber += category.numberQuestion;
-                          });
-
                           _.each(scope.answers, function(answer) {
                               var question = QuestionsService.get({questionId:answer.question},function() {
                                   question.answer = answer;
