@@ -14,12 +14,7 @@
                                     return (answer.isCorrect) ;
                                 }).length;
 
-                                var totalQuestions = 0;
-                               _.each(exam.questionCategories, function(category) {
-                                 totalQuestions += category.numberQuestion;
-                               });
-
-                               resolve(Math.floor(correct * 100 / totalQuestions));
+                               resolve(Math.floor(correct * 100 / submit.answers.length));
                             }
                             if (exam.questionSelection=='manual') {
                                 var total = 0;
@@ -31,7 +26,7 @@
                                     });
                                     if (answer && answer.isCorrect)
                                         score += question.score;
-                                })
+                                });
                                 resolve(Math.floor(score * 100 / total));
                              }
                         });
