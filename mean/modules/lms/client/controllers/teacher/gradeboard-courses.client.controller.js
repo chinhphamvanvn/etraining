@@ -114,8 +114,17 @@
 		function certify(member) {
 			var modal = UIkit.modal.blockUI('<div class=\'uk-text-center\'>Processing...<br/><img class=\'uk-margin-top\' src=\'/assets/img/spinners/spinner.gif\' alt=\'\'>');
 			member.$complete({teacherId:vm.user._id},function() {
-				member.certificate = true;
-				modal.hide();
+				var certificate = new CertificatesService();
+				certificate.member = member._id;
+				certificate.course = vm.course._id;
+				certificate.edition = vm.edition._id;
+				certificate.issueDate = new Date();
+				certificate.authorizer = vm.user._id;
+				certificate.$grant(function() {
+					member.certificate = true;
+					modal.hide();
+				});				
+				
 			});
 		}
 	}

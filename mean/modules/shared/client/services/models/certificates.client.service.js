@@ -15,6 +15,9 @@
       update: {
         method: 'PUT'
       },
+      grant: {
+          method: 'POST'
+        },
       byMember: {
           method: 'GET',
           url:'/api/certificates/byMember/:memberId',

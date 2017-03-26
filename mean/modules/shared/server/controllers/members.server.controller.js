@@ -9,6 +9,7 @@ var path = require('path'),
 	CourseMember = mongoose.model('CourseMember'),
 	Course = mongoose.model('Course'),
 	User = mongoose.model('User'),
+	CompetencyAchievement =  mongoose.model('CompetencyAchievement'),
 	Certificate = mongoose.model('Certificate'),
 	Competency = mongoose.model('Competency'),
 	Setting = mongoose.model('Setting'),
@@ -285,20 +286,10 @@ exports.complete = function(req, res) {
 		} else {
 			res.jsonp(member);
 			sendMailToStudent(member);
-			grantCertificate(member);
 			bindCompetency(member);
 		}
 	});
 	
-	function grantCertificate(student) {
-		var certificate = new Certificate();
-		certificate.member = student._id;
-		certificate.course = student.course;
-		certificate.edition = student.edition;
-		certificate.issueDate = new Date();
-		certificate.authorizer = req.body.teacherId;
-		certificate.save();
-	}
 	
 	function bindCompetency(student) {
 		User.findById(student.member).exec(function(err, studentUser) {

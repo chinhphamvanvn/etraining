@@ -70,7 +70,6 @@ exports.grant = function (req, res, next) {
           done(err, certificateHTNL);
         });
       },
-      // If valid email, send reset email using service
       function (certificateHTNL, done) {
           certificate.base64data='';
           var renderStream = webshot(certificateHTNL,{siteType:'html'});
