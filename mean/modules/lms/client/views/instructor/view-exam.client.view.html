@@ -38,22 +38,28 @@
 								<span class="uk-text-italic"
 									ng-show="vm.exam.questionSelection=='auto'">{{'COMMON.QUESTION_SELECT.AUTO'|translate}}</span>
 							</div>
-							<div class="uk-width-medium-1-1 uk-grid" data-uk-grid-margin
+							<div class="uk-width-medium-1-1 uk-overflow-container" data-uk-grid-margin
 								ng-show="vm.exam.questionSelection=='auto'">
-								<div class="uk-width-1-1">
-									<label>{{'MODEL.EXAM.QUESTION_NUMBER'|translate}} :
-										{{vm.exam.questionNumber}}</label>
-								</div>
-								<div class="uk-width-1-1">
-									<label>{{'MODEL.EXAM.QUESTION_LEVEL'|translate}}:</label> <span
-										ng-if="vm.exam.questionLevel=='easy'">{{'COMMON.DIFFICULTY.EASY'|translate}}</span>
-									<span ng-if="vm.exam.questionLevel=='medium'">{{'COMMON.DIFFICULTY.MEDIUM'|translate}}</span>
-									<span ng-if="vm.exam.questionLevel=='hard'">{{'COMMON.DIFFICULTY.HARD'|translate}}</span>
-								</div>
-								<div class="uk-width-1-1">
-									<label>{{'MODEL.EXAM.QUESTION_CAT'|translate}} :
-										{{vm.category.name}}</label>
-								</div>
+                <table class="uk-table uk-table-hover uk-table-nowrap uk-table-align-vertical">
+                  <thead>
+                    <tr>
+                      <th>{{'MODEL.EXAM.QUESTION_CAT'|translate}}</th>
+                      <th class="uk-text-center">{{'MODEL.EXAM.QUESTION_NUMBER'|translate}}</th>
+                      <th>{{'MODEL.EXAM.QUESTION_LEVEL'|translate}}</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr ng-repeat="category in vm.exam.questionCategories">
+                      <td>{{category.title}}</td>
+                      <td class="uk-text-center">{{category.numberQuestion}}</td>
+                      <td>
+                        <span ng-if="category.level=='easy'">{{'COMMON.DIFFICULTY.EASY'|translate}}</span>
+                        <span ng-if="category.level=='medium'">{{'COMMON.DIFFICULTY.MEDIUM'|translate}}</span>
+                        <span ng-if="category.level=='hard'">{{'COMMON.DIFFICULTY.HARD'|translate}}</span>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
 							</div>
 							<div class="uk-width-medium-1-1"
 								ng-show="vm.exam.questionSelection=='manual'">

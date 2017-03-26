@@ -19,8 +19,7 @@
           url:'/api/exams/public',
           method: 'GET',
           isArray:true
-        }, 
-
+        }
     });
   }
 }());

@@ -34,6 +34,10 @@
 								}
 							}
 
+							if (scope.mode == 'study' && !scope.shuffle) {
+								scope.question.options = _.sortBy(scope.question.options,'order');
+							}
+
 							if (scope.question.options.length) {
 								if (scope.mode != 'study' && scope.mode != 'result'){
 									_.each(scope.question.options, function(option) {

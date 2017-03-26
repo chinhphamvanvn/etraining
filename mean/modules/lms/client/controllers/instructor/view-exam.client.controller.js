@@ -14,8 +14,9 @@ function ExamViewController($scope, $state, $window, Authentication, $timeout, e
     vm.authentication = Authentication;
     vm.schedule = schedule;
     vm.exam = exam;
-    if (vm.exam.questionCategory)
-        vm.category = GroupsService.get({groupId:vm.exam.questionCategory});
+    console.log('=======', exam);
+    // if (vm.exam.questionCategory)
+    //     vm.category = GroupsService.get({groupId:vm.exam.questionCategory});
     if (vm.exam.questionSelection=='manual') {
         vm.selectedQuestions = [];
         var selectedIds = _.pluck(vm.exam.questions,'id');
