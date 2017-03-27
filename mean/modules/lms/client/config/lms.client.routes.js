@@ -708,11 +708,13 @@
       })
          .state('workspace.lms.programs.join.progressboard', {
           url: '/progressboard',
-          templateUrl: '/modules/lms/client/views/program-board/score.board-exam.client.view.html',
+          templateUrl: '/modules/lms/client/views/program-board/progress.board-programs.client.view.html',
           controller: 'ProgramProgressboardController',
           controllerAs: 'vm',
           resolve: {
               userResolve:getUser,
+              programResolve: getProgram,
+              programMemberResolve:getProgramMember
           },
           data: {
               roles: [ 'user'],
@@ -721,7 +723,7 @@
         })
          .state('workspace.lms.programs.join.progressboard-member', {
           url: '/progressboard-member/:memberId',
-          templateUrl: '/modules/lms/client/views/program-board/progress.book-program.client.view.html',
+          templateUrl: '/modules/lms/client/views/program-board/progress.book-programs.client.view.html',
           controller: 'ProgramProgressboardMemberController',
           controllerAs: 'vm',
           resolve: {
@@ -744,9 +746,9 @@
               courseRoles: [ 'manager','student']
           }
         })
-         .state('workspace.lms.programs.join.progress', {
-          url: '/progress/:memberId',
-          templateUrl: '/modules/lms/client/views/program-board/progress-program.client.view.html',
+         .state('workspace.lms.programs.join.progressbook', {
+          url: '/progress',
+          templateUrl: '/modules/lms/client/views/program-board/progress-book-programs.client.view.html',
           controller: 'ProgramProgressController',
           controllerAs: 'vm',
           resolve: {
@@ -960,20 +962,20 @@
 	 return ExamCandidatesService.byUserAndSchedule({scheduleId:$stateParams.scheduleId,userId:localStorageService.get('userId')}).$promise;
   }
   
-  getProgram.$inject = ['$stateParams', 'ProgramsService'];
+  getProgram.$inject = ['$stateParams', 'CourseProgramsService'];
 
-  function getProgram($stateParams, ProgramsService) {
-    return ProgramsService.get({
+  function getProgram($stateParams, CourseProgramsService) {
+    return CourseProgramsService.get({
     	programId: $stateParams.programId
     }).$promise;
   }
   
-  getProgramMember.$inject = ['$stateParams', 'ProgramMembersService'];
+  getProgramMember.$inject = ['$stateParams', 'ProgramMembersService','localStorageService'];
 
-  function getProgramMember($stateParams, ProgramMembersService) {
-    return ProgramMembersService.get({
-    	programmemberId: $stateParams.memberId
-    }).$promise;
+  function getProgramMember($stateParams, ProgramMembersService,localStorageService) {
+	  if ($stateParams.memberId)
+		  return ProgramMembersService.get({programmemberId: $stateParams.memberId}).$promise;
+	  return ProgramMembersService.byUserAndProgram({programId:$stateParams.programId,userId:localStorageService.get('userId')}).$promise;
   }
   
   getClassroom.$inject = ['$stateParams', 'ClassroomsService'];

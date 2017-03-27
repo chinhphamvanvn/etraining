@@ -4,11 +4,11 @@
 // Courses controller
 angular
     .module('lms')
-    .controller('ProgramsIntroController', ProgramsIntroController);
+    .controller('ProgramIntroController', ProgramIntroController);
 
-ProgramsIntroController.$inject = ['$scope', '$state', '$window', 'ProgramMembersService','Authentication', 'programResolve','userResolve', 'CoursesService', 'Notification', 'GroupsService','ProgramsService', '$translate','localStorageService', '$q','_'];
+ProgramIntroController.$inject = ['$scope', '$state', '$window', 'ProgramMembersService','Authentication', 'programResolve','userResolve', 'CoursesService', 'Notification', 'GroupsService','CourseProgramsService', '$translate','localStorageService', '$q','_'];
 
-function ProgramsIntroController($scope, $state, $window, ProgramMembersService,Authentication, program, user, ProgramsService, Notification, GroupsService,UsersService,$translate ,localStorageService, $q, _) {
+function ProgramIntroController($scope, $state, $window, ProgramMembersService,Authentication, program, user, CourseProgramsService, Notification, GroupsService,UsersService,$translate ,localStorageService, $q, _) {
     var vm = this;
     vm.register = register;
     vm.program = program;

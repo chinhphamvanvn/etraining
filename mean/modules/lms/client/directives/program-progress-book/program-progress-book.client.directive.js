@@ -5,9 +5,9 @@
   // Unless the user is on a small device, because this could obscure the page with a keyboard
 
   angular.module('lms')
-    .directive('programProgressBook', ['_', programProgressBook]);
+    .directive('programProgressBook', ['CourseProgramsService','CoursesService','CourseMembersService', 'ProgramMembersService','courseUtils', '_', programProgressBook]);
 
-  function programProgressBook( _) {
+  function programProgressBook(CourseProgramsService,CoursesService,CourseMembersService,ProgramMembersService, courseUtils, _) {
 
       return {
           scope: {
@@ -16,7 +16,19 @@
           },
           templateUrl:'/modules/lms/client/directives/program-progress-book/program-progress-book.directive.client.view.html',
           link: function (scope, element, attributes) {
-             
+             scope.courses = [];
+             _.each(scope.program.courses,function(courseId) {
+            	 CoursesService.get({courseId:courseId},function(course) {
+            		 scope.courses.push(course);
+            		 course.percentage = 0;
+            		 course.member = CourseMembersService.byUserAndCourse({userId:member.member,courseId:courseId},function() {
+            			 courseUtils.memberProgress(course.member._id,course.member.edition._id,function(progress) {
+            				 course.percentage = progress;
+            			 })
+            		 });
+            		  
+            	 })
+             })
               
           }
       }

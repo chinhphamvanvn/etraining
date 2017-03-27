@@ -20,7 +20,7 @@ var ProgramMemberSchema = new Schema({
 	  },
 	  enrollmentStatus: {
 	      type: String,
-	      enum: ['registered','in-study','completed'],
+	      enum: ['registered','completed'],
 	  },
 	  status: {
 	      type: String,

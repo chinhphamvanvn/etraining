@@ -5,9 +5,9 @@
       .module('lms')
       .controller('ProgramsJoinController', ProgramsJoinController);
 
-    ProgramsJoinController.$inject = [ '$scope', '$rootScope','$state', '$stateParams', 'Authentication','UsersService', 'programResolve', 'Notification', 'ProgramsService', 'ProgramMembersService','localStorageService', '_'];
+    ProgramsJoinController.$inject = [ '$scope', '$rootScope','$state', '$stateParams', 'Authentication','UsersService', 'programResolve', 'Notification', 'CourseProgramsService', 'ProgramMembersService','localStorageService', '_'];
 
-    function ProgramsJoinController( $scope,$rootScope, $state, $stateParams, Authentication,UsersService,  program, Notification, ProgramsService, ProgramMembersService,localStorageService, _) {
+    function ProgramsJoinController( $scope,$rootScope, $state, $stateParams, Authentication,UsersService,  program, Notification, CourseProgramsService, ProgramMembersService,localStorageService, _) {
       var vm = this;
       vm.user = Authentication.user;
       vm.program = program;

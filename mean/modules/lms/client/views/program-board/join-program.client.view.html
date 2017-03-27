@@ -7,7 +7,7 @@
         ui-sref="workspace.lms.programs.join.intro({programId:vm.program._id})"
         ng-class="{'uk-text-primary':state.name.includes('intro')}"><i
         class="material-icons md-24"
-        ng-class="{'uk-text-primary':state.name.includes('intro')}">info_outline</i><span>{{'PAGE.LMS.MY_PROGRAMS.STUDENT_BOARD.COURSE_INFO'|translate}}</span></a>
+        ng-class="{'uk-text-primary':state.name.includes('intro')}">info_outline</i><span>{{'PAGE.LMS.MY_PROGRAMS.STUDENT_BOARD.PROGRAM_INFO'|translate}}</span></a>
       </li>
       <li class="uk-visible-large"
           ng-show="vm.member && vm.member.role=='student'"><a
@@ -17,11 +17,11 @@
         class="material-icons md-24">book</i><span>{{'PAGE.LMS.MY_PROGRAMS.STUDENT_BOARD.PROGRESSBOOK'|translate}}</span></a>
       </li>
       <li class="uk-visible-large"
-          ng-show="vm.member && vm.member.role=='teacher'"><a
+          ng-show="vm.member && vm.member.role=='manager'"><a
         ui-sref="workspace.lms.courses.join.progressboard({programId:vm.program._id})"
         ng-class="{'uk-text-primary':state.name.includes('progressboard')}"><i
         ng-class="{'uk-text-primary':state.name.includes('progressboard')}"
-        class="material-icons md-24">book</i><span>{{'PAGE.LMS.MY_PROGRAMS.TEACHER_BOARD.PROGRESS_BOARD'|translate}}</span></a>
+        class="material-icons md-24">book</i><span>{{'PAGE.LMS.MY_PROGRAMS.MANAGER_BOARD.PROGRESS'|translate}}</span></a>
       </li>
       
 
@@ -44,7 +44,7 @@
                   ui-sref="workspace.lms.programs.join.intro({programId:vm.program._id})"
                   ng-class="{'uk-text-primary':state.name.includes('intro')}"><i
                   class="material-icons md-24"
-                  ng-class="{'uk-text-primary':state.name.includes('intro')}">info_outline</i><span>{{'PAGE.LMS.MY_PROGRAMS.STUDENT_BOARD.COURSE_INFO'|translate}}</span></a>
+                  ng-class="{'uk-text-primary':state.name.includes('intro')}">info_outline</i><span>{{'PAGE.LMS.MY_PROGRAMS.STUDENT_BOARD.PROGRAM_INFO'|translate}}</span></a>
                 </li>
               </ul>
             </div>
@@ -56,7 +56,7 @@
                   ui-sref="workspace.lms.programs.join.progressbook({programId:vm.program._id})"
                   ng-class="{'uk-text-primary':state.name.includes('progressbook')}"><i
                   ng-class="{'uk-text-primary':state.name.includes('progressbook')}"
-                  class="material-icons md-24">book</i><span>{{'PAGE.LMS.MY_PROGRAMS.STUDENT_BOARD.COURSE_PROGRESS'|translate}}</span></a>
+                  class="material-icons md-24">book</i><span>{{'PAGE.LMS.MY_PROGRAMS.STUDENT_BOARD.PROGRESSBOOK'|translate}}</span></a>
                 </li>
               </ul>
             </div>
@@ -68,7 +68,7 @@
                   ui-sref="workspace.lms.programs.join.progressboard({programId:vm.program._id})"
                   ng-class="{'uk-text-primary':state.name.includes('progressboard')}"><i
                   ng-class="{'uk-text-primary':state.name.includes('progressboard')}"
-                  class="material-icons md-24">book</i><span>{{'PAGE.LMS.MY_COURSES.TEACHER_BOARD.PROGRESS_BOARD'|translate}}</span></a>
+                  class="material-icons md-24">book</i><span>{{'PAGE.LMS.MY_PROGRAMS.MANAGER_BOARD.PROGRESS'|translate}}</span></a>
                 </li>
               </ul>
             </div>

@@ -26,7 +26,7 @@
     menuService.addMenuItem('sidebar', {
         title: 'PAGE.WORKSPACE.SIDEBAR.LMS.MY_PROGRAM',
         state: 'workspace.lms.programs.me',
-        icon:'alarm_add',
+        icon:'group_work',
         position: 28,
         roles: ['user']
       });

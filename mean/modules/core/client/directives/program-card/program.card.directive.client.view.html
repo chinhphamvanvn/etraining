@@ -9,7 +9,7 @@
 						<h3 >{{"MODEL.PROGRAM.SUMMARY" |translate}}</h3>
 							<p class="uk-article-lead summary">{{program.summary}}</p>
 					<hr class="uk-article-divider">
-					<a class="md-btn md-btn-flat md-btn-flat-primary">{{'ACTION.VIEW_INFO'|translate}}</a>
+					<a ui-sref="workspace.lms.programs.join.intro({ programId: program._id})" class="md-btn md-btn-icon md-btn-flat "><i class="uk-icon-hand-o-up"></i>{{'ACTION.JOIN'|translate}}</a>
 				</div>
 			</div>
 			<div class="uk-width-1-2">
