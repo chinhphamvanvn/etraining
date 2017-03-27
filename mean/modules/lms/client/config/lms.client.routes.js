@@ -678,6 +678,85 @@
             courseRoles: [ 'teacher','student']
         }
       })
+      .state('workspace.lms.programs', {
+          abstract: true,
+          url: '/programs',
+          template: '<ui-view/>'
+        })
+        .state('workspace.lms.programs.me', {
+          url: '/me',
+          templateUrl: '/modules/lms/client/views/my-programs.client.view.html',
+          controller: 'MyProgramsListController',
+          controllerAs: 'vm',
+          data: {
+              roles: [ 'user'],
+              courseRoles: [ 'manager','student']
+          }
+        })
+        .state('workspace.lms.programs.join', {
+        url: '/join/:programId',
+        templateUrl: '/modules/lms/client/views/program-board/join-program.client.view.html',
+        controller: 'ProgramsJoinController',
+        controllerAs: 'vm',
+        resolve: {
+        	programResolve: getProgram,
+        },
+        data: {
+          roles: ['user'],
+          courseRoles: [ 'manager','teacher']
+        }
+      })
+         .state('workspace.lms.programs.join.progressboard', {
+          url: '/progressboard',
+          templateUrl: '/modules/lms/client/views/program-board/score.board-exam.client.view.html',
+          controller: 'ProgramProgressboardController',
+          controllerAs: 'vm',
+          resolve: {
+              userResolve:getUser,
+          },
+          data: {
+              roles: [ 'user'],
+              courseRoles: [ 'manager','student']
+          }
+        })
+         .state('workspace.lms.programs.join.progressboard-member', {
+          url: '/progressboard-member/:memberId',
+          templateUrl: '/modules/lms/client/views/program-board/progress.book-program.client.view.html',
+          controller: 'ProgramProgressboardMemberController',
+          controllerAs: 'vm',
+          resolve: {
+              programMemberResolve:getProgramMember
+          },
+          data: {
+              roles: [ 'user'],
+              courseRoles: [ 'manager','student']
+          }
+        })
+         .state('workspace.lms.programs.join.intro', {
+          url: '/intro',
+          templateUrl: '/modules/lms/client/views/program-board/intro-program.client.view.html',
+          controller: 'ProgramIntroController',
+          controllerAs: 'vm',
+          resolve: {
+          },
+          data: {
+              roles: [ 'user'],
+              courseRoles: [ 'manager','student']
+          }
+        })
+         .state('workspace.lms.programs.join.progress', {
+          url: '/progress/:memberId',
+          templateUrl: '/modules/lms/client/views/program-board/progress-program.client.view.html',
+          controller: 'ProgramProgressController',
+          controllerAs: 'vm',
+          resolve: {
+              programMemberResolve:getProgramMember
+          },
+          data: {
+              roles: [ 'user'],
+              courseRoles: [ 'manager','student']
+          }
+        })
       ;
   }
 
@@ -876,12 +955,26 @@
   getCandidate.$inject = ['$stateParams', 'ExamCandidatesService','localStorageService'];
 
   function getCandidate($stateParams, ExamCandidatesService,localStorageService) {
-	  if ($stateParams.memberId)
+	  if ($stateParams.candidateId)
           return ExamCandidatesService.get({candidateId:$stateParams.candidateId}).$promise;
 	 return ExamCandidatesService.byUserAndSchedule({scheduleId:$stateParams.scheduleId,userId:localStorageService.get('userId')}).$promise;
   }
   
+  getProgram.$inject = ['$stateParams', 'ProgramsService'];
 
+  function getProgram($stateParams, ProgramsService) {
+    return ProgramsService.get({
+    	programId: $stateParams.programId
+    }).$promise;
+  }
+  
+  getProgramMember.$inject = ['$stateParams', 'ProgramMembersService'];
+
+  function getProgramMember($stateParams, ProgramMembersService) {
+    return ProgramMembersService.get({
+    	programmemberId: $stateParams.memberId
+    }).$promise;
+  }
   
   getClassroom.$inject = ['$stateParams', 'ClassroomsService'];
 

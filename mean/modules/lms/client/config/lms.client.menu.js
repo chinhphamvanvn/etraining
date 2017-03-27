@@ -24,6 +24,13 @@
         roles: ['user']
       });
     menuService.addMenuItem('sidebar', {
+        title: 'PAGE.WORKSPACE.SIDEBAR.LMS.MY_PROGRAM',
+        state: 'workspace.lms.programs.me',
+        icon:'alarm_add',
+        position: 28,
+        roles: ['user']
+      });
+    menuService.addMenuItem('sidebar', {
         title: 'PAGE.WORKSPACE.SIDEBAR.LMS.COURSE_LIST',
         state: 'workspace.lms.courses.list',
         icon:'search',

@@ -12,7 +12,7 @@
 			scope : {
 				course : "="
 			},
-			templateUrl : '/modules/cms/client/directives/view-course.directive.client.view.html',
+			templateUrl : '/modules/cms/client/directives/course-view/view-course.directive.client.view.html',
 			link : function(scope, element, attributes) {
 				if (!scope.course.loaded) {
 					scope.course.loaded = true;

@@ -4,17 +4,32 @@
 
   angular
     .module('shared.models')
-    .factory('ProgramsService', ProgramsService);
+    .factory('CourseProgramsService', CourseProgramsService);
 
-  ProgramsService.$inject = ['$resource'];
+  CourseProgramsService.$inject = ['$resource'];
 
-  function ProgramsService($resource) {
+  function CourseProgramsService($resource) {
     return $resource('/api/programs/:programId', {
       programId: '@_id'
     }, {
       update: {
         method: 'PUT'
-      }
+      },
+      listPublic: {
+          method: 'GET',
+          isArray: true,
+          url: '/api/programs/public'
+        },
+        listPrivate: {
+          method: 'GET',
+          isArray: true,
+          url: '/api/programs/private'
+        },
+        listRestricted: {
+          method: 'GET',
+          isArray: true,
+          url: '/api/programs/restricted'
+        },
     });
   }
 }());

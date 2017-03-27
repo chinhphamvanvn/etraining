@@ -1,0 +1,96 @@
+<div id="page_content">
+	<div id="page_content_inner">
+		<h3 class="heading_b uk-margin-bottom">{{'PAGE.LMS.MY_PROGRAMS.TITLE'
+			| translate}}</h3>
+		<div class="uk-grid blog_article" data-uk-grid-margin>
+			<div class="uk-width-1-1">
+				<div ng-repeat="member in vm.members" class="uk-margin">
+
+					<div ng-if="member.role=='manager'" class="md-card md-card-hover">
+						<div class="md-card-toolbar">
+							<h3 class="md-card-toolbar-heading-text">
+								<a class="md-btn md-btn-flat md-btn-flat-primary md-btn-icon"
+									ui-sref="workspace.lms.programs.join.progressboard({programId:member.program._id})">
+									<i class="uk-icon-user uk-hidden-small"></i>
+									{{'PAGE.LMS.MY_PROGRAMS.MANAGER_BOARD.PROGRAM_PROGRESS'|translate}}</a>
+							</h3>
+							<div class="md-card-toolbar-actions uk-hidden-small">
+								<i class="md-icon material-icons uk-text-danger"
+									ng-click="vm.unenroll(member)"
+									data-uk-tooltip="{cls:'uk-tooltip-small',pos:'top'}"
+									title="{{'ACTION.UNENROLL'|translate}}">exit_to_app</i>
+							</div>
+						</div>
+
+						<div class="md-card-content my-course-content">
+							<div class="uk-grid">
+								<div class="uk-width-1-1">
+									<div class="uk-article">
+										{{'MODEL.PROGRAM.CODE'|translate}}: {{member.program.code}}
+										<h3 class="uk-article-title uk-text-primary title">{{member.program.name}}</h3>
+
+										<div class="uk-accordion"
+											data-uk-accordion="{showfirst: false}">
+											<h3 class="uk-accordion-title">{{"MODEL.PROGRAM.SUMMARY"
+												| translate}}</h3>
+											<div class="uk-accordion-content">
+												<p class="uk-article-lead summary">{{member.program.summary}}</p>
+											</div>
+										</div>
+										<hr class="uk-article-divider">
+									</div>
+								</div>
+							</div>
+						</div>
+
+					</div>
+
+					<div ng-if="member.role=='student'" class="md-card md-card-hover"
+						card-progress="{{member.program.percentage}}">
+
+						<div class="md-card-toolbar md-bg-light-green-100">
+							<div class="md-card-toolbar-actions uk-hidden-small">
+								<i class="md-icon material-icons uk-text-danger"
+									ng-click="vm.unenroll(member)"
+									data-uk-tooltip="{cls:'uk-tooltip-small',pos:'top'}"
+									title="{{'ACTION.UNENROLL'|translate}}">exit_to_app</i>
+							</div>
+							<h3 class="md-card-toolbar-heading-text">
+								<a
+									class="md-btn md-btn-flat md-btn-flat-primary   md-btn-icon uk-margin-right"
+									ui-sref="workspace.lms.programs.join.intro({programId:member.program._id})">
+									<i class="uk-icon-hand-pointer-o uk-hidden-small"></i>
+									{{'ACTION.JOIN'|translate}}
+								</a> <span class="uk-hidden-small">{{'PAGE.LMS.MY_PROGRAMS.PROGRESS'|translate}}
+									{{ member.program.percentage }}%</span> <span
+									class="uk-visible-small uk-text-small">{{
+									member.program.percentage }}/100</span>
+							</h3>
+						</div>
+
+						<div class="md-card-content my-course-content">
+							<div class="uk-grid">
+								<div class="uk-width-1-1">
+									<div class="uk-article">
+										{{'MODEL.PROGRAM.CODE'|translate}}: {{member.program.code}}
+										<h3 class="uk-article-title uk-text-primary title">{{member.program.name}}</h3>
+										<div class="uk-accordion"
+											data-uk-accordion="{showfirst: false}">
+											<h3 class="uk-accordion-title">{{"MODEL.PROGRAM.SUMMARY"
+												| translate}}</h3>
+											<div class="uk-accordion-content">
+												<p class="uk-article-lead summary">{{member.program.summary}}</p>
+											</div>
+										</div>
+										<hr class="uk-article-divider">
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+</div>

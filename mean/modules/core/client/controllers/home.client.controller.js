@@ -5,9 +5,9 @@
     .module('core')
     .controller('HomeController', HomeController);
 
-  HomeController.$inject = ['$scope', '$state', 'Authentication', 'CoursesService','CourseMembersService','SettingsService', 'AnnoucementsService', '_'];
+  HomeController.$inject = ['$scope', '$state', 'Authentication', 'CoursesService','CourseMembersService','CourseProgramsService', 'SettingsService', 'AnnoucementsService', '_'];
 
-  function HomeController($scope, $state, Authentication, CoursesService, CourseMembersService,SettingsService, AnnoucementsService, _) {
+  function HomeController($scope, $state, Authentication, CoursesService, CourseMembersService,CourseProgramsService, SettingsService, AnnoucementsService, _) {
     var vm = this;
     vm.user = Authentication.user;
     vm.authentication = Authentication;
@@ -38,6 +38,7 @@
     }
 
     vm.annoucements = AnnoucementsService.listPublished();
+    vm.programs = CourseProgramsService.listPublic();
     vm.totalItems = CoursesService.listPublic(function() {
       vm.courses = vm.totalItems.slice(0, 8);
     });

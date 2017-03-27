@@ -1,17 +1,17 @@
 (function() {
 	'use strict';
 
-	// Courses controller
+	// Programs controller
 	angular
 		.module('cms')
-		.controller('CourseViewController', CourseViewController);
+		.controller('ProgramViewController', ProgramViewController);
 
-	CourseViewController.$inject = [ '$scope', '$state', '$window', 'Authentication', '$timeout', 'courseResolve', 'CoursesService', 'Notification', 'GroupsService', 'Upload', '$q', '_' ];
+	ProgramViewController.$inject = [ '$scope', '$state', '$window', 'Authentication', '$timeout', 'programResolve', '_' ];
 
-	function CourseViewController($scope, $state, $window, Authentication, $timeout, course, CoursesService, Notification, GroupsService, Upload, $q, _) {
+	function ProgramViewController($scope, $state, $window, Authentication, $timeout, program,   _) {
 		var vm = this;
 
 		vm.authentication = Authentication;
-		vm.course = course;
+		vm.program = program;
 	}
 }());

@@ -235,7 +235,7 @@ exports.certify = function(req, res) {
 
 exports.candidateByUserAndSchedule = function(req, res) {
 	ExamCandidate.findOne({
-		candidate : req.user._id,
+		candidate : req.params.userId,
 		schedule : req.schedule._id
 	}).sort('-created').populate('candidate').populate('schedule').exec(function(err, candidate) {
 		if (err || !candidate) {

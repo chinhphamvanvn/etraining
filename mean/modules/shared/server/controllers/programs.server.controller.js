@@ -5,7 +5,7 @@
  */
 var path = require('path'),
   mongoose = require('mongoose'),
-  Program = mongoose.model('Program'),
+  CourseProgram = mongoose.model('CourseProgram'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
   _ = require('lodash');
 
@@ -13,7 +13,7 @@ var path = require('path'),
  * Create a Program
  */
 exports.create = function(req, res) {
-  var program = new Program(req.body);
+  var program = new CourseProgram(req.body);
   program.user = req.user;
 
   program.save(function(err) {
@@ -81,7 +81,7 @@ exports.delete = function(req, res) {
  * List of Programs
  */
 exports.list = function(req, res) {
-  Program.find().sort('-created').populate('user', 'displayName').exec(function(err, programs) {
+  CourseProgram.find().sort('-created').populate('user', 'displayName').exec(function(err, programs) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -91,6 +91,44 @@ exports.list = function(req, res) {
     }
   });
 };
+
+
+
+exports.listPublic = function(req, res) {
+	CourseProgram.find({status:'available',enrollStatus:true,displayMode:'open'}).sort('-created').populate('user', 'displayName').populate('courses').populate('competencies').exec(function(err, programs) {
+      if (err) {
+        return res.status(400).send({
+          message: errorHandler.getErrorMessage(err)
+        });
+      } else {
+        res.jsonp(programs);
+      }
+    });
+  };
+
+  exports.listPrivate = function(req, res) {
+	  CourseProgram.find({status:'available',enrollStatus:true,displayMode:'enroll'}).sort('-created').populate('user', 'displayName').populate('courses').populate('competencies').exec(function(err, programs) {
+        if (err) {
+          return res.status(400).send({
+            message: errorHandler.getErrorMessage(err)
+          });
+        } else {
+          res.jsonp(programs);
+        }
+      });
+    };
+
+exports.listRestricted = function(req, res) {
+	CourseProgram.find({status:'available',enrollStatus:true,displayMode:'login'}).sort('-created').populate('user', 'displayName').populate('courses').populate('competencies').exec(function(err, programs) {
+      if (err) {
+        return res.status(400).send({
+          message: errorHandler.getErrorMessage(err)
+        });
+      } else {
+        res.jsonp(programs);
+      }
+    });
+  };
 
 /**
  * Program middleware
@@ -103,7 +141,7 @@ exports.programByID = function(req, res, next, id) {
     });
   }
 
-  Program.findById(id).populate('user', 'displayName').exec(function (err, program) {
+  CourseProgram.findById(id).populate('user', 'displayName').exec(function (err, program) {
     if (err) {
       return next(err);
     } else if (!program) {

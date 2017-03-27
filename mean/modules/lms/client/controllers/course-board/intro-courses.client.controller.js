@@ -51,7 +51,7 @@ function CoursesIntroController($scope, $state, $window, CourseMembersService,Au
            return
        }
        
-       if (course.enrollPolicy!='open') {
+       if (vm.course.enrollPolicy!='open') {
            UIkit.modal.alert($translate.instant('ERROR.COURSE_REGISTER.ENROLL_RESTRICTED'));
            return
        }

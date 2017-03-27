@@ -28,7 +28,7 @@ var CompetencyAchievementSchema = new Schema({
               },
             source: {
                 type: String,
-                enum: ['exam','course'],
+                enum: ['exam','course','program'],
                 default: 'exam'
               },
   created: {

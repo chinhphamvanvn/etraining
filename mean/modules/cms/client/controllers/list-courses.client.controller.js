@@ -94,7 +94,7 @@
 				}),
 			DTColumnBuilder.newColumn(null).withTitle($translate.instant('COMMON.ACTION')).notSortable()
 				.renderWith(function(data, type, full, meta) {
-					var action = '<a class="md-btn md-btn-primary md-btn-mini md-btn-wave-light" ui-sref="admin.workspace.cms.course-members({courseId:\'' + data._id + '\'})" > ' + $translate.instant('ACTION.ENROLL') + '</a>' +
+					var action = '<a  ui-sref="admin.workspace.cms.course-members({courseId:\'' + data._id + '\'})" data-uk-tooltip="{pos:\'bottom\'}" title="' + $translate.instant('ACTION.ENROLL') + '"><i class="md-icon material-icons uk-text-primary">group</i>  </a>' +
 						'<a  ui-sref="admin.workspace.cms.courses.edit({courseId:\'' + data._id + '\'})" data-uk-tooltip="{pos:\'bottom\'}" title="' + $translate.instant('ACTION.EDIT') + '"><i class="md-icon material-icons">edit</i></a>' +
 						'<a ui-sref="admin.workspace.cms.courses.view({courseId:\'' + data._id + '\'})" data-uk-tooltip="{pos:\'bottom\'}" title="' + $translate.instant('ACTION.VIEW') + '"><i class="md-icon material-icons">info_outline</i></a>';
 					return action;
@@ -123,7 +123,7 @@
 					vm.reload = true;
 					vm.dtInstance.reloadData(function() {}, true);
 					Notification.success({
-						message : '<i class="uk-icon-check"></i> User deleted successfully!'
+						message : '<i class="uk-icon-check"></i> Course deleted successfully!'
 					});
 				});
 			});

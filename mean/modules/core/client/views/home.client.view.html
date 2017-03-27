@@ -14,10 +14,9 @@
 					class="material-icons">&#xE5D2;</i>
 				</a>
 				<div class="uk-navbar-brand ">
-          <a ui-sref="home">
-					  <img src="/assets/img/brand/logo.png" alt="" width="105"
-						height="24">
-          </a>
+					<a ui-sref="home"> <img src="/assets/img/brand/logo.png" alt=""
+						width="105" height="24">
+					</a>
 				</div>
 
 				<div class="uk-navbar-flip lang_selections"
@@ -44,8 +43,10 @@
 					<ul class="uk-navbar-nav" id="main_navigation">
 						<li><a href="#sect-bulletin">
 								{{'PAGE.HOME.BULLETIN'|translate}} </a></li>
-						<li><a href="#sect-program">
+						<li><a href="#sect-course">
 								{{'PAGE.HOME.COURSES'|translate}} </a></li>
+						<li><a href="#sect-program">
+								{{'PAGE.HOME.PROGRAMS'|translate}} </a></li>		
 					</ul>
 				</div>
 			</div>
@@ -58,8 +59,12 @@
 			<li class="small-bulletin"><a href="#sect-bulletin"
 				data-uk-smooth-scroll="{offset: 48}"> <span class="menu_title">{{'PAGE.HOME.BULLETIN'|translate}}</span>
 			</a></li>
-			<li class="small-navar"><a href="#sect-program"
+			<li class="small-navar"><a href="#sect-course"
 				data-uk-smooth-scroll="{offset: 48}"> <span class="menu_title">{{'PAGE.HOME.COURSES'|translate}}
+				</span>
+			</a></li>
+			<li class="small-navar"><a href="#sect-program"
+				data-uk-smooth-scroll="{offset: 48}"> <span class="menu_title">{{'PAGE.HOME.PROGRAMS'|translate}}
 				</span>
 			</a></li>
 			<li class="small-navar"><a ng-click="vm.gotoWorkspace()"
@@ -113,7 +118,7 @@
 		</div>
 	</div>
 	<div class="uk-block courses-container-data courses-container"
-		id="sect-program">
+		id="sect-course">
 		<div class="container-home uk-container uk-container-center">
 			<h3 class="heading_b uk-text-center md-color-blue-500">{{'PAGE.HOME.AVAILABLE_COURSE_LIST'|translate}}</h3>
 			<div class="content-search uk-grid">
@@ -143,6 +148,22 @@
 			</show-more-pagination>
 		</div>
 	</div>
+	
+	
+	<div class="uk-block  "
+		id="sect-program">
+		<div class="container-home uk-container uk-container-center">
+			<h3 class="heading_b uk-text-center md-color-blue-500">{{'PAGE.HOME.AVAILABLE_PROGRAM_LIST'|translate}}</h3>
+			<div class="content-data uk-grid uk-grid-medium">
+				<div class="uk-width-1-1"
+					ng-repeat="program in vm.programs">
+					<program-card program="program"></program-card>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	
 </div>
 <footer id="footer">
 	<small> &copy; 2014-2015 <a href="#">Thanh Cong A Chau ,
