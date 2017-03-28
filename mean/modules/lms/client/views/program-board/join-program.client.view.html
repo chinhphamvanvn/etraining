@@ -1,82 +1,82 @@
 <div id="top_bar">
-  <div class="md-top-bar">
-    <ul id="menu_top" class="uk-clearfix">
-      <li class="uk-visible-large"><a ng-click="vm.gotoWorkspace()"><i
-        class="material-icons md-24">&#xE88A;</i></a></li>
-      <li class="uk-visible-large"><a
-        ui-sref="workspace.lms.programs.join.intro({programId:vm.program._id})"
-        ng-class="{'uk-text-primary':state.name.includes('intro')}"><i
-        class="material-icons md-24"
-        ng-class="{'uk-text-primary':state.name.includes('intro')}">info_outline</i><span>{{'PAGE.LMS.MY_PROGRAMS.STUDENT_BOARD.PROGRAM_INFO'|translate}}</span></a>
-      </li>
-      <li class="uk-visible-large"
-          ng-show="vm.member && vm.member.role=='student'"><a
-        ui-sref="workspace.lms.programs.join.progressbook({programId:vm.program._id})"
-        ng-class="{'uk-text-primary':state.name.includes('progressbook')}"><i
-        ng-class="{'uk-text-primary':state.name.includes('progressbook')}"
-        class="material-icons md-24">book</i><span>{{'PAGE.LMS.MY_PROGRAMS.STUDENT_BOARD.PROGRESSBOOK'|translate}}</span></a>
-      </li>
-      <li class="uk-visible-large"
-          ng-show="vm.member && vm.member.role=='manager'"><a
-        ui-sref="workspace.lms.courses.join.progressboard({programId:vm.program._id})"
-        ng-class="{'uk-text-primary':state.name.includes('progressboard')}"><i
-        ng-class="{'uk-text-primary':state.name.includes('progressboard')}"
-        class="material-icons md-24">book</i><span>{{'PAGE.LMS.MY_PROGRAMS.MANAGER_BOARD.PROGRESS'|translate}}</span></a>
-      </li>
-      
+    <div class="md-top-bar">
+        <ul id="menu_top" class="uk-clearfix">
+            <li class="uk-visible-large"><a ng-click="vm.gotoWorkspace()"><i
+                    class="material-icons md-24">&#xE88A;</i></a></li>
+            <li class="uk-visible-large"><a
+                    ui-sref="workspace.lms.programs.join.intro({programId:vm.program._id})"
+                    ng-class="{'uk-text-primary':state.name.includes('intro')}"><i
+                    class="material-icons md-24"
+                    ng-class="{'uk-text-primary':state.name.includes('intro')}">info_outline</i><span>{{'PAGE.LMS.MY_PROGRAMS.STUDENT_BOARD.PROGRAM_INFO'|translate}}</span></a>
+            </li>
+            <li class="uk-visible-large"
+                ng-show="vm.member && vm.member.role=='student'"><a
+                    ui-sref="workspace.lms.programs.join.progressbook({programId:vm.program._id})"
+                    ng-class="{'uk-text-primary':state.name.includes('progressbook')}"><i
+                    ng-class="{'uk-text-primary':state.name.includes('progressbook')}"
+                    class="material-icons md-24">book</i><span>{{'PAGE.LMS.MY_PROGRAMS.STUDENT_BOARD.PROGRESSBOOK'|translate}}</span></a>
+            </li>
+            <li class="uk-visible-large"
+                ng-show="vm.member && vm.member.role=='manager'"><a
+                    ui-sref="workspace.lms.courses.join.progressboard({programId:vm.program._id})"
+                    ng-class="{'uk-text-primary':state.name.includes('progressboard')}"><i
+                    ng-class="{'uk-text-primary':state.name.includes('progressboard')}"
+                    class="material-icons md-24">book</i><span>{{'PAGE.LMS.MY_PROGRAMS.MANAGER_BOARD.PROGRESS'|translate}}</span></a>
+            </li>
 
-      <!-- Mobile menu -->
-      <li data-uk-dropdown="justify:'#top_bar'" class="uk-hidden-large">
-        <a href="#"><i class="material-icons">&#xE5D2;</i></a>
-        <div class="uk-dropdown uk-dropdown-width-2">
-          <div class="uk-grid uk-dropdown-grid" data-uk-grid-margin>
-            <div class="uk-width-1-2">
-              <ul class="uk-nav uk-nav-dropdown">
-                <li><a ng-click="vm.gotoWorkspace()"><i
-                  class="material-icons md-24">&#xE88A;</i> {{"PAGE.HOME" |
-                  translate}}</a></li>
-              </ul>
-            </div>
 
-            <div class="uk-width-1-2">
-              <ul class="uk-nav uk-nav-dropdown">
-                <li><a
-                  ui-sref="workspace.lms.programs.join.intro({programId:vm.program._id})"
-                  ng-class="{'uk-text-primary':state.name.includes('intro')}"><i
-                  class="material-icons md-24"
-                  ng-class="{'uk-text-primary':state.name.includes('intro')}">info_outline</i><span>{{'PAGE.LMS.MY_PROGRAMS.STUDENT_BOARD.PROGRAM_INFO'|translate}}</span></a>
-                </li>
-              </ul>
-            </div>
+            <!-- Mobile menu -->
+            <li data-uk-dropdown="justify:'#top_bar'" class="uk-hidden-large">
+                <a href="#"><i class="material-icons">&#xE5D2;</i></a>
+                <div class="uk-dropdown uk-dropdown-width-2">
+                    <div class="uk-grid uk-dropdown-grid" data-uk-grid-margin>
+                        <div class="uk-width-1-2">
+                            <ul class="uk-nav uk-nav-dropdown">
+                                <li><a ng-click="vm.gotoWorkspace()"><i
+                                        class="material-icons md-24">&#xE88A;</i> {{"PAGE.HOME" |
+                                    translate}}</a></li>
+                            </ul>
+                        </div>
 
-            <div class="uk-width-1-2"
-                 ng-show="vm.member && vm.member.role=='student'">
-              <ul class="uk-nav uk-nav-dropdown">
-                <li><a
-                  ui-sref="workspace.lms.programs.join.progressbook({programId:vm.program._id})"
-                  ng-class="{'uk-text-primary':state.name.includes('progressbook')}"><i
-                  ng-class="{'uk-text-primary':state.name.includes('progressbook')}"
-                  class="material-icons md-24">book</i><span>{{'PAGE.LMS.MY_PROGRAMS.STUDENT_BOARD.PROGRESSBOOK'|translate}}</span></a>
-                </li>
-              </ul>
-            </div>
+                        <div class="uk-width-1-2">
+                            <ul class="uk-nav uk-nav-dropdown">
+                                <li><a
+                                        ui-sref="workspace.lms.programs.join.intro({programId:vm.program._id})"
+                                        ng-class="{'uk-text-primary':state.name.includes('intro')}"><i
+                                        class="material-icons md-24"
+                                        ng-class="{'uk-text-primary':state.name.includes('intro')}">info_outline</i><span>{{'PAGE.LMS.MY_PROGRAMS.STUDENT_BOARD.PROGRAM_INFO'|translate}}</span></a>
+                                </li>
+                            </ul>
+                        </div>
 
-            <div class="uk-width-1-2"
-                 ng-show="vm.member && vm.member.role=='manager'">
-              <ul class="uk-nav uk-nav-dropdown">
-                <li><a
-                  ui-sref="workspace.lms.programs.join.progressboard({programId:vm.program._id})"
-                  ng-class="{'uk-text-primary':state.name.includes('progressboard')}"><i
-                  ng-class="{'uk-text-primary':state.name.includes('progressboard')}"
-                  class="material-icons md-24">book</i><span>{{'PAGE.LMS.MY_PROGRAMS.MANAGER_BOARD.PROGRESS'|translate}}</span></a>
-                </li>
-              </ul>
-            </div>
+                        <div class="uk-width-1-2"
+                             ng-show="vm.member && vm.member.role=='student'">
+                            <ul class="uk-nav uk-nav-dropdown">
+                                <li><a
+                                        ui-sref="workspace.lms.programs.join.progressbook({programId:vm.program._id})"
+                                        ng-class="{'uk-text-primary':state.name.includes('progressbook')}"><i
+                                        ng-class="{'uk-text-primary':state.name.includes('progressbook')}"
+                                        class="material-icons md-24">book</i><span>{{'PAGE.LMS.MY_PROGRAMS.STUDENT_BOARD.PROGRESSBOOK'|translate}}</span></a>
+                                </li>
+                            </ul>
+                        </div>
 
-          </div>
-        </div>
-      </li>
-    </ul>
-  </div>
+                        <div class="uk-width-1-2"
+                             ng-show="vm.member && vm.member.role=='manager'">
+                            <ul class="uk-nav uk-nav-dropdown">
+                                <li><a
+                                        ui-sref="workspace.lms.programs.join.progressboard({programId:vm.program._id})"
+                                        ng-class="{'uk-text-primary':state.name.includes('progressboard')}"><i
+                                        ng-class="{'uk-text-primary':state.name.includes('progressboard')}"
+                                        class="material-icons md-24">book</i><span>{{'PAGE.LMS.MY_PROGRAMS.MANAGER_BOARD.PROGRESS'|translate}}</span></a>
+                                </li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
 </div>
 <div ui-view></div>
