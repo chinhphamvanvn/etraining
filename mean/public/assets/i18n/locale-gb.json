@@ -404,6 +404,8 @@
 	"ACTION.UNMARK": "Unmark",
 	"ACTION.START_QUIZ": "Start doing Test",
 	"ACTION.AUTHORIZE_COMPETENCY": "Authorize Competency",
+	"ACTION.MORE": "More",
+	"ACTION.HIDE": "Hide",
 	"DIALOG.EXAM_STUDY.PROMPT": "Do you accept to take the test?",
 	"DIALOG.EXAM_RESULT.TITLE": "Exam Result",
 	"DIALOG.SELECT_USER.TITLE": "User list",

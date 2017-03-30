@@ -1,63 +1,64 @@
 <div class="md-card md-card-hover">
-
-	<div class="md-card-content my-course-content">
-		<div class="uk-grid">
-			<div class="uk-width-1-2">
-				<div class="uk-article">
-					{{'MODEL.PROGRAM.CODE'|translate}}: {{program.code}}
-					<h3 class="uk-article-title uk-text-primary title">{{program.name}}</h3>
-						<h3 >{{"MODEL.PROGRAM.SUMMARY" |translate}}</h3>
-							<p class="uk-article-lead summary">{{program.summary}}</p>
-					<hr class="uk-article-divider">
-					<a ui-sref="workspace.lms.programs.join.intro({ programId: program._id})" class="md-btn md-btn-icon md-btn-flat "><i class="uk-icon-hand-o-up"></i>{{'ACTION.JOIN'|translate}}</a>
-				</div>
-			</div>
-			<div class="uk-width-1-2">
-				<h3 >{{'MODEL.PROGRAM.COURSE'| translate}}</h3>
-				<div class="uk-grid">
-				<div ng-repeat="course in program.courses"
-					class="uk-width-1-2 hierarchical_show"
-					id="course_list" hierarchical-show>
-					<a	ui-sref="workspace.lms.courses.join.intro({ courseId: course._id ,editionId:edition._id})">
-					<div class="md-card md-card-hover">
-						<div class="md-card-head"
-							ng-class="{'md-bg-cyan-600' : course.level=='hard'}">
-							<div class="uk-text-center">
-								<img class="md-card-head-avatar" ng-src="{{course.logoURL}}"
-									alt="" />
-							</div>
-							<h3 class="md-card-head-text uk-text-center"
-								ng-class="{'md-color-white' : course.level=='hard'}">
-								{{user.name}} <span class="uk-text-truncate">{{course.name}}</span>
-							</h3>
-						</div>
-						<div class="md-card-content">
-							<ul class="md-list">
-								<li>
-									<div class="md-list-content">
-										<span class="md-list-heading">{{'MODEL.COURSE.SUMMARY'|translate}}</span>
-										<span class="uk-text-small uk-text-muted">{{course.summary}}</span>
-									</div>
-								</li>
-								<li>
-									<div class="md-list-content">
-										<span class="md-list-heading">{{'MODEL.COURSE.EMAIL'|translate}}</span>
-										<span class="uk-text-small uk-text-muted uk-text-truncate">{{course.email}}</span>
-									</div>
-								</li>
-								<li>
-									<div class="md-list-content">
-										<span class="md-list-heading">{{'MODEL.COURSE.PHONE'|translate}}</span>
-										<span class="uk-text-small uk-text-muted">{{course.phone}}</span>
-									</div>
-								</li>
-							</ul>
-						</div>
-					</div>
-					</a>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
+    <div class="md-card-content my-course-content">
+        <div class="uk-grid">
+            <div class="uk-width-large-1-2">
+                <div class="uk-article uk-margin-bottom">
+                    {{'MODEL.PROGRAM.CODE'|translate}}: {{program.code}}
+                    <h3 class="uk-article-title uk-text-primary title">{{program.name}}</h3>
+                    <h3>{{"MODEL.PROGRAM.SUMMARY" |translate}}</h3>
+                    <p class="uk-article-lead summary">{{program.summary | truncateWord: 12}}</p>
+                    <hr class="uk-article-divider">
+                    <a ui-sref="workspace.lms.programs.join.intro({ programId: program._id})"
+                       class="md-btn md-btn-icon md-btn-flat "><i class="uk-icon-hand-o-up"></i>{{'ACTION.JOIN'|translate}}</a>
+                </div>
+            </div>
+            <div class="uk-width-large-1-2">
+                <h3>{{'MODEL.PROGRAM.COURSE'| translate}}</h3>
+                <div class="uk-grid uk-grid-medium">
+                    <div ng-repeat="course in program.courses"
+                         class="uk-width-large-1-2 uk-width-medium-1-2 uk-margin-bottom hierarchical_show"
+                         id="course_list" hierarchical-show>
+                        <a ui-sref="workspace.lms.courses.join.intro({ courseId: course._id ,editionId:edition._id})">
+                            <div class="md-card md-card-hover">
+                                <div class="md-card-head"
+                                     ng-class="{'md-bg-cyan-600' : course.level=='hard'}">
+                                    <div class="uk-text-center">
+                                        <img class="md-card-head-avatar" ng-src="{{course.logoURL}}"
+                                             alt=""/>
+                                    </div>
+                                    <h3 class="md-card-head-text uk-text-center"
+                                        ng-class="{'md-color-white' : course.level=='hard'}">
+                                        {{user.name}} <span class="uk-text-truncate">{{course.name}}</span>
+                                    </h3>
+                                </div>
+                                <div class="md-card-content">
+                                    <ul class="md-list">
+                                        <li>
+                                            <div class="md-list-content">
+                                                <span class="md-list-heading">{{'MODEL.COURSE.SUMMARY'|translate}}</span>
+                                                <toggle-text text="course.summary" number-of-word="8"
+                                                             class-name="'uk-text-small uk-text-muted'"></toggle-text>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="md-list-content">
+                                                <span class="md-list-heading">{{'MODEL.COURSE.EMAIL'|translate}}</span>
+                                                <span class="uk-text-small uk-text-muted uk-text-truncate">{{course.email}}</span>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="md-list-content">
+                                                <span class="md-list-heading">{{'MODEL.COURSE.PHONE'|translate}}</span>
+                                                <span class="uk-text-small uk-text-muted">{{course.phone}}</span>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
