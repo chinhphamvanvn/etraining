@@ -18,6 +18,7 @@
             link: function (scope, element, attributes) {
                 scope.courses = [];
                 _.each(scope.program.courses, function (courseId) {
+                    courseId = (typeof courseId === 'string') ? courseId : courseId._id;
                     CoursesService.get({courseId: courseId}, function (course) {
                         scope.courses.push(course);
                         course.percentage = 0;
