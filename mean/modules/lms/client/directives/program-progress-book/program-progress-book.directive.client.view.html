@@ -1,53 +1,53 @@
 <div id="page_content">
-	<div id="page_content_inner">
-			<table
-				class="uk-table uk-table-nowrap uk-table-condensed uk-table-hover">
-				<thead>
-					<tr>
-						<th class="uk-width-1-10 uk-text-center">{{'MODEL.COURSE.CODE'|translate}}</th>
-						<th class="uk-width-2-10 uk-text-center">{{'MODEL.COURSE.NAME'|translate}}</th>
-						<th class="uk-width-1-10 uk-text-center uk-hidden-small">{{'MODEL.MEMBER.REGISTER_DATE'|translate}}</th>
-						<th class="uk-width-1-10  uk-text-center uk-hidden-small">{{'MODEL.MEMBER.STATUS'|translate}}</th>
-						<th class="uk-width-1-10 uk-text-center">{{'MODEL.MEMBER.ENROLL_STATUS'|translate}}</th>
-						<th class="uk-width-3-10 uk-text-center">{{'COMMON.PROGRESS_PERCENTAGE'|translate}}</th>
-						<th class="uk-width-1-10 uk-text-center ">{{'COMMON.PASS'|translate}}</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr ng-repeat="course in courses">
-						<td class="uk-text-center">{{course.code}}</td>
-						<td class="uk-text-center">{{course.name}}</td>
-						<td class="uk-text-center uk-hidden-small">{{course.member.registered
-							| date:'dd-MM-yyyy'}}</td>
-						<td class="uk-text-center uk-hidden-small"><span
-							ng-show="course.member.status=='active'"
-							class="uk-badge uk-badge-success">active</span> <span
-							ng-show="course.member.status=='withdrawn'"
-							class="uk-badge uk-badge-warning">withdrawn</span> <span
-							ng-show="course.member.status=='suspended'"
-							class="uk-badge uk-badge-danger">suspended</span></td>
-						<td><span ng-show="course.member.enrollmentStatus=='completed'"
-							class="uk-badge uk-badge-success">{{'COMMON.ENROLL.COMPLETED'|translate}}</span>
-							<span ng-show="course.member.enrollmentStatus=='in-study'"
-							class="uk-badge uk-badge-primary">{{'COMMON.ENROLL.INSTUDY'|translate}}</span>
-							<span ng-show="course.member.enrollmentStatus=='registered'"
-							class="uk-badge ">{{'COMMON.ENROLL.REGISTERED'|translate}}</span>
-						</td>
-						<td class="uk-text-center">
-							<div class="uk-progress ">
-								<div class="uk-progress-bar" style="width: {{course.percentage">{{course.percentage}}%</div>
-							</div>
-						</td>
-						<td class="uk-text-center">
+    <div id="page_content_inner" class="uk-overflow-container">
+        <table class="uk-table uk-table-nowrap uk-table-condensed uk-table-hover">
+            <thead>
+            <tr>
+                <th class="uk-width-1-10 uk-text-center">{{'MODEL.COURSE.CODE'|translate}}</th>
+                <th class="uk-width-2-10 uk-text-center">{{'MODEL.COURSE.NAME'|translate}}</th>
+                <th class="uk-width-1-10 uk-text-center uk-hidden-small">{{'MODEL.MEMBER.REGISTER_DATE'|translate}}</th>
+                <th class="uk-width-1-10 uk-text-center uk-hidden-small">{{'MODEL.MEMBER.STATUS'|translate}}</th>
+                <th class="uk-width-1-10 uk-text-center">{{'MODEL.MEMBER.ENROLL_STATUS'|translate}}</th>
+                <th class="uk-width-3-10 uk-text-center">{{'COMMON.PROGRESS_PERCENTAGE'|translate}}</th>
+                <th class="uk-width-1-10 uk-text-center ">{{'COMMON.PASS'|translate}}</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="course in courses">
+                <td>{{course.code}}</td>
+                <td>{{course.name}}</td>
+                <td class="uk-text-center uk-hidden-small">{{course.member.registered
+                    | date:'dd-MM-yyyy'}}
+                </td>
+                <td class="uk-text-center uk-hidden-small"><span
+                        ng-show="course.member.status=='active'"
+                        class="uk-badge uk-badge-success">active</span> <span
+                        ng-show="course.member.status=='withdrawn'"
+                        class="uk-badge uk-badge-warning">withdrawn</span> <span
+                        ng-show="course.member.status=='suspended'"
+                        class="uk-badge uk-badge-danger">suspended</span></td>
+                <td><span ng-show="course.member.enrollmentStatus=='completed'"
+                          class="uk-badge uk-badge-success">{{'COMMON.ENROLL.COMPLETED'|translate}}</span>
+                    <span ng-show="course.member.enrollmentStatus=='in-study'"
+                          class="uk-badge uk-badge-primary">{{'COMMON.ENROLL.INSTUDY'|translate}}</span>
+                    <span ng-show="course.member.enrollmentStatus=='registered'"
+                          class="uk-badge ">{{'COMMON.ENROLL.REGISTERED'|translate}}</span>
+                </td>
+                <td class="uk-text-center">
+                    <div class="uk-progress ">
+                        <div class="uk-progress-bar" style="width: {{course.percentage}}%">{{course.percentage}}%</div>
+                    </div>
+                </td>
+                <td class="uk-text-center">
 							<span ng-show="course.member.enrollmentStatus=='completed'">
 							<i class="uk-icon-check uk-text-success"></i>
 							</span>
-							<span ng-show="course.member.enrollmentStatus!='completed'">
+                    <span ng-show="course.member.enrollmentStatus!='completed'">
 							<i class="uk-icon-remove uk-text-danger"></i>
 							</span>
-							</td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 </div>

@@ -17,9 +17,10 @@ function MyProgramsListController($scope, $state, $window, Authentication, $time
                 member.program.percentage = 0;
             if (member.enrollmentStatus =='completed')
                 member.program.percentage = 100;
-            programUtils.memberProgress(member._id,edition._id).then(function(progress) {
+
+            programUtils.memberProgress(member._id, member.program._id).then(function(progress) {
                 member.program.percentage = progress.completePercentage;
-            });      
+            });
         })
     });
     vm.unenroll = unenroll;
