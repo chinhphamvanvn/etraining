@@ -19,8 +19,8 @@
 				</div>
 				<!-- md-card-content-->
 				<div class="" id="todo_list" style="min-height: 75vh;">
-					<ul class="md-list md-list-addon uk-margin-small-bottom">
-						<li ng-repeat="topic in vm.topics">
+					<ul class="uk-grid md-list md-list-addon uk-margin-small-bottom">
+						<li ng-repeat="topic in vm.topics" class="uk-width-medium-2-5" style="margin-right: 10px;">
 							<div class="md-list-addon-element">
 								<i ng-show="!topic.expand" ng-click="vm.expand(topic)"
 									class="md-icon material-icons md-36">arrow_drop_down</i> <i
