@@ -8,9 +8,11 @@
 					<div class="content-table-gradebook md-card-content">
 						<div class="uk-margin-bottom">
 							<label class="uk-form-label">{{'PAGE.REPORTS.EXAM_RESULT.SELECT_EXAM'|translate}}</label>
-							<input ng-change="vm.selectSchedule()" name="exam" id="exam"
-								type="text" config="vm.scheduleConfig"
-								options="vm.scheduleOptions" ng-model="vm.scheduleId" selectize />
+							<div class="uk-grid" style="padding-bottom: 15px;">
+								<div class="uk-width-medium-1-2">
+									<input ng-change="vm.selectSchedule()" name="exam" id="exam" type="text" config="vm.scheduleConfig" options="vm.scheduleOptions" ng-model="vm.scheduleId"  selectize placeholder="--Select--" />
+								</div>
+							</div>
 						</div>
 						<div class="uk-overflow-container table-border">
 							<table class="uk-table uk-table-hover uk-table-condensed"
