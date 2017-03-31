@@ -733,10 +733,24 @@ span.date::before, span.capitalize::before {
     .md-btn-icon-small, .md-btn-icon.md-btn-small {
         min-width: 35px;
     }
+    .text-title-program {
+      margin-right: 75px;
+      font-size: 20px;
+    }
+    .text-title-program + a.md-btn-icon {
+      margin-top: -55px;
+    }
 }
 @media (max-width: 350px) {
     .md-card .md-card-toolbar div.md-card-toolbar-actions {
       padding-top: 0px;
+    }
+    .text-title-program {
+      margin-right: 75px;
+      font-size: 18px;
+    }
+    .text-title-program + a.md-btn-icon {
+      margin-top: -55px;
     }
 }
 @media (min-width: 768px){
@@ -760,6 +774,10 @@ span.date::before, span.capitalize::before {
     padding-bottom: 0px;
     margin-bottom: -15px;
   }
+  .content-meta-data > .title-program-author-info {
+    height: 40px;
+    font-size: 13px;
+  }
 }
 .table-border > .uk-table {
   border: 1px solid;
@@ -769,4 +787,14 @@ span.date::before, span.capitalize::before {
 }
 .table-border >.uk-table td, .table-border >.uk-table th {
   border-right: 1px solid;
+}
+@media (min-width: 376px) {
+  .text-title-program {
+    margin-right: 110px;
+    font-size: 23px;
+  }
+
+  .text-title-program + a.md-btn-icon {
+    margin-top: -50px;
+  }
 }
