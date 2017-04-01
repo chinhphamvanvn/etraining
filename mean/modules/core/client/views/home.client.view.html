@@ -120,10 +120,10 @@
 	<div class="uk-block courses-container-data courses-container"
 		id="sect-course">
 		<div class="container-home uk-container uk-container-center">
-			<h3 class="heading_b uk-text-center md-color-blue-500">{{'PAGE.HOME.AVAILABLE_COURSE_LIST'|translate}}</h3>
-			<div class="content-search uk-grid">
-				<div
-					class="main-search-box uk-width-large-6-10 uk-container-center uk-text-center">
+			<div class="uk-grid">
+			<h3 class="uk-width-small-1-2 heading_b uk-text-center md-color-blue-500">{{'PAGE.HOME.AVAILABLE_COURSE_LIST'|translate}}</h3>
+			<div class="uk-width-small-1-2 content-search uk-grid" style="margin-top: 0px;">
+				<div class="main-search-box uk-width-large-10-12 uk-container-center uk-text-center">
 					<input type="text"
 						placeholder="{{'MODEL.COURSE.SEARCH' | translate}}"
 						ng-model="vm.keyword"
@@ -131,6 +131,7 @@
 					<a ng-click="vm.gotoSearch()"><i
 						class="uk-icon-hover uk-icon-search vi-btn-search"></i></a>
 				</div>
+			</div>
 			</div>
 			<div class="content-data uk-grid uk-grid-medium">
 				<div
@@ -155,7 +156,7 @@
 		<div class="container-home uk-container uk-container-center">
 			<h3 class="heading_b uk-text-center md-color-blue-500">{{'PAGE.HOME.AVAILABLE_PROGRAM_LIST'|translate}}</h3>
 			<div class="content-data uk-grid uk-grid-medium">
-				<div class="uk-width-1-1"
+				<div class="uk-width-1-1 course-card-home"
 					ng-repeat="program in vm.programs">
 					<program-card program="program"></program-card>
 				</div>
