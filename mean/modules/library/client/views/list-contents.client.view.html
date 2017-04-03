@@ -4,9 +4,8 @@
 			| translate}}</h3>
 
 		<div class="uk-grid" data-uk-grid-margin>
-			<div class="uk-width-medium-1-3">
-				<div class="md-card" ng-show="!vm.editMode"
-					style="background: #f7f7f7;">
+			<div class="uk-width-medium-1-3" ng-show="!vm.editMode">
+				<div class="md-card" ng-show="!vm.editMode" style="background: #f7f7f7;">
 					<div class="md-card-toolbar">
 						<div class="md-card-toolbar-actions">
 							<a ng-click="vm.editMode=true"><i
@@ -44,6 +43,8 @@
 						</ul>
 					</div>
 				</div>
+			</div>
+			<div class="uk-width-medium-3-5" ng-show="vm.editMode">
 				<div class="md-card" ng-show="vm.editMode">
 					<div class="md-card-toolbar">
 						<div class="md-card-toolbar-actions">

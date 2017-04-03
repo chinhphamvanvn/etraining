@@ -1,121 +1,129 @@
 <div id="page_content">
-	<div id="page_content_inner">
-		<h3 class="heading_b uk-margin-bottom">{{'PAGE.PERFORMANCE.QUESTION_BANK.TITLE'|
-			translate}}</h3>
+    <div id="page_content_inner">
+        <h3 class="heading_b uk-margin-bottom">{{'PAGE.PERFORMANCE.QUESTION_BANK.TITLE'|
+            translate}}</h3>
 
-		<div class="uk-grid" data-uk-grid-margin>
-			<div class="uk-width-medium-4-10">
-				<div class="md-card" ng-show="!vm.editMode">
-					<div class="md-card-toolbar">
-						<div class="md-card-toolbar-actions">
-							<a ng-click="vm.editMode = true"><i
-								class="material-icons md-24 " data-uk-tooltip="{pos:'top'}"
-								title="{{'PAGE.PERFORMANCE.CATEGORY.UPDATE_TITLE'|translate}}">edit</i></a>
-						</div>
-						<h3 class="md-card-toolbar-heading-text uk-text-upper">
-							{{'PAGE.PERFORMANCE.CATEGORY.TITLE'| translate}}</h3>
-					</div>
-					<div class="md-card-content">
-						<group-tree-view tree-id="'questionTree'" mode="'single'"
-							category="'question'" select="vm.selectGroup"></group-tree-view>
-					</div>
-				</div>
-				<div class="md-card" ng-show="vm.editMode">
-					<div class="md-card-toolbar">
-						<div class="md-card-toolbar-actions">
-							<a ng-click="vm.finishEditQuestionTree()"><i
-								class="material-icons md-24 " data-uk-tooltip="{pos:'top'}"
-								title="{{'ACTION.CLOSE'|translate}}">close</i></a>
-						</div>
-						<h3 class="md-card-toolbar-heading-text uk-text-upper">
-							{{'PAGE.PERFORMANCE.CATEGORY.TITLE'| translate}}</h3>
-					</div>
-					<div class="md-card-content">
-						<group-tree-edit tree-id="'questionEditTree'"
-							category="'question'"></group-tree-edit>
-					</div>
-				</div>
-			</div>
-			<div class="uk-width-medium-6-10">
-				<div class="md-card" ng-show="!vm.editMode">
-					<div class="md-card-toolbar">
-						<div class="md-card-toolbar-actions">
-							<div class="uk-button-dropdown" data-uk-dropdown="{mode:'click'}">
-								<a class="md-btn md-btn-flat md-btn-icon md-btn-wave-light"><i
-									class="uk-icon-plus uk-text-success"></i>{{'ACTION.CREATE_QUESTION'|translate}}</a>
-								<div class="uk-dropdown">
-									<ul class="uk-nav uk-nav-dropdown">
-										<li class="uk-nav-header"><a
-											ng-click="vm.createQuestion('sc')">{{'COMMON.QUESTION_TYPE.SC'|translate}}</a></li>
-										<li class="uk-nav-header"><a
-											ng-click="vm.createQuestion('mc')">{{'COMMON.QUESTION_TYPE.MC'|translate}}</a></li>
-										<li class="uk-nav-header"><a
-											ng-click="vm.createQuestion('tf')">{{'COMMON.QUESTION_TYPE.TF'|translate}}</a></li>
-										<li class="uk-nav-header"><a
-											ng-click="vm.createQuestion('fb')">{{'COMMON.QUESTION_TYPE.FB'|translate}}</a></li>
-									</ul>
-								</div>
-							</div>
+        <div class="uk-grid" data-uk-grid-margin>
+            <div class="uk-width-medium-4-10" ng-show="!vm.editMode">
+                <div class="md-card" ng-show="!vm.editMode">
+                    <div class="md-card-toolbar">
+                        <div class="md-card-toolbar-actions">
+                            <a ng-click="vm.editMode = true">
+                                <i class="material-icons md-24 " data-uk-tooltip="{pos:'top'}"
+                                   title="{{'PAGE.PERFORMANCE.CATEGORY.UPDATE_TITLE'|translate}}">edit</i>
+                            </a>
+                        </div>
+                        <h3 class="md-card-toolbar-heading-text uk-text-upper">
+                            {{'PAGE.PERFORMANCE.CATEGORY.TITLE'| translate}}</h3>
+                    </div>
+                    <div class="md-card-content">
+                        <group-tree-view tree-id="'questionTree'" mode="'single'"
+                                         category="'question'" select="vm.selectGroup"></group-tree-view>
+                    </div>
+                </div>
+            </div>
+            <div class="uk-width-medium-3-5" ng-show="vm.editMode">
+                <div class="md-card" ng-show="vm.editMode">
+                    <div class="md-card-toolbar">
+                        <div class="md-card-toolbar-actions">
+                            <a ng-click="vm.finishEditQuestionTree()"><i
+                                    class="material-icons md-24 " data-uk-tooltip="{pos:'top'}"
+                                    title="{{'ACTION.CLOSE'|translate}}">close</i></a>
+                        </div>
+                        <h3 class="md-card-toolbar-heading-text uk-text-upper">
+                            {{'PAGE.PERFORMANCE.CATEGORY.TITLE'| translate}}</h3>
+                    </div>
+                    <div class="md-card-content">
+                        <group-tree-edit tree-id="'questionEditTree'"
+                                         category="'question'"></group-tree-edit>
+                    </div>
+                </div>
+            </div>
+            <div class="uk-width-medium-6-10">
+                <div class="md-card" ng-show="!vm.editMode">
+                    <div class="md-card-toolbar">
+                        <div class="md-card-toolbar-actions">
+                            <div class="uk-button-dropdown" data-uk-dropdown="{mode:'click'}">
+                                <a class="md-btn md-btn-flat md-btn-icon md-btn-wave-light"><i
+                                        class="uk-icon-plus uk-text-success"></i>{{'ACTION.CREATE_QUESTION'|translate}}</a>
+                                <div class="uk-dropdown">
+                                    <ul class="uk-nav uk-nav-dropdown">
+                                        <li class="uk-nav-header"><a
+                                                ng-click="vm.createQuestion('sc')">{{'COMMON.QUESTION_TYPE.SC'|translate}}</a>
+                                        </li>
+                                        <li class="uk-nav-header"><a
+                                                ng-click="vm.createQuestion('mc')">{{'COMMON.QUESTION_TYPE.MC'|translate}}</a>
+                                        </li>
+                                        <li class="uk-nav-header"><a
+                                                ng-click="vm.createQuestion('tf')">{{'COMMON.QUESTION_TYPE.TF'|translate}}</a>
+                                        </li>
+                                        <li class="uk-nav-header"><a
+                                                ng-click="vm.createQuestion('fb')">{{'COMMON.QUESTION_TYPE.FB'|translate}}</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
 
-							<a class="md-btn md-btn-flat md-btn-icon md-btn-wave-light hidden-xs"
-								data-uk-modal="{target:'#import_question_dialog'}"><i
-								class="uk-icon-upload"></i>{{'ACTION.IMPORT'|translate}}</a>
-						</div>
+                            <a class="md-btn md-btn-flat md-btn-icon md-btn-wave-light hidden-xs"
+                               data-uk-modal="{target:'#import_question_dialog'}"><i
+                                    class="uk-icon-upload"></i>{{'ACTION.IMPORT'|translate}}</a>
+                        </div>
 
-					</div>
-					<div class="md-card-content questions-list">
-						<table class="uk-table uk-table-hover uk-table-condensed"
-							cellspacing="0" width="100%">
-							<thead>
-								<tr>
-									<th class="uk-text-center uk-width-5-10">{{'MODEL.QUESTION.TITLE'|translate}}</th>
-									<th class="uk-text-center uk-width-3-10">{{'MODEL.QUESTION.TYPE'|translate}}</th>
-									<th class="uk-width-2-10"></th>
-								</tr>
+                    </div>
+                    <div class="md-card-content questions-list">
+                        <table class="uk-table uk-table-hover uk-table-condensed"
+                               cellspacing="0" width="100%">
+                            <thead>
+                            <tr>
+                                <th class="uk-text-center uk-width-5-10">{{'MODEL.QUESTION.TITLE'|translate}}</th>
+                                <th class="uk-text-center uk-width-3-10">{{'MODEL.QUESTION.TYPE'|translate}}</th>
+                                <th class="uk-width-2-10"></th>
+                            </tr>
 
-							</thead>
-							<tbody>
-								<tr ng-repeat="question in vm.questions">
-									<td class="uk-width-5-10" style="vertical-align: middle">{{question.title
-										| limitTo: 50}}</td>
-									<td class="uk-width-3-10"><span
-										ng-show="question.type == 'sc'">{{'COMMON.QUESTION_TYPE.SC'|translate}}</span>
-										<span ng-show="question.type == 'mc'">{{'COMMON.QUESTION_TYPE.MC'|translate}}</span>
-										<span ng-show="question.type == 'tf'">{{'COMMON.QUESTION_TYPE.TF'|translate}}</span>
-										<span ng-show="question.type == 'fb'">{{'COMMON.QUESTION_TYPE.FB'|translate}}</span>
-									</td>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="question in vm.questions">
+                                <td class="uk-width-5-10" style="vertical-align: middle">{{question.title
+                                    | limitTo: 50}}
+                                </td>
+                                <td class="uk-width-3-10"><span
+                                        ng-show="question.type == 'sc'">{{'COMMON.QUESTION_TYPE.SC'|translate}}</span>
+                                    <span ng-show="question.type == 'mc'">{{'COMMON.QUESTION_TYPE.MC'|translate}}</span>
+                                    <span ng-show="question.type == 'tf'">{{'COMMON.QUESTION_TYPE.TF'|translate}}</span>
+                                    <span ng-show="question.type == 'fb'">{{'COMMON.QUESTION_TYPE.FB'|translate}}</span>
+                                </td>
 
-									<td class="uk-width-2-10" style="padding: 8px 0px; width: 93px">
-										<a
-										ui-sref="admin.workspace.performance.question.edit({questionId:question._id})"
-										data-uk-tooltip="{pos:'right'}"
-										title="{{'ACTION.EDIT'|translate}}" class="fl-left"><i
-											class="md-icon material-icons fix-icon-size">edit</i></a> <a
-										ui-sref="admin.workspace.performance.question.view({questionId:question._id})"
-										data-uk-tooltip="{pos:'right'}"
-										title="{{'ACTION.VIEW'|translate}}" class="fl-left"><i
-											class="md-icon material-icons fix-icon-size">info_outline</i></a>
-										<a data-uk-tooltip="{pos:'right'}"
-										title="{{'ACTION.DELETE'|translate}}"
-										ng-click="vm.remove(question)" class="fl-left"><i
-											class="md-icon material-icons uk-text-danger fix-icon-size">delete</i></a>
-										<div class="clear"></div>
-									</td>
-								</tr>
-							</tbody>
-						</table>
-						<div class="uk-text-center showmore-container">
-							<show-more-pagination curr-page="vm.currPage"
-								items-per-page="vm.itemsPerPage" items="vm.questions"
-								total-items="vm.totalQuestions"
-								ng-show="vm.questions.length < vm.totalQuestions.length"></show-more-pagination>
-						</div>
-					</div>
+                                <td class="uk-width-2-10" style="padding: 8px 0px; width: 93px">
+                                    <a
+                                            ui-sref="admin.workspace.performance.question.edit({questionId:question._id})"
+                                            data-uk-tooltip="{pos:'right'}"
+                                            title="{{'ACTION.EDIT'|translate}}" class="fl-left"><i
+                                            class="md-icon material-icons fix-icon-size">edit</i></a> <a
+                                        ui-sref="admin.workspace.performance.question.view({questionId:question._id})"
+                                        data-uk-tooltip="{pos:'right'}"
+                                        title="{{'ACTION.VIEW'|translate}}" class="fl-left"><i
+                                        class="md-icon material-icons fix-icon-size">info_outline</i></a>
+                                    <a data-uk-tooltip="{pos:'right'}"
+                                       title="{{'ACTION.DELETE'|translate}}"
+                                       ng-click="vm.remove(question)" class="fl-left"><i
+                                            class="md-icon material-icons uk-text-danger fix-icon-size">delete</i></a>
+                                    <div class="clear"></div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <div class="uk-text-center showmore-container">
+                            <show-more-pagination curr-page="vm.currPage"
+                                                  items-per-page="vm.itemsPerPage" items="vm.questions"
+                                                  total-items="vm.totalQuestions"
+                                                  ng-show="vm.questions.length < vm.totalQuestions.length"></show-more-pagination>
+                        </div>
+                    </div>
 
-				</div>
-			</div>
-		</div>
-	</div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <div
-	ng-include="'/modules/performance/client/modals/import-questions-client.dialog.html'"></div>
+        ng-include="'/modules/performance/client/modals/import-questions-client.dialog.html'"></div>
