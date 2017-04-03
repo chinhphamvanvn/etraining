@@ -42,7 +42,8 @@
         if (!allowed) {
           event.preventDefault();
           if (Authentication.user !== null && typeof Authentication.user === 'object') {
-            $state.transitionTo('authentication.signin');
+            // $state.transitionTo('authentication.signin');
+              $state.go('authentication.signin');
           } else {
             $state.go('authentication.signin').then(function () {
              //  Record previous state
