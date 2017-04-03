@@ -31,6 +31,7 @@ function LibraryController($scope, $state, $window, Authentication, $timeout, Li
     });
 
     vm.getAllMedias = function() {
+        vm.group = "";
       vm.selectMedia = vm.allMedias;
     };
 
@@ -53,6 +54,7 @@ function LibraryController($scope, $state, $window, Authentication, $timeout, Li
             };
     function toggleExpand(node) {
         node.data.mediumList = [];
+        vm.group = [node.data._id];
         vm.number = 0;
         var childsNode = treeUtils.buildGroupListInOrder([node]);
         childsNode.map(function(child) {

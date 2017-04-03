@@ -73,6 +73,7 @@ function LmsCoursesListController($scope, $state, $window, Authentication, $time
             };
     function toggleExpand(node) {
         node.data.coursesList = [];
+        vm.group = [node.data._id];
         var courses = [];
         var childsNode = treeUtils.buildGroupListInOrder([node]);
         childsNode.map(function(child) {
@@ -126,6 +127,7 @@ function LmsCoursesListController($scope, $state, $window, Authentication, $time
     }
 
     function selsetAll(){
+        vm.group = '';
         vm.selectedCourse = vm.fullCourses;
     }
 }
