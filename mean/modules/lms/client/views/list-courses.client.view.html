@@ -7,10 +7,10 @@
             </div>
             <div class="search-box uk-width-large-4-10 uk-width-medium-1-2">
                 <a class="uk-icon-hover uk-icon-search uk-align-right vi-btn-search"
-                   ng-click="vm.gotoSearch()"></a> <input type="text"
-                                                          placeholder="{{'MODEL.COURSE.SEARCH' | translate}}"
-                                                          class="uk-align-right" ng-model="vm.keyword"
-                                                          ng-keypress="(($event.which === 13) || ($event.keyCode === 13))&& vm.gotoSearch()">
+                   ng-click="vm.gotoSearch()"></a>
+                <input type="text" placeholder="{{'MODEL.COURSE.SEARCH' | translate}}" class="uk-align-right"
+                       ng-model="vm.keyword"
+                       ng-keypress="(($event.which === 13) || ($event.keyCode === 13))&& vm.gotoSearch()">
             </div>
         </div>
         <div class="md-card md-card-courses">

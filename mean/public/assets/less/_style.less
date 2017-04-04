@@ -318,6 +318,21 @@ div.fancytree-checkbox > .fancytree-container {
   .sort-select {
     float: none;
   }
+  .uk-grid > div.body-program-view {
+    padding-left: 0px;
+  }
+  #program_list {
+    padding-left: 20px;
+  }
+  .md-list > .summary-program {
+    padding-top: 0px;
+    padding-bottom: 0px;
+  }
+  .body-program-view > ul.md-list {
+    padding: 5px;
+    padding-top: 0px;
+    min-height: 40px;
+  }
 }
 
 .lecture-video {
@@ -564,6 +579,9 @@ span.date::before, span.capitalize::before {
   .md-list > li > .md-list-content .md-list-action {
         margin-right: 64px;
   }
+  .md-card .md-card-toolbar {
+    height: initial;
+  }
 }
 
 @media only screen and (min-width: 768px) and (max-width: 959px) {
@@ -740,6 +758,25 @@ span.date::before, span.capitalize::before {
     .text-title-program + a.md-btn-icon {
       margin-top: -55px;
     }
+    .md-card-toolbar > .md-card-toolbar-heading-text {
+      height: initial;
+      line-height: 1.5em;
+    }
+    .md-icon {
+      font-size: 19px;
+    }
+    .md-card-toolbar-heading-text > .uk-icon-small {
+      font-size: 19px;
+      margin-right: 5px;
+    }
+    .uk-button-dropdown > .md-card-toolbar-heading-text {
+      height: initial;
+      line-height: 2.4em;
+    }
+    #program_list {
+      padding-left: 20px;
+      padding-right: 20px;
+    }
 }
 @media (max-width: 350px) {
     .md-card .md-card-toolbar div.md-card-toolbar-actions {
@@ -755,6 +792,9 @@ span.date::before, span.capitalize::before {
     .main-search-box {
       margin-right: -30px;
       padding-left: 0px;
+    }
+    .uk-grid-small {
+      margin-left: 0px;
     }
 }
 @media (min-width: 768px){
@@ -801,6 +841,15 @@ span.date::before, span.capitalize::before {
   .text-title-program + a.md-btn-icon {
     margin-top: -50px;
   }
+  .md-card-toolbar-heading-text > .uk-icon-small {
+    margin-right: 10px;
+  }
+  .md-card .md-card-toolbar div.md-card-toolbar-actions {
+    padding-top: 5px;
+  }
+  div.md-card-toolbar-actions > .icheck-inline {
+    margin: 0 16px 0px 0;
+  }
 }
 .dataTables_wrapper .dt-uikit-header {
   margin-bottom: 0px;
@@ -819,5 +868,16 @@ span.date::before, span.capitalize::before {
   }
   .container-home > .uk-grid > .content-search {
     width: 100%;
+  }
+}
+.uk-thumbnail {
+  padding: 0px;
+}
+#sidebar_main .menu_section > ul > li > a > .menu_icon {
+  width: 38px;
+}
+@media (min-width: 480px){
+  .body-program-view > ul.md-list {
+    padding: 5px;
   }
 }
