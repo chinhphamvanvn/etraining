@@ -18,7 +18,6 @@
     vm.itemsPerPage = 10;
 
     function selectGroup(groups) {
-      console.log('select groups');
         vm.groups = groups;
         vm.currPage = 1;
         vm.questions = [];
@@ -56,7 +55,8 @@
                 question.$remove(function() {
                     vm.totalQuestions = _.reject(vm.totalQuestions ,function(q) {
                         return q._id == question._id;
-                    })
+                    });
+                    vm.questions = vm.totalQuestions.slice(0, vm.itemsPerPage);
                 });
             });
     }

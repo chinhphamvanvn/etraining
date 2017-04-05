@@ -82,7 +82,7 @@ a:active {
 }
 .heading_b {
   margin: 0;
-  font: 300 32px / 36px "Roboto", sans-serif;
+  font: 400 32px / 36px "Roboto", sans-serif;
 }
 .heading_b .sub-heading {
   font-weight: 300;
@@ -93,7 +93,7 @@ a:active {
 }
 @media only screen and (max-width: 959px) {
   .heading_b {
-    font: 300 28px / 32px "Roboto", sans-serif;
+    font: 400 28px / 32px "Roboto", sans-serif;
   }
   .heading_b .sub-heading {
     font-size: 18px;
