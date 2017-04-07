@@ -1,4 +1,4 @@
-(function () {
+(function() {
   'use strict';
 
   // Setting up route
@@ -18,7 +18,7 @@
         controller: 'WorkspaceController',
         controllerAs: 'vm',
         resolve: {
-            userResolve: getUser
+          userResolve: getUser
         },
         data: {
           roles: ['user']
@@ -31,7 +31,7 @@
         controller: 'WorkspaceController',
         controllerAs: 'vm',
         resolve: {
-            userResolve: getUser
+          userResolve: getUser
         },
         data: {
           roles: ['admin']
@@ -39,10 +39,10 @@
       });
   }
 
-  
-  getUser.$inject = [ 'UsersService'];
 
-  function getUser( UsersService) {
-      return UsersService.me().$promise;
+  getUser.$inject = ['UsersService'];
+
+  function getUser(UsersService) {
+    return UsersService.me().$promise;
   }
 }());

@@ -1,5 +1,5 @@
 // Annoucements service used to communicate Annoucements REST endpoints
-(function () {
+(function() {
   'use strict';
 
   angular
@@ -16,14 +16,14 @@
         method: 'PUT'
       },
       listPublished: {
-          url:'/api/annoucements/public',
-          method: 'GET',
-          isArray:true
-        }, 
-        distribute: {
-            url:'/api/annoucements/distribute/:annoucementId/:users',
-            method: 'POST',
-          }, 
+        url: '/api/annoucements/public',
+        method: 'GET',
+        isArray: true
+      },
+      distribute: {
+        url: '/api/annoucements/distribute/:annoucementId/:users',
+        method: 'POST'
+      }
     });
   }
 }());

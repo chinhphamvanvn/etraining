@@ -17,12 +17,12 @@ var EditionSectionSchema = new Schema({
     trim: true
   },
   edition: {
-      type: Schema.ObjectId,
-      ref: 'CourseEdition'
+    type: Schema.ObjectId,
+    ref: 'CourseEdition'
   },
   parent: {
-      type: Schema.ObjectId,
-      ref: 'EditionSection'
+    type: Schema.ObjectId,
+    ref: 'EditionSection'
   },
   order: {
     type: Number,
@@ -37,23 +37,23 @@ var EditionSectionSchema = new Schema({
   },
   contentType: {
     type: String,
-    enum: ['html', 'test', 'video', 'survey'],
+    enum: ['html', 'test', 'video', 'survey']
   },
   html: {
-      type: Schema.ObjectId,
-      ref: 'Html'
+    type: Schema.ObjectId,
+    ref: 'Html'
   },
   survey: {
-      type: Schema.ObjectId,
-      ref: 'Exam'
+    type: Schema.ObjectId,
+    ref: 'Exam'
   },
   quiz: {
-      type: Schema.ObjectId,
-      ref: 'Exam'
+    type: Schema.ObjectId,
+    ref: 'Exam'
   },
   video: {
-      type: Schema.ObjectId,
-      ref: 'Video'
+    type: Schema.ObjectId,
+    ref: 'Video'
   },
   created: {
     type: Date,

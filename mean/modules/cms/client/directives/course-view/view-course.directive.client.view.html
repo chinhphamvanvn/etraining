@@ -60,8 +60,8 @@
 						<div class="md-list-content">
 							<span class="md-list-heading uk-text-truncate"><a href="#"><i
 									class="md-icon material-icons uk-text-primary">grade</i>
-									{{'MODEL.COURSE.DIFFICULTY'|translate}}</a></span> <span
-								class="uk-text-small uk-text-muted"
+									{{'MODEL.COURSE.DIFFICULTY'|translate}}</a></span> 
+							<span class="uk-text-small uk-text-muted"
 								ng-show="course.level=='easy'">{{'COMMON.DIFFICULTY.EASY'
 								| translate}}</span> <span class="uk-text-small uk-text-muted"
 								ng-show="course.level=='medium'">{{'COMMON.DIFFICULTY.MEDIUM'
@@ -82,7 +82,7 @@
 					translate}}</h5>
 				<div class="blog_tags">
 					<span class="uk-badge uk-text-left text-wrap"
-            ng-repeat="competency in course.competencies">{{competency.name}}</span>
+						ng-repeat="competency in course.competencies">{{competency.name}}</span>
 				</div>
 
 				<h5 class="uk-margin-small-bottom uk-text-upper uk-margin-large">

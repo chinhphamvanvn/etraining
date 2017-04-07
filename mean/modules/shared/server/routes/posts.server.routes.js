@@ -13,8 +13,8 @@ module.exports = function(app) {
     .post(posts.create);
 
   app.route('/api/posts/byTopic/:topicId').all(postsPolicy.isAllowed)
-  .get(posts.listByTopic)
-  
+    .get(posts.listByTopic);
+
   app.route('/api/posts/:postId').all(postsPolicy.isAllowed)
     .get(posts.read)
     .put(posts.update)

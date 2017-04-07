@@ -11,41 +11,54 @@ acl = new acl(new acl.memoryBackend());
 /**
  * Invoke Stats Permissions
  */
-exports.invokeRolesPolicies = function () {
-  acl.allow([{
-    roles: ['admin'],
-    allows: [{
-      resources: '/api/stats',
-      permissions: '*'
-    }, {
-      resources: '/api/stats/:statId',
-      permissions: '*'
-    }]
-  }, {
-    roles: ['user'],
-    allows: [{
-      resources: '/api/stats',
-      permissions: ['get', 'post']
-    }, {
-      resources: '/api/stats/:statId',
-      permissions: ['get']
-    }]
-  }, {
-    roles: ['guest'],
-    allows: [{
-      resources: '/api/stats',
-      permissions: ['get']
-    }, {
-      resources: '/api/stats/:statId',
-      permissions: ['get']
-    }]
-  }]);
+exports.invokeRolesPolicies = function() {
+  acl.allow([
+    {
+      roles: ['admin'],
+      allows: [
+        {
+          resources: '/api/stats',
+          permissions: '*'
+        },
+        {
+          resources: '/api/stats/:statId',
+          permissions: '*'
+        }
+      ]
+    },
+    {
+      roles: ['user'],
+      allows: [
+        {
+          resources: '/api/stats',
+          permissions: ['get', 'post']
+        },
+        {
+          resources: '/api/stats/:statId',
+          permissions: ['get']
+        }
+      ]
+    },
+    {
+      roles: ['guest'],
+      allows: [
+        {
+          resources: '/api/stats',
+          permissions: ['get']
+        },
+        {
+          resources: '/api/stats/:statId',
+          permissions: ['get']
+        }
+      ]
+    }
+  ]);
 };
 
 /**
  * Check If Stats Policy Allows
  */
-exports.isAllowed = function (req, res, next) {
+exports.isAllowed = function(req, res, next) {
   var roles = (req.user) ? req.user.roles : ['guest'];
 
   // If an Stat is being processed and the current user created it then allow any manipulation
@@ -54,7 +67,7 @@ exports.isAllowed = function (req, res, next) {
   }
 
   // Check for user roles
-  acl.areAnyRolesAllowed(roles, req.route.path, req.method.toLowerCase(), function (err, isAllowed) {
+  acl.areAnyRolesAllowed(roles, req.route.path, req.method.toLowerCase(), function(err, isAllowed) {
     if (err) {
       // An authorization error occurred
       return res.status(500).send('Unexpected authorization error');

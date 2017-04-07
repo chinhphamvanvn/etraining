@@ -96,7 +96,10 @@ exports.list = function(req, res) {
  * List of Messages
  */
 exports.listWaitingAlert = function(req, res) {
-  Message.find({recipient:req.user._id,type:'alert'}).sort('-created').populate('user', 'displayName').exec(function(err, messages) {
+  Message.find({
+    recipient: req.user._id,
+    type: 'alert'
+  }).sort('-created').populate('user', 'displayName').exec(function(err, messages) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -108,16 +111,18 @@ exports.listWaitingAlert = function(req, res) {
 };
 
 exports.listWaiting = function(req, res) {
-    Message.find({recipient:req.user._id}).sort('-created').populate('user', 'displayName').exec(function(err, messages) {
-      if (err) {
-        return res.status(400).send({
-          message: errorHandler.getErrorMessage(err)
-        });
-      } else {
-        res.jsonp(messages);
-      }
-    });
-  };
+  Message.find({
+    recipient: req.user._id
+  }).sort('-created').populate('user', 'displayName').exec(function(err, messages) {
+    if (err) {
+      return res.status(400).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    } else {
+      res.jsonp(messages);
+    }
+  });
+};
 
 /**
  * Message middleware
@@ -130,7 +135,7 @@ exports.messageByID = function(req, res, next, id) {
     });
   }
 
-  Message.findById(id).populate('user', 'displayName').exec(function (err, message) {
+  Message.findById(id).populate('user', 'displayName').exec(function(err, message) {
     if (err) {
       return next(err);
     } else if (!message) {

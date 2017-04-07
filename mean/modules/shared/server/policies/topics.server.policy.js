@@ -11,7 +11,7 @@ acl = new acl(new acl.memoryBackend());
 /**
  * Invoke Topics Permissions
  */
-exports.invokeRolesPolicies = function () {
+exports.invokeRolesPolicies = function() {
   acl.allow([{
     roles: ['admin'],
     allows: [{
@@ -21,9 +21,9 @@ exports.invokeRolesPolicies = function () {
       resources: '/api/topics/:topicId',
       permissions: '*'
     }, {
-        resources: '/api/topics/byForum/:forumId',
-        permissions: '*'
-      }]
+      resources: '/api/topics/byForum/:forumId',
+      permissions: '*'
+    }]
   }, {
     roles: ['user'],
     allows: [{
@@ -32,10 +32,10 @@ exports.invokeRolesPolicies = function () {
     }, {
       resources: '/api/topics/:topicId',
       permissions: ['get']
-    },{
-        resources: '/api/topics/byForum/:forumId',
-        permissions: 'get'
-      }]
+    }, {
+      resources: '/api/topics/byForum/:forumId',
+      permissions: 'get'
+    }]
   }, {
     roles: ['guest'],
     allows: [{
@@ -51,7 +51,7 @@ exports.invokeRolesPolicies = function () {
 /**
  * Check If Topics Policy Allows
  */
-exports.isAllowed = function (req, res, next) {
+exports.isAllowed = function(req, res, next) {
   var roles = (req.user) ? req.user.roles : ['guest'];
 
   // If an Topic is being processed and the current user created it then allow any manipulation
@@ -60,7 +60,7 @@ exports.isAllowed = function (req, res, next) {
   }
 
   // Check for user roles
-  acl.areAnyRolesAllowed(roles, req.route.path, req.method.toLowerCase(), function (err, isAllowed) {
+  acl.areAnyRolesAllowed(roles, req.route.path, req.method.toLowerCase(), function(err, isAllowed) {
     if (err) {
       // An authorization error occurred
       return res.status(500).send('Unexpected authorization error');

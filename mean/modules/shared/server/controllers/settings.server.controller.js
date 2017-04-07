@@ -102,7 +102,7 @@ exports.settingByID = function(req, res, next, id) {
     });
   }
 
-  Setting.findById(id).populate('user', 'displayName').exec(function (err, setting) {
+  Setting.findById(id).populate('user', 'displayName').exec(function(err, setting) {
     if (err) {
       return next(err);
     } else if (!setting) {
@@ -116,15 +116,17 @@ exports.settingByID = function(req, res, next, id) {
 };
 
 exports.settingByCode = function(req, res, next, code) {
-    Setting.findOne({code:code}).populate('user', 'displayName').exec(function (err, setting) {
-      if (err) {
-        return next(err);
-      } else if (!setting) {
-        return res.status(422).send({
-          message: 'No Setting with that code has been found'
-        });
-      }
-      req.setting = setting;
-      next();
-    });
-  };
+  Setting.findOne({
+    code: code
+  }).populate('user', 'displayName').exec(function(err, setting) {
+    if (err) {
+      return next(err);
+    } else if (!setting) {
+      return res.status(422).send({
+        message: 'No Setting with that code has been found'
+      });
+    }
+    req.setting = setting;
+    next();
+  });
+};

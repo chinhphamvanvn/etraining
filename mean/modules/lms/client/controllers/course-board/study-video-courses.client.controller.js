@@ -1,7 +1,7 @@
-(function () {
+(function() {
   'use strict';
 
-// Courses controller
+  // Courses controller
   angular
     .module('lms')
     .controller('CoursesStudyVideoController', CoursesStudyVideoController);
@@ -19,7 +19,9 @@
     var videoSelector = document.querySelector('#selectorVideo');
 
     if (vm.section.video) {
-      vm.video = VideosService.get({videoId: vm.section.video}, function () {
+      vm.video = VideosService.get({
+        videoId: vm.section.video
+      }, function() {
         vm.attempt = new AttemptsService();
         vm.attempt.section = vm.section._id;
         vm.attempt.edition = vm.edition._id;
@@ -27,7 +29,7 @@
         vm.attempt.member = vm.member._id;
         vm.attempt.status = 'initial';
         vm.attempt.$save();
-      })
+      });
     }
 
     vm.nextSection = nextSection;
@@ -58,7 +60,7 @@
     function handleVideoEnd() {
       vm.autoSectionAuto = true;
       vm.counter = 10;
-      vm.onTimeout = function () {
+      vm.onTimeout = function() {
         vm.counter--;
         if (vm.counter > 0) {
           mytimeout = $timeout(vm.onTimeout, 1000);
@@ -72,6 +74,6 @@
     vm.stopNextSectionAuto = function() {
       vm.autoSectionAuto = false;
       $timeout.cancel(mytimeout);
-    }
+    };
   }
 }());

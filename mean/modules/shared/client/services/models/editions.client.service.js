@@ -1,5 +1,5 @@
 // Editions service used to communicate Editions REST endpoints
-(function () {
+(function() {
   'use strict';
 
   angular
@@ -16,9 +16,9 @@
         method: 'PUT'
       },
       byCourse: {
-          method: 'GET',
-          url:'/api/editions/byCourse/:courseId'
-        },
+        method: 'GET',
+        url: '/api/editions/byCourse/:courseId'
+      }
     });
   }
 }());

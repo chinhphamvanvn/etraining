@@ -1,5 +1,5 @@
 // Certificates service used to communicate Certificates REST endpoints
-(function () {
+(function() {
   'use strict';
 
   angular
@@ -16,12 +16,12 @@
         method: 'PUT'
       },
       grant: {
-          method: 'POST'
-        },
+        method: 'POST'
+      },
       byMember: {
-          method: 'GET',
-          url:'/api/certificates/byMember/:memberId',
-        },
+        method: 'GET',
+        url: '/api/certificates/byMember/:memberId'
+      }
     });
   }
 }());

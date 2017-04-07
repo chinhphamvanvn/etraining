@@ -23,17 +23,17 @@ var GradeSchemeSchema = new Schema({
     default: true
   },
   marks: {
-      type: [{
-          quiz: {
-              type: Schema.ObjectId,
-              ref: 'EditionSection'
-          },
-          weight: {
-              type: Number,
-              default: 0
-          }
-      }]
-   },
+    type: [{
+      quiz: {
+        type: Schema.ObjectId,
+        ref: 'EditionSection'
+      },
+      weight: {
+        type: Number,
+        default: 0
+      }
+    }]
+  },
   created: {
     type: Date,
     default: Date.now

@@ -1,106 +1,108 @@
-(function () {
-    'use strict';
+(function(UIkit) {
+  'use strict';
 
-    angular
-      .module('library')
-      .controller('LibraryContentController', LibraryContentController);
+  angular
+    .module('library')
+    .controller('LibraryContentController', LibraryContentController);
 
-    LibraryContentController.$inject = [ '$scope', '$state', '$stateParams', '$timeout', '$location', '$window', 'mediaResolve','Upload', 'Notification','LibraryMediaService', 'treeUtils','$q', '_'];
+  LibraryContentController.$inject = ['$scope', '$state', '$stateParams', '$timeout', '$location', '$window', 'mediaResolve', 'Upload', 'Notification', 'LibraryMediaService', 'treeUtils', '$q', '_'];
 
-    function LibraryContentController( $scope, $state, $stateParams, $timeout, $location, $window, media, Upload, Notification, LibraryMediaService, treeUtils,$q, _) {
-      var vm = this;
-      vm.media = media;
-      vm.save = save;
+  function LibraryContentController($scope, $state, $stateParams, $timeout, $location, $window, media, Upload, Notification, LibraryMediaService, treeUtils, $q, _) {
+    var vm = this;
+    vm.media = media;
+    vm.save = save;
 
-      var progressbar = $("#file_upload-progressbar"),
-      bar         = progressbar.find('.uk-progress-bar'),
-      settings    = {
+    var progressbar = $('#file_upload-progressbar'),
+      bar = progressbar.find('.uk-progress-bar'),
+      settings = {
+        action: '/api/media/upload', // upload url
+        param: 'newMediaContent',
+        method: 'POST',
 
-          action: '/api/media/upload', // upload url
-          param: 'newMediaContent',
-          method: 'POST',
 
+        loadstart: function() {
+          bar.css('width', '0%').text('0%');
+          progressbar.removeClass('uk-hidden');
+        },
 
-          loadstart: function() {
-              bar.css("width", "0%").text("0%");
-              progressbar.removeClass("uk-hidden");
-          },
+        progress: function(percent) {
+          percent = Math.ceil(percent);
+          bar.css('width', percent + '%').text(percent + '%');
+        },
 
-          progress: function(percent) {
-              percent = Math.ceil(percent);
-              bar.css("width", percent+"%").text(percent+"%");
-          },
+        allcomplete: function(response) {
 
-          allcomplete: function(response) {
+          bar.css('width', '100%').text('100%');
 
-              bar.css("width", "100%").text("100%");
-
-              setTimeout(function(){
-                  progressbar.addClass("uk-hidden");
-              }, 250);
-              var data = JSON.parse(response);
-              $scope.$apply(function() {
-                vm.media.contentURL = data.downloadURL;
-                vm.media.filename = data.filename;
-              });
-          }
+          setTimeout(function() {
+            progressbar.addClass('uk-hidden');
+          }, 250);
+          var data = JSON.parse(response);
+          $scope.$apply(function() {
+            vm.media.contentURL = data.downloadURL;
+            vm.media.filename = data.filename;
+          });
+        }
       };
 
-      var select = UIkit.uploadSelect($("#file_upload-select"), settings),
-      drop   = UIkit.uploadDrop($("#file_upload-drop"), settings);
+    var select = UIkit.uploadSelect($('#file_upload-select'), settings),
+      drop = UIkit.uploadDrop($('#file_upload-drop'), settings);
 
 
-      function save() {
-          saveMedia()
-          .then(saveImage)
-          .then(function() {
-              Notification.success({ message: '<i class="uk-icon-ok"></i> Library item saved successfully!' });
-              $state.go('admin.workspace.library.content.list');
-          },function(errorResponse) {
-              Notification.error({ message: '<i class="uk-icon-ban"></i> Library item saved error!' });
-             // $state.go('admin.workspace.library.content.list');
+    function save() {
+      saveMedia()
+        .then(saveImage)
+        .then(function() {
+          Notification.success({
+            message: '<i class="uk-icon-ok"></i> Library item saved successfully!'
           });
-
-      }
-
-      function saveMedia() {
-          return $q(function(resolve, reject) {
-              if (vm.media._id) {
-                  vm.media.$update(function () {
-                      resolve();
-                  },function() {
-                      reject();
-                  });
-              } else {
-                  vm.media.$save(function () {
-                      resolve();
-                  },function() {
-                      reject();
-                  });
-              }
+          $state.go('admin.workspace.library.content.list');
+        }, function(errorResponse) {
+          Notification.error({
+            message: '<i class="uk-icon-ban"></i> Library item saved error!'
           });
-      }
-
-      function saveImage() {
-          return $q(function(resolve, reject) {
-              if (!vm.mediaImage)
-                  resolve();
-              else {
-                  Upload.upload({
-                      url: '/api/media/'+vm.media._id+'/image',
-                      data: {
-                        newMediaImage: vm.mediaImage
-                      }
-                    }).then(function(response) {
-                        resolve();
-                    },function(errorResponse) {
-                        resolve();
-                    });
-              }
-          });
-      }
-
+        // $state.go('admin.workspace.library.content.list');
+        });
 
     }
-  }());
 
+    function saveMedia() {
+      return $q(function(resolve, reject) {
+        if (vm.media._id) {
+          vm.media.$update(function() {
+            resolve();
+          }, function() {
+            reject();
+          });
+        } else {
+          vm.media.$save(function() {
+            resolve();
+          }, function() {
+            reject();
+          });
+        }
+      });
+    }
+
+    function saveImage() {
+      return $q(function(resolve, reject) {
+        if (!vm.mediaImage)
+          resolve();
+        else {
+          Upload.upload({
+            url: '/api/media/' + vm.media._id + '/image',
+            data: {
+              newMediaImage: vm.mediaImage
+            }
+          }).then(function(response) {
+            resolve();
+          }, function(errorResponse) {
+            resolve();
+          });
+        }
+      });
+    }
+
+
+  }
+}(window.UIkit));

@@ -10,27 +10,27 @@ var mongoose = require('mongoose'),
  * Attempt Schema
  */
 var AttemptSchema = new Schema({
-    member: {
-        type: Schema.ObjectId,
-        ref: 'CourseMember'
-    },
-    course: {
-        type: Schema.ObjectId,
-        ref: 'Course'
-    },
-    edition: {
-        type: Schema.ObjectId,
-        ref: 'CourseEdition'
-    },
+  member: {
+    type: Schema.ObjectId,
+    ref: 'CourseMember'
+  },
+  course: {
+    type: Schema.ObjectId,
+    ref: 'Course'
+  },
+  edition: {
+    type: Schema.ObjectId,
+    ref: 'CourseEdition'
+  },
   section: {
-      type: Schema.ObjectId,
-      ref: 'EditionSection'
+    type: Schema.ObjectId,
+    ref: 'EditionSection'
   },
   answers: {
-      type: [{
-          type: Schema.ObjectId,
-          ref: 'Answer'
-        }]
+    type: [{
+      type: Schema.ObjectId,
+      ref: 'Answer'
+    }]
   },
   start: {
     type: Date,
@@ -56,4 +56,3 @@ var AttemptSchema = new Schema({
 });
 
 mongoose.model('CourseAttempt', AttemptSchema);
-

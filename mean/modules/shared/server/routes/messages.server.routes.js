@@ -13,8 +13,8 @@ module.exports = function(app) {
     .post(messages.create);
 
   app.route('/api/messages/waiting').all(messagesPolicy.isAllowed)
-  .get(messages.listWaiting);
-  
+    .get(messages.listWaiting);
+
   app.route('/api/messages/:messageId').all(messagesPolicy.isAllowed)
     .get(messages.read)
     .put(messages.update)

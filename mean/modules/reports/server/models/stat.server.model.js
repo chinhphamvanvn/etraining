@@ -14,8 +14,8 @@ var StatSchema = new Schema({
     type: String
   },
   count: {
-      type: Number
-   },
+    type: Number
+  },
   created: {
     type: Date,
     default: Date.now

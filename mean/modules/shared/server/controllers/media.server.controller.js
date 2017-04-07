@@ -84,7 +84,7 @@ exports.delete = function(req, res) {
  * List of Media
  */
 exports.list = function(req, res) {
-    LibraryMedium.find().sort('-created').populate('user', 'displayName').exec(function(err, media) {
+  LibraryMedium.find().sort('-created').populate('user', 'displayName').exec(function(err, media) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -96,7 +96,9 @@ exports.list = function(req, res) {
 };
 
 exports.listByGroup = function(req, res) {
-    LibraryMedium.find({group:req.group._id}).sort('-created').populate('user', 'displayName').exec(function(err, media) {
+  LibraryMedium.find({
+    group: req.group._id
+  }).sort('-created').populate('user', 'displayName').exec(function(err, media) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -109,9 +111,14 @@ exports.listByGroup = function(req, res) {
 
 exports.listByKeyword = function(req, res) {
   var keyword = req.query.keyword,
-      regex   = new RegExp(keyword, 'i');
+    regex = new RegExp(keyword, 'i');
 
-  LibraryMedium.find({name: {$regex: regex}, published: true}).sort('-created').exec(function(err, media) {
+  LibraryMedium.find({
+    name: {
+      $regex: regex
+    },
+    published: true
+  }).sort('-created').exec(function(err, media) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -133,7 +140,7 @@ exports.mediumByID = function(req, res, next, id) {
     });
   }
 
-  LibraryMedium.findById(id).populate('user', 'displayName').exec(function (err, medium) {
+  LibraryMedium.findById(id).populate('user', 'displayName').exec(function(err, medium) {
     if (err) {
       return next(err);
     } else if (!medium) {
@@ -150,7 +157,7 @@ exports.mediumByID = function(req, res, next, id) {
 /**
  * Update media logo
  */
-exports.chaangeMediaImage = function (req, res) {
+exports.chaangeMediaImage = function(req, res) {
   var media = req.medium;
   var existingImageUrl;
   // Filtering to upload only images
@@ -159,14 +166,14 @@ exports.chaangeMediaImage = function (req, res) {
   var upload = multer(multerConfig).single('newMediaImage');
 
   if (media) {
-    existingImageUrl = config.uploads.media.image.dest+ path.basename(media.imageURL);
+    existingImageUrl = config.uploads.media.image.dest + path.basename(media.imageURL);
     uploadImage()
       .then(updateMedia)
       .then(deleteOldImage)
-      .then(function () {
-        res.json(course);
+      .then(function() {
+        res.json(media);
       })
-      .catch(function (err) {
+      .catch(function(err) {
         res.status(422).send(err);
       });
   } else {
@@ -175,9 +182,9 @@ exports.chaangeMediaImage = function (req, res) {
     });
   }
 
-  function uploadImage () {
-    return new Promise(function (resolve, reject) {
-      upload(req, res, function (uploadError) {
+  function uploadImage() {
+    return new Promise(function(resolve, reject) {
+      upload(req, res, function(uploadError) {
         if (uploadError) {
           reject(errorHandler.getErrorMessage(uploadError));
         } else {
@@ -187,10 +194,10 @@ exports.chaangeMediaImage = function (req, res) {
     });
   }
 
-  function updateMedia () {
-    return new Promise(function (resolve, reject) {
+  function updateMedia() {
+    return new Promise(function(resolve, reject) {
       media.imageURL = config.uploads.media.image.urlPaath + req.file.filename;
-      media.save(function (err, course) {
+      media.save(function(err, course) {
         if (err) {
           reject(err);
         } else {
@@ -200,11 +207,11 @@ exports.chaangeMediaImage = function (req, res) {
     });
   }
 
-  function deleteOldImage () {
-      var defaultUrl = config.uploads.media.image.dest + path.basename(LibraryMedium.schema.path('imageURL').defaultValue);
-    return new Promise(function (resolve, reject) {
+  function deleteOldImage() {
+    var defaultUrl = config.uploads.media.image.dest + path.basename(LibraryMedium.schema.path('imageURL').defaultValue);
+    return new Promise(function(resolve, reject) {
       if (existingImageUrl !== defaultUrl) {
-        fs.unlink(existingImageUrl, function (unlinkError) {
+        fs.unlink(existingImageUrl, function(unlinkError) {
           if (unlinkError) {
             console.log(unlinkError);
             resolve();
@@ -219,34 +226,34 @@ exports.chaangeMediaImage = function (req, res) {
   }
 };
 
+exports.uploadMediaContent = function(req, res) {
+  // Filtering to upload only images
+  var multerConfig = config.uploads.media.content;
+  var upload = multer(multerConfig).single('newMediaContent');
+  uploadContent()
+    .then(function(result) {
+      res.json(result);
+    })
+    .catch(function(err) {
+      res.status(422).send(err);
+    });
 
-
-exports.uploadMediaContent = function (req, res) {
-    // Filtering to upload only images
-    var multerConfig = config.uploads.media.content;
-    var upload = multer(multerConfig).single('newMediaContent');
-      uploadContent()
-        .then(function (result) {
-          res.json(result);
-        })
-        .catch(function (err) {
-          res.status(422).send(err);
-        });
-
-    function uploadContent () {
-      return new Promise(function (resolve, reject) {
-        upload(req, res, function (uploadError) {
-          if (uploadError) {
-              console.log(uploadError);
-            reject(errorHandler.getErrorMessage(uploadError));
-          } else {
-              var downloadURL = config.uploads.media.content.urlPaath + req.file.filename;
-              var originalname =  req.file.originalname;
-              resolve({downloadURL:downloadURL,filename:originalname});
-          }
-        });
+  function uploadContent() {
+    return new Promise(function(resolve, reject) {
+      upload(req, res, function(uploadError) {
+        if (uploadError) {
+          console.log(uploadError);
+          reject(errorHandler.getErrorMessage(uploadError));
+        } else {
+          var downloadURL = config.uploads.media.content.urlPaath + req.file.filename;
+          var originalname = req.file.originalname;
+          resolve({
+            downloadURL: downloadURL,
+            filename: originalname
+          });
+        }
       });
-    }
+    });
+  }
 
-  };
-
+};

@@ -28,17 +28,17 @@ exports.create = function(req, res) {
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-        ForumTopic.findById(post.topic).exec(function(err,topic) {
-            if (err) {
-              return res.status(400).send({
-                message: errorHandler.getErrorMessage(err)
-              });
-            } else {
-                topic.updated = new Date();
-                topic.save();
-                res.jsonp(post);
-            }
-        });   
+      ForumTopic.findById(post.topic).exec(function(err, topic) {
+        if (err) {
+          return res.status(400).send({
+            message: errorHandler.getErrorMessage(err)
+          });
+        } else {
+          topic.updated = new Date();
+          topic.save();
+          res.jsonp(post);
+        }
+      });
     }
   });
 };
@@ -71,17 +71,17 @@ exports.update = function(req, res) {
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-        ForumTopic.findById(post.topic).exec(function(err,topic) {
-            if (err) {
-              return res.status(400).send({
-                message: errorHandler.getErrorMessage(err)
-              });
-            } else {
-                topic.updated = new Date();
-                topic.save();
-                res.jsonp(post);
-            }
-        });      
+      ForumTopic.findById(post.topic).exec(function(err, topic) {
+        if (err) {
+          return res.status(400).send({
+            message: errorHandler.getErrorMessage(err)
+          });
+        } else {
+          topic.updated = new Date();
+          topic.save();
+          res.jsonp(post);
+        }
+      });
     }
   });
 };
@@ -119,16 +119,18 @@ exports.list = function(req, res) {
 };
 
 exports.listByTopic = function(req, res) {
-    ForumPost.find({topic:req.topic._id}).sort('-created').populate('user', '_id displayName').exec(function(err, posts) {
-      if (err) {
-        return res.status(400).send({
-          message: errorHandler.getErrorMessage(err)
-        });
-      } else {
-        res.jsonp(posts);
-      }
-    });
-  };
+  ForumPost.find({
+    topic: req.topic._id
+  }).sort('-created').populate('user', '_id displayName').exec(function(err, posts) {
+    if (err) {
+      return res.status(400).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    } else {
+      res.jsonp(posts);
+    }
+  });
+};
 
 /**
  * Post middleware
@@ -141,7 +143,7 @@ exports.postByID = function(req, res, next, id) {
     });
   }
 
-  ForumPost.findById(id).populate('user', '_id displayName').exec(function (err, post) {
+  ForumPost.findById(id).populate('user', '_id displayName').exec(function(err, post) {
     if (err) {
       return next(err);
     } else if (!post) {

@@ -97,16 +97,18 @@ exports.list = function(req, res) {
 };
 
 exports.listPublished = function(req, res) {
-    Exam.find({published:true}).sort('-created').populate('user', 'displayName').exec(function(err, exams) {
-      if (err) {
-        return res.status(400).send({
-          message: errorHandler.getErrorMessage(err)
-        });
-      } else {
-        res.jsonp(exams);
-      }
-    });
-  };
+  Exam.find({
+    published: true
+  }).sort('-created').populate('user', 'displayName').exec(function(err, exams) {
+    if (err) {
+      return res.status(400).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    } else {
+      res.jsonp(exams);
+    }
+  });
+};
 
 /**
  * Exam middleware
@@ -119,7 +121,7 @@ exports.examByID = function(req, res, next, id) {
     });
   }
 
-  Exam.findById(id).populate('user', 'displayName').populate('questions').exec(function (err, exam) {
+  Exam.findById(id).populate('user', 'displayName').populate('questions').exec(function(err, exam) {
     if (err) {
       return next(err);
     } else if (!exam) {
@@ -132,12 +134,10 @@ exports.examByID = function(req, res, next, id) {
   });
 };
 
-
-
 /**
  * Update exam logo
  */
-exports.changeExamLogo = function (req, res) {
+exports.changeExamLogo = function(req, res) {
   var exam = req.exam;
   var existingImageUrl;
   // Filtering to upload only images
@@ -150,10 +150,10 @@ exports.changeExamLogo = function (req, res) {
     uploadImage()
       .then(updateExam)
       .then(deleteOldImage)
-      .then(function () {
+      .then(function() {
         res.json(exam);
       })
-      .catch(function (err) {
+      .catch(function(err) {
         res.status(422).send(err);
       });
   } else {
@@ -162,9 +162,9 @@ exports.changeExamLogo = function (req, res) {
     });
   }
 
-  function uploadImage () {
-    return new Promise(function (resolve, reject) {
-      upload(req, res, function (uploadError) {
+  function uploadImage() {
+    return new Promise(function(resolve, reject) {
+      upload(req, res, function(uploadError) {
         if (uploadError) {
           reject(errorHandler.getErrorMessage(uploadError));
         } else {
@@ -175,9 +175,9 @@ exports.changeExamLogo = function (req, res) {
   }
 
   function updateExam() {
-    return new Promise(function (resolve, reject) {
+    return new Promise(function(resolve, reject) {
       exam.logoURL = config.uploads.exam.image.urlPaath + req.file.filename;
-      exam.save(function (err, exam) {
+      exam.save(function(err, exam) {
         if (err) {
           reject(err);
         } else {
@@ -187,10 +187,10 @@ exports.changeExamLogo = function (req, res) {
     });
   }
 
-  function deleteOldImage () {
-    return new Promise(function (resolve, reject) {
+  function deleteOldImage() {
+    return new Promise(function(resolve, reject) {
       if (existingImageUrl !== Exam.schema.path('logoURL').defaultValue) {
-        fs.unlink(existingImageUrl, function (unlinkError) {
+        fs.unlink(existingImageUrl, function(unlinkError) {
           if (unlinkError) {
             console.log(unlinkError);
             resolve();

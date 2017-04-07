@@ -11,9 +11,9 @@ module.exports = function(app) {
   app.route('/api/schemes').all(schemesPolicy.isAllowed)
     .get(schemes.list)
     .post(schemes.create);
-  
+
   app.route('/api/schemes/byEdition/:editionId').all(schemesPolicy.isAllowed)
-  .get(schemes.gradeSchemeByEditionID);
+    .get(schemes.gradeSchemeByEditionID);
 
   app.route('/api/schemes/:schemeId').all(schemesPolicy.isAllowed)
     .get(schemes.read)

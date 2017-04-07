@@ -11,9 +11,9 @@ module.exports = function(app) {
   app.route('/api/editions').all(editionsPolicy.isAllowed)
     .get(editions.list)
     .post(editions.create);
-  
+
   app.route('/api/editions/byCourse/:courseId').all(editionsPolicy.isAllowed)
-  .get(editions.editionByCourse);
+    .get(editions.editionByCourse);
 
   app.route('/api/editions/:editionId').all(editionsPolicy.isAllowed)
     .get(editions.read)

@@ -1,5 +1,5 @@
 // Attempts service used to communicate Attempts REST endpoints
-(function () {
+(function() {
   'use strict';
 
   angular
@@ -16,25 +16,25 @@
         method: 'PUT'
       },
       byCourse: {
-          url:'/api/attempts/byCourse/:courseId',
-          method: 'GET',
-          isArray: true
-        },
+        url: '/api/attempts/byCourse/:courseId',
+        method: 'GET',
+        isArray: true
+      },
       byMember: {
-          url:'/api/attempts/byMember/:memberId',
-          method: 'GET',
-          isArray: true
-        },
-        bySectionAndMember: {
-            url:'/api/attempts/bySectionAndMember/:editionId/:sectionId/:memberId',
-            method: 'GET',
-            isArray: true
-          },
-          bySection: {
-              url:'/api/attempts/bySection/:editionId/:sectionId',
-              method: 'GET',
-              isArray: true
-            }
+        url: '/api/attempts/byMember/:memberId',
+        method: 'GET',
+        isArray: true
+      },
+      bySectionAndMember: {
+        url: '/api/attempts/bySectionAndMember/:editionId/:sectionId/:memberId',
+        method: 'GET',
+        isArray: true
+      },
+      bySection: {
+        url: '/api/attempts/bySection/:editionId/:sectionId',
+        method: 'GET',
+        isArray: true
+      }
     });
   }
 }());

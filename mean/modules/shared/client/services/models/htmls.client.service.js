@@ -1,5 +1,5 @@
 // Htmls service used to communicate Htmls REST endpoints
-(function () {
+(function() {
   'use strict';
 
   angular

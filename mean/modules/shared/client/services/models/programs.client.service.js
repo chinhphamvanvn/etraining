@@ -1,5 +1,5 @@
 // Programs service used to communicate Programs REST endpoints
-(function () {
+(function() {
   'use strict';
 
   angular
@@ -16,20 +16,20 @@
         method: 'PUT'
       },
       listPublic: {
-          method: 'GET',
-          isArray: true,
-          url: '/api/programs/public'
-        },
-        listPrivate: {
-          method: 'GET',
-          isArray: true,
-          url: '/api/programs/private'
-        },
-        listRestricted: {
-          method: 'GET',
-          isArray: true,
-          url: '/api/programs/restricted'
-        },
+        method: 'GET',
+        isArray: true,
+        url: '/api/programs/public'
+      },
+      listPrivate: {
+        method: 'GET',
+        isArray: true,
+        url: '/api/programs/private'
+      },
+      listRestricted: {
+        method: 'GET',
+        isArray: true,
+        url: '/api/programs/restricted'
+      }
     });
   }
 }());

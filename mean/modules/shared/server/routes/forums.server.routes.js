@@ -13,8 +13,8 @@ module.exports = function(app) {
     .post(forums.create);
 
   app.route('/api/forums/byCourse/:courseId').all(forumsPolicy.isAllowed)
-  .get(forums.forumByCourseID)
-  
+    .get(forums.forumByCourseID);
+
   app.route('/api/forums/:forumId').all(forumsPolicy.isAllowed)
     .get(forums.read)
     .put(forums.update)

@@ -81,7 +81,7 @@ exports.delete = function(req, res) {
  * List of Sections
  */
 exports.list = function(req, res) {
-    EditionSection.find().sort('-created').populate('user', 'displayName').exec(function(err, sections) {
+  EditionSection.find().sort('-created').populate('user', 'displayName').exec(function(err, sections) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -96,7 +96,9 @@ exports.list = function(req, res) {
  * List of sections in editions
  */
 exports.sectionByEditionID = function(req, res) {
-    EditionSection.find({edition:req.edition._id}).sort('-created').populate('user', 'displayName').exec(function(err, sections) {
+  EditionSection.find({
+    edition: req.edition._id
+  }).sort('-created').populate('user', 'displayName').exec(function(err, sections) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -108,7 +110,14 @@ exports.sectionByEditionID = function(req, res) {
 };
 
 exports.listSurveyByEditionID = function(req, res) {
-    EditionSection.find({edition:req.edition._id,hasContent:true,contentType:'survey',survey: { $ne: null }}).sort('-created').populate('user', 'displayName').populate('survey').exec(function(err, sections) {
+  EditionSection.find({
+    edition: req.edition._id,
+    hasContent: true,
+    contentType: 'survey',
+    survey: {
+      $ne: null
+    }
+  }).sort('-created').populate('user', 'displayName').populate('survey').exec(function(err, sections) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -130,7 +139,7 @@ exports.sectionByID = function(req, res, next, id) {
     });
   }
 
-  EditionSection.findById(id).populate('user', 'displayName').exec(function (err, section) {
+  EditionSection.findById(id).populate('user', 'displayName').exec(function(err, section) {
     if (err) {
       return next(err);
     } else if (!section) {

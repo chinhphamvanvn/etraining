@@ -15,15 +15,15 @@ var CompetencySchema = new Schema({
     default: ''
   },
   group: {
-      type: Schema.ObjectId,
-      ref: 'Group'
+    type: Schema.ObjectId,
+    ref: 'Group'
   },
   category: {
     type: String,
-    enum: ['skill','attitude','knowledge'],
+    enum: ['skill', 'attitude', 'knowledge'],
     default: 'skill'
   },
-    created: {
+  created: {
     type: Date,
     default: Date.now
   },

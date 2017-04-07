@@ -1,5 +1,5 @@
 // Conferences service used to communicate Conferences REST endpoints
-(function () {
+(function() {
   'use strict';
 
   angular
@@ -15,10 +15,10 @@
       update: {
         method: 'PUT'
       },
-      byClass : {
-          method: 'GET',
-          url: '/api/conferences/byClass/:classroomId'
-        }
+      byClass: {
+        method: 'GET',
+        url: '/api/conferences/byClass/:classroomId'
+      }
     });
   }
 }());

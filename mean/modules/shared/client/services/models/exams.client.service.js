@@ -1,5 +1,5 @@
 // Exams service used to communicate Exams REST endpoints
-(function () {
+(function() {
   'use strict';
 
   angular
@@ -16,10 +16,10 @@
         method: 'PUT'
       },
       listPublished: {
-          url:'/api/exams/public',
-          method: 'GET',
-          isArray:true
-        }
+        url: '/api/exams/public',
+        method: 'GET',
+        isArray: true
+      }
     });
   }
 }());

@@ -21,8 +21,8 @@ var CourseEditionSchema = new Schema({
     ref: 'Course'
   },
   primary: {
-      type: Boolean,
-      default: false
+    type: Boolean,
+    default: false
   },
   published: {
     type: Boolean,

@@ -13,23 +13,23 @@ module.exports = function(app) {
     .post(members.create);
 
   app.route('/api/members/byCourse/:courseId').all(membersPolicy.isAllowed)
-  .get(members.memberByCourse);
-  
+    .get(members.memberByCourse);
+
   app.route('/api/members/byClass/:classroomId').all(membersPolicy.isAllowed)
-  .get(members.memberByClass);
-  
+    .get(members.memberByClass);
+
   app.route('/api/members/byUser/:userId').all(membersPolicy.isAllowed)
-  .get(members.memberByUser);
-  
+    .get(members.memberByUser);
+
   app.route('/api/members/withdraw/:memberId').all(membersPolicy.isAllowed)
-  .put(members.withdraw);
-  
+    .put(members.withdraw);
+
   app.route('/api/members/complete/:memberId/:teacherId').all(membersPolicy.isAllowed)
-  .put(members.complete);
-  
+    .put(members.complete);
+
   app.route('/api/members/byUserAndCourse/:userId/:courseId').all(membersPolicy.isAllowed)
-  .get(members.memberByUserAndCourse);
-  
+    .get(members.memberByUserAndCourse);
+
   app.route('/api/members/:memberId').all(membersPolicy.isAllowed)
     .get(members.read)
     .put(members.update)

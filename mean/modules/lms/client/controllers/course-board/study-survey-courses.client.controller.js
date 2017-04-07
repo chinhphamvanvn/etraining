@@ -1,8 +1,8 @@
-(function() {
-    'use strict';
+(function(UIkit) {
+  'use strict';
 
-// Courses controller
-angular
+  // Courses controller
+  angular
     .module('lms')
     .controller('CoursesStudySurveyController', CoursesStudySurveyController);
 
@@ -14,21 +14,25 @@ angular
     vm.member = member;
     vm.section = section;
     vm.completeCourse = false; // Value base $scope.$parent.endCourse
-    if (vm.member.enrollmentStatus == 'completed') {
+    if (vm.member.enrollmentStatus === 'completed') {
       vm.alert = $translate.instant('ERROR.COURSE_STUDY.COURSE_ALREADY_COMPLETE');
       return;
     }
     if (vm.section.survey) {
-      vm.survey = ExamsService.get({examId: vm.section.survey}, function () {
-        vm.attempts = AttemptsService.byMember({memberId: vm.member._id}, function () {
-          var attemptCount = _.filter(vm.attempts, function (att) {
-            return att.section == vm.section._id && att.status == 'completed';
+      vm.survey = ExamsService.get({
+        examId: vm.section.survey
+      }, function() {
+        vm.attempts = AttemptsService.byMember({
+          memberId: vm.member._id
+        }, function() {
+          var attemptCount = _.filter(vm.attempts, function(att) {
+            return att.section === vm.section._id && att.status === 'completed';
           }).length;
           if (attemptCount >= vm.survey.maxAttempt && vm.survey.maxAttempt > 0) {
             vm.alert = $translate.instant('ERROR.COURSE_SURVEY.MAX_ATTEMPT_EXCEED');
           } else {
-            vm.attempt = _.find(vm.attempts, function (att) {
-              return att.section == vm.section._id && att.status == 'initial';
+            vm.attempt = _.find(vm.attempts, function(att) {
+              return att.section === vm.section._id && att.status === 'initial';
             });
             if (!vm.attempt) {
               vm.attempt = new AttemptsService();
@@ -39,47 +43,49 @@ angular
               vm.attempt.status = 'initial';
               vm.attempt.$save();
             }
-
             var allPromise = [];
-            _.each(vm.survey.questions, function (q, index) {
-              allPromise.push(QuestionsService.get({questionId: q.id}).$promise);
+            _.each(vm.survey.questions, function(q, index) {
+              allPromise.push(QuestionsService.get({
+                questionId: q.id
+              }).$promise);
             });
-            $q.all(allPromise).then(function (questions) {
+            $q.all(allPromise).then(function(questions) {
               vm.questions = questions;
               vm.index = 0;
               if (vm.questions.length > 0)
-                selectQuestion(vm.index)
+                selectQuestion(vm.index);
               else
                 vm.alert = $translate.instant('ERROR.COURSE_SURVEY.QUESTION_NOT_FOUND');
             });
           }
         });
-      })
+      });
     } else
-        vm.alert = $translate.instant('ERROR.COURSE_SURVEY.QUESTION_NOT_FOUND');
+      vm.alert = $translate.instant('ERROR.COURSE_SURVEY.QUESTION_NOT_FOUND');
 
     vm.nextQuestion = nextQuestion;
     vm.saveNext = saveNext;
     vm.submitQuiz = submitQuiz;
 
-
     function selectQuestion(index) {
-        vm.question = vm.questions[index];
-        if (!vm.question.answer) {
-            vm.question.answer =  new AnswersService();
-        }
-        if (!vm.question.options || vm.question.options.length == 0) {
-            vm.question.options =  OptionsService.byQuestion({questionId:vm.question._id}, function(){
-                _.each(vm.question.options ,function(option) {
-                    option.selected = _.contains(vm.question.answer.options,option._id)
-                });
-            });
-        }
+      vm.question = vm.questions[index];
+      if (!vm.question.answer) {
+        vm.question.answer = new AnswersService();
+      }
+      if (!vm.question.options || vm.question.options.length === 0) {
+        vm.question.options = OptionsService.byQuestion({
+          questionId: vm.question._id
+        }, function() {
+          _.each(vm.question.options, function(option) {
+            option.selected = _.contains(vm.question.answer.options, option._id);
+          });
+        });
+      }
 
-        if (vm.question.answer.option || vm.question.answer.options)
-            vm.question.attempted = true;
-        else
-            vm.question.attempted = false;
+      if (vm.question.answer.option || vm.question.answer.options)
+        vm.question.attempted = true;
+      else
+        vm.question.attempted = false;
     }
 
     function nextQuestion() {
@@ -90,14 +96,14 @@ angular
     }
 
     function submitQuiz() {
-      save(function () {
-        UIkit.modal.confirm($translate.instant('COMMON.CONFIRM_PROMPT'), function () {
+      save(function() {
+        UIkit.modal.confirm($translate.instant('COMMON.CONFIRM_PROMPT'), function() {
           vm.attempt.status = 'completed';
           vm.attempt.end = new Date();
-          vm.attempt.answers = _.map(vm.questions, function (obj) {
+          vm.attempt.answers = _.map(vm.questions, function(obj) {
             return obj.answer._id;
           });
-          vm.attempt.$update(function () {
+          vm.attempt.$update(function() {
             if (!$scope.$parent.endCourse) {
               $scope.$parent.nextSection();
             } else {
@@ -105,42 +111,38 @@ angular
             }
           });
         });
-      })
-
+      });
     }
 
     function saveNext() {
-      save(function () {
+      save(function() {
         nextQuestion();
-      })
+      });
     }
-
 
     function save(callback) {
       var answer = vm.question.answer;
       answer.question = vm.question._id;
       answer.exam = vm.survey._id;
-      if (vm.question.type == 'mc' || vm.question.type == 'sc' || vm.question.type == 'tf' || vm.question.type == 'fb') {
-        var selectedOptions = _.filter(vm.question.options, function (option) {
+      if (vm.question.type === 'mc' || vm.question.type === 'sc' || vm.question.type === 'tf' || vm.question.type === 'fb') {
+        var selectedOptions = _.filter(vm.question.options, function(option) {
           return option.selected;
         });
         answer.options = _.pluck(selectedOptions, '_id');
-        answer.isCorrect = _.filter(vm.question.options, function (option) {
-            return option.isCorrect && !option.selected;
-          }).length == 0;
+        answer.isCorrect = _.filter(vm.question.options, function(option) {return option.isCorrect && !option.selected; }).length === 0;
       }
       if (answer._id)
-        answer.$update(function () {
+        answer.$update(function() {
           callback();
         });
       else
-        answer.$save(function () {
+        answer.$save(function() {
           callback();
-        })
+        });
     }
 
     vm.nextSection = $scope.$parent.nextSection;
     vm.prevSection = $scope.$parent.prevSection;
 
   }
-}());
+}(window.UIkit));

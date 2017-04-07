@@ -1,5 +1,5 @@
 // Options service used to communicate Options REST endpoints
-(function () {
+(function() {
   'use strict';
 
   angular
@@ -15,11 +15,11 @@
       update: {
         method: 'PUT'
       },
-      byQuestion : {
+      byQuestion: {
         method: 'GET',
         url: '/api/options/byQuestion/:questionId',
         isArray: true
-      } 
+      }
     });
   }
 }());

@@ -1,5 +1,5 @@
 // Courses service used to communicate Courses REST endpoints
-(function () {
+(function() {
   'use strict';
 
   angular

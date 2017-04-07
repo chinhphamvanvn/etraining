@@ -10,23 +10,23 @@ var mongoose = require('mongoose'),
  * Post Schema
  */
 var ForumPostSchema = new Schema({
-    content: {
+  content: {
     type: String,
     default: '',
     required: 'Please fill Post content',
     trim: true
   },
   topic: {
-      type: Schema.ObjectId,
-      ref: 'ForumTopic'
-    },
+    type: Schema.ObjectId,
+    ref: 'ForumTopic'
+  },
   parent: {
     type: Schema.ObjectId,
     ref: 'ForumPost'
-  },    
+  },
   updated: {
-      type: Date,
-      default: Date.now
+    type: Date,
+    default: Date.now
   },
   created: {
     type: Date,

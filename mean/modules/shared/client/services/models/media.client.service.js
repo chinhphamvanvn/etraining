@@ -1,5 +1,5 @@
 // Media service used to communicate Media REST endpoints
-(function () {
+(function() {
   'use strict';
 
   angular
@@ -16,14 +16,14 @@
         method: 'PUT'
       },
       byGroup: {
-          method: 'GET',
-          isArray: true,
-          url:'/api/media/byGroup/:groupId'
+        method: 'GET',
+        isArray: true,
+        url: '/api/media/byGroup/:groupId'
       },
       byKeyword: {
         method: 'GET',
         isArray: true,
-        url:'/api/media/search'
+        url: '/api/media/search'
       }
     });
   }

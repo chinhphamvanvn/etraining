@@ -1,20 +1,22 @@
 (function() {
-    'use strict';
+  'use strict';
 
-// Courses controller
-angular
+  // Courses controller
+  angular
     .module('lms')
     .controller('CoursesPreviewHtmlController', CoursesPreviewHtmlController);
 
-CoursesPreviewHtmlController.$inject = ['$scope', '$state', '$window', 'HtmlsService','ExamsService','VideosService','EditionSectionsService','Authentication','AttemptsService', 'editionResolve', 'CoursesService', 'Notification', 'sectionResolve','treeUtils', '$translate', '$q','_'];
+  CoursesPreviewHtmlController.$inject = ['$scope', '$state', '$window', 'HtmlsService', 'ExamsService', 'VideosService', 'EditionSectionsService', 'Authentication', 'AttemptsService', 'editionResolve', 'CoursesService', 'Notification', 'sectionResolve', 'treeUtils', '$translate', '$q', '_'];
 
-function CoursesPreviewHtmlController($scope, $state, $window, HtmlsService,ExamsService,VideosService,EditionSectionsService, Authentication, AttemptsService,edition, CoursesService, Notification, section,treeUtils,$translate ,$q, _) {
+  function CoursesPreviewHtmlController($scope, $state, $window, HtmlsService, ExamsService, VideosService, EditionSectionsService, Authentication, AttemptsService, edition, CoursesService, Notification, section, treeUtils, $translate, $q, _) {
     var vm = this;
     vm.edition = edition;
     vm.section = section;
     if (vm.section.html) {
-        vm.html = HtmlsService.get({htmlId:vm.section.html},function() {});
+      vm.html = HtmlsService.get({
+        htmlId: vm.section.html
+      }, function() {});
     }
 
-}
+  }
 }());

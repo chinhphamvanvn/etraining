@@ -1,5 +1,5 @@
 // Videos service used to communicate Videos REST endpoints
-(function () {
+(function() {
   'use strict';
 
   angular
@@ -9,50 +9,50 @@
   ReportsService.$inject = ['$resource'];
 
   function ReportsService($resource) {
-    return $resource('/api/reports',{}, {
-        accountStats: {
+    return $resource('/api/reports', {}, {
+      accountStats: {
         method: 'GET',
-        url:'/api/reports/accountStats',
+        url: '/api/reports/accountStats'
       },
       courseStats: {
-          method: 'GET',
-          url:'/api/reports/courseStats',
-        },
+        method: 'GET',
+        url: '/api/reports/courseStats'
+      },
       userRegistrationStats: {
-          method: 'GET',
-          isArray:true,
-          url:'/api/reports/userRegistrationStats/:day',
-        },
-        userLoginStats: {
-            method: 'GET',
-            isArray:true,
-            url:'/api/reports/userLoginStats/:day',
-          },
-          memberRegistrationStats: {
-              method: 'GET',
-              isArray:true,
-              url:'/api/reports/memberRegistrationStats/:day',
-            },
-            memberInstudyStats: {
-                method: 'GET',
-                isArray:true,
-                url:'/api/reports/memberInstudyStats/:day',
-              },
-              memberCompleteStats: {
-                  method: 'GET',
-                  isArray:true,
-                  url:'/api/reports/memberCompleteStats/:day',
-                },
-                courseAttemptStats: {
-                    method: 'GET',
-                    isArray:true,
-                    url:'/api/reports/courseAttemptStats/:day/:editionId',
-                  },
-                  memberAttemptStats: {
-                      method: 'GET',
-                      isArray:true,
-                      url:'/api/reports/memberAttemptStats/:memberId/:editionId',
-                    },
+        method: 'GET',
+        isArray: true,
+        url: '/api/reports/userRegistrationStats/:day'
+      },
+      userLoginStats: {
+        method: 'GET',
+        isArray: true,
+        url: '/api/reports/userLoginStats/:day'
+      },
+      memberRegistrationStats: {
+        method: 'GET',
+        isArray: true,
+        url: '/api/reports/memberRegistrationStats/:day'
+      },
+      memberInstudyStats: {
+        method: 'GET',
+        isArray: true,
+        url: '/api/reports/memberInstudyStats/:day'
+      },
+      memberCompleteStats: {
+        method: 'GET',
+        isArray: true,
+        url: '/api/reports/memberCompleteStats/:day'
+      },
+      courseAttemptStats: {
+        method: 'GET',
+        isArray: true,
+        url: '/api/reports/courseAttemptStats/:day/:editionId'
+      },
+      memberAttemptStats: {
+        method: 'GET',
+        isArray: true,
+        url: '/api/reports/memberAttemptStats/:memberId/:editionId'
+      }
     });
   }
 }());

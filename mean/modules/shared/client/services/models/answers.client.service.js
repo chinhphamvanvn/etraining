@@ -1,5 +1,5 @@
 // Answers service used to communicate Answers REST endpoints
-(function () {
+(function() {
   'use strict';
 
   angular

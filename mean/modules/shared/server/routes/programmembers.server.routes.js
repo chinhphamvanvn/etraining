@@ -11,21 +11,21 @@ module.exports = function(app) {
   app.route('/api/programmembers').all(programmembersPolicy.isAllowed)
     .get(programmembers.list)
     .post(programmembers.create);
-  
+
   app.route('/api/programmembers/byProgram/:programId').all(programmembersPolicy.isAllowed)
-  .get(programmembers.memberByProgram);
-  
+    .get(programmembers.memberByProgram);
+
   app.route('/api/programmembers/byUser/:userId').all(programmembersPolicy.isAllowed)
-  .get(programmembers.memberByUser);
-  
+    .get(programmembers.memberByUser);
+
   app.route('/api/programmembers/withdraw/:programmemberId').all(programmembersPolicy.isAllowed)
-  .put(programmembers.withdraw);
-  
+    .put(programmembers.withdraw);
+
   app.route('/api/programmembers/complete/:programmemberId/:managerId').all(programmembersPolicy.isAllowed)
-  .put(programmembers.complete);
-  
+    .put(programmembers.complete);
+
   app.route('/api/programmembers/byUserAndProgram/:userId/:programId').all(programmembersPolicy.isAllowed)
-  .get(programmembers.memberByUserAndProgram);
+    .get(programmembers.memberByUserAndProgram);
 
   app.route('/api/programmembers/:programmemberId').all(programmembersPolicy.isAllowed)
     .get(programmembers.read)

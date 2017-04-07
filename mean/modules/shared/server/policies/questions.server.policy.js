@@ -11,69 +11,82 @@ acl = new acl(new acl.memoryBackend());
 /**
  * Invoke Questions Permissions
  */
-exports.invokeRolesPolicies = function () {
-  acl.allow([{
-    roles: ['admin'],
-    allows: [{
-      resources: '/api/questions',
-      permissions: '*'
-    },  
+exports.invokeRolesPolicies = function() {
+  acl.allow([
     {
-        resources: '/api/questions/bulk',
-        permissions: '*'
-      },{
+      roles: ['admin'],
+      allows: [
+        {
+          resources: '/api/questions',
+          permissions: '*'
+        },
+        {
+          resources: '/api/questions/bulk',
+          permissions: '*'
+        },
+        {
           resources: '/api/questions/byCategoryAndLevel/:groupId/:level',
           permissions: '*'
         },
         {
-            resources: '/api/questions/byCategory/:groupId',
-            permissions: '*'
-          },
-          {
-              resources: '/api/questions/byIds/:questionIds',
-              permissions: '*'
-          },
+          resources: '/api/questions/byCategory/:groupId',
+          permissions: '*'
+        },
         {
-      resources: '/api/questions/:questionId',
-      permissions: '*'
-    }]
-  }, {
-    roles: ['user'],
-    allows: [{
-      resources: '/api/questions',
-      permissions: ['get', 'post']
-    },{
+          resources: '/api/questions/byIds/:questionIds',
+          permissions: '*'
+        },
+        {
+          resources: '/api/questions/:questionId',
+          permissions: '*'
+        }
+      ]
+    },
+    {
+      roles: ['user'],
+      allows: [
+        {
+          resources: '/api/questions',
+          permissions: ['get', 'post']
+        },
+        {
           resources: '/api/questions/byCategoryAndLevel/:groupId/:level',
           permissions: ['get']
         },
         {
-            resources: '/api/questions/byCategory/:groupId',
-            permissions: 'get'
-          },
-          {
-              resources: '/api/questions/byIds/:questionIds',
-              permissions: 'get'
-          },            
-      {
-      resources: '/api/questions/:questionId',
-      permissions: ['get']
-    }]
-  }, {
-    roles: ['guest'],
-    allows: [{
-      resources: '/api/questions',
-      permissions: ['get']
-    }, {
-      resources: '/api/questions/:questionId',
-      permissions: ['get']
-    }]
-  }]);
+          resources: '/api/questions/byCategory/:groupId',
+          permissions: 'get'
+        },
+        {
+          resources: '/api/questions/byIds/:questionIds',
+          permissions: 'get'
+        },
+        {
+          resources: '/api/questions/:questionId',
+          permissions: ['get']
+        }
+      ]
+    },
+    {
+      roles: ['guest'],
+      allows: [
+        {
+          resources: '/api/questions',
+          permissions: ['get']
+        },
+        {
+          resources: '/api/questions/:questionId',
+          permissions: ['get']
+        }
+      ]
+    }
+  ]);
 };
 
 /**
  * Check If Questions Policy Allows
  */
-exports.isAllowed = function (req, res, next) {
+exports.isAllowed = function(req, res, next) {
   var roles = (req.user) ? req.user.roles : ['guest'];
 
   // If an Question is being processed and the current user created it then allow any manipulation
@@ -82,7 +95,7 @@ exports.isAllowed = function (req, res, next) {
   }
 
   // Check for user roles
-  acl.areAnyRolesAllowed(roles, req.route.path, req.method.toLowerCase(), function (err, isAllowed) {
+  acl.areAnyRolesAllowed(roles, req.route.path, req.method.toLowerCase(), function(err, isAllowed) {
     if (err) {
       // An authorization error occurred
       return res.status(500).send('Unexpected authorization error');

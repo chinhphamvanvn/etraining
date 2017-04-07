@@ -11,13 +11,11 @@ module.exports = function(app) {
   app.route('/api/exams').all(examsPolicy.isAllowed)
     .get(exams.list)
     .post(exams.create);
-  
-  app.route('/api/exams/:examId/logo').post(exams.changeExamLogo);
-  
-  app.route('/api/exams/public').all(examsPolicy.isAllowed)
-  .get(exams.listPublished)
-  
 
+  app.route('/api/exams/:examId/logo').post(exams.changeExamLogo);
+
+  app.route('/api/exams/public').all(examsPolicy.isAllowed)
+    .get(exams.listPublished);
 
   app.route('/api/exams/:examId').all(examsPolicy.isAllowed)
     .get(exams.read)

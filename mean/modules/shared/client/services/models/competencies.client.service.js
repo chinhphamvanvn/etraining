@@ -1,5 +1,5 @@
 // Competencies service used to communicate Competencies REST endpoints
-(function () {
+(function() {
   'use strict';
 
   angular
@@ -15,11 +15,11 @@
       update: {
         method: 'PUT'
       },
-      byGroup : {
-          method: 'GET',
-          url: '/api/competencies/byGroup/:groupId',
-          isArray: true
-        }
+      byGroup: {
+        method: 'GET',
+        url: '/api/competencies/byGroup/:groupId',
+        isArray: true
+      }
     });
   }
 }());

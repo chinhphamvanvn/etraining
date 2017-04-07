@@ -25,12 +25,12 @@ var OptionSchema = new Schema({
   },
   order: {
     type: Number,
-    default: 1,
+    default: 1
   },
   mime: {
     type: String,
     enum: ['txt', 'pic', 'video', 'audio'],
-    default: 'txt',
+    default: 'txt'
   },
   question: {
     type: Schema.ObjectId,

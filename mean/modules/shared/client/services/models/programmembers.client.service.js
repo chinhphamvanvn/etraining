@@ -1,5 +1,5 @@
 // Programmembers service used to communicate Programmembers REST endpoints
-(function () {
+(function() {
   'use strict';
 
   angular
@@ -16,27 +16,27 @@
         method: 'PUT'
       },
       byProgram: {
-          method: 'GET',
-          isArray:true,
-          url:'/api/programmembers/byProgram/:programId'
-        },
-        byUser: {
-            method: 'GET',
-            isArray:true,
-            url:'/api/programmembers/byUser/:userId'
-          },
-          withdraw: {
-              method: 'PUT',
-              url:'/api/programmembers/withdraw/:programmemberId'
-            },
-            complete: {
-                method: 'PUT',
-                url:'/api/programmembers/complete/:programmemberId/:managerId'
-              },
-          byUserAndProgram: {
-              method: 'GET',
-              url:'/api/programmembers/byUserAndProgram/:userId/:programId'
-            }
+        method: 'GET',
+        isArray: true,
+        url: '/api/programmembers/byProgram/:programId'
+      },
+      byUser: {
+        method: 'GET',
+        isArray: true,
+        url: '/api/programmembers/byUser/:userId'
+      },
+      withdraw: {
+        method: 'PUT',
+        url: '/api/programmembers/withdraw/:programmemberId'
+      },
+      complete: {
+        method: 'PUT',
+        url: '/api/programmembers/complete/:programmemberId/:managerId'
+      },
+      byUserAndProgram: {
+        method: 'GET',
+        url: '/api/programmembers/byUserAndProgram/:userId/:programId'
+      }
     });
   }
 }());

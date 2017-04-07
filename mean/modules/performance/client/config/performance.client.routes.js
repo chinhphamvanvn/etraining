@@ -1,4 +1,4 @@
-(function () {
+(function() {
   'use strict';
 
   // Setting up route
@@ -11,29 +11,29 @@
   function routeConfig($stateProvider) {
     // Users state routing
     $stateProvider
-    .state('admin.workspace.performance', {
+      .state('admin.workspace.performance', {
         url: '/performance',
-        abstract:true,
+        abstract: true,
         template: '<ui-view/>',
         data: {
-          roles: [ 'admin']
+          roles: ['admin']
         }
       })
       .state('admin.workspace.performance.question', {
         url: '/question',
-        abstract:true,
+        abstract: true,
         template: '<ui-view/>',
         data: {
-          roles: [ 'admin']
+          roles: ['admin']
         }
       })
-       .state('admin.workspace.performance.question.list', {
+      .state('admin.workspace.performance.question.list', {
         url: '/list',
         templateUrl: '/modules/performance/client/views/list-questions.client.view.html',
         controller: 'QuestionsBankController',
         controllerAs: 'vm',
         data: {
-          roles: [ 'admin']
+          roles: ['admin']
         }
       })
       .state('admin.workspace.performance.question.edit', {
@@ -41,11 +41,11 @@
         templateUrl: '/modules/performance/client/views/form-question.client.view.html',
         controller: 'QuestionController',
         controllerAs: 'vm',
-        resolve : {
-            questionResolve:getQuestion,
-        },        
+        resolve: {
+          questionResolve: getQuestion
+        },
         data: {
-          roles: [ 'admin']
+          roles: ['admin']
         }
       })
       .state('admin.workspace.performance.question.view', {
@@ -53,19 +53,19 @@
         templateUrl: '/modules/performance/client/views/view-question.client.view.html',
         controller: 'QuestionController',
         controllerAs: 'vm',
-        resolve : {
-            questionResolve:getQuestion,
-        },        
+        resolve: {
+          questionResolve: getQuestion
+        },
         data: {
-          roles: [ 'admin']
+          roles: ['admin']
         }
       })
       .state('admin.workspace.performance.schedules', {
         url: '/schedule',
-        abstract:true,
+        abstract: true,
         template: '<ui-view/>',
         data: {
-          roles: [ 'admin']
+          roles: ['admin']
         }
       })
       .state('admin.workspace.performance.schedules.list', {
@@ -74,7 +74,7 @@
         controller: 'ScheduleListController',
         controllerAs: 'vm',
         data: {
-          roles: [ 'admin']
+          roles: ['admin']
         }
       })
       .state('admin.workspace.performance.schedules.edit', {
@@ -86,7 +86,7 @@
           scheduleResolve: getSchedule
         },
         data: {
-          roles: ['admin'],
+          roles: ['admin']
         }
       })
       .state('admin.workspace.performance.schedules.view', {
@@ -95,10 +95,10 @@
         controller: 'SchedulesViewController',
         controllerAs: 'vm',
         resolve: {
-            scheduleResolve: getSchedule
+          scheduleResolve: getSchedule
         },
         data: {
-          roles: ['admin'],
+          roles: ['admin']
         }
       })
       .state('admin.workspace.performance.schedules.candidate', {
@@ -107,18 +107,18 @@
         controller: 'ExamCandidatesController',
         controllerAs: 'vm',
         resolve: {
-            scheduleResolve: getSchedule
+          scheduleResolve: getSchedule
         },
         data: {
-          roles: ['admin'],
+          roles: ['admin']
         }
       })
       .state('admin.workspace.performance.competency', {
         url: '/competency',
-        abstract:true,
+        abstract: true,
         template: '<ui-view/>',
         data: {
-          roles: [ 'admin']
+          roles: ['admin']
         }
       })
       .state('admin.workspace.performance.competency.list', {
@@ -127,7 +127,7 @@
         controller: 'CompetencyListController',
         controllerAs: 'vm',
         data: {
-          roles: [ 'admin']
+          roles: ['admin']
         }
       })
       .state('admin.workspace.performance.competency.edit', {
@@ -135,11 +135,11 @@
         templateUrl: '/modules/performance/client/views/form-competency.client.view.html',
         controller: 'CompetencyController',
         controllerAs: 'vm',
-        resolve : {
-            competencyResolve:getCompetency,
-        },        
+        resolve: {
+          competencyResolve: getCompetency
+        },
         data: {
-          roles: [ 'admin']
+          roles: ['admin']
         }
       })
       .state('admin.workspace.performance.competency.view', {
@@ -147,41 +147,38 @@
         templateUrl: '/modules/performance/client/views/view-competency.client.view.html',
         controller: 'CompetencyController',
         controllerAs: 'vm',
-        resolve : {
-            competencyResolve:getCompetency,
-        },        
+        resolve: {
+          competencyResolve: getCompetency
+        },
         data: {
-          roles: [ 'admin']
+          roles: ['admin']
         }
       });
-    
+
   }
-  
+
   getQuestion.$inject = ['$stateParams', 'QuestionsService'];
 
   function getQuestion($stateParams, QuestionsService) {
     return QuestionsService.get({
-        questionId: $stateParams.questionId
+      questionId: $stateParams.questionId
     }).$promise;
   }
-  
+
   getCompetency.$inject = ['$stateParams', 'CompetenciesService'];
 
   function getCompetency($stateParams, CompetenciesService) {
     return CompetenciesService.get({
-        competencyId: $stateParams.competencyId
+      competencyId: $stateParams.competencyId
     }).$promise;
   }
-  
+
   getSchedule.$inject = ['$stateParams', 'SchedulesService'];
 
   function getSchedule($stateParams, SchedulesService) {
     return SchedulesService.get({
-        scheduleId: $stateParams.scheduleId
+      scheduleId: $stateParams.scheduleId
     }).$promise;
   }
-  
-
-
 
 }());

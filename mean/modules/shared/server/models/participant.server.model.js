@@ -11,33 +11,33 @@ var mongoose = require('mongoose'),
  */
 var ConferenceParticipantSchema = new Schema({
   memberId: {
-    type: String,
+    type: String
   },
   meetingId: {
-      type: String,
-    },
-    loginURL: {
-        type: String,
-      },
-    email: {
-        type: String,
-      },
+    type: String
+  },
+  loginURL: {
+    type: String
+  },
+  email: {
+    type: String
+  },
   name: {
-      type: String,
-      default: ''
-    },
+    type: String,
+    default: ''
+  },
   conference: {
-      type: Schema.ObjectId,
-      ref: 'Conference'
+    type: Schema.ObjectId,
+    ref: 'Conference'
   },
   member: {
-      type: Schema.ObjectId,
-      ref: 'CourseMember'
+    type: Schema.ObjectId,
+    ref: 'CourseMember'
   },
   isPresenter: {
-      type: Boolean,
-      default: false
-    },
+    type: Boolean,
+    default: false
+  },
   created: {
     type: Date,
     default: Date.now

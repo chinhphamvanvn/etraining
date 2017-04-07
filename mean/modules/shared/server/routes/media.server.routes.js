@@ -6,7 +6,7 @@
 var mediaPolicy = require('../policies/media.server.policy'),
   media = require('../controllers/media.server.controller');
 
-module.exports = function (app) {
+module.exports = function(app) {
   // Media Routes
   app.route('/api/media').all(mediaPolicy.isAllowed)
     .get(media.list)

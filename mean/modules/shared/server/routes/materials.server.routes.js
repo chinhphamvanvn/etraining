@@ -13,10 +13,10 @@ module.exports = function(app) {
     .post(materials.create);
 
   app.route('/api/materials/byCourse/:editionId').all(materialsPolicy.isAllowed)
-  .get(materials.listByCourse)
-  
+    .get(materials.listByCourse);
+
   app.route('/api/materials/upload').post(materials.uploadCourseMaterial);
-  
+
   app.route('/api/materials/:materialId').all(materialsPolicy.isAllowed)
     .get(materials.read)
     .put(materials.update)

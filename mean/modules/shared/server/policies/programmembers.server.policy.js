@@ -11,82 +11,94 @@ acl = new acl(new acl.memoryBackend());
 /**
  * Invoke Programmembers Permissions
  */
-exports.invokeRolesPolicies = function () {
-  acl.allow([{
-    roles: ['admin'],
-    allows: [{
-      resources: '/api/programmembers',
-      permissions: '*'
-    }, {
-      resources: '/api/programmembers/:programmemberId',
-      permissions: '*'
-    },
+exports.invokeRolesPolicies = function() {
+  acl.allow([
     {
-        resources: '/api/programmembers/byProgram/:programId',
-        permissions: 'get'
-      }
-    ,{
+      roles: ['admin'],
+      allows: [
+        {
+          resources: '/api/programmembers',
+          permissions: '*'
+        },
+        {
+          resources: '/api/programmembers/:programmemberId',
+          permissions: '*'
+        },
+        {
+          resources: '/api/programmembers/byProgram/:programId',
+          permissions: 'get'
+        },
+        {
           resources: '/api/programmembers/byUserAndProgram/:userId/:programId',
           permissions: 'get'
         },
         {
-            resources: '/api/programmembers/withdraw/:programmemberId',
-            permissions: 'put'
-          },
-          {
-              resources: '/api/programmembers/complete/:programmemberId/:managerId',
-              permissions: 'put'
-            },
-      {
+          resources: '/api/programmembers/withdraw/:programmemberId',
+          permissions: 'put'
+        },
+        {
+          resources: '/api/programmembers/complete/:programmemberId/:managerId',
+          permissions: 'put'
+        },
+        {
           resources: '/api/programmembers/byUser/:userId',
           permissions: 'get'
-        },
-    ]
-  }, {
-    roles: ['user'],
-    allows: [{
-      resources: '/api/programmembers',
-      permissions: ['get', 'post']
-    }, {
-      resources: '/api/programmembers/:programmemberId',
-      permissions: ['get']
+        }
+      ]
     },
     {
-        resources: '/api/programmembers/byProgram/:programId',
-        permissions: 'get'
-      }
-    ,{
+      roles: ['user'],
+      allows: [
+        {
+          resources: '/api/programmembers',
+          permissions: ['get', 'post']
+        },
+        {
+          resources: '/api/programmembers/:programmemberId',
+          permissions: ['get']
+        },
+        {
+          resources: '/api/programmembers/byProgram/:programId',
+          permissions: 'get'
+        },
+        {
           resources: '/api/programmembers/byUserAndProgram/:userId/:programId',
           permissions: 'get'
         },
         {
-            resources: '/api/programmembers/withdraw/:programmemberId',
-            permissions: 'put'
-          },
-          {
-              resources: '/api/programmembers/complete/:programmemberId/:managerId',
-              permissions: 'put'
-            },
-      {
+          resources: '/api/programmembers/withdraw/:programmemberId',
+          permissions: 'put'
+        },
+        {
+          resources: '/api/programmembers/complete/:programmemberId/:managerId',
+          permissions: 'put'
+        },
+        {
           resources: '/api/programmembers/byUser/:userId',
           permissions: 'get'
-        },]
-  }, {
-    roles: ['guest'],
-    allows: [{
-      resources: '/api/programmembers',
-      permissions: ['get']
-    }, {
-      resources: '/api/programmembers/:programmemberId',
-      permissions: ['get']
-    }]
-  }]);
+        }
+      ]
+    },
+    {
+      roles: ['guest'],
+      allows: [
+        {
+          resources: '/api/programmembers',
+          permissions: ['get']
+        },
+        {
+          resources: '/api/programmembers/:programmemberId',
+          permissions: ['get']
+        }
+      ]
+    }
+  ]);
 };
 
 /**
  * Check If Programmembers Policy Allows
  */
-exports.isAllowed = function (req, res, next) {
+exports.isAllowed = function(req, res, next) {
   var roles = (req.user) ? req.user.roles : ['guest'];
 
   // If an Programmember is being processed and the current user created it then allow any manipulation
@@ -95,7 +107,7 @@ exports.isAllowed = function (req, res, next) {
   }
 
   // Check for user roles
-  acl.areAnyRolesAllowed(roles, req.route.path, req.method.toLowerCase(), function (err, isAllowed) {
+  acl.areAnyRolesAllowed(roles, req.route.path, req.method.toLowerCase(), function(err, isAllowed) {
     if (err) {
       // An authorization error occurred
       return res.status(500).send('Unexpected authorization error');

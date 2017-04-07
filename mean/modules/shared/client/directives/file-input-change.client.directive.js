@@ -1,4 +1,4 @@
-(function () {
+(function() {
   'use strict';
 
   // Focus the element on page load
@@ -8,15 +8,15 @@
     .directive('fileInputChange', fileInputChange);
 
   function fileInputChange() {
-      return {
-          scope: {
-              fileread: "="
-          },
-          link: function (scope, element, attributes) {
-              element.bind("change.uk.fileinput", function (event,file) {
-                  scope.fileread = file;
-              });
-          }
+    return {
+      scope: {
+        fileread: '='
+      },
+      link: function(scope, element, attributes) {
+        element.bind('change.uk.fileinput', function(event, file) {
+          scope.fileread = file;
+        });
       }
+    };
   }
 }());

@@ -10,82 +10,86 @@ var path = require('path'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
   _ = require('lodash');
 
-
-
-exports.bulkCreate = function (req, res) {
-    var questions = req.body.questions;
-    var promises = [];
-    _.each(questions,function(question) {       
-        var promise =  new Promise(function (resolve, reject) {
-            var newQuestion = new Question(question);
-            newQuestion.correctOptions = [];
-            newQuestion.save(function (err) {
-                if (err) {
+exports.bulkCreate = function(req, res) {
+  var questions = req.body.questions;
+  var promises = [];
+  _.each(questions, function(question) {
+    var promise = new Promise(function(resolve, reject) {
+      var newQuestion = new Question(question);
+      newQuestion.correctOptions = [];
+      newQuestion.save(function(err) {
+        if (err) {
+          reject(err);
+        } else {
+          var correctOptions = question.correctOptions;
+          var wrongOptions = question.wrongOptions;
+          var optionPromises = [];
+          var order = 1;
+          _.each(correctOptions, function(content) {
+            var optionPromise = new Promise(function(resolve, reject) {
+              var option = new Option({
+                content: content,
+                question: newQuestion._id,
+                order: order++
+              });
+              option.save(function(err) {
+                console.log(option);
+                if (err)
                   reject(err);
-                } else {     
-                    var correctOptions = question.correctOptions;
-                    var wrongOptions = question.wrongOptions;
-                    var optionPromises = [];
-                    var order  = 1;
-                    _.each(correctOptions,function(content) {
-                        var optionPromise =  new Promise(function (resolve, reject) {
-                            var option = new Option({content:content,question:newQuestion._id,order:order++});
-                            option.save(function(err) {
-                                console.log(option);
-                                if (err)
-                                    reject(err);
-                                else{
-                                    newQuestion.correctOptions.push(option._id);
-                                    newQuestion.save(function(err) {
-                                        resolve();
-                                    });                                    
-                                }
-                            });
-                        });
-                        optionPromises.push(optionPromise);                        
-                    });
-                    _.each(wrongOptions,function(content) {
-                        var optionPromise =  new Promise(function (resolve, reject) {
-                            var option = new Option({content:content,question:newQuestion._id,order:order++});
-                            option.save(function(err) {
-                                console.log(option);
-                                if (err)
-                                    reject(err);
-                                else{
-                                    resolve();
-                                }
-                            });
-                        });
-                        optionPromises.push(optionPromise);                        
-                    })
-                    Promise.all(optionPromises).then(
-                            function () 
-                            {
-                                resolve();
-                            },
-                            function (err) 
-                            {
-                                reject();
-                            });
-                }            
-            });
-        });
-        promises.push(promise);
-    });
-    
-    Promise.all(promises).then(
-            function () 
-            {
-                res.json({success:true});
-            },
-            function (err) 
-            {
-                return res.status(422).send({
-                    message: errorHandler.getErrorMessage(err)
+                else {
+                  newQuestion.correctOptions.push(option._id);
+                  newQuestion.save(function(err) {
+                    resolve();
                   });
+                }
+              });
             });
+            optionPromises.push(optionPromise);
+          });
+          _.each(wrongOptions, function(content) {
+            var optionPromise = new Promise(function(resolve, reject) {
+              var option = new Option({
+                content: content,
+                question: newQuestion._id,
+                order: order++
+              });
+              option.save(function(err) {
+                console.log(option);
+                if (err)
+                  reject(err);
+                else {
+                  resolve();
+                }
+              });
+            });
+            optionPromises.push(optionPromise);
+          });
+          Promise.all(optionPromises).then(
+            function() {
+              resolve();
+            },
+            function(err) {
+              reject();
+            });
+        }
+      });
+    });
+    promises.push(promise);
+  });
 
-}
+  Promise.all(promises).then(
+    function() {
+      res.json({
+        success: true
+      });
+    },
+    function(err) {
+      return res.status(422).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    });
+
+};
 
 /**
  * Create a Question
@@ -170,9 +174,12 @@ exports.list = function(req, res) {
   });
 };
 
-  
-exports.listByCategoryAndLevel = function(req, res) {;
-    Question.find({category:req.params.groupId, level:req.params.level }).sort('-created').populate('user', 'displayName').populate('category').exec(function(err, questions) {
+
+exports.listByCategoryAndLevel = function(req, res) {
+  Question.find({
+    category: req.params.groupId,
+    level: req.params.level
+  }).sort('-created').populate('user', 'displayName').populate('category').exec(function(err, questions) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -184,8 +191,12 @@ exports.listByCategoryAndLevel = function(req, res) {;
 };
 
 exports.listByIds = function(req, res) {
-    var questionIds = req.params.questionIds.split(',');
-    Question.find({_id:{$in:questionIds} }).sort('-created').populate('user', 'displayName').populate('category').exec(function(err, questions) {
+  var questionIds = req.params.questionIds.split(',');
+  Question.find({
+    _id: {
+      $in: questionIds
+    }
+  }).sort('-created').populate('user', 'displayName').populate('category').exec(function(err, questions) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -197,7 +208,9 @@ exports.listByIds = function(req, res) {
 };
 
 exports.listByCategory = function(req, res) {
-    Question.find({category:req.group._id }).sort('-created').populate('user', 'displayName').populate('category').exec(function(err, questions) {
+  Question.find({
+    category: req.group._id
+  }).sort('-created').populate('user', 'displayName').populate('category').exec(function(err, questions) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -219,7 +232,7 @@ exports.questionByID = function(req, res, next, id) {
     });
   }
 
-  Question.findById(id).populate('user', 'displayName').populate('subQuestions').exec(function (err, question) {
+  Question.findById(id).populate('user', 'displayName').populate('subQuestions').exec(function(err, question) {
     if (err) {
       return next(err);
     } else if (!question) {

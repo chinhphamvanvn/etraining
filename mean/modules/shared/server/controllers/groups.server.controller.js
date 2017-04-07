@@ -81,7 +81,9 @@ exports.delete = function(req, res) {
  * List of Groups
  */
 exports.listOrganizationGroup = function(req, res) {
-  Group.find({category:'organization'}).sort('-created').populate('user', 'displayName').exec(function(err, groups) {
+  Group.find({
+    category: 'organization'
+  }).sort('-created').populate('user', 'displayName').exec(function(err, groups) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -93,43 +95,51 @@ exports.listOrganizationGroup = function(req, res) {
 };
 
 exports.listCourseGroup = function(req, res) {
-    Group.find({category:'course'}).sort('-created').populate('user', 'displayName').exec(function(err, groups) {
-      if (err) {
-        return res.status(400).send({
-          message: errorHandler.getErrorMessage(err)
-        });
-      } else {
-        res.jsonp(groups);
-      }
-    });
-  };
-
-  exports.listLibraryGroup = function(req, res) {
-      Group.find({category:'library'}).sort('-created').populate('user', 'displayName').exec(function(err, groups) {
-        if (err) {
-          return res.status(400).send({
-            message: errorHandler.getErrorMessage(err)
-          });
-        } else {
-          res.jsonp(groups);
-        }
+  Group.find({
+    category: 'course'
+  }).sort('-created').populate('user', 'displayName').exec(function(err, groups) {
+    if (err) {
+      return res.status(400).send({
+        message: errorHandler.getErrorMessage(err)
       });
-    };
+    } else {
+      res.jsonp(groups);
+    }
+  });
+};
 
-    exports.listQuestionGroup = function(req, res) {
-        Group.find({category:'question'}).sort('-created').populate('user', 'displayName').exec(function(err, groups) {
-          if (err) {
-            return res.status(400).send({
-              message: errorHandler.getErrorMessage(err)
-            });
-          } else {
-            res.jsonp(groups);
-          }
-        });
-      };
+exports.listLibraryGroup = function(req, res) {
+  Group.find({
+    category: 'library'
+  }).sort('-created').populate('user', 'displayName').exec(function(err, groups) {
+    if (err) {
+      return res.status(400).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    } else {
+      res.jsonp(groups);
+    }
+  });
+};
 
-  exports.listCompetencyGroup = function(req, res) {
-      Group.find({category:'competency'}).sort('-created').populate('user', 'displayName').exec(function(err, groups) {
+exports.listQuestionGroup = function(req, res) {
+  Group.find({
+    category: 'question'
+  }).sort('-created').populate('user', 'displayName').exec(function(err, groups) {
+    if (err) {
+      return res.status(400).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    } else {
+      res.jsonp(groups);
+    }
+  });
+};
+
+exports.listCompetencyGroup = function(req, res) {
+  Group.find({
+    category: 'competency'
+  }).sort('-created').populate('user', 'displayName').exec(function(err, groups) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -141,16 +151,18 @@ exports.listCourseGroup = function(req, res) {
 };
 
 exports.listByCategory = function(req, res) {
-    Group.find({category:req.params.category}).sort('-created').populate('user', 'displayName').exec(function(err, groups) {
-      if (err) {
-        return res.status(400).send({
-          message: errorHandler.getErrorMessage(err)
-        });
-      } else {
-        res.jsonp(groups);
-      }
-    });
-  };
+  Group.find({
+    category: req.params.category
+  }).sort('-created').populate('user', 'displayName').exec(function(err, groups) {
+    if (err) {
+      return res.status(400).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    } else {
+      res.jsonp(groups);
+    }
+  });
+};
 
 /**
  * Group middleware
@@ -163,7 +175,7 @@ exports.groupByID = function(req, res, next, id) {
     });
   }
 
-  Group.findById(id).populate('user', 'displayName').exec(function (err, group) {
+  Group.findById(id).populate('user', 'displayName').exec(function(err, group) {
     if (err) {
       return next(err);
     } else if (!group) {

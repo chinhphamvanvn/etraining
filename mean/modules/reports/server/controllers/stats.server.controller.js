@@ -103,7 +103,7 @@ exports.statByID = function(req, res, next, id) {
     });
   }
 
-  Stat.findById(id).populate('user', 'displayName').exec(function (err, stat) {
+  Stat.findById(id).populate('user', 'displayName').exec(function(err, stat) {
     if (err) {
       return next(err);
     } else if (!stat) {

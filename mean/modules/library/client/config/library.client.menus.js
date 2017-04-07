@@ -1,4 +1,4 @@
-(function () {
+(function() {
   'use strict';
 
   angular
@@ -13,15 +13,15 @@
       title: 'PAGE.WORKSPACE.SIDEBAR.LIBRARY',
       state: 'admin.workspace.library.content.list',
       roles: ['admin'],
-      icon:'local_library',
+      icon: 'local_library',
       position: 90
     });
     menuService.addMenuItem('sidebar', {
-        title: 'PAGE.WORKSPACE.SIDEBAR.LIBRARY',
-        state: 'workspace.library',
-        roles: ['user'],
-        icon:'local_library',
-        position: 90
-      });
+      title: 'PAGE.WORKSPACE.SIDEBAR.LIBRARY',
+      state: 'workspace.library',
+      roles: ['user'],
+      icon: 'local_library',
+      position: 90
+    });
   }
 }());

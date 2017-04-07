@@ -10,14 +10,14 @@ var mongoose = require('mongoose'),
  * Video Schema
  */
 var VideoSchema = new Schema({
-    transcript: {
-        type: String,
-        trim: true
-    },
-    videoURL: {
-        type: String,
-        trim: true
-    },
+  transcript: {
+    type: String,
+    trim: true
+  },
+  videoURL: {
+    type: String,
+    trim: true
+  },
   created: {
     type: Date,
     default: Date.now

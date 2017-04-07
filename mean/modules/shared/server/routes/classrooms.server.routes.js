@@ -11,9 +11,9 @@ module.exports = function(app) {
   app.route('/api/classrooms').all(classroomsPolicy.isAllowed)
     .get(classrooms.list)
     .post(classrooms.create);
-  
+
   app.route('/api/classrooms/byCourse/:courseId').all(classroomsPolicy.isAllowed)
-  .get(classrooms.classesByCourseID);
+    .get(classrooms.classesByCourseID);
 
   app.route('/api/classrooms/:classroomId').all(classroomsPolicy.isAllowed)
     .get(classrooms.read)

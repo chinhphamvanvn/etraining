@@ -18,24 +18,24 @@ exports.create = function(req, res) {
   schedule.user = req.user;
   var exam = new Exam({});
   exam.save(function(err) {
-      if (err) {
+    if (err) {
+      return res.status(400).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    } else {
+      schedule.exam = exam._id;
+      schedule.save(function(err) {
+        if (err) {
           return res.status(400).send({
             message: errorHandler.getErrorMessage(err)
           });
         } else {
-            schedule.exam = exam._id;
-            schedule.save(function(err) {
-                if (err) {
-                  return res.status(400).send({
-                    message: errorHandler.getErrorMessage(err)
-                  });
-                } else {
-                  res.jsonp(schedule);
-                }
-              });
+          res.jsonp(schedule);
         }
+      });
+    }
   });
-  
+
 };
 
 /**
@@ -114,7 +114,7 @@ exports.scheduleByID = function(req, res, next, id) {
     });
   }
 
-  Schedule.findById(id).populate('user', 'displayName').exec(function (err, schedule) {
+  Schedule.findById(id).populate('user', 'displayName').exec(function(err, schedule) {
     if (err) {
       return next(err);
     } else if (!schedule) {

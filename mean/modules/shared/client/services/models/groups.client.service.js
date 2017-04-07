@@ -1,5 +1,5 @@
 // Groups service used to communicate Groups REST endpoints
-(function () {
+(function() {
   'use strict';
 
   angular
@@ -16,36 +16,35 @@
         method: 'PUT'
       },
       byCategory: {
-          url:'/api/groups/byCategory/:category',
-          method: 'GET',
-          isArray: true
-        },
+        url: '/api/groups/byCategory/:category',
+        method: 'GET',
+        isArray: true
+      },
       listOrganizationGroup: {
-          url:'/api/groups/organization',
-          method: 'GET',
-          isArray: true
-        },
-    listCourseGroup: {
-        url:'/api/groups/course',
+        url: '/api/groups/organization',
+        method: 'GET',
+        isArray: true
+      },
+      listCourseGroup: {
+        url: '/api/groups/course',
         method: 'GET',
         isArray: true
       },
       listLibraryGroup: {
-          url:'/api/groups/library',
-          method: 'GET',
-          isArray: true
-        },
+        url: '/api/groups/library',
+        method: 'GET',
+        isArray: true
+      },
       listCompetencyGroup: {
-          url:'/api/groups/competency',
-          method: 'GET',
-          isArray: true
-        },
-        listQuestionGroup: {
-            url:'/api/groups/question',
-            method: 'GET',
-            isArray: true
-          }
-
+        url: '/api/groups/competency',
+        method: 'GET',
+        isArray: true
+      },
+      listQuestionGroup: {
+        url: '/api/groups/question',
+        method: 'GET',
+        isArray: true
+      }
     });
   }
 }());

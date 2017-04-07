@@ -27,111 +27,121 @@ var noReturnUrls = [
 /**
  * Signup
  */
-exports.signup = function (req, res) {
+exports.signup = function(req, res, next) {
   // For security measurement we remove the roles from the req.body object
   delete req.body.roles;
 
-  async.waterfall([
-       // Create new user
-       function (done) {
-           Setting.findOne({code:'REGISTER_GROUP'}).exec(function(err,setting) {
-               if (!err && setting && setting.valueString)  {
-                   done(err, setting.valueString);
-               } else
-                   done(null)
-           })
-       },
-       function (defaultGroup,done) {
+  async.waterfall(
+    [
+      // Create new user
+      function(done) {
+        Setting.findOne({
+          code: 'REGISTER_GROUP'
+        }).exec(function(err, setting) {
+          if (!err && setting && setting.valueString) {
+            done(err, setting.valueString);
+          } else
+            done(null);
+        });
+      },
+      function(defaultGroup, done) {
         // Init user and add missing fields
-           var user = new User(req.body);
-           user.provider = 'local';
-           user.displayName = user.firstName + ' ' + user.lastName;
-           if (!user.group)
-               user.group = defaultGroup;
-           // Then save the user
-           user.save(function (err) {
-             if (err) {
-               return res.status(422).send({
-                 message: errorHandler.getErrorMessage(err)
-               });
-             } else {
-               // Remove sensitive data before login
-               user.password = undefined;
-               user.salt = undefined;
-               UserLog.schema.statics.register(user);
-               req.login(user, function (err) {
-                 if (err) {
-                   res.status(400).send(err);
-                 } else {
-                   res.json(user);
-                   done(err, user);
-                 }
-               });
-             }
-           });
-       },
-       function (user, done) {
-           Setting.findOne({code:'ALERT_USER_CREATE'}).exec(function(err,setting) {
-               if (!err && setting && setting.valueBoolean)  {
-                   User.find({roles:'admin'}).exec(function(err,users) {
-                       _.each(users,function(recipient) {
-                           var alert = new Message({title:'User account',content:'User ' + user.username +' has been created',level:'success',type:'alert',recipient: recipient._id});
-                           alert.save();
-                       });
-                   });
-               } 
-           });
-           done(err, user);
-       },
-       function (user, done) {
+        var user = new User(req.body);
+        user.provider = 'local';
+        user.displayName = user.firstName + ' ' + user.lastName;
+        if (!user.group)
+          user.group = defaultGroup;
+        // Then save the user
+        user.save(function(err) {
+          if (err) {
+            return res.status(422).send({
+              message: errorHandler.getErrorMessage(err)
+            });
+          } else {
+            // Remove sensitive data before login
+            user.password = undefined;
+            user.salt = undefined;
+            UserLog.schema.statics.register(user);
+            req.login(user, function(err) {
+              if (err) {
+                res.status(400).send(err);
+              } else {
+                res.json(user);
+                done(err, user);
+              }
+            });
+          }
+        });
+      },
+      function(user, done) {
+        Setting.findOne({
+          code: 'ALERT_USER_CREATE'
+        }).exec(function(err, setting) {
+          if (!err && setting && setting.valueBoolean) {
+            User.find({
+              roles: 'admin'
+            }).exec(function(err, users) {
+              _.each(users, function(recipient) {
+                var alert = new Message({
+                  title: 'User account',
+                  content: 'User ' + user.username + ' has been created',
+                  level: 'success',
+                  type: 'alert',
+                  recipient: recipient._id
+                });
+                alert.save();
+              });
+              done(err, user);
+            });
+          }
+        });
+      },
+      function(user, done) {
 
-           var httpTransport = 'http://';
-           if (config.secure && config.secure.ssl === true) {
-             httpTransport = 'https://';
-           }
-           var baseUrl = req.app.get('domain') || httpTransport + req.headers.host;
-           res.render(path.resolve('modules/users/server/templates/user-registeration-welcome-email'), {
-             name: user.displayName,
-             appName: config.app.title
-           }, function (err, emailHTML) {
-             done(err, emailHTML, user);
-           });
-         },
-         // If valid email, send reset email using service
-         function (emailHTML, user, done) {
-           var mailOptions = {
-             to: user.email,
-             from: config.mailer.from,
-             subject: 'Welcome to e-Training',
-             html: emailHTML
-           };
-           smtpTransport.sendMail(mailOptions, function (err) {
-             if (!err) {
-               res.send({
-                 message: 'An email has been sent to the provided email with further instructions.'
-               });
-             } else {
-               return res.status(400).send({
-                 message: 'Failure sending email'
-               });
-             }
-
-             done(err);
-           });
-         }
-     ], function (err) {
-      if (err) {
-          return next(err);
+        var httpTransport = 'http://';
+        if (config.secure && config.secure.ssl === true) {
+          httpTransport = 'https://';
         }
-      });
-  
+        var baseUrl = req.app.get('domain') || httpTransport + req.headers.host;
+        res.render(path.resolve('modules/users/server/templates/user-registeration-welcome-email'), {
+          name: user.displayName,
+          appName: config.app.title
+        }, function(err, emailHTML) {
+          done(err, emailHTML, user);
+        });
+      },
+      // If valid email, send reset email using service
+      function(emailHTML, user, done) {
+        var mailOptions = {
+          to: user.email,
+          from: config.mailer.from,
+          subject: 'Welcome to e-Training',
+          html: emailHTML
+        };
+        smtpTransport.sendMail(mailOptions, function(err) {
+          if (!err) {
+            res.send({
+              message: 'An email has been sent to the provided email with further instructions.'
+            });
+          } else {
+            return res.status(400).send({
+              message: 'Failure sending email'
+            });
+          }
+          done(err);
+        });
+      }
+    ],
+    function(err) {
+      next(err);
+    });
 };
 
 /**
  * Signin after passport authentication
  */
-exports.signin = function (req, res, next) {
-  passport.authenticate('local', function (err, user, info) {
+exports.signin = function(req, res, next) {
+  passport.authenticate('local', function(err, user, info) {
     if (err || !user) {
       res.status(422).send(info);
     } else {
@@ -139,12 +149,12 @@ exports.signin = function (req, res, next) {
       user.password = undefined;
       user.salt = undefined;
 
-      req.login(user, function (err) {
+      req.login(user, function(err) {
         if (err) {
-          UserLog.schema.statics.login(user,false);
+          UserLog.schema.statics.login(user, false);
           res.status(400).send(err);
         } else {
-          UserLog.schema.statics.login(user,true);
+          UserLog.schema.statics.login(user, true);
           res.json(user);
         }
       });
@@ -155,7 +165,7 @@ exports.signin = function (req, res, next) {
 /**
  * Signout
  */
-exports.signout = function (req, res) {
+exports.signout = function(req, res) {
   UserLog.schema.statics.logout(req.user);
   req.logout();
   res.redirect('/');
@@ -164,8 +174,8 @@ exports.signout = function (req, res) {
 /**
  * OAuth provider call
  */
-exports.oauthCall = function (strategy, scope) {
-  return function (req, res, next) {
+exports.oauthCall = function(strategy, scope) {
+  return function(req, res, next) {
     if (req.query && req.query.redirect_to)
       req.session.redirect_to = req.query.redirect_to;
 
@@ -177,23 +187,23 @@ exports.oauthCall = function (strategy, scope) {
 /**
  * OAuth callback
  */
-exports.oauthCallback = function (strategy) {
-  return function (req, res, next) {
+exports.oauthCallback = function(strategy) {
+  return function(req, res, next) {
 
     // info.redirect_to contains inteded redirect path
-    passport.authenticate(strategy, function (err, user, info) {
+    passport.authenticate(strategy, function(err, user, info) {
       if (err) {
         return res.redirect('/authentication/signin?err=' + encodeURIComponent(errorHandler.getErrorMessage(err)));
       }
       if (!user) {
         return res.redirect('/authentication/signin');
       }
-      req.login(user, function (err) {
+      req.login(user, function(err) {
         if (err) {
-          UserLog.schema.statics.login(user,false);
+          UserLog.schema.statics.login(user, false);
           return res.redirect('/authentication/signin');
         }
-        UserLog.schema.statics.login(user,true);
+        UserLog.schema.statics.login(user, true);
         return res.redirect(info.redirect_to || '/');
       });
     })(req, res, next);
@@ -203,7 +213,7 @@ exports.oauthCallback = function (strategy) {
 /**
  * Helper function to save or update a OAuth user profile
  */
-exports.saveOAuthUserProfile = function (req, providerUserProfile, done) {
+exports.saveOAuthUserProfile = function(req, providerUserProfile, done) {
   // Setup info object
   var info = {};
 
@@ -231,14 +241,14 @@ exports.saveOAuthUserProfile = function (req, providerUserProfile, done) {
       $or: [mainProviderSearchQuery, additionalProviderSearchQuery]
     };
 
-    User.findOne(searchQuery, function (err, user) {
+    User.findOne(searchQuery, function(err, user) {
       if (err) {
         return done(err);
       } else {
         if (!user) {
           var possibleUsername = providerUserProfile.username || ((providerUserProfile.email) ? providerUserProfile.email.split('@')[0] : '');
 
-          User.findUniqueUsername(possibleUsername, null, function (availableUsername) {
+          User.findUniqueUsername(possibleUsername, null, function(availableUsername) {
             user = new User({
               firstName: providerUserProfile.firstName,
               lastName: providerUserProfile.lastName,
@@ -255,8 +265,8 @@ exports.saveOAuthUserProfile = function (req, providerUserProfile, done) {
             user.email = providerUserProfile.email;
 
             // And save the user
-            user.save(function (err) {
-              UserLog.schema.statics.connectSocial(user,true);
+            user.save(function(err) {
+              UserLog.schema.statics.connectSocial(user, true);
               return done(err, user, info);
             });
           });
@@ -282,12 +292,12 @@ exports.saveOAuthUserProfile = function (req, providerUserProfile, done) {
       user.markModified('additionalProvidersData');
 
       // And save the user
-      user.save(function (err) {
-        UserLog.schema.statics.connectSocial(user,true);
+      user.save(function(err) {
+        UserLog.schema.statics.connectSocial(user, true);
         return done(err, user, info);
       });
     } else {
-      UserLog.schema.statics.connectSocial(user,false);
+      UserLog.schema.statics.connectSocial(user, false);
       return done(new Error('User is already connected using this provider'), user);
     }
   }
@@ -296,7 +306,7 @@ exports.saveOAuthUserProfile = function (req, providerUserProfile, done) {
 /**
  * Remove OAuth provider
  */
-exports.removeOAuthProvider = function (req, res, next) {
+exports.removeOAuthProvider = function(req, res, next) {
   var user = req.user;
   var provider = req.query.provider;
 
@@ -316,15 +326,15 @@ exports.removeOAuthProvider = function (req, res, next) {
     user.markModified('additionalProvidersData');
   }
 
-  user.save(function (err) {
+  user.save(function(err) {
     if (err) {
-      UserLog.schema.statics.disconnectSocial(user,false);
+      UserLog.schema.statics.disconnectSocial(user, false);
       return res.status(422).send({
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      UserLog.schema.statics.connectSocial(user,true);
-      req.login(user, function (err) {
+      UserLog.schema.statics.connectSocial(user, true);
+      req.login(user, function(err) {
         if (err) {
           return res.status(400).send(err);
         } else {

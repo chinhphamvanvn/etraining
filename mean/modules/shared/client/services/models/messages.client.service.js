@@ -1,5 +1,5 @@
 // Messages service used to communicate Messages REST endpoints
-(function () {
+(function() {
   'use strict';
 
   angular
@@ -15,11 +15,11 @@
       update: {
         method: 'PUT'
       },
-        waiting : {
-            method: 'GET',
-            url: '/api/messages/waiting',
-            isArray: true
-          } 
+      waiting: {
+        method: 'GET',
+        url: '/api/messages/waiting',
+        isArray: true
+      }
     });
   }
 }());

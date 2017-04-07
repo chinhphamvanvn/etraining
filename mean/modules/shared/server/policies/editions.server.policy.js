@@ -11,52 +11,66 @@ acl = new acl(new acl.memoryBackend());
 /**
  * Invoke Editions Permissions
  */
-exports.invokeRolesPolicies = function () {
-  acl.allow([{
-    roles: ['admin'],
-    allows: [{
-      resources: '/api/editions',
-      permissions: '*'
-    }, 
-      {
-        resources: '/api/editions/byCourse/:courseId',
-        permissions: '*'
-      },{
-      resources: '/api/editions/:editionId',
-      permissions: '*'
-    }]
-  }, {
-    roles: ['user'],
-    allows: [{
-      resources: '/api/editions',
-      permissions: ['get', 'post']
-    }, {
-        resources: '/api/editions/byCourse/:courseId',
-        permissions: ['get']
-      },
-      {
-      resources: '/api/editions/:editionId',
-      permissions: ['get','put']
-    }]
-  }, {
-    roles: ['guest'],
-    allows: [{
-      resources: '/api/editions',
-      permissions: ['get']
-    }, {
-        resources: '/api/editions/byCourse/:courseId',
-        permissions: ['get']
-      }, {
-      resources: '/api/editions/:editionId',
-      permissions: ['get']
-    }]
-  }]);
+exports.invokeRolesPolicies = function() {
+  acl.allow([
+    {
+      roles: ['admin'],
+      allows: [
+        {
+          resources: '/api/editions',
+          permissions: '*'
+        },
+        {
+          resources: '/api/editions/byCourse/:courseId',
+          permissions: '*'
+        },
+        {
+          resources: '/api/editions/:editionId',
+          permissions: '*'
+        }
+      ]
+    },
+    {
+      roles: ['user'],
+      allows: [
+        {
+          resources: '/api/editions',
+          permissions: ['get', 'post']
+        },
+        {
+          resources: '/api/editions/byCourse/:courseId',
+          permissions: ['get']
+        },
+        {
+          resources: '/api/editions/:editionId',
+          permissions: ['get', 'put']
+        }
+      ]
+    },
+    {
+      roles: ['guest'],
+      allows: [
+        {
+          resources: '/api/editions',
+          permissions: ['get']
+        },
+        {
+          resources: '/api/editions/byCourse/:courseId',
+          permissions: ['get']
+        },
+        {
+          resources: '/api/editions/:editionId',
+          permissions: ['get']
+        }
+      ]
+    }
+  ]);
 };
 
 /**
  * Check If Editions Policy Allows
  */
-exports.isAllowed = function (req, res, next) {
+exports.isAllowed = function(req, res, next) {
   var roles = (req.user) ? req.user.roles : ['guest'];
   // If an Edition is being processed and the current user created it then allow any manipulation
   if (req.edition && req.user && req.edition.user && req.edition.user.id === req.user.id) {
@@ -64,7 +78,7 @@ exports.isAllowed = function (req, res, next) {
   }
 
   // Check for user roles
-  acl.areAnyRolesAllowed(roles, req.route.path, req.method.toLowerCase(), function (err, isAllowed) {
+  acl.areAnyRolesAllowed(roles, req.route.path, req.method.toLowerCase(), function(err, isAllowed) {
     if (err) {
       // An authorization error occurred
       return res.status(500).send('Unexpected authorization error');

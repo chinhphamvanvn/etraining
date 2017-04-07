@@ -13,13 +13,13 @@ module.exports = function(app) {
     .post(courses.create);
 
   app.route('/api/courses/public').all(coursesPolicy.isAllowed)
-  .get(courses.listPublic);
+    .get(courses.listPublic);
   app.route('/api/courses/private').all(coursesPolicy.isAllowed)
-  .get(courses.listPrivate);
+    .get(courses.listPrivate);
   app.route('/api/courses/restricted').all(coursesPolicy.isAllowed)
-  .get(courses.listRestricted);
+    .get(courses.listRestricted);
   app.route('/api/courses/byGroup/:groupId').all(coursesPolicy.isAllowed)
-  .get(courses.listByGroup);
+    .get(courses.listByGroup);
 
   app.route('/api/courses/:courseId/logo').post(courses.changeCourseLogo);
 

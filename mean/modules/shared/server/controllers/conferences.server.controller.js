@@ -18,112 +18,125 @@ var url = require('url');
 exports.create = function(req, res) {
   var conference = new Conference(req.body);
   conference.user = req.user;
-  var apiUrl ='',apiSalt = '';
-  
-  verifyNotExistConference(conference)
-  .then(getApiUrl)
-  .then(getApiSalt)
-  .then(function() {
-      var meeting = {
-              name: conference.name,        
-              meetingRef: conference.classroom,
-              active:true,
-              domain:'',
-              type:'training'
-       }
-        var checksum = sha1(JSON.stringify({meeting:meeting})+apiSalt);
-        console.log(checksum);
-        var URL = url.parse(apiUrl);
-        var protocol = URL.protocol=='http'? require("http"):require("https");
-        var options = {
-          hostname: URL.hostname,
-          port: URL.port,
-          path: '/api/trusted/meeting',
-          method: 'POST',
-          headers: {
-              'Content-Type': 'application/json',
-          },
-          rejectUnauthorized: false,
-          requestCert: true,
-          agent: false
-        };
-        var apiReq = protocol.request(options, function(apiRes) {
-          apiRes.setEncoding('utf8');
-          var data = [];
-          apiRes.on('data', function(chunk) {
-            data.push(chunk);
-          });
-          apiRes.on('end', function() {
-            var result = JSON.parse(data.join(''));
-            if (!result.status) {
-                return res.status(422).send({
-                    message: errorHandler.getErrorMessage('Error from API server')
-                  });
-            }
-            conference.meetingId = result.id;
-            conference.save(function(err) {
-                if (err) {
-                  return res.status(422).send({
-                    message: errorHandler.getErrorMessage(err)
-                  });
-                } else {
-                  res.jsonp(conference);
-                }
-              });
-          });
-        });
-        apiReq.on('error', function(e) {
-          console.log('problem with request: ' + e.message);
-          return res.status(422).send({
-              message: errorHandler.getErrorMessage(err)
-            });
-        });
-        apiReq.write(JSON.stringify({payload:JSON.stringify({meeting:meeting}),checksum:checksum}));
-        apiReq.end();
-  });
+  var apiUrl = '',
+    apiSalt = '';
 
-  
-  
+  verifyNotExistConference(conference)
+    .then(getApiUrl)
+    .then(getApiSalt)
+    .then(function() {
+      var meeting = {
+        name: conference.name,
+        meetingRef: conference.classroom,
+        active: true,
+        domain: '',
+        type: 'training'
+      };
+      var checksum = sha1(JSON.stringify({ meeting: meeting }) + apiSalt);
+      console.log(checksum);
+      var URL = url.parse(apiUrl);
+      var protocol = URL.protocol === 'http' ? require('http') : require('https');
+      var options = {
+        hostname: URL.hostname,
+        port: URL.port,
+        path: '/api/trusted/meeting',
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        rejectUnauthorized: false,
+        requestCert: true,
+        agent: false
+      };
+      var apiReq = protocol.request(options, function(apiRes) {
+        apiRes.setEncoding('utf8');
+        var data = [];
+        apiRes.on('data', function(chunk) {
+          data.push(chunk);
+        });
+        apiRes.on('end', function() {
+          var result = JSON.parse(data.join(''));
+          if (!result.status) {
+            return res.status(422).send({
+              message: errorHandler.getErrorMessage('Error from API server')
+            });
+          }
+          conference.meetingId = result.id;
+          conference.save(function(err) {
+            if (err) {
+              return res.status(422).send({
+                message: errorHandler.getErrorMessage(err)
+              });
+            } else {
+              res.jsonp(conference);
+            }
+          });
+        });
+      });
+      apiReq.on('error', function(e) {
+        console.log('problem with request: ' + e.message);
+        return res.status(422).send({
+          message: errorHandler.getErrorMessage(e)
+        });
+      });
+      apiReq.write(JSON.stringify({
+        payload: JSON.stringify({
+          meeting: meeting
+        }),
+        checksum: checksum
+      }));
+      apiReq.end();
+    });
+
   function verifyNotExistConference(conference) {
-      return new Promise(function (resolve, reject) {
-          Conference.findOne({classroom:conference.classroom}).exec(function (err, existConference) {
-             if (err || existConference) 
-                 reject({message:'Conference already exist'});
-             else 
-                 resolve();
+    return new Promise(function(resolve, reject) {
+      Conference.findOne({
+        classroom: conference.classroom
+      }).exec(function(err, existConference) {
+        if (err || existConference)
+          reject({
+            message: 'Conference already exist'
           });
+        else
+          resolve();
       });
-      
+    });
   }
-  
+
   function getApiUrl() {
-      return new Promise(function (resolve, reject) {
-          Setting.findOne({code:'BUILT_INT_CONFERENCE_API'}).exec(function (err, setting) {
-             if (err || !setting) 
-                 reject({message:'Cannot find API URL'});
-             else {
-                 apiUrl = setting.valueString
-                 resolve(setting);
-             }
+    return new Promise(function(resolve, reject) {
+      Setting.findOne({
+        code: 'BUILT_INT_CONFERENCE_API'
+      }).exec(function(err, setting) {
+        if (err || !setting)
+          reject({
+            message: 'Cannot find API URL'
           });
+        else {
+          apiUrl = setting.valueString;
+          resolve(setting);
+        }
       });
+    });
   }
-  
+
   function getApiSalt() {
-      return new Promise(function (resolve, reject) {
-          Setting.findOne({code:'BUILT_INT_CONFERENCE_API_SALT'}).exec(function (err, setting) {
-             if (err || !setting) 
-                 reject({message:'Cannot find API Salt'});
-             else {
-                 apiSalt = setting.valueString
-                 resolve(setting);
-             }
+    return new Promise(function(resolve, reject) {
+      Setting.findOne({
+        code: 'BUILT_INT_CONFERENCE_API_SALT'
+      }).exec(function(err, setting) {
+        if (err || !setting)
+          reject({
+            message: 'Cannot find API Salt'
           });
+        else {
+          apiSalt = setting.valueString;
+          resolve(setting);
+        }
       });
+    });
   }
-      
-      
-}
+};
 
 /**
  * Show the current Conference
@@ -132,10 +145,9 @@ exports.read = function(req, res) {
   // convert mongoose document to JSON
   var conference = req.conference ? req.conference.toJSON() : {};
 
-  // Add a custom field to the Article, for determining if the current User is the "owner".
+  // Add a custom field to the Article, for determining if the current User is the 'owner'.
   // NOTE: This field is NOT persisted to the database, since it doesn't exist in the Article model.
   conference.isCurrentUserOwner = req.user && conference.user && conference.user._id.toString() === req.user._id.toString();
-
   res.jsonp(conference);
 };
 
@@ -156,8 +168,6 @@ exports.update = function(req, res) {
       res.jsonp(conference);
     }
   });
-  
-  
 };
 
 /**
@@ -193,16 +203,18 @@ exports.list = function(req, res) {
 };
 
 exports.conferenceByClass = function(req, res) {
-    Conference.findOne({classroom:req.classroom._id}).sort('-created').populate('user', 'displayName').exec(function(err, conferences) {
-      if (err) {
-        return res.status(422).send({
-          message: errorHandler.getErrorMessage(err)
-        });
-      } else {
-        res.jsonp(conferences);
-      }
-    });
-  };
+  Conference.findOne({
+    classroom: req.classroom._id
+  }).sort('-created').populate('user', 'displayName').exec(function(err, conferences) {
+    if (err) {
+      return res.status(422).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    } else {
+      res.jsonp(conferences);
+    }
+  });
+};
 
 /**
  * Conference middleware
@@ -215,7 +227,7 @@ exports.conferenceByID = function(req, res, next, id) {
     });
   }
 
-  Conference.findById(id).populate('user', 'displayName').exec(function (err, conference) {
+  Conference.findById(id).populate('user', 'displayName').exec(function(err, conference) {
     if (err) {
       return next(err);
     } else if (!conference) {

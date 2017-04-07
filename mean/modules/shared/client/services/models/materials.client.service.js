@@ -1,5 +1,5 @@
 // Materials service used to communicate Materials REST endpoints
-(function () {
+(function() {
   'use strict';
 
   angular
@@ -16,10 +16,10 @@
         method: 'PUT'
       },
       byCourse: {
-          url:'/api/materials/byCourse/:editionId',
-          method: 'GET',
-          isArray:true
-        },
+        url: '/api/materials/byCourse/:editionId',
+        method: 'GET',
+        isArray: true
+      }
     });
   }
 }());

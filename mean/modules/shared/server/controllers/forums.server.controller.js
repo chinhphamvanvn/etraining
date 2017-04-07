@@ -92,20 +92,22 @@ exports.list = function(req, res) {
   });
 };
 
-exports.forumByCourseID = function(req, res) {
+exports.forumByCourseID = function(req, res, next) {
 
 
-    Forum.findOne({course:req.course._id}).populate('user', 'displayName').exec(function (err, forum) {
-      if (err) {
-        return next(err);
-      } else if (!forum) {
-        return res.status(422).send({
-          message: 'No Forum with that identifier has been found'
-        });
-      }
-      res.jsonp(forum);
-    });
-  };
+  Forum.findOne({
+    course: req.course._id
+  }).populate('user', 'displayName').exec(function(err, forum) {
+    if (err) {
+      return next(err);
+    } else if (!forum) {
+      return res.status(422).send({
+        message: 'No Forum with that identifier has been found'
+      });
+    }
+    res.jsonp(forum);
+  });
+};
 
 /**
  * Forum middleware
@@ -118,7 +120,7 @@ exports.forumByID = function(req, res, next, id) {
     });
   }
 
-  Forum.findById(id).populate('user', 'displayName').exec(function (err, forum) {
+  Forum.findById(id).populate('user', 'displayName').exec(function(err, forum) {
     if (err) {
       return next(err);
     } else if (!forum) {

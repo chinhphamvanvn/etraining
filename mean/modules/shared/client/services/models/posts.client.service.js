@@ -1,5 +1,5 @@
 // Posts service used to communicate Posts REST endpoints
-(function () {
+(function() {
   'use strict';
 
   angular
@@ -16,10 +16,10 @@
         method: 'PUT'
       },
       byTopic: {
-          url:'/api/posts/byTopic/:topicId',
-          method: 'GET',
-          isArray: true
-        }
+        url: '/api/posts/byTopic/:topicId',
+        method: 'GET',
+        isArray: true
+      }
     });
   }
 }());

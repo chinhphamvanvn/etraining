@@ -11,50 +11,66 @@ acl = new acl(new acl.memoryBackend());
 /**
  * Invoke Classrooms Permissions
  */
-exports.invokeRolesPolicies = function () {
-  acl.allow([{
-    roles: ['admin'],
-    allows: [{
-      resources: '/api/classrooms',
-      permissions: '*'
-    },{
-        resources: '/api/classrooms/byCourse/:courseId',
-        permissions: '*'
-      }, {
-      resources: '/api/classrooms/:classroomId',
-      permissions: '*'
-    }]
-  }, {
-    roles: ['user'],
-    allows: [{
-      resources: '/api/classrooms',
-      permissions: ['get', 'post']
-    },{
-        resources: '/api/classrooms/byCourse/:courseId',
-        permissions: 'get'
-      }, {
-      resources: '/api/classrooms/:classroomId',
-      permissions: ['get']
-    }]
-  }, {
-    roles: ['guest'],
-    allows: [{
-      resources: '/api/classrooms',
-      permissions: ['']
-    },{
-        resources: '/api/classrooms/byCourse/:courseId',
-        permissions: ''
-      }, {
-      resources: '/api/classrooms/:classroomId',
-      permissions: ['']
-    }]
-  }]);
+exports.invokeRolesPolicies = function() {
+  acl.allow([
+    {
+      roles: ['admin'],
+      allows: [
+        {
+          resources: '/api/classrooms',
+          permissions: '*'
+        },
+        {
+          resources: '/api/classrooms/byCourse/:courseId',
+          permissions: '*'
+        },
+        {
+          resources: '/api/classrooms/:classroomId',
+          permissions: '*'
+        }
+      ]
+    },
+    {
+      roles: ['user'],
+      allows: [
+        {
+          resources: '/api/classrooms',
+          permissions: ['get', 'post']
+        },
+        {
+          resources: '/api/classrooms/byCourse/:courseId',
+          permissions: 'get'
+        },
+        {
+          resources: '/api/classrooms/:classroomId',
+          permissions: ['get']
+        }
+      ]
+    },
+    {
+      roles: ['guest'],
+      allows: [
+        {
+          resources: '/api/classrooms',
+          permissions: ['']
+        },
+        {
+          resources: '/api/classrooms/byCourse/:courseId',
+          permissions: ''
+        },
+        {
+          resources: '/api/classrooms/:classroomId',
+          permissions: ['']
+        }
+      ]
+    }
+  ]);
 };
 
 /**
  * Check If Classrooms Policy Allows
  */
-exports.isAllowed = function (req, res, next) {
+exports.isAllowed = function(req, res, next) {
   var roles = (req.user) ? req.user.roles : ['guest'];
 
   // If an Classroom is being processed and the current user created it then allow any manipulation
@@ -63,7 +79,7 @@ exports.isAllowed = function (req, res, next) {
   }
 
   // Check for user roles
-  acl.areAnyRolesAllowed(roles, req.route.path, req.method.toLowerCase(), function (err, isAllowed) {
+  acl.areAnyRolesAllowed(roles, req.route.path, req.method.toLowerCase(), function(err, isAllowed) {
     if (err) {
       // An authorization error occurred
       return res.status(500).send('Unexpected authorization error');

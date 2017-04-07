@@ -11,84 +11,98 @@ acl = new acl(new acl.memoryBackend());
 /**
  * Invoke Members Permissions
  */
-exports.invokeRolesPolicies = function () {
-  acl.allow([{
-    roles: ['admin'],
-    allows: [{
-      resources: '/api/members',
-      permissions: '*'
-    }, {
-        resources: '/api/members/byCourse/:courseId',
-        permissions: '*'
-      },
-      {
+exports.invokeRolesPolicies = function() {
+  acl.allow([
+    {
+      roles: ['admin'],
+      allows: [
+        {
+          resources: '/api/members',
+          permissions: '*'
+        },
+        {
+          resources: '/api/members/byCourse/:courseId',
+          permissions: '*'
+        },
+        {
           resources: '/api/members/byClass/:classroomId',
           permissions: '*'
-        },{
+        },
+        {
           resources: '/api/members/byUserAndCourse/:userId/:courseId',
           permissions: '*'
         },
         {
-            resources: '/api/members/byUser/:userId',
-            permissions: 'get'
-          },
-      {
-      resources: '/api/members/:memberId',
-      permissions: '*'
-    }]
-  }, {
-    roles: ['user'],
-    allows: [{
-      resources: '/api/members',
-      permissions: ['get', 'post']
-    }, {
-        resources: '/api/members/byCourse/:courseId',
-        permissions: 'get'
-      }, 
-      {
-          resources: '/api/members/byClass/:classroomId',
-          permissions: '*'
-        },{
-          resources: '/api/members/byUserAndCourse/:userId/:courseId',
-          permissions: 'get'
-        },
-        {
-            resources: '/api/members/withdraw/:memberId',
-            permissions: 'put'
-          },
-          {
-              resources: '/api/members/complete/:memberId/:teacherId',
-              permissions: 'put'
-            },
-      {
           resources: '/api/members/byUser/:userId',
           permissions: 'get'
         },
-      {
-      resources: '/api/members/:memberId',
-      permissions: ['get','put']
-    }]
-  }, {
-    roles: ['guest'],
-    allows: [{
-      resources: '/api/members',
-      permissions: ['']
+        {
+          resources: '/api/members/:memberId',
+          permissions: '*'
+        }
+      ]
     },
     {
-        resources: '/api/members/byCourse/:courseId',
-        permissions: ''
-      },
-      {
-      resources: '/api/members/:memberId',
-      permissions: ['']
-    }]
-  }]);
+      roles: ['user'],
+      allows: [
+        {
+          resources: '/api/members',
+          permissions: ['get', 'post']
+        },
+        {
+          resources: '/api/members/byCourse/:courseId',
+          permissions: 'get'
+        },
+        {
+          resources: '/api/members/byClass/:classroomId',
+          permissions: '*'
+        },
+        {
+          resources: '/api/members/byUserAndCourse/:userId/:courseId',
+          permissions: 'get'
+        },
+        {
+          resources: '/api/members/withdraw/:memberId',
+          permissions: 'put'
+        },
+        {
+          resources: '/api/members/complete/:memberId/:teacherId',
+          permissions: 'put'
+        },
+        {
+          resources: '/api/members/byUser/:userId',
+          permissions: 'get'
+        },
+        {
+          resources: '/api/members/:memberId',
+          permissions: ['get', 'put']
+        }
+      ]
+    },
+    {
+      roles: ['guest'],
+      allows: [
+        {
+          resources: '/api/members',
+          permissions: ['']
+        },
+        {
+          resources: '/api/members/byCourse/:courseId',
+          permissions: ''
+        },
+        {
+          resources: '/api/members/:memberId',
+          permissions: ['']
+        }
+      ]
+    }
+  ]);
 };
 
 /**
  * Check If Members Policy Allows
  */
-exports.isAllowed = function (req, res, next) {
+exports.isAllowed = function(req, res, next) {
   var roles = (req.user) ? req.user.roles : ['guest'];
 
   // If an Member is being processed and the current user created it then allow any manipulation
@@ -97,7 +111,7 @@ exports.isAllowed = function (req, res, next) {
   }
 
   // Check for user roles
-  acl.areAnyRolesAllowed(roles, req.route.path, req.method.toLowerCase(), function (err, isAllowed) {
+  acl.areAnyRolesAllowed(roles, req.route.path, req.method.toLowerCase(), function(err, isAllowed) {
     if (err) {
       // An authorization error occurred
       return res.status(500).send('Unexpected authorization error');

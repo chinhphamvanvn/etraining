@@ -11,9 +11,9 @@ module.exports = function(app) {
   app.route('/api/topics').all(topicsPolicy.isAllowed)
     .get(topics.list)
     .post(topics.create);
-  
+
   app.route('/api/topics/byForum/:forumId').all(topicsPolicy.isAllowed)
-  .get(topics.listByForum)
+    .get(topics.listByForum);
 
   app.route('/api/topics/:topicId').all(topicsPolicy.isAllowed)
     .get(topics.read)

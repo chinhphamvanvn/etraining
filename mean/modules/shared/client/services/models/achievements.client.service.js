@@ -1,5 +1,5 @@
 // Achievements service used to communicate Achievements REST endpoints
-(function () {
+(function() {
   'use strict';
 
   angular
@@ -16,13 +16,14 @@
         method: 'PUT'
       },
       byUser: {
-          method: 'GET',
-          url:'/api/achievements/byUser/:achiever',
-          isArray:true
-        },byUserAndCompetency: {
-            method: 'GET',
-            url:'/api/achievements/byUserAndCompetency/:achiever/:competencyId',
-          },
+        method: 'GET',
+        url: '/api/achievements/byUser/:achiever',
+        isArray: true
+      },
+      byUserAndCompetency: {
+        method: 'GET',
+        url: '/api/achievements/byUserAndCompetency/:achiever/:competencyId'
+      }
     });
   }
 }());

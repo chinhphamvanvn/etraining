@@ -33,22 +33,32 @@ exports.create = function(req, res) {
       alertMember();
     }
   });
-  
+
   function alertMember() {
-      Forum.findById(topic.forum).exec(function(err,forum) {
-          Course.findById(forum.course).exec(function(err,course) {
-              Setting.findOne({code:'ALERT_THREAD_NEW'}).exec(function(err,setting) {
-                  if (!err && setting && setting.valueBoolean)  {
-                      CourseMember.find({status:'active'}).exec(function(err,members) {
-                          _.each(members,function(member) {
-                              var alert = new Message({title:'Course activity',content:'New thread created for course ' + course.name,level:'primary',type:'alert',recipient: member.member});
-                              alert.save();
-                          });
-                      });
-                  } 
+    Forum.findById(topic.forum).exec(function(err, forum) {
+      Course.findById(forum.course).exec(function(err, course) {
+        Setting.findOne({
+          code: 'ALERT_THREAD_NEW'
+        }).exec(function(err, setting) {
+          if (!err && setting && setting.valueBoolean) {
+            CourseMember.find({
+              status: 'active'
+            }).exec(function(err, members) {
+              _.each(members, function(member) {
+                var alert = new Message({
+                  title: 'Course activity',
+                  content: 'New thread created for course ' + course.name,
+                  level: 'primary',
+                  type: 'alert',
+                  recipient: member.member
+                });
+                alert.save();
               });
-          });
+            });
+          }
+        });
       });
+    });
   }
 };
 
@@ -121,7 +131,9 @@ exports.list = function(req, res) {
  * List of ForumTopics
  */
 exports.listByForum = function(req, res) {
-  ForumTopic.find({forum:req.forum._id}).sort('-updated').populate('user', '_id displayName').exec(function(err, topics) {
+  ForumTopic.find({
+    forum: req.forum._id
+  }).sort('-updated').populate('user', '_id displayName').exec(function(err, topics) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -143,7 +155,7 @@ exports.topicByID = function(req, res, next, id) {
     });
   }
 
-  ForumTopic.findById(id).populate('user', '_id displayName').exec(function (err, topic) {
+  ForumTopic.findById(id).populate('user', '_id displayName').exec(function(err, topic) {
     if (err) {
       return next(err);
     } else if (!topic) {

@@ -21,8 +21,8 @@ var ForumSchema = new Schema({
     default: Date.now
   },
   course: {
-      type: Schema.ObjectId,
-      ref: 'Course'
+    type: Schema.ObjectId,
+    ref: 'Course'
   },
   user: {
     type: Schema.ObjectId,

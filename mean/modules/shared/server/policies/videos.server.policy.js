@@ -11,7 +11,7 @@ acl = new acl(new acl.memoryBackend());
 /**
  * Invoke Videos Permissions
  */
-exports.invokeRolesPolicies = function () {
+exports.invokeRolesPolicies = function() {
   acl.allow([{
     roles: ['admin'],
     allows: [{
@@ -20,10 +20,10 @@ exports.invokeRolesPolicies = function () {
     }, {
       resources: '/api/videos/:videoId',
       permissions: '*'
-    },,{
-        resources: '/api/videos/upload',
-        permissions: ['post']
-      }]
+    }, {
+      resources: '/api/videos/upload',
+      permissions: ['post']
+    }]
   }, {
     roles: ['user'],
     allows: [{
@@ -31,11 +31,11 @@ exports.invokeRolesPolicies = function () {
       permissions: ['get', 'post']
     }, {
       resources: '/api/videos/:videoId',
-      permissions: ['get','put']
-    },{
-        resources: '/api/videos/upload',
-        permissions: ['post']
-      }]
+      permissions: ['get', 'put']
+    }, {
+      resources: '/api/videos/upload',
+      permissions: ['post']
+    }]
   }, {
     roles: ['guest'],
     allows: [{
@@ -51,7 +51,7 @@ exports.invokeRolesPolicies = function () {
 /**
  * Check If Videos Policy Allows
  */
-exports.isAllowed = function (req, res, next) {
+exports.isAllowed = function(req, res, next) {
   var roles = (req.user) ? req.user.roles : ['guest'];
 
   // If an Video is being processed and the current user created it then allow any manipulation
@@ -60,7 +60,7 @@ exports.isAllowed = function (req, res, next) {
   }
 
   // Check for user roles
-  acl.areAnyRolesAllowed(roles, req.route.path, req.method.toLowerCase(), function (err, isAllowed) {
+  acl.areAnyRolesAllowed(roles, req.route.path, req.method.toLowerCase(), function(err, isAllowed) {
     if (err) {
       // An authorization error occurred
       return res.status(500).send('Unexpected authorization error');

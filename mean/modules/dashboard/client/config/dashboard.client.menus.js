@@ -1,4 +1,4 @@
-(function () {
+(function() {
   'use strict';
 
   angular
@@ -13,8 +13,8 @@
       title: 'PAGE.WORKSPACE.SIDEBAR.DASHBOARD',
       state: 'admin.workspace.dashboard',
       roles: ['admin'],
-      icon:'dashboard',
+      icon: 'dashboard',
       position: 1
-  });
+    });
   }
 }());
