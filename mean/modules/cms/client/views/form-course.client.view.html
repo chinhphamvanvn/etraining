@@ -41,14 +41,14 @@
 							<div class="uk-grid uk-margin-top">
 								<div class="uk-width-medium-3-4 parsley-row">
 									<label for="course_name">{{'MODEL.COURSE.NAME'|translate}}<span
-										class="req">*</span></label> <input type="text" name="course_name"
-										id="course_name" data-parsley-trigger="change" required
+										class="req">*</span></label>
+									<input type="text" name="course_name" id="course_name" data-parsley-trigger="change" required
 										class="md-input" md-input ng-model="vm.course.name" />
 								</div>
 								<div class="uk-width-medium-1-4 parsley-row">
 									<label for="course_code">{{'MODEL.COURSE.CODE'|translate}}<span
-										class="req">*</span></label> <input type="text" name="course_code"
-										id="course_code" data-parsley-trigger="change"
+										class="req">*</span></label>
+									<input type="text" name="course_code" id="course_code" data-parsley-trigger="change"
 										class="md-input" md-input ng-model="vm.course.code" />
 								</div>
 							</div>
@@ -136,9 +136,7 @@
 							</div>
 						</li>
 						<li>
-							<div
-								class="uk-grid uk-grid-width-large-1-2 uk-grid-width-xlarge-1-2"
-								data-uk-grid-margin>
+							<div class="uk-grid uk-grid-width-large-1-2 uk-grid-width-xlarge-1-2" data-uk-grid-margin>
 								<div class="parsley-row">
 									<label for="switch_enrol">{{'MODEL.COURSE.ENROLL_STATUS'|translate}}</label>
 									<input type="checkbox" class="switchery switchery-small"
@@ -148,79 +146,77 @@
 								<div class="parsley-row">
 									<label for="course_enrol_policy_select">{{'MODEL.COURSE.ENROLL_POLICY'|translate}}</label>
 									<div id="course_enrol_policy_select">
-										<span class="icheck-inline"> <input type="radio"
-											name="course_enroll" id="course_enroll_open" required
-											value="open" icheck ng-model="vm.course.enrollPolicy" /> <label
-											for="course_enroll_open" class="inline-label">{{'COMMON.ENROLL_POLICY.OPEN'|translate}}</label>
+										<span class="icheck-inline">
+											<input type="radio" name="course_enroll" id="course_enroll_open" required
+											value="open" icheck ng-model="vm.course.enrollPolicy" />
+											<label for="course_enroll_open" class="inline-label">{{'COMMON.ENROLL_POLICY.OPEN'|translate}}</label>
 											<span class="uk-form-help-block">{{'COMMON.ENROLL_POLICY.OPEN_DESC'|translate}}</span>
-										</span> <span class="icheck-inline"> <input type="radio"
-											name="course_enroll" id="course_enroll_censor" required
-											value="censor" icheck ng-model="vm.course.enrollPolicy" /> <label
-											for="course_enroll_censor" class="inline-label">{{'COMMON.ENROLL_POLICY.CENSOR'|translate}}</label>
+										</span>
+										<span class="icheck-inline">
+											<input type="radio" name="course_enroll" id="course_enroll_censor" required
+											value="censor" icheck ng-model="vm.course.enrollPolicy" />
+											<label for="course_enroll_censor" class="inline-label">{{'COMMON.ENROLL_POLICY.CENSOR'|translate}}</label>
 											<span class="uk-form-help-block">{{'COMMON.ENROLL_POLICY.CENSOR_DESC'|translate}}</span>
 										</span>
-
 									</div>
 								</div>
 							</div>
 							<div class="uk-grid " data-uk-grid-margin>
-								<div class="uk-width-1-4 parsley-row">
+								<div class="uk-width-1-1 uk-width-large-1-4 parsley-row">
 									<div class="uk-input-group">
-										<span class="uk-input-group-addon"> <a href="#"><i
-												class="material-icons">&#xE0CD;</i></a>
-										</span> <label for="course_phone">{{'MODEL.COURSE.PHONE'|translate}}</label>
+										<span class="uk-input-group-addon">
+											<a href="#"><i class="material-icons">&#xE0CD;</i></a>
+										</span>
+										<label for="course_phone">{{'MODEL.COURSE.PHONE'|translate}}</label>
 										<input type="text" class="md-input" name="course_phone"
 											id="course_phone" md-input ng-model="vm.course.phone" />
 									</div>
 								</div>
-								<div class="uk-width-1-4 parsley-row">
+								<div class="uk-width-1-1 uk-width-large-1-4 parsley-row">
 									<div class="uk-input-group">
-										<span class="uk-input-group-addon"> <a href="#"><i
-												class="material-icons">&#xE0BE;</i></a>
-										</span> <label for="course_email">{{'MODEL.COURSE.EMAIL'|translate}}</label>
+										<span class="uk-input-group-addon">
+											<a href="#"><i class="material-icons">&#xE0BE;</i></a>
+										</span>
+										<label for="course_email">{{'MODEL.COURSE.EMAIL'|translate}}</label>
 										<input type="text" class="md-input" name="course_email"
 											id="course_email" md-input ng-model="vm.course.email" />
 									</div>
 								</div>
-								<div class="uk-width-2-4 parsley-row">
+								<div class="uk-width-1-1 uk-width-large-2-4 parsley-row">
 									<label for="course_display_policy_select">{{'MODEL.COURSE.PRESENT_MODE'|translate}}</label>
 									<div id="course_display_policy_select">
-										<span class="icheck-inline"> <input type="radio"
-											name="course_displayMode" id="course_display_public" required
-											value="open" icheck ng-model="vm.course.displayMode" /> <label
-											for="course_display_public" class="inline-label">{{'COMMON.PRESENT_MODE.ALL'|translate}}</label>
-										</span> <span class="icheck-inline"> <input type="radio"
-											name="course_displayMode" id="course_display_login" required
-											value="login" icheck ng-model="vm.course.displayMode" /> <label
-											for="course_display_login" class="inline-label">{{'COMMON.PRESENT_MODE.LOGIN'|translate}}</label>
-										</span> <span class="icheck-inline"> <input type="radio"
-											name="course_displayMode" id="course_display_enroll" required
-											value="enroll" icheck ng-model="vm.course.displayMode" /> <label
-											for="course_display_enroll" class="inline-label">{{'COMMON.PRESENT_MODE.ENROLLED'|translate}}</label>
+										<span class="icheck-inline">
+											<input type="radio" name="course_displayMode" id="course_display_public" required
+											value="open" icheck ng-model="vm.course.displayMode" />
+											<label for="course_display_public" class="inline-label">{{'COMMON.PRESENT_MODE.ALL'|translate}}</label>
+										</span>
+										<span class="icheck-inline">
+											<input type="radio" name="course_displayMode" id="course_display_login" required
+											value="login" icheck ng-model="vm.course.displayMode" />
+											<label for="course_display_login" class="inline-label">{{'COMMON.PRESENT_MODE.LOGIN'|translate}}</label>
+										</span>
+										<span class="icheck-inline">
+											<input type="radio" name="course_displayMode" id="course_display_enroll" required
+											value="enroll" icheck ng-model="vm.course.displayMode" />
+											<label for="course_display_enroll" class="inline-label">{{'COMMON.PRESENT_MODE.ENROLLED'|translate}}</label>
 										</span>
 									</div>
 								</div>
 							</div>
-							<div
-								class="uk-grid uk-grid-width-large-1-2 uk-grid-width-xlarge-1-2"
-								data-uk-grid-margin>
+							<div class="uk-grid uk-grid-width-large-1-2 uk-grid-width-xlarge-1-2" data-uk-grid-margin>
 								<div class="parsley-row">
 									<div class="uk-input-group">
-										<span class="uk-input-group-addon"><i
-											class="uk-input-group-icon uk-icon-calendar"></i></span> <label
-											for="uk_enroll_start">{{'MODEL.COURSE.ENROLL_START_DATE'|translate}}</label>
-										<input class="md-input" type="text" id="uk_enroll_start"
-											md-input
+										<span class="uk-input-group-addon"><i class="uk-input-group-icon uk-icon-calendar"></i></span>
+										<label for="uk_enroll_start">{{'MODEL.COURSE.ENROLL_START_DATE'|translate}}</label>
+										<input class="md-input" type="text" id="uk_enroll_start" md-input
 											value="{{vm.course.enrollStartDate | date:'dd.MM.yyyy'}}">
 									</div>
 								</div>
 								<div class="parsley-row">
 									<div class="uk-input-group">
-										<span class="uk-input-group-addon"><i
-											class="uk-input-group-icon uk-icon-calendar"></i></span> <label
-											for="uk_enroll_end">{{'MODEL.COURSE.ENROLL_END_DATE'|translate}}</label>
-										<input class="md-input" type="text" id="uk_enroll_end"
-											md-input
+										<span class="uk-input-group-addon"><i class="uk-input-group-icon uk-icon-calendar"></i></span>
+										<label for="uk_enroll_end">{{'MODEL.COURSE.ENROLL_END_DATE'|translate}}</label>
+										<input class="md-input" type="text" id="uk_enroll_end" md-input
 											value="{{vm.course.enrollEndDate | date:'dd.MM.yyyy'}}">
 									</div>
 								</div>
@@ -251,13 +247,13 @@
 						</li>
 						<li>
 							<div class="uk-grid uk-margin-large-bottom" data-uk-grid-margin>
-								<div class="uk-width-1-2" style="min-height: 250px;">
+								<div class="uk-width-1-1 uk-width-medium-1-2">
 									<label class="uk-form-label">{{'MODEL.COURSE.PREQUISITE.COURSE'|translate}}</label>
 									<selectize config="vm.prequisiteConfig" position="bottom"
 										options="vm.prequisiteOptions"
 										ng-model="vm.course.prequisites" name="course_prequisite"></selectize>
 								</div>
-								<div class=" uk-width-1-2">
+								<div class="uk-width-1-1 uk-width-medium-1-2" style="min-height: 250px;">
 									<label class="uk-form-label">{{'MODEL.COURSE.COMPETENCY'|translate}}</label>
 									<selectize config="vm.competencyConfig" position="bottom"
 										options="vm.competencyOptions"
