@@ -96,7 +96,9 @@ exports.list = function(req, res) {
  * List of Editions in course
  */
 exports.editionByCourse = function(req, res) {
-    CourseEdition.findOne({course:req.course._id}).sort('-created').populate('user', 'displayName').exec(function(err, edition) {
+  CourseEdition.findOne({
+    course: req.course._id
+  }).sort('-created').populate('user', 'displayName').exec(function(err, edition) {
     if (err) {
       return res.status(422).send({
         message: errorHandler.getErrorMessage(err)
@@ -118,7 +120,7 @@ exports.editionByID = function(req, res, next, id) {
     });
   }
 
-  CourseEdition.findById(id).populate('user', 'displayName').exec(function (err, edition) {
+  CourseEdition.findById(id).populate('user', 'displayName').exec(function(err, edition) {
     if (err) {
       return next(err);
     } else if (!edition) {

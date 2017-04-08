@@ -1,5 +1,5 @@
 // Topics service used to communicate Topics REST endpoints
-(function () {
+(function() {
   'use strict';
 
   angular
@@ -16,10 +16,10 @@
         method: 'PUT'
       },
       byForum: {
-          url:'/api/topics/byForum/:forumId',
-          method: 'GET',
-          isArray: true
-        }
+        url: '/api/topics/byForum/:forumId',
+        method: 'GET',
+        isArray: true
+      }
     });
   }
 }());

@@ -11,15 +11,15 @@ module.exports = function(app) {
   app.route('/api/options').all(optionsPolicy.isAllowed)
     .get(options.list)
     .post(options.create);
-  
+
   app.route('/api/options/byQuestion/:questionId').all(optionsPolicy.isAllowed)
-  .get(options.listByQuestion)
+    .get(options.listByQuestion);
 
   app.route('/api/options/:optionId').all(optionsPolicy.isAllowed)
     .get(options.read)
     .put(options.update)
     .delete(options.delete);
-  
+
   // Finish by binding the Option middleware
   app.param('optionId', options.optionByID);
 };

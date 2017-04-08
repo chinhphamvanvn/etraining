@@ -1,4 +1,4 @@
-(function () {
+(function() {
   'use strict';
 
   // Setting up route
@@ -17,7 +17,7 @@
         controller: 'DashboardController',
         controllerAs: 'vm',
         data: {
-          roles: [ 'admin']
+          roles: ['admin']
         }
       });
   }

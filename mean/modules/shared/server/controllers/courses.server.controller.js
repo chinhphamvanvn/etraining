@@ -26,19 +26,18 @@ exports.create = function(req, res) {
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-        var edition = new CourseEdition();
-        edition.course = course._id;
-        edition.name ='v1.0';
-        edition.primary = true;
-        edition.save(function(err) {
-            if (err) {
-                return res.status(400).send({
-                  message: errorHandler.getErrorMessage(err)
-                });
-            } else
-                res.jsonp(course);
-        })
-
+      var edition = new CourseEdition();
+      edition.course = course._id;
+      edition.name = 'v1.0';
+      edition.primary = true;
+      edition.save(function(err) {
+        if (err) {
+          return res.status(400).send({
+            message: errorHandler.getErrorMessage(err)
+          });
+        } else
+          res.jsonp(course);
+      });
     }
   });
 };
@@ -109,61 +108,80 @@ exports.list = function(req, res) {
 };
 
 exports.listPublic = function(req, res) {
-    Course.find({status:'available',enrollStatus:true,displayMode:'open'}).sort('-created').populate('user', 'displayName').populate('group').populate('prequisites').exec(function(err, courses) {
-      if (err) {
-        return res.status(400).send({
-          message: errorHandler.getErrorMessage(err)
-        });
-      } else {
-        res.jsonp(courses);
-      }
-    });
-  };
-
-  exports.listPrivate = function(req, res) {
-      Course.find({status:'available',enrollStatus:true,displayMode:'enroll'}).sort('-created').populate('user', 'displayName').populate('group').populate('prequisites').exec(function(err, courses) {
-        if (err) {
-          return res.status(400).send({
-            message: errorHandler.getErrorMessage(err)
-          });
-        } else {
-          res.jsonp(courses);
-        }
+  Course.find({
+    status: 'available',
+    enrollStatus: true,
+    displayMode: 'open'
+  }).sort('-created').populate('user', 'displayName').populate('group').populate('prequisites').exec(function(err, courses) {
+    if (err) {
+      return res.status(400).send({
+        message: errorHandler.getErrorMessage(err)
       });
-    };
+    } else {
+      res.jsonp(courses);
+    }
+  });
+};
+
+exports.listPrivate = function(req, res) {
+  Course.find({
+    status: 'available',
+    enrollStatus: true,
+    displayMode: 'enroll'
+  }).sort('-created').populate('user', 'displayName').populate('group').populate('prequisites').exec(function(err, courses) {
+    if (err) {
+      return res.status(400).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    } else {
+      res.jsonp(courses);
+    }
+  });
+};
 
 exports.listRestricted = function(req, res) {
-    Course.find({status:'available',enrollStatus:true,displayMode:'login'}).sort('-created').populate('user', 'displayName').populate('group').populate('prequisites').exec(function(err, courses) {
-      if (err) {
-        return res.status(400).send({
-          message: errorHandler.getErrorMessage(err)
-        });
-      } else {
-        res.jsonp(courses);
-      }
-    });
-  };
-
-  exports.listByGroup = function(req, res) {
-      Course.find({group:req.group._id}).sort('-created').populate('user', 'displayName').populate('group').populate('prequisites').exec(function(err, courses) {
-        if (err) {
-          return res.status(400).send({
-            message: errorHandler.getErrorMessage(err)
-          });
-        } else {
-          res.jsonp(courses);
-        }
+  Course.find({
+    status: 'available',
+    enrollStatus: true,
+    displayMode: 'login'
+  }).sort('-created').populate('user', 'displayName').populate('group').populate('prequisites').exec(function(err, courses) {
+    if (err) {
+      return res.status(400).send({
+        message: errorHandler.getErrorMessage(err)
       });
-    };
+    } else {
+      res.jsonp(courses);
+    }
+  });
+};
+
+exports.listByGroup = function(req, res) {
+  Course.find({
+    group: req.group._id
+  }).sort('-created').populate('user', 'displayName').populate('group').populate('prequisites').exec(function(err, courses) {
+    if (err) {
+      return res.status(400).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    } else {
+      res.jsonp(courses);
+    }
+  });
+};
 
 /**
  * List of Courses by keyword
  */
-exports.listByKeyword = function (req, res) {
-  var keyword   = req.query.keyword,
-      regex     = new RegExp(keyword, 'i');
+exports.listByKeyword = function(req, res) {
+  var keyword = req.query.keyword,
+    regex = new RegExp(keyword, 'i');
 
-  Course.find({name: {$regex: regex}, status: 'available'}).sort('-created').exec(function (err, courses) {
+  Course.find({
+    name: {
+      $regex: regex
+    },
+    status: 'available'
+  }).sort('-created').exec(function(err, courses) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -185,7 +203,7 @@ exports.courseByID = function(req, res, next, id) {
     });
   }
 
-  Course.findById(id).populate('user', 'displayName').exec(function (err, course) {
+  Course.findById(id).populate('user', 'displayName').exec(function(err, course) {
     if (err) {
       return next(err);
     } else if (!course) {
@@ -202,7 +220,7 @@ exports.courseByID = function(req, res, next, id) {
 /**
  * Update course logo
  */
-exports.changeCourseLogo = function (req, res) {
+exports.changeCourseLogo = function(req, res) {
   var course = req.course;
   var existingImageUrl;
   // Filtering to upload only images
@@ -211,14 +229,14 @@ exports.changeCourseLogo = function (req, res) {
   var upload = multer(multerConfig).single('newCourseLogo');
 
   if (course) {
-    existingImageUrl = config.uploads.file.image.dest+ path.basename(course.logoURL);
+    existingImageUrl = config.uploads.file.image.dest + path.basename(course.logoURL);
     uploadImage()
       .then(updateCourse)
       .then(deleteOldImage)
-      .then(function () {
+      .then(function() {
         res.json(course);
       })
-      .catch(function (err) {
+      .catch(function(err) {
         res.status(422).send(err);
       });
   } else {
@@ -227,9 +245,9 @@ exports.changeCourseLogo = function (req, res) {
     });
   }
 
-  function uploadImage () {
-    return new Promise(function (resolve, reject) {
-      upload(req, res, function (uploadError) {
+  function uploadImage() {
+    return new Promise(function(resolve, reject) {
+      upload(req, res, function(uploadError) {
         if (uploadError) {
           reject(errorHandler.getErrorMessage(uploadError));
         } else {
@@ -239,10 +257,10 @@ exports.changeCourseLogo = function (req, res) {
     });
   }
 
-  function updateCourse () {
-    return new Promise(function (resolve, reject) {
+  function updateCourse() {
+    return new Promise(function(resolve, reject) {
       course.logoURL = config.uploads.file.image.urlPaath + req.file.filename;
-      course.save(function (err, course) {
+      course.save(function(err, course) {
         if (err) {
           reject(err);
         } else {
@@ -252,11 +270,11 @@ exports.changeCourseLogo = function (req, res) {
     });
   }
 
-  function deleteOldImage () {
-      var defaultUrl = config.uploads.file.image.dest + path.basename(Course.schema.path('logoURL').defaultValue);
-      return new Promise(function (resolve, reject) {
-        if (existingImageUrl !== defaultUrl) {
-        fs.unlink(existingImageUrl, function (unlinkError) {
+  function deleteOldImage() {
+    var defaultUrl = config.uploads.file.image.dest + path.basename(Course.schema.path('logoURL').defaultValue);
+    return new Promise(function(resolve, reject) {
+      if (existingImageUrl !== defaultUrl) {
+        fs.unlink(existingImageUrl, function(unlinkError) {
           if (unlinkError) {
             console.log(unlinkError);
             resolve();
@@ -270,7 +288,3 @@ exports.changeCourseLogo = function (req, res) {
     });
   }
 };
-
-
-
-

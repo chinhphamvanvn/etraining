@@ -12,22 +12,22 @@ module.exports = function(app) {
     .post(groups.create);
 
   app.route('/api/groups/organization').all(groupsPolicy.isAllowed)
-  .get(groups.listOrganizationGroup);
+    .get(groups.listOrganizationGroup);
 
   app.route('/api/groups/course').all(groupsPolicy.isAllowed)
-  .get(groups.listCourseGroup);
+    .get(groups.listCourseGroup);
 
   app.route('/api/groups/library').all(groupsPolicy.isAllowed)
-  .get(groups.listLibraryGroup);
+    .get(groups.listLibraryGroup);
 
   app.route('/api/groups/competency').all(groupsPolicy.isAllowed)
-  .get(groups.listCompetencyGroup);
-  
+    .get(groups.listCompetencyGroup);
+
   app.route('/api/groups/question').all(groupsPolicy.isAllowed)
-  .get(groups.listQuestionGroup);
-  
+    .get(groups.listQuestionGroup);
+
   app.route('/api/groups/byCategory/:category').all(groupsPolicy.isAllowed)
-  .get(groups.listByCategory);
+    .get(groups.listByCategory);
 
   app.route('/api/groups/:groupId').all(groupsPolicy.isAllowed)
     .get(groups.read)

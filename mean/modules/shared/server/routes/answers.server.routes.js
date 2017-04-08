@@ -13,8 +13,8 @@ module.exports = function(app) {
     .post(answers.create);
 
   app.route('/api/answers/byAttempt/:attemptId').all(answersPolicy.isAllowed)
-  .get(answers.listByAttempt);
-  
+    .get(answers.listByAttempt);
+
   app.route('/api/answers/:answerId').all(answersPolicy.isAllowed)
     .get(answers.read)
     .put(answers.update)

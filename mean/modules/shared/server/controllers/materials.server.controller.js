@@ -34,22 +34,35 @@ exports.create = function(req, res) {
       alertMember();
     }
   });
-  
+
   function alertMember() {
-      CourseEdition.findById(material.edition).exec(function(err,courseEdition) {
-          Course.findById(courseEdition.course).exec(function(err,course) {
-              Setting.findOne({code:'ALERT_COURSE_MATERIAL_UPDATE'}).exec(function(err,setting) {
-                  if (!err && setting && setting.valueBoolean)  {
-                      CourseMember.find({role:'student',edition:edition,status:'active',enrollmentStatus:'in-study'}).exec(function(err,students) {
-                          _.each(students,function(student) {
-                              var alert = new Message({title:'Course activity',content:'New material uploaded for course ' + course.name,level:'primary',type:'alert',recipient: student.member});
-                              alert.save();
-                          });
-                      });
-                  } 
+    CourseEdition.findById(material.edition).exec(function(err, courseEdition) {
+      Course.findById(courseEdition.course).exec(function(err, course) {
+        Setting.findOne({
+          code: 'ALERT_COURSE_MATERIAL_UPDATE'
+        }).exec(function(err, setting) {
+          if (!err && setting && setting.valueBoolean) {
+            CourseMember.find({
+              role: 'student',
+              edition: material.edition,
+              status: 'active',
+              enrollmentStatus: 'in-study'
+            }).exec(function(err, students) {
+              _.each(students, function(student) {
+                var alert = new Message({
+                  title: 'Course activity',
+                  content: 'New material uploaded for course ' + course.name,
+                  level: 'primary',
+                  type: 'alert',
+                  recipient: student.member
+                });
+                alert.save();
               });
-          });
+            });
+          }
+        });
       });
+    });
   }
 };
 
@@ -98,16 +111,16 @@ exports.delete = function(req, res) {
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-        var existFilename = config.uploads.file.document.dest+ path.basename(material.downloadURL);
-        fs.unlink(existFilename, function (unlinkError) {
-            if (unlinkError) {
-                res.status(422).send({
-                    message: unlinkError
-                  });
-            } else {
-                res.jsonp(material);
-            }
+      var existFilename = config.uploads.file.document.dest + path.basename(material.downloadURL);
+      fs.unlink(existFilename, function(unlinkError) {
+        if (unlinkError) {
+          res.status(422).send({
+            message: unlinkError
           });
+        } else {
+          res.jsonp(material);
+        }
+      });
     }
   });
 };
@@ -132,7 +145,9 @@ exports.list = function(req, res) {
  * List of CourseMaterials
  */
 exports.listByCourse = function(req, res) {
-  CourseMaterial.find({edition:req.edition._id}).sort('-created').populate('user', 'displayName').exec(function(err, materials) {
+  CourseMaterial.find({
+    edition: req.edition._id
+  }).sort('-created').populate('user', 'displayName').exec(function(err, materials) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -154,7 +169,7 @@ exports.materialByID = function(req, res, next, id) {
     });
   }
 
-  CourseMaterial.findById(id).populate('user', 'displayName').exec(function (err, material) {
+  CourseMaterial.findById(id).populate('user', 'displayName').exec(function(err, material) {
     if (err) {
       return next(err);
     } else if (!material) {
@@ -168,32 +183,34 @@ exports.materialByID = function(req, res, next, id) {
 };
 
 
-exports.uploadCourseMaterial = function (req, res) {
-    // Filtering to upload only images
-    var multerConfig = config.uploads.file.document;
-    var upload = multer(multerConfig).single('newCourseMaterial');
+exports.uploadCourseMaterial = function(req, res) {
+  // Filtering to upload only images
+  var multerConfig = config.uploads.file.document;
+  var upload = multer(multerConfig).single('newCourseMaterial');
 
-      uploadMaterial()
-        .then(function (result) {
-          res.json(result);
-        })
-        .catch(function (err) {
-          res.status(422).send(err);
-        });
-     
-    function uploadMaterial () {
-      return new Promise(function (resolve, reject) {
-        upload(req, res, function (uploadError) {
-          if (uploadError) {
-            reject(errorHandler.getErrorMessage(uploadError));
-          } else {
-              var downloadURL = config.uploads.file.document.urlPaath + req.file.filename;
-              var originalname =  req.file.originalname;
-              resolve({downloadURL:downloadURL,filename:originalname});
-          }
-        });
+  uploadMaterial()
+    .then(function(result) {
+      res.json(result);
+    })
+    .catch(function(err) {
+      res.status(422).send(err);
+    });
+
+  function uploadMaterial() {
+    return new Promise(function(resolve, reject) {
+      upload(req, res, function(uploadError) {
+        if (uploadError) {
+          reject(errorHandler.getErrorMessage(uploadError));
+        } else {
+          var downloadURL = config.uploads.file.document.urlPaath + req.file.filename;
+          var originalname = req.file.originalname;
+          resolve({
+            downloadURL: downloadURL,
+            filename: originalname
+          });
+        }
       });
-    }
+    });
+  }
 
-  };
-
+};

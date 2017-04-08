@@ -16,16 +16,16 @@ var ClassroomSchema = new Schema({
     required: 'Please fill Classroom name',
     trim: true
   },
-    startDate: {
-      type: Date
-    },
-    endDate: {
-      type: Date,
-    },
-    course: {
-        type: Schema.ObjectId,
-        ref: 'Course'
-    },
+  startDate: {
+    type: Date
+  },
+  endDate: {
+    type: Date
+  },
+  course: {
+    type: Schema.ObjectId,
+    ref: 'Course'
+  },
   created: {
     type: Date,
     default: Date.now

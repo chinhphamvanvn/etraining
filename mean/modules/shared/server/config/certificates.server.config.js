@@ -9,6 +9,4 @@ var path = require('path'),
 /**
  * Certificates module init function.
  */
-module.exports = function (app, db) {
-
-};
+module.exports = function(app, db) {};

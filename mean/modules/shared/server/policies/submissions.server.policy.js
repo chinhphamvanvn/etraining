@@ -11,59 +11,67 @@ acl = new acl(new acl.memoryBackend());
 /**
  * Invoke Submissions Permissions
  */
-exports.invokeRolesPolicies = function () {
-  acl.allow([{
-    roles: ['admin'],
-    allows: [{
-      resources: '/api/submissions',
-      permissions: '*'
-    }, {
-      resources: '/api/submissions/:submissionId',
-      permissions: '*'
-    },
+exports.invokeRolesPolicies = function() {
+  acl.allow([
     {
-        resources: '/api/submissions/byCandidate/:candidateId',
-        permissions: '*'
-      },
-      {
+      roles: ['admin'],
+      allows: [
+        {
+          resources: '/api/submissions',
+          permissions: '*'
+        }, {
+          resources: '/api/submissions/:submissionId',
+          permissions: '*'
+        },
+        {
+          resources: '/api/submissions/byCandidate/:candidateId',
+          permissions: '*'
+        },
+        {
           resources: '/api/submissions/byExam/:examId',
           permissions: '*'
         },
-      {
+        {
           resources: '/api/submissions/byExamAndCandidate/:examId/:candidateId',
           permissions: '*'
-        }]
-  }, {
-    roles: ['user'],
-    allows: [{
-      resources: '/api/submissions',
-      permissions: ['get', 'post']
-    }, {
-      resources: '/api/submissions/:submissionId',
-      permissions: ['get']
+        }
+      ]
     },
     {
-        resources: '/api/submissions/byCandidate/:candidateId',
-        permissions: '*'
-      },
-      {
+      roles: ['user'],
+      allows: [
+        {
+          resources: '/api/submissions',
+          permissions: ['get', 'post']
+        }, {
+          resources: '/api/submissions/:submissionId',
+          permissions: ['get']
+        },
+        {
+          resources: '/api/submissions/byCandidate/:candidateId',
+          permissions: '*'
+        },
+        {
           resources: '/api/submissions/byExam/:examId',
           permissions: 'get'
         },
-      {
+        {
           resources: '/api/submissions/byExamAndCandidate/:examId/:candidateId',
           permissions: 'get'
-        }]
-  }, {
-    roles: ['guest'],
-    allows: []
-  }]);
+        }
+      ]
+    },
+    {
+      roles: ['guest'],
+      allows: []
+    }
+  ]);
 };
 
 /**
  * Check If Submissions Policy Allows
  */
-exports.isAllowed = function (req, res, next) {
+exports.isAllowed = function(req, res, next) {
   var roles = (req.user) ? req.user.roles : ['guest'];
 
   // If an Submission is being processed and the current user created it then allow any manipulation
@@ -72,7 +80,7 @@ exports.isAllowed = function (req, res, next) {
   }
 
   // Check for user roles
-  acl.areAnyRolesAllowed(roles, req.route.path, req.method.toLowerCase(), function (err, isAllowed) {
+  acl.areAnyRolesAllowed(roles, req.route.path, req.method.toLowerCase(), function(err, isAllowed) {
     if (err) {
       // An authorization error occurred
       return res.status(500).send('Unexpected authorization error');

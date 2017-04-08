@@ -1,5 +1,5 @@
 // Videos service used to communicate Videos REST endpoints
-(function () {
+(function() {
   'use strict';
 
   angular

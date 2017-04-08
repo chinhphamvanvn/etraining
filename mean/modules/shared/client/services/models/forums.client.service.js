@@ -1,5 +1,5 @@
 // Forums service used to communicate Forums REST endpoints
-(function () {
+(function() {
   'use strict';
 
   angular
@@ -16,9 +16,9 @@
         method: 'PUT'
       },
       byCourse: {
-          url:'/api/forums/byCourse/:courseId',
-          method: 'GET'
-        }
+        url: '/api/forums/byCourse/:courseId',
+        method: 'GET'
+      }
     });
   }
 }());

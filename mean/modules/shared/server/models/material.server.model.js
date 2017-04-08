@@ -17,14 +17,14 @@ var CourseMaterialSchema = new Schema({
     trim: true
   },
   edition: {
-      type: Schema.ObjectId,
-      ref: 'CourseEdition'
+    type: Schema.ObjectId,
+    ref: 'CourseEdition'
   },
   downloadURL: {
-      type: String
+    type: String
   },
   filename: {
-      type: String
+    type: String
   },
   created: {
     type: Date,

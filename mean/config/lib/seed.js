@@ -9,10 +9,12 @@ var _ = require('lodash'),
 // global seed options object
 var seedOptions = {};
 
-function removeUser (user) {
-  return new Promise(function (resolve, reject) {
+function removeUser(user) {
+  return new Promise(function(resolve, reject) {
     var User = mongoose.model('User');
-    User.find({ username: user.username }).remove(function (err) {
+    User.find({
+      username: user.username
+    }).remove(function(err) {
       if (err) {
         reject(new Error('Failed to remove local ' + user.username));
       }
@@ -21,11 +23,11 @@ function removeUser (user) {
   });
 }
 
-function saveUser (user) {
+function saveUser(user) {
   return function() {
-    return new Promise(function (resolve, reject) {
+    return new Promise(function(resolve, reject) {
       // Then save the user
-      user.save(function (err, theuser) {
+      user.save(function(err, theuser) {
         if (err) {
           reject(new Error('Failed to add local ' + user.username));
         } else {
@@ -36,10 +38,12 @@ function saveUser (user) {
   };
 }
 
-function checkUserNotExists (user) {
-  return new Promise(function (resolve, reject) {
+function checkUserNotExists(user) {
+  return new Promise(function(resolve, reject) {
     var User = mongoose.model('User');
-    User.find({ username: user.username }, function (err, users) {
+    User.find({
+      username: user.username
+    }, function(err, users) {
       if (err) {
         reject(new Error('Failed to find local account ' + user.username));
       }
@@ -53,9 +57,9 @@ function checkUserNotExists (user) {
   });
 }
 
-function reportSuccess (password) {
-  return function (user) {
-    return new Promise(function (resolve, reject) {
+function reportSuccess(password) {
+  return function(user) {
+    return new Promise(function(resolve, reject) {
       if (seedOptions.logResults) {
         console.log(chalk.bold.red('Database Seeding:\t\t\tLocal ' + user.username + ' added with password set to ' + password));
       }
@@ -65,9 +69,9 @@ function reportSuccess (password) {
 }
 
 // save the specified user with the password provided from the resolved promise
-function seedTheUser (user) {
-  return function (password) {
-    return new Promise(function (resolve, reject) {
+function seedTheUser(user) {
+  return function(password) {
+    return new Promise(function(resolve, reject) {
 
       var User = mongoose.model('User');
       // set the new password
@@ -77,20 +81,20 @@ function seedTheUser (user) {
         checkUserNotExists(user)
           .then(saveUser(user))
           .then(reportSuccess(password))
-          .then(function () {
+          .then(function() {
             resolve();
           })
-          .catch(function (err) {
+          .catch(function(err) {
             reject(err);
           });
       } else {
-          removeUser(user)
+        removeUser(user)
           .then(saveUser(user))
           .then(reportSuccess(password))
-          .then(function () {
+          .then(function() {
             resolve();
           })
-          .catch(function (err) {
+          .catch(function(err) {
             reject(err);
           });
       }
@@ -99,8 +103,8 @@ function seedTheUser (user) {
 }
 
 // report the error
-function reportError (reject) {
-  return function (err) {
+function reportError(reject) {
+  return function(err) {
     if (seedOptions.logResults) {
       console.log();
       console.log('Database Seeding:\t\t\t' + err);
@@ -111,69 +115,71 @@ function reportError (reject) {
 }
 
 function insertSetting(options) {
-    seedOptions = _.clone(config.seedDB.options, true);
-    seedOptions.settings = config.seedDB.options.settings;
-    var Setting = mongoose.model('Setting');
-    _.each(seedOptions.settings,function(obj) {
-        Setting.findOne({code:obj.code},function(err,settingRecord) {
-            if (err || !settingRecord) {
-                var setting = new Setting(obj);
-                setting.save();
-            }
-        });
-        
+  seedOptions = _.clone(config.seedDB.options, true);
+  seedOptions.settings = config.seedDB.options.settings;
+  var Setting = mongoose.model('Setting');
+  _.each(seedOptions.settings, function(obj) {
+    Setting.findOne({
+      code: obj.code
+    }, function(err, settingRecord) {
+      if (err || !settingRecord) {
+        var setting = new Setting(obj);
+        setting.save();
+      }
     });
+
+  });
 }
 
 function insertUser(options) {
- // Initialize the default seed options
-    seedOptions = _.clone(config.seedDB.options, true);
+  // Initialize the default seed options
+  seedOptions = _.clone(config.seedDB.options, true);
 
-    // Check for provided options
+  // Check for provided options
 
-    if (_.has(options, 'logResults')) {
-      seedOptions.logResults = options.logResults;
+  if (_.has(options, 'logResults')) {
+    seedOptions.logResults = options.logResults;
+  }
+
+  if (_.has(options, 'seedUser')) {
+    seedOptions.seedUser = options.seedUser;
+  }
+
+  if (_.has(options, 'seedAdmin')) {
+    seedOptions.seedAdmin = options.seedAdmin;
+  }
+
+  var User = mongoose.model('User');
+  return new Promise(function(resolve, reject) {
+
+    var adminAccount = new User(seedOptions.seedAdmin);
+    var userAccount = new User(seedOptions.seedUser);
+
+    // If production only seed admin if it does not exist
+    if (process.env.NODE_ENV === 'production') {
+      User.generateRandomPassphrase()
+        .then(seedTheUser(adminAccount))
+        .then(function() {
+          resolve();
+        })
+        .catch(reportError(reject));
+    } else {
+      // Add both Admin and User account
+
+      User.generateDefaultPassword()
+        .then(seedTheUser(userAccount))
+        .then(User.generateDefaultPassword)
+        .then(seedTheUser(adminAccount))
+        .then(function() {
+          resolve();
+        })
+        .catch(reportError(reject));
     }
-
-    if (_.has(options, 'seedUser')) {
-      seedOptions.seedUser = options.seedUser;
-    }
-
-    if (_.has(options, 'seedAdmin')) {
-      seedOptions.seedAdmin = options.seedAdmin;
-    }
-    
-    var User = mongoose.model('User');
-    return new Promise(function (resolve, reject) {
-
-      var adminAccount = new User(seedOptions.seedAdmin);
-      var userAccount = new User(seedOptions.seedUser);
-
-      // If production only seed admin if it does not exist
-      if (process.env.NODE_ENV === 'production') {
-        User.generateRandomPassphrase()
-          .then(seedTheUser(adminAccount))
-          .then(function () {
-            resolve();
-          })
-          .catch(reportError(reject));
-      } else {
-        // Add both Admin and User account
-
-        User.generateDefaultPassword()
-          .then(seedTheUser(userAccount))
-          .then(User.generateDefaultPassword)
-          .then(seedTheUser(adminAccount))
-          .then(function () {
-            resolve();
-          })
-          .catch(reportError(reject));
-      }
-    });
+  });
 }
 
 module.exports.start = function start(options) {
 
   insertUser(options)
-  .then(insertSetting(options));
+    .then(insertSetting(options));
 };

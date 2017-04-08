@@ -135,7 +135,7 @@ exports.reset = function (req, res, next) {
         }
       }, function (err, user) {
         if (!err && user) {
-            console.log(passwordDetails);
+          console.log(passwordDetails);
           if (passwordDetails.newPassword === passwordDetails.verifyPassword) {
             user.password = passwordDetails.newPassword;
             user.resetPasswordToken = undefined;
@@ -223,10 +223,10 @@ exports.changePassword = function (req, res, next) {
                 } else {
                   req.login(user, function (err) {
                     if (err) {
-                      UserLog.schema.statics.changePassword(req.user,false);
+                      UserLog.schema.statics.changePassword(req.user, false);
                       res.status(400).send(err);
                     } else {
-                      UserLog.schema.statics.changePassword(req.user,true);
+                      UserLog.schema.statics.changePassword(req.user, true);
                       res.send({
                         message: 'Password changed successfully'
                       });
@@ -235,13 +235,13 @@ exports.changePassword = function (req, res, next) {
                 }
               });
             } else {
-              UserLog.schema.statics.changePassword(req.user,false);
+              UserLog.schema.statics.changePassword(req.user, false);
               res.status(422).send({
                 message: 'Passwords do not match'
               });
             }
           } else {
-            UserLog.schema.statics.changePassword(req.user,false);
+            UserLog.schema.statics.changePassword(req.user, false);
             res.status(422).send({
               message: 'Current password is incorrect'
             });

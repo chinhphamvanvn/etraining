@@ -1,5 +1,5 @@
 // Classrooms service used to communicate Classrooms REST endpoints
-(function () {
+(function() {
   'use strict';
 
   angular
@@ -16,10 +16,10 @@
         method: 'PUT'
       },
       byCourse: {
-          method: 'GET',
-          isArray:true,
-          url:'/api/classrooms/byCourse/:courseId'
-        }
+        method: 'GET',
+        isArray: true,
+        url: '/api/classrooms/byCourse/:courseId'
+      }
     });
   }
 }());

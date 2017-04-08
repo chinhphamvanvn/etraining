@@ -7,34 +7,34 @@ var passport = require('passport'),
   LocalStrategy = require('passport-local').Strategy,
   User = require('mongoose').model('User');
 
-module.exports = function () {
+module.exports = function() {
   // Use local strategy
   passport.use(new LocalStrategy({
     usernameField: 'usernameOrEmail',
     passwordField: 'password'
   },
-  function (usernameOrEmail, password, done) {
-    User.findOne({
-      $or: [{
-        username: usernameOrEmail.toLowerCase()
-      }, {
-        email: usernameOrEmail.toLowerCase()
-      }]
-    }, function (err, user) {
-      if (err) {
-        return done(err);
-      }
-      if (!user || !user.authenticate(password)) {
-        return done(null, false, {
-          message: 'Invalid username or password (' + (new Date()).toLocaleTimeString() + ')'
-        });
-      }
-      if (user.banned) {
+    function(usernameOrEmail, password, done) {
+      User.findOne({
+        $or: [{
+          username: usernameOrEmail.toLowerCase()
+        }, {
+          email: usernameOrEmail.toLowerCase()
+        }]
+      }, function(err, user) {
+        if (err) {
+          return done(err);
+        }
+        if (!user || !user.authenticate(password)) {
           return done(null, false, {
-              message: 'Banned user (' + (new Date()).toLocaleTimeString() + ')'
-            });
-      }
-      return done(null, user);
-    });
-  }));
+            message: 'Invalid username or password (' + (new Date()).toLocaleTimeString() + ')'
+          });
+        }
+        if (user.banned) {
+          return done(null, false, {
+            message: 'Banned user (' + (new Date()).toLocaleTimeString() + ')'
+          });
+        }
+        return done(null, user);
+      });
+    }));
 };

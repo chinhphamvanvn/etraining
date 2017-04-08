@@ -11,11 +11,9 @@ module.exports = function(app) {
   app.route('/api/certificates').all(certificatesPolicy.isAllowed)
     .get(certificates.list)
     .post(certificates.grant);
-  
+
   app.route('/api/certificates/byMember/:memberId').all(certificatesPolicy.isAllowed)
-  .get(certificates.certificateByMember);
-  
-  
+    .get(certificates.certificateByMember);
 
   app.route('/api/certificates/:certificateId').all(certificatesPolicy.isAllowed)
     .get(certificates.read)

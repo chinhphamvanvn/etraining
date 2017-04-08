@@ -17,17 +17,17 @@ var ConferenceSchema = new Schema({
     trim: true
   },
   provider: {
-      type: String,
-      enum: ['vietinterview'],
-      default: 'vietinterview'
-    },
+    type: String,
+    enum: ['vietinterview'],
+    default: 'vietinterview'
+  },
   classroom: {
-      type: Schema.ObjectId,
-      ref: 'Classroom'
+    type: Schema.ObjectId,
+    ref: 'Classroom'
   },
   meetingId: {
-      type: String,
-    },
+    type: String
+  },
   created: {
     type: Date,
     default: Date.now

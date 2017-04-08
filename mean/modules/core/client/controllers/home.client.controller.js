@@ -1,13 +1,13 @@
-(function () {
+(function(UIkit) {
   'use strict';
 
   angular
     .module('core')
     .controller('HomeController', HomeController);
 
-  HomeController.$inject = ['$scope', '$state', 'Authentication', 'CoursesService','CourseMembersService','CourseProgramsService', 'SettingsService', 'AnnoucementsService', '_'];
+  HomeController.$inject = ['$scope', '$state', 'Authentication', 'CoursesService', 'CourseMembersService', 'CourseProgramsService', 'SettingsService', 'AnnoucementsService', '_'];
 
-  function HomeController($scope, $state, Authentication, CoursesService, CourseMembersService,CourseProgramsService, SettingsService, AnnoucementsService, _) {
+  function HomeController($scope, $state, Authentication, CoursesService, CourseMembersService, CourseProgramsService, SettingsService, AnnoucementsService, _) {
     var vm = this;
     vm.user = Authentication.user;
     vm.authentication = Authentication;
@@ -16,15 +16,15 @@
     vm.gotoSignin = gotoSignin;
 
     SettingsService.registerMode().then(function(data) {
-        vm.registerSetting = data;
+      vm.registerSetting = data;
     });
 
     function gotoWorkspace() {
       UIkit.offcanvas.hide(false);
-      if (_.contains(vm.user.roles,'admin'))
-          $state.go('admin.workspace.dashboard');
+      if (_.contains(vm.user.roles, 'admin'))
+        $state.go('admin.workspace.dashboard');
       else
-          $state.go('workspace.lms.courses.me');
+        $state.go('workspace.lms.courses.me');
     }
 
     function gotoSignup() {
@@ -44,8 +44,10 @@
     });
 
     vm.gotoSearch = function() {
-      if (!vm.keyword.trim()) return ;
-      $state.go('search', {keyword: vm.keyword});
+      if (!vm.keyword.trim()) return;
+      $state.go('search', {
+        keyword: vm.keyword
+      });
     };
   }
-}());
+}(window.UIkit));

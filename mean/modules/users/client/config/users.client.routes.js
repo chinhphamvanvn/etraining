@@ -1,4 +1,4 @@
-(function () {
+(function() {
   'use strict';
 
   // Setting up route
@@ -12,9 +12,9 @@
     // Users state routing
     $stateProvider
       .state('workspace.users', {
-          abstract: true,
-          url: '/users',
-          template: '<ui-view/>',
+        abstract: true,
+        url: '/users',
+        template: '<ui-view/>'
       })
       .state('workspace.users.view', {
         url: '/view',
@@ -22,10 +22,10 @@
         controller: 'UserViewController',
         controllerAs: 'vm',
         resolve: {
-            userResolve: getUser
+          userResolve: getUser
         },
-        data : {
-            roles:['user']
+        data: {
+          roles: ['user']
         }
       })
       .state('workspace.users.edit', {
@@ -34,10 +34,10 @@
         controller: 'UserEditController',
         controllerAs: 'vm',
         resolve: {
-            userResolve: getUser
+          userResolve: getUser
         },
-        data : {
-            roles:['user']
+        data: {
+          roles: ['user']
         }
       })
       .state('authentication', {
@@ -50,7 +50,7 @@
         templateUrl: '/modules/users/client/views/authentication/authentication.client.view.html',
         controller: 'AuthenticationController',
         data: {
-            action: 'login',
+          action: 'login'
         },
         controllerAs: 'vm'
       })
@@ -60,8 +60,8 @@
         controller: 'AuthenticationController',
         controllerAs: 'vm',
         data: {
-            action: 'register'
-        },
+          action: 'register'
+        }
       })
       .state('password', {
         abstract: true,
@@ -81,12 +81,12 @@
         data: {
           pageTitle: 'Password reset form'
         }
-      });;
-    
+      });
+
     getUser.$inject = ['$stateParams', 'UsersService'];
 
     function getUser($stateParams, UsersService) {
-          return UsersService.me().$promise;
+      return UsersService.me().$promise;
     }
   }
 }());

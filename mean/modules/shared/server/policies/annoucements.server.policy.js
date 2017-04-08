@@ -11,49 +11,62 @@ acl = new acl(new acl.memoryBackend());
 /**
  * Invoke Annoucements Permissions
  */
-exports.invokeRolesPolicies = function () {
-  acl.allow([{
-    roles: ['admin'],
-    allows: [{
-      resources: '/api/annoucements',
-      permissions: '*'
-    },{
-        resources: '/api/annoucements/public',
-        permissions: '*'
-      },
-      {
+exports.invokeRolesPolicies = function() {
+  acl.allow([
+    {
+      roles: ['admin'],
+      allows: [
+        {
+          resources: '/api/annoucements',
+          permissions: '*'
+        },
+        {
+          resources: '/api/annoucements/public',
+          permissions: '*'
+        },
+        {
           resources: '/api/annoucements/distribute/:annoucementId/:users',
           permissions: 'post'
         },
-      {
-      resources: '/api/annoucements/:annoucementId',
-      permissions: '*'
-    }]
-  }, {
-    roles: ['user'],
-    allows: [{
-      resources: '/api/annoucements/public',
-      permissions: ['get']
-    }, {
-      resources: '/api/annoucements/:annoucementId',
-      permissions: ['get']
-    }]
-  }, {
-    roles: ['guest'],
-    allows: [{
-      resources: '/api/annoucements/public',
-      permissions: ['get']
-    }, {
-      resources: '/api/annoucements/:annoucementId',
-      permissions: ['get']
-    }]
-  }]);
+        {
+          resources: '/api/annoucements/:annoucementId',
+          permissions: '*'
+        }
+      ]
+    },
+    {
+      roles: ['user'],
+      allows: [
+        {
+          resources: '/api/annoucements/public',
+          permissions: ['get']
+        },
+        {
+          resources: '/api/annoucements/:annoucementId',
+          permissions: ['get']
+        }
+      ]
+    },
+    {
+      roles: ['guest'],
+      allows: [
+        {
+          resources: '/api/annoucements/public',
+          permissions: ['get']
+        },
+        {
+          resources: '/api/annoucements/:annoucementId',
+          permissions: ['get']
+        }
+      ]
+    }
+  ]);
 };
 
 /**
  * Check If Annoucements Policy Allows
  */
-exports.isAllowed = function (req, res, next) {
+exports.isAllowed = function(req, res, next) {
   var roles = (req.user) ? req.user.roles : ['guest'];
 
   // If an Annoucement is being processed and the current user created it then allow any manipulation
@@ -62,7 +75,7 @@ exports.isAllowed = function (req, res, next) {
   }
 
   // Check for user roles
-  acl.areAnyRolesAllowed(roles, req.route.path, req.method.toLowerCase(), function (err, isAllowed) {
+  acl.areAnyRolesAllowed(roles, req.route.path, req.method.toLowerCase(), function(err, isAllowed) {
     if (err) {
       // An authorization error occurred
       return res.status(500).send('Unexpected authorization error');

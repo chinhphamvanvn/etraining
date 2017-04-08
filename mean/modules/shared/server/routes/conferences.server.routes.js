@@ -13,8 +13,8 @@ module.exports = function(app) {
     .post(conferences.create);
 
   app.route('/api/conferences/byClass/:classroomId').all(conferencesPolicy.isAllowed)
-  .get(conferences.conferenceByClass)
-  
+    .get(conferences.conferenceByClass);
+
   app.route('/api/conferences/:conferenceId').all(conferencesPolicy.isAllowed)
     .get(conferences.read)
     .put(conferences.update)

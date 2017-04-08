@@ -1,5 +1,5 @@
 // Participants service used to communicate Participants REST endpoints
-(function () {
+(function() {
   'use strict';
 
   angular
@@ -15,15 +15,15 @@
       update: {
         method: 'PUT'
       },
-      byConference : {
-          method: 'GET',
-          url: '/api/participants/byConference/:conferenceId',
-          isArray: true
-        } ,
-        byMember : {
-            method: 'GET',
-            url: '/api/participants/byMember/:memberId'
-          } 
+      byConference: {
+        method: 'GET',
+        url: '/api/participants/byConference/:conferenceId',
+        isArray: true
+      },
+      byMember: {
+        method: 'GET',
+        url: '/api/participants/byMember/:memberId'
+      }
     });
   }
 }());

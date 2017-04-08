@@ -71,22 +71,24 @@ module.exports = {
     sandbox: true
   },
   mailer: {
-      from: 'contact@vietinterview.com',
-      options: {
-          auth: {
-              user: 'contact@vietinterview.com',
-              pass: 'Tc!@#6102'
-            },
-        port: 25,
-        host: 'vietinterview.com',
-        secure:false,
-        tls: {rejectUnauthorized: false},
-        ignoreTLS:false,
-        debug:true
-      }
-    },
+    from: 'contact@vietinterview.com',
+    options: {
+      auth: {
+        user: 'contact@vietinterview.com',
+        pass: 'Tc!@#6102'
+      },
+      port: 25,
+      host: 'vietinterview.com',
+      secure: false,
+      tls: {
+        rejectUnauthorized: false
+      },
+      ignoreTLS: false,
+      debug: true
+    }
+  },
   seedDB: {
-    seed:true,
+    seed: true,
     options: {
       logResults: process.env.MONGO_SEED_LOG_RESULTS !== 'false',
       seedUser: {
@@ -108,169 +110,169 @@ module.exports = {
         roles: ['user', 'admin']
       },
       settings: [
-                 {
-                     name:'contactEmail',
-                     value:'',
-                     code:'CONTACT_EMAIL',
-                     category:'system'
-                  },
-                  {
-                      name:'registerMode',
-                      value:'open',
-                      code:'REGISTER_MODE',
-                      category:'system'
-                   },
-                   {
-                       name:'registerGroup',
-                       edit: true,
-                       type:'String',
-                       valueString:'',
-                       code:'REGISTER_GROUP',
-                       category:'system'
-                    }
-                  ,{
-                      name:'maxLoginAttempt',
-                      value:'6',
-                      code:'MAX_LOGIN_ATTEMPT',
-                      category:'system'
-                   },
-                   {
-                       name:'concurrentLogin',
-                       value:'true',
-                       code:'CONCURRENT_LOGIN',
-                       category:'system'
-                    },
-                    {
-                        name:'whitelistIP',
-                        edit: true,
-                        type:'String',
-                        valueString:'0.0.0.0',
-                        code:'WHITELIST_IP',
-                        category:'system'
-                     },
-                     {
-                         name:'whitelistIPEnabled',
-                         edit: true,
-                         type:'Boolean',
-                         valueBoolean:false,
-                         code:'WHITELIST_IP_ENABLE',
-                         category:'system'
-                      },
-                   {
-                       name:'vietInterviewConferenceApiAdminUrl',
-                       value:'',
-                       code:'BUILT_INT_CONFERENCE_ADMIN_API',
-                       category:'conference'
-                    },
-                    {
-                        name:'vietInterviewConferenceApiUrl',
-                        value:'',
-                        code:'BUILT_INT_CONFERENCE_API',
-                        category:'conference'
-                     },
-                     {
-                         name:'vietInterviewConferenceApiSalt',
-                         value:'',
-                         code:'BUILT_INT_CONFERENCE_API_SALT',
-                         category:'conference'
-                      },
-                      {
-                          name:'vietInterviewConferenceRoomUrl',
-                          edit: true,
-                          type:'String',
-                          valueString:'',
-                          code:'BUILT_INT_CONFERENCE_ROOM_URL',
-                          category:'conference'
-                       },
-                      {
-                          name:'alertUserCreate',
-                          edit: true,
-                          type:'Boolean',
-                          valueBoolean:true,
-                          code:'ALERT_USER_CREATE',
-                          category:'alert'
-                       },
-                       {
-                           name:'alertUserUpdated',
-                           edit: true,
-                           type:'Boolean',
-                           valueBoolean:false,
-                           code:'ALERT_USER_UPDATE',
-                           category:'alert'
-                        },
-                        {
-                            name:'alertUserDelete',
-                            edit: true,
-                            type:'Boolean',
-                            valueBoolean:true,
-                            code:'ALERT_USER_DELETE',
-                            category:'alert'
-                         },
-                         {
-                             name:'alertCandidateEnroll',
-                             edit: true,
-                             type:'Boolean',
-                             valueBoolean:true,
-                             code:'ALERT_CANDIDATE_ENROLL',
-                             category:'alert'
-                          },
-                         {
-                             name:'alertMemberEnroll',
-                             edit: true,
-                             type:'Boolean',
-                             valueBoolean:true,
-                             code:'ALERT_MEMBER_ENROLL',
-                             category:'alert'
-                          },
-                          {
-                              name:'alertMemberWithdraw',
-                              edit: true,
-                              type:'Boolean',
-                              valueBoolean:true,
-                              code:'ALERT_MEMBER_WIDTHDRAW',
-                              category:'alert'
-                           },
-                           {
-                               name:'alertMemberComplete',
-                               edit: true,
-                               type:'Boolean',
-                               valueBoolean:true,
-                               code:'ALERT_MEMBER_COMPLETE',
-                               category:'alert'
-                            },
-                            {
-                                name:'alertCourseUpdate',
-                                edit: true,
-                                type:'Boolean',
-                                valueBoolean:true,
-                                code:'ALERT_COURSE_UPDATE',
-                                category:'alert'
-                             },
-                             {
-                                 name:'alertThreadNew',
-                                 edit: true,
-                                 type:'Boolean',
-                                 valueBoolean:true,
-                                 code:'ALERT_THREAD_NEW',
-                                 category:'alert'
-                              },
-                              {
-                                  name:'alertReplyNew',
-                                  edit: true,
-                                  type:'Boolean',
-                                  valueBoolean:true,
-                                  code:'ALERT_REPLY_NEW',
-                                  category:'alert'
-                               },
-                               {
-                                   name:'alertCourseMaterialUpdate',
-                                   edit: true,
-                                   type:'Boolean',
-                                   valueBoolean:true,
-                                   code:'ALERT_COURSE_MATERIAL_UPDATE',
-                                   category:'alert'
-                                }
-             ]
+        {
+          name: 'contactEmail',
+          value: '',
+          code: 'CONTACT_EMAIL',
+          category: 'system'
+        },
+        {
+          name: 'registerMode',
+          value: 'open',
+          code: 'REGISTER_MODE',
+          category: 'system'
+        },
+        {
+          name: 'registerGroup',
+          edit: true,
+          type: 'String',
+          valueString: '',
+          code: 'REGISTER_GROUP',
+          category: 'system'
+        },
+        {
+          name: 'maxLoginAttempt',
+          value: '6',
+          code: 'MAX_LOGIN_ATTEMPT',
+          category: 'system'
+        },
+        {
+          name: 'concurrentLogin',
+          value: 'true',
+          code: 'CONCURRENT_LOGIN',
+          category: 'system'
+        },
+        {
+          name: 'whitelistIP',
+          edit: true,
+          type: 'String',
+          valueString: '0.0.0.0',
+          code: 'WHITELIST_IP',
+          category: 'system'
+        },
+        {
+          name: 'whitelistIPEnabled',
+          edit: true,
+          type: 'Boolean',
+          valueBoolean: false,
+          code: 'WHITELIST_IP_ENABLE',
+          category: 'system'
+        },
+        {
+          name: 'vietInterviewConferenceApiAdminUrl',
+          value: '',
+          code: 'BUILT_INT_CONFERENCE_ADMIN_API',
+          category: 'conference'
+        },
+        {
+          name: 'vietInterviewConferenceApiUrl',
+          value: '',
+          code: 'BUILT_INT_CONFERENCE_API',
+          category: 'conference'
+        },
+        {
+          name: 'vietInterviewConferenceApiSalt',
+          value: '',
+          code: 'BUILT_INT_CONFERENCE_API_SALT',
+          category: 'conference'
+        },
+        {
+          name: 'vietInterviewConferenceRoomUrl',
+          edit: true,
+          type: 'String',
+          valueString: '',
+          code: 'BUILT_INT_CONFERENCE_ROOM_URL',
+          category: 'conference'
+        },
+        {
+          name: 'alertUserCreate',
+          edit: true,
+          type: 'Boolean',
+          valueBoolean: true,
+          code: 'ALERT_USER_CREATE',
+          category: 'alert'
+        },
+        {
+          name: 'alertUserUpdated',
+          edit: true,
+          type: 'Boolean',
+          valueBoolean: false,
+          code: 'ALERT_USER_UPDATE',
+          category: 'alert'
+        },
+        {
+          name: 'alertUserDelete',
+          edit: true,
+          type: 'Boolean',
+          valueBoolean: true,
+          code: 'ALERT_USER_DELETE',
+          category: 'alert'
+        },
+        {
+          name: 'alertCandidateEnroll',
+          edit: true,
+          type: 'Boolean',
+          valueBoolean: true,
+          code: 'ALERT_CANDIDATE_ENROLL',
+          category: 'alert'
+        },
+        {
+          name: 'alertMemberEnroll',
+          edit: true,
+          type: 'Boolean',
+          valueBoolean: true,
+          code: 'ALERT_MEMBER_ENROLL',
+          category: 'alert'
+        },
+        {
+          name: 'alertMemberWithdraw',
+          edit: true,
+          type: 'Boolean',
+          valueBoolean: true,
+          code: 'ALERT_MEMBER_WIDTHDRAW',
+          category: 'alert'
+        },
+        {
+          name: 'alertMemberComplete',
+          edit: true,
+          type: 'Boolean',
+          valueBoolean: true,
+          code: 'ALERT_MEMBER_COMPLETE',
+          category: 'alert'
+        },
+        {
+          name: 'alertCourseUpdate',
+          edit: true,
+          type: 'Boolean',
+          valueBoolean: true,
+          code: 'ALERT_COURSE_UPDATE',
+          category: 'alert'
+        },
+        {
+          name: 'alertThreadNew',
+          edit: true,
+          type: 'Boolean',
+          valueBoolean: true,
+          code: 'ALERT_THREAD_NEW',
+          category: 'alert'
+        },
+        {
+          name: 'alertReplyNew',
+          edit: true,
+          type: 'Boolean',
+          valueBoolean: true,
+          code: 'ALERT_REPLY_NEW',
+          category: 'alert'
+        },
+        {
+          name: 'alertCourseMaterialUpdate',
+          edit: true,
+          type: 'Boolean',
+          valueBoolean: true,
+          code: 'ALERT_COURSE_MATERIAL_UPDATE',
+          category: 'alert'
+        }
+      ]
     }
   }
 };

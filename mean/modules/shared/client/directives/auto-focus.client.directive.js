@@ -1,4 +1,4 @@
-(function () {
+(function() {
   'use strict';
 
   // Focus the element on page load

@@ -11,18 +11,18 @@ module.exports = function(app) {
   app.route('/api/candidates').all(candidatesPolicy.isAllowed)
     .get(candidates.list)
     .post(candidates.create);
-  
+
   app.route('/api/candidates/certify/:candidateId/:studentId').all(candidatesPolicy.isAllowed)
-  .post(candidates.certify);
-  
+    .post(candidates.certify);
+
   app.route('/api/candidates/byUser/:userId').all(candidatesPolicy.isAllowed)
-  .get(candidates.candidateByUser);
-  
+    .get(candidates.candidateByUser);
+
   app.route('/api/candidates/byExam/:examId').all(candidatesPolicy.isAllowed)
-  .get(candidates.listByExam);
-  
+    .get(candidates.listByExam);
+
   app.route('/api/candidates/byUserAndSchedule/:userId/:scheduleId').all(candidatesPolicy.isAllowed)
-  .get(candidates.candidateByUserAndSchedule);
+    .get(candidates.candidateByUserAndSchedule);
 
   app.route('/api/candidates/:candidateId').all(candidatesPolicy.isAllowed)
     .get(candidates.read)

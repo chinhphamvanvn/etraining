@@ -1,28 +1,28 @@
-(function () {
+(function() {
   'use strict';
 
   angular
-  .module('shared')
+    .module('shared')
     .directive('tableCheckAll', [
-        '$window',
-        '$timeout',
-        function ($window,$timeout) {
-            return {
-                restrict: 'A',
-                link: function (scope, elem, attr) {
+      '$window',
+      '$timeout',
+      function($window, $timeout) {
+        return {
+          restrict: 'A',
+          link: function(scope, elem, attr) {
 
-                    var $checkRow = $(elem).closest('table').find('.check_row');
+            var $checkRow = $(elem).closest('table').find('.check_row');
 
-                    $(elem)
-                        .on('ifChecked',function() {
-                            $checkRow.iCheck('check');
-                        })
-                        .on('ifUnchecked',function() {
-                            $checkRow.iCheck('uncheck');
-                        });
+            $(elem)
+              .on('ifChecked', function() {
+                $checkRow.iCheck('check');
+              })
+              .on('ifUnchecked', function() {
+                $checkRow.iCheck('uncheck');
+              });
 
-                }
-            }
-        }
+          }
+        };
+      }
     ]);
 }());

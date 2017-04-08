@@ -1,5 +1,5 @@
 // Schemes service used to communicate Schemes REST endpoints
-(function () {
+(function() {
   'use strict';
 
   angular
@@ -15,10 +15,10 @@
       update: {
         method: 'PUT'
       },
-      byEdition : {
-          method: 'GET',
-          url:'/api/schemes/byEdition/:editionId'
-        },
+      byEdition: {
+        method: 'GET',
+        url: '/api/schemes/byEdition/:editionId'
+      }
     });
   }
 }());

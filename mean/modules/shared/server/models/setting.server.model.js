@@ -10,28 +10,28 @@ var mongoose = require('mongoose'),
  * Setting Schema
  */
 var SettingSchema = new Schema({
-    name: {
-        type: String,
-        default: ''
-    },
-    valueString: {
-        type: String,
-        default: '',
-        trim: true
-    },
-    valueNumber: {
-        type: Number,
-    },
-    valueBoolean: {
-        type: Boolean,
-    },
-    code: {
-        type: String,
-        unique : true
-    },
-    category: {
-        type: String
-    },
+  name: {
+    type: String,
+    default: ''
+  },
+  valueString: {
+    type: String,
+    default: '',
+    trim: true
+  },
+  valueNumber: {
+    type: Number
+  },
+  valueBoolean: {
+    type: Boolean
+  },
+  code: {
+    type: String,
+    unique: true
+  },
+  category: {
+    type: String
+  },
   created: {
     type: Date,
     default: Date.now

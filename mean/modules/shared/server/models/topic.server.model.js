@@ -17,12 +17,12 @@ var ForumTopicSchema = new Schema({
     trim: true
   },
   forum: {
-      type: Schema.ObjectId,
-      ref: 'Forum'
-    },
+    type: Schema.ObjectId,
+    ref: 'Forum'
+  },
   updated: {
-      type: Date,
-      default: Date.now
+    type: Date,
+    default: Date.now
   },
   created: {
     type: Date,

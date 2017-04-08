@@ -1,4 +1,4 @@
-(function (app) {
+(function(app) {
   'use strict';
 
   // Start by defining the main module and adding the module dependencies
@@ -12,41 +12,41 @@
 
   bootstrapConfig.$inject = ['$compileProvider', '$locationProvider', '$httpProvider', '$logProvider', '$translateProvider', '$sceDelegateProvider', '$breadcrumbProvider', 'localStorageServiceProvider'];
 
-  function bootstrapConfig($compileProvider, $locationProvider, $httpProvider, $logProvider, $translateProvider,$sceDelegateProvider, $breadcrumbProvider, localStorageServiceProvider) {
+  function bootstrapConfig($compileProvider, $locationProvider, $httpProvider, $logProvider, $translateProvider, $sceDelegateProvider, $breadcrumbProvider, localStorageServiceProvider) {
     $locationProvider.html5Mode({
       enabled: true,
       requireBase: false
     }).hashPrefix('!');
-    
+
     $translateProvider.useStaticFilesLoader({
-        prefix: '/assets/i18n/locale-',
-        suffix: '.json'
+      prefix: '/assets/i18n/locale-',
+      suffix: '.json'
     });
     $translateProvider.preferredLanguage('vn');
     $translateProvider.useSanitizeValueStrategy('escape');
-   
-    
+
+
     $httpProvider.interceptors.push('authInterceptor');
 
     // Disable debug data for production environment
     // @link https://docs.angularjs.org/guide/production
     $compileProvider.debugInfoEnabled(app.applicationEnvironment !== 'production');
     $logProvider.debugEnabled(app.applicationEnvironment !== 'production');
-    
+
     $sceDelegateProvider.resourceUrlWhitelist([
-                                               'self',
-                                               'https://www.youtube.com/**',
-                                               'https://w.soundcloud.com/**'
-                                           ]);
-    
+      'self',
+      'https://www.youtube.com/**',
+      'https://w.soundcloud.com/**'
+    ]);
+
     $breadcrumbProvider.setOptions({
-        prefixStateName: 'workspace',
-        templateUrl: '/modules/shared/client/views/breadcrumbs.tpl.client.view.html'
+      prefixStateName: 'workspace',
+      templateUrl: '/modules/shared/client/views/breadcrumbs.tpl.client.view.html'
     });
-    
+
     localStorageServiceProvider
-    .setPrefix('eTraining')
-    .setStorageType('localStorage');
+      .setPrefix('eTraining')
+      .setStorageType('localStorage');
   }
 
 

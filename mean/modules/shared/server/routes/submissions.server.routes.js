@@ -11,13 +11,13 @@ module.exports = function(app) {
   app.route('/api/submissions').all(submissionsPolicy.isAllowed)
     .get(submissions.list)
     .post(submissions.create);
-  
+
   app.route('/api/submissions/byExamAndCandidate/:examId/:candidateId').all(submissionsPolicy.isAllowed)
-  .get(submissions.listByExamAndCandidate)
+    .get(submissions.listByExamAndCandidate);
   app.route('/api/submissions/byExam/:examId').all(submissionsPolicy.isAllowed)
-  .get(submissions.listByExam)
+    .get(submissions.listByExam);
   app.route('/api/submissions/byCandidate/:candidateId').all(submissionsPolicy.isAllowed)
-  .get(submissions.listByCandidate)
+    .get(submissions.listByCandidate);
 
   app.route('/api/submissions/:submissionId').all(submissionsPolicy.isAllowed)
     .get(submissions.read)

@@ -1,4 +1,4 @@
-(function () {
+(function() {
   'use strict';
 
   angular
@@ -13,7 +13,7 @@
       title: 'PAGE.WORKSPACE.SIDEBAR.USERS',
       state: 'admin.workspace.users.list',
       roles: ['admin'],
-      icon:'people',
+      icon: 'people',
       position: 100
     });
   }

@@ -81,7 +81,7 @@ exports.delete = function(req, res) {
  * List of Schemes
  */
 exports.list = function(req, res) {
-    GradeScheme.find().sort('-created').populate('user', 'displayName').exec(function(err, schemes) {
+  GradeScheme.find().sort('-created').populate('user', 'displayName').exec(function(err, schemes) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -96,7 +96,9 @@ exports.list = function(req, res) {
  * Get grade scheme in edition
  */
 exports.gradeSchemeByEditionID = function(req, res) {
-    GradeScheme.findOne({edition:req.edition._id}).sort('-created').populate('user', 'displayName').exec(function(err, scheme) {
+  GradeScheme.findOne({
+    edition: req.edition._id
+  }).sort('-created').populate('user', 'displayName').exec(function(err, scheme) {
     if (err || !scheme) {
       return res.status(422).send({
         message: errorHandler.getErrorMessage('Scheme not found')
@@ -119,7 +121,7 @@ exports.schemeByID = function(req, res, next, id) {
     });
   }
 
-  GradeScheme.findById(id).populate('user', 'displayName').exec(function (err, scheme) {
+  GradeScheme.findById(id).populate('user', 'displayName').exec(function(err, scheme) {
     if (err) {
       return next(err);
     } else if (!scheme) {

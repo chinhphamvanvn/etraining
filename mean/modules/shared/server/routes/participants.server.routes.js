@@ -11,13 +11,13 @@ module.exports = function(app) {
   app.route('/api/participants').all(participantsPolicy.isAllowed)
     .get(participants.list)
     .post(participants.create);
-  
+
   app.route('/api/participants/byMember/:memberId').all(participantsPolicy.isAllowed)
-  .get(participants.participantByMember)
+    .get(participants.participantByMember);
 
   app.route('/api/participants/byConference/:conferenceId').all(participantsPolicy.isAllowed)
-  .get(participants.listByConference);
-  
+    .get(participants.listByConference);
+
   app.route('/api/participants/:participantId').all(participantsPolicy.isAllowed)
     .get(participants.read)
     .put(participants.update)

@@ -14,12 +14,12 @@ var _ = require('lodash'),
   UserLog = mongoose.model('UserLog'),
   validator = require('validator');
 
-var whitelistedFields = ['firstName', 'lastName', 'email', 'username','position', 'facebook', 'twitter', 'phone', 'profileImageURL', 'banned'];
+var whitelistedFields = ['firstName', 'lastName', 'email', 'username', 'position', 'facebook', 'twitter', 'phone', 'profileImageURL', 'banned'];
 
 /**
  * Update user details
  */
-exports.update = function (req, res) {
+exports.update = function(req, res) {
   // Init Variables
   var user = req.user;
 
@@ -30,15 +30,15 @@ exports.update = function (req, res) {
     user.updated = Date.now();
     user.displayName = user.firstName + ' ' + user.lastName;
 
-    user.save(function (err) {
+    user.save(function(err) {
       if (err) {
-        UserLog.schema.statics.updateProfile(user,false);
+        UserLog.schema.statics.updateProfile(user, false);
         return res.status(422).send({
           message: errorHandler.getErrorMessage(err)
         });
       } else {
-        UserLog.schema.statics.updateProfile(user,true);
-        req.login(user, function (err) {
+        UserLog.schema.statics.updateProfile(user, true);
+        req.login(user, function(err) {
           if (err) {
             res.status(400).send(err);
           } else {
@@ -57,7 +57,7 @@ exports.update = function (req, res) {
 /**
  * Update profile picture
  */
-exports.changeProfilePicture = function (req, res) {
+exports.changeProfilePicture = function(req, res) {
   var user = req.user;
   var existingImageUrl;
   // Filtering to upload only images
@@ -71,12 +71,12 @@ exports.changeProfilePicture = function (req, res) {
       .then(updateUser)
       .then(deleteOldImage)
       .then(login)
-      .then(function () {
-        UserLog.schema.statics.updateProfileAvatar(user,true);
+      .then(function() {
+        UserLog.schema.statics.updateProfileAvatar(user, true);
         res.json(user);
       })
-      .catch(function (err) {
-        UserLog.schema.statics.updateProfileAvatar(user,false);
+      .catch(function(err) {
+        UserLog.schema.statics.updateProfileAvatar(user, false);
         res.status(422).send(err);
       });
   } else {
@@ -85,9 +85,9 @@ exports.changeProfilePicture = function (req, res) {
     });
   }
 
-  function uploadImage () {
-    return new Promise(function (resolve, reject) {
-      upload(req, res, function (uploadError) {
+  function uploadImage() {
+    return new Promise(function(resolve, reject) {
+      upload(req, res, function(uploadError) {
         if (uploadError) {
           reject(errorHandler.getErrorMessage(uploadError));
         } else {
@@ -97,10 +97,10 @@ exports.changeProfilePicture = function (req, res) {
     });
   }
 
-  function updateUser () {
-    return new Promise(function (resolve, reject) {
+  function updateUser() {
+    return new Promise(function(resolve, reject) {
       user.profileImageURL = config.uploads.profile.image.urlPaath + req.file.filename;
-      user.save(function (err, theuser) {
+      user.save(function(err, theuser) {
         if (err) {
           reject(err);
         } else {
@@ -110,10 +110,10 @@ exports.changeProfilePicture = function (req, res) {
     });
   }
 
-  function deleteOldImage () {
-    return new Promise(function (resolve, reject) {
+  function deleteOldImage() {
+    return new Promise(function(resolve, reject) {
       if (existingImageUrl !== User.schema.path('profileImageURL').defaultValue) {
-        fs.unlink(existingImageUrl, function (unlinkError) {
+        fs.unlink(existingImageUrl, function(unlinkError) {
           if (unlinkError) {
             console.log(unlinkError);
             resolve();
@@ -127,9 +127,9 @@ exports.changeProfilePicture = function (req, res) {
     });
   }
 
-  function login () {
-    return new Promise(function (resolve, reject) {
-      req.login(user, function (err) {
+  function login() {
+    return new Promise(function(resolve, reject) {
+      req.login(user, function(err) {
         if (err) {
           res.status(400).send(err);
         } else {
@@ -143,7 +143,7 @@ exports.changeProfilePicture = function (req, res) {
 /**
  * Send User
  */
-exports.me = function (req, res) {
+exports.me = function(req, res) {
   // Sanitize the user - short term solution. Copied from core.server.controller.js
   // TODO create proper passport mock: See https://gist.github.com/mweibel/5219403
   var safeUserObject = null;
@@ -170,5 +170,3 @@ exports.me = function (req, res) {
 
   res.json(safeUserObject || null);
 };
-
-

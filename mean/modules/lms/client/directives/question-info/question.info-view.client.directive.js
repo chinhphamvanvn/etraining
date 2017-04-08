@@ -1,4 +1,4 @@
-(function () {
+(function() {
   'use strict';
 
   // Focus the element on page load
@@ -7,18 +7,14 @@
   angular.module('lms')
     .directive('questionInfo', [questionInfo]);
 
-  function questionInfo(OptionsService,QuestionsService,fileManagerConfig,$translate, _) {
-      
-      return {
-          scope: {
-              question: "=",
-              show: "=",
-          },
-          templateUrl:'/modules/lms/client/directives/question-info/question.info.directive.client.view.html',
-          link: function (scope, element, attributes) {
-              
-              
-          }
-      }
+  function questionInfo(OptionsService, QuestionsService, fileManagerConfig, $translate, _) {
+    return {
+      scope: {
+        question: '=',
+        show: '='
+      },
+      templateUrl: '/modules/lms/client/directives/question-info/question.info.directive.client.view.html',
+      link: function(scope, element, attributes) {}
+    };
   }
 }());

@@ -1,5 +1,5 @@
 // Schedules service used to communicate Schedules REST endpoints
-(function () {
+(function() {
   'use strict';
 
   angular

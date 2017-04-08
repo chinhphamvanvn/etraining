@@ -1,5 +1,5 @@
 // Submissions service used to communicate Submissions REST endpoints
-(function () {
+(function() {
   'use strict';
 
   angular
@@ -16,20 +16,20 @@
         method: 'PUT'
       },
       byCandidate: {
-          url:'/api/submissions/byCandidate/:candidateId',
-          method: 'GET',
-          isArray: true
-        },
-        byExamAndCandidate: {
-            url:'/api/submissions/byExamAndCandidate/:examId/:candidateId',
-            method: 'GET',
-            isArray: true
-          },
-          byExam: {
-              url:'/api/submissions/byExam/:examId',
-              method: 'GET',
-              isArray: true
-            },
+        url: '/api/submissions/byCandidate/:candidateId',
+        method: 'GET',
+        isArray: true
+      },
+      byExamAndCandidate: {
+        url: '/api/submissions/byExamAndCandidate/:examId/:candidateId',
+        method: 'GET',
+        isArray: true
+      },
+      byExam: {
+        url: '/api/submissions/byExam/:examId',
+        method: 'GET',
+        isArray: true
+      }
     });
   }
 }());

@@ -11,53 +11,70 @@ acl = new acl(new acl.memoryBackend());
 /**
  * Invoke Materials Permissions
  */
-exports.invokeRolesPolicies = function () {
-  acl.allow([{
-    roles: ['admin'],
-    allows: [{
-      resources: '/api/materials',
-      permissions: '*'
-    }, {
-      resources: '/api/materials/:materialId',
-      permissions: '*'
-    }, {
-        resources: '/api/materials/byCourse/:editionId',
-        permissions: 'get'
-      },{
+exports.invokeRolesPolicies = function() {
+  acl.allow([
+    {
+      roles: ['admin'],
+      allows: [
+        {
+          resources: '/api/materials',
+          permissions: '*'
+        },
+        {
+          resources: '/api/materials/:materialId',
+          permissions: '*'
+        },
+        {
+          resources: '/api/materials/byCourse/:editionId',
+          permissions: 'get'
+        },
+        {
           resources: '/api/materials/upload',
           permissions: ['post']
-        }]
-  }, {
-    roles: ['user'],
-    allows: [{
-      resources: '/api/materials',
-      permissions: ['get', 'post']
-    }, {
-      resources: '/api/materials/:materialId',
-      permissions: ['get']
-    },{
-        resources: '/api/materials/byCourse/:editionId',
-        permissions: 'get'
-      },{
+        }
+      ]
+    },
+    {
+      roles: ['user'],
+      allows: [
+        {
+          resources: '/api/materials',
+          permissions: ['get', 'post']
+        },
+        {
+          resources: '/api/materials/:materialId',
+          permissions: ['get']
+        },
+        {
+          resources: '/api/materials/byCourse/:editionId',
+          permissions: 'get'
+        },
+        {
           resources: '/api/materials/upload',
           permissions: ['post']
-        }]
-  }, {
-    roles: ['guest'],
-    allows: [{
-      resources: '/api/materials',
-      permissions: ['get']
-    }, {
-      resources: '/api/materials/:materialId',
-      permissions: ['get']
-    }]
-  }]);
+        }
+      ]
+    },
+    {
+      roles: ['guest'],
+      allows: [
+        {
+          resources: '/api/materials',
+          permissions: ['get']
+        },
+        {
+          resources: '/api/materials/:materialId',
+          permissions: ['get']
+        }
+      ]
+    }
+  ]);
 };
 
 /**
  * Check If Materials Policy Allows
  */
-exports.isAllowed = function (req, res, next) {
+exports.isAllowed = function(req, res, next) {
   var roles = (req.user) ? req.user.roles : ['guest'];
 
   // If an Material is being processed and the current user created it then allow any manipulation
@@ -66,7 +83,7 @@ exports.isAllowed = function (req, res, next) {
   }
 
   // Check for user roles
-  acl.areAnyRolesAllowed(roles, req.route.path, req.method.toLowerCase(), function (err, isAllowed) {
+  acl.areAnyRolesAllowed(roles, req.route.path, req.method.toLowerCase(), function(err, isAllowed) {
     if (err) {
       // An authorization error occurred
       return res.status(500).send('Unexpected authorization error');

@@ -1,4 +1,4 @@
-(function () {
+(function() {
   'use strict';
 
   // Setting up route
@@ -11,21 +11,21 @@
   function routeConfig($stateProvider) {
     // Users state routing
     $stateProvider
-    .state('admin.workspace.users', {
+      .state('admin.workspace.users', {
         abstract: true,
         url: '/users',
-        template: '<ui-view/>',
-    })
+        template: '<ui-view/>'
+      })
       .state('admin.workspace.users.view', {
         url: '/view/:userId',
         templateUrl: '/modules/users/client/views/view-user.client.view.html',
         controller: 'UserViewController',
         controllerAs: 'vm',
         resolve: {
-            userResolve: getUser
+          userResolve: getUser
         },
-        data : {
-            roles:['admin']
+        data: {
+          roles: ['admin']
         }
       })
       .state('admin.workspace.users.create', {
@@ -34,10 +34,10 @@
         controller: 'AdminEditController',
         controllerAs: 'vm',
         resolve: {
-            userResolve: newUser
+          userResolve: newUser
         },
-        data : {
-            roles:['admin']
+        data: {
+          roles: ['admin']
         }
       })
       .state('admin.workspace.users.edit', {
@@ -46,10 +46,10 @@
         controller: 'AdminEditController',
         controllerAs: 'vm',
         resolve: {
-            userResolve: getUser
+          userResolve: getUser
         },
-        data : {
-            roles:['admin']
+        data: {
+          roles: ['admin']
         }
       })
       .state('admin.workspace.users.list', {
@@ -57,23 +57,23 @@
         templateUrl: '/modules/users/client/views/admin/list-users.client.view.html',
         controller: 'UserListController',
         controllerAs: 'vm',
-        data : {
-            roles:['admin']
+        data: {
+          roles: ['admin']
         }
       });
-    
-    newUser.$inject = [ 'UsersService'];
+
+    newUser.$inject = ['UsersService'];
 
     function newUser(UsersService) {
-        return new UsersService();
-      }
-    
+      return new UsersService();
+    }
+
     getUser.$inject = ['$stateParams', 'AdminService'];
 
     function getUser($stateParams, AdminService) {
-        return AdminService.get({
-          userId: $stateParams.userId
-        }).$promise;
-      }
+      return AdminService.get({
+        userId: $stateParams.userId
+      }).$promise;
+    }
   }
 }());

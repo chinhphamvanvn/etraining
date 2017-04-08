@@ -1,7 +1,7 @@
-(function () {
+(function() {
   'use strict';
 
-// Courses controller
+  // Courses controller
   angular
     .module('lms')
     .controller('ExamsController', ExamsController);
@@ -27,7 +27,7 @@
     var numberQuestionTooLarge = $translate.instant('ERROR.EXAM.NUMBER_QUESTION_TOO_LARGE');
 
     if (vm.exam.questionSelection === 'auto') {
-      _.each(vm.exam.questionCategories, function (category) {
+      _.each(vm.exam.questionCategories, function(category) {
         vm.groupIds.push(category.id);
       });
       selectQuestionGroupAuto(vm.groupIds);
@@ -46,23 +46,25 @@
       create: false
     };
     vm.groupOptions = [];
-    GroupsService.listQuestionGroup(function (data) {
-      vm.groupOptions = _.map(data, function (obj) {
+    GroupsService.listQuestionGroup(function(data) {
+      vm.groupOptions = _.map(data, function(obj) {
         return {
           id: obj._id,
           title: obj.name,
           value: obj._id
-        }
+        };
       });
     });
 
     vm.selectedQuestions = [];
     var selectedIds = _.pluck(vm.exam.questions, 'id');
     if (selectedIds.length)
-      vm.selectedQuestions = QuestionsService.byIds({questionIds: _.pluck(vm.exam.questions, 'id')}, function () {
-        _.each(vm.selectedQuestions, function (question) {
-          var examQuestion = _.find(vm.exam.questions, function (q) {
-            return q.id == question._id;
+      vm.selectedQuestions = QuestionsService.byIds({
+        questionIds: _.pluck(vm.exam.questions, 'id')
+      }, function() {
+        _.each(vm.selectedQuestions, function(question) {
+          var examQuestion = _.find(vm.exam.questions, function(q) {
+            return q.id === question._id;
           });
           question.score = examQuestion.score;
           question.order = examQuestion.order;
@@ -70,7 +72,7 @@
       });
 
     function moveUp(question) {
-      var prevQuestion = _.find(vm.selectedQuestions, function (q) {
+      var prevQuestion = _.find(vm.selectedQuestions, function(q) {
         return q.order < question.order;
       });
       if (prevQuestion) {
@@ -81,7 +83,7 @@
     }
 
     function moveDown(question) {
-      var nextQuestion = _.find(vm.selectedQuestions, function (q) {
+      var nextQuestion = _.find(vm.selectedQuestions, function(q) {
         return q.order > question.order;
       });
       if (nextQuestion) {
@@ -95,12 +97,14 @@
     function update() {
       if (vm.exam.questionSelection === 'auto') {
         if (!validationNumberQuestion(vm.groups)) {
-          Notification.error({message: numberQuestionTooLarge});
+          Notification.error({
+            message: numberQuestionTooLarge
+          });
           return;
         }
 
         vm.exam.questionCategories = [];
-        _.each(vm.groups, function (group) {
+        _.each(vm.groups, function(group) {
           var obj = {
             id: group.id,
             title: group.title,
@@ -112,16 +116,27 @@
         });
       }
 
-      vm.exam.questions = _.map(vm.selectedQuestions, function (q) {
-        return {id: q._id, order: q.order, score: q.score}
+      vm.exam.questions = _.map(vm.selectedQuestions, function(q) {
+        return {
+          id: q._id,
+          order: q.order,
+          score: q.score
+        };
       });
 
-      vm.exam.$update(function () {
-          Notification.success({message: '<i class="uk-icon-check"></i> Exam saved successfully!'});
-          $state.go('workspace.lms.exams.view', {examId: vm.exam._id, scheduleId: vm.schedule._id})
-        },
-        function () {
-          Notification.success({message: '<i class="uk-icon-check"></i> Exam saved failed!'});
+      vm.exam.$update(function() {
+        Notification.success({
+          message: '<i class="uk-icon-check"></i> Exam saved successfully!'
+        });
+        $state.go('workspace.lms.exams.view', {
+          examId: vm.exam._id,
+          scheduleId: vm.schedule._id
+        });
+      },
+        function() {
+          Notification.success({
+            message: '<i class="uk-icon-check"></i> Exam saved failed!'
+          });
         });
     }
 
@@ -148,34 +163,37 @@
     }
 
     function selectQuestions() {
-      _.each(vm.questions, function (question) {
+      _.each(vm.questions, function(question) {
         if (question.selected) {
-          if (!_.find(vm.selectedQuestions, function (q) {
-              return q._id == question._id;
-            })) {
+          if (!_.find(vm.selectedQuestions, function(q) { return q._id === question._id; })) {
             question.score = 1;
             question.order = vm.selectedQuestions.length + 1;
             vm.selectedQuestions.push(question);
           }
         }
-      })
+      });
     }
 
 
     function selectQuestionGroupAuto(groupIds) {
       var groups = [];
       var groupPromises = [];
-      _.each(groupIds, function (groupId) {
-        groupPromises.push(QuestionsService.byCategory({groupId: groupId}, function (questions) {
+      _.each(groupIds, function(groupId) {
+        groupPromises.push(QuestionsService.byCategory({
+          groupId: groupId
+        }, function(questions) {
           var questionByLevel = examUtils.countQuestionByLevel(questions);
-          groups.push({id: groupId, questions: questionByLevel});
+          groups.push({
+            id: groupId,
+            questions: questionByLevel
+          });
         }).$promise);
       });
 
-      $q.all(groupPromises).then(function () {
-        _.each(groups, function (group) {
-          var option = _.find(vm.groupOptions, function (option) {
-            return group.id == option.id;
+      $q.all(groupPromises).then(function() {
+        _.each(groups, function(group) {
+          var option = _.find(vm.groupOptions, function(option) {
+            return group.id === option.id;
           });
 
           group.numberQuestion = 1;
@@ -189,20 +207,22 @@
 
     function selectQuestionGroupManual(groups) {
       vm.questions = [];
-      _.each(groups, function (group) {
-        QuestionsService.byCategory({groupId: group}, function (questions) {
+      _.each(groups, function(group) {
+        QuestionsService.byCategory({
+          groupId: group
+        }, function(questions) {
           vm.questions = vm.questions.concat(questions);
-        })
-      })
+        });
+      });
     }
 
     function removeQuestion(question) {
-      vm.selectedQuestions = _.reject(vm.selectedQuestions, function (o) {
-        return o.order == question.order;
+      vm.selectedQuestions = _.reject(vm.selectedQuestions, function(o) {
+        return o.order === question.order;
       });
-      _.each(vm.selectedQuestions, function (q, idx) {
+      _.each(vm.selectedQuestions, function(q, idx) {
         q.order = idx + 1;
-      })
+      });
     }
 
   }

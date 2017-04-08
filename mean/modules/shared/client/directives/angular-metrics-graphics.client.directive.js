@@ -1,69 +1,69 @@
-(function () {
+(function(MG) {
   'use strict';
-angular
+  angular
     .module('shared.metricsGraphics')
-    .directive('metricsGraphics', ['$window','$timeout', function($window, $timeout) {
-    return {
+    .directive('metricsGraphics', ['$window', '$timeout', function($window, $timeout) {
+      return {
         restrict: 'A',
         scope: {
-            data: '=',
-            options: '='
+          data: '=',
+          options: '='
         },
         link: function(scope, element) {
 
-            if(!scope.data) {
-                return;
-            }
+          if (!scope.data) {
+            return;
+          }
 
-            var options = {
-                baselines: [],
-                description: null,
-                right: 20,
-                title: null,
-                height: element.height() || 240,
-                x_accessor: null,
-                y_accessor: null
-            };
+          var options = {
+            baselines: [],
+            description: null,
+            right: 20,
+            title: null,
+            height: element.height() || 240,
+            x_accessor: null,
+            y_accessor: null
+          };
 
-            // override default options with values from the scope
-            if (scope.options) {
-                Object.keys(scope.options).forEach(function(key) {
-                    options[key] = scope.options[key];
-                });
-            }
-
-            var el = element[0];
-
-            options.target = '#' + el.id;
-
-            function make_graph(options, el) {
-                options.width = el.offsetWidth || '100%';
-                MG.data_graphic(options);
-            }
-
-            // create the chart
-            scope.$watch('data', function(){
-                make_graph(options,el);
+          // override default options with values from the scope
+          if (scope.options) {
+            Object.keys(scope.options).forEach(function(key) {
+              options[key] = scope.options[key];
             });
+          }
 
-            scope.update_chart = function() {
-                // Reset timeout
-                $timeout.cancel(scope.resizingTimer);
-                // Add a timeout to not call the resizing function every pixel
-                scope.resizingTimer = $timeout( function() {
-                    make_graph(options,el);
-                    return scope.$apply();
-                }, 280);
-            };
+          var el = element[0];
 
-            angular.element($window).on('resize', scope.update_chart);
+          options.target = '#' + el.id;
 
-            scope.$on("$destroy", function() {
-                $(window).off('resize', scope.update_chart);
-            });
+          function make_graph(options, el) {
+            options.width = el.offsetWidth || '100%';
+            MG.data_graphic(options);
+          }
+
+          // create the chart
+          scope.$watch('data', function() {
+            make_graph(options, el);
+          });
+
+          scope.update_chart = function() {
+            // Reset timeout
+            $timeout.cancel(scope.resizingTimer);
+            // Add a timeout to not call the resizing function every pixel
+            scope.resizingTimer = $timeout(function() {
+              make_graph(options, el);
+              return scope.$apply();
+            }, 280);
+          };
+
+          angular.element($window).on('resize', scope.update_chart);
+
+          scope.$on('$destroy', function() {
+            $(window).off('resize', scope.update_chart);
+          });
 
         }
-    };
-}]);
+      };
+    }]);
 
-}());
+}(window.MG));

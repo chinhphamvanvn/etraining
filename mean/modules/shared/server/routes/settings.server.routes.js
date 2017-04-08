@@ -13,8 +13,8 @@ module.exports = function(app) {
     .post(settings.create);
 
   app.route('/api/settings/byCode/:code').all(settingsPolicy.isAllowed)
-  .get(settings.read);
-  
+    .get(settings.read);
+
   app.route('/api/settings/:settingId').all(settingsPolicy.isAllowed)
     .get(settings.read)
     .put(settings.update)

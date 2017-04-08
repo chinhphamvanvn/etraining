@@ -96,7 +96,9 @@ exports.list = function(req, res) {
  * List of Options in Quétions
  */
 exports.listByQuestion = function(req, res) {
-  Option.find({question:req.question._id}).sort('-created').populate('user', 'displayName').exec(function(err, options) {
+  Option.find({
+    question: req.question._id
+  }).sort('-created').populate('user', 'displayName').exec(function(err, options) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -118,7 +120,7 @@ exports.optionByID = function(req, res, next, id) {
     });
   }
 
-  Option.findById(id).populate('user', 'displayName').exec(function (err, option) {
+  Option.findById(id).populate('user', 'displayName').exec(function(err, option) {
     if (err) {
       return next(err);
     } else if (!option) {

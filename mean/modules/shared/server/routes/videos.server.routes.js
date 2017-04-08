@@ -13,13 +13,11 @@ module.exports = function(app) {
     .post(videos.create);
 
   app.route('/api/videos/upload').post(videos.uploadCourseVideo);
-  
+
   app.route('/api/videos/:videoId').all(videosPolicy.isAllowed)
     .get(videos.read)
     .put(videos.update)
     .delete(videos.delete);
-  
-  
 
   // Finish by binding the Video middleware
   app.param('videoId', videos.videoByID);

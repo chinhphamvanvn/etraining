@@ -21,12 +21,12 @@ var GroupSchema = new Schema({
     ref: 'Group'
   },
   category: {
-      type: String,
-      enum: ['organization', 'competency', 'course', 'library' ,'question'],
-      default: ''
+    type: String,
+    enum: ['organization', 'competency', 'course', 'library', 'question'],
+    default: ''
   },
   order: {
-      type: Number,
+    type: Number
   },
   created: {
     type: Date,

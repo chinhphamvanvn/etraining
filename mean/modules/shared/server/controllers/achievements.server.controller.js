@@ -94,31 +94,36 @@ exports.list = function(req, res) {
 
 exports.listByUser = function(req, res) {
 
-    CompetencyAchievement.find({achiever:req.params.achiever}).populate('user', 'displayName').populate('achiever').populate('granter').populate('competency').exec(function (err, achievements) {
-      if (err) {
-          return res.status(400).send({
-              message: errorHandler.getErrorMessage(err)
-            });
-      } else
+  CompetencyAchievement.find({
+    achiever: req.params.achiever
+  }).populate('user', 'displayName').populate('achiever').populate('granter').populate('competency').exec(function(err, achievements) {
+    if (err) {
+      return res.status(400).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    } else
       res.jsonp(achievements);
-    });
-  };
-  
-  exports.listByUserAndCompetency = function(req, res) {
-      
-      CompetencyAchievement.findOne({achiever:req.params.achiever,competency:req.competency._id}).populate('user', 'displayName').populate('competency').populate('achiever').populate('granter').exec(function (err, achievement) {
-          if (err) {
-            return next(err);
-          } else if (!achievement) {
-            return res.status(422).send({
-              message: 'No achievement with that identifier has been found'
-            });
-          }
-          res.jsonp(achievement);
-        });
-      
-     
-    };
+  });
+};
+
+exports.listByUserAndCompetency = function(req, res, next) {
+
+  CompetencyAchievement.findOne({
+    achiever: req.params.achiever,
+    competency: req.competency._id
+  }).populate('user', 'displayName').populate('competency').populate('achiever').populate('granter').exec(function(err, achievement) {
+    if (err) {
+      return next(err);
+    } else if (!achievement) {
+      return res.status(422).send({
+        message: 'No achievement with that identifier has been found'
+      });
+    }
+    res.jsonp(achievement);
+  });
+
+
+};
 
 /**
  * Achievement middleware
@@ -131,7 +136,7 @@ exports.achievementByID = function(req, res, next, id) {
     });
   }
 
-  CompetencyAchievement.findById(id).populate('user', 'displayName').exec(function (err, achievement) {
+  CompetencyAchievement.findById(id).populate('user', 'displayName').exec(function(err, achievement) {
     if (err) {
       return next(err);
     } else if (!achievement) {

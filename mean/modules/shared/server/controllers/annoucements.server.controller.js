@@ -30,14 +30,20 @@ exports.create = function(req, res) {
 
 /* Distriute message */
 exports.distribute = function(req, res) {
-    var annoucement = req.annoucement ? req.annoucement.toJSON() : {};
-    var users = req.params.users.split(',');
-    _.each(users,function(user) {  
-        var alert = new Message({title:annoucement.title,content:annoucement.content,level:'success',type:'message',recipient: user});
-        alert.save();
+  var annoucement = req.annoucement ? req.annoucement.toJSON() : {};
+  var users = req.params.users.split(',');
+  _.each(users, function(user) {
+    var alert = new Message({
+      title: annoucement.title,
+      content: annoucement.content,
+      level: 'success',
+      type: 'message',
+      recipient: user
     });
-    res.jsonp(annoucement);
-  };
+    alert.save();
+  });
+  res.jsonp(annoucement);
+};
 
 /**
  * Show the current Annoucement
@@ -105,16 +111,19 @@ exports.list = function(req, res) {
 };
 
 exports.listPublished = function(req, res) {
-    Annoucement.find({published:true,scope:'public'}).sort('-created').populate('user', 'displayName').exec(function(err, annoucements) {
-      if (err) {
-        return res.status(400).send({
-          message: errorHandler.getErrorMessage(err)
-        });
-      } else {
-        res.jsonp(annoucements);
-      }
-    });
-  };
+  Annoucement.find({
+    published: true,
+    scope: 'public'
+  }).sort('-created').populate('user', 'displayName').exec(function(err, annoucements) {
+    if (err) {
+      return res.status(400).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    } else {
+      res.jsonp(annoucements);
+    }
+  });
+};
 
 /**
  * Annoucement middleware
@@ -127,7 +136,7 @@ exports.annoucementByID = function(req, res, next, id) {
     });
   }
 
-  Annoucement.findById(id).populate('user', 'displayName').exec(function (err, annoucement) {
+  Annoucement.findById(id).populate('user', 'displayName').exec(function(err, annoucement) {
     if (err) {
       return next(err);
     } else if (!annoucement) {

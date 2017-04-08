@@ -1,4 +1,4 @@
-(function (window) {
+(function(window, angularDragula) {
   'use strict';
 
   var applicationModuleName = 'mean';
@@ -6,11 +6,11 @@
   var service = {
     applicationEnvironment: window.env,
     applicationModuleName: applicationModuleName,
-    applicationModuleVendorDependencies: ['ngResource', 'ngMessages','ngSanitize', 'ngFileUpload', 'ui.router', 
-                                          'ui-notification', 'ui.bootstrap', 'pascalprecht.translate', 'ncy-angular-breadcrumb',
-                                          'LocalStorageModule', 'underscore', 'datatables', 'datatables.buttons',
-                                          angularDragula(angular),'kendo.directives','ng.deviceDetector','ngCsv',
-                                          'ui.calendar','easypiechart','metricsgraphics'],
+    applicationModuleVendorDependencies: ['ngResource', 'ngMessages', 'ngSanitize', 'ngFileUpload', 'ui.router',
+      'ui-notification', 'ui.bootstrap', 'pascalprecht.translate', 'ncy-angular-breadcrumb',
+      'LocalStorageModule', 'underscore', 'datatables', 'datatables.buttons',
+      angularDragula(angular), 'kendo.directives', 'ng.deviceDetector', 'ngCsv',
+      'ui.calendar', 'easypiechart', 'metricsgraphics'],
     registerModule: registerModule
   };
 
@@ -37,4 +37,4 @@
       positionY: 'bottom'
     });
   });
-}(window));
+}(window, window.angularDragula));

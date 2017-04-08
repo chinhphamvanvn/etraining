@@ -1,5 +1,5 @@
 // Questions service used to communicate Questions REST endpoints
-(function () {
+(function() {
   'use strict';
 
   angular
@@ -16,24 +16,24 @@
         method: 'PUT'
       },
       bulkCreate: {
-          method: 'POST',
-          url: '/api/questions/bulk/:questions'
-        },
-      byCategoryAndLevel : {
-            method: 'GET',
-            url: '/api/questions/byCategoryAndLevel/:groupId/:level',
-            isArray: true
-          },
-          byCategory : {
-              method: 'GET',
-              url: '/api/questions/byCategory/:groupId',
-              isArray: true
-            },
-            byIds : {
-                method: 'GET',
-                url: '/api/questions/byIds/:questionIds',
-                isArray: true
-              }
+        method: 'POST',
+        url: '/api/questions/bulk/:questions'
+      },
+      byCategoryAndLevel: {
+        method: 'GET',
+        url: '/api/questions/byCategoryAndLevel/:groupId/:level',
+        isArray: true
+      },
+      byCategory: {
+        method: 'GET',
+        url: '/api/questions/byCategory/:groupId',
+        isArray: true
+      },
+      byIds: {
+        method: 'GET',
+        url: '/api/questions/byIds/:questionIds',
+        isArray: true
+      }
     });
   }
 }());
