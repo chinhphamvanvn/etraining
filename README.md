@@ -33,6 +33,9 @@ gulp
 
 
 ## Deployment
+
+Set the environment variable NODE_ENV to 'production'
+
 Build the distribution file
 ```
 cd e-training/mean
@@ -40,7 +43,7 @@ gulp build
 ```
 Run the deloyment script
 ```
-gulp deploy --env production
+forever start server.js
 ```
 
 ## Built With
