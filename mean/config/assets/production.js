@@ -5,10 +5,10 @@
 module.exports = {
   client: {
     lib: {
-      css: [],
-      js: [],
+      css: 'public/dist/vendor*.min.css',
+      js: 'public/dist/vendor*.min.js',
     },
-    css: 'public/dist/application*.min.css',
+    css: 'public/assets/css/main.min.css',
     js: 'public/dist/application*.min.js'
   }
 };

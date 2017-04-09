@@ -164,9 +164,9 @@ gulp.task('watch', function() {
   gulp.watch(defaultAssets.server.views).on('change', plugins.refresh.changed);
   gulp.watch(defaultAssets.server.allJS, ['eslint']).on('change', plugins.refresh.changed);
   gulp.watch(defaultAssets.client.js, ['eslint']).on('change', plugins.refresh.changed);
-  gulp.watch(defaultAssets.client.css, ['csslint']).on('change', plugins.refresh.changed);
-  gulp.watch(defaultAssets.client.sass, ['sass', 'csslint']).on('change', plugins.refresh.changed);
-  gulp.watch(defaultAssets.client.less, ['less', 'csslint']).on('change', plugins.refresh.changed);
+  gulp.watch(defaultAssets.client.views).on('change', plugins.refresh.changed);
+  //  gulp.watch(defaultAssets.client.css, ['csslint']).on('change', plugins.refresh.changed);
+  //  gulp.watch(defaultAssets.client.less, ['less', 'csslint']).on('change', plugins.refresh.changed);
 
   if (process.env.NODE_ENV === 'production') {
     gulp.watch(defaultAssets.server.gulpConfig, ['templatecache', 'eslint']);
@@ -245,26 +245,41 @@ gulp.task('uglify', function() {
     .pipe(gulp.dest('public/dist'));
 });
 
-// CSS minifying task
-gulp.task('cssmin', function() {
-  return gulp.src(defaultAssets.client.css)
-    .pipe(plugins.csso())
-    .pipe(plugins.concat('application.min.css'))
+//  JS minifying task
+gulp.task('uglify-vendor', function() {
+  var assets = _.union(
+    defaultAssets.client.lib.js
+  );
+  del(['public/dist/*']);
+
+  return gulp.src(assets)
+    .pipe(plugins.ngAnnotate())
+    .pipe(plugins.concat('vendor.min.js'))
     .pipe(plugins.rev())
     .pipe(gulp.dest('public/dist'));
 });
 
+//  CSS minifying task
+gulp.task('cssmin-vendor', function() {
+  return gulp.src(defaultAssets.client.lib.css)
+    .pipe(plugins.csso())
+    .pipe(plugins.concat('vendor.min.css'))
+    .pipe(plugins.rev())
+    .pipe(gulp.dest('public/dist'));
+});
+
+/*
 // Sass task
 gulp.task('sass', function() {
   return gulp.src(defaultAssets.client.sass)
     .pipe(plugins.sass())
     .pipe(plugins.autoprefixer())
     .pipe(gulp.dest('./modules/'));
-});
+});*/
 
 // Less task
 gulp.task('less', function() {
-  runSequence('less_main', 'less_themes', 'less_my_theme', 'less_style_switcher', function() {});
+  runSequence('less_main', function() {});
 });
 
 // Imagemin task
@@ -337,6 +352,7 @@ gulp.task('copyLocalEnvConfig', function() {
     .pipe(gulp.dest('config/env'));
 });
 
+/*
 // Make sure upload directory exists
 gulp.task('makeUploadsDir', function() {
   return fs.mkdir('modules/users/client/img/profile/uploads', function(err) {
@@ -344,13 +360,13 @@ gulp.task('makeUploadsDir', function() {
       console.error(err);
     }
   });
-});
+});*/
 
 // Angular template cache task
 gulp.task('templatecache', function() {
   return gulp.src(defaultAssets.client.views)
     .pipe(plugins.templateCache('templates.js', {
-      root: 'modules/',
+      root: 'src/client/',
       module: 'core',
       templateHeader: '(function () {' + endOfLine + '	\'use strict\';' + endOfLine + endOfLine + '	angular' + endOfLine + '		.module(\'<%= module %>\'<%= standalone %>)' + endOfLine + '		.run(templates);' + endOfLine + endOfLine + '	templates.$inject = [\'$templateCache\'];' + endOfLine + endOfLine + '	function templates($templateCache) {' + endOfLine,
       templateBody: '		$templateCache.put(\'<%= url %>\', \'<%= contents %>\');',
@@ -493,12 +509,13 @@ gulp.task('protractor', ['webdriver_update'], function() {
 
 // Lint CSS and JavaScript files.
 gulp.task('lint', function(done) {
-  runSequence('less', 'sass', ['csslint', 'eslint'], done);
+  runSequence('less', 'sass', ['eslint'], done);
+// runSequence('less', 'sass', ['csslint', 'eslint'], done);
 });
 
 // Lint project files and minify them into two production files.
 gulp.task('build', function(done) {
-  runSequence('env:prod', 'less', 'sass', ['uglify', 'cssmin'], done);
+  runSequence('env:prod', 'less', ['uglify', 'uglify-vendor', 'cssmin-vendor'], done);
 });
 
 // Run the project tests
@@ -507,7 +524,7 @@ gulp.task('test', function(done) {
 });
 
 gulp.task('test:server', function(done) {
-  runSequence('env:test', ['copyLocalEnvConfig', 'makeUploadsDir', 'dropdb'], 'lint', 'mocha', done);
+  runSequence('env:test', ['copyLocalEnvConfig', 'dropdb'], 'lint', 'mocha', done);
 });
 
 // Watch all server files for changes & run server tests (test:server) task on changes
@@ -524,21 +541,35 @@ gulp.task('test:e2e', function(done) {
 });
 
 gulp.task('test:coverage', function(done) {
-  runSequence('env:test', ['copyLocalEnvConfig', 'makeUploadsDir', 'dropdb'], 'lint', 'mocha:coverage', 'karma:coverage', done);
+  runSequence('env:test', ['copyLocalEnvConfig', 'dropdb'], 'lint', 'mocha:coverage', 'karma:coverage', done);
 });
 
 // Run the project in development mode
 gulp.task('default', function(done) {
-  runSequence('env:dev', ['copyLocalEnvConfig', 'makeUploadsDir'], 'less', 'sass', ['nodemon', 'watch'], done);
+  runSequence('env:dev', ['copyLocalEnvConfig'], 'less', ['nodemon', 'watch'], done);
 });
 
 // Run the project in debug mode
 gulp.task('debug', function(done) {
-  runSequence('env:dev', ['copyLocalEnvConfig', 'makeUploadsDir'], 'lint', ['nodemon-nodebug', 'watch'], done);
+  runSequence('env:dev', ['copyLocalEnvConfig'], 'lint', ['nodemon-nodebug', 'watch'], done);
+});
+
+gulp.task('upload', function () {
+  return gulp.src('dist/**/*')
+      .pipe(sftp({
+          host: account.sftp.host,
+          user: account.sftp.user,
+          pass: account.sftp.pass,
+          remotePath:account.sftp.remotePath
+      }));
+});
+
+
+gulp.task('deploy',['upload'], function () {
 });
 
 
 // Run the project in production mode
 gulp.task('prod', function(done) {
-  runSequence(['copyLocalEnvConfig', 'makeUploadsDir', 'templatecache'], 'build', 'env:prod', ['nodemon', 'watch'], done);
+  runSequence(['copyLocalEnvConfig', 'templatecache'], 'build', 'env:prod', ['nodemon', 'watch'], done);
 });
