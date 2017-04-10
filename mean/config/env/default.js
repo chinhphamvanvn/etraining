@@ -56,7 +56,7 @@ var s = module.exports = {
     profile: {
       image: {
         dest: 'public/files/profile/uploads/',
-        urlPaath: '/public/files/profile/uploads/',
+        urlPaath: '/files/profile/uploads/',
         limits: {
           fileSize: 4 * 1024 * 1024 // Max file size in bytes (1 MB)
         }
