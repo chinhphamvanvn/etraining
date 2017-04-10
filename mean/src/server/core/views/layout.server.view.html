@@ -3,7 +3,9 @@
 	ng-click="onClick($event)" ng-keyup="onKeyUp($event)"
 	ng-class="{
         'page_loading': pageLoading,
-        'page_loaded': pageLoaded}">
+        'page_loaded': pageLoaded,
+		'app_initialized': appInitialized && (!$state.is('login') && !$state.includes('error'))
+	}">
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
