@@ -1,0 +1,103 @@
+<div ng-if="mode=='edit'">
+	<div class="uk-grid ">
+		<div class="uk-width-medium-1-2 parsley-row">
+			<label for="question_title">
+				{{'MODEL.QUESTION.TITLE'|translate}} <span class="req">*</span>
+			</label> <input type="text" name="question_title" id="question_title"
+				required class="md-input" md-input ng-model="question.title" />
+		</div>
+		<div class="uk-width-medium-1-2 parsley-row">
+			<label for="question_level_select">{{'MODEL.QUESTION.LEVEL'|translate}}</label>
+			<div id="question_level_select">
+				<span class="icheck-inline"> <input type="radio"
+					name="question_level_{{question._id}}"
+					id="question_easy_{{question._id}}" value="easy" icheck
+					ng-model="question.level" /> <label for="question_easy"
+					class="inline-label">{{'COMMON.DIFFICULTY.EASY'|translate}}</label>
+				</span> <span class="icheck-inline"> <input type="radio"
+					name="question_level_{{question._id}}"
+					id="question_medium_{{question._id}}" value="medium" icheck
+					ng-model="question.level" /> <label for="question_medium"
+					class="inline-label">{{'COMMON.DIFFICULTY.MEDIUM'|translate}}</label>
+				</span> <span class="icheck-inline"> <input type="radio"
+					name="question_level_{{question._id}}"
+					id="question_hard_{{question._id}}" value="hard" icheck
+					ng-model="question.level" /> <label for="question_hard"
+					class="inline-label">{{'COMMON.DIFFICULTY.HARD'|translate}}</label>
+				</span>
+			</div>
+		</div>
+	</div>
+	<div class="uk-grid">
+		<div class="uk-width-medium-1-1 parsley-row">
+			<textarea ui-tinymce="tinymce_options"
+				ng-model="question.description" cols="30" rows="12"></textarea>
+		</div>
+	</div>
+</div>
+
+<div ng-if="mode=='view'">
+	<div class="uk-grid no-margin-top">
+		<div class="uk-width-medium-1-2 parsley-row">
+			<h4 class="quiz-heading uk-text-left">{{'MODEL.QUESTION.LEVEL'|translate}}</h4>
+			<div id="question_level_select">
+				<span class="icheck-inline"> <input ng-disabled="true"
+					type="radio" name="question_level_{{question._id}}"
+					id="question_easy_{{question._id}}" value="easy" icheck
+					ng-model="question.level" /> <label for="question_easy"
+					class="inline-label">{{'COMMON.DIFFICULTY.EASY'|translate}}</label>
+				</span> <span class="icheck-inline"> <input ng-disabled="true"
+					type="radio" name="question_level_{{question._id}}"
+					id="question_medium_{{question._id}}" value="medium" icheck
+					ng-model="question.level" /> <label for="question_medium"
+					class="inline-label">{{'COMMON.DIFFICULTY.MEDIUM'|translate}}</label>
+				</span> <span class="icheck-inline"> <input ng-disabled="true"
+					type="radio" name="question_level_{{question._id}}"
+					id="question_hard_{{question._id}}" value="hard" icheck
+					ng-model="question.level" /> <label for="question_hard"
+					class="inline-label">{{'COMMON.DIFFICULTY.HARD'|translate}}</label>
+				</span>
+			</div>
+		</div>
+	</div>
+	<div class="uk-grid no-margin-top">
+		<div class="uk-width-medium-1-1 parsley-row">
+			<h4 class="quiz-heading uk-text-left">
+				{{'MODEL.QUESTION.DESC'|translate}}</h4>
+			<p class="uk-text-left text-wrap" ng-bind-html="question.description" />
+		</div>
+	</div>
+</div>
+
+<div ng-if="mode=='study'">
+	<div class="uk-grid">
+		<div class="uk-width-medium-1-1 parsley-row">
+			<p ng-bind-html="translateContent()"></p>
+		</div>
+	</div>
+	<div class="uk-grid" data-uk-grid-margin>
+		<div class="uk-width-1-1">
+			<div id="text_answer">
+				<input type="text" name="open_text" id="open_text" data-parsley-trigger="change"
+										class="md-input" md-input ng-model="answer.openText" />
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<div ng-if="mode=='result'">
+	<div class="uk-grid">
+		<div class="uk-width-medium-1-1 ">
+			<p class="quiz-question" ng-bind-html="translateContent()"></p>
+		</div>
+	</div>
+	<div class="uk-grid" data-uk-grid-margin>
+		<div class="uk-width-1-1">
+			<div id="text_answer">
+				<span>{{answer.openText}}</span>
+			</div>
+		</div>
+	</div>
+</div>
+

@@ -16,7 +16,7 @@
         showAnswer: '=',
         mode: '=' // edit, view, study, result
       },
-      templateUrl: '/src/client/lms/directives/fill-blank-question/fill-blank-question.directive.client.view.html',
+      templateUrl: '/src/client/lms/directives/questions/fill-blank-question/fill-blank-question.directive.client.view.html',
       link: function(scope, element, attributes) {
         scope.tinymce_options = fileManagerConfig;
         scope.$watch('question', function() {
