@@ -37,6 +37,9 @@ var AnswerSchema = new Schema({
       }
     ]
   },
+  text: {
+    type: String
+  },
   input: {
     type: String,
     default: ''

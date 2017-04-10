@@ -38,7 +38,7 @@
       })
       .state('admin.workspace.performance.question.edit', {
         url: '/edit/:questionId',
-        templateUrl: '/src/client/performance/client/form-question.client.view.html',
+        templateUrl: '/src/client/performance/views/form-question.client.view.html',
         controller: 'QuestionController',
         controllerAs: 'vm',
         resolve: {
@@ -50,7 +50,7 @@
       })
       .state('admin.workspace.performance.question.view', {
         url: '/view/:questionId',
-        templateUrl: '/src/client/performance/client/view-question.client.view.html',
+        templateUrl: '/src/client/performance/views/view-question.client.view.html',
         controller: 'QuestionController',
         controllerAs: 'vm',
         resolve: {
@@ -70,7 +70,7 @@
       })
       .state('admin.workspace.performance.schedules.list', {
         url: '/list',
-        templateUrl: '/src/client/performance/client/list-schedules.client.view.html',
+        templateUrl: '/src/client/performance/views/list-schedules.client.view.html',
         controller: 'ScheduleListController',
         controllerAs: 'vm',
         data: {
@@ -79,7 +79,7 @@
       })
       .state('admin.workspace.performance.schedules.edit', {
         url: '/edit/:scheduleId',
-        templateUrl: '/src/client/performance/client/form-schedule.client.view.html',
+        templateUrl: '/src/client/performance/views/form-schedule.client.view.html',
         controller: 'SchedulesController',
         controllerAs: 'vm',
         resolve: {
@@ -91,7 +91,7 @@
       })
       .state('admin.workspace.performance.schedules.view', {
         url: '/view/:scheduleId',
-        templateUrl: '/src/client/performance/client/view-schedule.client.view.html',
+        templateUrl: '/src/client/performance/views/view-schedule.client.view.html',
         controller: 'SchedulesViewController',
         controllerAs: 'vm',
         resolve: {
@@ -103,7 +103,7 @@
       })
       .state('admin.workspace.performance.schedules.candidate', {
         url: '/candidate/:scheduleId',
-        templateUrl: '/src/client/performance/client/list-exam-candidates.client.view.html',
+        templateUrl: '/src/client/performance/views/list-exam-candidates.client.view.html',
         controller: 'ExamCandidatesController',
         controllerAs: 'vm',
         resolve: {
@@ -123,7 +123,7 @@
       })
       .state('admin.workspace.performance.competency.list', {
         url: '/list',
-        templateUrl: '/src/client/performance/client/list-competencies.client.view.html',
+        templateUrl: '/src/client/performance/views/list-competencies.client.view.html',
         controller: 'CompetencyListController',
         controllerAs: 'vm',
         data: {
@@ -132,7 +132,7 @@
       })
       .state('admin.workspace.performance.competency.edit', {
         url: '/edit/:competencyId',
-        templateUrl: '/src/client/performance/client/form-competency.client.view.html',
+        templateUrl: '/src/client/performance/views/form-competency.client.view.html',
         controller: 'CompetencyController',
         controllerAs: 'vm',
         resolve: {
@@ -144,7 +144,7 @@
       })
       .state('admin.workspace.performance.competency.view', {
         url: '/view/:competencyId',
-        templateUrl: '/src/client/performance/client/view-competency.client.view.html',
+        templateUrl: '/src/client/performance/views/view-competency.client.view.html',
         controller: 'CompetencyController',
         controllerAs: 'vm',
         resolve: {

@@ -36,6 +36,26 @@
 					<fill-blank-question mode="'result'" showAnswer="exam.showAnswer"
 						question="question" answer="question.answer"></fill-blank-question>
 				</div>
+				<div ng-if="question.type=='grp'">
+					<group-question mode="'result'" showAnswer="exam.showAnswer"
+						question="question" answer="question.answer"></group-question>
+				</div>
+				<div ng-if="question.type=='ext'">
+					<extend-text-question mode="'result'" 
+						question="question" answer="question.answer"></extend-text-question>
+				</div>
+				<div ng-if="question.type=='dnd'">
+					<drag-drop-question mode="'result'" showAnswer="exam.showAnswer"
+						question="question" answer="question.answer"></drag-drop-question>
+				</div>
+				<div ng-if="question.type=='pic'">
+					<point-click-question mode="'result'" showAnswer="exam.showAnswer"
+						question="question" answer="question.answer"></point-click-question>
+				</div>
+				<div ng-if="question.type=='as'">
+					<associative-question mode="'result'" showAnswer="exam.showAnswer"
+						question="question" answer="question.answer"></associative-question>
+				</div>
 			</div>
 		</div>
 	</div>

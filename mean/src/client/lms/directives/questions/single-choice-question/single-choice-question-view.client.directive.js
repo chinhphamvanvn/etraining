@@ -1,8 +1,7 @@
 (function() {
   'use strict';
 
-  // Focus the element on page load
-  // Unless the user is on a small device, because this could obscure the page with a keyboard
+  // Single-choice Question
 
   angular.module('lms')
     .directive('singleChoiceQuestion', ['OptionsService', 'QuestionsService', 'fileManagerConfig', '_', singleChoiceQuestion]);

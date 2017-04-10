@@ -54,7 +54,8 @@ forever start server.js
 ## Add new question type
 
 - Add question directive in LMS module
-- Add question type to Answer model
+- Add question type to Question model
+- Add answer field to Answer model
 
 ## Authors
 

@@ -554,21 +554,6 @@ gulp.task('debug', function(done) {
   runSequence('env:dev', ['copyLocalEnvConfig'], 'lint', ['nodemon-nodebug', 'watch'], done);
 });
 
-gulp.task('upload', function () {
-  return gulp.src('dist/**/*')
-      .pipe(sftp({
-          host: account.sftp.host,
-          user: account.sftp.user,
-          pass: account.sftp.pass,
-          remotePath:account.sftp.remotePath
-      }));
-});
-
-
-gulp.task('deploy',['upload'], function () {
-});
-
-
 // Run the project in production mode
 gulp.task('prod', function(done) {
   runSequence(['copyLocalEnvConfig', 'templatecache'], 'build', 'env:prod', ['nodemon', 'watch'], done);
