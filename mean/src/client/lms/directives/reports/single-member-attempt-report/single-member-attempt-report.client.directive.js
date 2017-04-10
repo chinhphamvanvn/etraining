@@ -5,14 +5,15 @@
   // Unless the user is on a small device, because this could obscure the page with a keyboard
 
   angular.module('lms')
-    .directive('singleMemberProgressReport', ['AttemptsService', 'CourseMembersService', 'EditionSectionsService', '$translate', '_', singleMemberProgressReport]);
+    .directive('singleMemberAttemptReport', ['AttemptsService', 'CourseMembersService', 'EditionSectionsService', '$translate', '_', singleMemberAttemptReport]);
 
-  function singleMemberProgressReport(AttemptsService, CourseMembersService, EditionSectionsService, $translate, _) {
+  function singleMemberAttemptReport(AttemptsService, CourseMembersService, EditionSectionsService, $translate, _) {
     return {
       scope: {
-        course: '='
+        course: '=',
+        edition: '='
       },
-      templateUrl: '/src/client/lms/directives/single-member-progress-report/single-member-progress-report.directive.client.view.html',
+      templateUrl: '/src/client/lms/directives/reports/single-member-attempt-report/single-member-attempt-report.directive.client.view.html',
       link: function(scope, element, attributes) {
         scope.members = [];
         CourseMembersService.byCourse({
@@ -32,23 +33,21 @@
               editionId: scope.selectedMember.edition
             }, function() {
               _.each(sections, function(section) {
+                section.member = scope.selectedMember;
+                section.count = 0;
                 var sectionAttemps = _.filter(attemps, function(attempt) {
                   return attempt.section === section._id;
                 });
-                section.member = scope.selectedMember;
                 if (sectionAttemps && sectionAttemps.length > 0) {
+
                   section.lastAttempt = _.max(sectionAttemps, function(attempt) {
                     return new Date(attempt.start).getTime();
                   });
                   section.firstAttempt = _.min(sectionAttemps, function(attempt) {
                     return new Date(attempt.start).getTime();
                   });
-                  if (_.find(sectionAttemps, function(attempt) { return attempt.status === 'completed'; }))
-                    section.attemptStatus = 'completed';
-                  else
-                    section.attemptStatus = 'initial';
-                } else
-                  section.attemptStatus = 'empty';
+                  section.count = sectionAttemps.length;
+                }
                 scope.sections.push(section);
               });
             });
@@ -58,13 +57,6 @@
         scope.getExportData = function() {
           var data = [];
           _.each(scope.sections, function(section) {
-            if (section.attemptStatus === 'empty') {
-              section.firstAt = '';
-              section.lastAt = '';
-            } else {
-              section.firstAt = moment(new Date(section.firstAttempt.created)).format('DD/MM/YYYY');
-              section.lastAt = moment(new Date(section.lastAttempt.created)).format('DD/MM/YYYY');
-            }
             data.push({
               username: section.member.member.username,
               firstName: section.member.member.firstName,
@@ -74,9 +66,9 @@
               enrollStatus: section.member.enrollmentStatus,
               type: section.contentType,
               sectionName: section.name,
-              firstAttempt: section.firstAt,
-              lastAttempt: section.lastAt,
-              completed: section.attemptStatus
+              firstAttempt: section.firstAttempt ? moment(new Date(section.firstAttempt.created)).format('DD/MM/YYYY') : '',
+              lastAttempt: section.lastAttempt ? moment(new Date(section.lastAttempt.created)).format('DD/MM/YYYY') : '',
+              count: section.count
             });
           });
           return data;
@@ -92,9 +84,9 @@
             $translate.instant('MODEL.MEMBER.ENROLL_STATUS'),
             $translate.instant('MODEL.SECTION.CONTENT_TYPE'),
             $translate.instant('MODEL.SECTION.NAME'),
-            $translate.instant('REPORT.SINGLE_MEMBER_PROGRESS.FIRST_ATTEMPT'),
-            $translate.instant('REPORT.SINGLE_MEMBER_PROGRESS.LAST_ATTEMPT'),
-            $translate.instant('REPORT.SINGLE_MEMBER_PROGRESS.STATUS')
+            $translate.instant('REPORT.SINGLE_MEMBER_ATTEMPT.FIRST_ATTEMPT'),
+            $translate.instant('REPORT.SINGLE_MEMBER_ATTEMPT.LAST_ATTEMPT'),
+            $translate.instant('REPORT.SINGLE_MEMBER_ATTEMPT.COUNT')
           ];
         };
       }

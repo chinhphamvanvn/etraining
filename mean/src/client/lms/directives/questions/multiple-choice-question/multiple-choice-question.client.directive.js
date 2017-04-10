@@ -1,22 +1,21 @@
 (function() {
   'use strict';
 
-  // Focus the element on page load
-  // Unless the user is on a small device, because this could obscure the page with a keyboard
+  // Multiple-choice Question
 
   angular.module('lms')
-    .directive('fillBlankQuestion', ['OptionsService', 'QuestionsService', 'fileManagerConfig', '_', fillBlankQuestion]);
+    .directive('multipleChoiceQuestion', ['OptionsService', 'QuestionsService', 'fileManagerConfig', '_', multipleChoiceQuestion]);
 
-  function fillBlankQuestion(OptionsService, QuestionsService, fileManagerConfig, _) {
+  function multipleChoiceQuestion(OptionsService, QuestionsService, fileManagerConfig, _) {
     return {
       scope: {
         question: '=',
         answer: '=',
         shuffle: '=',
         showAnswer: '=',
-        mode: '=' // edit, view, study, result
+        mode: '=' // edit.view/study, result
       },
-      templateUrl: '/src/client/lms/directives/fill-blank-question/fill-blank-question.directive.client.view.html',
+      templateUrl: '/src/client/lms/directives/questions/multiple-choice-question/multiple-choice-question.directive.client.view.html',
       link: function(scope, element, attributes) {
         scope.tinymce_options = fileManagerConfig;
         scope.$watch('question', function() {
@@ -56,10 +55,6 @@
         });
 
 
-        scope.translateContent = function() {
-          return scope.question.description.replace('#BLANK#', '<u>&nbsp;&nbsp;&nbsp;&nbsp;</u>');
-        };
-
         scope.addOption = function() {
           var option = new OptionsService();
           if (scope.question.options.length === 0)
@@ -73,16 +68,16 @@
         };
 
         scope.selectOption = function(option) {
-          _.each(scope.question.options, function(obj) {
-            if (obj._id !== option._id)
-              obj.selected = false;
-          });
           if (scope.mode === 'edit') {
             var correctOptions = _.filter(scope.question.options, function(option) {
               return option.selected;
             });
             scope.question.correctOptions = _.pluck(correctOptions, '_id');
           }
+        };
+
+        scope.translateContent = function() {
+          return scope.question.description;
         };
 
         scope.removeOption = function(option) {

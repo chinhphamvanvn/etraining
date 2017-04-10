@@ -1,8 +1,7 @@
 (function() {
   'use strict';
 
-  // Focus the element on page load
-  // Unless the user is on a small device, because this could obscure the page with a keyboard
+  // True-false Question
 
   angular.module('lms')
     .directive('trueFalseQuestion', ['OptionsService', 'QuestionsService', 'fileManagerConfig', '$translate', '_', trueFalseQuestion]);
@@ -16,7 +15,7 @@
         showAnswer: '=',
         mode: '=' // edit.view/study, result
       },
-      templateUrl: '/src/client/lms/directives/true-false-question/true-false-question.directive.client.view.html',
+      templateUrl: '/src/client/lms/directives/questions/true-false-question/true-false-question.directive.client.view.html',
       link: function(scope, element, attributes) {
         scope.tinymce_options = fileManagerConfig;
         scope.$watch('question', function() {

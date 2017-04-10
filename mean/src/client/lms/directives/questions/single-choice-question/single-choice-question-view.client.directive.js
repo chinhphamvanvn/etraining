@@ -1,8 +1,7 @@
 (function() {
   'use strict';
 
-  // Focus the element on page load
-  // Unless the user is on a small device, because this could obscure the page with a keyboard
+  // Single-choice Question
 
   angular.module('lms')
     .directive('singleChoiceQuestion', ['OptionsService', 'QuestionsService', 'fileManagerConfig', '_', singleChoiceQuestion]);
@@ -16,7 +15,7 @@
         showAnswer: '=',
         mode: '=' // edit.view/study, result
       },
-      templateUrl: '/src/client/lms/directives/single-choice-question/single-choice-question.directive.client.view.html',
+      templateUrl: '/src/client/lms/directives/questions/single-choice-question/single-choice-question.directive.client.view.html',
       link: function(scope, element, attributes) {
         scope.tinymce_options = fileManagerConfig;
         scope.$watch('question', function() {

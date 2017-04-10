@@ -50,6 +50,13 @@ forever start server.js
 
 * [MEAN stack](http://meanjs.org/) - The full stack framework used
 
+
+## Add new question type
+
+- Add question directive in LMS module
+- Add question type to Question model
+- Add answer field to Answer model
+
 ## Authors
 
 * **Quang Nguyen** - *Initial work* - [PurpleBooth](https://github.com/nngu6036)
