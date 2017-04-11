@@ -27,7 +27,8 @@ var _ = require('lodash'),
   webdriver_update = require('gulp-protractor').webdriver_update,
   webdriver_standalone = require('gulp-protractor').webdriver_standalone,
   del = require('del'),
-  KarmaServer = require('karma').Server;
+  KarmaServer = require('karma').Server,
+  lesshint = require('gulp-lesshint');
 
 // Local settings
 var changedTestFiles = [];
@@ -131,6 +132,24 @@ gulp.task('less_my_theme', function() {
     }))
     .pipe(plugins.rename('my_theme.min.css'))
     .pipe(gulp.dest('public/assets/css/themes/'));
+});
+
+// less hint
+gulp.task('less_lint', function() {
+    return gulp.src([
+            'public/assets/less/_*.less',
+            '!public/assets/less/_altair_admin.less',
+            '!public/assets/less/_kendo_ui_custom.less',
+            '!public/assets/less/_kendo_ui_custom.less',
+            '!public/assets/less/_print.less',
+            '!public/assets/less/_uikit_custom.less',
+            '!public/assets/less/_variables_mixins.less'
+        ])
+        .pipe(lesshint({
+            // Options
+        }))
+        .pipe(lesshint.reporter('lesshint-reporter-stylish')) // Leave empty to use the default, "stylish"
+        .pipe(lesshint.failOnError()); // Use this to fail the task on lint errors
 });
 
 // style switcher
