@@ -105,10 +105,10 @@
             csvObj['score_' + index] = score.rawPercent;
           });
           csvObj.totalScore = vm.scoreMap[member._id].totalScore;
-          if (member.enrollmentStatus ==='completed')
+          if (member.enrollmentStatus === 'completed')
             csvObj.result = (vm.scoreMap[member._id].totalScore >= vm.gradescheme.benchmark) ? pass : fall;
           else
-            csvObj.result ='';
+            csvObj.result = '';
           vm.csvArray.push(csvObj);
         });
       });

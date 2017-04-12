@@ -32,11 +32,11 @@
 					<true-false-question mode="'result'" showAnswer="exam.showAnswer"
 						question="question" answer="question.answer"></true-false-question>
 				</div>
-				<div ng-if="question.grouped">
+				<div ng-if="question.type=='fb'">
 					<fill-blank-question mode="'result'" showAnswer="exam.showAnswer"
 						question="question" answer="question.answer"></fill-blank-question>
 				</div>
-				<div ng-if="question.type=='grp'">
+				<div ng-if="question.grouped">
 					<group-question mode="'result'" showAnswer="exam.showAnswer"
 						question="question" answer="question.answer"></group-question>
 				</div>

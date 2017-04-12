@@ -33,7 +33,7 @@
         }
       });
 
-    vm.prequisites = _.pluck(vm.course.prequisites,'_id');
+    vm.prequisites = _.pluck(vm.course.prequisites, '_id');
     vm.prequisiteConfig = {
       plugins: {
         'remove_button': {
@@ -58,7 +58,7 @@
       });
     });
 
-    vm.competencies = _.pluck(vm.course.competencies,'_id');
+    vm.competencies = _.pluck(vm.course.competencies, '_id');
     vm.competencyConfig = {
       plugins: {
         'remove_button': {
