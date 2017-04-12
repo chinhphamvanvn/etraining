@@ -102,7 +102,7 @@
           var csvObj = {};
           csvObj[0 + 'name'] = member.member.displayName;
           vm.scoreMap[member._id].scores.forEach(function(score, index) {
-            csvObj['score_' + index] = score.weightPercent;
+            csvObj['score_' + index] = score.rawPercent;
           });
           csvObj.totalScore = vm.scoreMap[member._id].totalScore;
           csvObj.result = (vm.scoreMap[member._id].totalScore >= vm.gradescheme.benchmark) ? pass : fall;
