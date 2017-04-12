@@ -314,6 +314,12 @@ gulp.task('imagemin', function() {
     .pipe(gulp.dest('public/dist/img'));
 });
 
+//Filemin task
+gulp.task('fontmin', function() {
+return gulp.src(defaultAssets.client.font)
+ .pipe(gulp.dest('public/fonts/'));
+});
+
 // wiredep task to default
 gulp.task('wiredep', function() {
   return gulp.src('config/assets/default.js')
@@ -534,7 +540,7 @@ gulp.task('lint', function(done) {
 
 // Lint project files and minify them into two production files.
 gulp.task('build', function(done) {
-  runSequence('env:prod', 'less', ['uglify', 'uglify-vendor', 'cssmin-vendor'], done);
+  runSequence('env:prod', 'less', ['uglify', 'uglify-vendor', 'cssmin-vendor', 'imagemin', 'fontmin'], done);
 });
 
 // Run the project tests

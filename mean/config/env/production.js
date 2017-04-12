@@ -3,7 +3,7 @@
 var fs = require('fs');
 
 module.exports = {
-  port: process.env.PORT || 12345,
+  port: process.env.PORT || 8443,
   // Binding to 127.0.0.1 is safer in production.
   host: process.env.HOST || '0.0.0.0',
   db: {
@@ -11,20 +11,6 @@ module.exports = {
     options: {
       user: '',
       pass: ''
-    /**
-      * Uncomment to enable ssl certificate based authentication to mongodb
-      * servers. Adjust the settings below for your specific certificate
-      * setup.
-    server: {
-      ssl: true,
-      sslValidate: false,
-      checkServerIdentity: false,
-      sslCA: fs.readFileSync('./config/sslcerts/ssl-ca.pem'),
-      sslCert: fs.readFileSync('./config/sslcerts/ssl-cert.pem'),
-      sslKey: fs.readFileSync('./config/sslcerts/ssl-key.pem'),
-      sslPass: '1234'
-    }
-    */
     },
     // Enable mongoose debug mode
     debug: process.env.MONGODB_DEBUG || false
