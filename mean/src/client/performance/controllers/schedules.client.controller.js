@@ -13,10 +13,7 @@
 
     vm.authentication = Authentication;
     vm.schedule = schedule;
-    if (vm.schedule.competency)
-      vm.competency = CompetenciesService.get({
-        competencyId: vm.schedule.competency
-      });
+
     vm.remove = remove;
     vm.save = save;
     vm.cancel = cancel;
@@ -90,29 +87,29 @@
     }
 
     vm.competencyConfig = {
-      plugins: {
-        'remove_button': {
-          label: ''
-        }
-      },
-      maxItems: null,
-      valueField: 'value',
-      labelField: 'title',
-      searchField: 'title',
-      create: false
-    };
+        plugins: {
+          'remove_button': {
+            label: ''
+          }
+        },
+        maxItems: null,
+        valueField: 'value',
+        labelField: 'title',
+        searchField: 'title',
+        create: false
+      };
 
-    vm.competencyOptions = [];
-
-    vm.competencies = CompetenciesService.query(function() {
-      vm.competencyOptions = _.map(vm.competencies, function(obj) {
-        return {
-          id: obj._id,
-          title: obj.name,
-          value: obj._id
-        };
+      vm.competencies = _.pluck(vm.schedule.competencies,'_id');
+      vm.competencyOptions = [];
+      CompetenciesService.query(function(competencies) {
+        vm.competencyOptions = _.map(competencies, function(obj) {
+          return {
+            id: obj._id,
+            title: obj.name,
+            value: obj._id
+          };
+        });
       });
-    });
 
     vm.groupConfig = {
       create: false,
@@ -134,6 +131,7 @@
 
 
     function save() {
+      vm.schedule.competencies = vm.competencies;
       vm.schedule.$update(function() {
         Notification.success({
           message: '<i class="uk-icon-check"></i> Schedule saved successfully!'
