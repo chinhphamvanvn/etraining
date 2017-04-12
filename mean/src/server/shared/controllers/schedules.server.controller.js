@@ -92,7 +92,7 @@ exports.delete = function(req, res) {
  * List of Schedules
  */
 exports.list = function(req, res) {
-  Schedule.find().sort('-created').populate('user', 'displayName').exec(function(err, schedules) {
+  Schedule.find().sort('-created').populate('user', 'displayName').populate('competencies').exec(function(err, schedules) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -114,7 +114,7 @@ exports.scheduleByID = function(req, res, next, id) {
     });
   }
 
-  Schedule.findById(id).populate('user', 'displayName').exec(function(err, schedule) {
+  Schedule.findById(id).populate('user', 'displayName').populate('competencies').exec(function(err, schedule) {
     if (err) {
       return next(err);
     } else if (!schedule) {

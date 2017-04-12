@@ -6,14 +6,19 @@
     .module('shared.models')
     .factory('ForumsService', ForumsService);
 
-  ForumsService.$inject = ['$resource'];
+  ForumsService.$inject = ['$resource', '_transform'];
 
-  function ForumsService($resource) {
+  function ForumsService($resource, _transform) {
     return $resource('/api/forums/:forumId', {
       forumId: '@_id'
     }, {
       update: {
-        method: 'PUT'
+        method: 'PUT',
+        transformRequest: _transform.unpopulate
+      },
+      save: {
+        method: 'POST',
+        transformRequest: _transform.unpopulate
       },
       byCourse: {
         url: '/api/forums/byCourse/:courseId',

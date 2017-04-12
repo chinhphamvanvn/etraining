@@ -22,7 +22,7 @@
       });
 
       _.each(vm.members, function(member) {
-        programUtils.memberProgress(member._id, vm.program._id).then(function(progress) {
+        programUtils.memberProgress(member, vm.program).then(function(progress) {
           member.progress = progress;
         });
       });

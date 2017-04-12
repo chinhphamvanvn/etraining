@@ -6,14 +6,19 @@
     .module('shared.models')
     .factory('ExamCandidatesService', ExamCandidatesService);
 
-  ExamCandidatesService.$inject = ['$resource'];
+  ExamCandidatesService.$inject = ['$resource', '_transform'];
 
-  function ExamCandidatesService($resource) {
+  function ExamCandidatesService($resource, _transform) {
     return $resource('/api/candidates/:candidateId', {
       candidateId: '@_id'
     }, {
       update: {
-        method: 'PUT'
+        method: 'PUT',
+        transformRequest: _transform.unpopulate
+      },
+      save: {
+        method: 'POST',
+        transformRequest: _transform.unpopulate
       },
       byExam: {
         url: '/api/candidates/byExam/:examId',
@@ -27,7 +32,8 @@
       },
       certify: {
         method: 'POST',
-        url: '/api/candidates/certify/:candidateId/:studentId'
+        url: '/api/candidates/certify/:candidateId/:studentId',
+        transformRequest: _transform.unpopulate
       },
       byUserAndSchedule: {
         method: 'GET',

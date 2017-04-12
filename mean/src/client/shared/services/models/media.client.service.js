@@ -6,14 +6,19 @@
     .module('shared.models')
     .factory('LibraryMediaService', LibraryMediaService);
 
-  LibraryMediaService.$inject = ['$resource'];
+  LibraryMediaService.$inject = ['$resource', '_transform'];
 
-  function LibraryMediaService($resource) {
+  function LibraryMediaService($resource, _transform) {
     return $resource('/api/media/:mediumId', {
       mediumId: '@_id'
     }, {
       update: {
-        method: 'PUT'
+        method: 'PUT',
+        transformRequest: _transform.unpopulate
+      },
+      save: {
+        method: 'POST',
+        transformRequest: _transform.unpopulate
       },
       byGroup: {
         method: 'GET',

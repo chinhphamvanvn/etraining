@@ -6,14 +6,19 @@
     .module('shared.models')
     .factory('OptionsService', OptionsService);
 
-  OptionsService.$inject = ['$resource'];
+  OptionsService.$inject = ['$resource', '_transform'];
 
-  function OptionsService($resource) {
+  function OptionsService($resource, _transform) {
     return $resource('/api/options/:optionId', {
       optionId: '@_id'
     }, {
       update: {
-        method: 'PUT'
+        method: 'PUT',
+        transformRequest: _transform.unpopulate
+      },
+      save: {
+        method: 'POST',
+        transformRequest: _transform.unpopulate
       },
       byQuestion: {
         method: 'GET',

@@ -85,7 +85,7 @@ exports.delete = function(req, res) {
  * List of Exams
  */
 exports.list = function(req, res) {
-  Exam.find().sort('-created').populate('user', 'displayName').exec(function(err, exams) {
+  Exam.find().sort('-created').populate('user', 'displayName').populate('questions').exec(function(err, exams) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -99,7 +99,7 @@ exports.list = function(req, res) {
 exports.listPublished = function(req, res) {
   Exam.find({
     published: true
-  }).sort('-created').populate('user', 'displayName').exec(function(err, exams) {
+  }).sort('-created').populate('user', 'displayName').populate('questions').exec(function(err, exams) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)

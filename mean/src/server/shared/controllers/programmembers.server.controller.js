@@ -233,7 +233,7 @@ exports.delete = function(req, res) {
  * List of Programmembers
  */
 exports.list = function(req, res) {
-  ProgramMember.find().sort('-created').populate('user', 'displayName').exec(function(err, programmembers) {
+  ProgramMember.find().sort('-created').populate('user', 'displayName').populate('member').populate('program').exec(function(err, programmembers) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)

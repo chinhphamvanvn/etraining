@@ -6,14 +6,19 @@
     .module('shared.models')
     .factory('HtmlsService', HtmlsService);
 
-  HtmlsService.$inject = ['$resource'];
+  HtmlsService.$inject = ['$resource', '_transform'];
 
-  function HtmlsService($resource) {
+  function HtmlsService($resource, _transform) {
     return $resource('/api/htmls/:htmlId', {
       htmlId: '@_id'
     }, {
       update: {
-        method: 'PUT'
+        method: 'PUT',
+        transformRequest: _transform.unpopulate
+      },
+      save: {
+        method: 'POST',
+        transformRequest: _transform.unpopulate
       }
     });
   }

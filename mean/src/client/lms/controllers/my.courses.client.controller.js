@@ -25,7 +25,7 @@
         }, function(edition) {
           member.edition = edition;
           if (member.enrollmentStatus === 'in-study') {
-            courseUtils.memberProgress(member._id, edition._id).then(function(percentage) {
+            courseUtils.memberProgress(member, edition).then(function(percentage) {
               member.course.percentage = percentage;
             });
           }

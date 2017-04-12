@@ -75,9 +75,9 @@
     }).then(function() { // Get result of exam for each student
       vm.members.reduce(function(prev, curr) {
         return prev.then(function() {
-          return courseUtils.memberScoreByCourse(curr._id, vm.edition._id).then(function(scores) {
+          return courseUtils.memberScoreByCourse(curr, vm.edition).then(function(scores) {
             vm.scoreMap[curr._id] = {
-              totalScore: scores.totalScore,
+              totalScore: scores.totalPercent,
               scores: scores.scores
             };
           });
@@ -102,7 +102,7 @@
           var csvObj = {};
           csvObj[0 + 'name'] = member.member.displayName;
           vm.scoreMap[member._id].scores.forEach(function(score, index) {
-            csvObj['score_' + index] = score.correctPercent;
+            csvObj['score_' + index] = score.weightPercent;
           });
           csvObj.totalScore = vm.scoreMap[member._id].totalScore;
           csvObj.result = (vm.scoreMap[member._id].totalScore >= vm.gradescheme.benchmark) ? pass : fall;

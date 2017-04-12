@@ -25,7 +25,7 @@
                 var start = new Date(submit.start);
                 var end = new Date(submit.end);
                 submit.duration = Math.floor((end.getTime() - start.getTime()) / 1000);
-                examUtils.candidateScoreByBusmit(scope.candidate._id, scope.exam._id, submit._id).then(function(score) {
+                examUtils.candidateScoreByBusmit(scope.candidate, scope.exam, submit).then(function(score) {
                   submit.score = score;
                 });
               });

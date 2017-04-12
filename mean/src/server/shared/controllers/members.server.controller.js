@@ -354,7 +354,7 @@ exports.delete = function(req, res) {
  * List of Members
  */
 exports.list = function(req, res) {
-  CourseMember.find().sort('-created').populate('user', 'displayName').exec(function(err, members) {
+  CourseMember.find().sort('-created').populate('user', 'displayName').populate('member').populate('course').populate('classroom').populate('edition').exec(function(err, members) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -371,7 +371,7 @@ exports.list = function(req, res) {
 exports.memberByCourse = function(req, res) {
   CourseMember.find({
     course: req.course._id
-  }).sort('-created').populate('user', 'displayName').populate('member').populate('classroom').exec(function(err, members) {
+  }).sort('-created').populate('user', 'displayName').populate('member').populate('course').populate('classroom').populate('edition').exec(function(err, members) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -388,7 +388,7 @@ exports.memberByCourse = function(req, res) {
 exports.memberByClass = function(req, res) {
   CourseMember.find({
     classroom: req.classroom._id
-  }).sort('-created').populate('user', 'displayName').populate('member').exec(function(err, members) {
+  }).sort('-created').populate('user', 'displayName').populate('member').populate('course').populate('classroom').populate('edition').exec(function(err, members) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -406,7 +406,7 @@ exports.memberByUser = function(req, res) {
   CourseMember.find({
     status: 'active',
     member: req.params.userId
-  }).sort('-created').populate('member').populate('course').populate('classroom').exec(function(err, members) {
+  }).sort('-created').populate('member').populate('course').populate('classroom').populate('edition').exec(function(err, members) {
     if (err) {
       return res.status(422).send({
         message: errorHandler.getErrorMessage(err)
@@ -422,7 +422,7 @@ exports.memberByUserAndCourse = function(req, res) {
     status: 'active',
     member: req.user._id,
     course: req.course._id
-  }).sort('-created').populate('member').populate('course').populate('classroom').exec(function(err, member) {
+  }).sort('-created').populate('member').populate('course').populate('classroom').populate('edition').exec(function(err, member) {
     if (err || !member) {
       return res.status(422).send({
         message: 'No member found'
@@ -444,7 +444,7 @@ exports.memberByID = function(req, res, next, id) {
     });
   }
 
-  CourseMember.findById(id).populate('user', 'displayName').populate('member').exec(function(err, member) {
+  CourseMember.findById(id).populate('user', 'displayName').populate('member').populate('course').populate('classroom').populate('edition').exec(function(err, member) {
     if (err) {
       return next(err);
     } else if (!member) {

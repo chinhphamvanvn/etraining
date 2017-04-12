@@ -6,14 +6,19 @@
     .module('shared.models')
     .factory('MessagesService', MessagesService);
 
-  MessagesService.$inject = ['$resource'];
+  MessagesService.$inject = ['$resource', '_transform'];
 
-  function MessagesService($resource) {
+  function MessagesService($resource, _transform) {
     return $resource('/api/messages/:messageId', {
       messageId: '@_id'
     }, {
       update: {
-        method: 'PUT'
+        method: 'PUT',
+        transformRequest: _transform.unpopulate
+      },
+      save: {
+        method: 'POST',
+        transformRequest: _transform.unpopulate
       },
       waiting: {
         method: 'GET',

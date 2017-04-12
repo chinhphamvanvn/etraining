@@ -27,7 +27,7 @@
               userId: scope.member.member._id,
               courseId: course._id
             }, function() {
-              courseUtils.memberProgress(course.member._id, course.member.edition).then(function(progress) {
+              courseUtils.memberProgress(course.member, course.member.edition).then(function(progress) {
                 course.percentage = progress;
               });
             });

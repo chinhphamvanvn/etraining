@@ -6,14 +6,19 @@
     .module('shared.models')
     .factory('ProgramMembersService', ProgramMembersService);
 
-  ProgramMembersService.$inject = ['$resource'];
+  ProgramMembersService.$inject = ['$resource', '_transform'];
 
-  function ProgramMembersService($resource) {
+  function ProgramMembersService($resource, _transform) {
     return $resource('/api/programmembers/:programmemberId', {
       programmemberId: '@_id'
     }, {
       update: {
-        method: 'PUT'
+        method: 'PUT',
+        transformRequest: _transform.unpopulate
+      },
+      save: {
+        method: 'POST',
+        transformRequest: _transform.unpopulate
       },
       byProgram: {
         method: 'GET',
@@ -27,11 +32,13 @@
       },
       withdraw: {
         method: 'PUT',
-        url: '/api/programmembers/withdraw/:programmemberId'
+        url: '/api/programmembers/withdraw/:programmemberId',
+        transformRequest: _transform.unpopulate
       },
       complete: {
         method: 'PUT',
-        url: '/api/programmembers/complete/:programmemberId/:managerId'
+        url: '/api/programmembers/complete/:programmemberId/:managerId',
+        transformRequest: _transform.unpopulate
       },
       byUserAndProgram: {
         method: 'GET',

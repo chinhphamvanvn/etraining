@@ -6,14 +6,19 @@
     .module('shared.models')
     .factory('CourseMaterialsService', CourseMaterialsService);
 
-  CourseMaterialsService.$inject = ['$resource'];
+  CourseMaterialsService.$inject = ['$resource', '_transform'];
 
-  function CourseMaterialsService($resource) {
+  function CourseMaterialsService($resource, _transform) {
     return $resource('/api/materials/:materialId', {
       materialId: '@_id'
     }, {
       update: {
-        method: 'PUT'
+        method: 'PUT',
+        transformRequest: _transform.unpopulate
+      },
+      save: {
+        method: 'POST',
+        transformRequest: _transform.unpopulate
       },
       byCourse: {
         url: '/api/materials/byCourse/:editionId',

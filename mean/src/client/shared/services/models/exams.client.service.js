@@ -6,14 +6,19 @@
     .module('shared.models')
     .factory('ExamsService', ExamsService);
 
-  ExamsService.$inject = ['$resource'];
+  ExamsService.$inject = ['$resource', '_transform'];
 
-  function ExamsService($resource) {
+  function ExamsService($resource, _transform) {
     return $resource('/api/exams/:examId', {
       examId: '@_id'
     }, {
       update: {
-        method: 'PUT'
+        method: 'PUT',
+        transformRequest: _transform.unpopulate
+      },
+      save: {
+        method: 'POST',
+        transformRequest: _transform.unpopulate
       },
       listPublished: {
         url: '/api/exams/public',

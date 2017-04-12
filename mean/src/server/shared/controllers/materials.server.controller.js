@@ -130,7 +130,7 @@ exports.delete = function(req, res) {
  * List of CourseMaterials
  */
 exports.list = function(req, res) {
-  CourseMaterial.find().sort('-created').populate('user', 'displayName').exec(function(err, materials) {
+  CourseMaterial.find().sort('-created').populate('user', 'displayName').populate('edition').exec(function(err, materials) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -147,7 +147,7 @@ exports.list = function(req, res) {
 exports.listByCourse = function(req, res) {
   CourseMaterial.find({
     edition: req.edition._id
-  }).sort('-created').populate('user', 'displayName').exec(function(err, materials) {
+  }).sort('-created').populate('user', 'displayName').populate('edition').exec(function(err, materials) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -169,7 +169,7 @@ exports.materialByID = function(req, res, next, id) {
     });
   }
 
-  CourseMaterial.findById(id).populate('user', 'displayName').exec(function(err, material) {
+  CourseMaterial.findById(id).populate('user', 'displayName').populate('edition').exec(function(err, material) {
     if (err) {
       return next(err);
     } else if (!material) {

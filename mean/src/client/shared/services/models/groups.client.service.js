@@ -6,14 +6,19 @@
     .module('shared.models')
     .factory('GroupsService', GroupsService);
 
-  GroupsService.$inject = ['$resource'];
+  GroupsService.$inject = ['$resource', '_transform'];
 
-  function GroupsService($resource) {
+  function GroupsService($resource, _transform) {
     return $resource('/api/groups/:groupId', {
       groupId: '@_id'
     }, {
       update: {
-        method: 'PUT'
+        method: 'PUT',
+        transformRequest: _transform.unpopulate
+      },
+      save: {
+        method: 'POST',
+        transformRequest: _transform.unpopulate
       },
       byCategory: {
         url: '/api/groups/byCategory/:category',

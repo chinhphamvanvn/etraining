@@ -6,14 +6,19 @@
     .module('shared.models')
     .factory('CompetenciesService', CompetenciesService);
 
-  CompetenciesService.$inject = ['$resource'];
+  CompetenciesService.$inject = ['$resource', '_transform'];
 
-  function CompetenciesService($resource) {
+  function CompetenciesService($resource, _transform) {
     return $resource('/api/competencies/:competencyId', {
       competencyId: '@_id'
     }, {
       update: {
-        method: 'PUT'
+        method: 'PUT',
+        transformRequest: _transform.unpopulate
+      },
+      save: {
+        method: 'POST',
+        transformRequest: _transform.unpopulate
       },
       byGroup: {
         method: 'GET',

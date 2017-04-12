@@ -53,12 +53,12 @@
           return candidate.role === 'student';
         });
         _.each(candidates, function(candidate) {
-          examUtils.candidateProgress(candidate._id, candidate.exam._id).then(function(progress) {
+          examUtils.candidateProgress(candidate, candidate.exam).then(function(progress) {
             candidate.submit = progress.count;
             candidate.firstSubmit = progress.firstSubmit.start;
             vm.summary.submit += candidate.submit;
           });
-          examUtils.candidateScore(candidate._id, candidate.exam._id).then(function(score) {
+          examUtils.candidateScore(candidate, candidate.exam).then(function(score) {
             candidate.score = score;
             vm.summary.score += score;
             if (candidate.score < candidate.exam.benchmark)

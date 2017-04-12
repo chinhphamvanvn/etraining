@@ -95,6 +95,7 @@ exports.bulkCreate = function(req, res) {
  * Create a Question
  */
 exports.create = function(req, res) {
+  console.log(req.body);
   var question = new Question(req.body);
   question.user = req.user;
 
@@ -163,7 +164,7 @@ exports.delete = function(req, res) {
  * List of Questions
  */
 exports.list = function(req, res) {
-  Question.find().sort('-created').populate('user', 'displayName').populate('category').exec(function(err, questions) {
+  Question.find().sort('-created').populate('user', 'displayName').populate('category').populate('subQuestions').exec(function(err, questions) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -179,7 +180,7 @@ exports.listByCategoryAndLevel = function(req, res) {
   Question.find({
     category: req.params.groupId,
     level: req.params.level
-  }).sort('-created').populate('user', 'displayName').populate('category').exec(function(err, questions) {
+  }).sort('-created').populate('user', 'displayName').populate('category').populate('subQuestions').exec(function(err, questions) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -196,7 +197,7 @@ exports.listByIds = function(req, res) {
     _id: {
       $in: questionIds
     }
-  }).sort('-created').populate('user', 'displayName').populate('category').exec(function(err, questions) {
+  }).sort('-created').populate('user', 'displayName').populate('category').populate('subQuestions').exec(function(err, questions) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -210,7 +211,7 @@ exports.listByIds = function(req, res) {
 exports.listByCategory = function(req, res) {
   Question.find({
     category: req.group._id
-  }).sort('-created').populate('user', 'displayName').populate('category').exec(function(err, questions) {
+  }).sort('-created').populate('user', 'displayName').populate('category').populate('subQuestions').exec(function(err, questions) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)

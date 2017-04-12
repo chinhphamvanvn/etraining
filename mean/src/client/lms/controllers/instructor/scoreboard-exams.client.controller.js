@@ -36,10 +36,10 @@
             candidate.achievement = null;
           });
         }
-        examUtils.candidateScore(candidate._id, vm.exam._id).then(function(score) {
+        examUtils.candidateScore(candidate, vm.exam).then(function(score) {
           var resultScore;
           candidate.score = score;
-          examUtils.candidateProgress(candidate._id, vm.exam._id).then(function(progress) {
+          examUtils.candidateProgress(candidate, vm.exam).then(function(progress) {
             candidate.attemptCount = progress.count;
             candidate.submits = {};
             candidate.labelSubmit = '';
@@ -53,7 +53,7 @@
                 vm.scoreboardListCsv.push(itemCandidate0);
               }
               _.each(candidate.submits, function(submit) {
-                examUtils.candidateScoreByBusmit(candidate._id, vm.exam._id, submit._id).then(function(score) {
+                examUtils.candidateScoreByBusmit(candidate, vm.exam, submit).then(function(score) {
                   inumber++;
                   submit.score = score;
                   candidate.labelSubmit = candidate.labelSubmit + submit.score + '% ';

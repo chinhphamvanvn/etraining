@@ -6,14 +6,19 @@
     .module('shared.models')
     .factory('CompetencyAchievementsService', CompetencyAchievementsService);
 
-  CompetencyAchievementsService.$inject = ['$resource'];
+  CompetencyAchievementsService.$inject = ['$resource', '_transform'];
 
-  function CompetencyAchievementsService($resource) {
+  function CompetencyAchievementsService($resource, _transform) {
     return $resource('/api/achievements/:achievementId', {
       achievementId: '@_id'
     }, {
       update: {
-        method: 'PUT'
+        method: 'PUT',
+        transformRequest: _transform.unpopulate
+      },
+      save: {
+        method: 'POST',
+        transformRequest: _transform.unpopulate
       },
       byUser: {
         method: 'GET',

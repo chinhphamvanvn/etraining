@@ -6,14 +6,19 @@
     .module('shared.models')
     .factory('AnswersService', AnswersService);
 
-  AnswersService.$inject = ['$resource'];
+  AnswersService.$inject = ['$resource', '_transform'];
 
-  function AnswersService($resource) {
+  function AnswersService($resource, _transform) {
     return $resource('/api/answers/:answerId', {
       answerId: '@_id'
     }, {
       update: {
-        method: 'PUT'
+        method: 'PUT',
+        transformRequest: _transform.unpopulate
+      },
+      save: {
+        method: 'POST',
+        transformRequest: _transform.unpopulate
       }
     });
   }

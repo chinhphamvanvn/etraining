@@ -83,7 +83,7 @@ exports.delete = function(req, res) {
 exports.classesByCourseID = function(req, res) {
   Classroom.find({
     course: req.course._id
-  }).sort('-created').populate('user', 'displayName').exec(function(err, classrooms) {
+  }).sort('-created').populate('user', 'displayName').populate('course').exec(function(err, classrooms) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -98,7 +98,7 @@ exports.classesByCourseID = function(req, res) {
  * List of Classrooms
  */
 exports.list = function(req, res) {
-  Classroom.find().sort('-created').populate('user', 'displayName').exec(function(err, classrooms) {
+  Classroom.find().sort('-created').populate('user', 'displayName').populate('course').exec(function(err, classrooms) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -120,7 +120,7 @@ exports.classroomByID = function(req, res, next, id) {
     });
   }
 
-  Classroom.findById(id).populate('user', 'displayName').exec(function(err, classroom) {
+  Classroom.findById(id).populate('user', 'displayName').populate('course').exec(function(err, classroom) {
     if (err) {
       return next(err);
     } else if (!classroom) {

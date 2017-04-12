@@ -57,7 +57,7 @@
           vm.summary.percentInstudyMember = Math.floor(vm.summary.totalInstudyMember * 100 / vm.summary.toalMember);
           vm.summary.totalCompleteMember += course.totalCompleteMember;
           vm.summary.percentCompleteMember = Math.floor(vm.summary.totalCompleteMember * 100 / vm.summary.toalMember);
-          courseUtils.courseTime(course._id).then(function(time) {
+          courseUtils.courseTime(course).then(function(time) {
             vm.summary.time += time;
             course.time = time;
           });

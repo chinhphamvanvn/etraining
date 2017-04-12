@@ -6,14 +6,19 @@
     .module('shared.models')
     .factory('AttemptsService', AttemptsService);
 
-  AttemptsService.$inject = ['$resource'];
+  AttemptsService.$inject = ['$resource', '_transform'];
 
-  function AttemptsService($resource) {
+  function AttemptsService($resource, _transform) {
     return $resource('/api/attempts/:attemptId', {
       attemptId: '@_id'
     }, {
       update: {
-        method: 'PUT'
+        method: 'PUT',
+        transformRequest: _transform.unpopulate
+      },
+      save: {
+        method: 'POST',
+        transformRequest: _transform.unpopulate
       },
       byCourse: {
         url: '/api/attempts/byCourse/:courseId',

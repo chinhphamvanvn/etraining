@@ -153,7 +153,7 @@ exports.delete = function(req, res) {
  * List of Certificates
  */
 exports.list = function(req, res) {
-  Certificate.find().sort('-created').populate('user', 'displayName').exec(function(err, certificates) {
+  Certificate.find().sort('-created').populate('user', 'displayName').populate('course').populate('authorizer').populate('edition').populate('member').exec(function(err, certificates) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -191,7 +191,7 @@ exports.certificateByID = function(req, res, next, id) {
     });
   }
 
-  Certificate.findById(id).populate('user', 'displayName').exec(function(err, certificate) {
+  Certificate.findById(id).populate('user', 'displayName').populate('course').populate('authorizer').populate('edition').populate('member').exec(function(err, certificate) {
     if (err) {
       return next(err);
     } else if (!certificate) {

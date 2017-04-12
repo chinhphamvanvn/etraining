@@ -81,7 +81,7 @@ exports.delete = function(req, res) {
  * List of CourseEditions
  */
 exports.list = function(req, res) {
-  CourseEdition.find().sort('-created').populate('user', 'displayName').exec(function(err, editions) {
+  CourseEdition.find().sort('-created').populate('user', 'displayName').populate('course').exec(function(err, editions) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -98,7 +98,7 @@ exports.list = function(req, res) {
 exports.editionByCourse = function(req, res) {
   CourseEdition.findOne({
     course: req.course._id
-  }).sort('-created').populate('user', 'displayName').exec(function(err, edition) {
+  }).sort('-created').populate('user', 'displayName').populate('course').exec(function(err, edition) {
     if (err) {
       return res.status(422).send({
         message: errorHandler.getErrorMessage(err)
@@ -120,7 +120,7 @@ exports.editionByID = function(req, res, next, id) {
     });
   }
 
-  CourseEdition.findById(id).populate('user', 'displayName').exec(function(err, edition) {
+  CourseEdition.findById(id).populate('user', 'displayName').populate('course').exec(function(err, edition) {
     if (err) {
       return next(err);
     } else if (!edition) {
