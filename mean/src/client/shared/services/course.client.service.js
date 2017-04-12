@@ -36,7 +36,7 @@
                   }
                 }
               });
-              rawPercent = rawScore * 100 / examScore;
+              rawPercent = Math.round(rawScore * 100 / examScore);
               GradeSchemesService.byEdition({
                 editionId: edition._id
               }, function(gradescheme) {
@@ -44,7 +44,7 @@
                   return scheme.quiz === attempt.section._id;
                 });
                 var weight = scheme ? scheme.weight : 0;
-                weightPercent = rawPercent * weight / 100;
+                weightPercent = Math.round(rawPercent * weight / 100);
                 resolve({
                   attemptId: attempt._id,
                   examId: exam._id,
