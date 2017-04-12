@@ -51,8 +51,8 @@
         });
       });
     }
-    
-    function createGroupedQuestion(type) {
+
+    function createGroupedQuestion() {
       if (!vm.groups) {
         UIkit.modal.alert($translate.instant('ERROR.QUESTION.EMPTY_QUESTION_GROUP'));
         return;
