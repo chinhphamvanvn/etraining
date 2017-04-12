@@ -160,7 +160,7 @@
                   return section.data.hasContent && section.data.contentType === 'test';
                 });
                 _.each(sections, function(section) {
-                  allPromises.push(memberScoreBySection(member, section, edition));
+                  allPromises.push(memberScoreBySection(member, section.data, edition));
                 });
                 $q.all(allPromises).then(function(scores) {
                   var courseScore = {
