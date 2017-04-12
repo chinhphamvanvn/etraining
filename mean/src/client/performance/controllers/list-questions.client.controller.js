@@ -12,6 +12,7 @@
     vm.authentication = Authentication;
     vm.finishEditQuestionTree = finishEditQuestionTree;
     vm.createQuestion = createQuestion;
+    vm.createGroupedQuestion = createGroupedQuestion;
     vm.remove = remove;
     vm.selectGroup = selectGroup;
     vm.currPage = 1;
@@ -36,7 +37,6 @@
       $window.location.reload();
     }
 
-
     function createQuestion(type) {
       if (!vm.groups) {
         UIkit.modal.alert($translate.instant('ERROR.QUESTION.EMPTY_QUESTION_GROUP'));
@@ -50,8 +50,21 @@
           questionId: question._id
         });
       });
-
-
+    }
+    
+    function createGroupedQuestion(type) {
+      if (!vm.groups) {
+        UIkit.modal.alert($translate.instant('ERROR.QUESTION.EMPTY_QUESTION_GROUP'));
+        return;
+      }
+      var question = new QuestionsService();
+      question.category = vm.groups[0];
+      question.grouped = true;
+      question.$save(function() {
+        $state.go('admin.workspace.performance.question.edit', {
+          questionId: question._id
+        });
+      });
     }
 
     function remove(question) {

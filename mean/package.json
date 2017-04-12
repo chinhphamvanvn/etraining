@@ -52,6 +52,7 @@
     "file-stream-rotator": "~0.0.6",
     "generate-password": "~1.2.0",
     "glob": "~7.1.0",
+    "gulp-lesshint": "^3.0.0",
     "helmet": "~2.3.0",
     "jasmine-core": "~2.5.0",
     "livereload-js": "^2.2.2",

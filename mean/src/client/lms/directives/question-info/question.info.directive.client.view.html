@@ -55,7 +55,7 @@
 				<div ng-if="question.type=='ext'">
 					<extend-text-question mode="'view'" question="question"></extend-text-question>
 				</div>
-				<div ng-if="question.type=='grp'">
+				<div ng-if="question.grouped">
 					<group-question mode="'view'" question="question"></group-question>
 				</div>
 				<div ng-if="question.type=='dnd'">

@@ -142,6 +142,8 @@ module.exports = {
         'public/lib/sifter/sifter.js',
         'public/lib/switchery/dist/switchery.js',
         'public/lib/tinymce/tinymce.js',
+        'public/lib/tinymce/plugins/**/*.min.js',
+        'public/lib/tinymce/themes/**/*.min.js',
         'public/lib/transitionize/dist/transitionize.js',
         'public/assets/js/custom/gantt_chart.js',
         'public/lib/uikit/js/components/htmleditor.js',

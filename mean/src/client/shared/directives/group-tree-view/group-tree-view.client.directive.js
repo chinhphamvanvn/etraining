@@ -15,7 +15,8 @@
         mode: '=', // multiple or single
         select: '=',
         disabled: '=',
-        initial: '=' // id of initial selected noded
+        initial: '=', // id of initial selected noded
+        multipleRoot: '=' // add allRoot node or not
       },
       templateUrl: '/src/client/shared/directives/group-tree-view/group-tree-view.directive.client.view.html',
       link: function(scope, element, attributes) {
@@ -25,14 +26,15 @@
           category: scope.category
         }, function(groups) {
           var tree = treeUtils.buildGroupTree(groups);
-          var allTree = [{
-            title: all,
-            expanded: true,
-            folder: true,
-            key: 'all',
-            id: null,
-            children: tree
-          }]; // Add select all checkbox
+          if (!scope.multipleRoot)
+            tree = [{
+              title: all,
+              expanded: true,
+              folder: true,
+              key: 'all',
+              id: null,
+              children: tree
+            }]; // Add select all checkbox
           if (scope.initial) {
             var selectNode = treeUtils.findGroupNode(tree, scope.initial);
             selectNode.selected = true;
@@ -48,7 +50,7 @@
               autoScroll: true,
               generateIds: true,
               disabled: scope.disabled,
-              source: allTree,
+              source: tree,
               toggleEffect: {
                 effect: 'blind',
                 options: {

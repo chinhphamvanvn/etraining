@@ -28,7 +28,21 @@
 						<div ng-if="vm.question.type=='fb'">
 							<fill-blank-question mode="'view'" question="vm.question"></fill-blank-question>
 						</div>
-
+						<div ng-if="vm.question.type=='ext'">
+							<extend-text-question mode="'view'" question="vm.question"></extend-text-question>
+						</div>
+						<div ng-if="vm.question.type=='as'">
+							<associative-question mode="'view'" question="vm.question"></associative-question>
+						</div>
+						<div ng-if="vm.question.type=='dnd'">
+							<drag-drop-question mode="'view'" question="vm.question"></drag-drop-question>
+						</div>
+						<div ng-if="vm.question.type=='pic'">
+							<point-click-question mode="'view'" question="vm.question"></point-click-question>
+						</div>
+						<div ng-if="vm.question.grouped">
+							<group-question mode="'view'" question="vm.question"></group-question>
+						</div>
 
 					</div>
 				</div>
