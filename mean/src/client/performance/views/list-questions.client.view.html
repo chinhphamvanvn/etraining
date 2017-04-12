@@ -17,7 +17,7 @@
                             {{'PAGE.PERFORMANCE.CATEGORY.TITLE'| translate}}</h3>
                     </div>
                     <div class="md-card-content">
-                        <group-tree-view tree-id="'questionTree'" mode="'single'"
+                        <group-tree-view tree-id="'questionTree'" mode="'single'" multiple-root="true"
                                          category="'question'" select="vm.selectGroup"></group-tree-view>
                     </div>
                 </div>
@@ -47,18 +47,33 @@
                                 <a class="md-btn md-btn-flat md-btn-icon md-btn-wave-light"><i
                                         class="uk-icon-plus uk-text-success"></i>{{'ACTION.CREATE_QUESTION'|translate}}</a>
                                 <div class="uk-dropdown">
-                                    <ul class="uk-nav uk-nav-dropdown">
-                                        <li class="uk-nav-header"><a
+                                    <ul >
+                                        <li ><a
                                                 ng-click="vm.createQuestion('sc')">{{'COMMON.QUESTION_TYPE.SC'|translate}}</a>
                                         </li>
-                                        <li class="uk-nav-header"><a
+                                        <li ><a
                                                 ng-click="vm.createQuestion('mc')">{{'COMMON.QUESTION_TYPE.MC'|translate}}</a>
                                         </li>
-                                        <li class="uk-nav-header"><a
+                                        <li ><a
                                                 ng-click="vm.createQuestion('tf')">{{'COMMON.QUESTION_TYPE.TF'|translate}}</a>
                                         </li>
-                                        <li class="uk-nav-header"><a
+                                        <li ><a
                                                 ng-click="vm.createQuestion('fb')">{{'COMMON.QUESTION_TYPE.FB'|translate}}</a>
+                                        </li>
+                                        <li ><a
+                                                ng-click="vm.createQuestion('ext')">{{'COMMON.QUESTION_TYPE.EXT'|translate}}</a>
+                                        </li>
+                                        <li ><a
+                                                ng-click="vm.createQuestion('dnd')">{{'COMMON.QUESTION_TYPE.DND'|translate}}</a>
+                                        </li>
+                                        <li ><a
+                                                ng-click="vm.createQuestion('pic')">{{'COMMON.QUESTION_TYPE.PIC'|translate}}</a>
+                                        </li>
+                                        <li ><a
+                                                ng-click="vm.createQuestion('as')">{{'COMMON.QUESTION_TYPE.AS'|translate}}</a>
+                                        </li>
+                                        <li ><a
+                                                ng-click="vm.createGroupedQuestion()">{{'COMMON.QUESTION_TYPE.GRP'|translate}}</a>
                                         </li>
                                     </ul>
                                 </div>

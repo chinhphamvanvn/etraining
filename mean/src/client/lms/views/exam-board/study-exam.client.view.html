@@ -70,6 +70,31 @@ keyframes blink-animation {to { visibility:hidden;
 								shuffle="vm.exam.shuffleOption" question="vm.question"
 								answer="vm.question.answer"></fill-blank-question>
 						</div>
+						<div ng-if="vm.question.type=='ext'">
+							<extend-text-question mode="'study'"
+								shuffle="vm.exam.shuffleOption" question="vm.question"
+								answer="vm.question.answer"></extend-text-question>
+						</div>
+						<div ng-if="vm.question.type=='dnd'">
+							<drag-drop-question mode="'study'"
+								shuffle="vm.exam.shuffleOption" question="vm.question"
+								answer="vm.question.answer"></drag-drop-question>
+						</div>
+						<div ng-if="vm.question.type=='pic'">
+							<point-click-question mode="'study'"
+								shuffle="vm.exam.shuffleOption" question="vm.question"
+								answer="vm.question.answer"></point-click-question>
+						</div>
+						<div ng-if="vm.question.type=='as'">
+							<associative-question mode="'study'"
+								shuffle="vm.exam.shuffleOption" question="vm.question"
+								answer="vm.question.answer"></associative-question>
+						</div>
+						<div ng-if="vm.question.grouped">
+							<group-question mode="'study'"
+								shuffle="vm.exam.shuffleOption" question="vm.question"
+								answer="vm.question.answer"></group-question>
+						</div>
 						<br>
 						<hr>
 						<div class="uk-grid uk-margin-top">

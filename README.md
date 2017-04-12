@@ -59,6 +59,8 @@ forever start server.js
 - Add translation
 - Add to question-info directive
 - Add to answer-sheet directive
+- Add to performance / list / create /edit question
+- Add to lms / list / create /edit /preview /study question (course-board, exam-board, teacher)
 
 ## Authors
 

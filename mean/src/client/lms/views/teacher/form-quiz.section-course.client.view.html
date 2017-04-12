@@ -75,6 +75,26 @@
 																ng-if="question.type=='fb'"
 																class="uk-text-italic uk-text-small"> -
 																{{'COMMON.QUESTION_TYPE.FB'|translate}}</span>
+																 <span
+																ng-if="question.type=='ext'"
+																class="uk-text-italic uk-text-small"> -
+																{{'COMMON.QUESTION_TYPE.EXT'|translate}}</span>
+																 <span
+																ng-if="question.type=='dnd'"
+																class="uk-text-italic uk-text-small"> -
+																{{'COMMON.QUESTION_TYPE.DND'|translate}}</span>
+																 <span
+																ng-if="question.type=='pic'"
+																class="uk-text-italic uk-text-small"> -
+																{{'COMMON.QUESTION_TYPE.PIC'|translate}}</span>
+																 <span
+																ng-if="question.type=='as'"
+																class="uk-text-italic uk-text-small"> -
+																{{'COMMON.QUESTION_TYPE.AS'|translate}}</span>
+																 <span
+																ng-if="question.grouped"
+																class="uk-text-italic uk-text-small"> -
+																{{'COMMON.QUESTION_TYPE.GROUP'|translate}}</span>
 														</h3>
 													</div>
 													<div
@@ -107,6 +127,21 @@
 												</div>
 												<div ng-if="question.type=='fb'">
 													<fill-blank-question mode="'edit'" question="question"></fill-blank-question>
+												</div>
+												<div ng-if="question.type=='ext'">
+													<extend-text-question mode="'edit'" question="question"></extend-text-question>
+												</div>
+												<div ng-if="question.type=='as'">
+													<associative-question mode="'edit'" question="question"></associative-question>
+												</div>
+												<div ng-if="question.type=='dnd'">
+													<drag-drop-question mode="'edit'" question="question"></drag-drop-question>
+												</div>
+												<div ng-if="question.type=='pic'">
+													<point-click-question mode="'edit'" question="question"></point-click-question>
+												</div>
+												<div ng-if="question.grouped">
+													<group-question mode="'edit'" question="question"></group-question>
 												</div>
 											</div>
 										</div>
