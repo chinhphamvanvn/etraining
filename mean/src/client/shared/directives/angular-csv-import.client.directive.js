@@ -100,7 +100,7 @@
         });
 
         function csvToJSON(content) {
-          var lines = content.csv.split(new RegExp('/(?![^"]*"(?:(?:[^"]*"){2})*[^"]*$)/'));
+          var lines = content.csv.split(new RegExp('\n(?![^"]*"(?:(?:[^"]*"){2})*[^"]*$)'));
           var result = [];
           var start = 0;
           var columnCount = lines[0].split(content.separator).length;
