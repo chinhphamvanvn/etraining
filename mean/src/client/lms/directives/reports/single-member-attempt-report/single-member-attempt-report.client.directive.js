@@ -30,7 +30,7 @@
             memberId: scope.selectedMember._id
           }, function() {
             var sections = EditionSectionsService.byEdition({
-              editionId: scope.selectedMember.edition
+              editionId: scope.selectedMember.edition._id
             }, function() {
               _.each(sections, function(section) {
                 section.member = scope.selectedMember;

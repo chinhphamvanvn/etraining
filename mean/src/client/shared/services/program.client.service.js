@@ -11,7 +11,7 @@
               var allPromises = [];
               _.each(program.courses, function(course) {
                 allPromises.push(CourseMembersService.byUserAndCourse({
-                  userId: member.member,
+                  userId: member.member._id,
                   courseId: course
                 }).$promise);
               });
