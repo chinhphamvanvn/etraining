@@ -6,9 +6,9 @@
     .module('shared.models')
     .factory('EditionSectionsService', EditionSectionsService);
 
-  EditionSectionsService.$inject = ['$resource'];
+  EditionSectionsService.$inject = ['$resource', '_transform'];
 
-  function EditionSectionsService($resource) {
+  function EditionSectionsService($resource, _transform) {
     return $resource('/api/sections/:sectionId', {
       sectionId: '@_id'
     }, {
@@ -18,7 +18,12 @@
         url: '/api/sections/byEdition/:editionId'
       },
       update: {
-        method: 'PUT'
+        method: 'PUT',
+        transformRequest: _transform.unpopulate
+      },
+      save: {
+        method: 'POST',
+        transformRequest: _transform.unpopulate
       },
       surveyByCourse: {
         url: '/api/sections/survey/:editionId',

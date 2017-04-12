@@ -5,84 +5,103 @@
     .module('shared')
     .service('examUtils', ['SubmissionsService', 'ExamsService', 'GroupsService', 'QuestionsService', 'treeUtils', '$q', '_',
       function(SubmissionsService, ExamsService, GroupsService, QuestionsService, treeUtils, $q, _) {
-        function candidateScoreByBusmit(candidateId, examId, submissionId) {
+        function candidateScoreByBusmit(candidate, exam, submit) {
           return $q(function(resolve, reject) {
-            ExamsService.get({
-              examId: examId
-            }, function(exam) {
-              SubmissionsService.get({
-                submissionId: submissionId
-              }, function(submit) {
-                if (exam.questionSelection === 'auto') {
-                  var correct = _.filter(submit.answers, function(answer) {
-                    return (answer.isCorrect);
-                  }).length;
-
-                  resolve(Math.floor(correct * 100 / submit.answers.length));
-                }
-                if (exam.questionSelection === 'manual') {
-                  var total = 0;
-                  var score = 0;
-                  _.each(exam.questions, function(question) {
-                    total += question.score;
-                    var answer = _.find(submit.answers, function(obj) {
-                      return obj.question === question.id;
+            var examScore = 0;
+            var candidateScore = 0;
+            var answer;
+            if (exam.questionSelection === 'auto') {
+              examScore = exam.questionScore * exam.questionNumber;
+              var questionIds = _.pluck(submit.answers, 'question');
+              if (questionIds && questionIds.length) {
+                QuestionsService.byIds({
+                  questionIds: questionIds
+                }, function(questions) {
+                  _.each(questions, function(question) {
+                    if (!question.optional) {
+                      if (question.grouped) {
+                        _.each(question.subQuestions, function(subQuestion) {
+                          answer = _.find(submit.answers, function(obj) {
+                            return obj.question === subQuestion._id;
+                          });
+                          if (answer && answer.isCorrect)
+                            candidateScore += exam.questionScore / question.subQuestions.length;
+                        });
+                      } else {
+                        answer = _.find(submit.answers, function(obj) {
+                          return obj.question === question._id;
+                        });
+                        if (answer && answer.isCorrect)
+                          candidateScore += exam.questionScore;
+                      }
+                    }
+                  });
+                });
+              }
+            }
+            if (exam.questionSelection === 'manual') {
+              _.each(exam.questions, function(question) {
+                if (!question.optional) {
+                  examScore += question.score;
+                  if (question.grouped) {
+                    _.each(question.subQuestions, function(subQuestion) {
+                      answer = _.find(submit.answers, function(obj) {
+                        return obj.question === subQuestion._id;
+                      });
+                      if (answer && answer.isCorrect)
+                        candidateScore += question.score / question.subQuestions.length;
+                    });
+                  } else {
+                    answer = _.find(submit.answers, function(obj) {
+                      return obj.question === question._id;
                     });
                     if (answer && answer.isCorrect)
-                      score += question.score;
-                  });
-                  resolve(Math.floor(score * 100 / total));
+                      candidateScore += question.score;
+                  }
                 }
               });
-            });
+            }
+            resolve(Math.floor(candidateScore * 100 / examScore));
           });
         }
         return {
-          candidateProgress: function(candidateId, examId) {
+          candidateProgress: function(candidate, exam) {
             return $q(function(resolve, reject) {
-              var exam = ExamsService.get({
-                examId: examId
+              var submits = SubmissionsService.byCandidate({
+                candidateId: candidate._id
               }, function() {
-                var submits = SubmissionsService.byCandidate({
-                  candidateId: candidateId
-                }, function() {
-                  var firstSubmit = _.max(submits, function(submit) {
-                    return new Date(submit.start).getTime();
-                  });
-                  var lastSubmit = _.min(submits, function(submit) {
-                    return new Date(submit.start).getTime();
-                  });
-                  var progress = {
-                    percentage: Math.floor(submits.length * 100 / exam.maxAttempt),
-                    count: submits.length,
-                    firstSubmit: firstSubmit,
-                    lastSubmit: lastSubmit
-                  };
-                  resolve(progress);
+                var firstSubmit = _.max(submits, function(submit) {
+                  return new Date(submit.start).getTime();
                 });
+                var lastSubmit = _.min(submits, function(submit) {
+                  return new Date(submit.start).getTime();
+                });
+                var progress = {
+                  percentage: Math.floor(submits.length * 100 / exam.maxAttempt),
+                  count: submits.length,
+                  firstSubmit: firstSubmit,
+                  lastSubmit: lastSubmit
+                };
+                resolve(progress);
               });
             });
           },
-          pendingSubmit: function(candidateId, examId) {
+          pendingSubmit: function(candidate, exam) {
             return $q(function(resolve, reject) {
-              var exam = ExamsService.get({
-                examId: examId
+              var submits = SubmissionsService.byCandidate({
+                candidateId: candidate._id
               }, function() {
-                var submits = SubmissionsService.byCandidate({
-                  candidateId: candidateId
-                }, function() {
-                  var now = new Date();
-                  var pendingSubmit = _.find(submits, function(submit) {
-                    var start = new Date(submit.start);
-                    return submit.status === 'pending' && start.getTime() + exam.duration * 60 * 1000 > now.getTime();
-                  });
-                  var progress = {
-                    pending: pendingSubmit,
-                    percentage: Math.floor(submits.length * 100 / exam.maxAttempt),
-                    count: submits.length
-                  };
-                  resolve(progress);
+                var now = new Date();
+                var pendingSubmit = _.find(submits, function(submit) {
+                  var start = new Date(submit.start);
+                  return submit.status === 'pending' && start.getTime() + exam.duration * 60 * 1000 > now.getTime();
                 });
+                var progress = {
+                  pending: pendingSubmit,
+                  percentage: Math.floor(submits.length * 100 / exam.maxAttempt),
+                  count: submits.length
+                };
+                resolve(progress);
               });
             });
           },
@@ -108,17 +127,17 @@
             });
           },
           candidateScoreByBusmit: candidateScoreByBusmit,
-          candidateScore: function(candidateId, examId) {
+          candidateScore: function(candidate, exam) {
             return $q(function(resolve, reject) {
               SubmissionsService.byExamAndCandidate({
-                examId: examId,
-                candidateId: candidateId
+                examId: exam._id,
+                candidateId: candidate._id
               }, function(submits) {
                 if (submits && submits.length) {
                   var latestSubmit = _.max(submits, function(submit) {
                     return new Date(submit.start).getTime();
                   });
-                  candidateScoreByBusmit(candidateId, examId, latestSubmit._id).then(function(score) {
+                  candidateScoreByBusmit(candidate, exam, latestSubmit).then(function(score) {
                     resolve(score);
                   });
                 } else {

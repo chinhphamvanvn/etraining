@@ -6,15 +6,20 @@
     .module('shared.models')
     .factory('CourseMembersService', CourseMembersService);
 
-  CourseMembersService.$inject = ['$resource'];
+  CourseMembersService.$inject = ['$resource', '_transform'];
 
-  function CourseMembersService($resource) {
+  function CourseMembersService($resource, _transform) {
     return $resource('/api/members/:memberId', {
       memberId: '@_id'
     },
       {
         update: {
-          method: 'PUT'
+          method: 'PUT',
+          transformRequest: _transform.unpopulate
+        },
+        save: {
+          method: 'POST',
+          transformRequest: _transform.unpopulate
         },
         byCourse: {
           method: 'GET',
@@ -33,11 +38,13 @@
         },
         withdraw: {
           method: 'PUT',
-          url: '/api/members/withdraw/:memberId'
+          url: '/api/members/withdraw/:memberId',
+          transformRequest: _transform.unpopulate
         },
         complete: {
           method: 'PUT',
-          url: '/api/members/complete/:memberId/:teacherId'
+          url: '/api/members/complete/:memberId/:teacherId',
+          transformRequest: _transform.unpopulate
         },
         byUserAndCourse: {
           method: 'GET',

@@ -17,8 +17,8 @@
       templateUrl: '/src/client/lms/directives/answer-sheet/answer.sheet.directive.client.view.html',
       link: function(scope, element, attributes) {
         scope.questions = [];
-        scope.$watch('answers', function() {
-          if (scope.answers) {
+        scope.$watchGroup(['answers', 'exam'], function() {
+          if (scope.answers && scope.exam) {
             if (scope.exam.questionSelection === 'manual') {
               scope.questionNumber = scope.exam.questions.length;
               _.each(scope.answers, function(answer) {

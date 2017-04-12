@@ -81,7 +81,7 @@ exports.delete = function(req, res) {
  * List of CompetencyAchievements
  */
 exports.list = function(req, res) {
-  CompetencyAchievement.find().sort('-created').populate('user', 'displayName').exec(function(err, achievements) {
+  CompetencyAchievement.find().sort('-created').populate('user', 'displayName').populate('competency').populate('achiever').populate('granter').exec(function(err, achievements) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -136,7 +136,7 @@ exports.achievementByID = function(req, res, next, id) {
     });
   }
 
-  CompetencyAchievement.findById(id).populate('user', 'displayName').exec(function(err, achievement) {
+  CompetencyAchievement.findById(id).populate('user', 'displayName').populate('competency').populate('achiever').populate('granter').exec(function(err, achievement) {
     if (err) {
       return next(err);
     } else if (!achievement) {

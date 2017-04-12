@@ -6,14 +6,19 @@
     .module('shared.models')
     .factory('AnnoucementsService', AnnoucementsService);
 
-  AnnoucementsService.$inject = ['$resource'];
+  AnnoucementsService.$inject = ['$resource', '_transform'];
 
-  function AnnoucementsService($resource) {
+  function AnnoucementsService($resource, _transform) {
     return $resource('/api/annoucements/:annoucementId', {
       annoucementId: '@_id'
     }, {
       update: {
-        method: 'PUT'
+        method: 'PUT',
+        transformRequest: _transform.unpopulate
+      },
+      save: {
+        method: 'POST',
+        transformRequest: _transform.unpopulate
       },
       listPublished: {
         url: '/api/annoucements/public',
@@ -22,7 +27,8 @@
       },
       distribute: {
         url: '/api/annoucements/distribute/:annoucementId/:users',
-        method: 'POST'
+        method: 'POST',
+        transformRequest: _transform.unpopulate
       }
     });
   }

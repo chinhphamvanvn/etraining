@@ -5,9 +5,9 @@
   // Unless the user is on a small device, because this could obscure the page with a keyboard
 
   angular.module('lms')
-    .directive('gradebook', ['EditionSectionsService', 'ExamsService', 'AttemptsService', 'QuestionsService', 'OptionsService', 'treeUtils', '$translate', '_', gradebook]);
+    .directive('gradebook', ['EditionSectionsService', 'ExamsService', 'AttemptsService', 'QuestionsService', 'OptionsService', 'courseUtils', 'treeUtils', '$translate', '$q', '_', gradebook]);
 
-  function gradebook(EditionSectionsService, ExamsService, AttemptsService, QuestionsService, OptionsService, treeUtils, $translate, _) {
+  function gradebook(EditionSectionsService, ExamsService, AttemptsService, QuestionsService, OptionsService, courseUtils, treeUtils, $translate, $q, _) {
     return {
       scope: {
         course: '=',
@@ -17,100 +17,8 @@
       },
       templateUrl: '/src/client/lms/directives/grade-book/grade-book.directive.client.view.html',
       link: function(scope, element, attributes) {
-        var sections = EditionSectionsService.byEdition({
-          editionId: scope.edition._id
-        }, function() {
-          sections = _.filter(sections, function(section) {
-            return section.visible;
-          });
-          scope.examListCsv = [];
-          scope.headerArrCsv = [];
-          scope.nodes = treeUtils.buildCourseTree(sections);
-
-          scope.examList = treeUtils.buildCourseListInOrder(scope.nodes);
-          scope.examList = _.filter(scope.examList, function(node) {
-            return node.data.hasContent && node.data.contentType === 'test';
-          });
-          scope.headerArrCsv[0] = ' ';
-          scope.inumber = 1;
-          scope.examObj = {};
-          _.each(scope.examList, function(node) {
-            scope.headerArrCsv[scope.inumber] = node.data.name;
-            scope.inumber++;
-          });
-          scope.examObj[0] = $translate.instant('PAGE.LMS.MY_COURSES.COURSE_GRADE.QUIZ_RATE');
-          _.each(scope.gradescheme.marks, function(mark, index) {
-            scope.examObj[index + 1] = mark.weight;
-          });
-          scope.examListCsv.push(scope.examObj);
-          scope.examObj = {};
-          scope.examObj[0] = $translate.instant('MODEL.GRADESCHEME.BENCHMARK');
-          scope.examObj[1] = scope.gradescheme.benchmark;
-          scope.examListCsv.push(scope.examObj);
-          scope.examObj = {};
-          scope.examObj[0] = $translate.instant('REPORT.STUDENT_MARK.MAX_SCORE');
-          scope.examObj1 = {};
-          scope.examObj1[0] = $translate.instant('PAGE.LMS.MY_EXAMS.SCOREBOOK.TITLE');
-          scope.inumber = 0;
-          scope.inumber1 = 0;
-
-          _.each(scope.examList, function(node, index) {
-            var mark = _.find(scope.gradescheme.marks, function(m) {
-              return node.id === m.quiz;
-            });
-            if (mark) {
-              node.weight = mark.weight;
-            } else {
-              node.weight = 0;
-            }
-            var section = node.data;
-            node.quiz = ExamsService.get({
-              examId: node.data.quiz
-            }, function() {
-              scope.examObj[index + 1] = node.quiz.questions.length;
-              scope.inumber++;
-              node.quiz.correctCount = 0;
-              _.each(node.quiz.questions, function(q) {
-                q.mark = 0;
-              });
-              if (scope.inumber === scope.examList.length) {
-                scope.examListCsv.push(scope.examObj);
-              }
-              var attempts = AttemptsService.bySectionAndMember({
-                editionId: scope.edition._id,
-                memberId: scope.member._id,
-                sectionId: section._id
-              }, function() {
-                node.latestAttempts = attempts;
-                scope.examDetail = '';
-                _.each(node.latestAttempts, function(latestAttempt) {
-                  latestAttempt.correctCount = 0;
-                  latestAttempt.questions = node.quiz.questions;
-                  if (latestAttempt.answers.length > 0) {
-                    _.each(latestAttempt.answers, function(answer) {
-                      var quizQuestion = _.find(latestAttempt.questions, function(q) {
-                        return q.id === answer.question;
-                      });
-                      if (answer.isCorrect) {
-                        quizQuestion.mark = 1;
-                        latestAttempt.correctCount++;
-                      } else {
-                        quizQuestion.mark = 0;
-                      }
-                    });
-                  }
-                  scope.examDetail = scope.examDetail + latestAttempt.correctCount + '  | ';
-                });
-                reloadChart();
-                scope.examObj1[index + 1] = scope.examDetail;
-                scope.inumber1++;
-                if (scope.inumber1 === scope.examList.length) {
-                  scope.examListCsv.push(scope.examObj1);
-                }
-              });
-            });
-          });
-        });
+        scope.sumStudentScore = 0;
+        scope.sumQuizScore = 0;
 
         var progress_chart_id = 'progress_chart';
         var progress_chart = c3.generate({
@@ -145,44 +53,130 @@
           }
         });
 
+        EditionSectionsService.byEdition({
+          editionId: scope.edition._id
+        }, function(sections) {
+          sections = _.filter(sections, function(section) {
+            return section.visible;
+          });
+          scope.quizSectionNodes = treeUtils.buildCourseTree(sections);
+          scope.quizSectionNodes = treeUtils.buildCourseListInOrder(scope.quizSectionNodes);
+          scope.quizSectionNodes = _.filter(scope.quizSectionNodes, function(node) {
+            return node.data.hasContent && node.data.contentType === 'test';
+          });
+          _.each(scope.quizSectionNodes, function(node) {
+            var mark = _.find(scope.gradescheme.marks, function(obj) {
+              return obj.quiz === node.id;
+            });
+            node.weight = mark.weight;
+            if (node.data.quiz) {
+              AttemptsService.bySectionAndMember({
+                editionId: scope.edition._id,
+                memberId: scope.member._id,
+                sectionId: node.id
+              }, function(attempts) {
+                node.attempts = attempts;
+                reloadChart();
+                ExamsService.get({
+                  examId: node.data.quiz
+                }, function(exam) {
+                  node.quiz = exam;
+                  _.each(node.attempts, function(attempt) {
+                    courseUtils.memberScoreByAttempt(scope.member, attempt, exam, scope.edition)
+                      .then(function(result) {
+                        attempt.weightPercent = result.weightPercent;
+                      });
+                  });
+                });
+              });
+            }
+          });
+        });
+
         function reloadChart() {
-          var quizName = ['x'];
-          var studentScore = [$translate.instant('REPORT.STUDENT_MARK.SCORE')];
-          var quizScore = [$translate.instant('REPORT.STUDENT_MARK.MAX_SCORE')];
-          var sumStudentScore = 0;
-          var sumQuizScore = 0;
-          _.each(scope.examList, function(node) {
-            quizName.push(node.data.name);
+          scope.sumQuizScore = 0;
+          var quizChartData = {};
+          var allPromises = [];
+          _.each(scope.quizSectionNodes, function(node) {
+            quizChartData[node.id] = {
+              quizName: node.data.name
+            };
             var scheme = _.find(scope.gradescheme.marks, function(scheme) {
               return scheme.quiz === node.data._id;
             });
             if (!scheme || !scheme.weight) {
-              scheme = {};
-              scheme.weight = 0;
-            }
-            quizScore.push(scheme.weight);
-            sumQuizScore += quizScore[quizScore.length - 1];
-            if (node.quiz && node.quiz.questions && node.quiz.questions.length > 0) {
-              var latestAttemptChart = _.max(node.latestAttempts, function(attempt) {
-                return new Date(attempt.start).getTime();
-              });
-              studentScore.push(latestAttemptChart.correctCount * scheme.weight / node.quiz.questions.length);
+              quizChartData[node.id].quizScore = 0;
+            } else
+              quizChartData[node.id].quizScore = scheme.weight;
+            scope.sumQuizScore += quizChartData[node.id].quizScore;
+            if (node.data.quiz) {
+              allPromises.push(courseUtils.memberScoreBySection(scope.member, node.data, scope.edition));
             } else {
-              studentScore.push(0);
+              quizChartData[node.id].studentScore = 0;
             }
-            sumStudentScore += studentScore[studentScore.length - 1];
           });
-          quizName.push($translate.instant('REPORT.STUDENT_MARK.SUMMARY'));
-          studentScore.push(sumStudentScore);
-          quizScore.push(sumQuizScore);
-          progress_chart.load({
-            columns: [
-              quizName,
-              studentScore,
-              quizScore
-            ]
+          $q.all(allPromises).then(function(sectionScores) {
+            scope.sumStudentScore = 0;
+            _.each(sectionScores, function(score) {
+              quizChartData[score.sectionId].studentScore = score.weightPercent;
+              scope.sumStudentScore += score.weightPercent;
+            });
+            var quizName = ['x'];
+            var studentScore = [$translate.instant('REPORT.STUDENT_MARK.SCORE')];
+            var quizScore = [$translate.instant('REPORT.STUDENT_MARK.MAX_SCORE')];
+            _.each(quizChartData, function(chartEntry) {
+              quizName.push(chartEntry.quizName);
+              studentScore.push(chartEntry.studentScore);
+              quizScore.push(chartEntry.quizScore);
+            });
+            quizName.push($translate.instant('REPORT.STUDENT_MARK.SUMMARY'));
+            studentScore.push(scope.sumStudentScore);
+            quizScore.push(scope.sumQuizScore);
+            progress_chart.load({
+              columns: [
+                quizName,
+                studentScore,
+                quizScore
+              ]
+            });
           });
         }
+
+        scope.getExportHeader = function() {
+          var header = [' '];
+          _.each(scope.quizSectionNodes, function(node) {
+            header.push(node.data.name);
+          });
+          return header;
+        };
+
+        scope.getExportData = function() {
+          var data = [];
+          var quizWeightRow = [$translate.instant('PAGE.LMS.MY_COURSES.COURSE_GRADE.QUIZ_RATE')];
+          var quizAttemptRow = [$translate.instant('PAGE.LMS.MY_EXAMS.SCOREBOOK.TITLE')];
+          var quizStudentScoreRow = [$translate.instant('REPORT.STUDENT_MARK.SCORE')];
+          _.each(scope.quizSectionNodes, function(node) {
+            var mark = _.find(scope.gradescheme.marks, function(obj) {
+              return obj.quiz === node.id;
+            });
+            quizWeightRow.push(mark.weight);
+            if (node.quiz) {
+              var attemptDetail = '';
+              _.each(node.attempts, function(attempt) {
+                attemptDetail += attempt.weightPercent + '|';
+              });
+              quizAttemptRow.push(attemptDetail);
+            } else {
+              quizWeightRow.push(0);
+              quizAttemptRow.push('');
+            }
+          });
+          data.push(quizWeightRow);
+          data.push(quizAttemptRow);
+          data.push([$translate.instant('REPORT.STUDENT_MARK.SCORE'), scope.sumStudentScore]);
+          data.push([$translate.instant('REPORT.STUDENT_MARK.MAX_SCORE'), scope.sumQuizScore]);
+          return data;
+        };
       }
     };
   }

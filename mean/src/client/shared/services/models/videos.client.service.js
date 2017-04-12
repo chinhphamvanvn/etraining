@@ -6,14 +6,19 @@
     .module('shared.models')
     .factory('VideosService', VideosService);
 
-  VideosService.$inject = ['$resource'];
+  VideosService.$inject = ['$resource', '_transform'];
 
-  function VideosService($resource) {
+  function VideosService($resource, _transform) {
     return $resource('/api/videos/:videoId', {
       videoId: '@_id'
     }, {
       update: {
-        method: 'PUT'
+        method: 'PUT',
+        transformRequest: _transform.unpopulate
+      },
+      save: {
+        method: 'POST',
+        transformRequest: _transform.unpopulate
       }
     });
   }

@@ -36,11 +36,11 @@
                 return new Date(attempt.start).getTime();
               });
             });
-            courseUtils.memberTime(member._id).then(function(time) {
+            courseUtils.memberTime(member).then(function(time) {
               member.time = time;
             });
-            courseUtils.memberScoreByCourse(member._id, member.edition).then(function(score) {
-              member.score = score.totalScore;
+            courseUtils.memberScoreByCourse(member, member.edition).then(function(score) {
+              member.score = score.totalPercent;
             });
             vm.members.push(member);
           });

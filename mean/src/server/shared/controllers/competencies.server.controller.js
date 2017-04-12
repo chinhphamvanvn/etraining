@@ -81,7 +81,7 @@ exports.delete = function(req, res) {
  * List of Competencies
  */
 exports.list = function(req, res) {
-  Competency.find().sort('-created').populate('user', 'displayName').exec(function(err, competencies) {
+  Competency.find().sort('-created').populate('user', 'displayName').populate('group').exec(function(err, competencies) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -95,7 +95,7 @@ exports.list = function(req, res) {
 exports.listByGroup = function(req, res) {
   Competency.find({
     group: req.group._id
-  }).sort('-created').populate('user', 'displayName').exec(function(err, competencies) {
+  }).sort('-created').populate('user', 'displayName').populate('group').exec(function(err, competencies) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -117,7 +117,7 @@ exports.competencyByID = function(req, res, next, id) {
     });
   }
 
-  Competency.findById(id).populate('user', 'displayName').exec(function(err, competency) {
+  Competency.findById(id).populate('user', 'displayName').populate('group').exec(function(err, competency) {
     if (err) {
       return next(err);
     } else if (!competency) {

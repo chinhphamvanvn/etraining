@@ -191,7 +191,7 @@ exports.delete = function(req, res) {
  * List of Conferences
  */
 exports.list = function(req, res) {
-  Conference.find().sort('-created').populate('user', 'displayName').exec(function(err, conferences) {
+  Conference.find().sort('-created').populate('user', 'displayName').populate('classroom').exec(function(err, conferences) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -205,7 +205,7 @@ exports.list = function(req, res) {
 exports.conferenceByClass = function(req, res) {
   Conference.findOne({
     classroom: req.classroom._id
-  }).sort('-created').populate('user', 'displayName').exec(function(err, conferences) {
+  }).sort('-created').populate('user', 'displayName').populate('classroom').exec(function(err, conferences) {
     if (err) {
       return res.status(422).send({
         message: errorHandler.getErrorMessage(err)
@@ -227,7 +227,7 @@ exports.conferenceByID = function(req, res, next, id) {
     });
   }
 
-  Conference.findById(id).populate('user', 'displayName').exec(function(err, conference) {
+  Conference.findById(id).populate('user', 'displayName').populate('classroom').exec(function(err, conference) {
     if (err) {
       return next(err);
     } else if (!conference) {

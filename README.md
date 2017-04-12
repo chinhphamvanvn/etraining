@@ -56,10 +56,13 @@ forever start server.js
 - Add question directive in LMS module
 - Add question type to Question model
 - Add answer field to Answer model
+- Add translation
+- Add to question-info directive
+- Add to answer-sheet directive
 
 ## Authors
 
-* **Quang Nguyen** - *Initial work* - [PurpleBooth](https://github.com/nngu6036)
+* **Quang Nguyen** - *Initial work* - [e-Training](https://github.com/nngu6036)
 
 ## License
 

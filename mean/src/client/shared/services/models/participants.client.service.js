@@ -6,14 +6,19 @@
     .module('shared.models')
     .factory('ConferenceParticipantsService', ConferenceParticipantsService);
 
-  ConferenceParticipantsService.$inject = ['$resource'];
+  ConferenceParticipantsService.$inject = ['$resource', '_transform'];
 
-  function ConferenceParticipantsService($resource) {
+  function ConferenceParticipantsService($resource, _transform) {
     return $resource('/api/participants/:participantId', {
       participantId: '@_id'
     }, {
       update: {
-        method: 'PUT'
+        method: 'PUT',
+        transformRequest: _transform.unpopulate
+      },
+      save: {
+        method: 'POST',
+        transformRequest: _transform.unpopulate
       },
       byConference: {
         method: 'GET',

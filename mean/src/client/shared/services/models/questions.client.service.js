@@ -6,14 +6,19 @@
     .module('shared.models')
     .factory('QuestionsService', QuestionsService);
 
-  QuestionsService.$inject = ['$resource'];
+  QuestionsService.$inject = ['$resource', '_transform'];
 
-  function QuestionsService($resource) {
+  function QuestionsService($resource, _transform) {
     return $resource('/api/questions/:questionId', {
       questionId: '@_id'
     }, {
       update: {
-        method: 'PUT'
+        method: 'PUT',
+        transformRequest: _transform.unpopulate
+      },
+      save: {
+        method: 'POST',
+        transformRequest: _transform.unpopulate
       },
       bulkCreate: {
         method: 'POST',

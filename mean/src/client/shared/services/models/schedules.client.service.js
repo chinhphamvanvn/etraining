@@ -6,14 +6,19 @@
     .module('shared.models')
     .factory('SchedulesService', SchedulesService);
 
-  SchedulesService.$inject = ['$resource'];
+  SchedulesService.$inject = ['$resource', '_transform'];
 
-  function SchedulesService($resource) {
+  function SchedulesService($resource, _transform) {
     return $resource('/api/schedules/:scheduleId', {
       scheduleId: '@_id'
     }, {
       update: {
-        method: 'PUT'
+        method: 'PUT',
+        transformRequest: _transform.unpopulate
+      },
+      save: {
+        method: 'POST',
+        transformRequest: _transform.unpopulate
       }
     });
   }

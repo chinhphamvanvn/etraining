@@ -183,4 +183,4 @@
     vm.prevSection = $scope.$parent.prevSection;
 
   }
-}());
+}(window.UIkit));

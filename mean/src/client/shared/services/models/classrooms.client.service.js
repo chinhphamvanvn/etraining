@@ -6,14 +6,19 @@
     .module('shared.models')
     .factory('ClassroomsService', ClassroomsService);
 
-  ClassroomsService.$inject = ['$resource'];
+  ClassroomsService.$inject = ['$resource', '_transform'];
 
-  function ClassroomsService($resource) {
+  function ClassroomsService($resource, _transform) {
     return $resource('/api/classrooms/:classroomId', {
       classroomId: '@_id'
     }, {
       update: {
-        method: 'PUT'
+        method: 'PUT',
+        transformRequest: _transform.unpopulate
+      },
+      save: {
+        method: 'POST',
+        transformRequest: _transform.unpopulate
       },
       byCourse: {
         method: 'GET',

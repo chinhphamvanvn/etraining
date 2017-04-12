@@ -6,14 +6,19 @@
     .module('shared.models')
     .factory('CourseProgramsService', CourseProgramsService);
 
-  CourseProgramsService.$inject = ['$resource'];
+  CourseProgramsService.$inject = ['$resource', '_transform'];
 
-  function CourseProgramsService($resource) {
+  function CourseProgramsService($resource, _transform) {
     return $resource('/api/programs/:programId', {
       programId: '@_id'
     }, {
       update: {
-        method: 'PUT'
+        method: 'PUT',
+        transformRequest: _transform.unpopulate
+      },
+      save: {
+        method: 'POST',
+        transformRequest: _transform.unpopulate
       },
       listPublic: {
         method: 'GET',

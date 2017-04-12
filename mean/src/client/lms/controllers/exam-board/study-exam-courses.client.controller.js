@@ -27,7 +27,7 @@
       $rootScope.topMenuActive = false;
     });
 
-    examUtils.pendingSubmit(vm.candidate._id, vm.exam._id).then(function(progress) {
+    examUtils.pendingSubmit(vm.candidate, vm.exam).then(function(progress) {
 
       if (!progress.pending) {
         if (progress.count >= vm.exam.maxAttempt) {

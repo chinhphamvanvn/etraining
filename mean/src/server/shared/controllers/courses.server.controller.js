@@ -96,7 +96,7 @@ exports.delete = function(req, res) {
  * List of Courses
  */
 exports.list = function(req, res) {
-  Course.find().sort('-created').populate('user', 'displayName').populate('group').populate('prequisites').exec(function(err, courses) {
+  Course.find().sort('-created').populate('user', 'displayName').populate('group').populate('prequisites').populate('competencies').populate('primaryEdition').exec(function(err, courses) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -112,7 +112,7 @@ exports.listPublic = function(req, res) {
     status: 'available',
     enrollStatus: true,
     displayMode: 'open'
-  }).sort('-created').populate('user', 'displayName').populate('group').populate('prequisites').exec(function(err, courses) {
+  }).sort('-created').populate('user', 'displayName').populate('group').populate('prequisites').populate('competencies').populate('primaryEdition').exec(function(err, courses) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -128,7 +128,7 @@ exports.listPrivate = function(req, res) {
     status: 'available',
     enrollStatus: true,
     displayMode: 'enroll'
-  }).sort('-created').populate('user', 'displayName').populate('group').populate('prequisites').exec(function(err, courses) {
+  }).sort('-created').populate('user', 'displayName').populate('group').populate('prequisites').populate('competencies').populate('primaryEdition').exec(function(err, courses) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -144,7 +144,7 @@ exports.listRestricted = function(req, res) {
     status: 'available',
     enrollStatus: true,
     displayMode: 'login'
-  }).sort('-created').populate('user', 'displayName').populate('group').populate('prequisites').exec(function(err, courses) {
+  }).sort('-created').populate('user', 'displayName').populate('group').populate('prequisites').populate('competencies').populate('primaryEdition').exec(function(err, courses) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -158,7 +158,7 @@ exports.listRestricted = function(req, res) {
 exports.listByGroup = function(req, res) {
   Course.find({
     group: req.group._id
-  }).sort('-created').populate('user', 'displayName').populate('group').populate('prequisites').exec(function(err, courses) {
+  }).sort('-created').populate('user', 'displayName').populate('group').populate('prequisites').populate('competencies').populate('primaryEdition').exec(function(err, courses) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -181,7 +181,7 @@ exports.listByKeyword = function(req, res) {
       $regex: regex
     },
     status: 'available'
-  }).sort('-created').exec(function(err, courses) {
+  }).sort('-created').populate('group').populate('prequisites').populate('competencies').populate('primaryEdition').exec(function(err, courses) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -203,7 +203,7 @@ exports.courseByID = function(req, res, next, id) {
     });
   }
 
-  Course.findById(id).populate('user', 'displayName').exec(function(err, course) {
+  Course.findById(id).populate('user', 'displayName').populate('group').populate('prequisites').populate('competencies').populate('primaryEdition').exec(function(err, course) {
     if (err) {
       return next(err);
     } else if (!course) {

@@ -81,7 +81,7 @@ exports.delete = function(req, res) {
  * List of Sections
  */
 exports.list = function(req, res) {
-  EditionSection.find().sort('-created').populate('user', 'displayName').exec(function(err, sections) {
+  EditionSection.find().sort('-created').populate('user', 'displayName').populate('edition').exec(function(err, sections) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -98,7 +98,7 @@ exports.list = function(req, res) {
 exports.sectionByEditionID = function(req, res) {
   EditionSection.find({
     edition: req.edition._id
-  }).sort('-created').populate('user', 'displayName').exec(function(err, sections) {
+  }).sort('-created').populate('user', 'displayName').populate('edition').exec(function(err, sections) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -117,7 +117,7 @@ exports.listSurveyByEditionID = function(req, res) {
     survey: {
       $ne: null
     }
-  }).sort('-created').populate('user', 'displayName').populate('survey').exec(function(err, sections) {
+  }).sort('-created').populate('user', 'displayName').populate('survey').populate('edition').exec(function(err, sections) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -139,7 +139,7 @@ exports.sectionByID = function(req, res, next, id) {
     });
   }
 
-  EditionSection.findById(id).populate('user', 'displayName').exec(function(err, section) {
+  EditionSection.findById(id).populate('user', 'displayName').populate('edition').exec(function(err, section) {
     if (err) {
       return next(err);
     } else if (!section) {

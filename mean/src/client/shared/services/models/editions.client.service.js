@@ -6,14 +6,19 @@
     .module('shared.models')
     .factory('CourseEditionsService', CourseEditionsService);
 
-  CourseEditionsService.$inject = ['$resource'];
+  CourseEditionsService.$inject = ['$resource', '_transform'];
 
-  function CourseEditionsService($resource) {
+  function CourseEditionsService($resource, _transform) {
     return $resource('/api/editions/:editionId', {
       editionId: '@_id'
     }, {
       update: {
-        method: 'PUT'
+        method: 'PUT',
+        transformRequest: _transform.unpopulate
+      },
+      save: {
+        method: 'POST',
+        transformRequest: _transform.unpopulate
       },
       byCourse: {
         method: 'GET',

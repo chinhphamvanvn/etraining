@@ -405,7 +405,7 @@ exports.delete = function(req, res) {
  * List of Participants
  */
 exports.list = function(req, res) {
-  ConferenceParticipant.find().sort('-created').populate('user', 'displayName').exec(function(err, participants) {
+  ConferenceParticipant.find().sort('-created').populate('user', 'displayName').populate('conference').populate('member').exec(function(err, participants) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -419,7 +419,7 @@ exports.list = function(req, res) {
 exports.participantByMember = function(req, res) {
   ConferenceParticipant.findOne({
     member: req.member._id
-  }).sort('-created').populate('user', 'displayName').exec(function(err, participant) {
+  }).sort('-created').populate('user', 'displayName').populate('conference').populate('member').exec(function(err, participant) {
     if (err) {
       return res.status(422).send({
         message: errorHandler.getErrorMessage(err)
@@ -433,7 +433,7 @@ exports.participantByMember = function(req, res) {
 exports.listByConference = function(req, res) {
   ConferenceParticipant.find({
     conference: req.conference._id
-  }).sort('-created').populate('user', 'displayName').exec(function(err, participants) {
+  }).sort('-created').populate('user', 'displayName').populate('conference').populate('member').exec(function(err, participants) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -455,7 +455,7 @@ exports.participantByID = function(req, res, next, id) {
     });
   }
 
-  ConferenceParticipant.findById(id).populate('user', 'displayName').exec(function(err, participant) {
+  ConferenceParticipant.findById(id).populate('user', 'displayName').populate('conference').populate('member').exec(function(err, participant) {
     if (err) {
       return next(err);
     } else if (!participant) {

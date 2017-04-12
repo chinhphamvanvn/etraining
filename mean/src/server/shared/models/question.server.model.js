@@ -45,8 +45,22 @@ var QuestionSchema = new Schema({
   },
   type: {
     type: String,
-    enum: ['mc', 'sc', 'tf', 'fb', 'ext', 'dnd', 'pic', 'as', 'grp'],
+    enum: ['mc', 'sc', 'tf', 'fb', 'ext', 'dnd', 'pic', 'as'],
     default: 'sc'
+  },
+  optional: {
+    type: Boolean,
+    default: false
+  },
+  grouped: {
+    type: Boolean,
+    default: false
+  },
+  subQuestions: {
+    type: [{
+      type: Schema.ObjectId,
+      ref: 'Question'
+    }]
   }
 });
 

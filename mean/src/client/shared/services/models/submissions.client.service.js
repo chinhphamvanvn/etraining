@@ -6,14 +6,19 @@
     .module('shared.models')
     .factory('SubmissionsService', SubmissionsService);
 
-  SubmissionsService.$inject = ['$resource'];
+  SubmissionsService.$inject = ['$resource', '_transform'];
 
-  function SubmissionsService($resource) {
+  function SubmissionsService($resource, _transform) {
     return $resource('/api/submissions/:submissionId', {
       submissionId: '@_id'
     }, {
       update: {
-        method: 'PUT'
+        method: 'PUT',
+        transformRequest: _transform.unpopulate
+      },
+      save: {
+        method: 'POST',
+        transformRequest: _transform.unpopulate
       },
       byCandidate: {
         url: '/api/submissions/byCandidate/:candidateId',

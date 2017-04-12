@@ -6,14 +6,19 @@
     .module('shared.models')
     .factory('SettingsService', SettingsService);
 
-  SettingsService.$inject = ['$resource'];
+  SettingsService.$inject = ['$resource', '_transform'];
 
-  function SettingsService($resource) {
+  function SettingsService($resource, _transform) {
     var Settings = $resource('/api/settings/:settingId', {
       settingId: '@_id'
     }, {
       update: {
-        method: 'PUT'
+        method: 'PUT',
+        transformRequest: _transform.unpopulate
+      },
+      save: {
+        method: 'POST',
+        transformRequest: _transform.unpopulate
       },
       byCode: {
         method: 'GET',

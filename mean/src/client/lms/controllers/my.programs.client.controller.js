@@ -20,7 +20,7 @@
         if (member.enrollmentStatus === 'completed')
           member.program.percentage = 100;
 
-        programUtils.memberProgress(member._id, member.program._id).then(function(progress) {
+        programUtils.memberProgress(member, member.program).then(function(progress) {
           member.program.percentage = progress.completePercentage;
         });
       });

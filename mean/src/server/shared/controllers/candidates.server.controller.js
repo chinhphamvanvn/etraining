@@ -241,7 +241,7 @@ exports.candidateByUserAndSchedule = function(req, res) {
   ExamCandidate.findOne({
     candidate: req.params.userId,
     schedule: req.schedule._id
-  }).sort('-created').populate('candidate').populate('schedule').exec(function(err, candidate) {
+  }).sort('-created').populate('candidate').populate('schedule').populate('exam').exec(function(err, candidate) {
     if (err || !candidate) {
       return res.status(422).send({
         message: 'No candidate found'
@@ -256,7 +256,7 @@ exports.candidateByUserAndSchedule = function(req, res) {
  * List of ExamCandidates
  */
 exports.list = function(req, res) {
-  ExamCandidate.find().sort('-created').populate('user', 'displayName').exec(function(err, candidates) {
+  ExamCandidate.find().sort('-created').populate('user', 'displayName').populate('candidate').populate('schedule').populate('exam').exec(function(err, candidates) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -307,7 +307,7 @@ exports.candidateByID = function(req, res, next, id) {
     });
   }
 
-  ExamCandidate.findById(id).populate('user', 'displayName').populate('candidate').exec(function(err, candidate) {
+  ExamCandidate.findById(id).populate('user', 'displayName').populate('candidate').populate('schedule').populate('exam').exec(function(err, candidate) {
     if (err) {
       return next(err);
     } else if (!candidate) {

@@ -81,7 +81,7 @@ exports.delete = function(req, res) {
  * List of Answers
  */
 exports.list = function(req, res) {
-  Answer.find().sort('-created').populate('user', 'displayName').exec(function(err, answers) {
+  Answer.find().sort('-created').populate('user', 'displayName').populate('question').populate('options').exec(function(err, answers) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -95,7 +95,7 @@ exports.list = function(req, res) {
 exports.listByAttempt = function(req, res) {
   Answer.find({
     attempt: req.attempt._id
-  }).sort('-created').populate('user', 'displayName').exec(function(err, answers) {
+  }).sort('-created').populate('user', 'displayName').populate('question').populate('options').exec(function(err, answers) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -117,7 +117,7 @@ exports.answerByID = function(req, res, next, id) {
     });
   }
 
-  Answer.findById(id).populate('user', 'displayName').exec(function(err, answer) {
+  Answer.findById(id).populate('user', 'displayName').populate('question').populate('options').exec(function(err, answer) {
     if (err) {
       return next(err);
     } else if (!answer) {

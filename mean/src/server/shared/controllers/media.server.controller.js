@@ -84,7 +84,7 @@ exports.delete = function(req, res) {
  * List of Media
  */
 exports.list = function(req, res) {
-  LibraryMedium.find().sort('-created').populate('user', 'displayName').exec(function(err, media) {
+  LibraryMedium.find().sort('-created').populate('user', 'displayName').populate('group').exec(function(err, media) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -98,7 +98,7 @@ exports.list = function(req, res) {
 exports.listByGroup = function(req, res) {
   LibraryMedium.find({
     group: req.group._id
-  }).sort('-created').populate('user', 'displayName').exec(function(err, media) {
+  }).sort('-created').populate('user', 'displayName').populate('group').exec(function(err, media) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -118,7 +118,7 @@ exports.listByKeyword = function(req, res) {
       $regex: regex
     },
     published: true
-  }).sort('-created').exec(function(err, media) {
+  }).sort('-created').populate('group').exec(function(err, media) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -140,7 +140,7 @@ exports.mediumByID = function(req, res, next, id) {
     });
   }
 
-  LibraryMedium.findById(id).populate('user', 'displayName').exec(function(err, medium) {
+  LibraryMedium.findById(id).populate('user', 'displayName').populate('group').exec(function(err, medium) {
     if (err) {
       return next(err);
     } else if (!medium) {

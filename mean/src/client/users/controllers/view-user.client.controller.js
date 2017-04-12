@@ -63,9 +63,9 @@
         }, function(certificate) {
           vm.certificates.push(certificate);
         });
-        courseUtils.memberProgress(member._id, member.edition).then(function(percentage) {
+        courseUtils.memberProgress(member, member.edition).then(function(percentage) {
           member.percentage = percentage;
-          courseUtils.memberTime(member._id).then(function(time) {
+          courseUtils.memberTime(member).then(function(time) {
             member.timeSpent = time;
             var memberCsv = {
               name: member.course.name,
