@@ -12,7 +12,7 @@
               _.each(program.courses, function(course) {
                 allPromises.push(CourseMembersService.byUserAndCourse({
                   userId: member.member._id,
-                  courseId: course
+                  courseId: course._id
                 }).$promise);
               });
               $q.all(allPromises).then(function(courseMembers) {

@@ -19,10 +19,11 @@
           member.program.percentage = 0;
         if (member.enrollmentStatus === 'completed')
           member.program.percentage = 100;
-
-        programUtils.memberProgress(member, member.program).then(function(progress) {
-          member.program.percentage = progress.completePercentage;
-        });
+        CourseProgramsService.get({programId:member.program._id},function(program) {
+          programUtils.memberProgress(member, program).then(function(progress) {
+            member.program.percentage = progress.completePercentage;
+          });
+        });        
       });
     });
     vm.unenroll = unenroll;

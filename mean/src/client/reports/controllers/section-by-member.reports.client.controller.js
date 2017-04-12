@@ -29,7 +29,7 @@
                 memberId: member._id
               }, function() {
                 var sections = EditionSectionsService.byEdition({
-                  editionId: member.edition
+                  editionId: member.edition._id
                 }, function() {
                   _.each(sections, function(section) {
                     var sectionAttemps = _.filter(attemps, function(attempt) {

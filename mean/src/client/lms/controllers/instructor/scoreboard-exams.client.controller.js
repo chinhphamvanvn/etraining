@@ -28,7 +28,7 @@
         if (vm.schedule.competency) {
           CompetencyAchievementsService.byUserAndCompetency({
             achiever: candidate.candidate._id,
-            competencyId: vm.schedule.competency
+            competencyId: vm.schedule.competency._id
           }, function(achievement) {
             candidate.achievement = achievement;
             console.log(achievement);
