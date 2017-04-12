@@ -257,6 +257,7 @@ module.exports = {
       'public/assets/img/**/*.png',
       'public/assets/img/**/*.svg'
     ],
+    font: ['public/lib/uikit/fonts/*.*'],
     views: ['src/client/**/*.html'],
     templates: ['build/templates.js']
   },
