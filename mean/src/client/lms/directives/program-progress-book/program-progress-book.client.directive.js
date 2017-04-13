@@ -17,17 +17,17 @@
       link: function(scope, element, attributes) {
         scope.courses = [];
         _.each(scope.program.courses, function(course) {
-            scope.courses.push(course);
-            course.percentage = 0;
-            course.member = CourseMembersService.byUserAndCourse({
-              userId: scope.member.member._id,
-              courseId: course._id
-            }, function() {
-              courseUtils.memberProgress(course.member, course.member.edition).then(function(progress) {
-                course.percentage = progress;
-              });
+          scope.courses.push(course);
+          course.percentage = 0;
+          course.member = CourseMembersService.byUserAndCourse({
+            userId: scope.member.member._id,
+            courseId: course._id
+          }, function() {
+            courseUtils.memberProgress(course.member, course.member.edition).then(function(progress) {
+              course.percentage = progress;
             });
           });
+        });
       }
     };
   }

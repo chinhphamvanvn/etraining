@@ -314,10 +314,10 @@ gulp.task('imagemin', function() {
     .pipe(gulp.dest('public/dist/img'));
 });
 
-//Filemin task
+// Filemin task
 gulp.task('fontmin', function() {
-return gulp.src(defaultAssets.client.font)
- .pipe(gulp.dest('public/fonts/'));
+  return gulp.src(defaultAssets.client.font)
+    .pipe(gulp.dest('public/fonts/'));
 });
 
 // wiredep task to default

@@ -53,7 +53,7 @@
                     });
                   } else {
                     answer = _.find(submit.answers, function(obj) {
-                      return obj.question === question._id;
+                      return obj.question === question.id;
                     });
                     if (answer && answer.isCorrect)
                       candidateScore += question.score;

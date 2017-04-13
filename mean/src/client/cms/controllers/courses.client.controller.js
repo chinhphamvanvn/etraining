@@ -33,6 +33,7 @@
         }
       });
 
+    vm.prequisites = _.pluck(vm.course.prequisites, '_id');
     vm.prequisiteConfig = {
       plugins: {
         'remove_button': {
@@ -45,11 +46,9 @@
       searchField: 'title',
       create: false
     };
-
     vm.prequisiteOptions = [];
-
-    CoursesService.query(function(data) {
-      vm.prequisiteOptions = _.map(data, function(obj) {
+    CoursesService.query(function(prequisites) {
+      vm.prequisiteOptions = _.map(prequisites, function(obj) {
         if (obj._id !== vm.course._id)
           return {
             id: obj._id,
@@ -59,6 +58,7 @@
       });
     });
 
+    vm.competencies = _.pluck(vm.course.competencies, '_id');
     vm.competencyConfig = {
       plugins: {
         'remove_button': {
@@ -71,11 +71,9 @@
       searchField: 'title',
       create: false
     };
-
     vm.competencyOptions = [];
-
-    vm.competencies = CompetenciesService.query(function() {
-      vm.competencyOptions = _.map(vm.competencies, function(obj) {
+    CompetenciesService.query(function(competencies) {
+      vm.competencyOptions = _.map(competencies, function(obj) {
         return {
           id: obj._id,
           title: obj.name,
@@ -185,6 +183,8 @@
     }
 
     function save() {
+      vm.course.competencies = vm.competencies;
+      vm.course.prequisites = vm.prequisites;
       if (!vm.course.group) {
         UIkit.modal.alert($translate.instant('ERROR.COURSE.EMPTY_COURSE_GROUP'));
         return;
