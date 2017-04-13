@@ -87,29 +87,29 @@
     }
 
     vm.competencyConfig = {
-        plugins: {
-          'remove_button': {
-            label: ''
-          }
-        },
-        maxItems: null,
-        valueField: 'value',
-        labelField: 'title',
-        searchField: 'title',
-        create: false
-      };
+      plugins: {
+        'remove_button': {
+          label: ''
+        }
+      },
+      maxItems: null,
+      valueField: 'value',
+      labelField: 'title',
+      searchField: 'title',
+      create: false
+    };
 
-      vm.competencies = _.pluck(vm.schedule.competencies,'_id');
-      vm.competencyOptions = [];
-      CompetenciesService.query(function(competencies) {
-        vm.competencyOptions = _.map(competencies, function(obj) {
-          return {
-            id: obj._id,
-            title: obj.name,
-            value: obj._id
-          };
-        });
+    vm.competencies = _.pluck(vm.schedule.competencies, '_id');
+    vm.competencyOptions = [];
+    CompetenciesService.query(function(competencies) {
+      vm.competencyOptions = _.map(competencies, function(obj) {
+        return {
+          id: obj._id,
+          title: obj.name,
+          value: obj._id
+        };
       });
+    });
 
     vm.groupConfig = {
       create: false,

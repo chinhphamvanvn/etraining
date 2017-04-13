@@ -33,6 +33,7 @@
         }
       });
 
+    vm.courses = _.pluck(vm.program.courses, '_id');
     vm.courseConfig = {
       plugins: {
         'remove_button': {
@@ -45,11 +46,9 @@
       searchField: 'title',
       create: false
     };
-
     vm.courseOptions = [];
-
-    CoursesService.query(function(data) {
-      vm.courseOptions = _.map(data, function(obj) {
+    CoursesService.query(function(courses) {
+      vm.courseOptions = _.map(courses, function(obj) {
         return {
           id: obj._id,
           title: obj.name,
@@ -58,6 +57,7 @@
       });
     });
 
+    vm.competencies = _.pluck(vm.program.competencies, '_id');
     vm.competencyConfig = {
       plugins: {
         'remove_button': {
@@ -70,11 +70,9 @@
       searchField: 'title',
       create: false
     };
-
     vm.competencyOptions = [];
-
-    CompetenciesService.query(function(data) {
-      vm.competencyOptions = _.map(data, function(obj) {
+    CompetenciesService.query(function(competencies) {
+      vm.competencyOptions = _.map(competencies, function(obj) {
         return {
           id: obj._id,
           title: obj.name,
@@ -116,6 +114,8 @@
 
 
     function save() {
+      vm.program.competencies = vm.competencies;
+      vm.program.courses = vm.courses;
       if (!vm.program._id)
         vm.program.$save(onSaveSuccess, onSaveFailure);
       else

@@ -6,7 +6,7 @@ module.exports = {
       css: 'public/dist/vendor*.min.css',
       js: 'public/dist/vendor*.min.js'
     },
-    font:[],
+    font: [],
     css: 'public/assets/css/main.min.css',
     js: 'public/dist/application*.min.js'
   },
