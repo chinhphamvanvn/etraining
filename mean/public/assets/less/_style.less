@@ -1,6 +1,8 @@
 /* General style =================================== */
 @radius: 5px;
-*, body {
+
+*,
+body {
   font-size: 16px;
 }
 
@@ -21,7 +23,7 @@
 }
 
 .no-margin-top {
-  margin-top: 0 !important;
+  margin-top: 0px !important;
 }
 
 .border-radius {
@@ -45,25 +47,26 @@
 /* Header ======================================== */
 @media (max-width: 767px) {
   #header_main #sSwitch_primary {
-    padding: 12px 0 !important;
+    padding: 12px 0px !important;
   }
 }
 
 /* Homepage ======================================== */
 .course-title {
   font-size: 1.05rem;
-  padding: 0;
   line-height: 20px;
-  min-height: 40px;
   max-height: 40px;
+  min-height: 40px;
+  padding: 0px;
 }
 
 .course-info {
-  min-height: 20px;
   max-height: 40px;
+  min-height: 20px;
+
   .author {
-    padding-top: 5px;
     font-size: 13px;
+    padding-top: 5px;
     text-transform: capitalize;
   }
 }
@@ -87,11 +90,12 @@
 /* List courses and library admin style =================== */
 .uk-grid + .md-card-courses,
 .uk-grid + .md-card-medias {
-  margin-top: 0;
+  margin-top: 0px;
 }
 
 .admin-header-container {
   margin-bottom: 10px;
+
   .admin-page-title {
     line-height: 44px;
   }
@@ -99,6 +103,7 @@
 
 .showmore-container {
   margin-top: 40px;
+
   i {
     margin-left: 5px;
   }
@@ -107,22 +112,24 @@
 .search-box,
 .main-search-box {
   input {
-    height: 30px;
-    border: 1px solid #E5E5E5;
+    border: 1px solid #e5e5e5;
     border-radius: 4px;
-    padding: 5px 10px;
-    min-width: 250px;
     font-size: 13px;
+    height: 30px;
+    min-width: 250px;
+    padding: 5px 10px;
   }
+
   .vi-btn-search {
     height: 42px;
     line-height: 42px;
-    padding: 0 10px;
+    padding: 0px 10px;
   }
 }
 
 .main-search-box {
   padding-bottom: 15px;
+
   input {
     border: 1px solid #a7a7a7;
     min-width: 70%;
@@ -130,10 +137,10 @@
 }
 
 .media-title {
-  font-weight: 500;
-  text-transform: capitalize;
   font-size: 18px;
+  font-weight: 500;
   margin-bottom: 7px;
+  text-transform: capitalize;
 }
 
 .media-des {
@@ -142,23 +149,24 @@
 }
 
 .sort-select {
+  border: 1px solid #cecece;
+  float: right;
   margin-right: 50px;
   margin-top: -10px;
-  float: right;
-  border: 1px solid #cecece;
   min-width: 220px;
+
   .selectize-control.single,
   .selectize-input {
     border-bottom: 1px solid #cecece;
-    margin-top: 0;
+    margin-top: 0px;
   }
 }
 
 /* Custom CSS */
 .fix-icon-size {
-  width: 31px !important;
   height: 31px !important;
   line-height: 31px !important;
+  width: 31px !important;
 }
 
 .fl-left {
@@ -193,14 +201,14 @@
 }
 
 .imageCourseHome {
-  width: 100%;
+  border-radius: 5px 5px 0px 0px;
   height: auto;
-  border-radius: 5px 5px 0 0;
+  width: 100%;
 }
 
 .level-date-home > span {
-  font-size: 13px;
   color: #212121;
+  font-size: 13px;
 }
 
 span.fancytree-node > span.fancytree-title {
@@ -217,8 +225,8 @@ div.fancytree-checkbox > .fancytree-container {
 
 /* Admin of teacher and student =================== */
 .page_content_inner {
-  margin-top: 15px;
   margin-bottom: 70px;
+  margin-top: 15px;
 }
 
 .title-extend {
@@ -228,9 +236,10 @@ div.fancytree-checkbox > .fancytree-container {
 }
 
 .my-course-content {
-  .title:extend(.title-extend) {
-  }
-;
+//  .title:extend(.title-extend) {
+//  }
+//;
+
   .summary {
     font-size: 15px;
   }
@@ -241,6 +250,7 @@ div.fancytree-checkbox > .fancytree-container {
     margin-bottom: 5px;
   }
 ;
+
   .description,
   .instruction {
     font-size: 15px;
@@ -253,14 +263,14 @@ div.fancytree-checkbox > .fancytree-container {
 
 .search-course-content {
   .link-course-search {
-    color: #444;
+    color: #444444;
   }
 }
 
 .course-outline {
+  margin-bottom: 30px;
   max-height: 65vh;
   overflow-y: auto;
-  margin-bottom: 30px;
 }
 
 .content-html {
@@ -270,13 +280,13 @@ div.fancytree-checkbox > .fancytree-container {
 
 @media (min-width: 961px) {
   .push-large-3-10 {
-    position: relative;
     left: 30%;
+    position: relative;
   }
 
   .pull-large-7-10 {
-    position: relative;
     left: -70%;
+    position: relative;
   }
 }
 
@@ -286,12 +296,6 @@ div.fancytree-checkbox > .fancytree-container {
     line-height: 25px;
   }
 
-  .my-course-content,
-  .my-exam-content {
-    .title:extend(.title-extend) {
-    }
-  ;
-  }
 }
 
 @media (max-width: 767px) {
@@ -301,73 +305,86 @@ div.fancytree-checkbox > .fancytree-container {
   }
 
   .my-exam-toolbar {
+
     .attempt-count {
       font-size: 13px;
     }
   }
 
-  .my-course-content,
-  .my-exam-content {
-    .title:extend(.title-extend) {
-    }
-  ;
-  }
+  //.my-course-content,
+  //.my-exam-content {
+  //
+  //  .title:extend(.title-extend) {
+  //  }
+  //;
+  //}
 }
 
 @media (max-width: 479px) {
   .sort-select {
     float: none;
   }
+
   .uk-grid > div.body-program-view {
     padding-left: 0px;
   }
+
   #program_list {
     padding-left: 20px;
   }
+
   .md-list > .summary-program {
-    padding-top: 0px;
     padding-bottom: 0px;
+    padding-top: 0px;
   }
+
   .body-program-view > ul.md-list {
+    min-height: 40px;
     padding: 5px;
     padding-top: 0px;
-    min-height: 40px;
   }
 }
 
 .lecture-video {
   display: block;
   position: relative;
+
   video {
     width: 100%;
   }
+
   .lecture-video__next-alert {
+    background: rgba(0, 0, 0, 0.5);
+    padding: 35px 45px;
     position: absolute;
-    right: 0;
+    right: 0px;
     top: 50%;
     transform: translateY(-50%);
-    padding: 35px 45px;
-    background: rgba(0, 0, 0, .5);
+
     .title,
     .pause {
       cursor: pointer;
       display: inline-block;
     }
+
     .title,
     .counter,
     .pause {
-      color: #fff;
+      color: #ffffff;
     }
+
     .title {
-      margin-bottom: 0;
+      margin-bottom: 0px;
     }
+
     .counter,
     .pause {
       font-size: 2.5rem;
     }
+
     .counter {
-      min-width: 50px;
       margin-right: 15px;
+      min-width: 50px;
     }
   }
 }
@@ -377,22 +394,22 @@ div.fancytree-checkbox > .fancytree-container {
 }
 
 .tableChartScore thead tr th {
-  font-weight: 500;
   color: #444444;
   font-size: 17px;
+  font-weight: 500;
 }
 
 .tableChartScore tbody tr td {
-  font-style: normal;
-  font-weight: 400;
   color: #444444;
   font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
 }
 
 .quiz-title,
 .quiz-question {
-  white-space: normal;
   text-align: left;
+  white-space: normal;
 }
 
 .md-card {
@@ -400,13 +417,15 @@ div.fancytree-checkbox > .fancytree-container {
   .quiz-heading {
     height: initial;
   }
+
   .quiz-toolbar {
     min-height: 48px;
   }
+
   .quiz-heading {
-    width: 90%;
     line-height: 22px;
     padding-top: 12px;
+    width: 90%;
   }
 }
 
@@ -425,47 +444,48 @@ div.fancytree-checkbox > .fancytree-container {
 .container-home {
     max-width: 1050px;
   }
-  @media (min-width: 1220px) {
+
+@media (min-width: 1220px) {
     .container-home {
       max-width: 1250px;
     }
-  }
+}
 
 h3.course-title {
-    font-weight: 700;
-    // font-family: 'Roboto Slab', serif;
-    font-size: 16px;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
     color: #222222;
+    display: -webkit-box;
+    font-size: 16px;
+    font-weight: 700;
     line-height: 20px;
-    margin: 0 0 5px 0;
+    margin: 0px 0px 5px 0px;
+    max-height: 2.3em;
     min-height: inherit;
     overflow: hidden;
-    max-height: 2.3em;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
   }
 
-div.content-meta-data {
-    position: relative;
-    white-space: normal;
+.content-meta-data {
     display: inline-block;
-    vertical-align: middle;
     float: none;
     margin-left: -20px;
     padding: 1px 10px 0px;
+    position: relative;
+    vertical-align: middle;
+    white-space: normal;
   }
 
-@media (min-width: 768px){
-    div.content-meta-data {
-      padding: 19px 15px 10px;
+@media (min-width: 768px) {
+    .content-meta-data {
       display: block;
       float: left;
       margin-left: 0px;
+      padding: 19px 15px 10px;
     }
+
     .content-meta-data > .title-author-info {
-      height: 70px;
       font-size: 13px;
+      height: 70px;
     }
   }
 
@@ -475,21 +495,25 @@ div.content-meta-data {
     margin-bottom: 11px;
     margin-top: 6px;
   }
+
 span.date {
    font-weight: bold;
   }
-span.date, span.capitalize {
+
+span.date,
+span.capitalize {
     color: #222222;
     font-size: 12px;
   }
 
-span.date::before, span.capitalize::before {
+span.date::before,
+span.capitalize::before {
     content: '\2022';
+    font-size: 13px;
     padding-left: 3px;
     padding-right: 5px;
-    font-size: 13px;
-    top: 3px;
     position: relative;
+    top: 3px;
   }
 
 .lang_selections .selectize-dropdown {
@@ -501,84 +525,118 @@ span.date::before, span.capitalize::before {
      margin: 0px;
      width: 10%;
   }
+
   .lang_selections .selectize-dropdown {
     margin-left: -55px;
   }
+
   .uk-navbar-brand {
-    width: 80%;
     text-align: center;
+    width: 80%;
   }
+
   div.bulletin {
     display: none;
   }
-  li.small-bulletin{
+
+  li.small-bulletin {
     display: none;
   }
+
   .container-home > .heading_b + .content-search {
     margin-top: 15px;
   }
+
   div.courses-container-data {
-    padding-top: 0px;
     padding-bottom: 0px;
+    padding-top: 0px;
   }
+
   .container-home > .content-search + .content-data {
     margin-top: -15px;
   }
+
   .course-card-home {
     margin-top: 15px;
   }
+
   h3.heading_b {
     font-size: 24px;
   }
+
   .main-search-box input {
     height: 25px;
   }
+
   footer {
     display: none;
   }
-  td, th {
+
+  td,
+  th {
     font-size: 14px;
   }
-  a, span, .c3 text, g, .c3-axis-x-label, p, p.summary, div.media-title {
+
+  a,
+  span,
+  .c3 text,
+  g,
+  .c3-axis-x-label,
+  p,
+  p.summary,
+  div.media-title {
     font-size: 13px;
   }
+
   #sidebar_main .menu_section > ul > li ul a {
     font-size: 12px;
   }
+
   .uk-grid-medium>.uk-grid-margin {
     margin-top: 5px;
   }
+
   .md-card .md-card-content {
       padding: 3px;
   }
+
   h2 {
       line-height: 22px;
   }
+
   #mobile_navigation > .uk-offcanvas-bar > ul > li.small-navar > a {
     font-size: 13px;
   }
+
   text tspan {
       font-size: 11px;
   }
+
   .md-card .content-table-gradebook {
       padding: 15px 10px;
   }
+
   .content-table-gradebook > div {
-      width: 100%;
       overflow: auto;
+      width: 100%;
   }
+
   #page_content > #page_content_inner {
       padding: 10px 0px 10px;
   }
+
   a.md-btn {
        padding: 2px 5px;
     }
+
   .uk-grid-divider:empty {
     margin-top: 5px;
   }
+
   .md-list > li > .md-list-content .md-list-action {
         margin-right: 64px;
   }
+
   .md-card .md-card-toolbar {
     height: initial;
   }
@@ -588,24 +646,31 @@ span.date::before, span.capitalize::before {
   .lang_selections .selectize-dropdown {
     margin-left: -25px;
   }
+
   .container-home > .heading_b + .content-search {
     margin-top: 5px;
   }
+
   div.courses-container-data {
     padding-top: 5px;
   }
+
   .container-home > .content-search + .content-data {
     margin-top: -10px;
   }
+
   .course-card-home {
     margin-top: 15px;
   }
+
   h3.heading_b {
     font-size: 26px;
   }
+
   .main-search-box input {
     height: 25px;
   }
+
   .md-list-addon > li {
     margin-left: 44px;
   }
@@ -618,9 +683,9 @@ span.date::before, span.capitalize::before {
 }
 
 @media (max-width: 375px) {
-    h3.course-title{
-      font-size: 14px;
+    h3.course-title {
       color: #222222;
+      font-size: 14px;
       line-height: 17px;
     }
 
@@ -631,99 +696,137 @@ span.date::before, span.capitalize::before {
       margin-top: 4px;
     }
 
-    span.date, span.capitalize {
+    span.date,
+    span.capitalize {
       color: #222222;
       font-size: 10px;
     }
 
     .uk-navbar-brand {
-      width: 70%;
       text-align: center;
+      width: 70%;
     }
 
     .lang_selections {
        margin: 0px;
        width: 10%;
     }
+
     h3.heading_b {
       font-size: 22px;
       padding-left: 10px;
     }
+
     .main-search-box input {
       height: 20px;
     }
+
     .container-home > .heading_b + .content-search {
       margin-top: 0px;
     }
+
     div.courses-container-data {
-      padding-top: 0px;
       padding-bottom: 0px;
+      padding-top: 0px;
     }
+
     .container-home > .content-search + .content-data {
       margin-top: -15px;
     }
+
     .course-card-home {
       margin-top: 15px;
     }
-    td, th , a, span, .c3 text, g, .c3-axis-x-label, p, p.summary, div.media-title {
+
+    td,
+    th ,
+    a,
+    span,
+    .c3 text,
+    g,
+    .c3-axis-x-label,
+    p,
+    p.summary,
+    div.media-title {
       font-size: 13px;
     }
+
     #sidebar_main .menu_section > ul > li ul a {
       font-size: 12px;
     }
+
     .uk-grid-medium>.uk-grid-margin {
       margin-top: 5px;
     }
+
     .md-card .md-card-content {
         padding: 3px;
     }
+
     h2 {
         line-height: 22px;
     }
+
     text tspan {
         font-size: 11px;
     }
+
     #mobile_navigation > .uk-offcanvas-bar > ul > li.small-navar > a {
       font-size: 13px;
     }
+
     footer {
       display: none;
     }
+
     .uk-grid-width-1-3 > div.small-facebook {
-        width: 33%;
         margin-right: 0.333%;
         padding-left: 0px;
+        width: 33%;
     }
-    .uk-grid-width-1-3 > div.small-facebook > a.md-btn{
+
+    .uk-grid-width-1-3 > div.small-facebook > a.md-btn {
         min-width: inherit;
     }
-    #loginValidate > .uk-grid-width-1-3{
+
+    #loginValidate > .uk-grid-width-1-3 {
         padding-left: 10px;
     }
+
     .md-card .content-table-gradebook {
-        padding: 10px 0;
+        padding: 10px 0px;
     }
+
     #page_content > #page_content_inner {
         padding: 10px 0px 10px;
     }
+
     a.md-btn {
-      padding: 2px 0px;
       font-size: 11px !important;
+      padding: 2px 0px;
     }
+
     .md-card .md-card-toolbar div.md-card-toolbar-actions {
       padding-top: 0px;
     }
+
     .md-card-primary > .md-card-toolbar+.md-card-content {
        margin-top: 15px;
     }
-    .md-btn-icon-default > i, .md-btn-icon > i {
+
+    .md-btn-icon-default > i,
+    .md-btn-icon > i {
       margin-right: 0px;
     }
-    .search-box input, .main-search-box input {
+
+    .search-box input,
+    .main-search-box input {
         height: 20px;
         min-width: 210px;
     }
-    .search-box .vi-btn-search, .main-search-box .vi-btn-search {
+
+    .search-box .vi-btn-search,
+    .main-search-box .vi-btn-search {
         height: inherit;
         line-height: 30px;
         margin-bottom: 0px;
@@ -732,155 +835,200 @@ span.date::before, span.capitalize::before {
     .md-card .md-card-content.large-padding {
         padding: 16px;
     }
+
     .uk-grid-divider>* {
       padding-right: 0px;
     }
+
     .detailCoures {
         padding-bottom: 0px;
     }
+
     .uk-grid-divider:empty {
        margin-top: 15px;
     }
+
     .md-card .md-card-content.small-padding {
         margin-left: -15px;
         margin-right: -15px;
     }
+
     .media-des {
       margin-bottom: 3px;
     }
-    .md-btn-icon-small, .md-btn-icon.md-btn-small {
+
+    .md-btn-icon-small,
+    .md-btn-icon.md-btn-small {
         min-width: 35px;
     }
+
     .text-title-program {
-      margin-right: 75px;
       font-size: 20px;
+      margin-right: 75px;
     }
+
     .text-title-program + a.md-btn-icon {
       margin-top: -55px;
     }
+
     .md-card-toolbar > .md-card-toolbar-heading-text {
       height: initial;
       line-height: 1.5em;
     }
+
     .md-icon {
       font-size: 19px;
     }
+
     .md-card-toolbar-heading-text > .uk-icon-small {
       font-size: 19px;
       margin-right: 5px;
     }
+
     .uk-button-dropdown > .md-card-toolbar-heading-text {
       height: initial;
       line-height: 2.4em;
     }
+
     #program_list {
       padding-left: 20px;
       padding-right: 20px;
     }
 }
+
 @media (max-width: 350px) {
     .md-card .md-card-toolbar div.md-card-toolbar-actions {
       padding-top: 0px;
     }
+
     .text-title-program {
-      margin-right: 75px;
       font-size: 18px;
+      margin-right: 75px;
     }
+
     .text-title-program + a.md-btn-icon {
       margin-top: -55px;
     }
+
     .main-search-box {
       margin-right: -30px;
       padding-left: 0px;
     }
+
     .uk-grid-small {
       margin-left: 0px;
     }
 }
-@media (min-width: 768px){
+
+@media (min-width: 768px) {
   .uk-block.bulletin {
-     padding-top: 25px;
-     padding-bottom: 25px;
+      padding-bottom: 25px;
+      padding-top: 25px;
   }
+
   .uk-block {
     padding-top: 10px;
   }
+
   .container-home > .content-search.uk-grid {
     margin-top: 10px;
   }
+
   .content-data.uk-grid.uk-grid-medium {
     margin-top: 10px;
   }
-  .search-box > input, .main-search-box > input {
+
+  .search-box > input,
+  .main-search-box > input {
     height: 25px;
   }
+
   .main-search-box {
-    padding-bottom: 0px;
     margin-bottom: -15px;
+    padding-bottom: 0px;
   }
+
   .content-meta-data > .title-program-author-info {
-    height: 40px;
     font-size: 13px;
+    height: 40px;
   }
 }
+
 .table-border > .uk-table {
   border: 1px solid;
 }
-.table-border > .uk-table thead th, .uk-table tfoot td, .uk-table tfoot th {
+
+.table-border > .uk-table thead th,
+.uk-table tfoot td, .uk-table tfoot th {
   border-right: 1px solid;
 }
-.table-border >.uk-table td, .table-border >.uk-table th {
+
+.table-border >.uk-table td,
+.table-border >.uk-table th {
   border-right: 1px solid;
 }
+
 @media (min-width: 376px) {
   .text-title-program {
-    margin-right: 110px;
     font-size: 23px;
+    margin-right: 110px;
   }
 
   .text-title-program + a.md-btn-icon {
     margin-top: -50px;
   }
+
   .md-card-toolbar-heading-text > .uk-icon-small {
     margin-right: 10px;
   }
+
   .md-card .md-card-toolbar div.md-card-toolbar-actions {
     padding-top: 5px;
   }
+
   div.md-card-toolbar-actions > .icheck-inline {
-    margin: 0 16px 0px 0;
+    margin: 0px 16px 0px 0px;
   }
 }
+
 .dataTables_wrapper .dt-uikit-header {
   margin-bottom: 0px;
 }
+
 .container-home > .content-data {
   margin-top: -10px;
 }
+
 @media (min-width: 351px) and (max-width: 479px) {
   .main-search-box {
     margin-right: -30px;
   }
 }
+
 @media (min-width: 480px) and (max-width: 580px) {
   .container-home > .uk-grid > .heading_b {
     width: 100%;
   }
+
   .container-home > .uk-grid > .content-search {
     width: 100%;
   }
 }
+
 .uk-thumbnail {
   padding: 0px;
 }
+
 #sidebar_main .menu_section > ul > li > a > .menu_icon {
   width: 38px;
 }
-@media (min-width: 480px){
+
+@media (min-width: 480px) {
   .body-program-view > ul.md-list {
     padding: 5px;
   }
 }
+
 .dropdown-user-menu {
   margin-left: -120px;
 }
