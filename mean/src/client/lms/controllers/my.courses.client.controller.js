@@ -1,4 +1,4 @@
-(function() {
+(function(UIkit) {
   'use strict';
 
   // Courses controller
@@ -6,9 +6,9 @@
     .module('lms')
     .controller('MyCoursesListController', MyCoursesListController);
 
-  MyCoursesListController.$inject = ['$scope', '$state', '$window', 'Authentication', '$timeout', 'localStorageService', 'CoursesService', 'Notification', 'AttemptsService', 'EditionSectionsService', 'CourseEditionsService', 'CourseMembersService', 'courseUtils', '$q', 'GroupsService', '_'];
+  MyCoursesListController.$inject = ['$scope', '$state', '$window', 'Authentication', '$timeout', 'localStorageService', 'CoursesService', 'Notification', 'AttemptsService', 'EditionSectionsService', 'CourseEditionsService', 'CourseMembersService', 'courseUtils', '$q', 'GroupsService', '_', '$translate'];
 
-  function MyCoursesListController($scope, $state, $window, Authentication, $timeout, localStorageService, CoursesService, Notification, AttemptsService, EditionSectionsService, CourseEditionsService, CourseMembersService, courseUtils, $q, GroupsService, _) {
+  function MyCoursesListController($scope, $state, $window, Authentication, $timeout, localStorageService, CoursesService, Notification, AttemptsService, EditionSectionsService, CourseEditionsService, CourseMembersService, courseUtils, $q, GroupsService, _, $translate) {
     var vm = this;
     vm.authentication = Authentication;
     vm.members = CourseMembersService.byUser({
@@ -49,17 +49,20 @@
     vm.unenroll = unenroll;
 
     function unenroll(member) {
-      member.$withdraw(function(response) {
-        Notification.success({
-          message: '<i class="uk-icon-ok"></i> Member withdrawn successfully!'
-        });
-        $window.location.reload();
-      }, function(errorResponse) {
-        Notification.error({
-          message: errorResponse.data.message,
-          title: '<i class="uk-icon-ban"></i> Member withdraw  error!'
+      UIkit.modal.confirm($translate.instant('MODAL.MY_COURSES.PROMPT'), function() {
+        member.$withdraw(function(response) {
+          Notification.success({
+            message: '<i class="uk-icon-ok"></i> Member withdrawn successfully!'
+          });
+          $window.location.reload();
+        }, function(errorResponse) {
+          Notification.error({
+            message: errorResponse.data.message,
+            title: '<i class="uk-icon-ban"></i> Member withdraw  error!'
+          });
         });
       });
+      
     }
   }
-}());
+}(window.UIkit));
