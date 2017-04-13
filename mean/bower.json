@@ -115,7 +115,7 @@
     }
   },
   "resolutions": {
-    "angular": ">=1",
+    "angular": "^1.6.4",
     "jquery": ">=1.9.0",
     "fastclick": "~1.0.6",
     "metrics-graphics": "~2.9",
