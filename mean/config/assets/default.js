@@ -41,6 +41,7 @@ module.exports = {
       js: [
         //  non-angular
         'public/lib/recordrtc/RecordRTC.js',
+        'public/lib/recordrtc/dev/MRecordRTC.js',
         'public/lib/recordrtc/dev/RecordRTC.promises.js',
         'public/lib/kurento-client/js/kurento-client.js',
         'public/lib/kurento-utils/js/kurento-utils.js',

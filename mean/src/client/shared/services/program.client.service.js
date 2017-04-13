@@ -9,26 +9,29 @@
           memberProgress: function(member, program) {
             return $q(function(resolve, reject) {
               var allPromises = [];
+              var courseCount = 0;
+              var completeCount = 0;
               _.each(program.courses, function(course) {
-                allPromises.push(CourseMembersService.byUserAndCourse({
+                CourseMembersService.byUserAndCourse({
                   userId: member.member._id,
                   courseId: course._id
-                }).$promise);
-              });
-              $q.all(allPromises).then(function(courseMembers) {
-                var completeCount = _.filter(courseMembers, function(courseMember) {
-                  return courseMember.enrollmentStatus === 'completed';
-                }).length;
-                if (program.courses.length) {
-                  resolve({
-                    completeCount: completeCount,
-                    completePercentage: completeCount * 100 / program.courses.length
-                  });
-                } else
-                  resolve({
-                    completeCount: 0,
-                    completePercentage: 0
-                  });
+                }, function(courseMember) {
+                  if (courseMember.enrollmentStatus === 'completed')
+                    completeCount++;
+                  courseCount++;
+                  if (courseCount === program.courses.length)
+                    resolve({
+                      completeCount: completeCount,
+                      completePercentage: completeCount * 100 / program.courses.length
+                    });
+                }, function() {
+                  courseCount++;
+                  if (courseCount === program.courses.length)
+                    resolve({
+                      completeCount: completeCount,
+                      completePercentage: completeCount * 100 / program.courses.length
+                    });
+                });
               });
             });
           }

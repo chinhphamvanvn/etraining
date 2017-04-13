@@ -102,7 +102,7 @@
                   _.each(sections, function(section) {
                     if (section.hasContent) {
                       var read = _.find(attempts, function(attempt) {
-                        return attempt.section === section._id && attempt.status === 'completed';
+                        return attempt.section._id === section._id && attempt.status === 'completed';
                       });
                       total++;
                       if (read)
