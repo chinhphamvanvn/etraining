@@ -20,7 +20,6 @@
 
     function saveSection() {
       return $q(function(resolve, reject) {
-        //vm.section.html = null;
         vm.section.video = vm.video._id;
         vm.section.$update(function() {
           resolve();
