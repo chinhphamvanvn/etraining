@@ -338,6 +338,7 @@
 	"ACTION.GENERATE_REPORT": "Tạo báo cáo",
 	"ACTION.PROCEED": "Thực hiện",
 	"ACTION.IMPORT": "Nhập liệu từ file",
+	"ACTION.EXPORT_TEMPLATE_CSV": "Tải file csv mẫu",
 	"ACTION.EXPORT": "Xuất ra file",
 	"ACTION.CONTINUE": "Tiếp tục",
 	"ACTION.SUBMIT": "Thực hiện",
