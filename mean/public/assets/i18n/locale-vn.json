@@ -373,6 +373,7 @@
 	"ACTION.SELECT_SCREEN": "Chọn màn hình",
 	"ACTION.TIME_SYNCING": "Đồng bộ thời gian",
 	"ACTION.CHOOSE_FILE": "Chọn file",
+	"ACTION.CHOOSE_IMAGE_FILE": "Chọn file ảnh",
 	"ACTION.SUSPEND": "Tạm dừng",
 	"ACTION.NEXT": "Tiếp theo",
 	"ACTION.PREV": "Quay lại",

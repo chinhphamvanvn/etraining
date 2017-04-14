@@ -372,6 +372,7 @@
 	"ACTION.SELECT_SCREEN": "Select Screen",
 	"ACTION.TIME_SYNCING": "Synchronize time",
 	"ACTION.CHOOSE_FILE": "Choose File",
+	"ACTION.CHOOSE_IMAGE_FILE": "Choose Image file",
 	"ACTION.SUSPEND": "Suspend",
 	"ACTION.NEXT": "Next",
 	"ACTION.PREV": "Previous",
