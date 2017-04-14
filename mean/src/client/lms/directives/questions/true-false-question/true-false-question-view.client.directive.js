@@ -12,7 +12,6 @@
         question: '=',
         answer: '=',
         shuffle: '=',
-        showAnswer: '=',
         mode: '=' // edit.view/study, result
       },
       templateUrl: '/src/client/lms/directives/questions/true-false-question/true-false-question.directive.client.view.html',

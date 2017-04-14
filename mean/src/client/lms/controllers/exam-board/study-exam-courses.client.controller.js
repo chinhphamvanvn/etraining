@@ -197,16 +197,34 @@
       answer.question = vm.question._id;
       answer.exam = vm.exam._id;
       answer.order = vm.index + 1;
-      if (vm.question.type === 'mc' || vm.question.type === 'sc' || vm.question.type === 'tf' || vm.question.type === 'fb') {
+      if (vm.question.type === 'mc' || vm.question.type === 'sc' || vm.question.type === 'tf' || vm.question.type === 'fb' || vm.question.type === 'pic') {
         var selectedOptions = _.filter(vm.question.options, function(option) {
           return option.selected;
         });
         answer.options = _.pluck(selectedOptions, '_id');
-        answer.isCorrect = _.filter(selectedOptions, function(option) {
-          return !_.contains(vm.question.correctOptions, option._id);
-        }).length === 0 && selectedOptions.length;
+        answer.isCorrect = answer.options.length === vm.question.correctOptions.length;
+        _.each(vm.question.correctOptions, function(option) {
+          if (!_.contains(answer.options, option._id))
+            answer.isCorrect = false;
+        });
       }
-      if (vm.question.answer.options && vm.question.answer.options.length > 0)
+      if (vm.question.type === 'dnd' || vm.question.type === 'as') {
+        var sourceOptions = _.filter(vm.question.options, function(option) {
+          return option.group === 'source';
+        });
+        answer.optionMappings = _.map(sourceOptions, function(obj) {
+          return { source: obj._id, target: obj.target };
+        });
+        answer.isCorrect = answer.optionMappings.length === vm.question.optionMappings.length;
+        _.each(vm.question.optionMappings, function(assoc) {
+          var ansAssoc = _.find(answer.optionMappings, function(ansAssoc) {
+            return assoc.source === ansAssoc.source && assoc.target === ansAssoc.target;
+          });
+          if (!ansAssoc)
+            answer.isCorrect = false;
+        });
+      }
+      if ((vm.question.answer.options && vm.question.answer.options.length > 0) || (vm.question.answer.optionMappings && vm.question.answer.optionMappings.length > 0))
         vm.question.attempted = true;
       else
         vm.question.attempted = false;

@@ -35,7 +35,7 @@
       }, function(participants) {
         vm.participants = participants;
         vm.participant = _.find(participants, function(p) {
-          return p.member === vm.member._id;
+          return p.member._id === vm.member._id;
         });
       });
     }, function() {

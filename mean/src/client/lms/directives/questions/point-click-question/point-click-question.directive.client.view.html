@@ -34,6 +34,39 @@
 				ng-model="question.description" cols="30" rows="4"></textarea>
 		</div>
 	</div>
+	<div class="uk-text-center">
+		<svg width="320" height="320">
+		</svg>
+		<div class="md-card">
+	<div class="md-card-content">
+		<div id="file_upload-drop" class="uk-file-upload">
+			<div
+				class="uk-margin uk-cover uk-position-relative uk-height-1-1 transform-origin-50"
+				id="video_player">
+				<div class="uk-grid">
+					<div class="uk-width-1-2 uk-container-center">
+						<video id="selectorVideo" src="{{video.videoURL | trust}}"
+							video-autoplay data-attr-autoplay={{videoAttr.autoplay}}
+							video-control data-attr-control={{videoAttr.controls}}
+							video-muted data-attr-muted={{videoAttr.muted}}
+							poster="{{ url?'':'/assets/img/brand/logow.png' }}"></video>
+					</div>
+				</div>
+			</div>
+			<div>
+				<span class="uk-form-file md-btn md-btn-icon"> <i
+					class="uk-icon-upload"></i> {{'ACTION.CHOOSE_FILE'|translate}} <input
+					id="file_upload-select" type="file">
+				</span>
+			</div>
+		</div>
+		<div id="file_upload-progressbar" class="uk-progress"
+			ng-show="showProgress">
+			<div id="progress_bar" class="uk-progress-bar" style="width: 0">0%</div>
+		</div>
+	</div>
+</div>
+	</div>
 	<div class="uk-grid" data-uk-grid-margin>
 		<div class="uk-width-1-1">
 			<div id="question_options">
@@ -43,7 +76,7 @@
 						<span class="icheck-inline"> <input type="checkbox"
 							id="option_{{option._id}}" icheck ng-model="option.selected"
 							ng-change="selectOption(option)" /> <label
-							for="option_{{option._id}}" class="inline-label">{{$index + 1}}</label>
+							for="option_{{option._id}}" class="inline-label">{{option.order}}</label>
 						</span>
 					</div>
 					<div class="uk-width-medium-7-10">
@@ -54,8 +87,9 @@
 					<div class="uk-width-medium-1-10">
 						<a ng-click="removeOption(option)"
 							data-uk-tooltip="{cls:'uk-tooltip-small',pos:'top'}"
-							title="{{'ACTION.DELETE'|translate}}"><i
-							class="md-icon material-icons uk-text-danger">delete</i></a>
+							title="{{'ACTION.DELETE'|translate}}"> <i
+							class="md-icon material-icons uk-text-danger">delete</i>
+						</a>
 					</div>
 				</div>
 				<div class="uk-text-center">
@@ -70,9 +104,9 @@
 
 	</div>
 </div>
-
 <div ng-if="mode=='view'">
 	<div class="uk-grid no-margin-top">
+
 		<div class="uk-width-medium-1-2 parsley-row">
 			<h4 class="quiz-heading uk-text-left">{{'MODEL.QUESTION.LEVEL'|translate}}</h4>
 			<div id="question_level_select">
@@ -99,7 +133,7 @@
 		<div class="uk-width-medium-1-1 parsley-row">
 			<h4 class="quiz-heading uk-text-left">
 				{{'MODEL.QUESTION.DESC'|translate}}</h4>
-			<p class="uk-text-left text-wrap" ng-bind-html="translateContent()" />
+			<p class="uk-text-left text-wrap" ng-bind-html="question.description" />
 		</div>
 	</div>
 	<div class="uk-grid no-margin-top" data-uk-grid-margin>
@@ -110,7 +144,8 @@
 					<div class="uk-width-medium-2-10 uk-text-center">
 						<span class="icheck-inline"> <input type="checkbox"
 							ng-disabled="true" id="option_{{option._id}}" icheck
-							ng-model="option.selected" /> <!--<label for="option_{{option._id}}" class="inline-label">{{option.order}}</label>-->
+							ng-model="option.selected" /> <!--<label for="option_{{option._id}}"-->
+							<!--class="inline-label">{{option.order}}</label>-->
 						</span>
 					</div>
 					<div class="uk-width-medium-7-10">
@@ -121,11 +156,11 @@
 		</div>
 	</div>
 </div>
-
 <div ng-if="mode=='study'">
+
 	<div class="uk-grid">
 		<div class="uk-width-medium-1-1 parsley-row">
-			<p ng-bind-html="translateContent()"></p>
+			<p ng-bind-html="question.description" />
 		</div>
 	</div>
 	<div class="uk-grid" data-uk-grid-margin>
@@ -135,12 +170,12 @@
 					ng-repeat="option in question.options ">
 					<div class="uk-width-medium-2-10 uk-text-center">
 						<span class="icheck-inline"> <input type="checkbox"
-							id="option_{{option._id}}" icheck ng-model="option.selected"
-							ng-change="selectOption(option)" />
+							name="radiosingle" id="option_{{option._id}}" icheck
+							ng-model="option.selected" ng-change="selectOption(option)" />
 						</span>
 					</div>
 					<div class="uk-width-medium-8-10">
-						<label for="option_{{option._id}}" class="inline-label">{{option.order}}.</label>
+						<!-- <label for="option_{{option._id}}" class="inline-label">{{option.order}}.</label> -->
 						<label for="option_{{option.order}}">{{option.content}}</label>
 					</div>
 				</div>
@@ -148,9 +183,8 @@
 		</div>
 	</div>
 </div>
-
-
 <div ng-if="mode=='result'">
+
 	<div class="uk-grid">
 		<div class="uk-width-medium-1-1 ">
 			<p class="quiz-question" ng-bind-html="translateContent()"></p>
@@ -167,14 +201,12 @@
 							ng-model="option.selected" ng-change="selectOption(option)" />
 						</span>
 					</div>
-					<div class="uk-text-left uk-width-medium-8-10">
-						<!--<label for="option_{{option._id}}" class="inline-label">{{option.order}}.</label>-->
-						<!--<label for="option_{{option.order}}">{{option.content}}</label>-->
-						<span class="text-wrap">{{option.content}}</span> 
+					<div class="uk-width-medium-8-10 uk-text-left">
+						<!-- <label for="option_{{option._id}}" class="inline-label">{{option.order}}.</label> -->
+						<span class="text-wrap">{{option.content}}</span>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 </div>
-

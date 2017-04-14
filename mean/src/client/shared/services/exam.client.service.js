@@ -9,16 +9,17 @@
           return $q(function(resolve, reject) {
             var examScore = 0;
             var candidateScore = 0;
-            var answer;
+            var answer,
+              questionIds;
             if (exam.questionSelection === 'auto') {
               examScore = exam.questionScore * exam.questionNumber;
-              var questionIds = _.pluck(submit.answers, 'question');
+              questionIds = _.pluck(submit.answers, 'question');
               if (questionIds && questionIds.length) {
                 QuestionsService.byIds({
                   questionIds: questionIds
                 }, function(questions) {
                   _.each(questions, function(question) {
-                    if (!question.optional) {
+                    if (!question.optional && question.type !== 'ext') {
                       if (question.grouped) {
                         _.each(question.subQuestions, function(subQuestion) {
                           answer = _.find(submit.answers, function(obj) {
@@ -36,32 +37,43 @@
                       }
                     }
                   });
+                  resolve(Math.floor(candidateScore * 100 / examScore));
                 });
               }
             }
             if (exam.questionSelection === 'manual') {
-              _.each(exam.questions, function(question) {
-                if (!question.optional) {
-                  examScore += question.score;
-                  if (question.grouped) {
-                    _.each(question.subQuestions, function(subQuestion) {
-                      answer = _.find(submit.answers, function(obj) {
-                        return obj.question === subQuestion._id;
-                      });
-                      if (answer && answer.isCorrect)
-                        candidateScore += question.score / question.subQuestions.length;
+              questionIds = _.pluck(exam.questions, 'id');
+              if (questionIds && questionIds.length) {
+                QuestionsService.byIds({
+                  questionIds: questionIds
+                }, function(questions) {
+                  _.each(questions, function(question) {
+                    var examQuestion = _.find(exam.questions, function(obj) {
+                      return obj.id === question._id;
                     });
-                  } else {
-                    answer = _.find(submit.answers, function(obj) {
-                      return obj.question === question.id;
-                    });
-                    if (answer && answer.isCorrect)
-                      candidateScore += question.score;
-                  }
-                }
-              });
+                    if (!question.optional && question.type !== 'ext') {
+                      examScore += examQuestion.score;
+                      if (question.grouped) {
+                        _.each(question.subQuestions, function(subQuestion) {
+                          answer = _.find(submit.answers, function(obj) {
+                            return obj.question === subQuestion._id;
+                          });
+                          if (answer && answer.isCorrect)
+                            candidateScore += examQuestion.score / question.subQuestions.length;
+                        });
+                      } else {
+                        answer = _.find(submit.answers, function(obj) {
+                          return obj.question === question._id;
+                        });
+                        if (answer && answer.isCorrect)
+                          candidateScore += examQuestion.score;
+                      }
+                    }
+                  });
+                  resolve(Math.floor(candidateScore * 100 / examScore));
+                });
+              }
             }
-            resolve(Math.floor(candidateScore * 100 / examScore));
           });
         }
         return {
