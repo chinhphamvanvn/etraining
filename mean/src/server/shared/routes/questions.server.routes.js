@@ -11,6 +11,8 @@ module.exports = function(app) {
   app.route('/api/questions/bulk')
     .post(questionsPolicy.isAllowed, questions.bulkCreate);
 
+  app.route('/api/questions/image/upload').post(questionsPolicy.isAllowed, questions.uploadQuestionImage);
+
   app.route('/api/questions').all(questionsPolicy.isAllowed)
     .get(questions.list)
     .post(questions.create);

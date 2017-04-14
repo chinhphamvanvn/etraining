@@ -15,6 +15,21 @@ var OptionSchema = new Schema({
     default: '',
     trim: true
   },
+  group: {
+    type: String
+  },
+  imageUrl: {
+    type: String
+  },
+  videoUrl: {
+    type: String
+  },
+  audioUrl: {
+    type: String
+  },
+  xmlData: {
+    type: String
+  },
   created: {
     type: Date,
     default: Date.now
