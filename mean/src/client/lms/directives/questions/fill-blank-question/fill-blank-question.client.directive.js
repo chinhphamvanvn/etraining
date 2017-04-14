@@ -12,7 +12,6 @@
         question: '=',
         answer: '=',
         shuffle: '=',
-        showAnswer: '=',
         mode: '=' // edit, view, study, result
       },
       templateUrl: '/src/client/lms/directives/questions/fill-blank-question/fill-blank-question.directive.client.view.html',

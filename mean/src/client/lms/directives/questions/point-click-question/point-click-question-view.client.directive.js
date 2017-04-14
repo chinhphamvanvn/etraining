@@ -1,12 +1,12 @@
-(function() {
+(function(UIkit, $) {
   'use strict';
 
-  // Single-choice Question
+  // Point-click Question
 
   angular.module('lms')
-    .directive('singleChoiceQuestion', ['OptionsService', 'QuestionsService', 'fileManagerConfig', '_', singleChoiceQuestion]);
+    .directive('pointClickQuestion', ['OptionsService', 'QuestionsService', 'fileManagerConfig', '_', pointClickQuestion]);
 
-  function singleChoiceQuestion(OptionsService, QuestionsService, fileManagerConfig, _) {
+  function pointClickQuestion(OptionsService, QuestionsService, fileManagerConfig, _) {
     return {
       scope: {
         question: '=',
@@ -14,8 +14,77 @@
         shuffle: '=',
         mode: '=' // edit.view/study, result
       },
-      templateUrl: '/src/client/lms/directives/questions/single-choice-question/single-choice-question.directive.client.view.html',
+      templateUrl: '/src/client/lms/directives/questions/point-click-question/point-click-question.directive.client.view.html',
       link: function(scope, element, attributes) {
+        var progressbar = angular.element(document.getElementById('file_upload-progressbar')),
+        bar = angular.element(document.getElementById('progress_bar')),
+        settings = {
+          action: '/api/videos/upload', // upload url
+          param: 'newCourseVideo',
+          method: 'POST',
+
+          allow: '*.(mp3|mp4|webm|mov|avi|flv|mpeg)', // allow only images
+
+          loadstart: function() {
+            bar.css('width', '0%').text('0%');
+            progressbar.removeClass('uk-hidden');
+            scope.videoAttr = {
+              autoplay: false,
+              controls: false,
+              muted: true
+            };
+            scope.showProgress = true;
+            scope.$apply();
+          },
+
+          progress: function(percent) {
+            percent = Math.ceil(percent);
+            bar.css('width', percent + '%').text(percent + '%');
+          },
+
+          allcomplete: function(response) {
+
+            bar.css('width', '100%').text('100%');
+
+            setTimeout(function() {
+              progressbar.addClass('uk-hidden');
+            }, 250);
+            var data = JSON.parse(response);
+            scope.video.videoURL = data.videoURL;
+            console.log(scope.video);
+            scope.videoAttr = {
+              autoplay: true,
+              controls: true,
+              muted: false
+            };
+            scope.showProgress = false;
+            scope.$apply();
+          }
+        };
+
+      var select = UIkit.uploadSelect($('#file_upload-select'), settings),
+        drop = UIkit.uploadDrop($('#file_upload-drop'), settings);
+        /*var settings = {
+            action: '/api/questions/image/upload', // upload url
+            param: 'newQuestionImage',
+            method: 'POST',
+
+            allow: '*.(png|gif|jpg|jpeg)', // allow only images
+            
+            loadstart: function() {
+            },
+
+            progress: function(percent) {
+            },
+
+            allcomplete: function(response) {
+              var data = JSON.parse(response);
+              console.log(data);
+              scope.$apply();
+            }
+          };
+        UIkit.uploadSelect($('#file_upload-select'), settings);*/
+        
         scope.tinymce_options = fileManagerConfig;
         scope.$watch('question', function() {
           if (scope.question._id)
@@ -98,4 +167,4 @@
       }
     };
   }
-}());
+}(window.UIkit, window.jQuery));

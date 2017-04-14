@@ -150,7 +150,7 @@
 											<tr>
 												<th class="uk-text-center uk-text-upper uk-width-2-10">{{'COMMON.ACTION'|translate}}</th>
 												<th class="uk-text-center uk-text-upper uk-width-1-10">{{'MODEL.QUESTION.ORDER'|translate}}</th>
-												<th class="uk-text-center uk-text-upper uk-width-4-10">{{'MODEL.QUESTION.TITLE'|translate}}</th>
+												<th class=" uk-text-upper uk-width-4-10">{{'MODEL.QUESTION.TITLE'|translate}}</th>
 												<th class="uk-text-center uk-text-upper uk-width-2-10">{{'MODEL.QUESTION.TYPE'|translate}}</th>
 												<th class="uk-text-center uk-text-upper uk-width-1-10">{{'MODEL.QUESTION.LEVEL'|translate}}</th>
 											</tr>
@@ -183,6 +183,11 @@
 													<span ng-if="question.type=='sc'">{{'COMMON.QUESTION_TYPE.SC'|translate}}</span>
 													<span ng-if="question.type=='tf'">{{'COMMON.QUESTION_TYPE.TF'|translate}}</span>
 													<span ng-if="question.type=='fb'">{{'COMMON.QUESTION_TYPE.FB'|translate}}</span>
+													<span ng-if="question.type=='ext'">{{'COMMON.QUESTION_TYPE.EXT'|translate}}</span>
+													<span ng-if="question.type=='as'">{{'COMMON.QUESTION_TYPE.AS'|translate}}</span>
+													<span ng-if="question.type=='dnd'">{{'COMMON.QUESTION_TYPE.DND'|translate}}</span>
+													<span ng-if="question.type=='pic'">{{'COMMON.QUESTION_TYPE.PIC'|translate}}</span>
+													<span ng-if="question.grouped">{{'COMMON.QUESTION_TYPE.GRP'|translate}}</span>
 												</td>
 												<td class="uk-text-center uk-width-1-10"><span
 													ng-if="question.level=='easy'">{{'COMMON.DIFFICULTY.EASY'|translate}}</span>

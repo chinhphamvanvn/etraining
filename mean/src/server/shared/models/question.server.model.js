@@ -29,6 +29,9 @@ var QuestionSchema = new Schema({
     type: Date,
     default: Date.now
   },
+  xmlData: {
+    type: String
+  },
   user: {
     type: Schema.ObjectId,
     ref: 'User'
@@ -41,6 +44,18 @@ var QuestionSchema = new Schema({
     type: [{
       type: Schema.ObjectId,
       ref: 'Option'
+    }]
+  },
+  optionMappings: {
+    type: [{
+      source: {
+        type: Schema.ObjectId,
+        ref: 'Option'
+      },
+      target: {
+        type: Schema.ObjectId,
+        ref: 'Option'
+      }
     }]
   },
   type: {
