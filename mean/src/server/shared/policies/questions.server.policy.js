@@ -25,6 +25,10 @@ exports.invokeRolesPolicies = function() {
           permissions: '*'
         },
         {
+          resources: '/api/questions/image/upload',
+          permissions: ['post']
+        },
+        {
           resources: '/api/questions/byCategoryAndLevel/:groupId/:level',
           permissions: '*'
         },
@@ -48,6 +52,10 @@ exports.invokeRolesPolicies = function() {
         {
           resources: '/api/questions',
           permissions: ['get', 'post']
+        },
+        {
+          resources: '/api/questions/image/upload',
+          permissions: ['post']
         },
         {
           resources: '/api/questions/byCategoryAndLevel/:groupId/:level',

@@ -1,0 +1,225 @@
+<div ng-if="mode=='edit'">
+	<div class="uk-grid ">
+		<div class="uk-width-medium-1-2 parsley-row">
+			<label for="question_title">
+				{{'MODEL.QUESTION.TITLE'|translate}} <span class="req">*</span>
+			</label> <input type="text" name="question_title" id="question_title"
+				required class="md-input" md-input ng-model="question.title" />
+		</div>
+		<div class="uk-width-medium-1-2 parsley-row">
+			<label for="question_level_select">{{'MODEL.QUESTION.LEVEL'|translate}}</label>
+			<div id="question_level_select">
+				<span class="icheck-inline"> <input type="radio"
+					name="question_level_{{question._id}}"
+					id="question_easy_{{question._id}}" value="easy" icheck
+					ng-model="question.level" /> <label for="question_easy"
+					class="inline-label">{{'COMMON.DIFFICULTY.EASY'|translate}}</label>
+				</span> <span class="icheck-inline"> <input type="radio"
+					name="question_level_{{question._id}}"
+					id="question_medium_{{question._id}}" value="medium" icheck
+					ng-model="question.level" /> <label for="question_medium"
+					class="inline-label">{{'COMMON.DIFFICULTY.MEDIUM'|translate}}</label>
+				</span> <span class="icheck-inline"> <input type="radio"
+					name="question_level_{{question._id}}"
+					id="question_hard_{{question._id}}" value="hard" icheck
+					ng-model="question.level" /> <label for="question_hard"
+					class="inline-label">{{'COMMON.DIFFICULTY.HARD'|translate}}</label>
+				</span>
+			</div>
+		</div>
+	</div>
+	<div class="uk-grid">
+		<div class="uk-width-medium-1-1 parsley-row">
+			<textarea ui-tinymce="tinymce_options"
+				ng-model="question.description" cols="30" rows="12"></textarea>
+		</div>
+	</div>
+	<div class="uk-grid" data-uk-grid-margin>
+		<div class="uk-width-large-1-2 uk-width-medium-1-2 uk-width-small-1-1">
+			<div id="question_option_sources">
+				<div class="uk-grid" data-uk-grid-margin
+					ng-repeat="option in question.options | orderBy: 'order' | byGroup: 'source'">
+					<div class="uk-width-medium-7-10">
+						<label for="option_{{option.order}}">{{option.order }}</label>
+						<input type="text" class="md-input" id="option_{{option.order}}"
+							md-input ng-model="option.content" />
+					</div>
+					<div class="uk-width-medium-2-10">
+						<selectize config="targetConfig" position="bottom"
+										options="targetOptions" ng-change="selectAssociation(option)"
+										ng-model="option.target"></selectize>
+					</div>
+					<div class="uk-width-medium-1-10">
+						<a ng-click="removeOption(option)"
+							data-uk-tooltip="{cls:'uk-tooltip-small',pos:'top'}"
+							title="{{'ACTION.DELETE'|translate}}"><i
+							class="md-icon material-icons uk-text-danger">delete</i></a>
+					</div>
+				</div>
+				<div class="uk-text-center">
+					<a href="#" class="md-btn md-btn-flat md-btn-flat-primary"
+						ng-click="addSourceOption()">{{'PAGE.LMS.MY_COURSES.TEACHER_BOARD.COURSE_OUTLINE.TEST.ADD_SOURCE_OPTION'|translate}}</a>
+				</div>
+			</div>
+		</div>
+		<div class="uk-width-large-1-2 uk-width-medium-1-2 uk-width-small-1-1">
+			<div id="question_option_targets">
+				<div class="uk-grid" data-uk-grid-margin
+					ng-repeat="option in question.options | orderBy: 'index' | byGroup :'target'">
+					<div class="uk-width-medium-9-10">
+						<label for="option_{{option.order}}">{{option.index | letter }}</label>
+						<input type="text" class="md-input" id="option_{{option.order}}"
+							md-input ng-model="option.content" />
+					</div>
+					<div class="uk-width-medium-1-10">
+						<a ng-click="removeOption(option)"
+							data-uk-tooltip="{cls:'uk-tooltip-small',pos:'top'}"
+							title="{{'ACTION.DELETE'|translate}}"><i
+							class="md-icon material-icons uk-text-danger">delete</i></a>
+					</div>
+				</div>
+				<div class="uk-text-center">
+					<a href="#" class="md-btn md-btn-flat md-btn-flat-primary"
+						ng-click="addTargetOption()">{{'PAGE.LMS.MY_COURSES.TEACHER_BOARD.COURSE_OUTLINE.TEST.ADD_TARGET_OPTION'|translate}}</a>
+				</div>
+			</div>
+		</div>
+		<div class="uk-width-1-1 uk-margin-left uk-alert uk-alert-warning uk-text-center"
+				ng-show="question.optionMappings.length==0">
+				{{'ERROR.QUESTION.EMPTY_QUESTION_OPTION_MAPPING'|translate}}</div>
+	</div>
+</div>
+
+<div ng-if="mode=='view'">
+	<div class="uk-grid no-margin-top">
+		<div class="uk-width-medium-1-2 parsley-row">
+			<h4 class="quiz-heading uk-text-left">{{'MODEL.QUESTION.LEVEL'|translate}}</h4>
+			<div id="question_level_select">
+				<span class="icheck-inline"> <input ng-disabled="true"
+					type="radio" name="question_level_{{question._id}}"
+					id="question_easy_{{question._id}}" value="easy" icheck
+					ng-model="question.level" /> <label for="question_easy"
+					class="inline-label">{{'COMMON.DIFFICULTY.EASY'|translate}}</label>
+				</span> <span class="icheck-inline"> <input ng-disabled="true"
+					type="radio" name="question_level_{{question._id}}"
+					id="question_medium_{{question._id}}" value="medium" icheck
+					ng-model="question.level" /> <label for="question_medium"
+					class="inline-label">{{'COMMON.DIFFICULTY.MEDIUM'|translate}}</label>
+				</span> <span class="icheck-inline"> <input ng-disabled="true"
+					type="radio" name="question_level_{{question._id}}"
+					id="question_hard_{{question._id}}" value="hard" icheck
+					ng-model="question.level" /> <label for="question_hard"
+					class="inline-label">{{'COMMON.DIFFICULTY.HARD'|translate}}</label>
+				</span>
+			</div>
+		</div>
+	</div>
+	<div class="uk-grid no-margin-top">
+		<div class="uk-width-medium-1-1 parsley-row">
+			<h4 class="quiz-heading uk-text-left">
+				{{'MODEL.QUESTION.DESC'|translate}}</h4>
+			<p class="uk-text-left text-wrap" ng-bind-html="question.description" />
+		</div>
+	</div>
+	<div class="uk-grid no-margin-top" data-uk-grid-margin>
+		<div class="uk-width-large-1-2 uk-width-medium-1-2 uk-width-small-1-1">
+			<div id="question_option_sources">
+				<div class="uk-grid" data-uk-grid-margin
+					ng-repeat="option in question.options | orderBy: 'order' | byGroup: 'source'">
+					<div class="uk-width-medium-8-10">
+						<p class="uk-text-left text-wrap">{{option.order }}. {{option.content}}</p>
+					</div>
+					<div class="uk-width-medium-2-10">
+						<p class="uk-text-left text-wrap">{{getOption(option.target).index | letter }}</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="uk-width-large-1-2 uk-width-medium-1-2 uk-width-small-1-1">
+			<div id="question_option_targets">
+				<div class="uk-grid" data-uk-grid-margin
+					ng-repeat="option in question.options | orderBy: 'index' | byGroup: 'target'">
+					<div class="uk-width-medium-8-10">
+						<p class="uk-text-left text-wrap">{{option.index | letter }}. {{option.content}}</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div ng-if="mode=='study'">
+	<div class="uk-grid">
+		<div class="uk-width-medium-1-1 parsley-row">
+			<p ng-bind-html="question.description" />
+		</div>
+	</div>
+	<div class="uk-grid" data-uk-grid-margin>
+		<div class="uk-width-large-1-2 uk-width-medium-1-2 uk-width-small-1-1">
+			<div id="question_option_sources">
+				<div class="uk-grid" data-uk-grid-margin
+					ng-repeat="option in question.options | orderBy: 'order' | byGroup: 'source'">
+					<div class="uk-width-medium-7-10">
+						<label for="option_{{option.order}}">{{option.order }}</label>
+						<input type="text" class="md-input" id="option_{{option.order}}"
+							md-input ng-model="option.content" />
+					</div>
+					<div class="uk-width-medium-2-10">
+						<selectize config="targetConfig" position="bottom"
+										options="targetOptions" ng-change="selectAssociation(option)"
+										ng-model="option.target"></selectize>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="uk-width-large-1-2 uk-width-medium-1-2 uk-width-small-1-1">
+			<div id="question_option_targets">
+				<div class="uk-grid" data-uk-grid-margin
+					ng-repeat="option in question.options | orderBy: 'index' | byGroup :'target'">
+					<div class="uk-width-medium-8-10">
+						<label for="option_{{option.order}}">{{option.index | letter }}</label>
+						<input type="text" class="md-input" id="option_{{option.order}}"
+							md-input ng-model="option.content" />
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+<div ng-if="mode=='result'">
+	<div class="uk-grid">
+		<div class="uk-width-medium-1-1 ">
+			<p class="quiz-question" ng-bind-html="translateContent()"></p>
+		</div>
+	</div>
+	<div class="uk-grid" data-uk-grid-margin>
+		<div class="uk-width-large-1-2 uk-width-medium-1-2 uk-width-small-1-1">
+			<div id="question_option_sources">
+				<div class="uk-grid" data-uk-grid-margin
+					ng-repeat="option in question.options | orderBy: 'order' | byGroup: 'source'">
+					<div class="uk-width-medium-8-10">
+						<p class="uk-text-left text-wrap">{{option.order }}. {{option.content}}</p>
+					</div>
+					<div class="uk-width-medium-2-10">
+						<p class="uk-text-left text-wrap">{{getOption(option.target).index | letter }}</p>
+						
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="uk-width-large-1-2 uk-width-medium-1-2 uk-width-small-1-1">
+			<div id="question_option_targets">
+				<div class="uk-grid" data-uk-grid-margin
+					ng-repeat="option in question.options | orderBy: 'index' | byGroup: 'target'">
+					<div class="uk-width-medium-8-10">
+						<p class="uk-text-left text-wrap">{{option.index | letter }}. {{option.content}}</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+

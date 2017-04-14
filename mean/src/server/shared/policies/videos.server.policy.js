@@ -12,40 +12,55 @@ acl = new acl(new acl.memoryBackend());
  * Invoke Videos Permissions
  */
 exports.invokeRolesPolicies = function() {
-  acl.allow([{
-    roles: ['admin'],
-    allows: [{
-      resources: '/api/videos',
-      permissions: '*'
-    }, {
-      resources: '/api/videos/:videoId',
-      permissions: '*'
-    }, {
-      resources: '/api/videos/upload',
-      permissions: ['post']
-    }]
-  }, {
-    roles: ['user'],
-    allows: [{
-      resources: '/api/videos',
-      permissions: ['get', 'post']
-    }, {
-      resources: '/api/videos/:videoId',
-      permissions: ['get', 'put']
-    }, {
-      resources: '/api/videos/upload',
-      permissions: ['post']
-    }]
-  }, {
-    roles: ['guest'],
-    allows: [{
-      resources: '/api/videos',
-      permissions: ['get']
-    }, {
-      resources: '/api/videos/:videoId',
-      permissions: ['get']
-    }]
-  }]);
+  acl.allow([
+    {
+      roles: ['admin'],
+      allows: [
+        {
+          resources: '/api/videos',
+          permissions: '*'
+        },
+        {
+          resources: '/api/videos/:videoId',
+          permissions: '*'
+        },
+        {
+          resources: '/api/videos/upload',
+          permissions: ['post']
+        }
+      ]
+    },
+    {
+      roles: ['user'],
+      allows: [
+        {
+          resources: '/api/videos',
+          permissions: ['get', 'post']
+        },
+        {
+          resources: '/api/videos/:videoId',
+          permissions: ['get', 'put']
+        },
+        {
+          resources: '/api/videos/upload',
+          permissions: ['post']
+        }
+      ]
+    },
+    {
+      roles: ['guest'],
+      allows: [
+        {
+          resources: '/api/videos',
+          permissions: ['get']
+        },
+        {
+          resources: '/api/videos/:videoId',
+          permissions: ['get']
+        }
+      ]
+    }
+  ]);
 };
 
 /**

@@ -31,7 +31,7 @@
 	<div class="uk-grid">
 		<div class="uk-width-medium-1-1 parsley-row">
 			<textarea ui-tinymce="tinymce_options"
-				ng-model="question.description" cols="30" rows="12"></textarea>
+				ng-model="question.description" cols="30" rows="4"></textarea>
 		</div>
 	</div>
 	<div class="uk-grid" data-uk-grid-margin>
@@ -43,7 +43,7 @@
 						<span class="icheck-inline"> <input type="checkbox"
 							id="option_{{option._id}}" icheck ng-model="option.selected"
 							ng-change="selectOption(option)" /> <label
-							for="option_{{option._id}}" class="inline-label">{{option.order}}</label>
+							for="option_{{option._id}}" class="inline-label">{{$index + 1}}</label>
 						</span>
 					</div>
 					<div class="uk-width-medium-7-10">
@@ -170,10 +170,7 @@
 					</div>
 					<div class="uk-width-medium-8-10 uk-text-left">
 						<!-- <label for="option_{{option._id}}" class="inline-label">{{option.order}}.</label> -->
-						<span class="text-wrap">{{option.content}}</span> <span
-							ng-show="option.isCorrect && showAnswer"> <i
-							class="material-icons uk-text-success">check_circle</i>
-						</span>
+						<span class="text-wrap">{{option.content}}</span>
 					</div>
 				</div>
 			</div>

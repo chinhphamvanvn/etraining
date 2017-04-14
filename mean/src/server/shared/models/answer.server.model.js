@@ -37,6 +37,18 @@ var AnswerSchema = new Schema({
       }
     ]
   },
+  optionMappings: {
+    type: [{
+      source: {
+        type: Schema.ObjectId,
+        ref: 'Option'
+      },
+      target: {
+        type: Schema.ObjectId,
+        ref: 'Option'
+      }
+    }]
+  },
   text: {
     type: String
   },
