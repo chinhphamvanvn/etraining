@@ -336,6 +336,7 @@
 	"ACTION.GENERATE_REPORT": "Make Report",
 	"ACTION.PROCEED": "Processed",
 	"ACTION.IMPORT": "Improt File",
+	"ACTION.EXPORT_TEMPLATE_CSV": "Download file csv template",
 	"ACTION.EXPORT": "Export File",
 	"ACTION.CONTINUE": "Continue",
 	"ACTION.SUBMIT": "Submit",

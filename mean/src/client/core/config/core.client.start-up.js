@@ -57,7 +57,8 @@
           }
         });
         return false;
-      }
+      },
+      csv_template: '/assets/csv/template_csv.csv'
     });
 
   angular
