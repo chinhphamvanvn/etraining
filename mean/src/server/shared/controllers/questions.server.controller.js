@@ -8,7 +8,10 @@ var path = require('path'),
   Question = mongoose.model('Question'),
   Option = mongoose.model('Option'),
   errorHandler = require(path.resolve('./src/server/core/controllers/errors.server.controller')),
-  _ = require('lodash');
+  _ = require('lodash'),
+  fs = require('fs'),
+  multer = require('multer'),
+  config = require(path.resolve('./config/config'));
 
 exports.bulkCreate = function(req, res) {
   var questions = req.body.questions;
@@ -244,4 +247,36 @@ exports.questionByID = function(req, res, next, id) {
     req.question = question;
     next();
   });
+};
+
+
+exports.uploadQuestionImage = function(req, res) {
+  // Filtering to upload only images
+  var multerConfig = config.uploads.file.image;
+  multerConfig.fileFilter = require(path.resolve('./config/lib/multer')).imageFileFilter;
+  var upload = multer(multerConfig).single('newQuestionImage');
+
+  uploadImage()
+    .then(function(imageURL) {
+      res.json({
+        imageURL: imageURL
+      });
+    })
+    .catch(function(err) {
+      res.status(422).send(err);
+    });
+
+  function uploadImage() {
+    return new Promise(function(resolve, reject) {
+      upload(req, res, function(uploadError) {
+        if (uploadError) {
+          reject(errorHandler.getErrorMessage(uploadError));
+        } else {
+          var imageURL = config.uploads.file.image.urlPaath + req.file.filename;
+          resolve(imageURL);
+        }
+      });
+    });
+  }
+
 };

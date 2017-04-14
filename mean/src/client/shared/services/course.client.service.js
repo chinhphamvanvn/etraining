@@ -16,7 +16,7 @@
               questionIds: _.pluck(exam.questions, 'id')
             }, function(questions) {
               _.each(questions, function(question) {
-                if (!question.optional) {
+                if (!question.optional && question.type !== 'ext') {
                   if (question.grouped) {
                     examScore += question.subQuestions.length;
                     _.each(question.subQuestions, function(subQuestion) {
