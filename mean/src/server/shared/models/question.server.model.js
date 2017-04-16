@@ -29,7 +29,10 @@ var QuestionSchema = new Schema({
     type: Date,
     default: Date.now
   },
-  xmlData: {
+  imageUrl: {
+    type: String
+  },
+  svgData: {
     type: String
   },
   user: {

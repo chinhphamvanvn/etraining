@@ -21,10 +21,12 @@
 
     $rootScope.toBarActive = true;
     $rootScope.topMenuActive = true;
+    $rootScope.hideFooter = true;
 
     $scope.$on('$destroy', function() {
       $rootScope.toBarActive = false;
       $rootScope.topMenuActive = false;
+      $rootScope.hideFooter = false;
     });
 
     examUtils.pendingSubmit(vm.candidate, vm.exam).then(function(progress) {

@@ -143,7 +143,7 @@
               });
             });
           },
-          candidateScoreBySubmit: candidateScoreBySubmit,
+          candidateScoreByBusmit: candidateScoreByBusmit,
           candidateScore: function(candidate, exam) {
             return $q(function(resolve, reject) {
               SubmissionsService.byExamAndCandidate({
@@ -154,7 +154,7 @@
                   var latestSubmit = _.max(submits, function(submit) {
                     return new Date(submit.start).getTime();
                   });
-                  candidateScoreBySubmit(candidate, exam, latestSubmit).then(function(score) {
+                  candidateScoreByBusmit(candidate, exam, latestSubmit).then(function(score) {
                     resolve(score);
                   });
                 } else {
