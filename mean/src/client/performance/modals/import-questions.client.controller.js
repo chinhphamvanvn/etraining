@@ -105,10 +105,13 @@
         if (!question.removed) {
           var createQuestion = {};
           _.each(vm.headers, function(header, index) {
-            if (header.column && !header.deleted) {
-              createQuestion[header.column] = question[index];
-              if (header.column === 'correctOptions' || header.column === 'wrongOptions') {
-                createQuestion[header.column] = question[index].split(';');
+            if (header.name && !header.deleted) {
+              createQuestion[header.name.toLowerCase()] = question[index];
+              if (header.name.toLowerCase() === 'correct_option') {
+                  createQuestion['correctOptions'] = question[index].split(';');
+              }
+              if (header.name.toLowerCase() === 'wrong_option') {
+                createQuestion['wrongOptions'] = question[index].split(';');
               }
             }
           });
