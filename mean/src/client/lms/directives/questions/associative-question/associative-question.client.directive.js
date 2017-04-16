@@ -36,7 +36,7 @@
       templateUrl: '/src/client/lms/directives/questions/associative-question/associative-question.directive.client.view.html',
       link: function(scope, element, attributes) {
         scope.tinymce_options = fileManagerConfig;
-
+        scope.targetOptions = [];
         scope.$watch('question', function() {
           if (scope.question._id)
             scope.question.options = OptionsService.byQuestion({
