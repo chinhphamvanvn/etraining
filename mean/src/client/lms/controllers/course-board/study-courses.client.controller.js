@@ -45,7 +45,7 @@
         });
         if (latestAttempt) {
           var lastNode = _.find(vm.nodeList, function(node) {
-            return node.data._id === latestAttempt.section;
+            return node.data._id === latestAttempt.section._id;
           });
           if (lastNode) {
             selectNode(lastNode);
