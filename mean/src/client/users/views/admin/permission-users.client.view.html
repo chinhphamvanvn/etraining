@@ -31,12 +31,9 @@
 					<div class="md-card-toolbar">
 						<div class="md-card-toolbar-actions">
 
-							<a class="md-btn md-btn-flat md-btn-icon md-btn-wave-light"
-								ui-sref="admin.workspace.users.create"><i
-								class="uk-icon-plus uk-text-success"></i>{{'ACTION.CREATE'|translate}}</a>
-							<a class="md-btn md-btn-flat md-btn-icon md-btn-wave-light uk-hidden-small"
-								data-uk-modal="{target:'#import_user_dialog'}"><i
-								class="uk-icon-upload"></i>{{'ACTION.IMPORT'|translate}}</a>
+							<a class="md-btn md-btn-flat md-btn-icon md-btn-wave-light" ng-click="vm.newPermissionView()"
+								href='#new_view_permission' data-uk-modal="{ center:true }"><i
+								class="uk-icon-plus uk-text-success"></i>{{'ACTION.NEW_VIEW_PERMISSION'|translate}}</a>
 						</div>
 						<h3 class="md-card-toolbar-heading-text uk-text-upper">
 							{{'PAGE.USERS.USER_LIST' | translate}}</h3>
@@ -50,6 +47,7 @@
 								<th class="uk-text-center uk-text-upper">{{'MODEL.USER.DISPLAY_NAME'|translate}}</th>
 								<th class="uk-text-center uk-text-upper">{{'MODEL.USER.ROLE'|translate}}</th>
 								<th class="uk-text-center uk-text-upper">{{'MODEL.USER.PERMISSION_VIEW'|translate}}</th>
+								<th class="uk-text-center uk-text-upper">{{'MODEL.USER.PERMISSION_OBJECT'|translate}}</th>
 								<th class="uk-text-center uk-text-upper">{{'COMMON.ACTION'|translate}}</th>
 							</tr>
 						</thead>
@@ -69,6 +67,8 @@
 								name="view_edit_role"></selectize>
 								</td>
 								<td class="uk-text-center">
+								</td>
+								<td class="uk-text-center">
 									<a class="md-btn md-btn-primary md-btn-mini md-btn-wave-light" ng-click="vm.save(user)">{{'ACTION.SAVE'|translate}}</a>
 								</td>
 							</tr>
@@ -82,6 +82,32 @@
 	</div>
 </div>
 
-<div
-	ng-include="'/src/client/users/modals/import-users-client.dialog.html'"></div>
+<div class="uk-modal" id="new_view_permission">
+    <div class="uk-modal-dialog uk-modal-dialog-large">
+    	<div class="uk-alert uk-text-center uk-alert-info">
+			<h3 class="heading_b">{{'DIALOG.SELECT_MENU_PERMISSION.TITLE' |
+				translate}}</h3>
+		</div>
+        <form class="uk-form-stacked">
+            <div class="uk-margin-medium-bottom">
+                <label for="permission_title">{{'MODEL.PERMISSION_VIEW.NAME' | translate}}</label>
+                <input type="text" class="md-input" ng-model="vm.permissionView.name" id="permission_title" name="permission_title" md-input/>
+            </div>
+            <div class="uk-grid">
+            	<div class="uk-margin-medium-bottom uk-width-1-2">
+	                <label for="user_menu">{{'MODEL.PERMISSION_VIEW.USER_MENU' | translate}}</label>
+	                <menu-tree-view tree-id="'menuUserTree'" role="'user'" select="vm.selectUserMenu"></menu-tree-view>
+            	</div>
+            	<div class="uk-margin-medium-bottom uk-width-1-2">
+	                <label for="admin_menu">{{'MODEL.PERMISSION_VIEW.ADMIN_MENU' | translate}}</label>
+	                <menu-tree-view tree-id="'menuAdminTree'" role="'admin'" select="vm.selectAdminMenu"></menu-tree-view>
+            </div>
+            </div>
+            <div class="uk-modal-footer uk-text-right">
+                <button type="button" class="md-btn md-btn-flat uk-modal-close">{{'ACTION.CLOSE'|translate}}</button>
+                <button type="button" ng-click="vm.savePermissionView()" class="md-btn md-btn-flat md-btn-flat-primary uk-modal-close" id="snippet_new_save">{{'ACTION.SAVE'|translate}}</button>
+            </div>
+        </form>
+    </div>
+</div>
 

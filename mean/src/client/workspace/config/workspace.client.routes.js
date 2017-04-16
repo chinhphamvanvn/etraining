@@ -18,7 +18,8 @@
         controller: 'WorkspaceController',
         controllerAs: 'vm',
         resolve: {
-          userResolve: getUser
+          userResolve: getUser,
+          permissionViewResolve: getMenuPermission
         },
         data: {
           roles: ['user']
@@ -31,7 +32,8 @@
         controller: 'WorkspaceController',
         controllerAs: 'vm',
         resolve: {
-          userResolve: getUser
+          userResolve: getUser,
+          permissionViewResolve: getMenuPermission
         },
         data: {
           roles: ['admin']
@@ -44,5 +46,15 @@
 
   function getUser(UsersService) {
     return UsersService.me().$promise;
+  }
+  
+  getMenuPermission.$inject = ['Authentication', 'PermissionViewsService'];
+
+  function getMenuPermission(Authentication, PermissionViewsService) {
+    var user = Authentication.user;
+    if (user.permissionView)
+      return PermissionViewsService.get({permissionviewId:user.permissionView}).$promise;
+    else
+      return null;
   }
 }());

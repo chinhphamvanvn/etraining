@@ -26,7 +26,6 @@ exports.update = function(req, res) {
   if (user) {
     // Update whitelisted fields only
     user = _.extend(user, _.pick(req.body, whitelistedFields));
-
     user.updated = Date.now();
     user.displayName = user.firstName + ' ' + user.lastName;
 

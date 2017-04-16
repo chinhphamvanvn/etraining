@@ -176,10 +176,13 @@ exports.update = function(req, res) {
   user.position = req.body.position;
   user.facebook = req.body.facebook;
   user.twitter = req.body.twitter;
+  user.permissionView = req.body.permissionView;
+  user.permissionObject = req.body.permissionObject;
   user.banned = req.body.banned;
   user.group = req.body.group;
   user.displayName = user.firstName + ' ' + user.lastName;
   user.roles = req.body.roles;
+  
 
   user.save(function(err) {
     if (err) {
@@ -320,7 +323,7 @@ exports.userByID = function(req, res, next, id) {
     });
   }
 
-  User.findById(id, '-salt -password -providerData').exec(function(err, user) {
+  User.findById(id, '-salt -password -providerData').populate('group').exec(function(err, user) {
     if (err) {
       return next(err);
     } else if (!user) {

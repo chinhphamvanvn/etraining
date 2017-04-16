@@ -62,7 +62,7 @@
         }
       })
       .state('admin.workspace.users.permission', {
-        url: '/list',
+        url: '/performance',
         templateUrl: '/src/client/users/views/admin/permission-users.client.view.html',
         controller: 'UserPermissionController',
         controllerAs: 'vm',

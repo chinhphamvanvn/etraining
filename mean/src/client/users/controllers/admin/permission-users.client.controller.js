@@ -10,6 +10,10 @@
   function UserPermissionController($scope, $state, $filter, $compile, Authentication, AdminService, $timeout, $location, $window, PermissionViewsService, Notification, $q, treeUtils, $translate, _) {
     var vm = this;
     vm.save = save;
+    vm.newPermissionView = newPermissionView;
+    vm.savePermissionView = savePermissionView;
+    vm.selectUserMenu = selectUserMenu;
+    vm.selectAdminMenu = selectAdminMenu;
 
     vm.selectGroup = function(groups) {
       vm.users = [];
@@ -21,20 +25,67 @@
         });
       });
     };
+
+    function newPermissionView() {
+      vm.permissionView = new PermissionViewsService();
+    }
     
+    function selectUserMenu(menuIds) {
+      vm.permissionView.userMenu = menuIds;
+    }
+    
+    function selectAdminMenu(menuIds) {
+      vm.permissionView.adminMenu = menuIds;
+    }
+
     function save(user) {
-        user.$update(function() {
+      user.$update(function() {
+        Notification.success({
+          message: '<i class="uk-icon-check"></i> User saved successfully!'
+        });
+      }, function() {
+        Notification.error({
+          message: errorResponse.data.message,
+          title: '<i class="uk-icon-ban"></i> User update error!'
+        });
+      });
+    }
+
+    function savePermissionView() {
+      if (vm.permissionView._id) {
+        vm.permissionView.$update(function() {
           Notification.success({
-            message: '<i class="uk-icon-check"></i> User saved successfully!'
+            message: '<i class="uk-icon-check"></i> Permission saved successfully!'
           });
         }, function() {
           Notification.error({
             message: errorResponse.data.message,
-            title: '<i class="uk-icon-ban"></i> User update error!'
+            title: '<i class="uk-icon-ban"></i> Permission update error!'
           });
         });
+      } else {
+        vm.permissionView.$save(function() {
+          Notification.success({
+            message: '<i class="uk-icon-check"></i> Permission saved successfully!'
+          });
+        }, function() {
+          Notification.error({
+            message: errorResponse.data.message,
+            title: '<i class="uk-icon-ban"></i> Permission update error!'
+          });
+        });
+      }
+      vm.permissionViewList = PermissionViewsService.query(function() {
+        vm.permissionViewOptions = _.map(vm.permissionViewList, function(obj) {
+          return {
+            id: obj._id,
+            title: obj.name,
+            value: obj._id
+          };
+        });
+      });
     }
-    
+
     vm.roleSwitcherOptions = [
       {
         id: 1,
@@ -59,24 +110,24 @@
       searchField: 'title',
       create: false
     };
-    
+
     vm.permissionViewConfig = {
-        maxItems: 1,
-        valueField: 'value',
-        labelField: 'title',
-        searchField: 'title',
-        create: false
-      };
-      vm.permissionViewOptions = [];
-      PermissionViewsService.query(function(permissions) {
-        vm.permissionViewOptions = _.map(permissions, function(obj) {
-          return {
-            id: obj._id,
-            title: obj.name,
-            value: obj._id
-          };
-        });
+      maxItems: 1,
+      valueField: 'value',
+      labelField: 'title',
+      searchField: 'title',
+      create: false
+    };
+    vm.permissionViewOptions = [];
+    vm.permissionViewList = PermissionViewsService.query(function() {
+      vm.permissionViewOptions = _.map(vm.permissionViewList, function(obj) {
+        return {
+          id: obj._id,
+          title: obj.name,
+          value: obj._id
+        };
       });
+    });
 
   }
 }(window.UIkit));
