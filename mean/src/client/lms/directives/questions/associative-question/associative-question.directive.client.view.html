@@ -46,7 +46,7 @@
 					</div>
 					<div class="uk-width-medium-2-10">
 						<selectize config="targetConfig" position="bottom"
-										options="targetOptions" ng-change="selectAssociation(option)"
+										options="targetOptions" ng-change="selectAssoc()"
 										ng-model="option.target"></selectize>
 					</div>
 					<div class="uk-width-medium-1-10">
@@ -130,7 +130,7 @@
 						<p class="uk-text-left text-wrap">{{option.order }}. {{option.content}}</p>
 					</div>
 					<div class="uk-width-medium-2-10">
-						<p class="uk-text-left text-wrap">{{getOption(option.target).index | letter }}</p>
+						<p class="uk-text-left text-wrap">{{optionById(option.target).index | letter }}</p>
 					</div>
 				</div>
 			</div>
@@ -166,7 +166,7 @@
 					</div>
 					<div class="uk-width-medium-2-10">
 						<selectize config="targetConfig" position="bottom"
-										options="targetOptions" ng-change="selectAssociation(option)"
+										options="targetOptions" ng-change="selectAssoc(option)"
 										ng-model="option.target"></selectize>
 					</div>
 				</div>
@@ -190,7 +190,7 @@
 <div ng-if="mode=='result'">
 	<div class="uk-grid">
 		<div class="uk-width-medium-1-1 ">
-			<p class="quiz-question" ng-bind-html="translateContent()"></p>
+			<p class="uk-text-left text-wrap" ng-bind-html="question.description" />
 		</div>
 	</div>
 	<div class="uk-grid" data-uk-grid-margin>
