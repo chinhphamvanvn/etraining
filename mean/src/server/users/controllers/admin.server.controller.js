@@ -182,7 +182,7 @@ exports.update = function(req, res) {
   user.group = req.body.group;
   user.displayName = user.firstName + ' ' + user.lastName;
   user.roles = req.body.roles;
-  
+
 
   user.save(function(err) {
     if (err) {

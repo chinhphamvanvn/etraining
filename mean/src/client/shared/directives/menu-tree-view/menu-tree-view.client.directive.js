@@ -13,7 +13,7 @@
         treeId: '=',
         role: '=', // user, admin
         select: '=',
-        menuItems: '=', // id of initial selected menu
+        menuItems: '=' // id of initial selected menu
       },
       templateUrl: '/src/client/shared/directives/menu-tree-view/menu-tree-view.directive.client.view.html',
       link: function(scope, element, attributes) {

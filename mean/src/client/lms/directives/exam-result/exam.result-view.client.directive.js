@@ -25,9 +25,10 @@
                 var start = new Date(submit.start);
                 var end = new Date(submit.end);
                 submit.duration = Math.floor((end.getTime() - start.getTime()) / 1000);
-                  examUtils.candidateScoreBySubmit(scope.candidate, scope.exam, submit).then(function(score) {
-                  submit.score = score;
-                });
+                examUtils.candidateScoreBySubmit(scope.candidate, scope.exam, submit)
+                  .then(function(score) {
+                    submit.score = score;
+                  });
               });
             });
           }

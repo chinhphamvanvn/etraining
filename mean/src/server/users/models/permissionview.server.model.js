@@ -23,7 +23,7 @@ var PermissionViewSchema = new Schema({
   },
   adminMenu: {
     type: [{
-      type: String,
+      type: String
     }]
   },
   created: {

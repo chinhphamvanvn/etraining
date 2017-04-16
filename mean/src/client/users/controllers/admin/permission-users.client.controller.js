@@ -29,11 +29,11 @@
     function newPermissionView() {
       vm.permissionView = new PermissionViewsService();
     }
-    
+
     function selectUserMenu(menuIds) {
       vm.permissionView.userMenu = menuIds;
     }
-    
+
     function selectAdminMenu(menuIds) {
       vm.permissionView.adminMenu = menuIds;
     }
@@ -43,7 +43,7 @@
         Notification.success({
           message: '<i class="uk-icon-check"></i> User saved successfully!'
         });
-      }, function() {
+      }, function(errorResponse) {
         Notification.error({
           message: errorResponse.data.message,
           title: '<i class="uk-icon-ban"></i> User update error!'
@@ -57,7 +57,7 @@
           Notification.success({
             message: '<i class="uk-icon-check"></i> Permission saved successfully!'
           });
-        }, function() {
+        }, function(errorResponse) {
           Notification.error({
             message: errorResponse.data.message,
             title: '<i class="uk-icon-ban"></i> Permission update error!'
@@ -68,7 +68,7 @@
           Notification.success({
             message: '<i class="uk-icon-check"></i> Permission saved successfully!'
           });
-        }, function() {
+        }, function(errorResponse) {
           Notification.error({
             message: errorResponse.data.message,
             title: '<i class="uk-icon-ban"></i> Permission update error!'

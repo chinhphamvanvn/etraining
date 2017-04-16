@@ -63,21 +63,20 @@
           userId: vm.user._id
         });
     }
-    
+
     function filterByPermission(menuKey) {
       if (!vm.permissionView)
         return true;
-      if ( $rootScope.viewerRole === 'user') {
-        return _.contains(vm.permissionView.userMenu,menuKey); 
+      if ($rootScope.viewerRole === 'user') {
+        return _.contains(vm.permissionView.userMenu, menuKey);
       }
-      if ( $rootScope.viewerRole === 'admin') {
-        return _.contains(vm.permissionView.adminMenu,menuKey); 
+      if ($rootScope.viewerRole === 'admin') {
+        return _.contains(vm.permissionView.adminMenu, menuKey);
       }
       return false;
     }
 
     function updateSidebar() {
-      
       var sections = _.filter(vm.menu.items, function(menu) {
         return (menu.roles.indexOf('*') !== -1) || (_.contains(menu.roles, $rootScope.viewerRole) && filterByPermission(menu.title));
       });
@@ -88,7 +87,7 @@
         var submenu = _.filter(section.items, function(menu) {
           return (menu.roles.indexOf('*') !== -1) || (_.contains(menu.roles, $rootScope.viewerRole) && filterByPermission(menu.title));
         });
-        
+
         submenu = _.sortBy(submenu, function(menu) {
           return menu.position;
         });

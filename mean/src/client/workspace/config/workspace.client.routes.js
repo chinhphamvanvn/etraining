@@ -47,13 +47,15 @@
   function getUser(UsersService) {
     return UsersService.me().$promise;
   }
-  
+
   getMenuPermission.$inject = ['Authentication', 'PermissionViewsService'];
 
   function getMenuPermission(Authentication, PermissionViewsService) {
     var user = Authentication.user;
     if (user.permissionView)
-      return PermissionViewsService.get({permissionviewId:user.permissionView}).$promise;
+      return PermissionViewsService.get({
+        permissionviewId: user.permissionView
+      }).$promise;
     else
       return null;
   }
