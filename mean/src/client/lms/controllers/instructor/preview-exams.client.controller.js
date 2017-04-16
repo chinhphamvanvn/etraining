@@ -12,7 +12,6 @@
     var vm = this;
     vm.exam = exam;
     vm.schedule = schedule;
-
     vm.remainTime = vm.exam.duration * 60;
     vm.intervalToken = $interval(updateClock, 1000);
 
@@ -29,13 +28,27 @@
       });
     }
     if (vm.exam.questionSelection === 'auto') {
-      examUtils.questionRandom(vm.exam.questionCategory, vm.exam.questionLevel, vm.exam.questionNumber).then(function(questions) {
-        vm.questions = questions;
-        vm.index = 0;
-        if (vm.questions.length > 0)
-          selectQuestion(vm.index);
-        else
-          vm.alert = $translate.instant('ERROR.COURSE_STUDY.QUESTION_NOT_FOUND');
+
+      var questionPromises = [];
+
+      _.each(vm.exam.questionCategories, function(category) {
+          questionPromises.push(examUtils.questionRandom(category.id, category.level, category.numberQuestion));
+      });
+
+      $q.all(questionPromises).then(function(groupQuestionList) {
+          vm.questions = [];
+          vm.index = 0;
+
+          _.each(groupQuestionList, function(groupQuestion) {
+              vm.questions = vm.questions.concat(groupQuestion);
+          });
+
+          if (vm.questions.length > 0)
+              selectQuestion(vm.index);
+          else
+              vm.alert = $translate.instant('ERROR.EXAM.QUESTION_NOT_FOUND');
+      }).catch(function(err) {
+          console.log(err);
       });
     }
 

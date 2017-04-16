@@ -14,7 +14,6 @@
     vm.authentication = Authentication;
     vm.schedule = schedule;
     vm.exam = exam;
-    console.log('=======', exam);
     // if (vm.exam.questionCategory)
     //     vm.category = GroupsService.get({groupId:vm.exam.questionCategory});
     if (vm.exam.questionSelection === 'manual') {
