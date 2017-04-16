@@ -57,7 +57,7 @@
                   scope.question.svgData[option._id] = option.svgData;
                 }
               });
-              assignTargetIndex();
+              assignOptionIndex();
               enterMode();
             });
           else {
@@ -188,7 +188,7 @@
                 source: sourceOption._id,
                 target: targetOption._id
               });
-              assignTargetIndex();
+              assignOptionIndex();
             });
           });
         }
@@ -197,11 +197,17 @@
         function preprocessQuestionContent() {
         }
 
-        function assignTargetIndex() {
+        function assignOptionIndex() {
           var targetOptions = _.filter(scope.question.options, function(option) {
             return option.group === 'target';
           });
           _.each(targetOptions, function(option, index) {
+            option.index = index;
+          });
+          var sourceOptions = _.filter(scope.question.options, function(option) {
+            return option.group === 'source';
+          });
+          _.each(sourceOptions, function(option, index) {
             option.index = index;
           });
         }
@@ -222,7 +228,7 @@
           OptionsService.delete({
             optionId: assoc.target
           });
-          assignTargetIndex();
+          assignOptionIndex();
         }
 
         function optionById(id) {
@@ -253,110 +259,103 @@
             };
             UIkit.uploadSelect($('#file_upload-select'), settings);
           });
-          var selectedOptionId;
-          scope.mouseDown = function($event) {
+          var selectedOption;
+          scope.mouseDown = function($event,option) {
             if ($event.button === 0) {
-              selectedOptionId = $event.target.id.substr(0, $event.target.id.indexOf('_'));
-              console.log('Option ', selectedOptionId, ' is selected');
+              selectedOption = option;
+              console.log('Option ', option, ' is selected');
             }
           };
-          scope.mouseUp = function($event) {
+          scope.mouseUp = function($event,option) {
             if ($event.button === 0) {
-              if (selectedOptionId) {
-                console.log('Option ', selectedOptionId, ' is unselected');
-                selectedOptionId = null;
+              if (option) {
+                console.log('Option ', selectedOption, ' is unselected');
+                selectedOption = null;
               }
             }
           };
           scope.mouseMove = function($event) {
-            if (selectedOptionId) {
-              var rectElement = $('#' + selectedOptionId + '_rect');
-              var textElement = $('#' + selectedOptionId + '_text');
-              rectElement[0].setAttribute('x', $event.offsetX);
-              rectElement[0].setAttribute('y', $event.offsetY);
-              textElement[0].setAttribute('x', $event.offsetX + +rectElement[0].getAttribute('width') / 2);
-              textElement[0].setAttribute('y', $event.offsetY + +rectElement[0].getAttribute('height') / 2);
-              var option = _.find(scope.question.options, function(obj) {
-                return obj._id === selectedOptionId;
-              });
-              if (option) {
-                option.svgData.x = $event.offsetX;
-                option.svgData.y = $event.offsetY;
-              }
+            if ($event.buttons === 0) {
+              selectedOption = null;
+              return;
+            }
+            if (selectedOption) {
+              var rectElement = $('#' + selectedOption._id + '_rect');
+              var textElement = $('#' + selectedOption._id + '_text');
+              rectElement[0].setAttribute('x', $event.offsetX -  +rectElement[0].getAttribute('width') / 2);
+              rectElement[0].setAttribute('y', $event.offsetY - +rectElement[0].getAttribute('height') / 2);
+              selectedOption.svgData.x = $event.offsetX - +rectElement[0].getAttribute('width') / 2;
+              selectedOption.svgData.y = $event.offsetY - +rectElement[0].getAttribute('height') / 2;
             }
           };
         }
 
         function setupSvgDragDrop() {
-          scope.dragOptionId = null;
-          scope.dropOptionId = null;
-          scope.mouseDown = function($event) {
+          scope.dragOption = null;
+          scope.dropOption = null;
+          scope.mouseDown = function($event, option) {
             var source,
               target;
             if ($event.button === 0) {
-              var optionId = $event.target.id.substr(0, $event.target.id.indexOf('_'));
-              var option = optionById(optionId);
               if (option.group === 'source') {
-                scope.dragOptionId = $event.target.id.substr(0, $event.target.id.indexOf('_'));
-                console.log('Option ', scope.dragOptionId, ' is selected');
-                scope.dropOptionId = null;
-                source = optionById(scope.dragOptionId);
-                if (source.target) {
+                scope.dragOption =  option;
+                console.log('Option ', scope.dragOption, ' is selected');
+                scope.dropOption = null;
+                if (option.target) {
                   target = optionById(source.target);
                   target.source = null;
-                  source.target = null;
+                  scope.dragOption.target = null;
                 }
               }
               if (option.group === 'target' && option.source) {
-                scope.dragOptionId = option.source;
-                console.log('Option ', scope.dragOptionId, ' is selected');
-                scope.dropOptionId = null;
-                source = optionById(scope.dragOptionId);
+                scope.dragOption = optionById(option.source);
+                console.log('Option ', scope.dragOption, ' is selected');
+                scope.dropOption = null;
                 option.source = null;
-                source.target = null;
+                scope.dragOption.target = null;
               }
             }
 
           };
           scope.mouseUp = function($event) {
             if ($event.button === 0) {
-              if (scope.dragOptionId) {
-                console.log('Option ', scope.dragOptionId, ' is unselected');
-                if (scope.dropOptionId) {
-                  dropIn(scope.dragOptionId, scope.dropOptionId);
+              if (scope.dragOption) {
+                console.log('Option ', scope.dragOption, ' is unselected');
+                if (scope.dropOption) {
+                  dropIn(scope.dragOption._id, scope.dropOption._id);
                 }
               }
-              scope.dragOptionId = null;
-              scope.dropOptionId = null;
+              scope.dragOption = null;
+              scope.dropOption = null;
             }
 
           };
           scope.mouseMove = function($event) {
-            if (scope.dragOptionId) {
-              var rectElement = $('#' + scope.dragOptionId + '_rect');
-              var textElement = $('#' + scope.dragOptionId + '_text');
-              rectElement[0].setAttribute('x', $event.offsetX);
-              rectElement[0].setAttribute('y', $event.offsetY);
-              textElement[0].setAttribute('x', $event.offsetX + +rectElement[0].getAttribute('width') / 2);
-              textElement[0].setAttribute('y', $event.offsetY + +rectElement[0].getAttribute('height') / 2);
-              var option = optionById(scope.dragOptionId);
-              option.svgData.x = $event.offsetX;
-              option.svgData.y = $event.offsetY;
-              if (!scope.dropOptionId) {
+            if ($event.buttons === 0) {
+              scope.dragOption = null;
+              scope.dropOption = null;
+              return;
+            }
+            if (scope.dragOption) {
+              var rectElement = $('#' + scope.dragOption._id + '_rect');
+              var option = optionById(scope.dragOption._id);
+              option.svgData.x = $event.offsetX - +rectElement[0].getAttribute('width') / 2;
+              option.svgData.y = $event.offsetY - +rectElement[0].getAttribute('height') / 2;
+              if (!scope.dropOption) {
                 // test if any overlap, then set drop ID
-                _.each(scope.question.options, function(option) {
-                  if (option.group === 'target') {
+                _.each(scope.question.options, function(targetOption) {
+                  if (targetOption.group === 'target') {
                     var occupiedOption = _.find(scope.question.options, function(obj) {
-                      return obj.target === option._id;
+                      return obj.target === targetOption._id;
                     });
-                    if (!occupiedOption && testOverlap(scope.dragOptionId, option._id))
-                      scope.dropOptionId = option._id;
+                    if (!occupiedOption && testOverlap(scope.dragOption._id, targetOption._id))
+                      scope.dropOption = targetOption;
                   }
                 });
               } else {
                 // test if not overlap, then reset drop ID
-                if (!testOverlap(scope.dragOptionId, scope.dropOptionId))
-                  scope.dropOptionId = null;
+                if (!testOverlap(scope.dragOption._id, scope.dropOption._id))
+                  scope.dropOption = null;
               }
             }
           };

@@ -135,6 +135,14 @@ var UserSchema = new Schema({
     default: ['user'],
     required: 'Please provide at least one role'
   },
+  permissionView: {
+    type: Schema.ObjectId,
+    ref: 'PermissionView'
+  },
+  permissionObject: {
+    type: Schema.ObjectId,
+    ref: 'PermissionObject'
+  },
   updated: {
     type: Date
   },

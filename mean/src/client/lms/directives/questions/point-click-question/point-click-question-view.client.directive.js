@@ -189,6 +189,10 @@
             }
           };
           scope.mouseMove = function($event) {
+            if ($event.buttons === 0) {
+              selectedOptionId = null;
+              return;
+            }
             if (selectedOptionId) {
               var circleElement = $('#' + selectedOptionId + '_circle');
               var textElement = $('#' + selectedOptionId + '_text');

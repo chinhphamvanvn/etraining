@@ -159,6 +159,8 @@ exports.me = function(req, res) {
       email: validator.escape(req.user.email),
       phone: req.user.phone,
       group: req.user.group,
+      permissionView: req.user.permissionView,
+      permissionObject: req.user.permissionObject,
       position: req.user.position,
       facebook: req.user.facebook,
       twitter: req.user.twitter,

@@ -1,0 +1,87 @@
+<style type="text/css">
+.dataTables_wrapper .uk-overflow-container th, .dataTables_wrapper .uk-overflow-container td
+	{
+	padding: 10px 3px;
+}
+</style>
+<div id="page_content">
+	<div id="page_content_inner">
+		<h3 class="heading_b uk-margin-bottom">{{'PAGE.USERS.PERMISSION.TITLE' |
+			translate}}</h3>
+		<div class="uk-grid uk-grid-small" data-uk-grid-margin>
+			<div class="uk-width-1-1" >
+				<div class="md-card">
+					<div class="md-card-toolbar">
+						<div class="md-card-toolbar-actions">
+							<a ng-click="vm.editMode=true"><i
+								class="material-icons md-24 " data-uk-tooltip="{pos:'top'}"
+								title="{{'PAGE.USERS.UPDATE_ORG_TREE'|translate}}">edit</i></a>
+						</div>
+						<h3 class="md-card-toolbar-heading-text uk-text-upper">
+							{{'PAGE.ORGANIZATION.TITLE' | translate}}</h3>
+					</div>
+					<div class="md-card-content">
+						<group-tree-view tree-id="'orgTree'" mode="'multiple'"
+							category="'organization'" select="vm.selectGroup"></group-tree-view>
+					</div>
+				</div>
+			</div>
+			<div class="uk-width-1-1" ng-show="!vm.editMode">
+				<div class="md-card">
+					<div class="md-card-toolbar">
+						<div class="md-card-toolbar-actions">
+
+							<a class="md-btn md-btn-flat md-btn-icon md-btn-wave-light"
+								ui-sref="admin.workspace.users.create"><i
+								class="uk-icon-plus uk-text-success"></i>{{'ACTION.CREATE'|translate}}</a>
+							<a class="md-btn md-btn-flat md-btn-icon md-btn-wave-light uk-hidden-small"
+								data-uk-modal="{target:'#import_user_dialog'}"><i
+								class="uk-icon-upload"></i>{{'ACTION.IMPORT'|translate}}</a>
+						</div>
+						<h3 class="md-card-toolbar-heading-text uk-text-upper">
+							{{'PAGE.USERS.USER_LIST' | translate}}</h3>
+					</div>
+					<div class="md-card-content">
+
+						<table
+						class="uk-table uk-table-hover uk-table-nowrap uk-table-condensed">
+						<thead>
+							<tr>
+								<th class="uk-text-center uk-text-upper">{{'MODEL.USER.DISPLAY_NAME'|translate}}</th>
+								<th class="uk-text-center uk-text-upper">{{'MODEL.USER.ROLE'|translate}}</th>
+								<th class="uk-text-center uk-text-upper">{{'MODEL.USER.PERMISSION_VIEW'|translate}}</th>
+								<th class="uk-text-center uk-text-upper">{{'COMMON.ACTION'|translate}}</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="user in vm.users">
+								<td class="uk-text-center">{{user.displayName}}</td>
+								<td class="uk-text-center">
+									<selectize
+								config="vm.roleSwitcherConfig" position="bottom"
+								options="vm.roleSwitcherOptions" ng-model="user.roles"
+								name="user_edit_role"></selectize>
+								</td>
+								<td class="uk-text-center">
+								<selectize
+								config="vm.permissionViewConfig" position="bottom"
+								options="vm.permissionViewOptions" ng-model="user.permissionView"
+								name="view_edit_role"></selectize>
+								</td>
+								<td class="uk-text-center">
+									<a class="md-btn md-btn-primary md-btn-mini md-btn-wave-light" ng-click="vm.save(user)">{{'ACTION.SAVE'|translate}}</a>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</div>
+
+<div
+	ng-include="'/src/client/users/modals/import-users-client.dialog.html'"></div>
+
