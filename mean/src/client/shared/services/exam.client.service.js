@@ -5,14 +5,19 @@
     .module('shared')
     .service('examUtils', ['SubmissionsService', 'ExamsService', 'GroupsService', 'QuestionsService', 'treeUtils', '$q', '_',
       function(SubmissionsService, ExamsService, GroupsService, QuestionsService, treeUtils, $q, _) {
-        function candidateScoreByBusmit(candidate, exam, submit) {
+        function candidateScoreBySubmit(candidate, exam, submit) {
           return $q(function(resolve, reject) {
             var examScore = 0;
             var candidateScore = 0;
             var answer,
               questionIds;
             if (exam.questionSelection === 'auto') {
-              examScore = exam.questionScore * exam.questionNumber;
+              var totalQuestions = 0;
+              exam.questionCategories.map(function(category) {
+                totalQuestions += category.numberQuestion
+              });
+              examScore = exam.questionScore * totalQuestions;
+
               questionIds = _.pluck(submit.answers, 'question');
               if (questionIds && questionIds.length) {
                 QuestionsService.byIds({
@@ -138,7 +143,7 @@
               });
             });
           },
-          candidateScoreByBusmit: candidateScoreByBusmit,
+          candidateScoreBySubmit: candidateScoreBySubmit,
           candidateScore: function(candidate, exam) {
             return $q(function(resolve, reject) {
               SubmissionsService.byExamAndCandidate({
@@ -149,7 +154,7 @@
                   var latestSubmit = _.max(submits, function(submit) {
                     return new Date(submit.start).getTime();
                   });
-                  candidateScoreByBusmit(candidate, exam, latestSubmit).then(function(score) {
+                  candidateScoreBySubmit(candidate, exam, latestSubmit).then(function(score) {
                     resolve(score);
                   });
                 } else {

@@ -23,9 +23,9 @@
 							<p class="uk-text-italic">{{'PAGE.LMS.MY_EXAMS.GRADE_SCHEME.DEFAULT_QUESTION_SCORE'|translate}}
 							</p>
 							<p class="uk-text-italic">{{'PAGE.LMS.MY_EXAMS.GRADE_SCHEME.TOTAL_QUESTION'|translate}}
-								: {{vm.exam.questionNumber}}</p>
+								: {{vm.exam.totalQuestions}}</p>
 							<p class="uk-text-italic">{{'PAGE.LMS.MY_EXAMS.GRADE_SCHEME.MINUMUM_QUESTION'|translate}}
-								: {{ Math.round(vm.exam.benchmark*vm.exam.questionNumber/100) }}</p>
+								: {{ Math.round(vm.exam.benchmark*vm.exam.totalQuestions/100) }}</p>
 						</div>
 					</div>
 					<div class="uk-width-1-1"

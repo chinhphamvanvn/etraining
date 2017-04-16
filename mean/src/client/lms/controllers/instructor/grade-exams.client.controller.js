@@ -12,6 +12,7 @@
     vm.update = update;
     vm.schedule = schedule;
     vm.exam = exam;
+    console.log('========', exam);
     $scope.Math = window.Math;
     if (vm.exam.questionSelection === 'manual') {
       vm.selectedQuestions = [];
@@ -28,6 +29,11 @@
             question.order = examQuestion.order;
           });
         });
+    } else {
+      vm.exam.totalQuestions = 0;
+      vm.exam.questionCategories.map(function(category) {
+          vm.exam.totalQuestions += category.numberQuestion;
+      });
     }
 
     function update() {
