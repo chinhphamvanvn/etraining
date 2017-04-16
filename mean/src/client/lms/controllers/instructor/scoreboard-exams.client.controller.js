@@ -53,7 +53,7 @@
                 vm.scoreboardListCsv.push(itemCandidate0);
               }
               _.each(candidate.submits, function(submit) {
-                examUtils.candidateScoreByBusmit(candidate, vm.exam, submit).then(function(score) {
+                examUtils.candidateScoreBySubmit(candidate, vm.exam, submit).then(function(score) {
                   inumber++;
                   submit.score = score;
                   candidate.labelSubmit = candidate.labelSubmit + submit.score + '% ';
