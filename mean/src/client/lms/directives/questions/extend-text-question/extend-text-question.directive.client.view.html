@@ -72,7 +72,7 @@
 <div ng-if="mode=='study'">
 	<div class="uk-grid">
 		<div class="uk-width-medium-1-1 parsley-row">
-			<p ng-bind-html="translateContent()"></p>
+			<p class="uk-text-left text-wrap" ng-bind-html="question.description" />
 		</div>
 	</div>
 	<div class="uk-grid" data-uk-grid-margin>
@@ -89,7 +89,7 @@
 <div ng-if="mode=='result'">
 	<div class="uk-grid">
 		<div class="uk-width-medium-1-1 ">
-			<p class="quiz-question" ng-bind-html="translateContent()"></p>
+			<p class="uk-text-left text-wrap" ng-bind-html="question.description" />
 		</div>
 	</div>
 	<div class="uk-grid" data-uk-grid-margin>

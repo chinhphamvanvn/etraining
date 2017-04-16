@@ -33,57 +33,71 @@
 			<textarea ui-tinymce="tinymce_options"
 				ng-model="question.description" cols="30" rows="4"></textarea>
 		</div>
+		<div class="uk-width-1-1 uk-text-center uk-margin">
+			<svg ng-mousemove="mouseMove($event)"
+				xmlns="http://www.w3.org/2000/svg"
+				xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve"
+				width="640" height="320">
+			<rect width="640" height="320" data-selected="true"
+					style="fill:blue;stroke:blank;stroke-width:1;fill-opacity:0.1;stroke-opacity:0.9" />
+			<image x="0" y="0" width="640" height="320"
+					xlink:href="{{question.imageUrl}}">
+		    <title>{{question.title}}</title>
+		  </image>
+		  <g ng-repeat="option in question.options | byGroup: 'source' track by $index" font-face="sans-serif"
+					ng-mousedown="mouseDown($event)" ng-mouseup="mouseUp($event)">
+		    <rect id="{{option._id}}_rect" ng-attr-x="{{option.svgData.x}}" ng-attr-y="{{option.svgData.y}}" width="80" height="30"
+  				style="fill:blue;stroke:black;stroke-width:1;fill-opacity:0.1;stroke-opacity:0.9"></rect>
+		    	<text id="{{option._id}}_text" style="cursor:default"  ng-attr-x="{{option.svgData.x+40}}" ng-attr-y="{{option.svgData.y+15}}"  alignment-baseline="middle"
+					text-anchor="middle" stroke="black" >{{option.order}}.{{option.content}}</text>
+		  </g>
+		   <g ng-repeat="option in question.options | byGroup: 'target'  track by $index" font-face="sans-serif"
+					ng-mousedown="mouseDown($event)" ng-mouseup="mouseUp($event)">
+		    <rect id="{{option._id}}_rect" ng-attr-x="{{option.svgData.x}}" ng-attr-y="{{option.svgData.y}}" width="80" height="30"
+  				style="fill:blue;stroke:black;stroke-width:1;fill-opacity:0.1;stroke-opacity:0.9" stroke-dasharray="5,5"></rect>
+		    	<text id="{{option._id}}_text" style="cursor:default"  ng-attr-x="{{option.svgData.x+40}}" ng-attr-y="{{option.svgData.y+15}}"  alignment-baseline="middle"
+					text-anchor="middle" stroke="black" >{{option.index | letter}}.{{option.content}}</text>
+			
+		  </g>
+		</svg>
+			<div>
+				<span class="uk-form-file md-btn md-btn-icon"> <i
+					class="uk-icon-upload"></i>
+					{{'ACTION.CHOOSE_IMAGE_FILE'|translate}} <input
+					id="file_upload-select" type="file">
+				</span>
+
+			</div>
+		</div>
+		
 	</div>
 	<div class="uk-grid" data-uk-grid-margin>
-		<div class="uk-width-large-1-2 uk-width-medium-1-2 uk-width-small-1-1">
-			<div id="question_option_sources">
-				<div class="uk-grid" data-uk-grid-margin
-					ng-repeat="option in question.options | orderBy: 'order' | byGroup: 'source'">
-					<div class="uk-width-medium-7-10">
-						<label for="option_{{option.order}}">{{option.order }}</label>
-						<input type="text" class="md-input" id="option_{{option.order}}"
-							md-input ng-model="option.content" />
+		<div class="uk-width-large-1-2 uk-width-medium-1-2 uk-width-small-1-1" 
+					ng-repeat="assoc in question.optionMappings track by $index">
+				<div class="uk-grid" data-uk-grid-margin>
+					<div class="uk-width-medium-4-10">
+						<label for="source_{{$index}}">{{optionById(assoc.source).order }}</label>
+						<input type="text" class="md-input" id="source_{{$index}}"
+							md-input ng-model="optionById(assoc.source).content" />
+					</div>
+					<div class="uk-width-medium-4-10">
+						<label for="target_{{$index}}">{{optionById(assoc.target).index | letter }}</label>
+						<input type="text" class="md-input" id="target_{{$index}}"
+							md-input ng-model="optionById(assoc.target).content" />
 					</div>
 					<div class="uk-width-medium-2-10">
-						<selectize config="targetConfig" position="bottom"
-										options="targetOptions" ng-change="selectAssociation(option)"
-										ng-model="option.target"></selectize>
-					</div>
-					<div class="uk-width-medium-1-10">
-						<a ng-click="removeOption(option)"
+						<a ng-click="removeAssoc(assoc)"
 							data-uk-tooltip="{cls:'uk-tooltip-small',pos:'top'}"
 							title="{{'ACTION.DELETE'|translate}}"><i
 							class="md-icon material-icons uk-text-danger">delete</i></a>
 					</div>
 				</div>
-				<div class="uk-text-center">
-					<a href="#" class="md-btn md-btn-flat md-btn-flat-primary"
-						ng-click="addSourceOption()">{{'PAGE.LMS.MY_COURSES.TEACHER_BOARD.COURSE_OUTLINE.TEST.ADD_SOURCE_OPTION'|translate}}</a>
-				</div>
-			</div>
+				
 		</div>
-		<div class="uk-width-large-1-2 uk-width-medium-1-2 uk-width-small-1-1">
-			<div id="question_option_targets">
-				<div class="uk-grid" data-uk-grid-margin
-					ng-repeat="option in question.options | orderBy: 'index' | byGroup :'target'">
-					<div class="uk-width-medium-9-10">
-						<label for="option_{{option.order}}">{{option.index | letter }}</label>
-						<input type="text" class="md-input" id="option_{{option.order}}"
-							md-input ng-model="option.content" />
-					</div>
-					<div class="uk-width-medium-1-10">
-						<a ng-click="removeOption(option)"
-							data-uk-tooltip="{cls:'uk-tooltip-small',pos:'top'}"
-							title="{{'ACTION.DELETE'|translate}}"><i
-							class="md-icon material-icons uk-text-danger">delete</i></a>
-					</div>
-				</div>
-				<div class="uk-text-center">
+		<div class="uk-width-1-1  uk-text-center">
 					<a href="#" class="md-btn md-btn-flat md-btn-flat-primary"
-						ng-click="addTargetOption()">{{'PAGE.LMS.MY_COURSES.TEACHER_BOARD.COURSE_OUTLINE.TEST.ADD_TARGET_OPTION'|translate}}</a>
+						ng-click="addAssoc()">{{'PAGE.LMS.MY_COURSES.TEACHER_BOARD.COURSE_OUTLINE.TEST.ADD_OPTION'|translate}}</a>
 				</div>
-			</div>
-		</div>
 		<div class="uk-width-1-1 uk-margin-left uk-alert uk-alert-warning uk-text-center"
 				ng-show="question.optionMappings.length==0">
 				{{'ERROR.QUESTION.EMPTY_QUESTION_OPTION_MAPPING'|translate}}</div>
@@ -120,30 +134,50 @@
 				{{'MODEL.QUESTION.DESC'|translate}}</h4>
 			<p class="uk-text-left text-wrap" ng-bind-html="question.description" />
 		</div>
+		<div class="uk-width-1-1 uk-text-center uk-margin">
+			<svg 
+				xmlns="http://www.w3.org/2000/svg"
+				xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve"
+				width="640" height="320">
+			<rect width="640" height="320" data-selected="true"
+					style="fill:blue;stroke:blank;stroke-width:1;fill-opacity:0.1;stroke-opacity:0.9" />
+			<image x="0" y="0" width="640" height="320"
+					xlink:href="{{question.imageUrl}}">
+		    <title>{{question.title}}</title>
+		  </image>
+		  <g ng-repeat="option in question.options | byGroup: 'source'" font-face="sans-serif" >
+		    <rect id="{{option._id}}_rect" ng-attr-x="{{option.svgData.x}}" ng-attr-y="{{option.svgData.y}}" width="80" height="30"
+  				style="fill:blue;stroke:black;stroke-width:1;fill-opacity:0.1;stroke-opacity:0.9"></rect>
+		    	<text id="{{option._id}}_text" style="cursor:default"  ng-attr-x="{{option.svgData.x+40}}" ng-attr-y="{{option.svgData.y+15}}"  alignment-baseline="middle"
+					text-anchor="middle" stroke="black" >{{option.order}}.{{option.content}}</text>
+		  </g>
+		   <g ng-repeat="option in question.options | byGroup: 'target'" font-face="sans-serif">
+		    <rect id="{{option._id}}_rect" ng-attr-x="{{option.svgData.x}}" ng-attr-y="{{option.svgData.y}}" width="80" height="30"
+  				style="fill:blue;stroke:black;stroke-width:1;fill-opacity:0.1;stroke-opacity:0.9" stroke-dasharray="5,5"></rect>
+		    	<text id="{{option._id}}_text" style="cursor:default"  ng-attr-x="{{option.svgData.x+40}}" ng-attr-y="{{option.svgData.y+15}}"  alignment-baseline="middle"
+					text-anchor="middle" stroke="black" >{{option.index | letter}}.{{option.content}}</text>
+			
+		  </g>
+		</svg>
+		</div>
+		
+		
 	</div>
 	<div class="uk-grid no-margin-top" data-uk-grid-margin>
-		<div class="uk-width-large-1-2 uk-width-medium-1-2 uk-width-small-1-1">
-			<div id="question_option_sources">
-				<div class="uk-grid" data-uk-grid-margin
-					ng-repeat="option in question.options | orderBy: 'order' | byGroup: 'source'">
-					<div class="uk-width-medium-8-10">
-						<p class="uk-text-left text-wrap">{{option.order }}. {{option.content}}</p>
+		<div class="uk-width-large-1-2 uk-width-medium-1-2 uk-width-small-1-1" 
+					ng-repeat="assoc in question.optionMappings track by $index">
+				<div class="uk-grid" data-uk-grid-margin>
+					<div class="uk-width-medium-5-10">
+						<label >{{optionById(assoc.source).order }}</label>
+						<span>{{optionById(assoc.source).content}}</span>
 					</div>
-					<div class="uk-width-medium-2-10">
-						<p class="uk-text-left text-wrap">{{getOption(option.target).index | letter }}</p>
+					<div class="uk-width-medium-5-10">
+						<label >{{optionById(assoc.target).index | letter }}</label>
+						<span>{{optionById(assoc.target).content}}</span>
 					</div>
+
 				</div>
-			</div>
-		</div>
-		<div class="uk-width-large-1-2 uk-width-medium-1-2 uk-width-small-1-1">
-			<div id="question_option_targets">
-				<div class="uk-grid" data-uk-grid-margin
-					ng-repeat="option in question.options | orderBy: 'index' | byGroup: 'target'">
-					<div class="uk-width-medium-8-10">
-						<p class="uk-text-left text-wrap">{{option.index | letter }}. {{option.content}}</p>
-					</div>
-				</div>
-			</div>
+
 		</div>
 	</div>
 </div>
@@ -155,34 +189,30 @@
 		</div>
 	</div>
 	<div class="uk-grid" data-uk-grid-margin>
-		<div class="uk-width-large-1-2 uk-width-medium-1-2 uk-width-small-1-1">
-			<div id="question_option_sources">
-				<div class="uk-grid" data-uk-grid-margin
-					ng-repeat="option in question.options | orderBy: 'order' | byGroup: 'source'">
-					<div class="uk-width-medium-7-10">
-						<label for="option_{{option.order}}">{{option.order }}</label>
-						<input type="text" class="md-input" id="option_{{option.order}}"
-							md-input ng-model="option.content" />
-					</div>
-					<div class="uk-width-medium-2-10">
-						<selectize config="targetConfig" position="bottom"
-										options="targetOptions" ng-change="selectAssociation(option)"
-										ng-model="option.target"></selectize>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="uk-width-large-1-2 uk-width-medium-1-2 uk-width-small-1-1">
-			<div id="question_option_targets">
-				<div class="uk-grid" data-uk-grid-margin
-					ng-repeat="option in question.options | orderBy: 'index' | byGroup :'target'">
-					<div class="uk-width-medium-8-10">
-						<label for="option_{{option.order}}">{{option.index | letter }}</label>
-						<input type="text" class="md-input" id="option_{{option.order}}"
-							md-input ng-model="option.content" />
-					</div>
-				</div>
-			</div>
+		<div class="uk-width-1-1 uk-text-center uk-margin">
+			<svg ng-mousemove="mouseMove($event)"
+				xmlns="http://www.w3.org/2000/svg"
+				xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve"
+				width="640" height="320">
+			<rect width="640" height="320" data-selected="true"
+					style="fill:blue;stroke:blank;stroke-width:1;fill-opacity:0.1;stroke-opacity:0.9" />
+			<image x="0" y="0" width="640" height="320"
+					xlink:href="{{question.imageUrl}}">
+		    <title>{{question.title}}</title>
+		  </image>
+		  <g ng-repeat="option in question.options | byGroup: 'source' track by $index" font-face="sans-serif" ng-mousedown="mouseDown($event)" ng-mouseup="mouseUp($event)" style="cursor: move">
+		    <rect id="{{option._id}}_rect" ng-attr-x="{{option.svgData.x}}" ng-attr-y="{{option.svgData.y}}" width="80" height="30"
+  				style="fill:blue;stroke:black;stroke-width:1;fill-opacity:0.1;stroke-opacity:0.9"  style="cursor: move"></rect>
+		    	<text id="{{option._id}}_text"  style="cursor: move;"  ng-attr-x="{{option.svgData.x+40}}" ng-attr-y="{{option.svgData.y+15}}"  alignment-baseline="middle"
+					text-anchor="middle" stroke="black" >{{option.content}}</text>
+		  </g>
+		   <g ng-repeat="option in question.options | byGroup: 'target' track by $index" font-face="sans-serif" ng-mousedown="mouseDown($event)" >
+		    <rect id="{{option._id}}_rect" ng-attr-x="{{option.svgData.x}}" ng-attr-y="{{option.svgData.y}}" width="80" height="30"
+  				ng-attr-style="{{option._id != dropOptionId ? 'fill:blue;stroke:black;stroke-width:1;fill-opacity:0.1;stroke-opacity:0.9' : 'fill:blue;stroke:black;stroke-width:1;fill-opacity:0.5;stroke-opacity:0.9'}}" 
+  				stroke-dasharray="5,5"></rect>
+		    	
+		  </g>
+		</svg>
 		</div>
 	</div>
 </div>
@@ -194,29 +224,25 @@
 		</div>
 	</div>
 	<div class="uk-grid" data-uk-grid-margin>
-		<div class="uk-width-large-1-2 uk-width-medium-1-2 uk-width-small-1-1">
-			<div id="question_option_sources">
-				<div class="uk-grid" data-uk-grid-margin
-					ng-repeat="option in question.options | orderBy: 'order' | byGroup: 'source'">
-					<div class="uk-width-medium-8-10">
-						<p class="uk-text-left text-wrap">{{option.order }}. {{option.content}}</p>
-					</div>
-					<div class="uk-width-medium-2-10">
-						<p class="uk-text-left text-wrap">{{getOption(option.target).index | letter }}</p>
-						
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="uk-width-large-1-2 uk-width-medium-1-2 uk-width-small-1-1">
-			<div id="question_option_targets">
-				<div class="uk-grid" data-uk-grid-margin
-					ng-repeat="option in question.options | orderBy: 'index' | byGroup: 'target'">
-					<div class="uk-width-medium-8-10">
-						<p class="uk-text-left text-wrap">{{option.index | letter }}. {{option.content}}</p>
-					</div>
-				</div>
-			</div>
+		<div class="uk-width-1-1 uk-text-center uk-margin">
+			<svg 
+				xmlns="http://www.w3.org/2000/svg"
+				xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve"
+				width="640" height="320">
+			<rect width="640" height="320" data-selected="true"
+					style="fill:blue;stroke:blank;stroke-width:1;fill-opacity:0.1;stroke-opacity:0.9" />
+			<image x="0" y="0" width="640" height="320"
+					xlink:href="{{question.imageUrl}}">
+		    <title>{{question.title}}</title>
+		  </image>
+		   <g ng-repeat="option in question.options | byGroup: 'target'" font-face="sans-serif">
+		    <rect id="{{option._id}}_rect" ng-attr-x="{{option.svgData.x}}" ng-attr-y="{{option.svgData.y}}" width="80" height="30"
+  				style="fill:blue;stroke:black;stroke-width:1;fill-opacity:0.1;stroke-opacity:0.9" stroke-dasharray="5,5"></rect>
+		    	<text id="{{option._id}}_text" style="cursor:default"  ng-attr-x="{{option.svgData.x+40}}" ng-attr-y="{{option.svgData.y+15}}"  alignment-baseline="middle"
+					text-anchor="middle" stroke="black" >{{optionById(option.source).content}}</text>
+			
+		  </g>
+		</svg>
 		</div>
 	</div>
 </div>
