@@ -60,6 +60,10 @@ var ExamSchema = new Schema({
       }
     }]
   },
+  questionScore: {
+    type: Number,
+    default: 1
+  },
   questionSelection: {
     type: String,
     enum: ['manual', 'auto'],

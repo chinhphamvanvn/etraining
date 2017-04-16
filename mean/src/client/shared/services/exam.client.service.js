@@ -12,7 +12,12 @@
             var answer,
               questionIds;
             if (exam.questionSelection === 'auto') {
-              examScore = exam.questionScore * exam.questionNumber;
+              var totalQuestions = 0;
+              exam.questionCategories.map(function(category) {
+                totalQuestions += category.numberQuestion
+              });
+              examScore = exam.questionScore * totalQuestions;
+
               questionIds = _.pluck(submit.answers, 'question');
               if (questionIds && questionIds.length) {
                 QuestionsService.byIds({
