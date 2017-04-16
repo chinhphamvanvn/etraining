@@ -37,6 +37,13 @@
       link: function(scope, element, attributes) {
         scope.tinymce_options = fileManagerConfig;
         scope.targetOptions = [];
+        scope.targetConfig = {
+            maxItems: 1,
+            valueField: 'value',
+            labelField: 'title',
+            searchField: 'title',
+            create: false
+          };
         scope.$watch('question', function() {
           if (scope.question._id)
             scope.question.options = OptionsService.byQuestion({
@@ -169,13 +176,6 @@
 
 
         function updateTargetList() {
-          scope.targetConfig = {
-            maxItems: 1,
-            valueField: 'value',
-            labelField: 'title',
-            searchField: 'title',
-            create: false
-          };
           var targetOptions = _.filter(scope.question.options, function(obj) {
             return obj.group === 'target';
           });
