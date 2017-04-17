@@ -81,7 +81,7 @@
 
     function addQuestion(type) {
       var question = new QuestionsService();
-      question.type = type;      
+      question.type = type;
       question.$save(function() {
         if (vm.questions.length === 0)
           question.order = vm.questions.length + 1;
@@ -98,7 +98,7 @@
         question.order = vm.questions.length + 1;
       else
         question.order = _.max(vm.questions, function(o) { return o.order;}).order + 1;
-      question.$save(function() {       
+      question.$save(function() {
         vm.questions.push(question);
       });
     }

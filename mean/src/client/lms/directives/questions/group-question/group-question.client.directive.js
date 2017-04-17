@@ -20,14 +20,15 @@
         scope.tinymce_options = fileManagerConfig;
         scope.$watch('question', function() {
           if (scope.question._id && scope.question.subQuestions && scope.question.subQuestions.length) {
-            scope.question.subQuestions = QuestionsService.byIds({questionIds: scope.question.subQuestions}, function() {
+            scope.question.subQuestions = QuestionsService.byIds({
+              questionIds: scope.question.subQuestions
+            }, function() {
               _.each(scope.question.subQuestions, function(q, index) {
                 q.order = index + 1;
               });
               enterMode();
-            });            
-          }
-          else {
+            });
+          } else {
             scope.question.subQuestions = [];
             enterMode();
           }
@@ -43,13 +44,13 @@
               break;
             case 'study':
               scope.$watch('subIndex', function() {
-                if (typeof scope.subIndex !='undefined') {
+                if (typeof scope.subIndex != 'undefined') {
                   scope.subQuestion = scope.question.subQuestions[+scope.subIndex];
                   scope.subAnswer = _.find(scope.answer.subAnswers, function(obj) {
                     return obj.question === scope.subQuestion._id;
                   });
                 }
-              });              
+              });
               break;
             case 'view':
               break;
@@ -58,7 +59,7 @@
               break;
           }
         }
-        
+
         function markAnswerOption() {
           _.each(scope.question.subQuestions, function(question) {
             question.answer = _.find(scope.answer.subAnswers, function(obj) {
@@ -69,8 +70,8 @@
 
         function addQuestion(type) {
           var question = new QuestionsService();
-          question.type = type;          
-          question.$save(function() {           
+          question.type = type;
+          question.$save(function() {
             if (scope.question.subQuestions.length === 0)
               question.order = scope.question.subQuestions.length + 1;
             else
@@ -79,7 +80,7 @@
           });
         }
 
-        function removeQuestion(question) {          
+        function removeQuestion(question) {
           QuestionsService.delete({
             questionId: question._id
           }, function() {
@@ -87,11 +88,11 @@
               return obj._id === question._id;
             });
             _.each(scope.question.subQuestions, function(obj, index) {
-              obj.order = index +1;
+              obj.order = index + 1;
             });
           });
         }
-        
+
         function moveUp(question) {
           var prevQuestion = _.find(scope.question.subQuestions, function(q) {
             return q.order < question.order;
@@ -113,7 +114,7 @@
             nextQuestion.order = order;
           }
         }
-      
+
       }
     };
   }

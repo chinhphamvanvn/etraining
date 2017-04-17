@@ -38,7 +38,8 @@ exports.bulkCreate = function(req, res) {
               option.save(function(err) {
                 console.log(option);
                 if (err)
-                  reject(err);else {
+                  reject(err);
+                else {
                   newQuestion.correctOptions.push(option._id);
                   newQuestion.save(function(err) {
                     resolve();
@@ -58,7 +59,8 @@ exports.bulkCreate = function(req, res) {
               option.save(function(err) {
                 console.log(option);
                 if (err)
-                  reject(err);else {
+                  reject(err);
+                else {
                   resolve();
                 }
               });

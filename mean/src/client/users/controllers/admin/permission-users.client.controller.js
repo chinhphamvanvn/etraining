@@ -87,16 +87,18 @@
         });
       });
     }
-    
+
     function deletePermissionView() {
-      PermissionViewsService.delete({permissionviewId:vm.permissionView._id}, function() {
+      PermissionViewsService.delete({
+        permissionviewId: vm.permissionView._id
+      }, function() {
         vm.permissionViewLis = _.reject(vm.permissionViewList, function(permission) {
           return permission._id === vm.permissionView._id;
         });
         vm.permissionView = new PermissionViewsService();
       });
     }
-    
+
     function editPermissionView() {
       vm.permissionView = _.find(vm.permissionViewList, function(permission) {
         return permission._id === vm.permissionView._id;

@@ -9,7 +9,7 @@
   QuestionsService.$inject = ['$q', '$resource', '_transform'];
 
   function QuestionsService($q, $resource, _transform) {
-    var Questions =  $resource('/api/questions/:questionId', {
+    var Questions = $resource('/api/questions/:questionId', {
       questionId: '@_id'
     }, {
       update: {
@@ -50,7 +50,7 @@
         isArray: true
       }
     });
-    
+
     angular.extend(Questions, {
       saveRecursive: function(question) {
         function getPromise(q) {
@@ -62,15 +62,13 @@
           if (q.grouped) {
             _.each(q.subQuestions, function(subQ) {
               allPromise = allPromise.concat(getPromise(subQ));
-            });            
+            });
           }
           return allPromise;
         }
         var promises = getPromise(question);
-        return $q.all(promises); 
+        return $q.all(promises);
       }
-    
-      
     });
     return Questions;
   }

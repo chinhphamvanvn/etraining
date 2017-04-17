@@ -87,7 +87,7 @@
               }
             }
           });
-          
+
           while (vm.index < vm.questions.length && vm.questions[vm.index].answer)
             vm.index++;
           if (vm.index >= vm.questions.length)
@@ -141,14 +141,14 @@
 
     function selectQuestion(index) {
       if (!vm.questions[index].answer) {
-        var answer =  new AnswersService(); 
+        var answer = new AnswersService();
         answer.question = vm.questions[vm.index]._id;
         answer.exam = vm.exam._id;
         answer.order = vm.index + 1;
         if (vm.questions[index].grouped)
           answer.subAnswers = [];
         answer.$save(function() {
-          vm.questions[index].answer =  answer;
+          vm.questions[index].answer = answer;
           vm.question = vm.questions[index];
           vm.submit.answers = _.map(vm.questions, function(obj) {
             if (obj.answer && obj.answer._id)
@@ -230,7 +230,7 @@
         prevQuestion();
       });
     }
-    
+
     function collectAnswer(answer, question) {
       if (question.type === 'mc' || question.type === 'sc' || question.type === 'tf' || question.type === 'fb' || question.type === 'pic') {
         var selectedOptions = _.filter(question.options, function(option) {
@@ -248,7 +248,10 @@
           return option.group === 'source';
         });
         answer.optionMappings = _.map(sourceOptions, function(obj) {
-          return { source: obj._id, target: obj.target };
+          return {
+            source: obj._id,
+            target: obj.target
+          };
         });
         answer.isCorrect = answer.optionMappings.length === question.optionMappings.length;
         _.each(question.optionMappings, function(assoc) {
@@ -275,12 +278,12 @@
             answer.subAnswers.push(subAnswer);
             answer.$update(function() {
               callback();
-            })
+            });
           });
         } else {
           collectAnswer(subAnswer, vm.question.subQuestions[vm.subIndex]);
           subAnswer.$update(function() {
-              callback();
+            callback();
           });
         }
       } else {

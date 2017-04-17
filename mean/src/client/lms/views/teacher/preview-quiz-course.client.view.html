@@ -50,7 +50,7 @@
 		<hr>
 		<div class="uk-grid uk-margin-top">
 			<div class="uk-width-1-3">
-				<a ng-show="vm.index < vm.questions.length-1"
+				<a ng-show="vm.index < vm.questions.length-1 || (vm.question.grouped && vm.subIndex < vm.question.subQuestions.length)"
 					class="uk-align-left md-btn  md-btn-wave-light md-btn-icon"
 					ng-click="vm.saveNext()"> <i class="uk-icon-arrow-right "></i>
 					{{'ACTION.NEXT'|translate}}
@@ -63,7 +63,7 @@
 					{{'ACTION.SUBMIT_EXAM'|translate}} </a>
 			</div>
 			<div class="uk-width-1-3 ">
-				<a ng-show=" vm.index > 0"
+				<a ng-show=" vm.index > 0 || vm.question.grouped && vm.subIndex >0"
 					class="uk-align-right md-btn  md-btn-wave-light md-btn-icon"
 					ng-click="vm.savePrev()"> <i class="uk-icon-arrow-left "></i>
 					{{'ACTION.PREV'|translate}}
