@@ -11,7 +11,6 @@
     var vm = this;
     vm.authentication = Authentication;
     vm.generateReport = generateReport;
-    vm.getExportData = getExportData;
     vm.getExportHeader = getExportHeader;
 
     vm.summary = {
@@ -63,26 +62,6 @@
           });
         });
       });
-    }
-
-
-    function getExportData() {
-      var data = [];
-      _.each(vm.courses, function(course) {
-        data.push({
-          code: course.code,
-          name: course.name,
-          toalMember: course.toalMember,
-          totalRegisterMember: course.totalRegisterMember,
-          percentRegisterMember: course.percentRegisterMember,
-          totalInstudyMember: course.totalInstudyMember,
-          percentInstudyMember: course.percentInstudyMember,
-          totalCompleteMember: course.totalCompleteMember,
-          percentCompleteMember: course.percentCompleteMember,
-          time: course.time
-        });
-      });
-      return data;
     }
 
     function getExportHeader() {

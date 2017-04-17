@@ -100,7 +100,9 @@
     "ng-device-detector": "^3.0.1",
     "recordrtc": "^5.4.0",
     "angular-underscore-module": "^1.0.3",
-    "ng-csv": "^0.3.6"
+    "ng-csv": "^0.3.6",
+    "js-xlsx": "^0.8.0",
+    "angular-js-xlsx": "^0.0.2"
   },
   "overrides": {
     "bootstrap": {

@@ -227,7 +227,10 @@ module.exports = {
         'public/lib/re-tree/re-tree.js',
         'public/lib/ng-device-detector/ng-device-detector.js',
         'public/lib/webrtc-adapter/release/adapter.js',
-        'public/lib/ng-csv/build/ng-csv.js'
+        'public/lib/ng-csv/build/ng-csv.js',
+        'public/lib/js-xlsx/shim.js',
+        'public/lib/js-xlsx/jszip.js',
+        'public/lib/js-xlsx/dist/xlsx.full.min.js'
       ],
       tests: ['public/lib/angular-mocks/angular-mocks.js']
     },

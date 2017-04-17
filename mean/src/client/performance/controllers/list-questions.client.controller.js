@@ -7,7 +7,7 @@
 
   QuestionsBankController.$inject = ['$scope', '$rootScope', '$state', 'Authentication', 'GroupsService', 'QuestionsService', '$timeout', '$window', 'treeUtils', '$translate', '_', 'fileManagerConfig'];
 
-  function QuestionsBankController($scope, $rootScope, $state, Authentication, GroupsService, QuestionsService, $timeout, $window, treeUtils, $translate, _, fileManagerConfig) {
+  function QuestionsBankController($scope, $rootScope, $state, Authentication, GroupsService, QuestionsService, $timeout, $window, treeUtils, $translate, _) {
     var vm = this;
     vm.authentication = Authentication;
     vm.finishEditQuestionTree = finishEditQuestionTree;
@@ -17,7 +17,6 @@
     vm.selectGroup = selectGroup;
     vm.currPage = 1;
     vm.itemsPerPage = 10;
-    vm.csvTemplate = fileManagerConfig.csv_template;
 
     function selectGroup(groups) {
       vm.groups = groups;

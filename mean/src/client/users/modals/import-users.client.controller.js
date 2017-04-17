@@ -5,9 +5,9 @@
     .module('users.admin')
     .controller('UserImportController', UserImportController);
 
-  UserImportController.$inject = ['$scope', '$state', '$filter', '$compile', 'Authentication', 'AdminService', '$timeout', '$location', '$window', 'GroupsService', 'UsersService', 'DTOptionsBuilder', 'DTColumnDefBuilder', 'Notification', 'treeUtils', '$translate', '_'];
+  UserImportController.$inject = ['$scope', '$state', '$filter', '$compile', 'Authentication', 'AdminService', '$timeout', '$location', '$window', 'GroupsService', 'UsersService', 'DTOptionsBuilder', 'DTColumnDefBuilder', 'Notification', 'treeUtils', '$translate', '_', 'fileManagerConfig'];
 
-  function UserImportController($scope, $state, $filter, $compile, Authentication, AdminService, $timeout, $location, $window, GroupsService, UsersService, DTOptionsBuilder, DTColumnDefBuilder, Notification, treeUtils, $translate, _) {
+  function UserImportController($scope, $state, $filter, $compile, Authentication, AdminService, $timeout, $location, $window, GroupsService, UsersService, DTOptionsBuilder, DTColumnDefBuilder, Notification, treeUtils, $translate, _, fileManagerConfig) {
     var vm = this;
     vm.user = Authentication.user;
     vm.users = [];
@@ -25,6 +25,8 @@
       uploadButtonLabel: 'Select CSV file'
     };
     vm.finishLoad = finishLoad;
+    $scope.readExcel = readExcel;
+    vm.excelTemplate = fileManagerConfig.excel_template_list_user;
 
     vm.columnOptions = [
       {
@@ -87,6 +89,22 @@
     };
 
     var closeButton = $('#dialogClose');
+
+    function readExcel(result) {
+      var i;
+      if (!result.headers || result.headers.length === 0) {
+        vm.headers = [];
+      } else {
+        vm.headers = [];
+        result.headers.forEach(function(header) {
+          vm.headers.push({
+            name: header
+          });
+        })
+      }
+      vm.users = result.rows;
+      $scope.$apply();
+    }
 
     function finishLoad() {
       var i;
