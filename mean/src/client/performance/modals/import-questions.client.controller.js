@@ -5,9 +5,9 @@
     .module('performance')
     .controller('QuestionImportController', QuestionImportController);
 
-  QuestionImportController.$inject = ['$scope', '$state', '$filter', '$compile', 'Authentication', 'AdminService', '$timeout', '$location', '$window', 'GroupsService', 'QuestionsService', 'DTOptionsBuilder', 'DTColumnDefBuilder', 'Notification', 'treeUtils', '$translate', '_'];
+  QuestionImportController.$inject = ['$scope', '$state', '$filter', '$compile', 'Authentication', 'AdminService', '$timeout', '$location', '$window', 'GroupsService', 'QuestionsService', 'DTOptionsBuilder', 'DTColumnDefBuilder', 'Notification', 'treeUtils', '$translate', '_', 'fileManagerConfig'];
 
-  function QuestionImportController($scope, $state, $filter, $compile, Authentication, AdminService, $timeout, $location, $window, GroupsService, QuestionsService, DTOptionsBuilder, DTColumnDefBuilder, Notification, treeUtils, $translate, _) {
+  function QuestionImportController($scope, $state, $filter, $compile, Authentication, AdminService, $timeout, $location, $window, GroupsService, QuestionsService, DTOptionsBuilder, DTColumnDefBuilder, Notification, treeUtils, $translate, _, fileManagerConfig) {
     var vm = this;
     vm.user = Authentication.user;
     vm.questions = [];
@@ -15,6 +15,7 @@
     vm.importData = importData;
     vm.selectedGroup = selectedGroup;
     $scope.readExcel = readExcel;
+    vm.excelTemplate = fileManagerConfig.excel_template_list_question;
     vm.csv = {
       content: null,
       header: true,
@@ -80,10 +81,6 @@
       var i;
       if (!result.headers || result.headers.length === 0) {
         vm.headers = [];
-        for (i = 0; i < result.columnCount; i++)
-          vm.headers.push({
-            name: i
-          });
       } else {
         vm.headers = [];
         result.headers.forEach(function(header){

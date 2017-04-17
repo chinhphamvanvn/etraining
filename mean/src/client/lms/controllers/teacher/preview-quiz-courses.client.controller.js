@@ -28,6 +28,7 @@
             return new Date(question.created).getTime();
           });
           vm.index = 0;
+          vm.subIndex = 0;
           if (vm.questions.length > 0)
             selectQuestion(vm.index);
           else
@@ -56,18 +57,27 @@
 
     function selectQuestion(index) {
       vm.question = vm.questions[index];
-      vm.options = OptionsService.byQuestion({
-        questionId: vm.question._id
-      }, function() {});
     }
 
     function nextQuestion() {
+      if (vm.question.grouped) {
+        if (vm.subIndex + 1 < vm.question.subQuestions.length) {
+          vm.subIndex++;
+          return;
+        }
+      }
       if (vm.index + 1 < vm.questions.length) {
         vm.index++;
         selectQuestion(vm.index);
       }
     }
     function prevQuestion() {
+      if (vm.question.grouped) {
+        if (vm.subIndex > 0) {
+          vm.subIndex--;
+          return;
+        }
+      }
       if (vm.index > 0) {
         vm.index--;
         selectQuestion(vm.index);

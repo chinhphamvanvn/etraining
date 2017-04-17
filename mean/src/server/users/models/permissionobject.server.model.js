@@ -22,11 +22,11 @@ var PermissionObjectSchema = new Schema({
         type: String
       },
       actions: {
-        type:  [{
+        type: [{
           type: String,
           enum: ['POST', 'PUT', 'GET', 'DELETE']
         }]
-      },
+      }
     }]
   },
   created: {

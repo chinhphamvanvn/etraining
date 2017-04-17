@@ -38,12 +38,12 @@
         scope.tinymce_options = fileManagerConfig;
         scope.targetOptions = [];
         scope.targetConfig = {
-            maxItems: 1,
-            valueField: 'value',
-            labelField: 'title',
-            searchField: 'title',
-            create: false
-          };
+          maxItems: 1,
+          valueField: 'value',
+          labelField: 'title',
+          searchField: 'title',
+          create: false
+        };
         scope.$watch('question', function() {
           if (scope.question._id)
             scope.question.options = OptionsService.byQuestion({

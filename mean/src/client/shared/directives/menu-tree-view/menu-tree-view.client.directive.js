@@ -31,7 +31,8 @@
             expanded: true,
             key: obj.title,
             children: [],
-            data: obj
+            data: obj,
+            selected: scope.menuItems && _.contains(scope.menuItems, obj.title)
           };
         });
         _.each(menuSections, function(section, index) {
@@ -48,7 +49,8 @@
               expanded: true,
               key: obj.title,
               children: [],
-              data: obj
+              data: obj,
+              selected: scope.menuItems && _.contains(scope.menuItems, obj.title)
             };
           });
           if (subSections.length)
@@ -84,6 +86,16 @@
               });
             }
           });
+        });
+        scope.$watch('menuItems', function() {
+          _.each(menuSections, function(section) {
+            section.selected = scope.menuItems && _.contains(scope.menuItems, section.key);
+            _.each(section.children, function(obj) {
+              obj.selected = scope.menuItems && _.contains(scope.menuItems, section.key);
+            });
+          });
+          var tree = $('#' + scope.treeId).fancytree('getTree');
+          tree.reload(menuSections);
         });
       }
     };

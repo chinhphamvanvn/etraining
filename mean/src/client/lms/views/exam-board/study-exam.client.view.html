@@ -38,7 +38,7 @@ keyframes blink-animation {to { visibility:hidden;
 				</div>
 				<div class="md-card-toolbar-heading-text">
 					<span>{{'PAGE.LMS.MY_COURSES.COURSE_STUDY.QUESTION'|translate}}
-						{{vm.index+1}}/{{vm.questions.length}} </span> <i
+						{{vm.index+1}}<span ng-show="vm.question.grouped">-{{vm.subIndex+1}}</span>/{{vm.questions.length}} </span> <i
 						ng-show="vm.question.attempted"
 						class="material-icons uk-text-success">flag</i> <i
 						ng-show="!vm.question.attempted"
@@ -92,14 +92,14 @@ keyframes blink-animation {to { visibility:hidden;
 						</div>
 						<div ng-if="vm.question.grouped">
 							<group-question mode="'study'"
-								shuffle="vm.exam.shuffleOption" question="vm.question"
+								shuffle="vm.exam.shuffleOption" question="vm.question" sub-index="vm.subIndex"
 								answer="vm.question.answer"></group-question>
 						</div>
 						<br>
 						<hr>
 						<div class="uk-grid uk-margin-top">
 							<div class="uk-width-1-3">
-								<a ng-show="vm.index < vm.questions.length-1"
+								<a ng-show="vm.index < vm.questions.length-1 || (vm.question.grouped && vm.subIndex < vm.question.subQuestions.length)"
 									class="uk-align-left md-btn  md-btn-wave-light md-btn-icon"
 									ng-click="vm.saveNext()"> <i class="uk-icon-arrow-right "></i>
 									{{'ACTION.NEXT'|translate}}
@@ -122,7 +122,7 @@ keyframes blink-animation {to { visibility:hidden;
 								</a>
 							</div>
 							<div class="uk-width-1-3 ">
-								<a ng-show="vm.exam.allowNavigate && vm.index > 0"
+								<a ng-show="vm.exam.allowNavigate && (vm.index > 0 || vm.question.grouped && vm.subIndex >0)"
 									class="uk-align-right md-btn  md-btn-wave-light md-btn-icon"
 									ng-click="vm.savePrev()"> <i class="uk-icon-arrow-left "></i>
 									{{'ACTION.PREV'|translate}}

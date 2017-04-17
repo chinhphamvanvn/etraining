@@ -18,6 +18,12 @@ var AnswerSchema = new Schema({
     type: Schema.ObjectId,
     ref: 'Question'
   },
+  subAnswers: {
+    type: [{
+      type: Schema.ObjectId,
+      ref: 'Answer'
+    }]
+  },
   isCorrect: {
     type: Boolean
   },

@@ -59,7 +59,8 @@
         return false;
       },
       csv_template: '/assets/csv/template_csv.csv',
-      excel_template: '/assets/excel/template_excel.xlsx'
+      excel_template_list_question: '/assets/excel/template_excel_list_question.xlsx',
+      excel_template_list_user: '/assets/excel/template_excel_list_user.xlsx'
     });
 
   angular

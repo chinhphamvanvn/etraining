@@ -63,6 +63,8 @@
         });
       }, vm.remainTime * 1000);
       vm.intervalToken = $interval(updateClock, 1000);
+      vm.index = 0;
+      vm.subIndex = 0;
 
       if (vm.exam.questionSelection === 'manual') {
         var questionIds = _.pluck(vm.exam.questions, 'id');
@@ -76,9 +78,16 @@
             if (question) {
               question.answer = new AnswersService();
               question.answer = _.extend(question.answer, answer);
+              if (question.grouped) {
+                question.answer.subAnswers = _.map(question.answer.subAnswers, function(obj) {
+                  var answerService = new AnswersService();
+                  answerService = _.extend(answerService, obj);
+                  return answerService;
+                });
+              }
             }
           });
-          vm.index = 0;
+
           while (vm.index < vm.questions.length && vm.questions[vm.index].answer)
             vm.index++;
           if (vm.index >= vm.questions.length)
@@ -99,8 +108,6 @@
         $q.all(questionPromises).then(function(groupQuestionList) {
           vm.questions = [];
           vm.submit.answers = [];
-          vm.index = 0;
-
           _.each(groupQuestionList, function(groupQuestion) {
             vm.questions = vm.questions.concat(groupQuestion);
           });
@@ -132,15 +139,37 @@
       }
     }
 
-
     function selectQuestion(index) {
-      vm.question = vm.questions[index];
-      if (!vm.question.answer) {
-        vm.question.answer = new AnswersService();
+      if (!vm.questions[index].answer) {
+        var answer = new AnswersService();
+        answer.question = vm.questions[vm.index]._id;
+        answer.exam = vm.exam._id;
+        answer.order = vm.index + 1;
+        if (vm.questions[index].grouped)
+          answer.subAnswers = [];
+        answer.$save(function() {
+          vm.questions[index].answer = answer;
+          vm.question = vm.questions[index];
+          vm.submit.answers = _.map(vm.questions, function(obj) {
+            if (obj.answer && obj.answer._id)
+              return obj.answer._id;
+          });
+          vm.submit.$update();
+        });
+      } else {
+        vm.question = vm.questions[index];
       }
     }
 
     function nextQuestion() {
+      if (vm.question.grouped) {
+        if (vm.subIndex + 1 < vm.question.subQuestions.length) {
+          vm.subIndex++;
+          selectQuestion(vm.index);
+          return;
+        } else
+          vm.subIndex = 0;
+      }
       if (vm.index + 1 < vm.questions.length) {
         vm.index++;
         selectQuestion(vm.index);
@@ -148,6 +177,14 @@
     }
 
     function prevQuestion() {
+      if (vm.question.grouped) {
+        if (vm.subIndex > 0) {
+          vm.subIndex--;
+          selectQuestion(vm.index);
+          return;
+        } else
+          vm.subIndex = 0;
+      }
       if (vm.index > 0) {
         vm.index--;
         selectQuestion(vm.index);
@@ -194,31 +231,30 @@
       });
     }
 
-    function save(callback) {
-      var answer = vm.question.answer;
-      answer.question = vm.question._id;
-      answer.exam = vm.exam._id;
-      answer.order = vm.index + 1;
-      if (vm.question.type === 'mc' || vm.question.type === 'sc' || vm.question.type === 'tf' || vm.question.type === 'fb' || vm.question.type === 'pic') {
-        var selectedOptions = _.filter(vm.question.options, function(option) {
+    function collectAnswer(answer, question) {
+      if (question.type === 'mc' || question.type === 'sc' || question.type === 'tf' || question.type === 'fb' || question.type === 'pic') {
+        var selectedOptions = _.filter(question.options, function(option) {
           return option.selected;
         });
         answer.options = _.pluck(selectedOptions, '_id');
-        answer.isCorrect = answer.options.length === vm.question.correctOptions.length;
-        _.each(vm.question.correctOptions, function(option) {
+        answer.isCorrect = answer.options.length === question.correctOptions.length;
+        _.each(question.correctOptions, function(option) {
           if (!_.contains(answer.options, option))
             answer.isCorrect = false;
         });
       }
-      if (vm.question.type === 'dnd' || vm.question.type === 'as') {
-        var sourceOptions = _.filter(vm.question.options, function(option) {
+      if (question.type === 'dnd' || question.type === 'as') {
+        var sourceOptions = _.filter(question.options, function(option) {
           return option.group === 'source';
         });
         answer.optionMappings = _.map(sourceOptions, function(obj) {
-          return { source: obj._id, target: obj.target };
+          return {
+            source: obj._id,
+            target: obj.target
+          };
         });
-        answer.isCorrect = answer.optionMappings.length === vm.question.optionMappings.length;
-        _.each(vm.question.optionMappings, function(assoc) {
+        answer.isCorrect = answer.optionMappings.length === question.optionMappings.length;
+        _.each(question.optionMappings, function(assoc) {
           var ansAssoc = _.find(answer.optionMappings, function(ansAssoc) {
             return assoc.source === ansAssoc.source && assoc.target === ansAssoc.target;
           });
@@ -226,28 +262,43 @@
             answer.isCorrect = false;
         });
       }
-      if ((vm.question.answer.options && vm.question.answer.options.length > 0) || (vm.question.answer.optionMappings && vm.question.answer.optionMappings.length > 0))
-        vm.question.attempted = true;
-      else
-        vm.question.attempted = false;
-      vm.attemptCount = _.filter(vm.questions, function(q) {
-        return q.attempted;
-      }).length;
+    }
 
-      if (answer._id)
+    function save(callback) {
+      var answer = vm.question.answer;
+      if (vm.question.grouped) {
+        var subAnswer = _.find(answer.subAnswers, function(obj) {
+          return vm.question.subQuestions[vm.subIndex]._id === obj.question;
+        });
+        if (!subAnswer) {
+          subAnswer = new AnswersService();
+          subAnswer.question = vm.question.subQuestions[vm.subIndex]._id;
+          collectAnswer(subAnswer, vm.question.subQuestions[vm.subIndex]);
+          subAnswer.$save(function() {
+            answer.subAnswers.push(subAnswer);
+            answer.$update(function() {
+              callback();
+            });
+          });
+        } else {
+          collectAnswer(subAnswer, vm.question.subQuestions[vm.subIndex]);
+          subAnswer.$update(function() {
+            callback();
+          });
+        }
+      } else {
+        collectAnswer(answer, vm.question);
+        if ((vm.question.answer.options && vm.question.answer.options.length > 0) || (vm.question.answer.optionMappings && vm.question.answer.optionMappings.length > 0))
+          vm.question.attempted = true;
+        else
+          vm.question.attempted = false;
         answer.$update(function() {
           callback();
         });
-      else
-        answer.$save(function() {
-          vm.submit.answers = _.map(vm.questions, function(obj) {
-            if (obj.answer && obj.answer._id)
-              return obj.answer._id;
-          });
-          vm.submit.$update(function() {
-            callback();
-          });
-        });
+      }
+      vm.attemptCount = _.filter(vm.questions, function(q) {
+        return q.attempted;
+      }).length;
     }
 
     function mark(question) {

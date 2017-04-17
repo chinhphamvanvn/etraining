@@ -63,8 +63,7 @@ var QuestionSchema = new Schema({
   },
   type: {
     type: String,
-    enum: ['mc', 'sc', 'tf', 'fb', 'ext', 'dnd', 'pic', 'as'],
-    default: 'sc'
+    enum: ['mc', 'sc', 'tf', 'fb', 'ext', 'dnd', 'pic', 'as']
   },
   optional: {
     type: Boolean,

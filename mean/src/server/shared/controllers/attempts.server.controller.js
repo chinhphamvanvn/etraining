@@ -84,7 +84,12 @@ exports.delete = function(req, res) {
  * List of Attempts
  */
 exports.list = function(req, res) {
-  CourseAttempt.find().sort('-created').populate('user', 'displayName').populate('answers').populate('course').populate('edition').populate('member').populate('section').exec(function(err, attempts) {
+  CourseAttempt.find().sort('-created').populate('user', 'displayName').populate({
+    path: 'answers',
+    populate: {
+      path: 'subAnswers'
+    }
+  }).populate('course').populate('edition').populate('member').populate('section').exec(function(err, attempts) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -99,7 +104,12 @@ exports.list = function(req, res) {
 exports.listByMember = function(req, res) {
   CourseAttempt.find({
     member: req.member._id
-  }).sort('-created').populate('user', 'displayName').populate('answers').populate('course').populate('edition').populate('member').populate('section').exec(function(err, attempts) {
+  }).sort('-created').populate('user', 'displayName').populate({
+    path: 'answers',
+    populate: {
+      path: 'subAnswers'
+    }
+  }).populate('course').populate('edition').populate('member').populate('section').exec(function(err, attempts) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -113,7 +123,12 @@ exports.listByMember = function(req, res) {
 exports.listByCourse = function(req, res) {
   CourseAttempt.find({
     course: req.course._id
-  }).sort('-created').populate('user', 'displayName').populate('answers').populate('course').populate('edition').populate('member').populate('section').exec(function(err, attempts) {
+  }).sort('-created').populate('user', 'displayName').populate({
+    path: 'answers',
+    populate: {
+      path: 'subAnswers'
+    }
+  }).populate('course').populate('edition').populate('member').populate('section').exec(function(err, attempts) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -129,7 +144,12 @@ exports.listBySectionAndMember = function(req, res) {
     member: req.member._id,
     section: req.section._id,
     edition: req.edition._id
-  }).sort('-created').populate('user', 'displayName').populate('answers').populate('course').populate('edition').populate('member').populate('section').exec(function(err, attempts) {
+  }).sort('-created').populate('user', 'displayName').populate({
+    path: 'answers',
+    populate: {
+      path: 'subAnswers'
+    }
+  }).populate('course').populate('edition').populate('member').populate('section').exec(function(err, attempts) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -144,7 +164,12 @@ exports.listBySection = function(req, res) {
   CourseAttempt.find({
     section: req.section._id,
     edition: req.edition._id
-  }).sort('-created').populate('user', 'displayName').populate('answers').populate('course').populate('edition').populate('member').populate('section').exec(function(err, attempts) {
+  }).sort('-created').populate('user', 'displayName').populate({
+    path: 'answers',
+    populate: {
+      path: 'subAnswers'
+    }
+  }).populate('course').populate('edition').populate('member').populate('section').exec(function(err, attempts) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -166,7 +191,12 @@ exports.attemptByID = function(req, res, next, id) {
     });
   }
 
-  CourseAttempt.findById(id).populate('user', 'displayName').populate('answers').populate('course').populate('edition').populate('member').populate('section').exec(function(err, attempt) {
+  CourseAttempt.findById(id).populate('user', 'displayName').populate({
+    path: 'answers',
+    populate: {
+      path: 'subAnswers'
+    }
+  }).populate('course').populate('edition').populate('member').populate('section').exec(function(err, attempt) {
     if (err) {
       return next(err);
     } else if (!attempt) {

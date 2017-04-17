@@ -69,10 +69,7 @@
       allPromise.push(vm.section.$update().$promise);
       allPromise.push(vm.quiz.$update().$promise);
       _.each(vm.questions, function(question) {
-        allPromise.push(question.$update().$promise);
-        _.each(question.options, function(option) {
-          allPromise.push(option.$update().$promise);
-        });
+        allPromise.push(QuestionsService.saveRecursive(question).$promise);
       });
       $q.all(allPromise).then(function() {
         $state.go('workspace.lms.courses.section.view.quiz', {
@@ -97,11 +94,11 @@
     function addGroupQuestion() {
       var question = new QuestionsService();
       question.grouped = true;
+      if (vm.questions.length === 0)
+        question.order = vm.questions.length + 1;
+      else
+        question.order = _.max(vm.questions, function(o) { return o.order;}).order + 1;
       question.$save(function() {
-        if (vm.questions.length === 0)
-          question.order = vm.questions.length + 1;
-        else
-          question.order = _.max(vm.questions, function(o) { return o.order;}).order + 1;
         vm.questions.push(question);
       });
     }

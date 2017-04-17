@@ -12,7 +12,7 @@
 		</div>
 		<div class="md-card-toolbar-heading-text">
 			<span>{{'PAGE.LMS.MY_COURSES.COURSE_STUDY.QUESTION'|translate}}
-				{{vm.index+1}}/{{vm.questions.length}} </span>
+				{{vm.index+1}}<span ng-show="vm.question.grouped">-{{vm.subIndex+1}}</span>/{{vm.questions.length}} </span>
 
 		</div>
 	</div>
@@ -44,13 +44,13 @@
 			<point-click-question mode="'study'" question="vm.question"></point-click-question>
 		</div>
 		<div ng-if="vm.question.grouped">
-			<group-question mode="'study'" question="vm.question"></group-question>
+			<group-question mode="'study'" question="vm.question" sub-index="vm.subIndex"></group-question>
 		</div>
 		<br>
 		<hr>
 		<div class="uk-grid uk-margin-top">
 			<div class="uk-width-1-3">
-				<a ng-show="vm.index < vm.questions.length-1"
+				<a ng-show="vm.index < vm.questions.length-1 || (vm.question.grouped && vm.subIndex < vm.question.subQuestions.length)"
 					class="uk-align-left md-btn  md-btn-wave-light md-btn-icon"
 					ng-click="vm.saveNext()"> <i class="uk-icon-arrow-right "></i>
 					{{'ACTION.NEXT'|translate}}
@@ -63,7 +63,7 @@
 					{{'ACTION.SUBMIT_EXAM'|translate}} </a>
 			</div>
 			<div class="uk-width-1-3 ">
-				<a ng-show=" vm.index > 0"
+				<a ng-show=" vm.index > 0 || vm.question.grouped && vm.subIndex >0"
 					class="uk-align-right md-btn  md-btn-wave-light md-btn-icon"
 					ng-click="vm.savePrev()"> <i class="uk-icon-arrow-left "></i>
 					{{'ACTION.PREV'|translate}}

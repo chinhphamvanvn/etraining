@@ -6,10 +6,10 @@
     .module('shared.models')
     .factory('QuestionsService', QuestionsService);
 
-  QuestionsService.$inject = ['$resource', '_transform'];
+  QuestionsService.$inject = ['$q', '$resource', '_transform'];
 
-  function QuestionsService($resource, _transform) {
-    return $resource('/api/questions/:questionId', {
+  function QuestionsService($q, $resource, _transform) {
+    var Questions = $resource('/api/questions/:questionId', {
       questionId: '@_id'
     }, {
       update: {
@@ -50,5 +50,26 @@
         isArray: true
       }
     });
+
+    angular.extend(Questions, {
+      saveRecursive: function(question) {
+        function getPromise(q) {
+          var allPromise = [];
+          allPromise.push(q.$update().$promise);
+          _.each(q.options, function(option) {
+            allPromise.push(option.$update().$promise);
+          });
+          if (q.grouped) {
+            _.each(q.subQuestions, function(subQ) {
+              allPromise = allPromise.concat(getPromise(subQ));
+            });
+          }
+          return allPromise;
+        }
+        var promises = getPromise(question);
+        return $q.all(promises);
+      }
+    });
+    return Questions;
   }
 }());

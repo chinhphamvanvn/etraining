@@ -32,23 +32,24 @@
       var questionPromises = [];
 
       _.each(vm.exam.questionCategories, function(category) {
-          questionPromises.push(examUtils.questionRandom(category.id, category.level, category.numberQuestion));
+        questionPromises.push(examUtils.questionRandom(category.id, category.level, category.numberQuestion));
       });
 
       $q.all(questionPromises).then(function(groupQuestionList) {
-          vm.questions = [];
-          vm.index = 0;
+        vm.questions = [];
+        vm.index = 0;
+        vm.subIndex = 0;
 
-          _.each(groupQuestionList, function(groupQuestion) {
-              vm.questions = vm.questions.concat(groupQuestion);
-          });
+        _.each(groupQuestionList, function(groupQuestion) {
+          vm.questions = vm.questions.concat(groupQuestion);
+        });
 
-          if (vm.questions.length > 0)
-              selectQuestion(vm.index);
-          else
-              vm.alert = $translate.instant('ERROR.EXAM.QUESTION_NOT_FOUND');
+        if (vm.questions.length > 0)
+          selectQuestion(vm.index);
+        else
+          vm.alert = $translate.instant('ERROR.EXAM.QUESTION_NOT_FOUND');
       }).catch(function(err) {
-          console.log(err);
+        console.log(err);
       });
     }
 
@@ -75,18 +76,27 @@
 
     function selectQuestion(index) {
       vm.question = vm.questions[index];
-      vm.options = OptionsService.byQuestion({
-        questionId: vm.question._id
-      }, function() {});
     }
 
     function nextQuestion() {
+      if (vm.question.grouped) {
+        if (vm.subIndex + 1 < vm.question.subQuestions.length) {
+          vm.subIndex++;
+          return;
+        }
+      }
       if (vm.index + 1 < vm.questions.length) {
         vm.index++;
         selectQuestion(vm.index);
       }
     }
     function prevQuestion() {
+      if (vm.question.grouped) {
+        if (vm.subIndex > 0) {
+          vm.subIndex--;
+          return;
+        }
+      }
       if (vm.index > 0) {
         vm.index--;
         selectQuestion(vm.index);
