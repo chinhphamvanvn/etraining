@@ -12,7 +12,7 @@
 		</div>
 		<div class="md-card-toolbar-heading-text">
 			<span>{{'PAGE.LMS.MY_COURSES.COURSE_STUDY.QUESTION'|translate}}
-				{{vm.index+1}}/{{vm.questions.length}} </span>
+				{{vm.index+1}}<span ng-show="vm.question.grouped">-{{vm.subIndex+1}}</span>/{{vm.questions.length}} </span>
 
 		</div>
 	</div>
@@ -44,7 +44,7 @@
 			<point-click-question mode="'study'" question="vm.question"></point-click-question>
 		</div>
 		<div ng-if="vm.question.grouped">
-			<group-question mode="'study'" question="vm.question"></group-question>
+			<group-question mode="'study'" question="vm.question" sub-index="vm.subIndex"></group-question>
 		</div>
 		<br>
 		<hr>

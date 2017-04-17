@@ -12,18 +12,13 @@
     vm.question = question;
     vm.save = save;
 
-
     function save() {
-      var allPromise = [];
-      allPromise.push(vm.question.$update().$promise);
-      _.each(vm.question.options, function(option) {
-        allPromise.push(option.$update().$promise);
-      });
-      $q.all(allPromise).then(function() {
+      QuestionsService.saveRecursive(vm.question).then(function() {
         $state.go('admin.workspace.performance.question.view', {
           questionId: vm.question._id
         });
       });
+
     }
 
   }

@@ -1,0 +1,302 @@
+<div ng-if="mode=='edit'">
+	<div class="uk-grid ">
+		<div class="uk-width-medium-1-2 parsley-row">
+			<label for="question_title">
+				{{'MODEL.QUESTION.TITLE'|translate}} <span class="req">*</span>
+			</label> <input type="text" name="question_title" id="question_title"
+				required class="md-input" md-input ng-model="question.title" />
+		</div>
+		<div class="uk-width-medium-1-2 parsley-row">
+			<label for="question_level_select">{{'MODEL.QUESTION.LEVEL'|translate}}</label>
+			<div id="question_level_select">
+				<span class="icheck-inline"> <input type="radio"
+					name="question_level_{{question._id}}"
+					id="question_easy_{{question._id}}" value="easy" icheck
+					ng-model="question.level" /> <label for="question_easy"
+					class="inline-label">{{'COMMON.DIFFICULTY.EASY'|translate}}</label>
+				</span> <span class="icheck-inline"> <input type="radio"
+					name="question_level_{{question._id}}"
+					id="question_medium_{{question._id}}" value="medium" icheck
+					ng-model="question.level" /> <label for="question_medium"
+					class="inline-label">{{'COMMON.DIFFICULTY.MEDIUM'|translate}}</label>
+				</span> <span class="icheck-inline"> <input type="radio"
+					name="question_level_{{question._id}}"
+					id="question_hard_{{question._id}}" value="hard" icheck
+					ng-model="question.level" /> <label for="question_hard"
+					class="inline-label">{{'COMMON.DIFFICULTY.HARD'|translate}}</label>
+				</span>
+			</div>
+		</div>
+	</div>
+	<div class="uk-grid">
+		<div class="uk-width-medium-1-1 parsley-row">
+			<textarea ui-tinymce="tinymce_options"
+				ng-model="question.description" cols="30" rows="4"></textarea>
+		</div>
+	</div>
+	<div id="questions">
+		<div class="uk-grid" data-uk-grid-margin
+			ng-repeat="subQ in question.subQuestions | orderBy: 'order'">
+			<div class="uk-width-1-1 uk-margin-top">
+				<div class="md-card">
+					<div class="md-card-toolbar quiz-toolbar">
+						<div class="uk-grid">
+							<div class="uk-width-7-10">
+								<h3 class="md-card-toolbar-heading-text text-wrap quiz-heading">
+									{{subQ.order}}. {{subQ.title}} <span ng-if="subQ.type=='mc'"
+										class="uk-text-italic uk-text-small"> -
+										{{'COMMON.QUESTION_TYPE.MC'|translate}}</span> <span
+										ng-if="subQ.type=='sc'" class="uk-text-italic uk-text-small">
+										- {{'COMMON.QUESTION_TYPE.SC'|translate}}</span> <span
+										ng-if="subQ.type=='tf'" class="uk-text-italic uk-text-small">
+										- {{'COMMON.QUESTION_TYPE.TF'|translate}}</span> <span
+										ng-if="subQ.type=='fb'" class="uk-text-italic uk-text-small">
+										- {{'COMMON.QUESTION_TYPE.FB'|translate}}</span> <span
+										ng-if="subQ.type=='ext'" class="uk-text-italic uk-text-small">
+										- {{'COMMON.QUESTION_TYPE.EXT'|translate}}</span> <span
+										ng-if="subQ.type=='pic'" class="uk-text-italic uk-text-small">
+										- {{'COMMON.QUESTION_TYPE.PIC'|translate}}</span> <span
+										ng-if="subQ.type=='as'" class="uk-text-italic uk-text-small">
+										- {{'COMMON.QUESTION_TYPE.AS'|translate}}</span>
+								</h3>
+							</div>
+							<div class="md-card-toolbar-actions uk-width-3-10 uk-text-right">
+								<i class="uk-icon-arrow-up uk-icon-small uk-margin-right"
+									ng-click="moveUp(subQ)"
+									data-uk-tooltip="{cls:'uk-tooltip-small',pos:'top'}"
+									title="{{'ACTION.UP'|translate}}"></i> <i
+									class="uk-icon-arrow-down uk-icon-small uk-margin-right"
+									ng-click="moveDown(subQ)"
+									data-uk-tooltip="{cls:'uk-tooltip-small',pos:'top'}"
+									title="{{'ACTION.DOWN'|translate}}"></i> <a
+									ng-click="removeQuestion(subQ)"
+									data-uk-tooltip="{cls:'uk-tooltip-small',pos:'top'}"
+									title="{{'ACTION.DELETE'|translate}}"><i
+									class="md-icon material-icons uk-text-danger">delete</i></a>
+								<card-toggle></card-toggle>
+							</div>
+						</div>
+					</div>
+					<div class="md-card-content">
+						<div ng-if="subQ.type=='mc'">
+							<multiple-choice-question mode="'edit'" question="subQ"></multiple-choice-question>
+						</div>
+						<div ng-if="subQ.type=='sc'">
+							<single-choice-question mode="'edit'" question="subQ"></single-choice-question>
+						</div>
+						<div ng-if="subQ.type=='tf'">
+							<true-false-question mode="'edit'" question="subQ"></true-false-question>
+						</div>
+						<div ng-if="subQ.type=='fb'">
+							<fill-blank-question mode="'edit'" question="subQ"></fill-blank-question>
+						</div>
+						<div ng-if="subQ.type=='as'">
+							<associative-question mode="'edit'" question="subQ"></associative-question>
+						</div>
+						<div ng-if="subQ.type=='dnd'">
+							<drag-drop-question mode="'edit'" question="subQ"></drag-drop-question>
+						</div>
+						<div ng-if="subQ.type=='pic'">
+							<point-click-question mode="'edit'" question="subQ"></point-click-question>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="md-fab-wrapper md-fab-in-card">
+		<div class="md-fab md-fab-primary md-fab-sheet" md-fab-sheet>
+			<i class="material-icons">add</i>
+			<div class="md-fab-sheet-actions">
+				<a ng-click="addQuestion('sc')" class="md-color-white">{{'COMMON.QUESTION_TYPE.SC'|translate}}</a>
+				<a ng-click="addQuestion('mc')" class="md-color-white">{{'COMMON.QUESTION_TYPE.MC'|translate}}</a>
+				<a ng-click="addQuestion('tf')" class="md-color-white">{{'COMMON.QUESTION_TYPE.TF'|translate}}</a>
+				<a ng-click="addQuestion('fb')" class="md-color-white">{{'COMMON.QUESTION_TYPE.FB'|translate}}</a>
+				<a ng-click="addQuestion('pic')" class="md-color-white">{{'COMMON.QUESTION_TYPE.PIC'|translate}}</a>
+				<a ng-click="addQuestion('dnd')" class="md-color-white">{{'COMMON.QUESTION_TYPE.DND'|translate}}</a>
+				<a ng-click="addQuestion('as')" class="md-color-white">{{'COMMON.QUESTION_TYPE.AS'|translate}}</a>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div ng-if="mode=='view'">
+	<div class="uk-grid no-margin-top">
+		<div class="uk-width-medium-1-2 parsley-row">
+			<h4 class="quiz-heading uk-text-left">{{'MODEL.QUESTION.LEVEL'|translate}}</h4>
+			<div id="question_level_select">
+				<span class="icheck-inline"> <input ng-disabled="true"
+					type="radio" name="question_level_{{question._id}}"
+					id="question_easy_{{question._id}}" value="easy" icheck
+					ng-model="question.level" /> <label for="question_easy"
+					class="inline-label">{{'COMMON.DIFFICULTY.EASY'|translate}}</label>
+				</span> <span class="icheck-inline"> <input ng-disabled="true"
+					type="radio" name="question_level_{{question._id}}"
+					id="question_medium_{{question._id}}" value="medium" icheck
+					ng-model="question.level" /> <label for="question_medium"
+					class="inline-label">{{'COMMON.DIFFICULTY.MEDIUM'|translate}}</label>
+				</span> <span class="icheck-inline"> <input ng-disabled="true"
+					type="radio" name="question_level_{{question._id}}"
+					id="question_hard_{{question._id}}" value="hard" icheck
+					ng-model="question.level" /> <label for="question_hard"
+					class="inline-label">{{'COMMON.DIFFICULTY.HARD'|translate}}</label>
+				</span>
+			</div>
+		</div>
+	</div>
+	<div class="uk-grid no-margin-top">
+		<div class="uk-width-medium-1-1 parsley-row">
+			<h4 class="quiz-heading uk-text-left">
+				{{'MODEL.QUESTION.DESC'|translate}}</h4>
+			<p class="uk-text-left text-wrap" ng-bind-html="question.description" />
+		</div>
+		<div class="uk-width-medium-1-1 parsley-row">
+		<table
+			class=" uk-table uk-table-hover uk-table-nowrap  uk-table-condensed">
+			<thead>
+				<tr>
+					<th class="uk-text-center uk-text-upper uk-width-1-10">{{'MODEL.QUESTION.ORDER'|translate}}</th>
+					<th class=" uk-text-upper uk-width-4-10">{{'MODEL.QUESTION.TITLE'|translate}}</th>
+					<th class=" uk-text-upper uk-width-3-10">{{'MODEL.QUESTION.TYPE'|translate}}</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="subQ in question.subQuestions | orderBy:'order'"
+					ng-mouseenter="subQ.show=true" ng-mouseleave="subQ.show=false">
+					<td class="uk-text-center uk-width-1-10">{{subQ.order}} <question-info
+							question="subQ" show="question.show"></question-info>
+					</td>
+					<td class="  uk-width-4-10">{{subQ.title | limitTo: 30}}</td>
+					<td class=" uk-width-3-10"><span ng-if="subQ.type=='mc'">{{'COMMON.QUESTION_TYPE.MC'|translate}}</span>
+						<span ng-if="subQ.type=='sc'">{{'COMMON.QUESTION_TYPE.SC'|translate}}</span>
+						<span ng-if="subQ.type=='tf'">{{'COMMON.QUESTION_TYPE.TF'|translate}}</span>
+						<span ng-if="subQ.type=='fb'">{{'COMMON.QUESTION_TYPE.FB'|translate}}</span>
+						<span ng-if="subQ.type=='as'">{{'COMMON.QUESTION_TYPE.AS'|translate}}</span>
+						<span ng-if="subQ.type=='dnd'">{{'COMMON.QUESTION_TYPE.DND'|translate}}</span>
+						<span ng-if="subQ.type=='pic'">{{'COMMON.QUESTION_TYPE.PIC'|translate}}</span>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		</div>
+	</div>
+</div>
+
+<div ng-if="mode=='study'">
+	<div class="uk-grid">
+		<div class="uk-width-medium-1-1 parsley-row">
+			<p class="uk-text-left text-wrap" ng-bind-html="question.description" />
+		</div>
+	</div>
+	<div class="uk-grid" data-uk-grid-margin>
+		<div class="uk-width-1-1">
+			<div ng-if="subQuestion.type=='mc'">
+				<multiple-choice-question mode="'study'"
+					shuffle="shuffle" question="subQuestion"
+					answer="subAnswer"></multiple-choice-question>
+			</div>
+			<div ng-if="subQuestion.type=='sc'">
+				<single-choice-question mode="'study'"
+					shuffle="shuffle" question="subQuestion"
+					answer="subAnswer"></single-choice-question>
+			</div>
+			<div ng-if="subQuestion.type=='tf'">
+				<true-false-question mode="'study'"
+					shuffle="shuffle" question="subQuestion"
+					answer="subAnswer"></true-false-question>
+			</div>
+			<div ng-if="subQuestion.type=='fb'">
+				<fill-blank-question mode="'study'"
+					shuffle="shuffle" question="subQuestion"
+					answer="subAnswer"></fill-blank-question>
+			</div>
+			<div ng-if="subQuestion.type=='dnd'">
+				<drag-drop-question mode="'study'"
+					shuffle="shuffle" question="subQuestion"
+					answer="subAnswer"></drag-drop-question>
+			</div>
+			<div ng-if="subQuestion.type=='pic'">
+				<point-click-question mode="'study'"
+					shuffle="shuffle" question="subQuestion"
+					answer="subAnswer"></point-click-question>
+			</div>
+			<div ng-if="subQuestion.type=='as'">
+				<associative-question mode="'study'"
+					shuffle="shuffle" question="subQuestion"
+					answer="subAnswer"></associative-question>
+			</div>
+		</div>
+
+		
+	</div>
+</div>
+
+
+<div ng-if="mode=='result'">
+	<div class="uk-grid">
+		<div class="uk-width-medium-1-1 ">
+			<p class="uk-text-left text-wrap" ng-bind-html="question.description" />
+		</div>
+	</div>
+	<div class="uk-grid" data-uk-grid-margin>
+		<div class="uk-width-1-1">
+			<div id="questions">
+		<div class="uk-grid" data-uk-grid-margin
+			ng-repeat="subQ in question.subQuestions | orderBy: 'order'">
+			<div class="uk-width-1-1 uk-margin-top">
+				<div class="md-card">
+					<div class="md-card-toolbar quiz-toolbar">
+						<div class="uk-grid">
+							<div class="uk-width-7-10">
+								<h3 class="md-card-toolbar-heading-text text-wrap quiz-heading">
+									{{subQ.order}}. {{subQ.title}} <span ng-if="subQ.type=='mc'"
+										class="uk-text-italic uk-text-small"> -
+										{{'COMMON.QUESTION_TYPE.MC'|translate}}</span> <span
+										ng-if="subQ.type=='sc'" class="uk-text-italic uk-text-small">
+										- {{'COMMON.QUESTION_TYPE.SC'|translate}}</span> <span
+										ng-if="subQ.type=='tf'" class="uk-text-italic uk-text-small">
+										- {{'COMMON.QUESTION_TYPE.TF'|translate}}</span> <span
+										ng-if="subQ.type=='fb'" class="uk-text-italic uk-text-small">
+										- {{'COMMON.QUESTION_TYPE.FB'|translate}}</span> <span
+										ng-if="subQ.type=='ext'" class="uk-text-italic uk-text-small">
+										- {{'COMMON.QUESTION_TYPE.EXT'|translate}}</span> <span
+										ng-if="subQ.type=='pic'" class="uk-text-italic uk-text-small">
+										- {{'COMMON.QUESTION_TYPE.PIC'|translate}}</span> <span
+										ng-if="subQ.type=='as'" class="uk-text-italic uk-text-small">
+										- {{'COMMON.QUESTION_TYPE.AS'|translate}}</span>
+								</h3>
+							</div>
+						</div>
+					</div>
+					<div class="md-card-content">
+						<div ng-if="subQ.type=='mc'">
+							<multiple-choice-question mode="'result'" answer="subQ.answer"  question="subQ"></multiple-choice-question>
+						</div>
+						<div ng-if="subQ.type=='sc'">
+							<single-choice-question mode="'result'" answer="subQ.answer"  question="subQ"></single-choice-question>
+						</div>
+						<div ng-if="subQ.type=='tf'">
+							<true-false-question mode="'result'" answer="subQ.answer"  question="subQ"></true-false-question>
+						</div>
+						<div ng-if="subQ.type=='fb'">
+							<fill-blank-question mode="'result'" answer="subQ.answer"  question="subQ"></fill-blank-question>
+						</div>
+						<div ng-if="subQ.type=='as'">
+							<associative-question mode="'result'" answer="subQ.answer"  question="subQ"></associative-question>
+						</div>
+						<div ng-if="subQ.type=='dnd'">
+							<drag-drop-question mode="'result'"  answer="subQ.answer" question="subQ"></drag-drop-question>
+						</div>
+						<div ng-if="subQ.type=='pic'">
+							<point-click-question mode="'result'" answer="subQ.answer" question="subQ"></point-click-question>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+		</div>
+	</div>
+</div>
+

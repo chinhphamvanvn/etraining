@@ -38,8 +38,7 @@ exports.bulkCreate = function(req, res) {
               option.save(function(err) {
                 console.log(option);
                 if (err)
-                  reject(err);
-                else {
+                  reject(err);else {
                   newQuestion.correctOptions.push(option._id);
                   newQuestion.save(function(err) {
                     resolve();
@@ -59,8 +58,7 @@ exports.bulkCreate = function(req, res) {
               option.save(function(err) {
                 console.log(option);
                 if (err)
-                  reject(err);
-                else {
+                  reject(err);else {
                   resolve();
                 }
               });
@@ -101,7 +99,6 @@ exports.create = function(req, res) {
   console.log(req.body);
   var question = new Question(req.body);
   question.user = req.user;
-
   question.save(function(err) {
     if (err) {
       return res.status(400).send({
@@ -132,9 +129,7 @@ exports.read = function(req, res) {
  */
 exports.update = function(req, res) {
   var question = req.question;
-
   question = _.extend(question, req.body);
-
   question.save(function(err) {
     if (err) {
       return res.status(400).send({
@@ -167,7 +162,7 @@ exports.delete = function(req, res) {
  * List of Questions
  */
 exports.list = function(req, res) {
-  Question.find().sort('-created').populate('user', 'displayName').populate('category').populate('subQuestions').exec(function(err, questions) {
+  Question.find().sort('-created').populate('user', 'displayName').populate('category').exec(function(err, questions) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -183,7 +178,7 @@ exports.listByCategoryAndLevel = function(req, res) {
   Question.find({
     category: req.params.groupId,
     level: req.params.level
-  }).sort('-created').populate('user', 'displayName').populate('category').populate('subQuestions').exec(function(err, questions) {
+  }).sort('-created').populate('user', 'displayName').populate('category').exec(function(err, questions) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -200,7 +195,7 @@ exports.listByIds = function(req, res) {
     _id: {
       $in: questionIds
     }
-  }).sort('-created').populate('user', 'displayName').populate('category').populate('subQuestions').exec(function(err, questions) {
+  }).sort('-created').populate('user', 'displayName').populate('category').exec(function(err, questions) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -214,7 +209,7 @@ exports.listByIds = function(req, res) {
 exports.listByCategory = function(req, res) {
   Question.find({
     category: req.group._id
-  }).sort('-created').populate('user', 'displayName').populate('category').populate('subQuestions').exec(function(err, questions) {
+  }).sort('-created').populate('user', 'displayName').populate('category').exec(function(err, questions) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -236,7 +231,7 @@ exports.questionByID = function(req, res, next, id) {
     });
   }
 
-  Question.findById(id).populate('user', 'displayName').populate('subQuestions').exec(function(err, question) {
+  Question.findById(id).populate('user', 'displayName').exec(function(err, question) {
     if (err) {
       return next(err);
     } else if (!question) {

@@ -123,6 +123,7 @@
             if (obj._id !== option._id)
               obj.selected = false;
           });
+          option.selected = true;
         }
 
         function updateCorrectOption(option) {

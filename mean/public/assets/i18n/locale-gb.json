@@ -56,6 +56,8 @@
 	"PAGE.PROFILE.ADMIN_SETTING": "Admin Setting",
 	"PAGE.USERS.TITLE": "User Management",
 	"PAGE.USERS.PERMISSION.TITLE": "Permission management",
+	"PAGE.USERS.PERMISSION.VIEW_PERMISSION":"Menu permission",
+	"PAGE.USERS.PERMISSION.OBJECT_PERMISSION":"Object permission",
 	"PAGE.USERS.USER_LIST": "User List",
 	"PAGE.USERS.UPDATE_ORG_TREE": "Updating Organization Chart",
 	"PAGE.LIBRARY.TITLE": "Library",
