@@ -12,19 +12,15 @@
 			<div class="md-card-content">
 				<h3 class="heading_b uk-margin-bottom">{{'DIALOG.IMPORT.QUESTION.TITLE'
 					| translate}}</h3>
+				<!-- <js-xls onread="vm.read" onerror="error" style="margin-left: 10px; float: left;"></js-xls> -->
 				<div class="md-card">
 					<div class="md-card-content">
 
 						<div class="uk-grid">
 							<div class="uk-width-medium-1-2">
-								<h3 class="heading_a uk-margin-bottom">{{'DIALOG.IMPORT.CSV_FORMAT'
-									| translate}}</h3>
-								<csv-import content="dlg.csv.content" header="dlg.csv.header"
-									separator="dlg.csv.separator" result="dlg.csv.result"
-									callback="dlg.finishLoad" encoding="dlg.csv.encoding"
-									acceptSize="dlg.csv.acceptSize"
-									upload-button-label="dlg.csv.uploadButtonLabel"></csv-import>
+								<js-xls onread="readExcel" onerror="error" style="margin-left: 10px; float: left;"></js-xls>
 							</div>
+							
 							<div class="uk-width-medium-1-2">
 								<h3 class="heading_a uk-margin-bottom">{{'DIALOG.IMPORT.QUESTION.CATEGORY'
 									| translate}}</h3>

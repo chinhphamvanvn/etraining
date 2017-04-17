@@ -14,6 +14,7 @@
     vm.headers = [];
     vm.importData = importData;
     vm.selectedGroup = selectedGroup;
+    $scope.readExcel = readExcel;
     vm.csv = {
       content: null,
       header: true,
@@ -74,6 +75,26 @@
     };
 
     var closeButton = $('#dialogClose');
+
+    function readExcel(result) {
+      var i;
+      if (!result.headers || result.headers.length === 0) {
+        vm.headers = [];
+        for (i = 0; i < result.columnCount; i++)
+          vm.headers.push({
+            name: i
+          });
+      } else {
+        vm.headers = [];
+        result.headers.forEach(function(header){
+          vm.headers.push({
+            name: header
+          });
+        })
+      }
+      vm.questions = result.rows;
+      $scope.$apply();
+    }
 
     function finishLoad() {
       var i;

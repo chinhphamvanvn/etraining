@@ -17,7 +17,7 @@
     vm.selectGroup = selectGroup;
     vm.currPage = 1;
     vm.itemsPerPage = 10;
-    vm.csvTemplate = fileManagerConfig.csv_template;
+    vm.csvTemplate = fileManagerConfig.excel_template;
 
     function selectGroup(groups) {
       vm.groups = groups;

@@ -58,7 +58,8 @@
         });
         return false;
       },
-      csv_template: '/assets/csv/template_csv.csv'
+      csv_template: '/assets/csv/template_csv.csv',
+      excel_template: '/assets/excel/template_excel.xlsx'
     });
 
   angular
