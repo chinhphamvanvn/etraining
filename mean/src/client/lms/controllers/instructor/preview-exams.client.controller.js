@@ -32,23 +32,23 @@
       var questionPromises = [];
 
       _.each(vm.exam.questionCategories, function(category) {
-          questionPromises.push(examUtils.questionRandom(category.id, category.level, category.numberQuestion));
+        questionPromises.push(examUtils.questionRandom(category.id, category.level, category.numberQuestion));
       });
 
       $q.all(questionPromises).then(function(groupQuestionList) {
-          vm.questions = [];
-          vm.index = 0;
+        vm.questions = [];
+        vm.index = 0;
 
-          _.each(groupQuestionList, function(groupQuestion) {
-              vm.questions = vm.questions.concat(groupQuestion);
-          });
+        _.each(groupQuestionList, function(groupQuestion) {
+            vm.questions = vm.questions.concat(groupQuestion);
+        });
 
-          if (vm.questions.length > 0)
-              selectQuestion(vm.index);
-          else
-              vm.alert = $translate.instant('ERROR.EXAM.QUESTION_NOT_FOUND');
+        if (vm.questions.length > 0)
+            selectQuestion(vm.index);
+        else
+          vm.alert = $translate.instant('ERROR.EXAM.QUESTION_NOT_FOUND');
       }).catch(function(err) {
-          console.log(err);
+        console.log(err);
       });
     }
 

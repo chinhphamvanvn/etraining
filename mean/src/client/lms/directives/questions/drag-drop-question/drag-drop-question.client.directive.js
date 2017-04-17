@@ -260,13 +260,13 @@
             UIkit.uploadSelect($('#file_upload-select'), settings);
           });
           var selectedOption;
-          scope.mouseDown = function($event,option) {
+          scope.mouseDown = function($event, option) {
             if ($event.button === 0) {
               selectedOption = option;
               console.log('Option ', option, ' is selected');
             }
           };
-          scope.mouseUp = function($event,option) {
+          scope.mouseUp = function($event, option) {
             if ($event.button === 0) {
               if (option) {
                 console.log('Option ', selectedOption, ' is unselected');
@@ -282,7 +282,7 @@
             if (selectedOption) {
               var rectElement = $('#' + selectedOption._id + '_rect');
               var textElement = $('#' + selectedOption._id + '_text');
-              rectElement[0].setAttribute('x', $event.offsetX -  +rectElement[0].getAttribute('width') / 2);
+              rectElement[0].setAttribute('x', $event.offsetX - +rectElement[0].getAttribute('width') / 2);
               rectElement[0].setAttribute('y', $event.offsetY - +rectElement[0].getAttribute('height') / 2);
               selectedOption.svgData.x = $event.offsetX - +rectElement[0].getAttribute('width') / 2;
               selectedOption.svgData.y = $event.offsetY - +rectElement[0].getAttribute('height') / 2;
@@ -298,7 +298,7 @@
               target;
             if ($event.button === 0) {
               if (option.group === 'source') {
-                scope.dragOption =  option;
+                scope.dragOption = option;
                 console.log('Option ', scope.dragOption, ' is selected');
                 scope.dropOption = null;
                 if (option.target) {
