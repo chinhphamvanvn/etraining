@@ -26,7 +26,6 @@ exports.update = function(req, res) {
   if (user) {
     // Update whitelisted fields only
     user = _.extend(user, _.pick(req.body, whitelistedFields));
-
     user.updated = Date.now();
     user.displayName = user.firstName + ' ' + user.lastName;
 
@@ -159,6 +158,8 @@ exports.me = function(req, res) {
       email: validator.escape(req.user.email),
       phone: req.user.phone,
       group: req.user.group,
+      permissionView: req.user.permissionView,
+      permissionObject: req.user.permissionObject,
       position: req.user.position,
       facebook: req.user.facebook,
       twitter: req.user.twitter,

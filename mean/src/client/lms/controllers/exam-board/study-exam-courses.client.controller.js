@@ -21,10 +21,12 @@
 
     $rootScope.toBarActive = true;
     $rootScope.topMenuActive = true;
+    $rootScope.hideFooter = true;
 
     $scope.$on('$destroy', function() {
       $rootScope.toBarActive = false;
       $rootScope.topMenuActive = false;
+      $rootScope.hideFooter = false;
     });
 
     examUtils.pendingSubmit(vm.candidate, vm.exam).then(function(progress) {
@@ -204,7 +206,7 @@
         answer.options = _.pluck(selectedOptions, '_id');
         answer.isCorrect = answer.options.length === vm.question.correctOptions.length;
         _.each(vm.question.correctOptions, function(option) {
-          if (!_.contains(answer.options, option._id))
+          if (!_.contains(answer.options, option))
             answer.isCorrect = false;
         });
       }

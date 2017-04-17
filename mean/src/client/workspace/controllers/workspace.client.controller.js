@@ -5,10 +5,11 @@
     .module('workspace')
     .controller('WorkspaceController', WorkspaceController);
 
-  WorkspaceController.$inject = ['$scope', '$rootScope', '$state', 'userResolve', 'menuService', '$timeout', '$window', 'MessagesService', '_'];
+  WorkspaceController.$inject = ['$scope', '$rootScope', '$state', 'userResolve', 'permissionViewResolve', 'menuService', '$timeout', '$window', 'MessagesService', '_'];
 
-  function WorkspaceController($scope, $rootScope, $state, user, menuService, $timeout, $window, MessagesService, _) {
+  function WorkspaceController($scope, $rootScope, $state, user, permissionView, menuService, $timeout, $window, MessagesService, _) {
     var vm = this;
+    vm.permissionView = permissionView;
     vm.user = user;
     vm.menu = menuService.getMenu('sidebar');
     vm.switchPanel = switchPanel;
@@ -18,7 +19,7 @@
       userId: vm.user._id
     });
     vm.closeAlert = closeAlert;
-
+    vm.sections = [];
 
     $('#menu_top').children('[data-uk-dropdown]').on('show.uk.dropdown', function() {
       $timeout(function() {
@@ -63,18 +64,30 @@
         });
     }
 
+    function filterByPermission(menuKey) {
+      if (!vm.permissionView)
+        return true;
+      if ($rootScope.viewerRole === 'user') {
+        return _.contains(vm.permissionView.userMenu, menuKey);
+      }
+      if ($rootScope.viewerRole === 'admin') {
+        return _.contains(vm.permissionView.adminMenu, menuKey);
+      }
+      return false;
+    }
+
     function updateSidebar() {
-      vm.sections = [];
       var sections = _.filter(vm.menu.items, function(menu) {
-        return (menu.roles.indexOf('*') !== -1) || _.contains(menu.roles, $rootScope.viewerRole);
+        return (menu.roles.indexOf('*') !== -1) || (_.contains(menu.roles, $rootScope.viewerRole) && filterByPermission(menu.title));
       });
       sections = _.sortBy(sections, function(menu) {
         return menu.position;
       });
       _.each(sections, function(section, index) {
         var submenu = _.filter(section.items, function(menu) {
-          return (menu.roles.indexOf('*') !== -1) || _.contains(menu.roles, $rootScope.viewerRole);
+          return (menu.roles.indexOf('*') !== -1) || (_.contains(menu.roles, $rootScope.viewerRole) && filterByPermission(menu.title));
         });
+
         submenu = _.sortBy(submenu, function(menu) {
           return menu.position;
         });

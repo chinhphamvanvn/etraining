@@ -4,9 +4,9 @@
   // Point-click Question
 
   angular.module('lms')
-    .directive('pointClickQuestion', ['OptionsService', 'QuestionsService', 'fileManagerConfig', '_', pointClickQuestion]);
+    .directive('pointClickQuestion', ['OptionsService', 'QuestionsService', '$timeout', 'fileManagerConfig', '_', pointClickQuestion]);
 
-  function pointClickQuestion(OptionsService, QuestionsService, fileManagerConfig, _) {
+  function pointClickQuestion(OptionsService, QuestionsService, $timeout, fileManagerConfig, _) {
     return {
       scope: {
         question: '=',
@@ -16,154 +16,200 @@
       },
       templateUrl: '/src/client/lms/directives/questions/point-click-question/point-click-question.directive.client.view.html',
       link: function(scope, element, attributes) {
-        var progressbar = angular.element(document.getElementById('file_upload-progressbar')),
-        bar = angular.element(document.getElementById('progress_bar')),
-        settings = {
-          action: '/api/videos/upload', // upload url
-          param: 'newCourseVideo',
-          method: 'POST',
-
-          allow: '*.(mp3|mp4|webm|mov|avi|flv|mpeg)', // allow only images
-
-          loadstart: function() {
-            bar.css('width', '0%').text('0%');
-            progressbar.removeClass('uk-hidden');
-            scope.videoAttr = {
-              autoplay: false,
-              controls: false,
-              muted: true
-            };
-            scope.showProgress = true;
-            scope.$apply();
-          },
-
-          progress: function(percent) {
-            percent = Math.ceil(percent);
-            bar.css('width', percent + '%').text(percent + '%');
-          },
-
-          allcomplete: function(response) {
-
-            bar.css('width', '100%').text('100%');
-
-            setTimeout(function() {
-              progressbar.addClass('uk-hidden');
-            }, 250);
-            var data = JSON.parse(response);
-            scope.video.videoURL = data.videoURL;
-            console.log(scope.video);
-            scope.videoAttr = {
-              autoplay: true,
-              controls: true,
-              muted: false
-            };
-            scope.showProgress = false;
-            scope.$apply();
-          }
-        };
-
-      var select = UIkit.uploadSelect($('#file_upload-select'), settings),
-        drop = UIkit.uploadDrop($('#file_upload-drop'), settings);
-        /*var settings = {
-            action: '/api/questions/image/upload', // upload url
-            param: 'newQuestionImage',
-            method: 'POST',
-
-            allow: '*.(png|gif|jpg|jpeg)', // allow only images
-            
-            loadstart: function() {
-            },
-
-            progress: function(percent) {
-            },
-
-            allcomplete: function(response) {
-              var data = JSON.parse(response);
-              console.log(data);
-              scope.$apply();
-            }
-          };
-        UIkit.uploadSelect($('#file_upload-select'), settings);*/
-        
         scope.tinymce_options = fileManagerConfig;
         scope.$watch('question', function() {
           if (scope.question._id)
             scope.question.options = OptionsService.byQuestion({
               questionId: scope.question._id
-            }, function(options) {
-              if (scope.mode === 'study' && scope.shuffle) {
-                if (!scope.question.shuffleIndex) {
-                  scope.question.shuffleIndex = Math.floor(Math.randomw() * options.length);
+            }, function() {
+              if (!scope.question.svgData)
+                scope.question.svgData = {};
+              else
+                scope.question.svgData = angular.fromJson(scope.question.svgData);
+              _.each(scope.question.options, function(option) {
+                if (option._id in scope.question.svgData)
+                  option.svgData = scope.question.svgData[option._id];
+                else {
+                  option.svgData = {
+                    x: 0,
+                    y: 0
+                  };
+                  scope.question.svgData[option._id] = option.svgData;
                 }
-                scope.question.options = [];
-                for (var i = 0; i < options.length; i++)
-                  scope.question.options.push(options[(scope.question.shuffleIndex + i) % options.length]);
-              }
-              if (scope.mode === 'study' && !scope.shuffle) {
-                scope.question.options = _.sortBy(scope.question.options, 'order');
-              }
-              if (scope.mode !== 'study' && scope.mode !== 'result') {
-                _.each(scope.question.options, function(option) {
-                  option.selected = _.contains(scope.question.correctOptions, option._id);
-                });
-              } else {
-                if (scope.answer) {
-                  _.each(scope.question.options, function(option) {
-                    option.selected = _.contains(scope.answer.options, option._id);
-                  });
-                }
-                _.each(scope.question.options, function(option) {
-                  option.isCorrect = _.contains(scope.question.correctOptions, option._id);
-                });
-              }
+              });
+              enterMode();
             });
-          else
+          else {
             scope.question.options = [];
+            scope.question.svgData = {};
+            enterMode();
+          }
         });
 
-        scope.translateContent = function() {
-          return scope.question.description;
-        };
+        function enterMode() {
+          switch (scope.mode) {
+            case 'edit':
+              setupSvgInteraction();
+              markCorrectOption();
+              scope.addOption = addOption;
+              scope.removeOption = removeOption;
+              scope.selectOption = function(option) {
+                selectSingleOption(option);
+                updateCorrectOption(option);
+              };
+              break;
+            case 'study':
+              preprocessQuestionContent();
+              rearrangeOptions();
+              markAnswerOption();
+              scope.selectOption = selectSingleOption;
+              break;
+            case 'view':
+              preprocessQuestionContent();
+              markCorrectOption();
+              break;
+            case 'result':
+              preprocessQuestionContent();
+              markAnswerOption();
+              break;
+          }
+        }
 
-        scope.addOption = function() {
+        function rearrangeOptions() {
+          if (scope.shuffle) {
+            var options = scope.question.options;
+            if (!scope.question.shuffleIndex)
+              scope.question.shuffleIndex = Math.floor(Math.random() * options.length);
+            scope.question.options = [];
+            for (var i = 0; i < options.length; i++)
+              scope.question.options.push(options[(scope.question.shuffleIndex + i) % options.length]);
+          } else
+            scope.question.options = _.sortBy(scope.question.options, 'order');
+        }
+
+        function markCorrectOption() {
+          _.each(scope.question.options, function(option) {
+            option.selected = _.contains(scope.question.correctOptions, option._id);
+          });
+        }
+
+        function markAnswerOption() {
+          if (scope.answer) {
+            _.each(scope.question.options, function(option) {
+              option.selected = _.contains(scope.answer.options, option._id);
+            });
+          }
+        }
+
+        function addOption() {
           var option = new OptionsService();
           if (scope.question.options.length === 0)
             option.order = scope.question.options.length + 1;
           else
-            option.order = _.max(scope.question.options, function(object) {return object.order;}).order + 1;
+            option.order = _.max(scope.question.options, function(object) { return object.order;}).order + 1;
           option.question = scope.question._id;
           option.$save(function() {
             scope.question.options.push(option);
+            option.svgData = {
+              x: 100,
+              y: 100
+            };
+            updateSvgData();
           });
-        };
+        }
 
-        scope.selectOption = function(option) {
+        function selectSingleOption(option) {
           _.each(scope.question.options, function(obj) {
             if (obj._id !== option._id)
               obj.selected = false;
           });
-          if (scope.mode === 'edit') {
-            var correctOptions = _.filter(scope.question.options, function(option) {
-              return option.selected;
-            });
-            scope.question.correctOptions = _.pluck(correctOptions, '_id');
-          }
-        };
+        }
 
-        scope.removeOption = function(option) {
-          if (option._id) {
-            OptionsService.delete({
-              optionId: option._id
-            }, function() {
-              scope.question.options = _.reject(scope.question.options, function(o) {
-                return o._id === option._id;
+        function updateCorrectOption(option) {
+          var correctOptions = _.filter(scope.question.options, function(option) {
+            return option.selected;
+          });
+          scope.question.correctOptions = _.pluck(correctOptions, '_id');
+        }
+
+        function preprocessQuestionContent() {
+        }
+
+        function removeOption(option) {
+          scope.question.options = _.reject(scope.question.options, function(o) {
+            return o._id === option._id;
+          });
+          scope.question.correctOptions = _.reject(scope.question.correctOptions, function(o) {
+            return o === option._id;
+          });
+          _.each(scope.question.options, function(option, index) {
+            option.order = index + 1;
+          });
+          updateSvgData();
+          OptionsService.delete({
+            optionId: option._id
+          });
+        }
+
+        function updateSvgData() {
+          scope.question.svgData = {};
+          _.each(scope.question.options, function(option) {
+            scope.question.svgData[option._id] = option.svgData;
+          });
+        }
+
+        function setupSvgInteraction() {
+          $timeout(function() {
+            var settings = {
+              action: '/api/questions/image/upload', // upload url
+              param: 'newQuestionImage',
+              method: 'POST',
+              allow: '*.(png|gif|jpg|jpeg)', // allow only images
+              allcomplete: function(response) {
+                var data = JSON.parse(response);
+                scope.question.imageUrl = data.imageURL;
+                scope.$apply();
+              }
+            };
+            UIkit.uploadSelect($('#file_upload-select'), settings);
+          });
+          var selectedOptionId;
+          scope.mouseDown = function($event) {
+            if ($event.button === 0) {
+              selectedOptionId = $event.target.id.substr(0, $event.target.id.indexOf('_'));
+              console.log('Circle ', selectedOptionId, ' is selected');
+            }
+          };
+          scope.mouseUp = function($event) {
+            if ($event.button === 0) {
+              if (selectedOptionId) {
+                console.log('Circle ', selectedOptionId, ' is unselected');
+                selectedOptionId = null;
+              }
+            }
+          };
+          scope.mouseMove = function($event) {
+            if ($event.buttons === 0) {
+              selectedOptionId = null;
+              return;
+            }
+            if (selectedOptionId) {
+              var circleElement = $('#' + selectedOptionId + '_circle');
+              var textElement = $('#' + selectedOptionId + '_text');
+              circleElement[0].setAttribute('cx', $event.offsetX);
+              circleElement[0].setAttribute('cy', $event.offsetY);
+              textElement[0].setAttribute('x', $event.offsetX);
+              textElement[0].setAttribute('y', $event.offsetY);
+              var option = _.find(scope.question.options, function(obj) {
+                return obj._id === selectedOptionId;
               });
-              scope.question.correctOptions = _.reject(scope.question.correctOptions, function(o) {
-                return o === option._id;
-              });
-            });
-          }
-        };
+              if (option) {
+                option.svgData.x = $event.offsetX;
+                option.svgData.y = $event.offsetY;
+              }
+            }
+          };
+        }
       }
     };
   }

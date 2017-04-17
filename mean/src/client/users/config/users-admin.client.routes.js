@@ -60,6 +60,15 @@
         data: {
           roles: ['admin']
         }
+      })
+      .state('admin.workspace.users.permission', {
+        url: '/performance',
+        templateUrl: '/src/client/users/views/admin/permission-users.client.view.html',
+        controller: 'UserPermissionController',
+        controllerAs: 'vm',
+        data: {
+          roles: ['admin']
+        }
       });
 
     newUser.$inject = ['UsersService'];

@@ -124,12 +124,11 @@
       var answer = vm.question.answer;
       answer.question = vm.question._id;
       answer.exam = vm.survey._id;
-      if (vm.question.type === 'mc' || vm.question.type === 'sc' || vm.question.type === 'tf' || vm.question.type === 'fb') {
+      if (vm.question.type === 'mc') {
         var selectedOptions = _.filter(vm.question.options, function(option) {
           return option.selected;
         });
         answer.options = _.pluck(selectedOptions, '_id');
-        answer.isCorrect = _.filter(vm.question.options, function(option) {return option.isCorrect && !option.selected; }).length === 0;
       }
       if (answer._id)
         answer.$update(function() {

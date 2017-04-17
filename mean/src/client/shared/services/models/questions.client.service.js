@@ -14,11 +14,21 @@
     }, {
       update: {
         method: 'PUT',
-        transformRequest: _transform.unpopulate
+        transformRequest: function(question) {
+          if (question.svgData)
+            question.svgData = angular.toJson(question.svgData);
+          question = _transform.unpopulate(question);
+          return question;
+        }
       },
       save: {
         method: 'POST',
-        transformRequest: _transform.unpopulate
+        transformRequest: function(question) {
+          question = _transform.unpopulate(question);
+          if (question.svgData)
+            question.svgData = angular.toJson(question.svgData);
+          return question;
+        }
       },
       bulkCreate: {
         method: 'POST',

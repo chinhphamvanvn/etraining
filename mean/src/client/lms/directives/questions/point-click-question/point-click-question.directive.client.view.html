@@ -33,58 +33,50 @@
 			<textarea ui-tinymce="tinymce_options"
 				ng-model="question.description" cols="30" rows="4"></textarea>
 		</div>
-	</div>
-	<div class="uk-text-center">
-		<svg width="320" height="320">
+		<div class="uk-width-8-10 uk-text-center uk-margin">
+			<svg " ng-mousemove="mouseMove($event)"
+				xmlns="http://www.w3.org/2000/svg"
+				xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve"
+				width="320" height="320">
+			<rect width="320" height="320" data-selected="true"
+					style="fill:blue;stroke:blank;stroke-width:1;fill-opacity:0.1;stroke-opacity:0.9" />
+			<image x="0" y="0" width="320" height="320"
+					xlink:href="{{question.imageUrl}}">
+		    <title>{{question.title}}</title>
+		  </image>
+		  <g ng-repeat="option in question.options"
+					ng-mousedown="mouseDown($event)" ng-mouseup="mouseUp($event)">
+		    <circle id="{{option._id}}_circle" style="fill-opacity:0.4"
+					ng-attr-fill="{{option.selected ? 'green':'red'}}"
+					ng-attr-cx="{{option.svgData.x}}" ng-attr-cy="{{option.svgData.y}}"
+					r="15">
+		    </circle>
+		    <text id="{{option._id}}_text" style="cursor:default"
+					ng-attr-x="{{option.svgData.x}}" ng-attr-y="{{option.svgData.y}}"
+					text-anchor="middle" stroke="white" stroke-width="1px" dy=".3em">{{option.order}}</text>
+		  </g>
 		</svg>
-		<div class="md-card">
-	<div class="md-card-content">
-		<div id="file_upload-drop" class="uk-file-upload">
-			<div
-				class="uk-margin uk-cover uk-position-relative uk-height-1-1 transform-origin-50"
-				id="video_player">
-				<div class="uk-grid">
-					<div class="uk-width-1-2 uk-container-center">
-						<video id="selectorVideo" src="{{video.videoURL | trust}}"
-							video-autoplay data-attr-autoplay={{videoAttr.autoplay}}
-							video-control data-attr-control={{videoAttr.controls}}
-							video-muted data-attr-muted={{videoAttr.muted}}
-							poster="{{ url?'':'/assets/img/brand/logow.png' }}"></video>
-					</div>
-				</div>
-			</div>
 			<div>
 				<span class="uk-form-file md-btn md-btn-icon"> <i
-					class="uk-icon-upload"></i> {{'ACTION.CHOOSE_FILE'|translate}} <input
+					class="uk-icon-upload"></i>
+					{{'ACTION.CHOOSE_IMAGE_FILE'|translate}} <input
 					id="file_upload-select" type="file">
 				</span>
+
 			</div>
 		</div>
-		<div id="file_upload-progressbar" class="uk-progress"
-			ng-show="showProgress">
-			<div id="progress_bar" class="uk-progress-bar" style="width: 0">0%</div>
-		</div>
-	</div>
-</div>
-	</div>
-	<div class="uk-grid" data-uk-grid-margin>
-		<div class="uk-width-1-1">
-			<div id="question_options">
-				<div class="uk-grid" data-uk-grid-margin
-					ng-repeat="option in question.options | orderBy: 'order'">
-					<div class="uk-width-medium-2-10 uk-text-center">
+		<div class="uk-width-2-10 uk-text-center uk-margin">
+			<div class="uk-width-1-1"
+				ng-repeat="option in question.options | orderBy: 'order'">
+				<div class="uk-grid" data-uk-grid-margin>
+					<div class="uk-width-medium-5-10 uk-text-center">
 						<span class="icheck-inline"> <input type="checkbox"
 							id="option_{{option._id}}" icheck ng-model="option.selected"
 							ng-change="selectOption(option)" /> <label
 							for="option_{{option._id}}" class="inline-label">{{option.order}}</label>
 						</span>
 					</div>
-					<div class="uk-width-medium-7-10">
-						<label for="option_{{option.order}}">{{'MODEL.OPTION.CONTENT'|translate}}</label>
-						<input type="text" class="md-input" id="option_{{option.order}}"
-							md-input ng-model="option.content" />
-					</div>
-					<div class="uk-width-medium-1-10">
+					<div class="uk-width-medium-5-10">
 						<a ng-click="removeOption(option)"
 							data-uk-tooltip="{cls:'uk-tooltip-small',pos:'top'}"
 							title="{{'ACTION.DELETE'|translate}}"> <i
@@ -92,18 +84,18 @@
 						</a>
 					</div>
 				</div>
-				<div class="uk-text-center">
-					<a href="#" class="md-btn md-btn-flat md-btn-flat-primary"
-						ng-click="addOption()">{{'PAGE.LMS.MY_COURSES.TEACHER_BOARD.COURSE_OUTLINE.TEST.ADD_OPTION'|translate}}</a>
-				</div>
 			</div>
-			<div class="uk-alert uk-alert-warning uk-text-center"
-				ng-show="question.correctOptions.length==0">
-				{{'ERROR.QUESTION.EMPTY_QUESTION_OPTION'|translate}}</div>
+			<div class="uk-width-1-1 uk-text-center">
+				<a href="#" class="md-btn md-btn-flat md-btn-flat-primary"
+					ng-click="addOption()">{{'PAGE.LMS.MY_COURSES.TEACHER_BOARD.COURSE_OUTLINE.TEST.ADD_OPTION'|translate}}</a>
+			</div>
 		</div>
-
 	</div>
+	<div class="uk-alert uk-alert-warning uk-text-center"
+		ng-show="question.correctOptions.length==0">
+		{{'ERROR.QUESTION.EMPTY_QUESTION_OPTION'|translate}}</div>
 </div>
+
 <div ng-if="mode=='view'">
 	<div class="uk-grid no-margin-top">
 
@@ -137,22 +129,27 @@
 		</div>
 	</div>
 	<div class="uk-grid no-margin-top" data-uk-grid-margin>
-		<div class="uk-width-1-1">
-			<div id="question_options">
-				<div class="uk-grid" data-uk-grid-margin
-					ng-repeat="option in question.options | orderBy: 'order'">
-					<div class="uk-width-medium-2-10 uk-text-center">
-						<span class="icheck-inline"> <input type="checkbox"
-							ng-disabled="true" id="option_{{option._id}}" icheck
-							ng-model="option.selected" /> <!--<label for="option_{{option._id}}"-->
-							<!--class="inline-label">{{option.order}}</label>-->
-						</span>
-					</div>
-					<div class="uk-width-medium-7-10">
-						<p class="uk-text-left text-wrap">{{option.content}}</p>
-					</div>
-				</div>
-			</div>
+		<div class="uk-width-1-1 uk-text-center uk-margin">
+			<svg xmlns="http://www.w3.org/2000/svg"
+				xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve"
+				width="320" height="320">
+			<rect width="320" height="320" data-selected="true"
+					style="fill:blue;stroke:blank;stroke-width:1;fill-opacity:0.1;stroke-opacity:0.9" />
+			<image x="0" y="0" width="320" height="320"
+					xlink:href="{{question.imageUrl}}">
+		    <title>{{question.title}}</title>
+		  </image>
+		  <g ng-repeat="option in question.options">
+		    <circle id="{{option._id}}_circle" style="fill-opacity:0.4"
+					ng-attr-fill="{{option.selected ? 'green':'red'}}"
+					ng-attr-cx="{{option.svgData.x}}" ng-attr-cy="{{option.svgData.y}}"
+					r="15">
+		    </circle>
+		    <text id="{{option._id}}_text" style="cursor:default"
+					ng-attr-x="{{option.svgData.x}}" ng-attr-y="{{option.svgData.y}}"
+					text-anchor="middle" stroke="white" stroke-width="1px" dy=".3em">{{option.order}}</text>
+		  </g>
+		</svg>
 		</div>
 	</div>
 </div>
@@ -164,22 +161,25 @@
 		</div>
 	</div>
 	<div class="uk-grid" data-uk-grid-margin>
-		<div class="uk-width-1-1">
-			<div id="question_options">
-				<div class="uk-grid" data-uk-grid-margin
-					ng-repeat="option in question.options ">
-					<div class="uk-width-medium-2-10 uk-text-center">
-						<span class="icheck-inline"> <input type="checkbox"
-							name="radiosingle" id="option_{{option._id}}" icheck
-							ng-model="option.selected" ng-change="selectOption(option)" />
-						</span>
-					</div>
-					<div class="uk-width-medium-8-10">
-						<!-- <label for="option_{{option._id}}" class="inline-label">{{option.order}}.</label> -->
-						<label for="option_{{option.order}}">{{option.content}}</label>
-					</div>
-				</div>
-			</div>
+		<div class="uk-width-1-1 uk-text-center uk-margin">
+			<svg xmlns="http://www.w3.org/2000/svg"
+				xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve"
+				width="320" height="320">
+			<rect width="320" height="320" data-selected="true"
+					style="fill:blue;stroke:blank;stroke-width:1;fill-opacity:0.1;stroke-opacity:0.9" />
+			<image x="0" y="0" width="320" height="320"
+					xlink:href="{{question.imageUrl}}">
+		    <title>{{question.title}}</title>
+		  </image>
+		  <g ng-repeat="option in question.options">
+		    <circle id="{{option._id}}_circle" ng-click="selectOption(option)"
+					style="fill-opacity:0.4"
+					ng-attr-fill="{{option.selected ? 'blue':'red'}}"
+					ng-attr-cx="{{option.svgData.x}}" ng-attr-cy="{{option.svgData.y}}"
+					r="15">
+		    </circle>
+		  </g>
+		</svg>
 		</div>
 	</div>
 </div>
@@ -187,26 +187,29 @@
 
 	<div class="uk-grid">
 		<div class="uk-width-medium-1-1 ">
-			<p class="quiz-question" ng-bind-html="translateContent()"></p>
+			<p class="uk-text-left text-wrap" ng-bind-html="question.description" />
 		</div>
 	</div>
 	<div class="uk-grid" data-uk-grid-margin>
-		<div class="uk-width-1-1">
-			<div id="question_options">
-				<div class="uk-grid" data-uk-grid-margin
-					ng-repeat="option in question.options | orderBy: 'order'">
-					<div class="uk-width-medium-2-10 uk-text-center">
-						<span class="icheck-inline"> <input type="checkbox"
-							ng-disabled="true" id="option_{{option._id}}" icheck
-							ng-model="option.selected" ng-change="selectOption(option)" />
-						</span>
-					</div>
-					<div class="uk-width-medium-8-10 uk-text-left">
-						<!-- <label for="option_{{option._id}}" class="inline-label">{{option.order}}.</label> -->
-						<span class="text-wrap">{{option.content}}</span>
-					</div>
-				</div>
-			</div>
+		<div class="uk-width-1-1 uk-text-center uk-margin">
+			<svg xmlns="http://www.w3.org/2000/svg"
+				xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve"
+				width="320" height="320">
+			<rect width="320" height="320" data-selected="true"
+					style="fill:blue;stroke:blank;stroke-width:1;fill-opacity:0.1;stroke-opacity:0.9" />
+			<image x="0" y="0" width="320" height="320"
+					xlink:href="{{question.imageUrl}}">
+		    <title>{{question.title}}</title>
+		  </image>
+		  <g ng-repeat="option in question.options">
+		    <circle id="{{option._id}}_circle" 
+					style="fill-opacity:0.4"
+					ng-attr-fill="{{option.selected ? 'blue':'red'}}"
+					ng-attr-cx="{{option.svgData.x}}" ng-attr-cy="{{option.svgData.y}}"
+					r="15">
+		    </circle>
+		  </g>
+		</svg>
 		</div>
 	</div>
 </div>
