@@ -6,7 +6,7 @@
 var path = require('path'),
   mongoose = require('mongoose'),
   CertificateTemplate = mongoose.model('CertificateTemplate'),
-  errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
+  errorHandler = require(path.resolve('./src/server/core/controllers/errors.server.controller')),
   _ = require('lodash');
 
 /**
