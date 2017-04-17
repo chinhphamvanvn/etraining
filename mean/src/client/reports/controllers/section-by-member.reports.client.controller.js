@@ -11,8 +11,8 @@
     var vm = this;
     vm.authentication = Authentication;
     vm.generateReport = generateReport;
-    vm.getExportData = getExportData;
-    vm.getExportHeader = getExportHeader;
+    // vm.getExportData = getExportData;
+    // vm.getExportHeader = getExportHeader;
 
     function generateReport(users) {
       vm.sections = [];
@@ -58,42 +58,42 @@
     }
 
 
-    function getExportData() {
-      var data = [];
-      _.each(vm.sections, function(section) {
-        data.push({
-          username: section.member.member.username,
-          firstName: section.member.member.firstName,
-          lastName: section.member.member.lastName,
-          code: section.member.course.code,
-          name: section.member.course.name,
-          enrollStatus: section.member.enrollmentStatus,
-          type: section.contentType,
-          sectionName: section.name,
-          firstAttempt: moment(new Date(section.firstAttempt.created)).format('DD/MM/YYYY'),
-          lastAttempt: moment(new Date(section.lastAttempt.created)).format('DD/MM/YYYY'),
-          completed: section.completed ? $translate.instant('COMMON.ATTEMPT_STATUS.INITIAL') : $translate.instant('COMMON.ATTEMPT_STATUS.COMPLETE')
-        });
-      });
-      return data;
-    }
-
-
-    function getExportHeader() {
-      return [
-        $translate.instant('MODEL.USER.USERNAME'),
-        $translate.instant('MODEL.USER.FIRST_NAME'),
-        $translate.instant('MODEL.USER.LAST_NAME'),
-        $translate.instant('MODEL.COURSE.CODE'),
-        $translate.instant('MODEL.COURSE.NAME'),
-        $translate.instant('MODEL.MEMBER.ENROLL_STATUS'),
-        $translate.instant('MODEL.SECTION.CONTENT_TYPE'),
-        $translate.instant('MODEL.SECTION.NAME'),
-        $translate.instant('REPORT.SECTION_BY_MEMBER.FIRST_ATTEMPT'),
-        $translate.instant('REPORT.SECTION_BY_MEMBER.LAST_ATTEMPT'),
-        $translate.instant('REPORT.SECTION_BY_MEMBER.STATUS')
-      ];
-    }
+    // function getExportData() {
+    //   var data = [];
+    //   _.each(vm.sections, function(section) {
+    //     data.push({
+    //       username: section.member.member.username,
+    //       firstName: section.member.member.firstName,
+    //       lastName: section.member.member.lastName,
+    //       code: section.member.course.code,
+    //       name: section.member.course.name,
+    //       enrollStatus: section.member.enrollmentStatus,
+    //       type: section.contentType,
+    //       sectionName: section.name,
+    //       firstAttempt: moment(new Date(section.firstAttempt.created)).format('DD/MM/YYYY'),
+    //       lastAttempt: moment(new Date(section.lastAttempt.created)).format('DD/MM/YYYY'),
+    //       completed: section.completed ? $translate.instant('COMMON.ATTEMPT_STATUS.INITIAL') : $translate.instant('COMMON.ATTEMPT_STATUS.COMPLETE')
+    //     });
+    //   });
+    //   return data;
+    // }
+    //
+    //
+    // function getExportHeader() {
+    //   return [
+    //     $translate.instant('MODEL.USER.USERNAME'),
+    //     $translate.instant('MODEL.USER.FIRST_NAME'),
+    //     $translate.instant('MODEL.USER.LAST_NAME'),
+    //     $translate.instant('MODEL.COURSE.CODE'),
+    //     $translate.instant('MODEL.COURSE.NAME'),
+    //     $translate.instant('MODEL.MEMBER.ENROLL_STATUS'),
+    //     $translate.instant('MODEL.SECTION.CONTENT_TYPE'),
+    //     $translate.instant('MODEL.SECTION.NAME'),
+    //     $translate.instant('REPORT.SECTION_BY_MEMBER.FIRST_ATTEMPT'),
+    //     $translate.instant('REPORT.SECTION_BY_MEMBER.LAST_ATTEMPT'),
+    //     $translate.instant('REPORT.SECTION_BY_MEMBER.STATUS')
+    //   ];
+    // }
 
   }
 }());

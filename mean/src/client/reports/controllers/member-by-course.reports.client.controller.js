@@ -11,7 +11,7 @@
     var vm = this;
     vm.authentication = Authentication;
     vm.generateReport = generateReport;
-    vm.getExportHeader = getExportHeader;
+    // vm.getExportHeader = getExportHeader;
 
     vm.summary = {
       toalMember: 0,
@@ -64,19 +64,19 @@
       });
     }
 
-    function getExportHeader() {
-      return [
-        $translate.instant('MODEL.COURSE.CODE'),
-        $translate.instant('MODEL.COURSE.NAME'),
-        $translate.instant('REPORT.MEMBER_BY_COURSE.MEMBER') + $translate.instant('COMMON.TOTAL'),
-        $translate.instant('REPORT.MEMBER_BY_COURSE.MEMBER') + $translate.instant('COMMON.ENROLL.REGISTERED') + $translate.instant('COMMON.TOTAL'),
-        $translate.instant('REPORT.MEMBER_BY_COURSE.MEMBER') + $translate.instant('COMMON.ENROLL.REGISTERED') + $translate.instant('COMMON.PERCENTAGE'),
-        $translate.instant('REPORT.MEMBER_BY_COURSE.MEMBER') + $translate.instant('COMMON.ENROLL.INSTUDY') + $translate.instant('COMMON.TOTAL'),
-        $translate.instant('REPORT.MEMBER_BY_COURSE.MEMBER') + $translate.instant('COMMON.ENROLL.INSTUDY') + $translate.instant('COMMON.PERCENTAGE'),
-        $translate.instant('REPORT.MEMBER_BY_COURSE.MEMBER') + $translate.instant('COMMON.ENROLL.COMPLETED') + $translate.instant('COMMON.TOTAL'),
-        $translate.instant('REPORT.MEMBER_BY_COURSE.MEMBER') + $translate.instant('COMMON.ENROLL.COMPLETED') + $translate.instant('COMMON.PERCENTAGE'),
-        $translate.instant('REPORT.MEMBER_BY_COURSE.TIME')
-      ];
-    }
+    // function getExportHeader() {
+    //   return [
+    //     $translate.instant('MODEL.COURSE.CODE'),
+    //     $translate.instant('MODEL.COURSE.NAME'),
+    //     $translate.instant('REPORT.MEMBER_BY_COURSE.MEMBER') + $translate.instant('COMMON.TOTAL'),
+    //     $translate.instant('REPORT.MEMBER_BY_COURSE.MEMBER') + $translate.instant('COMMON.ENROLL.REGISTERED') + $translate.instant('COMMON.TOTAL'),
+    //     $translate.instant('REPORT.MEMBER_BY_COURSE.MEMBER') + $translate.instant('COMMON.ENROLL.REGISTERED') + $translate.instant('COMMON.PERCENTAGE'),
+    //     $translate.instant('REPORT.MEMBER_BY_COURSE.MEMBER') + $translate.instant('COMMON.ENROLL.INSTUDY') + $translate.instant('COMMON.TOTAL'),
+    //     $translate.instant('REPORT.MEMBER_BY_COURSE.MEMBER') + $translate.instant('COMMON.ENROLL.INSTUDY') + $translate.instant('COMMON.PERCENTAGE'),
+    //     $translate.instant('REPORT.MEMBER_BY_COURSE.MEMBER') + $translate.instant('COMMON.ENROLL.COMPLETED') + $translate.instant('COMMON.TOTAL'),
+    //     $translate.instant('REPORT.MEMBER_BY_COURSE.MEMBER') + $translate.instant('COMMON.ENROLL.COMPLETED') + $translate.instant('COMMON.PERCENTAGE'),
+    //     $translate.instant('REPORT.MEMBER_BY_COURSE.TIME')
+    //   ];
+    // }
   }
 }());

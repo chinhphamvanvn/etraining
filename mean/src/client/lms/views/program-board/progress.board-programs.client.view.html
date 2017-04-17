@@ -5,13 +5,14 @@
 			<div class="md-card-toolbar">
 				<h3 class="md-card-toolbar-heading-text large">
 					{{'PAGE.LMS.MY_PROGRAMS.PROGRESSBOARD.MEMBER_LIST'|translate}}</h3>
-				<button class="md-btn buttons-csv buttons-html5" type="button"
-					ng-csv="vm.scoreboardListCsv" csv-header="vm.headerArrCsv"
-					filename="ReportExamList.csv"
-					style="margin-top: 8px; margin-left: 30px;" ng-show="vm.scoreboardListCsv.length == vm.candidates.length">
-					<i class="uk-icon-file-excel-o" aria-hidden="true"></i>
-					{{"ACTION.EXPORT" | translate}}
-				</button>
+				<!--<button class="md-btn buttons-csv buttons-html5" type="button"-->
+					<!--ng-csv="vm.scoreboardListCsv" csv-header="vm.headerArrCsv"-->
+					<!--filename="ReportExamList.csv"-->
+					<!--style="margin-top: 8px; margin-left: 30px;" ng-show="vm.scoreboardListCsv.length == vm.candidates.length">-->
+					<!--<i class="uk-icon-file-excel-o" aria-hidden="true"></i>-->
+					<!--{{"ACTION.EXPORT" | translate}}-->
+				<!--</button>-->
+				<export-excel tableid="tableToExportProgressBoardProgram" style="margin-left: 10px;"></export-excel>
 			</div>
 			<div class="content-table-gradebook md-card-content">
 				<div class="uk-overflow-container">
@@ -61,6 +62,38 @@
 						</tbody>
 					</table>
 				</div>
+			</div>
+
+			<div style="display: none" id="tableToExportProgressBoardProgram">
+				<table class="uk-table uk-table-nowrap uk-table-condensed ">
+					<thead>
+						<tr>
+							<th class=" uk-text-center ">{{'MODEL.USER.DISPLAY_NAME'|translate}}</th>
+							<th class="  uk-text-center">{{'MODEL.MEMBER.REGISTER_DATE'|translate}}</th>
+							<th class=" uk-text-center  ">{{'MODEL.MEMBER.STATUS'|translate}}</th>
+							<th class=" uk-text-center  ">{{'MODEL.MEMBER.ENROLL_STATUS'|translate}}</th>
+							<th class=" uk-text-center ">{{'MODEL.MEMBER.PROGRESS'|translate}}</th>
+							<!--<th class="uk-text-center" ng-if="vm.schedule.competency">{{'ACTION.AUTHORIZE_COMPETENCY'-->
+								<!--| translate}}</th>-->
+						</tr>
+					</thead>
+					<tbody>
+					<tr ng-repeat="member in vm.members">
+						<td class="uk-text-center">{{member.member.displayName}}</td>
+						<td class="uk-text-center">{{member.registered | date:'dd-MM-yyyy'}}</td>
+						<td class="uk-text-center">
+							<span ng-if="member.status=='active'" class="uk-badge uk-badge-success">active</span>
+							<span ng-if="member.status=='withdrawn'" class="uk-badge uk-badge-warning">withdrawn</span><span ng-if="member.status=='suspended'" class="uk-badge uk-badge-danger">suspended</span>
+						</td>
+						<td class="uk-text-center">
+							<span ng-if="member.enrollmentStatus=='registered'" class="uk-badge uk-badge-default">registered</span>
+							<span ng-if="member.enrollmentStatus=='completed'" class="uk-badge uk-badge-success">completed</span>
+						</td>
+						<td class="uk-text-center"><span class="uk-text-small">{{member.progress.completeCount}}
+										| {{vm.program.courses.length}}</span></td>
+					</tr>
+					</tbody>
+				</table>
 			</div>
 		</div>
 	</div>

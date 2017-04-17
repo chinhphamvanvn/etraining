@@ -13,8 +13,9 @@
 									<input ng-change="vm.selectSchedule()" name="exam" id="exam" type="text" config="vm.scheduleConfig" options="vm.scheduleOptions" ng-model="vm.scheduleId"  selectize placeholder="--Select--" />
 								</div>
 							</div>
+							<export-excel tableid="tableToExportExamResult" style="margin-left: 10px;"></export-excel>
 						</div>
-						<div class="uk-overflow-container table-border">
+						<div class="uk-overflow-container table-border" id="tableToExportExamResult">
 							<table class="uk-table uk-table-hover uk-table-condensed"
 								cellspacing="0" width="100%">
 								<thead>
@@ -29,16 +30,6 @@
 										<th>{{'REPORT.EXAM_RESULT.RESULT'|translate}}</th>
 									</tr>
 								</thead>
-								<tfoot>
-									<tr>
-										<th colspan="5" class="uk-text-center"><span
-											class="uk-float-right uk-text-bold">{{'COMMON.OVERVIEW'|translate}}</span>
-										</th>
-										<th>{{Math.floor(vm.summary.score/vm.candidates.length)}}</th>
-										<th>{{Math.floor(vm.summary.submit/vm.candidates.length)}}</th>
-										<th>{{Math.floor(vm.summary.passRate*100/vm.candidates.length)}}%</th>
-									</tr>
-								</tfoot>
 								<tbody>
 									<tr ng-repeat="candidate in vm.candidates">
 										<td>{{candidate.schedule.name}}</td>
@@ -48,21 +39,31 @@
 										<th>{{candidate.firstSubmit | date:'dd/MM/yyyy'}}</th>
 										<th>{{candidate.score}}</th>
 										<th>{{candidate.submit}}</th>
-										<th><span ng-show="candidate.result">{{'COMMON.PASS'|translate}}</span>
-											<span ng-show="!candidate.result">{{'COMMON.FAIL'|translate}}</span>
+										<th><span ng-if="candidate.result">{{'COMMON.PASS'|translate}}</span>
+											<span ng-if="!candidate.result">{{'COMMON.FAIL'|translate}}</span>
 										</th>
 									</tr>
 								</tbody>
+								<tfoot ng-if="vm.candidates.length > 0">
+									<tr>
+										<th colspan="5" class="uk-text-center">
+											<span class="uk-float-right uk-text-bold">{{'COMMON.OVERVIEW'|translate}}</span>
+										</th>
+										<th>{{Math.floor(vm.summary.score/vm.candidates.length)}}</th>
+										<th>{{Math.floor(vm.summary.submit/vm.candidates.length)}}</th>
+										<th>{{Math.floor(vm.summary.passRate*100/vm.candidates.length)}}%</th>
+									</tr>
+								</tfoot>
 							</table>
 						</div>
-						<div>
-							<a class="md-btn md-btn-primary  md-btn-wave-light md-btn-icon uk-margin-top"
-								ng-csv="vm.getExportData()" csv-header="vm.getExportHeader()"
-								filename="report.exam_resulte.csv" field-separator=";"
-								decimal-separator="."> <i class="material-icons">save</i>
-								{{'ACTION.EXPORT'|translate}}
-							</a>
-						</div>
+						<!--<div>-->
+							<!--<a class="md-btn md-btn-primary  md-btn-wave-light md-btn-icon uk-margin-top"-->
+								<!--ng-csv="vm.getExportData()" csv-header="vm.getExportHeader()"-->
+								<!--filename="report.exam_resulte.csv" field-separator=";"-->
+								<!--decimal-separator="."> <i class="material-icons">save</i>-->
+								<!--{{'ACTION.EXPORT'|translate}}-->
+							<!--</a>-->
+						<!--</div>-->
 					</div>
 				</div>
 			</div>

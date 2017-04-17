@@ -12,8 +12,8 @@
     $scope.Math = $window.Math;
     vm.authentication = Authentication;
     vm.generateReport = generateReport;
-    vm.getExportData = getExportData;
-    vm.getExportHeader = getExportHeader;
+    // vm.getExportData = getExportData;
+    // vm.getExportHeader = getExportHeader;
     vm.selectSchedule = generateReport;
 
     vm.scheduleConfig = {
@@ -73,35 +73,35 @@
       });
     }
 
-    function getExportData() {
-      var data = [];
-      _.each(vm.candidates, function(candidate) {
-        data.push({
-          exam: candidate.schedule.name,
-          fullname: candidate.candidate.displayName,
-          username: candidate.candidate.username,
-          position: candidate.candidate.position,
-          firstSubmit: candidate.firstSubmit ? moment(new Date(candidate.firstSubmit)).format('DD/MM/YYYY') : '',
-          score: candidate.score,
-          submit: candidate.submit,
-          result: candidate.result ? $translate.instant('COMMON.PASS') : $translate.instant('COMMON.FAIL')
-        });
-      });
-      return data;
-    }
-
-    function getExportHeader() {
-      return [
-        $translate.instant('MODEL.SCHEDULE.NAME'),
-        $translate.instant('MODEL.USER.DISPLAY_NAME'),
-        $translate.instant('MODEL.USER.USERNAME'),
-        $translate.instant('MODEL.USER.POSITION'),
-        $translate.instant('REPORT.EXAM_RESULT.FIRST_SUBMIT'),
-        $translate.instant('REPORT.EXAM_RESULT.SCORE'),
-        $translate.instant('REPORT.EXAM_RESULT.SUBMIT'),
-        $translate.instant('REPORT.EXAM_RESULT.RESULT')
-      ];
-    }
+    // function getExportData() {
+    //   var data = [];
+    //   _.each(vm.candidates, function(candidate) {
+    //     data.push({
+    //       exam: candidate.schedule.name,
+    //       fullname: candidate.candidate.displayName,
+    //       username: candidate.candidate.username,
+    //       position: candidate.candidate.position,
+    //       firstSubmit: candidate.firstSubmit ? moment(new Date(candidate.firstSubmit)).format('DD/MM/YYYY') : '',
+    //       score: candidate.score,
+    //       submit: candidate.submit,
+    //       result: candidate.result ? $translate.instant('COMMON.PASS') : $translate.instant('COMMON.FAIL')
+    //     });
+    //   });
+    //   return data;
+    // }
+    //
+    // function getExportHeader() {
+    //   return [
+    //     $translate.instant('MODEL.SCHEDULE.NAME'),
+    //     $translate.instant('MODEL.USER.DISPLAY_NAME'),
+    //     $translate.instant('MODEL.USER.USERNAME'),
+    //     $translate.instant('MODEL.USER.POSITION'),
+    //     $translate.instant('REPORT.EXAM_RESULT.FIRST_SUBMIT'),
+    //     $translate.instant('REPORT.EXAM_RESULT.SCORE'),
+    //     $translate.instant('REPORT.EXAM_RESULT.SUBMIT'),
+    //     $translate.instant('REPORT.EXAM_RESULT.RESULT')
+    //   ];
+    // }
 
   }
 }());
