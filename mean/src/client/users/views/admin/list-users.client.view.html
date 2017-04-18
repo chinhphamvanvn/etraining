@@ -57,9 +57,9 @@
 						</div>
 						<h3 class="md-card-toolbar-heading-text uk-text-upper">
 							{{'PAGE.USERS.USER_LIST' | translate}}</h3>
+						<export-excel tableid="DataTables_Table_0" style="margin-left: 10px;"></export-excel>
 					</div>
 					<div class="md-card-content">
-
 						<table datatable dt-options="vm.dtOptions"
 							dt-columns="vm.dtColumns" dt-instance="vm.dtInstance"
 							class="uk-table uk-table-condensed" cellspacing="0" width="100%"></table>
@@ -71,6 +71,5 @@
 	</div>
 </div>
 
-<div
-	ng-include="'/src/client/users/modals/import-users-client.dialog.html'"></div>
+<div ng-include="'/src/client/users/modals/import-users-client.dialog.html'"></div>
 
