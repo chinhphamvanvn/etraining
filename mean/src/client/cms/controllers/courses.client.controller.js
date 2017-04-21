@@ -6,9 +6,9 @@
     .module('cms')
     .controller('CoursesController', CoursesController);
 
-  CoursesController.$inject = ['$scope', '$state', '$window', 'Authentication', '$timeout', 'courseResolve', 'CoursesService', 'Notification', 'GroupsService', 'Upload', 'CompetenciesService', 'fileManagerConfig', '$translate', '_'];
+  CoursesController.$inject = ['$scope', '$state', '$window', 'Authentication', '$timeout', 'courseResolve', 'CoursesService', 'Notification', 'GroupsService', 'Upload', 'CompetenciesService', 'fileManagerConfig', '$translate', '_', 'CertificateTemplatesService'];
 
-  function CoursesController($scope, $state, $window, Authentication, $timeout, course, CoursesService, Notification, GroupsService, Upload, CompetenciesService, fileManagerConfig, $translate, _) {
+  function CoursesController($scope, $state, $window, Authentication, $timeout, course, CoursesService, Notification, GroupsService, Upload, CompetenciesService, fileManagerConfig, $translate, _, CertificateTemplatesService) {
     var vm = this;
 
     vm.authentication = Authentication;
@@ -20,6 +20,8 @@
     vm.activate = activate;
     vm.deactivate = deactivate;
     vm.tinymce_options = fileManagerConfig;
+    vm.listCertificateTemplates;
+    vm.chooseCertificateTemplate = chooseCertificateTemplate;
     var $courseValidate = $('#courseForm');
 
     $courseValidate
@@ -80,6 +82,22 @@
           value: obj._id
         };
       });
+    });
+
+    CertificateTemplatesService.query(function(certificateTemplates) {
+      vm.listCertificateTemplates = _.map(certificateTemplates, function(obj) {
+        var existTemp = _.find(fileManagerConfig.ceritficate_template_images, function(certificateTemp) {
+          return certificateTemp.name === obj.name;
+        });
+        return {
+          id: obj._id,
+          name: obj.name,
+          value: obj._id,
+          image: existTemp.image,
+          choose: vm.course.certificateTemplate === obj._id
+        };
+      });
+      console.log(certificateTemplates);
     });
 
     var $course_start = $('#uk_course_start'),
@@ -185,6 +203,12 @@
     function save() {
       vm.course.competencies = vm.competencies;
       vm.course.prequisites = vm.prequisites;
+      var existCertificateTemplate = _.find(vm.listCertificateTemplates, function(template) {
+        return template.choose;
+      });
+      if (existCertificateTemplate) {
+        vm.course.certificateTemplate = existCertificateTemplate.id;
+      }
       if (!vm.course.group) {
         UIkit.modal.alert($translate.instant('ERROR.COURSE.EMPTY_COURSE_GROUP'));
         return;
@@ -247,6 +271,13 @@
         });
       else
         $state.go('admin.workspace.cms.courses.list');
+    }
+
+    function chooseCertificateTemplate(certificateTemplate) {
+      vm.listCertificateTemplates.forEach(function(template) {
+        template.choose = false;
+      });
+      certificateTemplate.choose = true;
     }
 
   }

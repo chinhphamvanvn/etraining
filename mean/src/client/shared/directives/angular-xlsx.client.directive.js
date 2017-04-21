@@ -90,7 +90,7 @@ angular.module('shared')
           var headers = [];
           var rows = [];
           Object.keys(groupData).forEach(function(key) {
-            if (key === parseInt(key, 10)) {
+            if (key !== "NaN") {
               if (key === "1") {
                 groupData[key].forEach(function(name) {
                   headers.push(data[name].h);

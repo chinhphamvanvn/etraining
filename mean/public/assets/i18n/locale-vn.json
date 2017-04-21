@@ -462,6 +462,8 @@
 	"MODEL.COURSE.SEARCH": "Nhập tên khóa học cần tìm",
 	"MODEL.COURSE.QUIZ.COMPLETE": "Bạn đã hoàn thành bài kiểm tra!",
 	"MODEL.COURSE.SURVEY.COMPLETE": "Bạn đã hoàn thành bài khảo sát!",
+	"MODEL.COURSE.CERTIFICATE.TEMPLATE.ACTION.CHOOSE": "Chọn mẫu chứng chỉ",
+	"MODEL.COURSE.CERTIFICATE.TEMPLATE.CHOOSE": "Đã chọn",
 	"MODEL.PROGRAM.NAME": "Tên chương trình",
 	"MODEL.PROGRAM.CODE": "Mã",
 	"MODEL.PROGRAM.COMPETENCY": "Kỹ năng đạt được",

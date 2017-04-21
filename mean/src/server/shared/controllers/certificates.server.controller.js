@@ -6,6 +6,7 @@
 var path = require('path'),
   mongoose = require('mongoose'),
   Certificate = mongoose.model('Certificate'),
+  CertificateTemplate = mongoose.model('CertificateTemplate'),
   CourseMember = mongoose.model('CourseMember'),
   Course = mongoose.model('Course'),
   User = mongoose.model('User'),
@@ -20,11 +21,11 @@ var fs = require('fs');
 /**
  * Create a Certificate
  */
-exports.create = function(req, res) {
+exports.create = function (req, res) {
   var certificate = new Certificate(req.body);
   certificate.user = req.user;
 
-  certificate.save(function(err) {
+  certificate.save(function (err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -35,51 +36,59 @@ exports.create = function(req, res) {
   });
 };
 
-exports.grant = function(req, res, next) {
+exports.grant = function (req, res, next) {
   var certificate = new Certificate(req.body);
   certificate.user = req.user;
   async.waterfall([
-    function(done) {
-      User.findById(certificate.authorizer).exec(function(err, teacherUser) {
+    function (done) {
+      User.findById(certificate.authorizer).exec(function (err, teacherUser) {
         if (!err && teacherUser)
           done(err, teacherUser);
       });
     },
-    function(teacherUser, done) {
-      CourseMember.findById(certificate.member).populate('member').exec(function(err, studentMember) {
+    function (teacherUser, done) {
+      CourseMember.findById(certificate.member).populate('member').exec(function (err, studentMember) {
         if (!err && studentMember)
           done(err, teacherUser, studentMember);
       });
     },
-    function(teacherUser, studentMember, done) {
-      Course.findById(studentMember.course).exec(function(err, course) {
+    function (teacherUser, studentMember, done) {
+      Course.findById(studentMember.course).exec(function (err, course) {
         done(err, teacherUser, studentMember, course);
       });
     },
-    function(teacherUser, studentMember, course, done) {
+    function (teacherUser, studentMember, course, done) {
+      CertificateTemplate.findById(course.certificateTemplate).exec(function (err, certificateTemplate) {
+        done(err, teacherUser, studentMember, course, certificateTemplate);
+      });
+
+    },
+    function (teacherUser, studentMember, course, certificateTemplate, done) {
       var dateFormat = require('dateformat');
       var issueDate = new Date();
       issueDate = dateFormat(issueDate, 'dddd, mmmm dS, yyyy');
-      res.render(path.resolve('src/server/shared/templates/certificate'), {
+      var pathCertificateTemplate = 'src/server/shared/templates/';
+      certificateTemplate ? pathCertificateTemplate += certificateTemplate.name : pathCertificateTemplate += "certificate";
+      res.render(path.resolve(pathCertificateTemplate), {
         studentName: studentMember.member.displayName,
         courseName: course.name,
         instructorName: teacherUser.displayName,
         issueDate: issueDate,
         appName: config.app.title
-      }, function(err, certificateHTNL) {
+      }, function (err, certificateHTNL) {
         done(err, certificateHTNL);
       });
     },
-    function(certificateHTNL, done) {
+    function (certificateHTNL, done) {
       certificate.base64data = '';
       var renderStream = webshot(certificateHTNL, {
         siteType: 'html'
       });
-      renderStream.on('data', function(data) {
+      renderStream.on('data', function (data) {
         certificate.base64data += data.toString('base64');
       });
-      renderStream.on('end', function() {
-        certificate.save(function(err) {
+      renderStream.on('end', function () {
+        certificate.save(function (err) {
           if (err) {
             return res.status(400).send({
               message: errorHandler.getErrorMessage(err)
@@ -91,7 +100,7 @@ exports.grant = function(req, res, next) {
         });
       });
     }
-  ], function(err) {
+  ], function (err) {
     if (err) {
       return next(err);
     }
@@ -102,7 +111,7 @@ exports.grant = function(req, res, next) {
 /**
  * Show the current Certificate
  */
-exports.read = function(req, res) {
+exports.read = function (req, res) {
   // convert mongoose document to JSON
   var certificate = req.certificate ? req.certificate.toJSON() : {};
 
@@ -116,12 +125,12 @@ exports.read = function(req, res) {
 /**
  * Update a Certificate
  */
-exports.update = function(req, res) {
+exports.update = function (req, res) {
   var certificate = req.certificate;
 
   certificate = _.extend(certificate, req.body);
 
-  certificate.save(function(err) {
+  certificate.save(function (err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -135,10 +144,10 @@ exports.update = function(req, res) {
 /**
  * Delete an Certificate
  */
-exports.delete = function(req, res) {
+exports.delete = function (req, res) {
   var certificate = req.certificate;
 
-  certificate.remove(function(err) {
+  certificate.remove(function (err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -152,8 +161,8 @@ exports.delete = function(req, res) {
 /**
  * List of Certificates
  */
-exports.list = function(req, res) {
-  Certificate.find().sort('-created').populate('user', 'displayName').populate('course').populate('authorizer').populate('edition').populate('member').exec(function(err, certificates) {
+exports.list = function (req, res) {
+  Certificate.find().sort('-created').populate('user', 'displayName').populate('course').populate('authorizer').populate('edition').populate('member').exec(function (err, certificates) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -164,11 +173,11 @@ exports.list = function(req, res) {
   });
 };
 
-exports.certificateByMember = function(req, res, next) {
+exports.certificateByMember = function (req, res, next) {
 
   Certificate.findOne({
     member: req.member._id
-  }).populate('user', 'displayName').populate('course').populate('authorizer').populate('edition').populate('member').exec(function(err, certificate) {
+  }).populate('user', 'displayName').populate('course').populate('authorizer').populate('edition').populate('member').exec(function (err, certificate) {
     if (err) {
       return next(err);
     } else if (!certificate) {
@@ -183,7 +192,7 @@ exports.certificateByMember = function(req, res, next) {
 /**
  * Certificate middleware
  */
-exports.certificateByID = function(req, res, next, id) {
+exports.certificateByID = function (req, res, next, id) {
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(400).send({
@@ -191,7 +200,7 @@ exports.certificateByID = function(req, res, next, id) {
     });
   }
 
-  Certificate.findById(id).populate('user', 'displayName').populate('course').populate('authorizer').populate('edition').populate('member').exec(function(err, certificate) {
+  Certificate.findById(id).populate('user', 'displayName').populate('course').populate('authorizer').populate('edition').populate('member').exec(function (err, certificate) {
     if (err) {
       return next(err);
     } else if (!certificate) {
