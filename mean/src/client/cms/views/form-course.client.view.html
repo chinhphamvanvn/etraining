@@ -253,15 +253,30 @@
 										options="vm.prequisiteOptions"
 										ng-model="vm.prequisites" name="course_prequisite"></selectize>
 								</div>
-								<div class="uk-width-1-1 uk-width-medium-1-2" style="min-height: 250px;">
+								<div class="uk-width-1-1 uk-width-medium-1-2">
 									<label class="uk-form-label">{{'MODEL.COURSE.COMPETENCY'|translate}}</label>
 									<selectize config="vm.competencyConfig" position="bottom"
 										options="vm.competencyOptions"
 										ng-model="vm.competencies" name="course_competency"></selectize>
 								</div>
 							</div>
-
-
+							<div class="uk-grid uk-margin-large-bottom" data-uk-grid-margin>
+								<div ng-repeat="certificateTemplate in vm.listCertificateTemplates" class="md-card md-card-fullscreen-activate uk-width-1-4 uk-width-medium-1-4" card-fullscreen-whole style="margin-top: 0px; box-shadow: none;">
+			                        <div class="md-card-fullscreen-hide">
+			                        	<i ng-show="certificateTemplate.choose" class="material-icons md-36 uk-text-success" style="position: absolute; right: -2px; top: -20px;">&#xE86C;</i>
+			                            <img style="width: 100%;" ng-src="{{certificateTemplate.image}}" alt="">
+			                        </div>
+			                        <div class="md-card-fullscreen-content">
+			                            <form class="uk-margin-medium-top">
+			                                <img style="width: 70%; margin-left: 15%; margin-top: 80px;" ng-src="{{certificateTemplate.image}}" alt="">
+											<div class="vm_wrapper canvasModalImage" style="margin-top: 20px;">
+					                            <a ng-if="!certificateTemplate.choose" class="md-btn md-btn-primary md-btn-wave-light" ng-click="vm.chooseCertificateTemplate(certificateTemplate)">{{'MODEL.COURSE.CERTIFICATE.TEMPLATE.ACTION.CHOOSE'|translate}}</a>
+					                            <a ng-if="certificateTemplate.choose" class="md-btn md-btn-success md-btn-wave-light"">{{'MODEL.COURSE.CERTIFICATE.TEMPLATE.CHOOSE'|translate}}</a>
+					                        </div>
+			                            </form>
+			                        </div>
+			                    </div>
+							</div>
 						</li>
 					</ul>
 

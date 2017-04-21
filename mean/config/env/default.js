@@ -307,6 +307,20 @@ var s = module.exports = {
           code: 'ALERT_COURSE_MATERIAL_UPDATE',
           category: 'alert'
         }
+      ],
+      certificateTemplates: [
+        {
+          name: 'certificate'
+        },
+        {
+          name: 'certificate2'
+        },
+        {
+          name: 'certificate3'
+        },
+        {
+          name: 'certificate4'
+        }
       ]
     }
   }

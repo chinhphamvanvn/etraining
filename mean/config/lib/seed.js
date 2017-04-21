@@ -178,8 +178,27 @@ function insertUser(options) {
   });
 }
 
+function insertCertificateTemplate(options) {
+  // Initialize the default seed options
+  seedOptions = _.clone(config.seedDB.options, true);
+  seedOptions.certificateTemplates = config.seedDB.options.certificateTemplates;
+  var CertificateTemplate = mongoose.model('CertificateTemplate');
+  _.each(seedOptions.certificateTemplates, function(obj) {
+    CertificateTemplate.findOne({
+      name: obj.name
+    }, function(err, settingRecord) {
+      if (err || !settingRecord) {
+        var cetificateTemplate = new CertificateTemplate(obj);
+        cetificateTemplate.save();
+      }
+    });
+
+  });
+}
+
 module.exports.start = function start(options) {
 
   insertUser(options)
-    .then(insertSetting(options));
+    .then(insertSetting(options))
+    .then(insertCertificateTemplate(options));
 };
