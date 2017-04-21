@@ -273,6 +273,6 @@ module.exports = {
     sockets: 'src/server/*/sockets/*.js',
     config: ['src/server/*/config/*.js'],
     policies: 'src/server/*/policies/*.js',
-    views: ['src/server/*/views/*.html']
+    views: ['src/server/*/views/*.html','src/server/*/templates/*.html']
   }
 };
