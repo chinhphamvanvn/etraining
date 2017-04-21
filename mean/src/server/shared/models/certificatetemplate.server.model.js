@@ -20,6 +20,16 @@ var CertificateTemplateSchema = new Schema({
     type: Date,
     default: Date.now
   },
+  urlImage: {
+    type: String,
+    default: '',
+    trim: true
+  },
+  pathHtml: {
+    type: String,
+    default: '',
+    trim: true
+  },
   user: {
     type: Schema.ObjectId,
     ref: 'User'
