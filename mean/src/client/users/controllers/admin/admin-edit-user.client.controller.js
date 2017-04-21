@@ -17,6 +17,7 @@
     vm.isContextUserSelf = isContextUserSelf;
     vm.currentUserId = localStorageService.get('userId');
     vm.selectGroup = selectGroup;
+    vm.changeUserPassword = changeUserPassword;
 
     var $basicValidate = $('#user_edit_form');
     var $changePassValidate = $('#user_change_pass_form');
@@ -141,6 +142,27 @@
 
     function isContextUserSelf() {
       return vm.user.username === vm.authentication.user.username;
+    }
+    
+    function changeUserPassword() {
+      UsersService.changePassword(vm.passwordDetails)
+        .then(onChangePasswordSuccess)
+        .catch(onChangePasswordError);
+    }
+
+    function onChangePasswordSuccess(response) {
+      // If successful show success message and clear form
+      Notification.success({
+        message: '<i class="uk-icon-check"></i> Password Changed Successfully'
+      });
+      vm.passwordDetails = null;
+    }
+
+    function onChangePasswordError(response) {
+      Notification.error({
+        message: response.data.message,
+        title: '<i class="uk-icon-ban"></i> Password change failed!'
+      });
     }
 
   }
