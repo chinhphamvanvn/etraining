@@ -310,16 +310,24 @@ var s = module.exports = {
       ],
       certificateTemplates: [
         {
-          name: 'certificate'
+          name: 'certificate',
+          urlImage: '/assets/img/certificate/certi1.png',
+          pathHtml: 'src/server/shared/templates/certificate'
         },
         {
-          name: 'certificate2'
+          name: 'certificate2',
+          urlImage: '/assets/img/certificate/certi2.png',
+          pathHtml: 'src/server/shared/templates/certificate2'
         },
         {
-          name: 'certificate3'
+          name: 'certificate3',
+          urlImage: '/assets/img/certificate/certi3.png',
+          pathHtml: 'src/server/shared/templates/certificate3'
         },
         {
-          name: 'certificate4'
+          name: 'certificate4',
+          urlImage: '/assets/img/certificate/certi4.png',
+          pathHtml: 'src/server/shared/templates/certificate4'
         }
       ]
     }

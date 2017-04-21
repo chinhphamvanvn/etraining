@@ -67,9 +67,11 @@ exports.grant = function (req, res, next) {
       var dateFormat = require('dateformat');
       var issueDate = new Date();
       issueDate = dateFormat(issueDate, 'dddd, mmmm dS, yyyy');
-      var pathCertificateTemplate = 'src/server/shared/templates/';
-      certificateTemplate ? pathCertificateTemplate += certificateTemplate.name : pathCertificateTemplate += "certificate";
-      res.render(path.resolve(pathCertificateTemplate), {
+      var pathCertificateTemplate = 'src/server/shared/templates/certificate';
+      if (certificateTemplate) {
+        pathCertificateTemplate = certificateTemplate.pathHtml;
+      }
+      res.render(pathCertificateTemplate, {
         studentName: studentMember.member.displayName,
         courseName: course.name,
         instructorName: teacherUser.displayName,

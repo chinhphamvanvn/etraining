@@ -60,25 +60,7 @@
       },
       csv_template: '/assets/csv/template_csv.csv',
       excel_template_list_question: '/assets/excel/template_excel_list_question.xlsx',
-      excel_template_list_user: '/assets/excel/template_excel_list_user.xlsx',
-      ceritficate_template_images: [
-        {
-          name: 'certificate',
-          image: '/assets/img/certificate/certi1.png'
-        },
-        {
-          name: 'certificate2',
-          image: '/assets/img/certificate/certi2.png'
-        },
-        {
-          name: 'certificate3',
-          image: '/assets/img/certificate/certi3.png'
-        },
-        {
-          name: 'certificate4',
-          image: '/assets/img/certificate/certi4.png'
-        }
-      ]
+      excel_template_list_user: '/assets/excel/template_excel_list_user.xlsx'
     });
 
   angular

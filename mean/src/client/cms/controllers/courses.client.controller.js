@@ -86,18 +86,14 @@
 
     CertificateTemplatesService.query(function(certificateTemplates) {
       vm.listCertificateTemplates = _.map(certificateTemplates, function(obj) {
-        var existTemp = _.find(fileManagerConfig.ceritficate_template_images, function(certificateTemp) {
-          return certificateTemp.name === obj.name;
-        });
         return {
           id: obj._id,
           name: obj.name,
           value: obj._id,
-          image: existTemp.image,
+          image: obj.urlImage,
           choose: vm.course.certificateTemplate === obj._id
         };
       });
-      console.log(certificateTemplates);
     });
 
     var $course_start = $('#uk_course_start'),
