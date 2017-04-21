@@ -126,10 +126,10 @@
             if (header.name && !header.deleted) {
               createQuestion[header.name.toLowerCase()] = question[index];
               if (header.name.toLowerCase() === 'correct_option') {
-                createQuestion["correctOptions"] = question[index].split(';');
+                createQuestion.correctOptions = question[index].split(';');
               }
               if (header.name.toLowerCase() === 'wrong_option') {
-                createQuestion["wrongOptions"] = question[index].split(';');
+                createQuestion.wrongOptions = question[index].split(';');
               }
             }
           });

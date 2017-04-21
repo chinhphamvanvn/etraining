@@ -31,8 +31,8 @@
         });
     } else {
       vm.exam.totalQuestions = 0;
-      vm.exam.questionCategories.map(function(category) {
-          vm.exam.totalQuestions += category.numberQuestion;
+      vm.exam.questionCategories.forEach(function(category) {
+        vm.exam.totalQuestions += category.numberQuestion;
       });
     }
 

@@ -143,7 +143,7 @@
     function isContextUserSelf() {
       return vm.user.username === vm.authentication.user.username;
     }
-    
+
     function changeUserPassword() {
       UsersService.changePassword(vm.passwordDetails)
         .then(onChangePasswordSuccess)

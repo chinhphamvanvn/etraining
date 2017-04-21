@@ -13,8 +13,8 @@
               questionIds;
             if (exam.questionSelection === 'auto') {
               var totalQuestions = 0;
-              exam.questionCategories.map(function(category) {
-                totalQuestions += category.numberQuestion
+              exam.questionCategories.forEach(function(category) {
+                totalQuestions += category.numberQuestion;
               });
               examScore = exam.questionScore * totalQuestions;
 

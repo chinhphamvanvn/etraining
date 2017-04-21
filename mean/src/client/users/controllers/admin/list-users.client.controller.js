@@ -76,7 +76,7 @@
 
     vm.selectGroup = function(groups) {
       vm.groups = groups;
-      if (groups && groups.length){
+      if (groups && groups.length) {
         vm.dtInstance.reloadData(function() {}, true);
       }
     };
