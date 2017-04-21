@@ -83,11 +83,11 @@
         vm.headers = [];
       } else {
         vm.headers = [];
-        result.headers.forEach(function(header){
+        result.headers.forEach(function(header) {
           vm.headers.push({
             name: header
           });
-        })
+        });
       }
       vm.questions = result.rows;
       $scope.$apply();
@@ -126,10 +126,10 @@
             if (header.name && !header.deleted) {
               createQuestion[header.name.toLowerCase()] = question[index];
               if (header.name.toLowerCase() === 'correct_option') {
-                  createQuestion['correctOptions'] = question[index].split(';');
+                createQuestion["correctOptions"] = question[index].split(';');
               }
               if (header.name.toLowerCase() === 'wrong_option') {
-                createQuestion['wrongOptions'] = question[index].split(';');
+                createQuestion["wrongOptions"] = question[index].split(';');
               }
             }
           });

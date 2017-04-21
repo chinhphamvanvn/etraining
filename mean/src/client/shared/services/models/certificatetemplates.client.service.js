@@ -3,7 +3,7 @@
   'use strict';
 
   angular
-    .module('shared.model')
+    .module('shared.models')
     .factory('CertificateTemplatesService', CertificateTemplatesService);
 
   CertificateTemplatesService.$inject = ['$resource'];

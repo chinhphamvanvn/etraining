@@ -110,6 +110,10 @@ var CourseSchema = new Schema({
     type: Date,
     default: Date.now
   },
+  certificateTemplate: {
+    type: Schema.ObjectId,
+    ref: 'CertificateTemplate'
+  },
   user: {
     type: Schema.ObjectId,
     ref: 'User'

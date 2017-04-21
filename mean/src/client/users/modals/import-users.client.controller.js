@@ -100,7 +100,7 @@
           vm.headers.push({
             name: header
           });
-        })
+        });
       }
       vm.users = result.rows;
       $scope.$apply();
