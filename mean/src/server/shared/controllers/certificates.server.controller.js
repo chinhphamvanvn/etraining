@@ -58,13 +58,9 @@ exports.grant = function (req, res, next) {
       });
     },
     function (teacherUser, studentMember, course, done) {
-      if (course.certificateTemplate) {
-        CertificateTemplate.findById(course.certificateTemplate).exec(function (err, certificateTemplate) {
-          done(err, teacherUser, studentMember, course, certificateTemplate);
-        });
-      } else {
-        done(null, teacherUser, studentMember, course, null);
-      }
+      CertificateTemplate.findById(course.certificateTemplate).exec(function (err, certificateTemplate) {
+        done(err, teacherUser, studentMember, course, certificateTemplate);
+      });
 
     },
     function (teacherUser, studentMember, course, certificateTemplate, done) {
