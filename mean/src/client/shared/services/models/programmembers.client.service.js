@@ -37,7 +37,7 @@
       },
       complete: {
         method: 'PUT',
-        url: '/api/programmembers/complete/:programmemberId/:managerId',
+        url: '/api/programmembers/complete/:programmemberId/:teacherId',
         transformRequest: _transform.unpopulate
       },
       byUserAndProgram: {
