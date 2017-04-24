@@ -34,11 +34,6 @@
             scope.callback(selectedCourses);
         };
 
-        scope.selectAll = function() {
-          _.each(scope.courses, function(course) {
-            course.selected = scope.allCourse;
-          });
-        };
       }
     };
   }

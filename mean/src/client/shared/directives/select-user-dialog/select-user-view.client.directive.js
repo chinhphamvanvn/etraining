@@ -34,11 +34,6 @@
             scope.callback(selectedUsers);
         };
 
-        scope.selectAll = function() {
-          _.each(scope.users, function(user) {
-            user.selected = scope.allUser;
-          });
-        };
       }
     };
   }
