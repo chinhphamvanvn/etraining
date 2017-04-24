@@ -37,7 +37,7 @@ exports.invokeRolesPolicies = function() {
           permissions: 'put'
         },
         {
-          resources: '/api/programmembers/complete/:programmemberId/:managerId',
+          resources: '/api/programmembers/complete/:programmemberId/:teacherId',
           permissions: 'put'
         },
         {
@@ -70,7 +70,7 @@ exports.invokeRolesPolicies = function() {
           permissions: 'put'
         },
         {
-          resources: '/api/programmembers/complete/:programmemberId/:managerId',
+          resources: '/api/programmembers/complete/:programmemberId/:teacherId',
           permissions: 'put'
         },
         {
