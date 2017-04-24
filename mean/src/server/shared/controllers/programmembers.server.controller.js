@@ -153,18 +153,18 @@ exports.withdraw = function(req, res) {
 
 
 exports.complete = function(req, res) {
-  var member = req.member;
-  member = _.extend(member, req.body);
-  member.enrollmentStatus = 'completed';
-  member.save(function(err) {
+  var programmember = req.programmember;
+  programmember = _.extend(programmember, req.body);
+  programmember.enrollmentStatus = 'completed';
+  programmember.save(function(err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      res.jsonp(member);
-      sendMailToStudent(member);
-      bindCompetency(member);
+      res.jsonp(programmember);
+      sendMailToStudent(programmember);
+      bindCompetency(programmember);
     }
   });
 
