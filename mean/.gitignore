@@ -39,7 +39,6 @@ _site/
 # General
 # =======
 *.log
-*.csv
 *.dat
 *.out
 *.pid

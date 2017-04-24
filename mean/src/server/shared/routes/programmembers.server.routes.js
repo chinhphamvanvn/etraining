@@ -21,7 +21,7 @@ module.exports = function(app) {
   app.route('/api/programmembers/withdraw/:programmemberId').all(programmembersPolicy.isAllowed)
     .put(programmembers.withdraw);
 
-  app.route('/api/programmembers/complete/:programmemberId/:managerId').all(programmembersPolicy.isAllowed)
+  app.route('/api/programmembers/complete/:programmemberId/:teacherId').all(programmembersPolicy.isAllowed)
     .put(programmembers.complete);
 
   app.route('/api/programmembers/byUserAndProgram/:userId/:programId').all(programmembersPolicy.isAllowed)
