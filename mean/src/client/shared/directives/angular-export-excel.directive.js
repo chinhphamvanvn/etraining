@@ -4,7 +4,7 @@ angular.module('shared')
   .directive('exportExcel', ['$timeout', '$window', function ($timeout, $window) {
     return {
       restrict: 'E',
-      template: '<a class="md-btn md-btn-primary  md-btn-wave-light md-btn-icon">' +
+      template: '<a class="md-btn  md-btn-wave-light md-btn-icon">' +
                 '<i class="material-icons">save</i>' +
                 '{{"ACTION.EXPORT"|translate}}' +
               '</a>',
