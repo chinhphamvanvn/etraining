@@ -17,6 +17,7 @@ bower install
 
 ### Prerequisites
 
+* Node v6.x
 * [MongoDB](https://mongodb.com/) - NoSQL database
 
 ### Installing
@@ -35,16 +36,23 @@ gulp
 ## Deployment
 
 Set the environment variable NODE_ENV to 'production'
+Set the database, port, and certificate in config/env/production.js
 
 Build the distribution file
 ```
 cd e-training/mean
+npm install
+npm install --dev
+bower install
 gulp build
 ```
 Run the deloyment script
 ```
 forever start server.js
 ```
+
+## Deployment error
+If the console log display
 
 ## Built With
 
