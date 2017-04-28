@@ -196,6 +196,14 @@ var s = module.exports = {
           category: 'system'
         },
         {
+          name: 'apiPermissionEnabled',
+          edit: true,
+          type: 'Boolean',
+          valueBoolean: false,
+          code: 'API_PERMISSION_ENABLE',
+          category: 'system'
+        },
+        {
           name: 'vietInterviewConferenceApiUrl',
           edit: true,
           type: 'String',

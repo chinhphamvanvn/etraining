@@ -5,9 +5,9 @@
     .module('users.admin')
     .controller('UserPermissionController', UserPermissionController);
 
-  UserPermissionController.$inject = ['$scope', '$state', '$filter', '$compile', 'Authentication', 'AdminService', '$timeout', '$location', '$window', 'PermissionViewsService', 'Notification', '$q', 'treeUtils', '$translate', '_'];
+  UserPermissionController.$inject = ['$scope', '$state', '$filter', '$compile', 'Authentication', 'AdminService', '$timeout', '$location', '$window', 'ApiEndpointsService', 'PermissionViewsService', 'PermissionApisService', 'Notification', '$q', 'treeUtils', '$translate', '_'];
 
-  function UserPermissionController($scope, $state, $filter, $compile, Authentication, AdminService, $timeout, $location, $window, PermissionViewsService, Notification, $q, treeUtils, $translate, _) {
+  function UserPermissionController($scope, $state, $filter, $compile, Authentication, AdminService, $timeout, $location, $window, ApiEndpointsService, PermissionViewsService, PermissionApisService, Notification, $q, treeUtils, $translate, _) {
     var vm = this;
     vm.save = save;
     vm.newPermissionView = newPermissionView;
@@ -16,6 +16,10 @@
     vm.selectAdminMenu = selectAdminMenu;
     vm.editPermissionView = editPermissionView;
     vm.deletePermissionView = deletePermissionView;
+    vm.newPermissionApi = newPermissionApi;
+    vm.savePermissionApi = savePermissionApi;
+    vm.editPermissionApi = editPermissionApi;
+    vm.deletePermissionApi = deletePermissionApi;
 
     vm.selectGroup = function(groups) {
       vm.users = [];
@@ -27,6 +31,7 @@
         });
       });
     };
+    vm.endpoints = ApiEndpointsService.query();
 
     function newPermissionView() {
       vm.permissionView = new PermissionViewsService();
@@ -147,6 +152,112 @@
         };
       });
     });
+
+    vm.permissionApiConfig = {
+      maxItems: 1,
+      valueField: 'value',
+      labelField: 'title',
+      searchField: 'title',
+      create: false
+    };
+    vm.permissionApiOptions = [];
+    vm.permissionApiList = PermissionApisService.query(function() {
+      vm.permissionApiOptions = _.map(vm.permissionApiList, function(obj) {
+        return {
+          id: obj._id,
+          title: obj.name,
+          value: obj._id
+        };
+      });
+    });
+
+    function newPermissionApi() {
+      vm.permissionApi = new PermissionApisService();
+      _.each(vm.endpoints, function(endpoint) {
+        endpoint.create = false;
+        endpoint.update = false;
+        endpoint.delete = false;
+        endpoint.view = true;
+      });
+    }
+
+    function savePermissionApi() {
+      vm.permissionApi.endpoints = _.map(vm.endpoints, function(obj) {
+        return {
+          id: obj._id,
+          create: obj.create,
+          update: obj.update,
+          delete: obj.delete,
+          view: obj.view
+        };
+      });
+      if (vm.permissionApi._id) {
+        vm.permissionApi.$update(function() {
+          Notification.success({
+            message: '<i class="uk-icon-check"></i> Permission saved successfully!'
+          });
+        }, function(errorResponse) {
+          Notification.error({
+            message: errorResponse.data.message,
+            title: '<i class="uk-icon-ban"></i> Permission update error!'
+          });
+        });
+      } else {
+        vm.permissionApi.$save(function() {
+          Notification.success({
+            message: '<i class="uk-icon-check"></i> Permission saved successfully!'
+          });
+        }, function(errorResponse) {
+          Notification.error({
+            message: errorResponse.data.message,
+            title: '<i class="uk-icon-ban"></i> Permission update error!'
+          });
+        });
+      }
+      vm.permissionApiList = PermissionApisService.query(function() {
+        vm.permissionApiOptions = _.map(vm.permissionApiList, function(obj) {
+          return {
+            id: obj._id,
+            title: obj.name,
+            value: obj._id
+          };
+        });
+      });
+    }
+
+    function deletePermissionApi() {
+      PermissionApisService.delete({
+        permissionapiId: vm.permissionApi._id
+      }, function() {
+        vm.permissionApiList = _.reject(vm.permissionApiList, function(permission) {
+          return permission._id === vm.permissionApi._id;
+        });
+        vm.permissionApi = new PermissionViewsService();
+        _.each(vm.endpoints, function(endpoint) {
+          endpoint.create = false;
+          endpoint.update = false;
+          endpoint.delete = false;
+          endpoint.view = true;
+        });
+      });
+    }
+
+    function editPermissionApi() {
+      vm.permissionApi = _.find(vm.permissionApiList, function(permission) {
+        return permission._id === vm.permissionApi._id;
+      });
+      _.each(vm.endpoints, function(endpoint) {
+        existRule = _.find(vm.permissionApi.endpoints, function(rule) {
+          return rule.id === endpoint._id;
+        });
+        if (existRule) {
+          endpoint.create = existRule.create;
+          endpoint.update = existRule.update;
+          endpoint.delete = existRule.delete;
+          endpoint.view = existRule.view;
+        }
+      });
+    }
 
   }
 }(window.UIkit));

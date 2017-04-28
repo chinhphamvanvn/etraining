@@ -15,28 +15,28 @@ exports.invokeRolesPolicies = function () {
   acl.allow([{
     roles: ['admin'],
     allows: [{
-      resources: '/api/permissionobjects',
+      resources: '/api/permissionapis',
       permissions: '*'
     }, {
-      resources: '/api/permissionobjects/:permissionobjectId',
+      resources: '/api/permissionapis/:permissionapiId',
       permissions: '*'
     }]
   }, {
     roles: ['user'],
     allows: [{
-      resources: '/api/permissionobjects',
+      resources: '/api/permissionapis',
       permissions: ['get', 'post']
     }, {
-      resources: '/api/permissionobjects/:permissionobjectId',
+      resources: '/api/permissionapis/:permissionapiId',
       permissions: ['get']
     }]
   }, {
     roles: ['guest'],
     allows: [{
-      resources: '/api/permissionobjects',
+      resources: '/api/permissionapis',
       permissions: ['get']
     }, {
-      resources: '/api/permissionobjects/:permissionobjectId',
+      resources: '/api/permissionapis/:permissionapiId',
       permissions: ['get']
     }]
   }]);
@@ -49,7 +49,7 @@ exports.isAllowed = function (req, res, next) {
   var roles = (req.user) ? req.user.roles : ['guest'];
 
   // If an Permissionobject is being processed and the current user created it then allow any manipulation
-  if (req.permissionobject && req.user && req.permissionobject.user && req.permissionobject.user.id === req.user.id) {
+  if (req.permissionapi && req.user && req.permissionapi.user && req.permissionapi.user.id === req.user.id) {
     return next();
   }
 

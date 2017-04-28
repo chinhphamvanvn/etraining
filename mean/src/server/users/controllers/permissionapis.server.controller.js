@@ -5,7 +5,7 @@
  */
 var path = require('path'),
   mongoose = require('mongoose'),
-  PermissionObject = mongoose.model('PermissionObject'),
+  PermissionApi = mongoose.model('PermissionApi'),
   errorHandler = require(path.resolve('./src/server/core/controllers/errors.server.controller')),
   _ = require('lodash');
 
@@ -13,16 +13,16 @@ var path = require('path'),
  * Create a Permissionobject
  */
 exports.create = function(req, res) {
-  var permissionobject = new PermissionObject(req.body);
-  permissionobject.user = req.user;
+  var permissionapi = new PermissionApi(req.body);
+  permissionapi.user = req.user;
 
-  permissionobject.save(function(err) {
+  permissionapi.save(function(err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      res.jsonp(permissionobject);
+      res.jsonp(permissionapi);
     }
   });
 };
@@ -32,30 +32,30 @@ exports.create = function(req, res) {
  */
 exports.read = function(req, res) {
   // convert mongoose document to JSON
-  var permissionobject = req.permissionobject ? req.permissionobject.toJSON() : {};
+  var permissionapi = req.permissionapi ? req.permissionapi.toJSON() : {};
 
   // Add a custom field to the Article, for determining if the current User is the "owner".
   // NOTE: This field is NOT persisted to the database, since it doesn't exist in the Article model.
-  permissionobject.isCurrentUserOwner = req.user && permissionobject.user && permissionobject.user._id.toString() === req.user._id.toString();
+  permissionapi.isCurrentUserOwner = req.user && permissionapi.user && permissionapi.user._id.toString() === req.user._id.toString();
 
-  res.jsonp(permissionobject);
+  res.jsonp(permissionapi);
 };
 
 /**
  * Update a Permissionobject
  */
 exports.update = function(req, res) {
-  var permissionobject = req.permissionobject;
+  var permissionapi = req.permissionapi;
 
-  permissionobject = _.extend(permissionobject, req.body);
+  permissionapi = _.extend(permissionapi, req.body);
 
-  permissionobject.save(function(err) {
+  permissionapi.save(function(err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      res.jsonp(permissionobject);
+      res.jsonp(permissionapi);
     }
   });
 };
@@ -64,15 +64,15 @@ exports.update = function(req, res) {
  * Delete an Permissionobject
  */
 exports.delete = function(req, res) {
-  var permissionobject = req.permissionobject;
+  var permissionapi = req.permissionapi;
 
-  permissionobject.remove(function(err) {
+  permissionapi.remove(function(err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      res.jsonp(permissionobject);
+      res.jsonp(permissionapi);
     }
   });
 };
@@ -81,7 +81,7 @@ exports.delete = function(req, res) {
  * List of Permissionobjects
  */
 exports.list = function(req, res) {
-  PermissionObject.find().sort('-created').populate('user', 'displayName').exec(function(err, permissionobjects) {
+  PermissionApi.find().sort('-created').populate('user', 'displayName').exec(function(err, permissionobjects) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -95,7 +95,7 @@ exports.list = function(req, res) {
 /**
  * Permissionobject middleware
  */
-exports.permissionobjectByID = function(req, res, next, id) {
+exports.permissionapiByID = function(req, res, next, id) {
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(400).send({
@@ -103,15 +103,15 @@ exports.permissionobjectByID = function(req, res, next, id) {
     });
   }
 
-  PermissionObject.findById(id).populate('user', 'displayName').exec(function (err, permissionobject) {
+  PermissionApi.findById(id).populate('user', 'displayName').exec(function (err, permissionapi) {
     if (err) {
       return next(err);
-    } else if (!permissionobject) {
+    } else if (!permissionapi) {
       return res.status(404).send({
-        message: 'No Permissionobject with that identifier has been found'
+        message: 'No permissionapi with that identifier has been found'
       });
     }
-    req.permissionobject = permissionobject;
+    req.permissionapi = permissionapi;
     next();
   });
 };

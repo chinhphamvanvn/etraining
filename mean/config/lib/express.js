@@ -6,6 +6,7 @@
 var config = require('../config'),
   express = require('express'),
   morgan = require('morgan'),
+  mongoose = require('mongoose'),
   logger = require('./logger'),
   bodyParser = require('body-parser'),
   session = require('express-session'),
@@ -213,6 +214,8 @@ module.exports.initErrorRoutes = function(app) {
   });
 };
 
+
+
 /**
  * Configure Socket.io
  */
@@ -273,7 +276,6 @@ module.exports.init = function(db) {
 
   // Initialize error routes
   this.initErrorRoutes(app);
-
 
   // Configure Socket.io
   app = this.configureSocketIO(app, db);

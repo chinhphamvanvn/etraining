@@ -40,6 +40,9 @@
       vm.settingRegisterGroup = _.find(vm.settings, function(setting) {
         return setting.code === 'REGISTER_GROUP';
       });
+      vm.settingApiPermissionEnable = _.find(vm.settings, function(setting) {
+        return setting.code === 'API_PERMISSION_ENABLE';
+      });
       vm.settingBuiltinConferenceApiURL = _.find(vm.settings, function(setting) {
         return setting.code === 'BUILT_INT_CONFERENCE_API';
       });

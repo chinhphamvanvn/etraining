@@ -159,7 +159,7 @@ exports.me = function(req, res) {
       phone: req.user.phone,
       group: req.user.group,
       permissionView: req.user.permissionView,
-      permissionObject: req.user.permissionObject,
+      permissionApi: req.user.permissionApi,
       position: req.user.position,
       facebook: req.user.facebook,
       twitter: req.user.twitter,

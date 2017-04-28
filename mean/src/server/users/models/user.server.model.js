@@ -139,9 +139,9 @@ var UserSchema = new Schema({
     type: Schema.ObjectId,
     ref: 'PermissionView'
   },
-  permissionObject: {
+  permissionApi: {
     type: Schema.ObjectId,
-    ref: 'PermissionObject'
+    ref: 'PermissionApi'
   },
   updated: {
     type: Date
