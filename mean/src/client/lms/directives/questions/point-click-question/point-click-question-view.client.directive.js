@@ -172,7 +172,7 @@
                 scope.$apply();
               }
             };
-            UIkit.uploadSelect($('#file_upload-select'), settings);
+            UIkit.uploadSelect($('#file_upload_' + scope.question.order), settings);
           });
           var selectedOptionId;
           scope.mouseDown = function($event) {

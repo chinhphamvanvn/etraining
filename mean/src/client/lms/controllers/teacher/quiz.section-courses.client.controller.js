@@ -83,10 +83,11 @@
       var question = new QuestionsService();
       question.type = type;
       question.$save(function() {
-        if (vm.questions.length === 0)
+        if (vm.questions.length === 0){
           question.order = vm.questions.length + 1;
-        else
+        } else {
           question.order = _.max(vm.questions, function(o) { return o.order;}).order + 1;
+        }
         vm.questions.push(question);
       });
     }
