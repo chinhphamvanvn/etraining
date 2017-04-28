@@ -257,7 +257,7 @@
                 scope.$apply();
               }
             };
-            UIkit.uploadSelect($('#file_upload-select'), settings);
+            UIkit.uploadSelect($('#file_' + scope.question.order), settings);
           });
           var selectedOption;
           scope.mouseDown = function($event, option) {
