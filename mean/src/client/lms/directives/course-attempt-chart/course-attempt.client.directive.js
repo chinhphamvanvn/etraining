@@ -36,6 +36,11 @@
                 multiline: false
               },
               height: 130
+            },
+            y: {
+              tick: {
+                format: d3.format('d')
+              }
             }
           },
           color: {
