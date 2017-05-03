@@ -5,7 +5,10 @@
    * Binds a TinyMCE widget to <textarea> elements.
    */
   angular.module('shared.tinymce')
-    .value('uiTinymceConfig', {})
+    .value('uiTinymceConfig', {
+      image_advtab: true,
+      image_caption: true
+    })
     .directive('uiTinymce', ['$rootScope', '$compile', '$timeout', '$window', '$sce', 'uiTinymceConfig', function($rootScope, $compile, $timeout, $window, $sce, uiTinymceConfig) {
       uiTinymceConfig = uiTinymceConfig || {};
       var generatedIds = 0;

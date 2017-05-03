@@ -22,6 +22,7 @@
     vm.tinymce_options = fileManagerConfig;
     vm.listCertificateTemplates;
     vm.chooseCertificateTemplate = chooseCertificateTemplate;
+    vm.test = "any";
     var $courseValidate = $('#courseForm');
 
     $courseValidate
