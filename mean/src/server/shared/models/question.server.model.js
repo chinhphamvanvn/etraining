@@ -20,6 +20,11 @@ var QuestionSchema = new Schema({
     default: '',
     trim: true
   },
+  explanation: {
+    type: String,
+    default: '',
+    trim: true
+  },
   level: {
     type: String,
     enum: ['easy', 'medium', 'hard'],

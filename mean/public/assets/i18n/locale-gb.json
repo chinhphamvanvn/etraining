@@ -536,6 +536,7 @@
 	"MODEL.CLASSROOM.START_DATE": "Start Date",
 	"MODEL.CLASSROOM.END_DATE": "End Date",
 	"MODEL.QUESTION.TITLE": "Title",
+	"MODEL.QUESTION.EXPLAIN": "Explanation",
 	"MODEL.QUESTION.DESC": "Question content",
 	"MODEL.QUESTION.TYPE": "Question type",
 	"MODEL.QUESTION.LEVEL": "Difficulties",
