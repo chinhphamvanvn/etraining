@@ -12,6 +12,7 @@
         question: '=',
         answer: '=',
         shuffle: '=',
+        showExplain: '=',
         mode: '=' // edit.view/study, result
       },
       templateUrl: '/src/client/lms/directives/questions/multiple-choice-question/multiple-choice-question.directive.client.view.html',

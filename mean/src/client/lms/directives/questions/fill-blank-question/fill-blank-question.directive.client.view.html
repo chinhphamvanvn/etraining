@@ -69,6 +69,14 @@
 		</div>
 
 	</div>
+	<div class="uk-grid">
+		<div class="uk-width-medium-1-1 parsley-row">
+			<label for="question_explain">
+				{{'MODEL.QUESTION.EXPLAIN'|translate}} <span class="req">*</span>
+			<textarea ui-tinymce="tinymce_options"
+				ng-model="question.explanation" cols="30" rows="4"></textarea>
+		</div>
+	</div>
 </div>
 
 <div ng-if="mode=='view'">
@@ -118,6 +126,13 @@
 					</div>
 				</div>
 			</div>
+		</div>
+	</div>
+	<div class="uk-grid no-margin-top">
+		<div class="uk-width-medium-1-1 parsley-row">
+			<h4 class="quiz-heading uk-text-left">
+				{{'MODEL.QUESTION.EXPLAIN'|translate}}</h4>
+			<p class="uk-text-left text-wrap" ng-bind-html="question.explanation" />
 		</div>
 	</div>
 </div>
@@ -174,6 +189,13 @@
 					</div>
 				</div>
 			</div>
+		</div>
+	</div>
+	<div class="uk-grid no-margin-top" ng-show="showExplain">
+		<div class="uk-width-medium-1-1 parsley-row">
+			<h4 class="quiz-heading uk-text-left">
+				{{'MODEL.QUESTION.EXPLAIN'|translate}}</h4>
+			<p class="uk-text-left text-wrap" ng-bind-html="question.explanation" />
 		</div>
 	</div>
 </div>

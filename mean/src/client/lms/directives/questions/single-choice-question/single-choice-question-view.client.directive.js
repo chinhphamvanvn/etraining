@@ -12,6 +12,7 @@
         question: '=',
         answer: '=',
         shuffle: '=',
+        showExplain: '=',
         mode: '=' // edit.view/study, result
       },
       templateUrl: '/src/client/lms/directives/questions/single-choice-question/single-choice-question.directive.client.view.html',

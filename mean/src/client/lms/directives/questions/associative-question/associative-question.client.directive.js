@@ -31,6 +31,7 @@
         question: '=',
         answer: '=',
         shuffle: '=',
+        showExplain: '=',
         mode: '=' // edit.view/study, result
       },
       templateUrl: '/src/client/lms/directives/questions/associative-question/associative-question.directive.client.view.html',

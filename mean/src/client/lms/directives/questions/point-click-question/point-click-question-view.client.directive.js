@@ -12,6 +12,7 @@
         question: '=',
         answer: '=',
         shuffle: '=',
+        showExplain: '=',
         mode: '=' // edit.view/study, result
       },
       templateUrl: '/src/client/lms/directives/questions/point-click-question/point-click-question.directive.client.view.html',

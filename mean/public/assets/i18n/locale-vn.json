@@ -534,6 +534,7 @@
 	"MODEL.CLASSROOM.START_DATE": "Ngày bắt đầu",
 	"MODEL.CLASSROOM.END_DATE": "Ngày kết thúc",
 	"MODEL.QUESTION.TITLE": "Tiêu đề",
+	"MODEL.QUESTION.EXPLAIN": "Giải thích",
 	"MODEL.QUESTION.DESC": "Nội dung câu hỏi",
 	"MODEL.QUESTION.TYPE": "Loại câu hỏi",
 	"MODEL.QUESTION.LEVEL": "Độ khó",

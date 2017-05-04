@@ -31,6 +31,7 @@
         question: '=',
         answer: '=',
         shuffle: '=',
+        showExplain: '=',
         mode: '=' // edit.view/study, result
       },
       templateUrl: '/src/client/lms/directives/questions/drag-drop-question/drag-drop-question.directive.client.view.html',
