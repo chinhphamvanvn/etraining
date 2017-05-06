@@ -37,7 +37,7 @@ var EditionSectionSchema = new Schema({
   },
   contentType: {
     type: String,
-    enum: ['html', 'test', 'video', 'survey']
+    enum: ['html', 'test', 'video', 'survey', 'exercise']
   },
   html: {
     type: Schema.ObjectId,
@@ -50,6 +50,10 @@ var EditionSectionSchema = new Schema({
   quiz: {
     type: Schema.ObjectId,
     ref: 'Exam'
+  },
+  exercise: {
+    type: Schema.ObjectId,
+    ref: 'Exercise'
   },
   video: {
     type: Schema.ObjectId,

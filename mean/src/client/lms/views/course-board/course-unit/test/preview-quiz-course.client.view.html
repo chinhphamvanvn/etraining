@@ -7,7 +7,7 @@
 		ng-class="{'md-bg-green-200':vm.question.attempted,'md-bg-grey-100':!vm.question.attempted }">
 		<div class="md-card-toolbar-actions">
 			<span class=" uk-text-danger"><i
-				class="uk-icon-clock-o uk-text-danger"></i> {{vm.timeString}}</span>
+				class="uk-icon-clock-o uk-text-danger"></i> {{vm.remainTime | timeString}}</span>
 
 		</div>
 		<div class="md-card-toolbar-heading-text">

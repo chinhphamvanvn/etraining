@@ -1,0 +1,77 @@
+
+<div ng-if="mode=='edit'">
+	<div class="uk-grid" data-uk-grid-margin>
+		<div class="uk-width-1-1">
+			<div id="feedback_text">
+				<label for=""feedback_text"">{{'MODEL.FEEDBACK.RESPONSE'|translate}}</label>
+				<textarea ui-tinymce="tinymce_options"
+				ng-model="feedback.response" cols="30" rows="4"></textarea>
+			</div>
+		</div>
+		<div class="uk-width-medium-1-1">
+			<button data-uk-modal="{target:'#{{feedback._id}}modal_record_audio'}"
+				class="md-btn md-btn-mini md-btn-icon  md-btn-wave">
+				<i class="uk-icon-microphone uk-text-primary"></i>
+				{{'ACTION.RECORD_AUDIO'|translate}}
+			</button>
+			<button data-uk-modal="{target:'#{{feedback._id}}modal_record_video'}"
+				class="md-btn md-btn-mini md-btn-icon  md-btn-wave">
+				<i class="uk-icon-video-camera uk-text-primary"></i>
+				{{'ACTION.RECORD'|translate}}
+			</button>
+		
+		</div>
+							
+	</div>
+</div>
+
+
+<div ng-if="mode=='result'">
+	<div class="uk-grid">
+		<div class="uk-width-medium-1-1 ">
+			<p class="uk-text-left text-wrap" ng-bind-html="feedback.response" />
+		</div>
+	</div>
+	<div class="uk-grid" data-uk-grid-margin>
+		<div class="uk-width-1-1">
+			<div id="text_answer">
+				<label for="open_text">{{'MODEL.ANSWER.RESPONSE'|translate}}</label>
+				<span>{{answer.text}}</span>
+			</div>
+		</div>
+		<div class="uk-width-1-2">
+			<div id="audio_answer">
+				<label for="audio_answer">{{'MODEL.ANSWER.AUDIO'|translate}}</label>
+				<video controls src="{{feedback.audioUrl | trust}}"></video>
+			</div>
+		</div>
+		<div class="uk-width-1-2">
+			<div id="video_answer">
+				<label for="video_answer">{{'MODEL.ANSWER.VIDEO'|translate}}</label>
+				<video controls src="{{feedback.videoUrl | trust}}"></video>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="uk-modal" id="{{feedback._id}}modal_record_video">
+	<div class="uk-modal-dialog">
+		<button type="button" class="uk-modal-close uk-close"></button>
+		<div class="uk-grid uk-grid-small" data-uk-grid-margin>
+			<div class="uk-width-medium-1-1">
+				<recorder-video object="feedback"></recorder-video>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="uk-modal" id="{{feedback._id}}modal_record_audio">
+	<div class="uk-modal-dialog">
+		<button type="button" class="uk-modal-close uk-close"></button>
+		<div class="uk-grid uk-grid-small" data-uk-grid-margin>
+			<div class="uk-width-medium-1-1">
+				<recorder-audio object="feedback"></recorder-audio>
+			</div>
+		</div>
+	</div>
+</div>

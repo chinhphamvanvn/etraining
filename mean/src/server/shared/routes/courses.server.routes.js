@@ -8,6 +8,7 @@ var coursesPolicy = require('../policies/courses.server.policy'),
 
 module.exports = function(app) {
   // Courses Routes
+  app.route('/api/courses/video/upload').post(courses.uploadCourseVideo);
   app.route('/api/courses').all(coursesPolicy.isAllowed)
     .get(courses.list)
     .post(courses.create);

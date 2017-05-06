@@ -14,29 +14,33 @@
 
 		<div class="md-card-content">
 			<multiple-choice-survey mode="'survey'" question="vm.question"></multiple-choice-survey>
-			<div class="uk-text-center uk-margin-top">
+			<div class="uk-grid uk-margin-top">
+				<div class="uk-width-1-2">
 
 				<a ng-show="vm.index < vm.questions.length-1"
-					class="md-btn  md-btn-wave-light md-btn-icon"
+					class="md-btn  md-btn-wave-light md-btn-icon uk-align-left"
 					ng-click="vm.saveNext()"><i class="uk-icon-arrow-right "></i>
-					{{'ACTION.NEXT'|translate}} </a> <a
-					class="md-btn md-btn-primary md-btn-wave-light"
+					{{'ACTION.NEXT'|translate}} </a>
+				</div>	
+				<div class="uk-width-1-2">
+					 <a
+					class="md-btn md-btn-primary md-btn-wave-light uk-align-right"
 					ng-show="vm.index == vm.questions.length-1"
 					ng-click="vm.submitQuiz()">
 					{{'ACTION.SUBMIT_SURVEY'|translate}} </a>
+				</div>
 			</div>
 		</div>
 	</div>
 	<hr>
-	<div>
-		<div class="md-btn-group">
-			<a ng-click="vm.prevSection()" class="md-btn md-btn-wave"> <i
-				class="uk-icon-chevron-left"></i> {{'ACTION.PREV'|translate}}
-			</a> <a ng-click="vm.nextSection()" class="md-btn md-btn-wave">
-				{{'ACTION.NEXT'|translate}} <i class="uk-icon-chevron-right"></i>
-			</a>
+	<div class=" uk-text-center ">
+				<a ng-click="vm.prevSection()" class="md-btn md-btn-flat  md-btn-mini "> <i
+					class="uk-icon-chevron-left uk-text-primary"></i> {{'ACTION.PREV_SECTION'|translate}}
+				</a> 
+				<a ng-click="vm.nextSection()" class="md-btn md-btn-flat  md-btn-mini  ">
+					{{'ACTION.NEXT_SECTION'|translate}} <i class="uk-icon-chevron-right uk-text-primary"></i>
+				</a>
 		</div>
-	</div>
 </div>
 
 <div class="complete-course-container" ng-show="vm.completeCourse">

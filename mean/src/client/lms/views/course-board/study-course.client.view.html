@@ -63,6 +63,8 @@
                        class="md-icon material-icons md-18" ng-class="{'uk-text-primary':node.id==vm.selectedNode.id}">question_answer</i>
         						<i ng-if="node.data.hasContent && node.data.contentType=='survey'"
                        class="md-icon material-icons md-18" ng-class="{'uk-text-primary':node.id==vm.selectedNode.id}">question_answer</i>
+								<i ng-if="node.data.hasContent && node.data.contentType=='exercise'"
+                       class="md-icon material-icons md-18" ng-class="{'uk-text-primary':node.id==vm.selectedNode.id}">play_for_work</i>
         						<i ng-if="node.data.hasContent && node.data.contentType=='video'"
                        class="md-icon material-icons md-18" ng-class="{'uk-text-primary':node.id==vm.selectedNode.id}">videocam</i>{{node.data.name}}
                 </a>

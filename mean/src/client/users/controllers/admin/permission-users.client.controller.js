@@ -46,6 +46,10 @@
     }
 
     function save(user) {
+      if (user.permissionView === '')
+        user.permissionView = null;
+      if (user.permissionApi === '')
+        user.permissionApi = null;
       user.$update(function() {
         Notification.success({
           message: '<i class="uk-icon-check"></i> User saved successfully!'
@@ -136,6 +140,11 @@
     };
 
     vm.permissionViewConfig = {
+        plugins: {
+          'remove_button': {
+            label: ''
+          }
+        },
       maxItems: 1,
       valueField: 'value',
       labelField: 'title',
@@ -151,6 +160,7 @@
           value: obj._id
         };
       });
+      vm.permissionViewOptions.splice(0, 0, {id:0, value: '', title:'------------'});
     });
 
     vm.permissionApiConfig = {
@@ -169,6 +179,7 @@
           value: obj._id
         };
       });
+      vm.permissionApiOptions.splice(0, 0, {id:0, value: '', title:'------------'});
     });
 
     function newPermissionApi() {

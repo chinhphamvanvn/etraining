@@ -14,12 +14,30 @@
 					</div>
 				</div>
 			</div>
-			<div>
-				<span class="uk-form-file md-btn md-btn-icon"> <i
-					class="uk-icon-upload"></i> {{'ACTION.CHOOSE_FILE'|translate}} <input
+			<div class="uk-margin">
+				<span class="uk-form-file md-btn md-btn-icon"
+					ng-click="selectScreen()"> <i class="uk-icon-upload"></i>
+					{{'ACTION.CHOOSE_FILE'|translate}}<input
 					id="file_upload-select" type="file">
 				</span>
 			</div>
+			
+			<div class="uk-margin" >
+				<button  type="button" class=" md-btn md-btn-icon md-btn-flat  md-btn-mini uk-modal-close" > <i
+					class="uk-icon-check uk-text-success"></i> {{'ACTION.ACCEPT'|translate}} 
+				</button>
+				<button  type="button" class=" md-btn md-btn-icon  md-btn-mini md-btn-flat "  ng-click="resetVideo()"> <i
+					class="uk-icon-refresh "></i> {{'ACTION.RESET'|translate}}
+				</button>
+				<button  type="button" class=" md-btn md-btn-icon  md-btn-mini  md-btn-flat"  ng-click="deleteVideo()"> <i
+					class="uk-icon-remove"></i> {{'ACTION.DELETE'|translate}}
+				</button>
+				<button  type="button" class=" md-btn md-btn-icon  md-btn-mini  md-btn-flat uk-modal-close"  ng-click="resetVideo()"> <i
+					class="uk-icon-remove uk-text-danger"></i> {{'ACTION.CLOSE'|translate}}
+				</button>
+
+			</div>
+		
 		</div>
 		<div id="file_upload-progressbar" class="uk-progress"
 			ng-show="showProgress">

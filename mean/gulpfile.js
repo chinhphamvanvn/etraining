@@ -28,6 +28,7 @@ var _ = require('lodash'),
   webdriver_standalone = require('gulp-protractor').webdriver_standalone,
   del = require('del'),
   KarmaServer = require('karma').Server,
+  config = require('./config/config'),
   lesshint = require('gulp-lesshint');
 
 // Local settings
@@ -377,15 +378,36 @@ gulp.task('copyLocalEnvConfig', function() {
     .pipe(gulp.dest('config/env'));
 });
 
-/*
+
 // Make sure upload directory exists
 gulp.task('makeUploadsDir', function() {
-  return fs.mkdir('modules/users/client/img/profile/uploads', function(err) {
-    if (err && err.code !== 'EEXIST') {
-      console.error(err);
-    }
-  });
-});*/
+  var userDir = './public/files/user/';
+  if (!fs.existsSync(userDir)){
+    fs.mkdirSync(userDir);
+  }
+  var courseDir =  './public/files/course/';
+  if (!fs.existsSync(courseDir)){
+    fs.mkdirSync(courseDir);
+    fs.mkdirSync(courseDir+'image');
+    fs.mkdirSync(courseDir+'video');
+    fs.mkdirSync(courseDir+'audio');
+    fs.mkdirSync(courseDir+'document');
+  }
+  var libDir =  './public/files/library/';
+  if (!fs.existsSync(libDir)){
+    fs.mkdirSync(libDir);
+    fs.mkdirSync(libDir +'image');
+    fs.mkdirSync(libDir +'content');
+  }
+  var questionDir =  './public/files/question/';
+  if (!fs.existsSync(questionDir)){
+    fs.mkdirSync(questionDir);
+    fs.mkdirSync(questionDir +'image');
+    fs.mkdirSync(questionDir +'audio');
+    fs.mkdirSync(questionDir +'video');
+    fs.mkdirSync(questionDir +'document');
+  }
+});
 
 // Angular template cache task
 gulp.task('templatecache', function() {
@@ -549,7 +571,7 @@ gulp.task('test', function(done) {
 });
 
 gulp.task('test:server', function(done) {
-  runSequence('env:test', ['copyLocalEnvConfig', 'dropdb'], 'lint', 'mocha', done);
+  runSequence('env:test', ['copyLocalEnvConfig', 'makeUploadsDir', 'dropdb'], 'lint', 'mocha', done);
 });
 
 // Watch all server files for changes & run server tests (test:server) task on changes
@@ -566,20 +588,20 @@ gulp.task('test:e2e', function(done) {
 });
 
 gulp.task('test:coverage', function(done) {
-  runSequence('env:test', ['copyLocalEnvConfig', 'dropdb'], 'lint', 'mocha:coverage', 'karma:coverage', done);
+  runSequence('env:test', ['copyLocalEnvConfig', 'makeUploadsDir', 'dropdb'], 'lint', 'mocha:coverage', 'karma:coverage', done);
 });
 
 // Run the project in development mode
 gulp.task('default', function(done) {
-  runSequence('env:dev', ['copyLocalEnvConfig'], 'less', ['nodemon', 'watch'], done);
+  runSequence('env:dev', ['copyLocalEnvConfig', 'makeUploadsDir'], 'less', ['nodemon', 'watch'], done);
 });
 
 // Run the project in debug mode
 gulp.task('debug', function(done) {
-  runSequence('env:dev', ['copyLocalEnvConfig'], 'lint', ['nodemon-nodebug', 'watch'], done);
+  runSequence('env:dev', ['copyLocalEnvConfig', 'makeUploadsDir'], 'lint', ['nodemon-nodebug', 'watch'], done);
 });
 
 // Run the project in production mode
 gulp.task('prod', function(done) {
-  runSequence(['copyLocalEnvConfig', 'templatecache'], 'build', 'env:prod', ['nodemon', 'watch'], done);
+  runSequence(['copyLocalEnvConfig', 'makeUploadsDir', 'templatecache'], 'build', 'env:prod', ['nodemon', 'watch'], done);
 });

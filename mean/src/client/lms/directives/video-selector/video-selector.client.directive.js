@@ -65,10 +65,17 @@
           video: '='
         },
         link: function(scope, element, attr) {
+          var oldURL = scope.video.videoURL;
+          scope.resetVideo = function() {
+            scope.video.videoURL = oldURL;
+          }
+          scope.deleteVideo = function() {
+            scope.video.videoURL = null;
+          }
           var progressbar = angular.element(document.getElementById('file_upload-progressbar')),
             bar = angular.element(document.getElementById('progress_bar')),
             settings = {
-              action: '/api/videos/upload', // upload url
+              action: '/api/courses/video/upload/', // upload url
               param: 'newCourseVideo',
               method: 'POST',
 

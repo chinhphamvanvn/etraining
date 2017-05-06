@@ -74,6 +74,14 @@ exports.signup = function(req, res, next) {
         });
       },
       function(user, done) {
+        var userDir = config.uploads.user.base + user._id;
+        fs.mkdir(userDir, function(err) {
+          if (!err) {
+            done(err, user);
+          }
+        });
+      },
+      function(user, done) {
         Setting.findOne({
           code: 'ALERT_USER_CREATE'
         }).exec(function(err, setting) {

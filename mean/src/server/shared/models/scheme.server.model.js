@@ -24,7 +24,7 @@ var GradeSchemeSchema = new Schema({
   },
   marks: {
     type: [{
-      quiz: {
+      section: {
         type: Schema.ObjectId,
         ref: 'EditionSection'
       },

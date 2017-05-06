@@ -161,12 +161,12 @@ exports.chaangeMediaImage = function(req, res) {
   var media = req.medium;
   var existingImageUrl;
   // Filtering to upload only images
-  var multerConfig = config.uploads.media.image;
+  var multerConfig = config.uploads.library.image;
   multerConfig.fileFilter = require(path.resolve('./config/lib/multer')).imageFileFilter;
   var upload = multer(multerConfig).single('newMediaImage');
 
   if (media) {
-    existingImageUrl = config.uploads.media.image.dest + path.basename(media.imageURL);
+    existingImageUrl = config.uploads.library.image.dest + path.basename(media.imageURL);
     uploadImage()
       .then(updateMedia)
       .then(deleteOldImage)
@@ -196,7 +196,7 @@ exports.chaangeMediaImage = function(req, res) {
 
   function updateMedia() {
     return new Promise(function(resolve, reject) {
-      media.imageURL = config.uploads.media.image.urlPaath + req.file.filename;
+      media.imageURL = config.uploads.library.image.urlPaath + req.file.filename;
       media.save(function(err, course) {
         if (err) {
           reject(err);
@@ -208,7 +208,7 @@ exports.chaangeMediaImage = function(req, res) {
   }
 
   function deleteOldImage() {
-    var defaultUrl = config.uploads.media.image.dest + path.basename(LibraryMedium.schema.path('imageURL').defaultValue);
+    var defaultUrl = config.uploads.library.image.dest + path.basename(LibraryMedium.schema.path('imageURL').defaultValue);
     return new Promise(function(resolve, reject) {
       if (existingImageUrl !== defaultUrl) {
         fs.unlink(existingImageUrl, function(unlinkError) {
@@ -228,7 +228,7 @@ exports.chaangeMediaImage = function(req, res) {
 
 exports.uploadMediaContent = function(req, res) {
   // Filtering to upload only images
-  var multerConfig = config.uploads.media.content;
+  var multerConfig = config.uploads.library.content;
   var upload = multer(multerConfig).single('newMediaContent');
   uploadContent()
     .then(function(result) {
@@ -245,7 +245,7 @@ exports.uploadMediaContent = function(req, res) {
           console.log(uploadError);
           reject(errorHandler.getErrorMessage(uploadError));
         } else {
-          var downloadURL = config.uploads.media.content.urlPaath + req.file.filename;
+          var downloadURL = config.uploads.library.content.urlPaath + req.file.filename;
           var originalname = req.file.originalname;
           resolve({
             downloadURL: downloadURL,

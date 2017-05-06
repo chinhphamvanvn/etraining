@@ -12,7 +12,7 @@ module.exports = function(app) {
     .get(videos.list)
     .post(videos.create);
 
-  app.route('/api/videos/upload').post(videos.uploadCourseVideo);
+
 
   app.route('/api/videos/:videoId').all(videosPolicy.isAllowed)
     .get(videos.read)

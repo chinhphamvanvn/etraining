@@ -83,6 +83,10 @@
         $state.go('workspace.lms.courses.join.study.survey', {
           sectionId: node.data._id
         });
+      if (node.data.contentType === 'exercise')
+        $state.go('workspace.lms.courses.join.study.exercise', {
+          sectionId: node.data._id
+        });
     }
 
     function toggleExpand(node) {

@@ -53,49 +53,109 @@ var s = module.exports = {
     'unknown', 'anonymous', 'null', 'undefined', 'api'
   ],
   uploads: {
-    profile: {
+    user: {
+      base: 'public/files/user/',
       image: {
-        dest: 'public/files/profile/uploads/',
-        urlPaath: '/files/profile/uploads/',
+        dest: 'public/files/user/$USER_ID/',
+        urlPath: '/files/user/$USER_ID/',
         limits: {
-          fileSize: 4 * 1024 * 1024 // Max file size in bytes (1 MB)
+          fileSize: 1 * 1024 * 1024 // Max file size in bytes (1 MB)
         }
-      }
-    },
-    file: {
-      image: {
-        dest: 'public/files/logo/uploads/',
-        urlPaath: '/files/logo/uploads/',
+      },
+      audio: {
+        dest: 'public/files/user/$USER_ID/',
+        urlPath: '/files/user/$USER_ID/',
         limits: {
-          fileSize: 4 * 1024 * 1024 // Max file size in bytes (1 MB)
+          fileSize: 8 * 1024 * 1024 // Max file size in bytes (1 MB)
         }
       },
       video: {
-        dest: 'public/files/video/uploads/',
-        urlPaath: '/files/video/uploads/',
+        dest: 'public/files/user/$USER_ID/',
+        urlPath: '/files/user/$USER_ID/',
         limits: {
-          fileSize: 256 * 1024 * 1024 // Max file size in bytes (1 MB)
+          fileSize: 16 * 1024 * 1024 // Max file size in bytes (1 MB)
         }
       },
       document: {
-        dest: 'public/files/document/uploads/',
-        urlPaath: '/files/document/uploads/',
+        dest: 'public/files/user/$USER_ID/',
+        urlPath: '/files/user/$USER_ID/',
         limits: {
           fileSize: 8 * 1024 * 1024 // Max file size in bytes (1 MB)
         }
       }
     },
-    media: {
+    course: {
+      base: 'public/files/course/',
       image: {
-        dest: 'public/media/image/uploads/',
-        urlPaath: '/media/image/uploads/',
+        dest: 'public/files/course/image',
+        urlPath: '/files/course/image',
         limits: {
           fileSize: 4 * 1024 * 1024 // Max file size in bytes (1 MB)
         }
       },
-      content: {
-        dest: 'public/media/content/uploads/',
-        urlPaath: '/media/content/uploads/',
+      audio: {
+        dest: 'public/files/course/audio',
+        urlPath: '/files/course/audio',
+        limits: {
+          fileSize: 16 * 1024 * 1024 // Max file size in bytes (1 MB)
+        }
+      },
+      video: {
+        dest: 'public/files/course/video/',
+        urlPath: '/files/course/video/',
+        limits: {
+          fileSize: 256 * 1024 * 1024 // Max file size in bytes (1 MB)
+        }
+      },
+      document: {
+        dest: 'public/files/course/document/',
+        urlPath: '/files/course/document/',
+        limits: {
+          fileSize: 8 * 1024 * 1024 // Max file size in bytes (1 MB)
+        }
+      }
+    },
+    question: {
+      image: {
+        dest: 'public/files/question/image/',
+        urlPath: '/files/question/image/',
+        limits: {
+          fileSize: 4 * 1024 * 1024 // Max file size in bytes (1 MB)
+        }
+      },
+      audio: {
+        dest: 'public/files/question/audio/',
+        urlPath: '/files/question/audio/',
+        limits: {
+          fileSize: 16 * 1024 * 1024 // Max file size in bytes (1 MB)
+        }
+      },
+      video: {
+        dest: 'public/files/question/video/',
+        urlPath: '/files/question/video/',
+        limits: {
+          fileSize: 256 * 1024 * 1024 // Max file size in bytes (1 MB)
+        }
+      },
+      document: {
+        dest: 'public/files/question/document/',
+        urlPath: '/files/question/document/',
+        limits: {
+          fileSize: 8 * 1024 * 1024 // Max file size in bytes (1 MB)
+        }
+      }
+    },
+    library: {
+      image: {
+        dest: 'public/files/library/image/',
+        urlPath: '/files/library/image/',
+        limits: {
+          fileSize: 4 * 1024 * 1024 // Max file size in bytes (1 MB)
+        }
+      },
+      document: {
+        dest: 'public/files/library/document/',
+        urlPath: '/files/library/document/',
         limits: {
           fileSize: 128 * 1024 * 1024 // Max file size in bytes (1 MB)
         }

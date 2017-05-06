@@ -224,12 +224,11 @@ exports.changeCourseLogo = function(req, res) {
   var course = req.course;
   var existingImageUrl;
   // Filtering to upload only images
-  var multerConfig = config.uploads.file.image;
+  var multerConfig = config.uploads.course.image;
   multerConfig.fileFilter = require(path.resolve('./config/lib/multer')).imageFileFilter;
   var upload = multer(multerConfig).single('newCourseLogo');
-
   if (course) {
-    existingImageUrl = config.uploads.file.image.dest + path.basename(course.logoURL);
+    existingImageUrl = config.uploads.course.image.dest + path.basename(course.logoURL);
     uploadImage()
       .then(updateCourse)
       .then(deleteOldImage)
@@ -259,7 +258,7 @@ exports.changeCourseLogo = function(req, res) {
 
   function updateCourse() {
     return new Promise(function(resolve, reject) {
-      course.logoURL = config.uploads.file.image.urlPaath + req.file.filename;
+      course.logoURL = config.uploads.course.image.urlPaath + req.file.filename;
       course.save(function(err, course) {
         if (err) {
           reject(err);
@@ -271,7 +270,7 @@ exports.changeCourseLogo = function(req, res) {
   }
 
   function deleteOldImage() {
-    var defaultUrl = config.uploads.file.image.dest + path.basename(Course.schema.path('logoURL').defaultValue);
+    var defaultUrl = config.uploads.course.image.dest + path.basename(Course.schema.path('logoURL').defaultValue);
     return new Promise(function(resolve, reject) {
       if (existingImageUrl !== defaultUrl) {
         fs.unlink(existingImageUrl, function(unlinkError) {
@@ -287,4 +286,36 @@ exports.changeCourseLogo = function(req, res) {
       }
     });
   }
+};
+
+
+exports.uploadCourseVideo = function(req, res) {
+  // Filtering to upload only images
+  var course = req.course;
+  var multerConfig = config.uploads.course.video;
+  multerConfig.fileFilter = require(path.resolve('./config/lib/multer')).videoFileFilter;
+  var upload = multer(multerConfig).single('newCourseVideo');
+  uploadVideo()
+    .then(function(videoURL) {
+      res.json({
+        videoURL: videoURL
+      });
+    })
+    .catch(function(err) {
+      res.status(422).send(err);
+    });
+
+  function uploadVideo() {
+    return new Promise(function(resolve, reject) {
+      upload(req, res, function(uploadError) {
+        if (uploadError) {
+          reject(errorHandler.getErrorMessage(uploadError));
+        } else {
+          var videoURL = config.uploads.course.video.urlPath + req.file.filename;
+          resolve(videoURL);
+        }
+      });
+    });
+  }
+
 };

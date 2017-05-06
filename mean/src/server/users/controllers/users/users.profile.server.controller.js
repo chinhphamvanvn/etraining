@@ -60,12 +60,17 @@ exports.changeProfilePicture = function(req, res) {
   var user = req.user;
   var existingImageUrl;
   // Filtering to upload only images
-  var multerConfig = config.uploads.profile.image;
+  var multerConfig = config.uploads.user.image;
   multerConfig.fileFilter = require(path.resolve('./config/lib/multer')).imageFileFilter;
   var upload = multer(multerConfig).single('newProfilePicture');
-
+  var userDir = config.uploads.user.base + user._id;
+  if (!fs.existsSync(userDir)){
+    fs.mkdirSync(userDir);
+  }
+  config.uploads.user.image.urlPath = config.uploads.user.image.urlPath.replace('$USER_ID', user._id);
+  config.uploads.user.image.dest = config.uploads.user.image.dest.replace('$USER_ID', user._id);
   if (user) {
-    existingImageUrl = config.uploads.profile.image.dest + path.basename(user.profileImageURL);
+    existingImageUrl = config.uploads.user.image.dest.replace('$USER_ID', user._id) + path.basename(user.profileImageURL);
     uploadImage()
       .then(updateUser)
       .then(deleteOldImage)
@@ -98,7 +103,7 @@ exports.changeProfilePicture = function(req, res) {
 
   function updateUser() {
     return new Promise(function(resolve, reject) {
-      user.profileImageURL = config.uploads.profile.image.urlPaath + req.file.filename;
+      user.profileImageURL = config.uploads.user.image.urlPath + req.file.filename;
       user.save(function(err, theuser) {
         if (err) {
           reject(err);
@@ -170,4 +175,113 @@ exports.me = function(req, res) {
   }
 
   res.json(safeUserObject || null);
+};
+
+
+exports.uploadVideo = function(req, res) {
+  // Filtering to upload only Video
+  var user = req.user;
+  var multerConfig = config.uploads.user.video;
+  multerConfig.fileFilter = require(path.resolve('./config/lib/multer')).videoFileFilter;
+  var upload = multer(multerConfig).single('newVideo');
+  var userDir = config.uploads.user.base + user._id;
+  if (!fs.existsSync(userDir)){
+    fs.mkdirSync(userDir);
+  }
+  config.uploads.user.video.urlPath = config.uploads.user.video.urlPath.replace('$USER_ID', user._id);
+  config.uploads.user.video.dest = config.uploads.user.video.dest.replace('$USER_ID', user._id);
+  uploadVideo()
+    .then(function(videoUrl) {
+      res.json({
+        videoUrl: videoUrl
+      });
+    })
+    .catch(function(err) {
+      res.status(422).send(err);
+    });
+
+  function uploadVideo() {
+    return new Promise(function(resolve, reject) {
+      upload(req, res, function(uploadError) {
+        if (uploadError) {
+          reject(errorHandler.getErrorMessage(uploadError));
+        } else {
+          var videoUrl = config.uploads.user.video.urlPath + req.file.filename;
+          resolve(videoUrl);
+        }
+      });
+    });
+  }
+
+};
+
+exports.uploadAudio = function(req, res) {
+  // Filtering to upload only audio
+  var user = req.user;
+  var multerConfig = config.uploads.user.audio;
+  multerConfig.fileFilter = require(path.resolve('./config/lib/multer')).audioFileFilter;
+  var upload = multer(multerConfig).single('newAudio');
+  var userDir = config.uploads.user.base + user._id;
+  if (!fs.existsSync(userDir)){
+    fs.mkdirSync(userDir);
+  }
+  config.uploads.user.audio.urlPath = config.uploads.user.audio.urlPath.replace('$USER_ID', user._id);
+  config.uploads.user.audio.dest = config.uploads.user.audio.dest.replace('$USER_ID', user._id); 
+  uploadAudio()
+    .then(function(audioUrl) {
+      res.json({
+        audioUrl: audioUrl
+      });
+    })
+    .catch(function(err) {
+      res.status(422).send(err);
+    });
+
+  function uploadAudio() {
+    return new Promise(function(resolve, reject) {
+      upload(req, res, function(uploadError) {
+        if (uploadError) {
+          reject(errorHandler.getErrorMessage(uploadError));
+        } else {
+          var audioUrl = config.uploads.user.audio.urlPath + req.file.filename;
+          resolve(audioUrl);
+        }
+      });
+    });
+  }
+
+};
+
+exports.uploadFile = function(req, res) {
+  var user = req.user;
+  var upload = multer(multerConfig).single('newFile');
+  var userDir = config.uploads.user.base + user._id;
+  if (!fs.existsSync(userDir)){
+    fs.mkdirSync(userDir);
+  }
+  config.uploads.user.document.urlPath = config.uploads.user.document.urlPath.replace('$USER_ID', user._id);
+  config.uploads.user.document.dest = config.uploads.user.document.dest.replace('$USER_ID', user._id); 
+  uploadFile()
+    .then(function(filrUrl) {
+      res.json({
+        filrUrl: filrUrl
+      });
+    })
+    .catch(function(err) {
+      res.status(422).send(err);
+    });
+
+  function uploadFile() {
+    return new Promise(function(resolve, reject) {
+      upload(req, res, function(uploadError) {
+        if (uploadError) {
+          reject(errorHandler.getErrorMessage(uploadError));
+        } else {
+          var fileURL = config.uploads.user.document.urlPath + req.file.filename;
+          resolve(fileURL);
+        }
+      });
+    });
+  }
+
 };

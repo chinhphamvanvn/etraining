@@ -12,6 +12,9 @@ module.exports = function(app) {
     .post(questionsPolicy.isAllowed, questions.bulkCreate);
 
   app.route('/api/questions/image/upload').post(questionsPolicy.isAllowed, questions.uploadQuestionImage);
+  app.route('/api/questions/video/upload').post(questionsPolicy.isAllowed, questions.uploadQuestionVideo);
+  app.route('/api/questions/audio/upload').post(questionsPolicy.isAllowed, questions.uploadQuestionAudio);
+  app.route('/api/questions/file/upload').post(questionsPolicy.isAllowed, questions.uploadQuestionFile);
 
   app.route('/api/questions').all(questionsPolicy.isAllowed)
     .get(questions.list)

@@ -198,6 +198,12 @@
             editionId: vm.edition._id,
             sectionId: node.data._id
           });
+        if (section.contentType === 'exercise')
+          $state.go('workspace.lms.courses.section.edit.exercise', {
+            courseId: vm.edition.course._id,
+            editionId: vm.edition._id,
+            sectionId: node.data._id
+          });
       } else
         UIkit.modal.prompt($translate.instant('MODEL.GROUP.NAME'), '', function(val) {
           val = val.trim();

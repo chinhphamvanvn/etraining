@@ -60,7 +60,7 @@
         node.min = '0';
         node.max = '100';
         var mark = _.find(vm.gradescheme.marks, function(m) {
-          return m.quiz === node.data._id;
+          return m.section === node.data._id;
         });
         if (mark) {
           node.checked = true;

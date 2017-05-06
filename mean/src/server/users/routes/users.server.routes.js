@@ -3,7 +3,10 @@
 module.exports = function (app) {
   // User Routes
   var users = require('../controllers/users.server.controller');
-
+  app.route('/api/users/video/upload').post(users.uploadVideo);
+  app.route('/api/users/audio/upload').post(users.uploadAudio);
+  app.route('/api/users/file/upload').post(users.uploadFile);
+  
   // Setting up the users profile api
   app.route('/api/users/me').get(users.me);
   app.route('/api/users').put(users.update);

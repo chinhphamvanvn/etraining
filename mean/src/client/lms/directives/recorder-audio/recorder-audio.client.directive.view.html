@@ -1,0 +1,46 @@
+<div class="md-card">
+	<div class="md-card-content">
+		<div id="file_upload-drop" class="uk-file-upload">
+			<div
+				class="uk-margin uk-cover uk-position-relative uk-height-1-1 transform-origin-50"
+				id="video_player">
+				<div class="uk-grid">
+					<div class="uk-width-1-2 uk-container-center">
+						<video  id="objectAudio" src="{{object.audioUrl}}"
+						video-autoplay
+							data-attr-autoplay={{videoAttr.autoplay}} video-control
+							data-attr-control={{videoAttr.controls}} video-muted
+							data-attr-muted={{videoAttr.muted}}
+							poster="'/assets/img/brand/logow.png' "
+						></video>
+					</div>
+				</div>
+			</div>
+			<div class="control" >
+			
+				<i class="material-icons uk-text-danger md-48" ng-show="!recordMode"
+					ng-click="startRecord()" data-uk-tooltip="{pos:'top'}"
+					title="{{'ACTION.RECORD_AUDIO'|translate}}">fiber_manual_record</i> <i
+					class="material-icons uk-text-danger md-48" ng-show="recordMode"
+					ng-click="stopRecord()" data-uk-tooltip="{pos:'top'}"
+					title="{{'ACTION.STOP'|translate}}">stop</i>
+		
+			</div>
+			<div class="uk-margin" ng-show="!recordMode">
+				<button   type="button" class=" md-btn md-btn-icon md-btn-flat  md-btn-mini uk-modal-close" > <i
+					class="uk-icon-check uk-text-success"></i> {{'ACTION.ACCEPT'|translate}} 
+				</button>
+				<button  type="button" class=" md-btn md-btn-icon  md-btn-mini  md-btn-flat"  ng-click="deleteAudio()"> <i
+					class="uk-icon-remove"></i> {{'ACTION.DELETE'|translate}}
+				</button>
+				<button  type="button" class=" md-btn md-btn-icon  md-btn-mini  md-btn-flat uk-modal-close"  ng-click="resetVideo()"> <i
+					class="uk-icon-remove uk-text-danger"></i> {{'ACTION.CLOSE'|translate}}
+				</button>
+
+			</div>
+		</div>
+		<div id="file_upload-progressbar" class="uk-progress uk-hidden">
+			<div class="uk-progress-bar" style="width: 0">0%</div>
+		</div>
+	</div>
+</div>

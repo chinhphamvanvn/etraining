@@ -119,6 +119,14 @@ exports.create = function(req, res, next) {
 
       },
       function(user, done) {
+        var userDir = config.uploads.user.base + user._id;
+        fs.mkdir(userDir, function(err) {
+          if (!err) {
+            done(err, user);
+          }
+        });
+      },
+      function(user, done) {
 
         var httpTransport = 'http://';
         if (config.secure && config.secure.ssl === true) {
@@ -359,12 +367,17 @@ exports.changeProfilePicture = function(req, res) {
   var user = req.model;
   var existingImageUrl;
   // Filtering to upload only images
-  var multerConfig = config.uploads.profile.image;
+  var multerConfig = config.uploads.user.image;
   multerConfig.fileFilter = require(path.resolve('./config/lib/multer')).imageFileFilter;
   var upload = multer(multerConfig).single('newProfilePicture');
-
+  var userDir = config.uploads.user.base + user._id;
+  if (!fs.existsSync(userDir)){
+    fs.mkdirSync(userDir);
+  }
+  config.uploads.user.image.urlPath = config.uploads.user.image.urlPath.replace('$USER_ID', user._id);
+  config.uploads.user.image.dest = config.uploads.user.image.dest.replace('$USER_ID', user._id); 
   if (user) {
-    existingImageUrl = user.profileImageURL;
+    existingImageUrl = config.uploads.user.image.dest.replace('$USER_ID', user._id) + path.basename(user.profileImageURL);
     uploadImage()
       .then(updateUser)
       .then(deleteOldImage)
@@ -396,7 +409,7 @@ exports.changeProfilePicture = function(req, res) {
 
   function updateUser() {
     return new Promise(function(resolve, reject) {
-      user.profileImageURL = config.uploads.profile.image.urlPaath + req.file.filename;
+      user.profileImageURL = config.uploads.user.image.urlPath + req.file.filename;
       user.save(function(err, theuser) {
         if (err) {
           reject(err);

@@ -1,0 +1,111 @@
+<div id="page_content" ng-show="!vm.alert">
+	<div id="page_content_inner">
+		<div class="uk-width-medium-1-1 uk-container-center">
+			<div class="md-card md-card-single" single-card>
+				<div class="md-card-toolbar">
+					<h3 class="md-card-toolbar-heading-text large">
+						{{'PAGE.LMS.MY_COURSES.TEACHER_BOARD.EXERCISE.TITLE'|translate}}</h3>
+				</div>
+				<div class="md-card-content" style="overflow: auto">
+
+					<div class="uk-grid uk-margin">
+						<div class=" uk-width-1-2">
+							<label class="uk-form-label" for="select_class">{{'PAGE.LMS.MY_COURSES.TEACHER_BOARD.EXERCISE.SELECT_CLASS'|translate}}</label>
+							<input ng-change="vm.selectClass()" name="select_class"
+								id="select_class" type="text" config="vm.classConfig"
+								options="vm.classOptions" ng-model="vm.classroomId" selectize />
+						</div>
+						<div class=" uk-width-1-2">
+							<label class="uk-form-label" for="select_exercise">{{'PAGE.LMS.MY_COURSES.TEACHER_BOARD.EXERCISE.SELECT_EXERCISE'|translate}}</label>
+							<input ng-change="vm.selectExercise()" name="select_exercise"
+								id="select_exercise" type="text" config="vm.exerciseConfig"
+								options="vm.exerciseOptions" ng-model="vm.exerciseId" selectize />
+						</div>
+					</div>
+					<div class=" uk-margin" ng-class="vm.classroom.titleClass">
+						<span class="uk-text-small uk-text-italic ">{{'MODEL.CLASSROOM.END_DATE'|translate}}
+							: {{vm.classroom.endDate | date :'dd-MM-yyyy'}}</span> <span
+							class="uk-text-small uk-text-italic ">{{'MODEL.CLASSROOM.START_DATE'|translate}}
+							: {{vm.classroom.startDate | date :'dd-MM-yyyy'}}</span>
+
+					</div>
+					<div class="uk-overflow-container">
+						<h4">
+							{{'PAGE.LMS.MY_COURSES.TEACHER_BOARD.EXERCISE.STUDENT_LIST'|translate}}</h4>
+						<table class="uk-table uk-table-nowrap uk-table-condensed">
+							<thead>
+								<tr>
+									<th class="uk-width-1-10 uk-text-center">{{'MODEL.USER.AVATAR'|translate}}
+									</th>
+									<th class="uk-width-2-10 uk-text-center">{{'MODEL.USER.DISPLAY_NAME'|translate}}
+									</th>
+									<th class="uk-width-1-10 uk-text-center">{{'MODEL.MEMBER.ENROLL_STATUS'|translate}}
+									</th>
+									<th class="uk-width-1-10 uk-text-center">{{'MODEL.MEMBER.STATUS'|translate}}
+									</th>
+									<th class="uk-width-1-10 uk-text-center">{{'PAGE.LMS.MY_COURSES.TEACHER_BOARD.EXERCISE.SUBMIT_STATUS'|translate}}
+									</th>
+									<th class="uk-width-1-10 uk-text-center">{{'PAGE.LMS.MY_COURSES.TEACHER_BOARD.EXERCISE.FEEDBACK_STATUS'|translate}}
+									</th>
+									<th class="uk-width-3-10 uk-text-center">{{'COMMON.ACTION'|translate}}
+									</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr ng-repeat="member in vm.members | byClass:vm.classroomId">
+									<td class="uk-text-center"><img class="md-user-image"
+										src="{{member.member.profileImageURL}}" alt="" /></td>
+									<td class="uk-text-center">{{member.member.displayName}}</td>
+									<td class="uk-text-center"><span
+										ng-show="member.enrollmentStatus=='registered'"
+										class="uk-badge uk-badge-default">registered</span> <span
+										ng-show="member.enrollmentStatus=='in-study'"
+										class="uk-badge uk-badge-primary">studying</span> <span
+										ng-show="member.enrollmentStatus=='complete'"
+										class="uk-badge uk-badge-success">completed</span></td>
+									<td class="uk-text-center"><span
+										ng-show="member.status=='active'"
+										class="uk-badge uk-badge-success">active</span> <span
+										ng-show="member.status=='withdrawn'"
+										class="uk-badge uk-badge-warning">withdrawn</span> <span
+										ng-show="member.status=='suspended'"
+										class="uk-badge uk-badge-danger">suspended</span></td>
+									<td class="uk-text-center"><span ng-show="member.attempt"><i
+											class="uk-icon-check uk-text-success"></i></span></td>
+									<td class="uk-text-center"><span
+										ng-show="member.feedbacks && member.feedbacks.length"><i
+											class="uk-icon-check uk-text-success"></i></span></td>
+									<td class="uk-text-center"><a
+										class="md-btn md-btn-success md-btn-mini md-btn-wave-light"
+										data-uk-modal="{target:'#{{member._id}}modal_feedback'}"
+										ng-show="member.attempt">{{'ACTION.FEEDBACK'|translate}}</a>
+										<div class="uk-modal" id="{{member._id}}modal_feedback">
+											<div class="uk-modal-dialog">
+												<div class="uk-grid uk-grid-small" data-uk-grid-margin>
+													<div class="uk-width-medium-1-1">
+														<homework-sheet teacher="vm.member"
+															attempt="member.attempt" questions="vm.questions"
+															mode="'mark'">
+														</recorder-video>
+													</div>
+												</div>
+												<div class="uk-modal-footer uk-text-right">
+													<button type="button"
+														class="md-btn md-btn-flat uk-modal-close">{{'ACTION.CLOSE'|translate}}</button>
+	
+												</div>
+
+											</div>
+										</div></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+

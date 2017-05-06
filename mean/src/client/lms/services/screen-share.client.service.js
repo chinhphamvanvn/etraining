@@ -1,4 +1,4 @@
-(function(getScreenId) {
+(function() {
   'use strict';
 
   /*
@@ -122,17 +122,8 @@
           // this event listener is no more needed
           window.removeEventListener('message', onIFrameCallback);
         }
-
-        // this function is used in v3.0
-        window.getScreenConstraints = function(callback) {
-          loadIFrame(function() {
-            getScreenId(function(error, sourceId, screen_constraints) {
-              callback(error, (screen_constraints || {}).video);
-            });
-          });
-        };
       }
     };
   }]);
 
-}(window.getScreenId));
+}());

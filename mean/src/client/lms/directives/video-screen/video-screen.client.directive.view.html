@@ -27,6 +27,16 @@
 						Capturing</a>
 				</p>
 			</div>
+			<div class="uk-margin" ng-show="!recordMode">
+				<button ng-show="screenURL"  type="button" class=" md-btn md-btn-icon md-btn-flat  md-btn-mini uk-modal-close" > <i
+					class="uk-icon-check uk-text-success"></i> {{'ACTION.ACCEPT'|translate}} 
+				</button>
+				<button  type="button" class=" md-btn md-btn-icon  md-btn-mini  md-btn-flat uk-modal-close"  ng-click="resetVideo()"> <i
+					class="uk-icon-remove uk-text-danger"></i> {{'ACTION.CLOSE'|translate}}
+				</button>
+
+			</div>
+			
 			<div class="md-fab" ng-show="screen">
 				<i class="material-icons uk-text-danger" ng-show="!recordMode"
 					ng-click="startRecord()" data-uk-tooltip="{pos:'top'}"

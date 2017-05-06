@@ -3,7 +3,7 @@
   'use strict';
 
   angular
-    .module('shared')
+    .module('shared.models')
     .factory('CoursesService', CoursesService);
 
   CoursesService.$inject = ['$resource', '_transform'];

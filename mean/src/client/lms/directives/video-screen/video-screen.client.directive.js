@@ -11,6 +11,10 @@
           video: '='
         },
         link: function(scope, element, attr) {
+          var oldURL = scope.video.videoURL;
+          scope.resetVideo = function() {
+            scope.video.videoURL = oldURL;
+          }
 
           function addStreamStopListener(stream, callback) {
             var streamEndedEvent = 'ended';
@@ -96,7 +100,7 @@
               var blobs = videoRecorder.getBlob();
               var videoBlob = blobs.video;
               var videoFile = new File([videoBlob], new Date().getTime() + 'upload.webm', {
-                type: 'audio/webm'
+                type: 'video/webm'
               });
               onDataAvail(videoFile);
             });
@@ -106,7 +110,7 @@
           function onDataAvail(videoFile) {
             console.log(videoFile);
             Upload.upload({
-              url: '/api/videos/upload',
+              url: '/api/courses/video/upload',
               data: {
                 newCourseVideo: videoFile
               }

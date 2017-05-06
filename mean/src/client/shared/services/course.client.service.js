@@ -41,7 +41,7 @@
                 editionId: edition._id
               }, function(gradescheme) {
                 var scheme = _.find(gradescheme.marks, function(scheme) {
-                  return scheme.quiz === attempt.section._id;
+                  return scheme.section === attempt.section._id;
                 });
                 var weight = scheme ? scheme.weight : 0;
                 weightPercent = Math.round(rawPercent * weight / 100);

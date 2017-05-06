@@ -66,6 +66,10 @@
         $state.go('workspace.lms.courses.outline.preview.survey', {
           sectionId: node.data._id
         });
+      if (node.data.contentType === 'exercise')
+        $state.go('workspace.lms.courses.outline.preview.exercise', {
+          sectionId: node.data._id
+        });
     }
 
     function toggleExpand(node) {

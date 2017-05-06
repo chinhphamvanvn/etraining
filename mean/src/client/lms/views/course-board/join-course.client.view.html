@@ -53,6 +53,13 @@
       </li>
       <li class="uk-visible-large"
           ng-show="vm.member && vm.member.role=='teacher'"><a
+        ui-sref="workspace.lms.courses.join.exercise({courseId:vm.course._id,editionId:vm.edition._id})"
+        ng-class="{'uk-text-primary':state.name.includes('exercise')}"><i
+        ng-class="{'uk-text-primary':state.name.includes('exercise')}"
+        class="material-icons md-24">play_for_work</i><span>{{'PAGE.LMS.MY_COURSES.TEACHER_BOARD.EXERCISE'|translate}}</span></a>
+      </li>
+      <li class="uk-visible-large"
+          ng-show="vm.member && vm.member.role=='teacher'"><a
         ui-sref="workspace.lms.courses.join.gradeboard({courseId:vm.course._id,editionId:vm.edition._id})"
         ng-class="{'uk-text-primary':state.name.includes('gradeboard')}"><i
         ng-class="{'uk-text-primary':state.name.includes('gradeboard')}"
@@ -72,6 +79,7 @@
         ng-class="{'uk-text-primary':state.name.includes('stats')}"
         class="material-icons md-24">show_chart</i><span>{{'PAGE.LMS.MY_COURSES.TEACHER_BOARD.REPORT'|translate}}</span></a>
       </li>
+      
 
       <!-- Mobile menu -->
       <li data-uk-dropdown="justify:'#top_bar'" class="uk-hidden-large">
@@ -132,6 +140,7 @@
                 </li>
               </ul>
             </div>
+            
 
             <div class="uk-width-1-2"
                  ng-show="vm.member && vm.member.role=='student'">
@@ -178,6 +187,19 @@
                   ng-class="{'uk-text-primary':state.name.includes('gradeboard')}"
                   class="material-icons md-24">book</i><span>{{'PAGE.LMS.MY_COURSES.TEACHER_BOARD.GRADE_BOARD'|translate}}</span></a>
                 </li>
+              </ul>
+            </div>
+            
+            <div class="uk-width-1-2"
+                 ng-show="vm.member && vm.member.role=='teacher'">
+              <ul class="uk-nav uk-nav-dropdown">
+                <li><a
+                  ui-sref="workspace.lms.courses.join.exercise({courseId:vm.course._id,editionId:vm.edition._id})"
+                  ng-class="{'uk-text-primary':state.name.includes('exercise')}"><i
+                  ng-class="{'uk-text-primary':state.name.includes('exercise')}"
+                  class="material-icons md-24">play_for_work</i><span>{{'PAGE.LMS.MY_COURSES.TEACHER_BOARD.EXERCISE'|translate}}</span></a>
+                </li>
+                
               </ul>
             </div>
 

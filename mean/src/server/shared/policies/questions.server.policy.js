@@ -63,6 +63,18 @@ exports.invokeRolesPolicies = function() {
           permissions: ['post']
         },
         {
+          resources: '/api/questions/video/upload',
+          permissions: ['post']
+        },
+        {
+          resources: '/api/questions/audio/upload',
+          permissions: ['post']
+        },
+        {
+          resources: '/api/questions/file/upload',
+          permissions: ['post']
+        },
+        {
           resources: '/api/questions/byCategoryAndLevel/:groupId/:level',
           permissions: ['get']
         },

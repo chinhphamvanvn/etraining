@@ -28,11 +28,7 @@ exports.invokeRolesPolicies = function() {
         {
           resources: '/api/videos/:videoId',
           permissions: '*'
-        },
-        {
-          resources: '/api/videos/upload',
-          permissions: ['post']
-        }
+        }    
       ]
     },
     {
@@ -45,10 +41,6 @@ exports.invokeRolesPolicies = function() {
         {
           resources: '/api/videos/:videoId',
           permissions: ['get', 'put']
-        },
-        {
-          resources: '/api/videos/upload',
-          permissions: ['post']
         }
       ]
     },

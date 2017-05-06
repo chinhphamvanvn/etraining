@@ -58,9 +58,11 @@ var AnswerSchema = new Schema({
   text: {
     type: String
   },
-  input: {
-    type: String,
-    default: ''
+  audioUrl: {
+    type: String
+  },
+  videoUrl: {
+    type: String
   },
   start: {
     type: Date,

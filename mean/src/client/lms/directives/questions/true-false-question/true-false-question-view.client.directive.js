@@ -20,29 +20,30 @@
         scope.tinymce_options = fileManagerConfig;
         scope.$watch('question', function() {
           if (scope.question._id)
-            scope.question.options = OptionsService.byQuestion({
+            OptionsService.byQuestion({
               questionId: scope.question._id
-            }, function() {
+            }, function(options) {
+              if (options.length)
+                scope.question.options = options
+              else {
+                scope.question.options = [];
+                var option1 = new OptionsService();
+                option1.order = 1;
+                option1.question = scope.question._id;
+                option1.content = $translate.instant('COMMON.TRUE');
+                option1.$save(function() {
+                  scope.question.options.push(option1);
+                });
+                var option2 = new OptionsService();
+                option2.order = 2;
+                option2.question = scope.question._id;
+                option2.content = $translate.instant('COMMON.FALSE');
+                option2.$save(function() {
+                  scope.question.options.push(option2);
+                });
+              }
               enterMode();
             });
-          else {
-            scope.question.options = [];
-            var option1 = new OptionsService();
-            option1.order = 1;
-            option1.question = scope.question._id;
-            option1.content = $translate.instant('COMMON.TRUE');
-            option1.$save(function() {
-              scope.question.options.push(option1);
-            });
-            var option2 = new OptionsService();
-            option2.order = 2;
-            option2.question = scope.question._id;
-            option2.content = $translate.instant('COMMON.FALSE');
-            option2.$save(function() {
-              scope.question.options.push(option2);
-            });
-            enterMode();
-          }
         });
 
         function enterMode() {

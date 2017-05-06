@@ -120,33 +120,3 @@ exports.videoByID = function(req, res, next, id) {
 };
 
 
-exports.uploadCourseVideo = function(req, res) {
-  // Filtering to upload only images
-  var multerConfig = config.uploads.file.video;
-  multerConfig.fileFilter = require(path.resolve('./config/lib/multer')).videoFileFilter;
-  var upload = multer(multerConfig).single('newCourseVideo');
-
-  uploadVideo()
-    .then(function(videoURL) {
-      res.json({
-        videoURL: videoURL
-      });
-    })
-    .catch(function(err) {
-      res.status(422).send(err);
-    });
-
-  function uploadVideo() {
-    return new Promise(function(resolve, reject) {
-      upload(req, res, function(uploadError) {
-        if (uploadError) {
-          reject(errorHandler.getErrorMessage(uploadError));
-        } else {
-          var videoURL = config.uploads.file.video.urlPaath + req.file.filename;
-          resolve(videoURL);
-        }
-      });
-    });
-  }
-
-};

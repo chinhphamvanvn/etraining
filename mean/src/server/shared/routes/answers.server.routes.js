@@ -8,6 +8,9 @@ var answersPolicy = require('../policies/answers.server.policy'),
 
 module.exports = function(app) {
   // Answers Routes
+  
+  
+  
   app.route('/api/answers').all(answersPolicy.isAllowed)
     .get(answers.list)
     .post(answers.create);

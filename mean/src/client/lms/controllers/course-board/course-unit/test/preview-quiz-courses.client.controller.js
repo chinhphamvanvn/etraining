@@ -46,13 +46,6 @@
 
     function updateClock() {
       vm.remainTime--;
-      function pad(num) {
-        return ('0' + num).slice(-2);
-      }
-      var hh = Math.floor(vm.remainTime / 3600);
-      var mm = Math.floor((vm.remainTime - hh * 3600) / 60);
-      var ss = Math.floor(vm.remainTime - hh * 3600 - mm * 60);
-      vm.timeString = pad(hh) + ':' + pad(mm) + ':' + pad(ss);
     }
 
     function selectQuestion(index) {

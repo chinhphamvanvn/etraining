@@ -249,7 +249,7 @@ exports.questionByID = function(req, res, next, id) {
 
 exports.uploadQuestionImage = function(req, res) {
   // Filtering to upload only images
-  var multerConfig = config.uploads.file.image;
+  var multerConfig = config.uploads.question.image;
   multerConfig.fileFilter = require(path.resolve('./config/lib/multer')).imageFileFilter;
   var upload = multer(multerConfig).single('newQuestionImage');
 
@@ -269,8 +269,99 @@ exports.uploadQuestionImage = function(req, res) {
         if (uploadError) {
           reject(errorHandler.getErrorMessage(uploadError));
         } else {
-          var imageURL = config.uploads.file.image.urlPaath + req.file.filename;
+          var imageURL = config.uploads.question.image.urlPaath + req.file.filename;
           resolve(imageURL);
+        }
+      });
+    });
+  }
+
+};
+
+exports.uploadQuestionVideo = function(req, res) {
+  // Filtering to upload only video
+  var multerConfig = config.uploads.question.video;
+  multerConfig.fileFilter = require(path.resolve('./config/lib/multer')).videoFileFilter;
+  var upload = multer(multerConfig).single('newQuestionVideo');
+
+  uploadVideo()
+    .then(function(videoURL) {
+      res.json({
+        videoURL: videoURL
+      });
+    })
+    .catch(function(err) {
+      res.status(422).send(err);
+    });
+
+  function uploadVideo() {
+    return new Promise(function(resolve, reject) {
+      upload(req, res, function(uploadError) {
+        if (uploadError) {
+          reject(errorHandler.getErrorMessage(uploadError));
+        } else {
+          var videoURL = config.uploads.question.video.urlPaath + req.file.filename;
+          resolve(videoURL);
+        }
+      });
+    });
+  }
+
+};
+
+exports.uploadQuestionAudio = function(req, res) {
+  // Filtering to upload only audio
+  var multerConfig = config.uploads.question.audio;
+  multerConfig.fileFilter = require(path.resolve('./config/lib/multer')).audioFileFilter;
+  var upload = multer(multerConfig).single('newQuestionAudio');
+
+  uploadAudio()
+    .then(function(audioURL) {
+      res.json({
+        audioURL: audioURL
+      });
+    })
+    .catch(function(err) {
+      res.status(422).send(err);
+    });
+
+  function uploadAudio() {
+    return new Promise(function(resolve, reject) {
+      upload(req, res, function(uploadError) {
+        if (uploadError) {
+          reject(errorHandler.getErrorMessage(uploadError));
+        } else {
+          var audioURL = config.uploads.question.audio.urlPaath + req.file.filename;
+          resolve(audioURL);
+        }
+      });
+    });
+  }
+
+};
+
+exports.uploadQuestionFile = function(req, res) {
+  // Filtering to upload only images
+  var upload = multer(multerConfig).single('newQuestionFile');
+
+  uploadFile()
+    .then(function(fileURL) {
+      res.json({
+        fileURL: fileURL
+      });
+    })
+    .catch(function(err) {
+      res.status(422).send(err);
+    });
+
+  function uploadFile() {
+    return new Promise(function(resolve, reject) {
+      upload(req, res, function(uploadError) {
+        if (uploadError) {
+          reject(errorHandler.getErrorMessage(uploadError));
+        } else {
+          var fileURL = config.uploads.question.document.urlPaath + req.file.filename;
+          resolve(fileURL);
         }
       });
     });
