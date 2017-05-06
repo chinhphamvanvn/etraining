@@ -14,7 +14,6 @@
     vm.member = member;
     vm.section = section;
     vm.autoSectionAuto = false;
-    vm.endCourse = $scope.endCourse;
 
     var videoSelector = document.querySelector('#selectorVideo');
 
@@ -32,26 +31,16 @@
       });
     }
 
-    vm.nextSection = nextSection;
-    vm.prevSection = prevSection;
-
-    function nextSection() {
+    $scope.$on('$stateChangeStart', function() {
       if (vm.attempt) {
         vm.attempt.status = 'completed';
         vm.attempt.end = new Date();
-        vm.attempt.$update();
-        $scope.$parent.nextSection();
+        if (vm.attempt._id)
+          vm.attempt.$update();
+        else
+          vm.attempt.$save();
       }
-    }
-
-    function prevSection() {
-      if (vm.attempt) {
-        vm.attempt.status = 'completed';
-        vm.attempt.end = new Date();
-        vm.attempt.$update();
-        $scope.$parent.prevSection();
-      }
-    }
+    });
 
     // Auto move next section
     var mytimeout;

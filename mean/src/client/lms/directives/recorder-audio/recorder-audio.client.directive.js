@@ -16,7 +16,7 @@
               controls: true,
               muted: false
             };
-          var oldUrl = scope.object.audioUrl;
+          var oldUrl = scope.object ? scope.object.audioUrl : null;
           scope.resetAudio = function() {
             scope.object.audioUrl = oldUrl;
           }

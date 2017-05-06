@@ -13,6 +13,17 @@
 					<div class="md-card-content  border-radius-bottom">
 						<ui-view></ui-view>
 					</div>
+					<div class=" uk-text-center ">
+						<a ng-click="vm.prevSection()"
+							class="md-btn md-btn-flat  md-btn-mini "> <i
+							class="uk-icon-chevron-left uk-text-primary"></i>
+							{{'ACTION.PREV_SECTION'|translate}}
+						</a> <a ng-click="vm.nextSection()"
+							class="md-btn md-btn-flat  md-btn-mini  ">
+							{{'ACTION.NEXT_SECTION'|translate}} <i
+							class="uk-icon-chevron-right uk-text-primary"></i>
+						</a>
+					</div>
 				</div>
 			</div>
 
@@ -23,7 +34,7 @@
 						<h3 class="md-card-toolbar-heading-text large">
 							{{vm.course.name}}</h3>
 					</div>
-					<div class="md-card-content course-outline border-radius-bottom">
+					<div class="md-card-content  border-radius-bottom">
 						<ul class="uk-nav">
 							<li ng-repeat="node in vm.nodes"><span class="sub-heading">
 									<i ng-show="!node.expand" ng-click="vm.expand(node)"

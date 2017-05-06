@@ -140,8 +140,5 @@
         });
     }
 
-    vm.nextSection = $scope.$parent.nextSection;
-    vm.prevSection = $scope.$parent.prevSection;
-
   }
 }(window.UIkit));

@@ -26,28 +26,22 @@
 </div>
 
 
-<div ng-if="mode=='result'">
+<div ng-if="mode=='view'">
 	<div class="uk-grid">
 		<div class="uk-width-medium-1-1 ">
 			<p class="uk-text-left text-wrap" ng-bind-html="feedback.response" />
 		</div>
 	</div>
-	<div class="uk-grid" data-uk-grid-margin>
-		<div class="uk-width-1-1">
-			<div id="text_answer">
-				<label for="open_text">{{'MODEL.ANSWER.RESPONSE'|translate}}</label>
-				<span>{{answer.text}}</span>
-			</div>
-		</div>
-		<div class="uk-width-1-2">
+	<div class="uk-grid" data-uk-grid-margin >
+		<div class="uk-width-1-2" ng-if="feedback.audioUrl">
 			<div id="audio_answer">
-				<label for="audio_answer">{{'MODEL.ANSWER.AUDIO'|translate}}</label>
+				<label for="audio_answer">{{'MODEL.FEEDBACK.AUDIO'|translate}}</label>
 				<video controls src="{{feedback.audioUrl | trust}}"></video>
 			</div>
 		</div>
-		<div class="uk-width-1-2">
+		<div class="uk-width-1-2" ng-if="feedback.videoUrl">
 			<div id="video_answer">
-				<label for="video_answer">{{'MODEL.ANSWER.VIDEO'|translate}}</label>
+				<label for="video_answer">{{'MODEL.FEEDBACK.VIDEO'|translate}}</label>
 				<video controls src="{{feedback.videoUrl | trust}}"></video>
 			</div>
 		</div>

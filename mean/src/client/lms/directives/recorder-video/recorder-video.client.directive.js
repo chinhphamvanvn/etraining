@@ -11,7 +11,7 @@
           object: '='
         },
         link: function(scope, element, attr) {
-          var oldUrl = scope.object.videoUrl;
+          var oldUrl = scope.object ? scope.object.videoUrl : null;
           scope.resetVideo = function() {
             scope.object.videoUrl = oldUrl;
           }

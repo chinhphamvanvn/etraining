@@ -24,7 +24,15 @@ exports.create = function(req, res) {
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      res.jsonp(attempt);
+      CourseAttempt.findOne(attempt).populate('user', 'displayName').populate({
+        path: 'answers',
+        populate: {
+          path: 'subAnswers'
+        }
+      }).populate('course').populate('edition').populate('member').populate('section').exec(function(err, obj) {
+        console.log(obj);
+        res.json(obj);
+      });
     }
   });
 };
@@ -58,7 +66,14 @@ exports.update = function(req, res) {
       });
     } else {
 
-      res.jsonp(attempt);
+      CourseAttempt.findOne(attempt).populate('user', 'displayName').populate({
+        path: 'answers',
+        populate: {
+          path: 'subAnswers'
+        }
+      }).populate('course').populate('edition').populate('member').populate('section').exec(function(err, obj) {
+        res.json(obj);
+      });
     }
   });
 };

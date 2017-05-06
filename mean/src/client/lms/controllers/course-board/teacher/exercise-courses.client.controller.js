@@ -27,7 +27,6 @@
   function CoursesExerciseController($scope, $state, $window, Authentication, $filter, edition, course, member, Notification, CourseMembersService, FeedbacksService, ClassroomsService, ExercisesService, EditionSectionsService, AttemptsService, QuestionsService, $translate, _) {
     var vm = this;
     vm.authentication = Authentication;
-    vm.authentication = Authentication;
     vm.edition = edition;
     vm.member = member;
     vm.course = course;
@@ -123,32 +122,24 @@
         var section = _.find(vm.sections, function(obj) {
           return obj.exercise === vm.exerciseId;
         });
-        ExercisesService.get({
-          exerciseId: vm.exerciseId
-        }, function(exercise) {
-          var questionIds = _.pluck(exercise.questions, 'id');
-          vm.questions = QuestionsService.byIds({
-            questionIds: questionIds
-          }, function() {
-            var members = $filter('byClass')(vm.members, vm.classroomId);
-            _.each(members, function(member) {
-              AttemptsService.bySectionAndMember({
-                editionId: vm.edition._id,
-                memberId: member._id,
-                sectionId: section._id
-              }, function(attempts) {
-                member.attempt = _.find(attempts, function(att) {
-                  return att.status == 'completed';
-                });
-                if (member.attempt) {
-                  member.feedbacks = FeedbacksService.byAttempt({
-                    attemptId: member.attempt._id
-                  });
-                }
-              });
+        var members = $filter('byClass')(vm.members, vm.classroomId);
+        _.each(members, function(member) {
+          AttemptsService.bySectionAndMember({
+            editionId: vm.edition._id,
+            memberId: member._id,
+            sectionId: section._id
+          }, function(attempts) {
+            member.attempt = _.find(attempts, function(att) {
+              return att.status == 'completed';
             });
-          })
+            if (member.attempt) {
+              member.feedbacks = FeedbacksService.byAttempt({
+                attemptId: member.attempt._id
+              });
+            }
+          });
         });
+
 
       }
     }

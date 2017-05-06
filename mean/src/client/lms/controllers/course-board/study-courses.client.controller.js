@@ -1,4 +1,4 @@
-(function() {
+(function(UIkit) {
   'use strict';
 
   // Courses controller
@@ -13,9 +13,8 @@
     vm.course = course;
     vm.member = member;
     vm.edition = edition;
-    $scope.prevSection = prevSection;
-    $scope.nextSection = nextSection;
-    $scope.endCourse = false;
+    vm.prevSection = prevSection;
+    vm.nextSection = nextSection;
     vm.expand = expand;
     vm.collapse = collapse;
     vm.toggleExpand = toggleExpand;
@@ -43,7 +42,7 @@
         var latestAttempt = _.max(vm.attempts, function(attempt) {
           return new Date(attempt.start).getTime();
         });
-        if (latestAttempt) {
+        if (vm.attempts.length) {
           var lastNode = _.find(vm.nodeList, function(node) {
             return node.data._id === latestAttempt.section._id;
           });
@@ -59,13 +58,7 @@
       vm.selectedNode = node;
       vm.selectedContentNode = node;
       vm.section = node.data;
-      $scope.endCourse = false;
-
       var index = _.findIndex(vm.nodeList, function(node) { return node.id === vm.selectedNode.id;}) + 1;
-
-      if (index === vm.nodeList.length) {
-        $scope.endCourse = true;
-      }
 
       if (node.data.contentType === 'html')
         $state.go('workspace.lms.courses.join.study.html', {
@@ -136,16 +129,15 @@
       var index = 0;
       if (vm.selectedNode) {
         index = _.findIndex(vm.nodeList, function(node) { return node.id === vm.selectedContentNode.id; }) + 1;
-        if (index === vm.nodeList.lenght - 1)
-          $scope.endCourse = true;
         while (index < vm.nodeList.length && !vm.nodeList[index].data.hasContent)
           index++;
         if (index < vm.nodeList.length) {
           vm.selectedNode = vm.nodeList[index];
           selectContentNode(vm.nodeList[index]);
-        }
+        } else
+          UIkit.modal.alert($translate.instant('ALERT.COURSE.COMPLETE'));
       }
     }
 
   }
-}());
+}(window.UIkit));
