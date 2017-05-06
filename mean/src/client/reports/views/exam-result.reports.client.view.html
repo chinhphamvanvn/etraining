@@ -20,6 +20,7 @@
 								cellspacing="0" width="100%">
 								<thead>
 									<tr>
+										<th>#</th>
 										<th>{{'MODEL.SCHEDULE.NAME'|translate}}</th>
 										<th>{{'MODEL.USER.DISPLAY_NAME'|translate}}</th>
 										<th>{{'MODEL.USER.USERNAME'|translate}}</th>
@@ -32,6 +33,7 @@
 								</thead>
 								<tbody>
 									<tr ng-repeat="candidate in vm.candidates">
+										<td>{{$index + 1}}</td>
 										<td>{{candidate.schedule.name}}</td>
 										<td>{{candidate.candidate.displayName}}</td>
 										<th>{{candidate.candidate.username}}</th>
@@ -46,7 +48,7 @@
 								</tbody>
 								<tfoot ng-if="vm.candidates.length > 0">
 									<tr>
-										<th colspan="5" class="uk-text-center">
+										<th colspan="6" class="uk-text-center">
 											<span class="uk-float-right uk-text-bold">{{'COMMON.OVERVIEW'|translate}}</span>
 										</th>
 										<th>{{Math.floor(vm.summary.score/vm.candidates.length)}}</th>

@@ -21,11 +21,12 @@
 								cellspacing="0" width="100%">
 								<thead>
 									<tr>
-										<th colspan="3" class="uk-text-center">{{'REPORT.SECTION_BY_MEMBER.MEMBER'|translate}}</th>
+										<th colspan="4" class="uk-text-center">{{'REPORT.SECTION_BY_MEMBER.MEMBER'|translate}}</th>
 										<th colspan="3" class="uk-text-center">{{'REPORT.SECTION_BY_MEMBER.COURSE'|translate}}</th>
 										<th colspan="5" class="uk-text-center">{{'REPORT.SECTION_BY_MEMBER.OUTLINE'|translate}}</th>
 									</tr>
 									<tr>
+										<th>#</th>
 										<th>{{'MODEL.USER.USERNAME'|translate}}</th>
 										<th>{{'MODEL.USER.FIRST_NAME'|translate}}</th>
 										<th>{{'MODEL.USER.LAST_NAME'|translate}}</th>
@@ -42,6 +43,7 @@
 								</thead>
 								<tbody>
 									<tr ng-repeat="section in vm.sections">
+										<td>{{$index + 1}}</td>
 										<td>{{section.member.member.username}}</td>
 										<td>{{section.member.member.firstName}}</td>
 										<td>{{section.member.member.lastName}}</td>
