@@ -28,7 +28,6 @@ var _ = require('lodash'),
   webdriver_standalone = require('gulp-protractor').webdriver_standalone,
   del = require('del'),
   KarmaServer = require('karma').Server,
-  config = require('./config/config'),
   lesshint = require('gulp-lesshint');
 
 // Local settings
