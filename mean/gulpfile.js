@@ -270,8 +270,6 @@ gulp.task('uglify-vendor', function() {
   var assets = _.union(
     defaultAssets.client.lib.js
   );
-  del(['public/dist/*']);
-
   return gulp.src(assets)
     .pipe(plugins.ngAnnotate())
     .pipe(plugins.concat('vendor.min.js'))
