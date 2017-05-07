@@ -3,7 +3,7 @@
 module.exports = {
   client: {
     lib: {
-      css: 'public/dist/vendor*.min.css',
+      //css: 'public/dist/vendor*.min.css',
       js: 'public/dist/vendor*.min.js'
     },
     font: [],
