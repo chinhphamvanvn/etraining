@@ -1,0 +1,33 @@
+<div class="md-card" >
+	<div class="md-card-toolbar">
+		<div class="md-card-toolbar-heading-text large">
+			<button class="md-btn md-btn-mini md-btn-icon  md-btn-wave" ng-click="listen()">
+				<i class="uk-icon-volume-up " ng-class="{'uk-text-primary':listenMode}"></i>
+				{{'ACTION.LISTEN'|translate}}
+			</button>
+			<button class="md-btn md-btn-mini md-btn-icon  md-btn-wave" ng-click="speak()">
+				<i class="uk-icon-microphone"  ng-class="{'uk-text-primary':speakMode && recognizing}"></i>
+				{{'ACTION.SPEAK'|translate}}
+			</button>
+			<button class="md-btn md-btn-mini md-btn-icon  md-btn-wave"  ng-click="reset()">
+				<i class="uk-icon-refresh "></i>
+				{{'ACTION.RESTART'|translate}}
+			</button>
+		</div>
+	</div>
+	<div class="md-card-content">
+		<div class="uk-grid">
+			<label for="text">{{MODEL.PRACTICE.TEXT}}</label>
+			<div class="uk-width-medium-1-1 "  id="text">
+				<p class="uk-text-left text-wrap" ng-bind-html="practice.text" />
+			</div>
+		</div>
+		
+		<div class="uk-grid" ng-show="speakMode">
+			<label for="speech">Speech</label>
+			<div class="uk-width-medium-1-1 "id="speech">
+				<span>{{transcript}}</span>
+			</div>
+		</div>
+	</div>
+</div>

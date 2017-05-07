@@ -97,7 +97,7 @@
         },
         data: {
           roles: ['user'],
-          courseRoles: ['student']
+          courseRoles: ['teacher']
         }
       })
       .state('workspace.lms.courses.outline.preview.quiz', {
@@ -111,7 +111,7 @@
         },
         data: {
           roles: ['user'],
-          courseRoles: ['student']
+          courseRoles: ['teacher']
         }
       })
       .state('workspace.lms.courses.outline.preview.survey', {
@@ -125,7 +125,7 @@
         },
         data: {
           roles: ['user'],
-          courseRoles: ['student']
+          courseRoles: ['teacher']
         }
       })
       .state('workspace.lms.courses.outline.preview.video', {
@@ -139,7 +139,7 @@
         },
         data: {
           roles: ['user'],
-          courseRoles: ['student']
+          courseRoles: ['teacher']
         }
       })
       .state('workspace.lms.courses.outline.preview.exercise', {
@@ -153,7 +153,21 @@
         },
         data: {
           roles: ['user'],
-          courseRoles: ['student']
+          courseRoles: ['teacher']
+        }
+      })
+      .state('workspace.lms.courses.outline.preview.practice', {
+        url: '/practice/:sectionId',
+        templateUrl: '/src/client/lms/views/course-board/course-unit/practice/preview-practice-course.client.view.html',
+        controller: 'CoursesPreviewPracticeController',
+        controllerAs: 'vm',
+        resolve: {
+          sectionResolve: getSection,
+          editionResolve: getEdition
+        },
+        data: {
+          roles: ['user'],
+          courseRoles: ['teacher']
         }
       })
       .state('workspace.lms.courses.section', {
@@ -246,6 +260,22 @@
           courseRoles: ['teacher']
         }
       })
+      .state('workspace.lms.courses.section.view.practice', {
+        url: '/practice/:sectionId',
+        templateUrl: '/src/client/lms/views/course-board/course-unit/practice/view-practice.section-course.client.view.html',
+        controller: 'CoursesPracticeSectionController',
+        controllerAs: 'vm',
+        resolve: {
+          sectionResolve: getSection,
+          editionResolve: getEdition,
+          courseResolve: getCourse,
+          practiceResolve: getPractice
+        },
+        data: {
+          roles: ['user'],
+          courseRoles: ['teacher']
+        }
+      })
       .state('workspace.lms.courses.section.edit', {
         abstract: true,
         url: '/edit',
@@ -325,6 +355,22 @@
           editionResolve: getEdition,
           courseResolve: getCourse,
           exerciseResolve: getExercise
+        },
+        data: {
+          roles: ['user'],
+          courseRoles: ['teacher']
+        }
+      })
+      .state('workspace.lms.courses.section.edit.practice', {
+        url: '/practice/:sectionId',
+        templateUrl: '/src/client/lms/views/course-board/course-unit/practice/form-practice.section-course.client.view.html',
+        controller: 'CoursesPracticeSectionController',
+        controllerAs: 'vm',
+        resolve: {
+          sectionResolve: getSection,
+          editionResolve: getEdition,
+          courseResolve: getCourse,
+          practiceResolve: getPractice
         },
         data: {
           roles: ['user'],
@@ -451,6 +497,21 @@
         url: '/exercise/:sectionId',
         templateUrl: '/src/client/lms/views/course-board/course-unit/exercise/study-exercise-course.client.view.html',
         controller: 'CoursesStudyExerciseController',
+        controllerAs: 'vm',
+        resolve: {
+          sectionResolve: getSection,
+          memberResolve: getMember,
+          editionResolve: getEdition
+        },
+        data: {
+          roles: ['user'],
+          courseRoles: ['student']
+        }
+      })
+      .state('workspace.lms.courses.join.study.practice', {
+        url: '/practice/:sectionId',
+        templateUrl: '/src/client/lms/views/course-board/course-unit/practice/study-practice-course.client.view.html',
+        controller: 'CoursesStudyPracticeController',
         controllerAs: 'vm',
         resolve: {
           sectionResolve: getSection,
@@ -839,6 +900,37 @@
           var exercise = new ExercisesService();
           exercise.$save(function() {
             resolve(exercise);
+          });
+        }
+
+      }, function(err) {
+        reject();
+      });
+    });
+  }
+  
+  getPractice.$inject = ['$stateParams', 'EditionSectionsService', 'PracticesService', '$q'];
+  function getPractice($stateParams, EditionSectionsService, PracticesService, $q) {
+    if ($stateParams.practiceId)
+      return PracticesService.get({
+        practiceId: $stateParams.practiceId
+      }).$promise;
+    return $q(function(resolve, reject) {
+      EditionSectionsService.get({
+        sectionId: $stateParams.sectionId
+      }, function(section) {
+        if (section.practice) {
+          PracticesService.get({
+            practiceId: section.practice
+          }, function(practice) {
+            resolve(practice);
+          }, function() {
+            reject();
+          });
+        } else {
+          var practice = new PracticesService();
+          practice.$save(function() {
+            resolve(practice);
           });
         }
 

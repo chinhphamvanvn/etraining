@@ -379,31 +379,41 @@ gulp.task('copyLocalEnvConfig', function() {
 // Make sure upload directory exists
 gulp.task('makeUploadsDir', function() {
   var userDir = './public/files/user/';
-  if (!fs.existsSync(userDir)){
+  if (!fs.existsSync(userDir)) {
     fs.mkdirSync(userDir);
   }
-  var courseDir =  './public/files/course/';
-  if (!fs.existsSync(courseDir)){
+  var courseDir = './public/files/course/';
+  if (!fs.existsSync(courseDir))
     fs.mkdirSync(courseDir);
-    fs.mkdirSync(courseDir+'image');
-    fs.mkdirSync(courseDir+'video');
-    fs.mkdirSync(courseDir+'audio');
-    fs.mkdirSync(courseDir+'document');
-  }
-  var libDir =  './public/files/library/';
-  if (!fs.existsSync(libDir)){
+  if (!fs.existsSync(courseDir + 'image'))
+    fs.mkdirSync(courseDir + 'image');
+  if (!fs.existsSync(courseDir + 'video'))
+    fs.mkdirSync(courseDir + 'video');
+  if (!fs.existsSync(courseDir + 'audio'))
+    fs.mkdirSync(courseDir + 'audio');
+  if (!fs.existsSync(courseDir + 'document'))
+    fs.mkdirSync(courseDir + 'document');
+
+  var libDir = './public/files/library/';
+  if (!fs.existsSync(libDir))
     fs.mkdirSync(libDir);
-    fs.mkdirSync(libDir +'image');
-    fs.mkdirSync(libDir +'content');
-  }
-  var questionDir =  './public/files/question/';
-  if (!fs.existsSync(questionDir)){
+  if (!fs.existsSync(libDir + 'image'))
+    fs.mkdirSync(libDir + 'image');
+  if (!fs.existsSync(libDir + 'content'))
+    fs.mkdirSync(libDir + 'content');
+
+  var questionDir = './public/files/question/';
+  if (!fs.existsSync(questionDir))
     fs.mkdirSync(questionDir);
-    fs.mkdirSync(questionDir +'image');
-    fs.mkdirSync(questionDir +'audio');
-    fs.mkdirSync(questionDir +'video');
-    fs.mkdirSync(questionDir +'document');
-  }
+  if (!fs.existsSync(questionDir + 'image'))
+    fs.mkdirSync(questionDir + 'image');
+  if (!fs.existsSync(questionDir + 'audio'))
+    fs.mkdirSync(questionDir + 'audio');
+  if (!fs.existsSync(questionDir + 'video'))
+    fs.mkdirSync(questionDir + 'video');
+  if (!fs.existsSync(questionDir + 'document'))
+    fs.mkdirSync(questionDir + 'document');
+
 });
 
 // Angular template cache task

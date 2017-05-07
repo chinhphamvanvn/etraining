@@ -290,7 +290,7 @@ exports.changeCourseLogo = function(req, res) {
 
 
 exports.uploadCourseVideo = function(req, res) {
-  // Filtering to upload only images
+  // Filtering to upload only video
   var course = req.course;
   var multerConfig = config.uploads.course.video;
   multerConfig.fileFilter = require(path.resolve('./config/lib/multer')).videoFileFilter;
@@ -313,6 +313,101 @@ exports.uploadCourseVideo = function(req, res) {
         } else {
           var videoURL = config.uploads.course.video.urlPath + req.file.filename;
           resolve(videoURL);
+        }
+      });
+    });
+  }
+
+};
+
+
+exports.uploadCourseAudio = function(req, res) {
+  // Filtering to upload only audio
+  var course = req.course;
+  var multerConfig = config.uploads.course.audio;
+  multerConfig.fileFilter = require(path.resolve('./config/lib/multer')).audioFileFilter;
+  var upload = multer(multerConfig).single('newCourseAudio');
+  uploadAudio()
+    .then(function(audioURL) {
+      res.json({
+        audioURL: audioURL
+      });
+    })
+    .catch(function(err) {
+      res.status(422).send(err);
+    });
+
+  function uploadAudio() {
+    return new Promise(function(resolve, reject) {
+      upload(req, res, function(uploadError) {
+        if (uploadError) {
+          reject(errorHandler.getErrorMessage(uploadError));
+        } else {
+          var audioURL = config.uploads.course.audio.urlPath + req.file.filename;
+          resolve(audioURL);
+        }
+      });
+    });
+  }
+
+};
+
+
+exports.uploadCourseImage = function(req, res) {
+  // Filtering to upload only images
+  var course = req.course;
+  var multerConfig = config.uploads.course.image;
+  multerConfig.fileFilter = require(path.resolve('./config/lib/multer')).imageFileFilter;
+  var upload = multer(multerConfig).single('newCourseImage');
+  uploadImage()
+    .then(function(imageURL) {
+      res.json({
+        imageURL: imageURL
+      });
+    })
+    .catch(function(err) {
+      res.status(422).send(err);
+    });
+
+  function uploadImage() {
+    return new Promise(function(resolve, reject) {
+      upload(req, res, function(uploadError) {
+        if (uploadError) {
+          reject(errorHandler.getErrorMessage(uploadError));
+        } else {
+          var imageURL = config.uploads.course.image.urlPath + req.file.filename;
+          resolve(imageURL);
+        }
+      });
+    });
+  }
+
+};
+
+
+exports.uploadCourseFile = function(req, res) {
+  // Filtering to upload only images
+  var course = req.course;
+  var multerConfig = config.uploads.course.document;
+  var upload = multer(multerConfig).single('newCourseFile');
+  uploadFile()
+    .then(function(fileURL) {
+      res.json({
+        fileURL: fileURL
+      });
+    })
+    .catch(function(err) {
+      res.status(422).send(err);
+    });
+
+  function uploadFile() {
+    return new Promise(function(resolve, reject) {
+      upload(req, res, function(uploadError) {
+        if (uploadError) {
+          reject(errorHandler.getErrorMessage(uploadError));
+        } else {
+          var fileURL = config.uploads.course.document.urlPath + req.file.filename;
+          resolve(fileURL);
         }
       });
     });

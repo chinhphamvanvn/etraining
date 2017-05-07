@@ -59,21 +59,21 @@
     .directive('videoSelector', ['$sce', 'Notification', 'Upload', 'deviceDetector', function($sce, Notification, Upload, deviceDetector) {
       return {
         restrict: 'E',
-        templateUrl: '/src/client/lms/directives/video-selector/video-selector.client.directive.view.html',
+        templateUrl: '/src/client/lms/directives/select-video/video-selector.client.directive.view.html',
         controllerAs: 'ctrl',
         scope: {
-          video: '='
+          object: '='
         },
         link: function(scope, element, attr) {
-          var oldURL = scope.video.videoURL;
+          var oldURL = scope.object.videoURL;
           scope.resetVideo = function() {
-            scope.video.videoURL = oldURL;
+            scope.object.videoURL = oldURL;
           }
           scope.deleteVideo = function() {
-            scope.video.videoURL = null;
+            scope.object.videoURL = null;
           }
-          var progressbar = angular.element(document.getElementById('file_upload-progressbar')),
-            bar = angular.element(document.getElementById('progress_bar')),
+          var progressbar = angular.element(document.getElementById('video_upload-progressbar')),
+            bar = angular.element(document.getElementById('video_progress_bar')),
             settings = {
               action: '/api/courses/video/upload/', // upload url
               param: 'newCourseVideo',
@@ -106,8 +106,7 @@
                   progressbar.addClass('uk-hidden');
                 }, 250);
                 var data = JSON.parse(response);
-                scope.video.videoURL = data.videoURL;
-                console.log(scope.video);
+                scope.object.videoURL = data.videoURL;
                 scope.videoAttr = {
                   autoplay: true,
                   controls: true,
@@ -118,8 +117,8 @@
               }
             };
 
-          var select = UIkit.uploadSelect($('#file_upload-select'), settings),
-            drop = UIkit.uploadDrop($('#file_upload-drop'), settings);
+          var select = UIkit.uploadSelect($('#video_upload-select'), settings),
+            drop = UIkit.uploadDrop($('#video_upload-drop'), settings);
 
           scope.showProgress = false;
 

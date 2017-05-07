@@ -87,15 +87,15 @@ var s = module.exports = {
     course: {
       base: 'public/files/course/',
       image: {
-        dest: 'public/files/course/image',
-        urlPath: '/files/course/image',
+        dest: 'public/files/course/image/',
+        urlPath: '/files/course/image/',
         limits: {
           fileSize: 4 * 1024 * 1024 // Max file size in bytes (1 MB)
         }
       },
       audio: {
-        dest: 'public/files/course/audio',
-        urlPath: '/files/course/audio',
+        dest: 'public/files/course/audio/',
+        urlPath: '/files/course/audio/',
         limits: {
           fileSize: 16 * 1024 * 1024 // Max file size in bytes (1 MB)
         }

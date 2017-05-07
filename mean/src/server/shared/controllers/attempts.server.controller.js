@@ -30,7 +30,6 @@ exports.create = function(req, res) {
           path: 'subAnswers'
         }
       }).populate('course').populate('edition').populate('member').populate('section').exec(function(err, obj) {
-        console.log(obj);
         res.json(obj);
       });
     }
