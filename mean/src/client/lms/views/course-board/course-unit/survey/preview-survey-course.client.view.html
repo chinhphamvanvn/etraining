@@ -15,7 +15,7 @@
 
 	<div class="md-card-content">
 		<div ng-if="vm.question.type=='mc'">
-			<multiple-choice-survey mode="'survey'" question="vm.question"></multiple-choice-survey>
+			<multiple-choice-survey mode="'survey'" question="vm.question" ng-if="vm.question"></multiple-choice-survey>
 		</div>
 		<div class="uk-text-center uk-margin-top">
 

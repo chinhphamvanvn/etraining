@@ -17,34 +17,32 @@
       templateUrl: '/src/client/lms/directives/answer-sheet/answer.sheet.directive.client.view.html',
       link: function(scope, element, attributes) {
         scope.questions = [];
-        scope.$watchGroup(['answers', 'exam'], function() {
-          if (scope.answers && scope.exam) {
-            if (scope.exam.questionSelection === 'manual') {
-              scope.questionNumber = scope.exam.questions.length;
-              _.each(scope.answers, function(answer) {
-                if (_.find(scope.exam.questions, function(q) { return q.id === answer.question; })) {
-                  var question = QuestionsService.get({
-                    questionId: answer.question
-                  }, function() {
-                    question.answer = answer;
-                    question.order = answer.order;
-                    scope.questions.push(question);
-                  });
-                }
-              });
-            } else {
-              _.each(scope.answers, function(answer) {
-                var question = QuestionsService.get({
-                  questionId: answer.question
-                }, function() {
-                  question.answer = answer;
-                  question.order = answer.order;
-                  scope.questions.push(question);
-                });
+        if (scope.exam.questionSelection === 'manual') {
+          scope.questionNumber = scope.exam.questions.length;
+          _.each(scope.answers, function(answer) {
+            if (_.find(scope.exam.questions, function(q) {
+                return q.id === answer.question;
+              })) {
+              var question = QuestionsService.get({
+                questionId: answer.question
+              }, function() {
+                question.answer = answer;
+                question.order = answer.order;
+                scope.questions.push(question);
               });
             }
-          }
-        });
+          });
+        } else {
+          _.each(scope.answers, function(answer) {
+            var question = QuestionsService.get({
+              questionId: answer.question
+            }, function() {
+              question.answer = answer;
+              question.order = answer.order;
+              scope.questions.push(question);
+            });
+          });
+        }
       }
     };
   }

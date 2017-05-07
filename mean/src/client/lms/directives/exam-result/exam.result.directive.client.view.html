@@ -28,7 +28,7 @@
 					<p class="uk-article-meta">
 						{{'ACTION.VIEW_SCORE'|translate}}
 						<answer-sheet exam="exam" sheet-id="submit._id"
-							answers="submit.answers"></answer-sheet>
+							answers="submit.answers" ng-if="submit.answers && submit.answers.length && exam"></answer-sheet>
 					</p>
 				</div>
 			</div>

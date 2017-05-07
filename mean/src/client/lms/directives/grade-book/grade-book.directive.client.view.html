@@ -43,7 +43,7 @@
 										ng-repeat="attempt in node.attempts | orderBy: '-start'">{{attempt.weightPercent}}%
 											<answer-sheet sheet-id="attempt._id" exam="node.quiz"
 												answers="attempt.answers"
-												ng-if="attempt.answers.length > 0"></answer-sheet>
+												ng-if="attempt.answers && attempt.answers.length > 0 && node.quiz"></answer-sheet>
 											&nbsp;&#166;&nbsp;&nbsp;
 									</span></td>
 								</tr>

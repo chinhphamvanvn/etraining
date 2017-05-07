@@ -15,23 +15,19 @@
       },
       templateUrl: '/src/client/lms/directives/exam-result/exam.result.directive.client.view.html',
       link: function(scope, element, attributes) {
-        scope.$watchGroup(['exam', 'candidate'], function() {
-          if (scope.exam && scope.candidate) {
-            scope.submits = SubmissionsService.byExamAndCandidate({
-              examId: scope.exam._id,
-              candidateId: scope.candidate._id
-            }, function() {
-              _.each(scope.submits, function(submit) {
-                var start = new Date(submit.start);
-                var end = new Date(submit.end);
-                submit.duration = Math.floor((end.getTime() - start.getTime()) / 1000);
-                examUtils.candidateScoreBySubmit(scope.candidate, scope.exam, submit)
-                  .then(function(score) {
-                    submit.score = score;
-                  });
+        scope.submits = SubmissionsService.byExamAndCandidate({
+          examId: scope.exam._id,
+          candidateId: scope.candidate._id
+        }, function() {
+          _.each(scope.submits, function(submit) {
+            var start = new Date(submit.start);
+            var end = new Date(submit.end);
+            submit.duration = Math.floor((end.getTime() - start.getTime()) / 1000);
+            examUtils.candidateScoreBySubmit(scope.candidate, scope.exam, submit)
+              .then(function(score) {
+                submit.score = score;
               });
-            });
-          }
+          });
         });
       }
     };
