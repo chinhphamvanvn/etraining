@@ -12,13 +12,48 @@
         },
         link: function(scope, element, attr) {
           scope.videoAttr = {
-              autoplay: false,
-              controls: true,
-              muted: false
-            };
+            autoplay: false,
+            controls: true,
+            muted: false
+          };
+          $(".uk-modal").on({
+            'show.uk.modal': function(){
+            },
+            'hide.uk.modal': function(){
+              if(scope.recordMode){
+                scope.stopRecord();
+              }
+              var objectAudio = document.getElementById("objectAudio");
+              objectAudio.pause();
+            }
+          });
+          // config view wavesurfer record
+          var player = videojs("myAudio",
+          {
+            controls: false,
+            width: 400,
+            height: 100,
+            plugins: {
+              wavesurfer: {
+                src: "live",
+                waveColor: "black",
+                progressColor: "#2E732D",
+                debug: true,
+                cursorWidth: 1,
+                msDisplayMax: 20,
+                hideScrollbar: true
+              },
+              record: {
+                  audio: true,
+                  video: false,
+                  maxLength: 10000,
+                  debug: false
+              }
+            }
+          });
           var oldUrl = scope.object ? scope.object.audioUrl : null;
           scope.resetAudio = function() {
-            scope.object.audioUrl = oldUrl;
+            scope.object.audioUrl = oldUrl || null;
           }
           scope.deleteAudio = function() {
             scope.object.audioUrl = null;
@@ -44,18 +79,19 @@
                 };
               scope.recordMode = true;
               var session = {
-                  audio: true,
-                  video: false
-                };
-                navigator.getUserMedia(session, function(stream) {
-                  mediaStream = stream;
-                  audioRecorder.addStream(mediaStream);
-                  audioRecorder.startRecording();
-                }, function(error) {
-                  Notification.error({
-                    message: '<i class="uk-icon-ban"></i> Audio captured error!' + error
-                  });
+                audio: true,
+                video: false
+              };
+              navigator.getUserMedia(session, function(stream) {
+                mediaStream = stream;
+                audioRecorder.addStream(mediaStream);
+                audioRecorder.startRecording();
+              }, function(error) {
+                Notification.error({
+                  message: '<i class="uk-icon-ban"></i> Audio captured error!' + error
                 });
+              });
+              player.recorder.start();
             }
           };
 

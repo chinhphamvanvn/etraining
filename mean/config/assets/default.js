@@ -37,9 +37,16 @@ module.exports = {
         //'public/file_manager/css/elfinder.css',
         //'public/file_manager/themes/material/css/theme.css',
         'public/assets/skins/jquery.fancytree/ui.fancytree.css',
+        'public/assets/css/video.min.css',
+        'public/lib/videojs-record/src/css/videojs.record.css',
       ],
       js: [
         //  non-angular
+        'public/assets/js/custom/video.min.js',
+        'public/lib/wavesurfer.js/dist/wavesurfer.min.js',
+        'public/lib/wavesurfer.js/dist/plugin/wavesurfer.microphone.min.js',
+        'public/lib/videojs-wavesurfer/src/js/videojs.wavesurfer.js',
+        'public/lib/videojs-record/src/js/videojs.record.js',
         'public/lib/recordrtc/RecordRTC.js',
         'public/lib/recordrtc/dev/MRecordRTC.js',
         'public/lib/recordrtc/dev/RecordRTC.promises.js',

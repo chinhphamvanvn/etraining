@@ -1,18 +1,22 @@
-<div class="md-card">
+<div class="md-card" style="box-shadow: none;">
 	<div class="md-card-content">
 		<div id="file_upload-drop" class="uk-file-upload">
 			<div
 				class="uk-margin uk-cover uk-position-relative uk-height-1-1 transform-origin-50"
 				id="video_player">
 				<div class="uk-grid">
-					<div class="uk-width-1-2 uk-container-center">
-						<video  id="objectAudio" src="{{object.audioUrl}}"
+					<div ng-show="!recordMode" class="uk-width-1-1 uk-container-center">
+						<video id="objectAudio" src="{{object.audioUrl}}"
 						video-autoplay
 							data-attr-autoplay={{videoAttr.autoplay}} video-control
 							data-attr-control={{videoAttr.controls}} video-muted
 							data-attr-muted={{videoAttr.muted}}
 							poster="'/assets/img/brand/logow.png' "
+							style="width: 100%; height: 50px;" 
 						></video>
+					</div>
+					<div ng-show="recordMode" class="uk-width-1-1 uk-container-center">
+						<audio style="background-color: #9FD6BA; width: 100%;" id="myAudio" class="video-js vjs-default-skin"></audio>
 					</div>
 				</div>
 			</div>
@@ -20,10 +24,10 @@
 			
 				<i class="material-icons uk-text-danger md-48" ng-show="!recordMode"
 					ng-click="startRecord()" data-uk-tooltip="{pos:'top'}"
-					title="{{'ACTION.RECORD_AUDIO'|translate}}">fiber_manual_record</i> <i
+					title="{{'ACTION.RECORD_AUDIO'|translate}}" style="cursor: pointer;">fiber_manual_record</i> <i
 					class="material-icons uk-text-danger md-48" ng-show="recordMode"
 					ng-click="stopRecord()" data-uk-tooltip="{pos:'top'}"
-					title="{{'ACTION.STOP'|translate}}">stop</i>
+					title="{{'ACTION.STOP'|translate}}" style="cursor: pointer;">stop</i>
 		
 			</div>
 			<div class="uk-margin" ng-show="!recordMode">
@@ -31,10 +35,10 @@
 					class="uk-icon-check uk-text-success"></i> {{'ACTION.ACCEPT'|translate}} 
 				</button>
 				<button  type="button" class=" md-btn md-btn-icon  md-btn-mini  md-btn-flat"  ng-click="deleteAudio()"> <i
-					class="uk-icon-remove"></i> {{'ACTION.DELETE'|translate}}
+					class="uk-icon-remove uk-text-danger"></i> {{'ACTION.DELETE'|translate}}
 				</button>
-				<button  type="button" class=" md-btn md-btn-icon  md-btn-mini  md-btn-flat uk-modal-close"  ng-click="resetVideo()"> <i
-					class="uk-icon-remove uk-text-danger"></i> {{'ACTION.CLOSE'|translate}}
+				<button  type="button" class=" md-btn md-btn-icon  md-btn-mini  md-btn-flat"  ng-click="resetAudio()"> <i
+					class="uk-icon-refresh uk-text-primary"></i> {{'ACTION.RESET'|translate}}
 				</button>
 
 			</div>
