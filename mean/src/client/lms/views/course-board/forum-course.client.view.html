@@ -11,14 +11,14 @@
 </div>
 <div id="page_content" ng-show="!vm.alert">
 	<div id="page_content_inner">
-		<div class="uk-width-medium-1-1 uk-container-center">
+		<div class="uk-width-medium-1-1 uk-container-center" style="height: calc(100vh - 145px); overflow-y: scroll;">
 			<div class="md-card md-card-single" single-card>
 				<div class="md-card-toolbar">
 					<h3 class="md-card-toolbar-heading-text large">
 						{{'PAGE.LMS.MY_COURSES.STUDENT_BOARD.FORUM'|translate}}</h3>
 				</div>
 				<!-- md-card-content-->
-				<div class="" id="todo_list" style="min-height: 75vh;">
+				<div class="" id="todo_list" style="min-height: 65vh;">
 					<ul class="uk-grid md-list md-list-addon uk-margin-small-bottom">
 						<li ng-repeat="topic in vm.topics" class="uk-width-medium-2-5" style="margin-right: 10px;">
 							<div class="md-list-addon-element">

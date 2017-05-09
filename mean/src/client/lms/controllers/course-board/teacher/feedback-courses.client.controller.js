@@ -21,6 +21,7 @@
     QuestionsService.byIds({
       questionIds: questionIds
     }, function(questions) {
+      questions.reverse();
       vm.questions = questions;
     });
     vm.student = CourseMembersService.get({memberId:vm.attempt.member._id});
