@@ -50,12 +50,12 @@
     
     $scope.$on('$stateChangeStart', function() {
       if (vm.attempt) {
-        vm.attempt.status = 'completed';
+       /* vm.attempt.status = 'completed';
         vm.attempt.end = new Date();
         if (vm.attempt._id)
           vm.attempt.$update();
         else
-          vm.attempt.$save();
+          vm.attempt.$save();*/
       }
     });
   }

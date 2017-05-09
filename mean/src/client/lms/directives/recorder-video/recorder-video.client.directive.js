@@ -11,18 +11,30 @@
           object: '='
         },
         link: function(scope, element, attr) {
+          $(".uk-modal").on({
+            'show.uk.modal': function(){
+            },
+            'hide.uk.modal': function(){
+              if(scope.recordMode){
+                scope.stopRecord();
+              }
+              var objectAudio = document.getElementById("screenVideo");
+              objectAudio.pause();
+            }
+          });
           var oldUrl = scope.object ? scope.object.videoUrl : null;
           scope.resetVideo = function() {
-            scope.object.videoUrl = oldUrl;
+            scope.object.videoUrl = oldUrl || null;
           }
           scope.deleteVideo = function() {
             scope.object.videoUrl = null;
           }
           scope.videoAttr = {
-              autoplay: false,
-              controls: true,
-              muted: false
-            };
+            autoplay: false,
+            controls: true,
+            muted: false
+          };
+          var videoElement = document.getElementById('screenVideo');
           var mediaStream;
           var videoRecorder = new MRecordRTC();
           videoRecorder.mediaType = {
@@ -49,6 +61,9 @@
                 };
                 navigator.getUserMedia(session, function(stream) {
                   mediaStream = stream;
+                  videoElement.src = URL.createObjectURL(stream);
+                  videoElement.controls = true;
+                  videoElement.play();
                   videoRecorder.addStream(mediaStream);
                   videoRecorder.startRecording();
                 }, function(error) {

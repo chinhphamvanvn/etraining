@@ -48,14 +48,22 @@
           _.each(answers, function(answer) {
             if (answer._id)
               answer.$update(function() {
-                updateAttempt(answer);
+                updateAttempt(answer, function(){
+                  Notification.success({
+                    message: '<i class="uk-icon-check"></i> Save answer successfully!'
+                  });
+                });
               });
             else
               answer.$save(function() {
-                updateAttempt(answer);
+                updateAttempt(answer, function(){
+                  Notification.success({
+                    message: '<i class="uk-icon-check"></i> Save answer successfully!'
+                  });
+                });
               });
           });
-          function updateAttempt(answer) {
+          function updateAttempt(answer, callback) {
             scope.attempt.answers.push(answer._id);
             if (scope.attempt.answers.length === answers.length) {
               if (scope.attempt._id)

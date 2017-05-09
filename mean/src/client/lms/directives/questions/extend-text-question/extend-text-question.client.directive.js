@@ -16,7 +16,11 @@
       templateUrl: '/src/client/lms/directives/questions/extend-text-question/extend-text-question.directive.client.view.html',
       link: function(scope, element, attributes) {
         scope.tinymce_options = fileManagerConfig;
-
+        scope.videoAttr = {
+          autoplay: false,
+          controls: true,
+          muted: false
+        };
         function preprocessQuestionContent() {
         }
         preprocessQuestionContent();
