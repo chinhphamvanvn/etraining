@@ -52,6 +52,7 @@
                   Notification.success({
                     message: '<i class="uk-icon-check"></i> Save answer successfully!'
                   });
+                  callback();
                 });
               });
             else
@@ -60,6 +61,7 @@
                   Notification.success({
                     message: '<i class="uk-icon-check"></i> Save answer successfully!'
                   });
+                  callback();
                 });
               });
           });
