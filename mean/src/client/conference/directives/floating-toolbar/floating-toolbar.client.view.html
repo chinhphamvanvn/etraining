@@ -1,0 +1,53 @@
+<nav class="navbar-control" ng-show="visible">
+	<button class="btn-control btn-clear left-radius" ng-click="connect()"
+		ng-show="!onCall" data-uk-tooltip="{pos:'bottom'}" title="{{'ACTION.CONNECT' |
+		translate}}">
+		<i class="material-icons">call</i>
+	</button>
+	<button class="btn-control btn-disconnect btn-clear left-radius"
+		ng-click="disconnect()" ng-show="onCall" data-uk-tooltip="{pos:'bottom'}" title="{{'ACTION.DISCONNECT' |
+		translate}}">
+		<i class="material-icons">call_end</i>
+	</button>
+	<button class="btn-control btn-clear" ng-click="toggleAudio()"
+		ng-class="!audio ? 'btn-active' : ''">
+		<span data-uk-tooltip="{pos:'bottom'}" title="{{'ACTION.AUDIO_OFF' |
+		translate}}" ng-show="audio">
+			<i class="material-icons" >volume_off</i>
+		</span>
+		<span data-uk-tooltip="{pos:'bottom'}" title="{{'ACTION.AUDIO_ON' |
+		translate}}" ng-show="!audio">
+			<i class="material-icons" >volume_up</i>
+		</span>
+	</button>
+	<button class="btn-control btn-clear" ng-click="toggleVideo()"
+		ng-class="!video ? 'btn-active' : ''">
+		<span data-uk-tooltip="{pos:'bottom'}" title="{{'ACTION.VIDEO_OFF' |
+		translate}}" ng-show="video">
+			<i class="material-icons" >webcam_off</i>
+		</span>
+		<span data-uk-tooltip="{pos:'bottom'}" title="{{'ACTION.VIDEO_ON' |
+		translate}}" ng-show="video">
+			<i class="material-icons" >webcam</i>
+		</span>
+	</button>
+	<button class="btn-control btn-clear" ng-click="toggleHand()"
+		ng-class="!handUp ? 'btn-active' : ''" ng-show="raiseHand" data-uk-tooltip="{pos:'bottom'}" title="{{'ACTION.HAND_UP' |
+		translate}}">
+		<i class="uk-hand-paper-o"></i>
+	</button>
+	<button class="btn-control btn-clear btn-signout right-radius"
+		ng-click="signout()" data-uk-tooltip="{pos:'bottom'}" title="{{'ACTION.CLOSE' |
+		translate}}">
+		<i class="fa fa-sign-out" aria-hidden="true"></i>
+	</button>
+</nav>
+
+    <div class="connecting_overlay"
+        ng-show="connecting">
+        <span class="connecting vi-center">
+            <img src="/assets/img/conference/radio.gif">
+            <br>
+            {{"PAGE.CONFERENCE.CONNECTING" | translate}}
+        </span>
+    </div>

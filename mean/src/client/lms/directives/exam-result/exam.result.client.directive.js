@@ -13,7 +13,7 @@
         exam: '=',
         candidate: '='
       },
-      templateUrl: '/src/client/lms/directives/exam-result/exam.result.directive.client.view.html',
+      templateUrl: '/src/client/lms/directives/exam-result/exam.result.client.view.html',
       link: function(scope, element, attributes) {
         scope.submits = SubmissionsService.byExamAndCandidate({
           examId: scope.exam._id,

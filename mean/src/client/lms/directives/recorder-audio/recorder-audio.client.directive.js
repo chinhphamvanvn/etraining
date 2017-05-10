@@ -6,7 +6,7 @@
      function($sce, Notification, Upload, deviceDetector, screenShare, $timeout) {
       return {
         restrict: 'E',
-        templateUrl: '/src/client/lms/directives/recorder-audio/recorder-audio.client.directive.view.html',
+        templateUrl: '/src/client/lms/directives/recorder-audio/recorder-audio.client.view.html',
         controllerAs: 'ctrl',
         scope: {
           object: '='

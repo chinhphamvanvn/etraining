@@ -13,7 +13,7 @@
         answer: '=',
         mode: '=' // edit, view, study, result
       },
-      templateUrl: '/src/client/lms/directives/questions/extend-text-question/extend-text-question.directive.client.view.html',
+      templateUrl: '/src/client/lms/directives/questions/extend-text-question/extend-text-question.client.view.html',
       link: function(scope, element, attributes) {
         scope.tinymce_options = fileManagerConfig;
         scope.videoAttr = {

@@ -12,7 +12,7 @@
       scope: {
         program: '='
       },
-      templateUrl: '/src/client/core/directives/program-card/program.card.directive.client.view.html',
+      templateUrl: '/src/client/core/directives/program-card/program.card.client.view.html',
       link: function(scope, element, attributes) {}
     };
   }

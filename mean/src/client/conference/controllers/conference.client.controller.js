@@ -6,13 +6,14 @@
     .module('conference')
     .controller('ConferenceController', ConferenceController);
 
-  ConferenceController.$inject = ['$scope', '$state', '$window', 'Authentication', '$timeout', 'courseResolve', 'CoursesService', 'Notification', 'GroupsService', 'Upload', 'CompetenciesService', 'fileManagerConfig', '$translate', '_', 'CertificateTemplatesService'];
+  ConferenceController.$inject = ['$scope', '$state', '$window', 'Authentication', '$timeout', 'classResolve', 'memberResolve', 'Notification', 'GroupsService', 'Upload', 'CompetenciesService', 'fileManagerConfig', '$translate', '_', 'CertificateTemplatesService'];
 
-  function ConferenceController($scope, $state, $window, Authentication, $timeout, course, CoursesService, Notification, GroupsService, Upload, CompetenciesService, fileManagerConfig, $translate, _, CertificateTemplatesService) {
+  function ConferenceController($scope, $state, $window, Authentication, $timeout, classroom, member, Notification, GroupsService, Upload, CompetenciesService, fileManagerConfig, $translate, _, CertificateTemplatesService) {
     var vm = this;
     vm.authentication = Authentication;
-    
-
+    vm.classroom = classroom;
+    vm.member = member;
+    vm.showToolbar = true;
   }
 }(window.UIkit));
 
@@ -368,32 +369,6 @@ angular.module('trainingModule').controller('TrainingRoomController', function($
         $scope.showListVideos = !$scope.showListVideos;
     }
     
-    $scope.toggleAudio = function() {
-        var channel = _.find(channelList,function(ch) {
-            return ch.source =='webcam';
-        });
-        if (channel) {
-            var localStream = channel.webRtcEndpoint.getLocalStream();
-            if (localStream) {
-                var audioTrack = localStream.getAudioTracks()[0];
-                $scope.audio = !$scope.audio;
-                audioTrack.enabled = $scope.audio;
-            }
-        }
-    };
-    $scope.toggleVideo = function() {
-        var channel = _.find(channelList,function(ch) {
-            return ch.source =='webcam';
-        });
-        if (channel) {
-            var localStream = channel.webRtcEndpoint.getLocalStream();
-            if (localStream) {
-                var videoTrack = localStream.getVideoTracks()[0];
-                $scope.video = !$scope.video;
-                videoTrack.enabled = $scope.video;
-            }
-        }
-    };
     $scope.toggleHand = function() {
         $scope.handUp = !$scope.handUp;
 

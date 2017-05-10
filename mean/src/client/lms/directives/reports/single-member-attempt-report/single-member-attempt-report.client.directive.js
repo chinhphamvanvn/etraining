@@ -13,7 +13,7 @@
         course: '=',
         edition: '='
       },
-      templateUrl: '/src/client/lms/directives/reports/single-member-attempt-report/single-member-attempt-report.directive.client.view.html',
+      templateUrl: '/src/client/lms/directives/reports/single-member-attempt-report/single-member-attempt-report.client.view.html',
       link: function(scope, element, attributes) {
         scope.members = [];
         CourseMembersService.byCourse({

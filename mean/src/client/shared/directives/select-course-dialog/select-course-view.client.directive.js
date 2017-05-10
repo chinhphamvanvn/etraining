@@ -13,7 +13,7 @@
         callback: '=',
         dialogId: '='
       },
-      templateUrl: '/src/client/shared/directives/select-course-dialog/select-course-view.directive.client.view.html',
+      templateUrl: '/src/client/shared/directives/select-course-dialog/select-course-view.client.view.html',
       link: function(scope, element, attributes) {
         scope.selectGroup = function(groups) {
           scope.courses = [];

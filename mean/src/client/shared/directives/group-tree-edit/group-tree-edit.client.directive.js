@@ -10,7 +10,7 @@
         treeId: '=',
         category: '=' // organization, question, library, competency ...
       },
-      templateUrl: '/src/client/shared/directives/group-tree-edit/group-tree-edit.directive.client.view.html',
+      templateUrl: '/src/client/shared/directives/group-tree-edit/group-tree-edit.client.view.html',
       link: function(scope, element, attributes) {
         GroupsService.byCategory({
           category: scope.category

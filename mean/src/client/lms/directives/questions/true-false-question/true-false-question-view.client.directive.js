@@ -15,7 +15,7 @@
         showExplain: '=',
         mode: '=' // edit.view/study, result
       },
-      templateUrl: '/src/client/lms/directives/questions/true-false-question/true-false-question.directive.client.view.html',
+      templateUrl: '/src/client/lms/directives/questions/true-false-question/true-false-question.client.view.html',
       link: function(scope, element, attributes) {
         scope.tinymce_options = fileManagerConfig;
         scope.$watch('question', function() {

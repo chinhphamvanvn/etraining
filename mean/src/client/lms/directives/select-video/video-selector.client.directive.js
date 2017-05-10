@@ -59,7 +59,7 @@
     .directive('videoSelector', ['$sce', 'Notification', 'Upload', 'deviceDetector', function($sce, Notification, Upload, deviceDetector) {
       return {
         restrict: 'E',
-        templateUrl: '/src/client/lms/directives/select-video/video-selector.client.directive.view.html',
+        templateUrl: '/src/client/lms/directives/select-video/video-selector.client.view.html',
         controllerAs: 'ctrl',
         scope: {
           object: '='

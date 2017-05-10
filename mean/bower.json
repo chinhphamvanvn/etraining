@@ -103,7 +103,8 @@
     "js-xlsx": "^0.8.0",
     "angular-js-xlsx": "^0.0.2",
     "tinymce": "^4.5.7",
-    "videojs-record": "^1.6.1"
+    "videojs-record": "^1.6.1",
+    "angular-audio": "ngAudio#^1.7.3"
   },
   "overrides": {
     "bootstrap": {

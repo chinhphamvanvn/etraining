@@ -13,7 +13,7 @@
         program: '=',
         member: '='
       },
-      templateUrl: '/src/client/lms/directives/program-progress-book/program-progress-book.directive.client.view.html',
+      templateUrl: '/src/client/lms/directives/program-progress-book/program-progress-book.client.view.html',
       link: function(scope, element, attributes) {
         scope.courses = [];
         _.each(scope.program.courses, function(course) {

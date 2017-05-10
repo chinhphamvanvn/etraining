@@ -14,7 +14,7 @@
         answer: '=',
         mode: '=' // edit.view/study, result
       },
-      templateUrl: '/src/client/lms/directives/multiple-choice-survey/multiple-choice-survey.directive.client.view.html',
+      templateUrl: '/src/client/lms/directives/multiple-choice-survey/multiple-choice-survey.client.view.html',
       link: function(scope, element, attributes) {
         scope.tinymce_options = fileManagerConfig;
         scope.$watch('question', function() {

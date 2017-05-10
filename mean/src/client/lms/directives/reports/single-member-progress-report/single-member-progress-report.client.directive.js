@@ -12,7 +12,7 @@
       scope: {
         course: '='
       },
-      templateUrl: '/src/client/lms/directives/reports/single-member-progress-report/single-member-progress-report.directive.client.view.html',
+      templateUrl: '/src/client/lms/directives/reports/single-member-progress-report/single-member-progress-report.client.view.html',
       link: function(scope, element, attributes) {
         scope.members = [];
         CourseMembersService.byCourse({

@@ -9,7 +9,7 @@
       scope: {
         practice: '=',
       },
-      templateUrl: '/src/client/lms/directives/trainings/pronounciation/training-pronounciation.directive.client.view.html',
+      templateUrl: '/src/client/lms/directives/trainings/pronounciation/training-pronounciation.client.view.html',
       link: function(scope, element, attributes) {
         window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition ;
         scope.listenMode = false;

@@ -13,7 +13,7 @@
         course: '=',
         sort: '='
       },
-      templateUrl: '/src/client/lms/directives/course-view-simple/view-course.directive.client.view.html',
+      templateUrl: '/src/client/lms/directives/course-view-simple/course-view.client.view.html',
       link: function(scope, element, attributes) {
         if (scope.course) {
           scope.edition = CourseEditionsService.byCourse({

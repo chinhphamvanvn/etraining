@@ -18,7 +18,7 @@
         initial: '=', // id of initial selected noded
         multipleRoot: '=' // add allRoot node or not
       },
-      templateUrl: '/src/client/shared/directives/group-tree-view/group-tree-view.directive.client.view.html',
+      templateUrl: '/src/client/shared/directives/group-tree-view/group-tree-view.client.view.html',
       link: function(scope, element, attributes) {
         var all = $translate.instant('COMMON.PRESENT_MODE.ALL');
 

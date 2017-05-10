@@ -12,7 +12,7 @@
       scope: {
         course: '='
       },
-      templateUrl: '/src/client/cms/directives/course-view/view-course.directive.client.view.html',
+      templateUrl: '/src/client/cms/directives/course-view/course-view.client.view.html',
       link: function(scope, element, attributes) {
       }
     };

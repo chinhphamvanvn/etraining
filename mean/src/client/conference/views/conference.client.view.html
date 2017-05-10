@@ -153,62 +153,9 @@
     </div>
 
     <div class="toolbar-control vi-center"
-        ng-mousemove="showToolbar('control')"
-        ng-mouseleave="hideToolbar('control')">
-        <nav class="navbar-control"
-            ng-class="toolbar ? 'show_toolbar' : 'hide_toolbar'">
-            <button class="btn-control btn-clear left-radius" 
-                ng-click="connect()"
-                ng-show="!onCall">
-                <i class="fa fa-volume-control-phone"></i>
-                <md-tooltip md-direction="bottom">
-                    {{"training.connect" | translate}}
-                </md-tooltip> 
-            </button>   
-            <button class="btn-control btn-disconnect btn-clear left-radius"   
-                ng-click="disconnect()"
-                ng-show="onCall">
-                <i class="glyphicon glyphicon-phone-alt"></i>
-                <md-tooltip md-direction="bottom">
-                    {{"training.disconnect"  | translate}}
-                </md-tooltip> 
-            </button> 
-            <button class="btn-control btn-clear" 
-                ng-click="toggleAudio()"
-                ng-class="!audio ? 'btn-active' : ''">
-                <i class="fa" aria-hidden="true"
-                    ng-class="audio ? 'fa-microphone' : 'fa-microphone-slash'"></i>
-                <md-tooltip>
-                    {{video ? "training.offVolume" : "training.offVolume" | translate}}
-                </md-tooltip>
-            </button>            
-            <button class="btn-control btn-clear" 
-                ng-click="toggleVideo()"
-                ng-class="!video ? 'btn-active' : ''">
-                <i ng-show="video" class="fa fa-video-camera" aria-hidden="true"></i>
-                <i ng-show="!video" class="fa fa-video-camera fa-video-camera-slash" aria-hidden="true"></i>
-                <md-tooltip>
-                    {{video ? 'training.offCamera' : 'training.onCamera' | translate}}
-                </md-tooltip>
-            </button>
-            <button class="btn-control btn-clear"
-                ng-click="toggleHand()"
-                ng-class="!handUp ? 'btn-active' : ''"
-                ng-show="me.role!='presenter'">                  
-                <i class="fa fa-hand-paper-o"></i>
-                <md-tooltip md-direction="bottom">
-                    {{"training.handUp" | translate}}
-                </md-tooltip>
-            </button>
-            </button> -->
-            <button class="btn-control btn-clear btn-signout right-radius" 
-                ng-click="signout()">
-                <i class="fa fa-sign-out" aria-hidden="true"></i>
-                <md-tooltip>
-                    {{"training.signout" | translate}}
-                </md-tooltip>
-            </button>
-        </nav> 
+        ng-mousemove="vm.showToolbar=true"
+        ng-mouseleave="vm.showToolbar=false">
+        <floating-toolbar visible="vm.showToolbar"></floating-toolbar>
     </div>
 
     <div class="work-space"
@@ -315,13 +262,5 @@
         </div>
     </div>
 
-    <!-- Overlay when connecting -->
-    <div class="connecting_wrapper"
-        ng-show="connecting">
-        <span class="connecting vi-center">
-            <img src="assets/images/radio.gif">
-            <br>
-            {{"general.connecting" | translate}}
-        </span>
-    </div>
+
 </div>

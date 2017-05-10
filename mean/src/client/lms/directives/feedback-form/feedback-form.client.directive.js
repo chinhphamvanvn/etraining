@@ -12,7 +12,7 @@
         feedback: '=',
         mode: '=' // edit, view
       },
-      templateUrl: '/src/client/lms/directives/feedback-form/feedback-form.directive.client.view.html',
+      templateUrl: '/src/client/lms/directives/feedback-form/feedback-form.client.view.html',
       link: function(scope, element, attributes) {
         scope.tinymce_options = fileManagerConfig;
         scope.videoAttr = {

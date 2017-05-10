@@ -12,7 +12,7 @@
         attempt: '=',
         questions: '=',
       },
-      templateUrl: '/src/client/lms/directives/homework-sheet/homework.sheet.directive.client.view.html',
+      templateUrl: '/src/client/lms/directives/homework-sheet/homework.sheet.client.view.html',
       link: function(scope, element, attributes) {
         _.each(scope.questions, function(question) {
           var answer = _.find(scope.attempt.answers, function(obj) {

@@ -12,7 +12,7 @@
       scope: {
         day: '='
       },
-      templateUrl: '/src/client/dashboard/directives/user-login-chart/user-login.directive.client.view.html',
+      templateUrl: '/src/client/dashboard/directives/user-login-chart/user-login.client.view.html',
       link: function(scope, element, attributes) {
 
         var progress_chart_id = 'login_chart';

@@ -15,7 +15,7 @@
         totalItems: '=',
         items: '='
       },
-      templateUrl: '/src/client/shared/directives/show-more/show-more.client.directive.html',
+      templateUrl: '/src/client/shared/directives/show-more/show-more.client.view.html',
       link: function(scope, element, attributes) {
         scope.showmore = function() {
           if (scope.items.length >= scope.totalItems.length) return;

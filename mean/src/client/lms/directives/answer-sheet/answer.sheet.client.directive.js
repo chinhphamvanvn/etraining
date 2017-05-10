@@ -14,7 +14,7 @@
         answers: '=',
         sheetId: '='
       },
-      templateUrl: '/src/client/lms/directives/answer-sheet/answer.sheet.directive.client.view.html',
+      templateUrl: '/src/client/lms/directives/answer-sheet/answer.sheet.client.view.html',
       link: function(scope, element, attributes) {
         scope.questions = [];
         if (scope.exam.questionSelection === 'manual') {

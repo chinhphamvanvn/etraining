@@ -34,7 +34,7 @@
         showExplain: '=',
         mode: '=' // edit.view/study, result
       },
-      templateUrl: '/src/client/lms/directives/questions/associative-question/associative-question.directive.client.view.html',
+      templateUrl: '/src/client/lms/directives/questions/associative-question/associative-question.client.view.html',
       link: function(scope, element, attributes) {
         scope.tinymce_options = fileManagerConfig;
         scope.targetOptions = [];

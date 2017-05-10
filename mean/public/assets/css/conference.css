@@ -451,8 +451,8 @@ a[ng-click] {
     width: 250px;
 }
 /* Connecting */
-.connecting_wrapper,
-.loading_wrapper {
+.connecting_overlay,
+.loading_overlay {
     position: absolute;
     top: 0;
     left: 0;

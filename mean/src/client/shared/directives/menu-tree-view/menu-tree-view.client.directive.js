@@ -15,7 +15,7 @@
         select: '=',
         menuItems: '=' // id of initial selected menu
       },
-      templateUrl: '/src/client/shared/directives/menu-tree-view/menu-tree-view.directive.client.view.html',
+      templateUrl: '/src/client/shared/directives/menu-tree-view/menu-tree-view.client.view.html',
       link: function(scope, element, attributes) {
         var menu = menuService.getMenu('sidebar');
         var menuSections = _.filter(menu.items, function(item) {

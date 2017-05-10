@@ -14,7 +14,7 @@
         feedbacks: '=',
         teacher: '='
       },
-      templateUrl: '/src/client/lms/directives/feedback-sheet/feedback.sheet.directive.client.view.html',
+      templateUrl: '/src/client/lms/directives/feedback-sheet/feedback.sheet.client.view.html',
       link: function(scope, element, attributes) {
         var answer;
         _.each(scope.questions, function(question) {

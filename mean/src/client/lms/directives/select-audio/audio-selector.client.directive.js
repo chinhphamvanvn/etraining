@@ -5,7 +5,7 @@
     .directive('audioSelector', ['$sce', 'Notification', 'Upload', 'deviceDetector', function($sce, Notification, Upload, deviceDetector) {
       return {
         restrict: 'E',
-        templateUrl: '/src/client/lms/directives/select-audio/audio-selector.client.directive.view.html',
+        templateUrl: '/src/client/lms/directives/select-audio/audio-selector.client.view.html',
         controllerAs: 'ctrl',
         scope: {
           object: '='

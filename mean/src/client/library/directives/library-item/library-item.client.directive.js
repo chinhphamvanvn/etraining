@@ -13,7 +13,7 @@
         media: '=',
         sort: '='
       },
-      templateUrl: '/src/client/library/directives/library-item/library-item.directive.client.view.html',
+      templateUrl: '/src/client/library/directives/library-item/library-item.client.view.html',
       link: function(scope, element, attributes) {}
     };
   }

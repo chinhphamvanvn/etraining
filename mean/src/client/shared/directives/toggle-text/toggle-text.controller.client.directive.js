@@ -17,7 +17,7 @@
         numberOfWord: '=',
         className: '='
       },
-      templateUrl: '/src/client/shared/directives/toggle-text/toggle-text.view.client.directive.html',
+      templateUrl: '/src/client/shared/directives/toggle-text/toggle-text.view.client.iew.html',
       link: function(scope, element, attributes) {
         if (!scope.text || (scope.numberOfWord === 0)) return;
 

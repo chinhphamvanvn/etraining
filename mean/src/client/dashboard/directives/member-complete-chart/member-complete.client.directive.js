@@ -12,7 +12,7 @@
       scope: {
         day: '='
       },
-      templateUrl: '/src/client/dashboard/directives/member-complete-chart/member-complete.directive.client.view.html',
+      templateUrl: '/src/client/dashboard/directives/member-complete-chart/member-complete.client.view.html',
       link: function(scope, element, attributes) {
 
         var progress_chart_id = 'member_complete_chart';

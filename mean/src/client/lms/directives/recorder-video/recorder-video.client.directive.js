@@ -5,7 +5,7 @@
     .directive('recorderVideo', ['$sce', 'Notification', 'Upload', 'deviceDetector', 'screenShare', function($sce, Notification, Upload, deviceDetector, screenShare) {
       return {
         restrict: 'E',
-        templateUrl: '/src/client/lms/directives/recorder-video/recorder-video.client.directive.view.html',
+        templateUrl: '/src/client/lms/directives/recorder-video/recorder-video.client.view.html',
         controllerAs: 'ctrl',
         scope: {
           object: '='

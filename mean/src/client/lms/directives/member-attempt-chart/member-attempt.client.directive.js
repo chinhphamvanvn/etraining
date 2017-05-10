@@ -13,7 +13,7 @@
         member: '=',
         edition: '='
       },
-      templateUrl: '/src/client/lms/directives/member-attempt-chart/member-attempt.directive.client.view.html',
+      templateUrl: '/src/client/lms/directives/member-attempt-chart/member-attempt.client.view.html',
       link: function(scope, element, attributes) {
 
         var progress_chart_id = 'member_attempt_chart';

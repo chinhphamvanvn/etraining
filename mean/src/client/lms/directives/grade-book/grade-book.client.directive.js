@@ -15,7 +15,7 @@
         member: '=',
         gradescheme: '='
       },
-      templateUrl: '/src/client/lms/directives/grade-book/grade-book.directive.client.view.html',
+      templateUrl: '/src/client/lms/directives/grade-book/grade-book.client.view.html',
       link: function(scope, element, attributes) {
         scope.sumStudentScore = 0;
         scope.sumQuizScore = 0;

@@ -15,7 +15,7 @@
         subIndex: '=',
         mode: '=' // edit, view, study, result
       },
-      templateUrl: '/src/client/lms/directives/questions/group-question/group-question.directive.client.view.html',
+      templateUrl: '/src/client/lms/directives/questions/group-question/group-question.client.view.html',
       link: function(scope, element, attributes) {
         scope.tinymce_options = fileManagerConfig;
         scope.$watch('question', function() {

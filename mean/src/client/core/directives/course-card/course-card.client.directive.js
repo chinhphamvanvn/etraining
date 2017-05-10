@@ -12,7 +12,7 @@
       scope: {
         course: '='
       },
-      templateUrl: '/src/client/core/directives/course-card/course.card.directive.client.view.html',
+      templateUrl: '/src/client/core/directives/course-card/course.card.client.view.html',
       link: function(scope, element, attributes) {
         scope.edition = CourseEditionsService.byCourse({
           courseId: scope.course._id

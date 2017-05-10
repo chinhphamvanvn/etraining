@@ -13,7 +13,7 @@
         question: '=',
         show: '='
       },
-      templateUrl: '/src/client/lms/directives/question-info/question.info.directive.client.view.html',
+      templateUrl: '/src/client/lms/directives/question-info/question.info.client.view.html',
       link: function(scope, element, attributes) {}
     };
   }

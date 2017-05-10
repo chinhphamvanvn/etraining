@@ -13,7 +13,7 @@
         day: '=',
         edition: '='
       },
-      templateUrl: '/src/client/lms/directives/course-attempt-chart/course-attempt.directive.client.view.html',
+      templateUrl: '/src/client/lms/directives/course-attempt-chart/course-attempt.client.view.html',
       link: function(scope, element, attributes) {
 
         var progress_chart_id = 'course_attempt_chart';
