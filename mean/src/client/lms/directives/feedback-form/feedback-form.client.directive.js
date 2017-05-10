@@ -15,6 +15,11 @@
       templateUrl: '/src/client/lms/directives/feedback-form/feedback-form.directive.client.view.html',
       link: function(scope, element, attributes) {
         scope.tinymce_options = fileManagerConfig;
+        scope.videoAttr = {
+          autoplay: false,
+          controls: true,
+          muted: false
+        };
       }
     };
   }
