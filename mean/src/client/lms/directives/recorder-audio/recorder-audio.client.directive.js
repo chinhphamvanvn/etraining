@@ -2,7 +2,8 @@
   'use strict';
 
   angular.module('lms')
-    .directive('recorderAudio', ['$sce', 'Notification', 'Upload', 'deviceDetector', 'screenShare', function($sce, Notification, Upload, deviceDetector, screenShare) {
+    .directive('recorderAudio', ['$sce', 'Notification', 'Upload', 'deviceDetector', 'screenShare', '$timeout',
+     function($sce, Notification, Upload, deviceDetector, screenShare, $timeout) {
       return {
         restrict: 'E',
         templateUrl: '/src/client/lms/directives/recorder-audio/recorder-audio.client.directive.view.html',
@@ -28,29 +29,35 @@
             }
           });
           // config view wavesurfer record
-          var player = videojs("myAudio",
-          {
-            controls: false,
-            width: 400,
-            height: 100,
-            plugins: {
-              wavesurfer: {
-                src: "live",
-                waveColor: "black",
-                progressColor: "#2E732D",
-                debug: true,
-                cursorWidth: 1,
-                msDisplayMax: 20,
-                hideScrollbar: true
-              },
-              record: {
+          var random_id = Math.floor(Math.random() * 10000) + 1;
+          scope.id_video_js = "myAudio_"+random_id;
+          var player;
+          $timeout(function() {
+            player = new videojs(scope.id_video_js, {
+              controls: false,
+              width: 400,
+              height: 100,
+              plugins: {
+                wavesurfer: {
+                  src: "live",
+                  waveColor: "black",
+                  progressColor: "#2E732D",
+                  debug: true,
+                  cursorWidth: 1,
+                  msDisplayMax: 20,
+                  hideScrollbar: true
+                },
+                record: {
                   audio: true,
                   video: false,
                   maxLength: 10000,
                   debug: false
+                }
               }
-            }
-          });
+            });
+          }, 1000);
+          
+
           var oldUrl = scope.object ? scope.object.audioUrl : null;
           scope.resetAudio = function() {
             scope.object.audioUrl = oldUrl || null;
