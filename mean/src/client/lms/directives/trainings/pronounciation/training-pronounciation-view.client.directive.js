@@ -17,7 +17,7 @@
         scope.recognizing = false;
         scope.recognition = null;        
         scope.transcript = '';
-        var plainText = $filter('html2text')(scope.practice.text);
+        scope.accuracy = 0;
         
         scope.listen = function() {
           if (scope.listenMode)
@@ -71,11 +71,9 @@
                 interim_transcript += event.results[i][0].transcript;
               }
             }
-            scope.accuracy = statistics.correlation(scope.transcript, plainText) * 100;
+            scope.accuracy = statistics.correlation(scope.transcript, scope.practice.text) ;
             scope.transcript = capitalize(scope.transcript);
             scope.$apply();
-            console.log('Final',scope.transcript);
-            console.log('Interim',interim_transcript);
           };
           scope.recognition.start();
         };
@@ -83,6 +81,7 @@
           scope.transcript = '';
           scope.listenMode = false;
           scope.speakMode = false;
+          scope.accuracy = 0;
           window.speechSynthesis.cancel();
           if (scope.recognition)
             scope.recognition.stop();

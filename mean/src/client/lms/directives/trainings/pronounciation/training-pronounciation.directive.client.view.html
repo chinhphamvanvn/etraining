@@ -19,14 +19,14 @@
 		<div class="uk-grid">
 			<label for="text">{{MODEL.PRACTICE.TEXT}}</label>
 			<div class="uk-width-medium-1-1 "  id="text">
-				<p class="uk-text-left text-wrap" ng-bind-html="practice.text" />
+				{{practice.text}}
 			</div>
 		</div>
 		
 		<div class="uk-grid" ng-show="speakMode">
-			<label for="speech">Speech recognition {{accuracy}}</label>
-			<div class="uk-width-medium-1-1 "id="speech">
-				<span>{{transcript}}</span>
+			<label for="speech">Speech recognition {{accuracy}}%</label>
+			<div class="uk-width-medium-1-1 " id="transcript">
+				{{transcript}}
 			</div>
 		</div>
 	</div>
