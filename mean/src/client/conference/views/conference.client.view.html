@@ -1,0 +1,327 @@
+<style type="text/css">
+@import url("/assets/css/conference.css");
+@import url("/assets/css/animate.css");
+</style>
+
+<div class="conference container">
+    <div class="toolbar">
+        <nav class="navbar"
+            ng-class="connected ? 'show_toolbar' : 'hide_toolbar'">
+            <ul class="list-nav list-unstyled">
+                <li ng-click="setPanel('members')"
+                    ng-class="isSelectPanel('members') ? 'active-nav' : ''">
+                    <i class="fa fa-users" aria-hidden="true"></i>
+                    <span class="members">
+                        {{viewerList.length + 1}}
+                    </span>
+                    <md-tooltip md-direction="right">
+                        {{"training.class" | translate}}
+                    </md-tooltip>
+                </li>
+                <li ng-click="setPanel('docs')"
+                    ng-class="isSelectPanel('docs') ? 'active-nav' : ''">
+                    <i class="fa fa-paperclip" aria-hidden="true"></i>
+                    <md-tooltip md-direction="right">
+                        {{"training.fileSharing" | translate}}
+                    </md-tooltip>
+                </li>
+                <li ng-click="setPanel('chat')"
+                    ng-class="isSelectPanel('chat') ? 'active-nav' : ''">
+                    <i class="fa fa-comments-o" aria-hidden="true"></i>
+                    <span class="messages" ng-show="numOfMessages!=0">{{numOfMessages}}</span>
+                    <md-tooltip md-direction="right">
+                        Chat
+                    </md-tooltip>
+                </li>
+                <li class="animated" 
+                    ng-click="setPanel('members')"
+                    ng-show="me.role=='presenter'"
+                    ng-class="msgHandUp ? 'icon-active flash infinite' : 'icon-unactive'">
+                    <i class="fa fa-hand-paper-o"></i>
+                    <md-tooltip md-direction="right">
+                        {{"training.handUp" | translate}}
+                    </md-tooltip>
+                </li>
+                <li ng-click="setPanel('settings')"
+                    ng-class="isSelectPanel('settings') ? 'active-nav' : ''">
+                    <i class="fa fa-cogs" aria-hidden="true"></i>
+                    <md-tooltip md-direction="right">
+                        {{"conference.setting" | translate}}
+                    </md-tooltip>
+                </li>
+            </ul>
+        </nav>
+
+        <div class="panel-functional" ng-class="isSelectPanel('members') ? 'panel-show' : 'panel-hide'">
+            <div class="member-wrapper">
+                <h3 class="vi-center">{{"conference.members" | translate}}</h3>
+                <ul class="list-unstyled members-list-room">
+                    <li class="label-name">
+                        <span
+                            ng-class="presenter.online ? 'fa fa-circle vi-online' : 'fa fa-circle vi-offline'" aria-hidden="true"></span>
+                        {{presenter.name}} 
+                        ({{"conference.chairman" | translate}})
+                    </li>
+                    <li class="label-name" style="position: relative"
+                        ng-repeat="viewer in viewerList">
+                        <span
+                            ng-class="viewer.online ? 'fa fa-circle vi-online' : 'fa fa-circle vi-offline'" aria-hidden="true"></span>
+                        {{viewer.name}} 
+                        <span ng-show="viewer._id == myProfile._id">({{"general.you" | translate}})</span>
+                        <span class="right action"
+                            ng-show="me.role=='presenter'"          
+                            ng-click="memberInvite(viewer._id)"
+                            ng-class="viewer.invited ? 'icon-active' : 'icon-unactive'">
+                            <i class="fa fa-video-camera" aria-hidden="true"></i>
+                        </span>
+                        <span class="right action animated"
+                            ng-click="toggleHand()"
+                            ng-show="me.role=='presenter'"
+                            ng-class="viewer.handUp ? 'icon-active flash infinite' : 'icon-unactive'">         
+                            <i class="fa fa-hand-paper-o"></i>
+                        </span>                        
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="panel-functional" ng-class="isSelectPanel('docs') ? 'panel-show' : 'panel-hide'">
+            <div class="sharedoc-wrapper">
+                <h3 class="vi-center">{{"training.fileSharing" | translate}}</h3>
+                <div class="vi-center">
+                    <md-button ng-show="me.role=='presenter'"  class="md-raised vi-success vi-btn vi-btn-block" ngf-select="shareFile($file)" ngf-max-size="10MB" style="margin: 0 !important;">
+                        <i class="fa fa-upload" aria-hidden="true"></i>
+                        {{"training.upload" | translate}}
+                    </md-button>
+                </div>
+                <ul class="list-unstyled list-docs">
+                    <li ng-repeat="file in fileList">
+                        <a href="{{file.url}}" download>
+                            <i class="fa fa-download" aria-hidden="true"></i>
+                            {{file.name}}
+                        </a>
+                        <span class="md-raised btn-del"
+                            ng-show="me.role =='presenter'"
+                            ng-click="removeFile(file)">
+                            <i class="fa fa-trash" aria-hidden="true"></i>
+                        </span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="panel-functional" ng-class="isSelectPanel('chat') ? 'panel-show' : 'panel-hide'">
+            <div class="chat-wrapper">
+                <div id="chat-content" class="chat-content" style="overflow-y: auto;">
+                    <ul class="messages-list list-unstyled">
+                        <li class="md-1-line message-item" ng-repeat="msg in chatMessage">
+                            <div class="message_box" id="{{msg.idx}}">
+                                <span class="user">{{msg.user}}: </span>
+                                <span class="message">{{msg.text}}</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div> 
+
+                <div layout="row" class="input-message-group" ng-keypress="sendChatMessage($event)">
+                    <md-input-container flex="80">
+                        <label>{{"training.chatMsg" | translate}}</label>
+                        <input type="text" ng-model="chatInput">
+                    </md-input-container>
+                    <div flex="20" class="btn-send-wrapper">
+                        <md-button class="md-fab md-mini md-primary" aria-label="Send message" ng-click="chat()">
+                            <i class="fa fa-paper-plane" aria-hidden="true"></i>
+                        </md-button>
+                    </div> 
+                </div>
+            </div>
+        </div>
+
+        <div class="panel-functional" ng-class="isSelectPanel('settings') ? 'panel-show' : 'panel-hide'">
+            <div class="setting-wrapper">
+                <h3 class="vi-center">{{"conference.setting" | translate}}</h3>
+                <p class="sub_title_panel">{{"conference.chooseQuanlityVideo" | translate}}</p>
+                <select class="vi-select" 
+                    ng-change="changeQuality()" 
+                    ng-model="videoQuality" 
+                    ng-options="quality.text | translate for quality in qualityOptions">
+                </select> 
+
+                <show-devices></show-devices>
+            </div>
+        </div>
+    </div>
+
+    <div class="toolbar-control vi-center"
+        ng-mousemove="showToolbar('control')"
+        ng-mouseleave="hideToolbar('control')">
+        <nav class="navbar-control"
+            ng-class="toolbar ? 'show_toolbar' : 'hide_toolbar'">
+            <button class="btn-control btn-clear left-radius" 
+                ng-click="connect()"
+                ng-show="!onCall">
+                <i class="fa fa-volume-control-phone"></i>
+                <md-tooltip md-direction="bottom">
+                    {{"training.connect" | translate}}
+                </md-tooltip> 
+            </button>   
+            <button class="btn-control btn-disconnect btn-clear left-radius"   
+                ng-click="disconnect()"
+                ng-show="onCall">
+                <i class="glyphicon glyphicon-phone-alt"></i>
+                <md-tooltip md-direction="bottom">
+                    {{"training.disconnect"  | translate}}
+                </md-tooltip> 
+            </button> 
+            <button class="btn-control btn-clear" 
+                ng-click="toggleAudio()"
+                ng-class="!audio ? 'btn-active' : ''">
+                <i class="fa" aria-hidden="true"
+                    ng-class="audio ? 'fa-microphone' : 'fa-microphone-slash'"></i>
+                <md-tooltip>
+                    {{video ? "training.offVolume" : "training.offVolume" | translate}}
+                </md-tooltip>
+            </button>            
+            <button class="btn-control btn-clear" 
+                ng-click="toggleVideo()"
+                ng-class="!video ? 'btn-active' : ''">
+                <i ng-show="video" class="fa fa-video-camera" aria-hidden="true"></i>
+                <i ng-show="!video" class="fa fa-video-camera fa-video-camera-slash" aria-hidden="true"></i>
+                <md-tooltip>
+                    {{video ? 'training.offCamera' : 'training.onCamera' | translate}}
+                </md-tooltip>
+            </button>
+            <button class="btn-control btn-clear"
+                ng-click="toggleHand()"
+                ng-class="!handUp ? 'btn-active' : ''"
+                ng-show="me.role!='presenter'">                  
+                <i class="fa fa-hand-paper-o"></i>
+                <md-tooltip md-direction="bottom">
+                    {{"training.handUp" | translate}}
+                </md-tooltip>
+            </button>
+            </button> -->
+            <button class="btn-control btn-clear btn-signout right-radius" 
+                ng-click="signout()">
+                <i class="fa fa-sign-out" aria-hidden="true"></i>
+                <md-tooltip>
+                    {{"training.signout" | translate}}
+                </md-tooltip>
+            </button>
+        </nav> 
+    </div>
+
+    <div class="work-space"
+        ng-click="collapsePanel()">
+        <div class="present"
+            ng-class="isSelectTab('present') ? 'active-workspace' : 'un-active-workspace'">
+            <div class="my-pdf-container">                    
+                <div class="pdf-content vi-center">
+                    <pdf-viewer
+                        delegate-handle="my-pdf-container"
+                        url="pdfUrl"
+                        scale=".9"
+                        show-toolbar="false"
+                        headers="{ 'x-you-know-whats-awesome': 'EVERYTHING' }"></pdf-viewer>
+                </div>
+                <video autoplay id="localCamera"></video>
+                <div class="toolbar-pdf-viewer"
+                    ng-mousemove="showToolbar('present')"
+                    ng-mouseleave="hideToolbar('present')">
+                    <div layout="row" class="toolbar-content"
+                        ng-class="(navPresent && connected) ? 'show_toolbar' : 'hide_toolbar'">
+                        <div flex="30" 
+                             ng-show="me.role=='presenter' || isPresent()">
+                            <md-button class="md-raised vi-success vi-btn" ngf-select="uploadPresentation($file)" ngf-max-size="10MB">
+                                <i class="fa fa-upload" aria-hidden="true"></i>
+                                {{"training.upload" | translate}}
+                            </md-button>
+                        </div>
+                        <div flex="40" class="vi-center"
+                             ng-show="me.role=='presenter' || isPresent()">                    
+                            <md-button class="md-raised vi-btn-default" 
+                                ng-click="pdfSwitchPage(-1)">
+                                <i class="fa fa-chevron-left" aria-hidden="true"></i>
+                            </md-button>                        
+                            <input type="text" class="vi-input vi-pdf-input" 
+                                ng-value="currPage + '/' + totalPages">
+                        
+                            <md-button class="md-raised vi-btn-default" 
+                                ng-click="pdfSwitchPage(1)">
+                                <i class="fa fa-chevron-right" aria-hidden="true"></i>
+                            </md-button>                        
+                        </div>
+                        <div flex="30" ng-class="{'vi-right': (me.role=='presenter')}">                    
+                            <md-button class="md-raised vi-btn-default" 
+                                ng-click="zoomOut(0.1)">
+                                <i class="fa fa-search-minus" aria-hidden="true"></i>
+                            </md-button>
+                            <input flex="60" class="vi-input vi-pdf-input" type="text" ng-value="zoom + '%'" disabled>
+                            <md-button class="md-raised vi-btn-default" 
+                                ng-click="zoomIn(0.1)">
+                                <i class="fa fa-search-plus" aria-hidden="true"></i>
+                            </md-button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="section_videos">
+            <div class="section_videos_content">
+                <div ng-show="showListVideos">
+                    <div class="list_videos_wrapper">
+                        <div class="list_videos_content" style="height: {{(numOfAllocated - 1) * 120}}px;">
+                            <div class="video_wrapper"                    
+                                ng-repeat="slot in videoSlots | filter:byIndex"
+                                ng-show="slot.allocated">
+                                <video class="video_training"
+                                    ng-attr-id="{{slot.videoId}}" autoplay  poster="assets/images/camera.png"></video>
+                                <div class="top_bar clearfix">
+                                    {{slot.name}}
+                                    <span ng-show="me.role=='presenter'" 
+                                        ng-click="memberDiscard(slot)" 
+                                        class="btn-close right">
+                                        x
+                                    </span>
+                                </div>  
+                               <!--  <span class="loading vi-center">
+                                    <img src="assets/images/loading.gif">
+                                    <br>
+                                    {{"general.loading" | translate}}
+                                </span> -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="video_teacher_wrapper">
+                        <div class="video_wrapper">
+                            
+                            <video id="remoteCamera0" class="video_training" ></video>
+                            <div class="top_bar">
+                                {{"training.teacher" | translate}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <span class="btn-toggle vi-center"
+                    ng-show="numOfAllocated > 1"
+                    ng-style="showListVideos ? {} : {'right': 0}"
+                    ng-click="toggleListVideos()">
+                    <i class="fa" aria-hidden="true"
+                        ng-class="showListVideos ? 'fa-angle-double-right' : 'fa-angle-double-left'"></i>
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Overlay when connecting -->
+    <div class="connecting_wrapper"
+        ng-show="connecting">
+        <span class="connecting vi-center">
+            <img src="assets/images/radio.gif">
+            <br>
+            {{"general.connecting" | translate}}
+        </span>
+    </div>
+</div>
