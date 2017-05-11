@@ -18,6 +18,7 @@
         scope.recognition = null;        
         scope.transcript = '';
         scope.accuracy = 0;
+        var plainText = $filter('html2text')(scope.practice.text);
         
         scope.listen = function() {
           if (scope.listenMode)
