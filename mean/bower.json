@@ -104,7 +104,8 @@
     "angular-js-xlsx": "^0.0.2",
     "tinymce": "^4.5.7",
     "videojs-record": "^1.6.1",
-    "angular-audio": "ngAudio#^1.7.3"
+    "angular-audio": "ngAudio#^1.7.3",
+    "angular-pdf-viewer": "^0.2.13"
   },
   "overrides": {
     "bootstrap": {

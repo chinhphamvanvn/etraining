@@ -30,6 +30,10 @@ var ClassroomSchema = new Schema({
     type: Date,
     default: Date.now
   },
+  teacher: {
+    type: Schema.ObjectId,
+    ref: 'Member'
+  },
   user: {
     type: Schema.ObjectId,
     ref: 'User'

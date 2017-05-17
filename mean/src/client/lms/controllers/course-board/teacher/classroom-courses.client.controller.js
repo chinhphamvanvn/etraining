@@ -6,7 +6,7 @@
     .module('lms')
     .controller('CoursesTeacherClassroomController', CoursesTeacherClassroomController);
 
-  CoursesTeacherClassroomController.$inject = ['$scope', '$state', '$window', 'Authentication', '$timeout', 'editionResolve', 'courseResolve', 'memberResolve', 'Notification', 'ClassroomsService', '$translate', 'CourseMembersService','_'];
+  CoursesTeacherClassroomController.$inject = ['$scope', '$state', '$window', 'Authentication', '$timeout', 'editionResolve', 'courseResolve', 'memberResolve', 'Notification', 'ClassroomsService', '$translate', 'CourseMembersService', '_'];
 
   function CoursesTeacherClassroomController($scope, $state, $window, Authentication, $timeout, edition, course, member, Notification, ClassroomsService, $translate, CourseMembersService, _) {
     var vm = this;
@@ -15,6 +15,7 @@
     vm.member = member;
     vm.course = course;
     vm.selectClass = selectClass;
+    vm.joinConference = joinConference;
 
     vm.classConfig = {
       create: false,
@@ -36,6 +37,9 @@
         };
       });
       _.each(vm.classes, function(classroom) {
+        if (classroom.teacher) {
+          classroom.teacher = CourseMembersService.get({memberId: classroom.teacher});
+        }
         var now = new Date();
         var startDate = classroom.startDate ? new Date(classroom.startDate) : null;
         var endDate = classroom.endDate ? new Date(classroom.endDate) : null;
@@ -66,13 +70,21 @@
         vm.classroom = _.find(vm.classes, function(obj) {
           return obj._id === vm.classroomId;
         });
-        vm.members = [vm.member];
-        CourseMembersService.byClass({
+        vm.members = CourseMembersService.byClass({
           classroomId: vm.classroomId
-        }, function(members) {
-          vm.members = vm.members.concat(members);
         });
       }
+    }
+
+    function joinConference(classroom) {
+      if (classroom.teacher._id != vm.member._id) {
+        UIkit.error($translate.instant('ERROR.CONFERENCE.NOT_TEACHER'));
+        return;
+      }
+      $state.go('conference', {
+        classroomId: vm.classroom._id,
+        memberId: vm.member._id
+      });
     }
   }
 }(window.UIkit));

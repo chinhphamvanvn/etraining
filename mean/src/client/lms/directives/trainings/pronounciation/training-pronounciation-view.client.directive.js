@@ -2,9 +2,9 @@
   'use strict';
 
   angular.module('lms')
-    .directive('trainingPronounciation', ['$filter', 'statistics', trainingPronounciation]);
+    .directive('trainingPronounciation', ['$timeout', 'statistics', trainingPronounciation]);
 
-  function trainingPronounciation($filter, statistics) {
+  function trainingPronounciation($timeout, statistics) {
     return {
       scope: {
         practice: '=',
@@ -18,7 +18,6 @@
         scope.recognition = null;        
         scope.transcript = '';
         scope.accuracy = 0;
-        var plainText = $filter('html2text')(scope.practice.text);
         
         scope.listen = function() {
           if (scope.listenMode)
@@ -72,9 +71,10 @@
                 interim_transcript += event.results[i][0].transcript;
               }
             }
-            scope.accuracy = statistics.correlation(scope.transcript, scope.practice.text) ;
-            scope.transcript = capitalize(scope.transcript);
-            scope.$apply();
+            $timeout(function() {
+              scope.accuracy = statistics.correlation(scope.transcript, scope.practice.text) ;
+              scope.transcript = capitalize(scope.transcript);  
+            });
           };
           scope.recognition.start();
         };

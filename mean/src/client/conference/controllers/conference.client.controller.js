@@ -6,14 +6,38 @@
     .module('conference')
     .controller('ConferenceController', ConferenceController);
 
-  ConferenceController.$inject = ['$scope', '$state', '$window', 'Authentication', '$timeout', 'classResolve', 'memberResolve', 'Notification', 'GroupsService', 'Upload', 'CompetenciesService', 'fileManagerConfig', '$translate', '_', 'CertificateTemplatesService'];
+  ConferenceController.$inject = ['$scope', '$state', '$window', 'Authentication', '$timeout', 'classResolve', 'memberResolve', 'Notification', 'conferenceSocket', 'Upload', 'CourseMembersService', '$translate', '_'];
 
-  function ConferenceController($scope, $state, $window, Authentication, $timeout, classroom, member, Notification, GroupsService, Upload, CompetenciesService, fileManagerConfig, $translate, _, CertificateTemplatesService) {
+  function ConferenceController($scope, $state, $window, Authentication, $timeout, classroom, member, Notification, conferenceSocket, Upload, CourseMembersService, $translate, _) {
     var vm = this;
+    
     vm.authentication = Authentication;
     vm.classroom = classroom;
     vm.member = member;
-    vm.showToolbar = true;
+    vm.onConnecting = onConnecting;
+    vm.onConnected = onConnected;
+    vm.onDisconnected = onDisconnected;
+    vm.teacher= CourseMembersService.get({memberId: vm.classroom.teacher});
+    vm.students = CourseMembersService.byClass({
+      classroomId: vm.classroom._id
+    });
+    
+    conferenceSocket.init(vm.classroom._id);
+
+
+    function onConnected() {
+      vm.connected = true;
+      vm.connecting = false;
+    }
+    
+    function onDisconnected() {
+      vm.connected = false;
+    }
+    
+    function onConnecting() {
+      vm.connected = false;
+      vm.connecting = true;
+    }
   }
 }(window.UIkit));
 
@@ -77,19 +101,6 @@ angular.module('trainingModule').controller('TrainingRoomController', function($
         $scope.bitrate = $scope.qualityOptions[0].bitrate;         
     };
 
-    $scope.setTab = function(tab) {
-        if ($scope.selectTab === tab) {
-            $scope.selectTab = 'meeting';
-            return;
-        }
-
-        $scope.selectTab = tab;
-    }
-
-    $scope.isSelectTab = function(tab) {
-        return $scope.selectTab === tab;
-    }
-
     $scope.setPanel = function(panel) {
         if (panel === 'members') {
             $scope.msgHandUp = false;
@@ -133,19 +144,6 @@ angular.module('trainingModule').controller('TrainingRoomController', function($
 
     $scope.hideToolbar = function(type) {
         autoHideToolbar(type);
-    }
-    
-    $scope.connect = function() {
-        $scope.sound.play();
-        $scope.sound.loop = true;
-        $scope.connecting = true;
-        if ($trainingSocket.readyState == 1)  {
-            $scope.me.online = true;
-            sendMessage({ id: 'join'});
-            $scope.onCall = true;
-        } else {
-            $window.location.reload();
-        }
     }
     
     $scope.disconnect = function() {
@@ -346,16 +344,6 @@ angular.module('trainingModule').controller('TrainingRoomController', function($
         });
     }
 
-    function endConference(message) {
-        var url = '/';
-        
-        if ($scope.meeting.logoutUrl) {
-            var base64EncodedString = decodeURIComponent($scope.meeting.logoutUrl);
-            url = $base64.decode(base64EncodedString);
-        }
-        $window.location.href = url;
-    };
-
     function updateMemberList(onlineList) {
         _.each($scope.memberList, function(curVal) {
             var found = _.find(onlineList, function(m) {
@@ -467,15 +455,6 @@ angular.module('trainingModule').controller('TrainingRoomController', function($
         return slot.index > 0;
     };
 
-    $rootScope.$on('$routeChangeStart', function(event, next, current) {
-        if (!current) {
-            $trainingSocket.close();
-        }
-    });
-    $window.onbeforeunload = function() {
-        $trainingSocket.close();
-        $interval.cancel(recordToken);
-    };
 
     init();
     
@@ -553,67 +532,6 @@ angular.module('trainingModule').controller('TrainingRoomController', function($
         })
     };
     
-    // file share event
-    function processFileShare(fileShare) {
-        _.each(fileShare,function(msg){
-            onFileShareEvent(msg.event,msg.object)
-        });        
-    }
-    
-    function onFileShareEvent(event,object) {
-        if (event=='addFile') {
-            $scope.fileList.push(object);
-        }
-        if (event=='removeFile') {
-            $scope.fileList = _.reject($scope.fileList,function(item) {
-                return item.url == object.url
-            });
-        }
-    }
-    
-    $scope.shareFile = function (file) {
-        if (!file) {
-            return;
-        }
-        console.log(file);
-        $meeting.shareFile({file:file},function(result) {
-            if (result.status && result.data.status) {
-                console.log('url', result.data.url);
-                 $scope.fileList.push({name:file.name,url:result.data.url});
-                 $scope.$apply();
-                sendMessage({id:'fileShare',event:'addFile',object:{name:file.name,url:result.data.url}});
-            }
-        })
-    }
-    
-    $scope.removeFile = function (file) {
-        if (!file) {
-            return;
-        }
-        $scope.fileList = _.reject($scope.fileList,function(item) {
-            return item.url == file.url
-        });
-        sendMessage({id:'fileShare',event:'removeFile',object:file});
-    }
-
-    $scope.showModalSettings = function(ev) {
-        $mdDialog.show({
-            controller: DialogController,
-            templateUrl: 'app/modules/conference/views/settingDialog.tmpl.html',
-            parent: angular.element(document.body),
-            targetEvent: ev,
-            locals: {
-                bitrate: $scope.bitrate
-              },
-            clickOutsideToClose:true
-        })
-        .then(function(videoQuanlity) {
-            $scope.bitrate = videoQuanlity.bitrate;
-            resetBandwidth();
-        }, function(videoQuanlity) {
-            $scope.bitrate = videoQuanlity.bitrate;
-            resetBandwidth();
-        });
-    };
+   
     
 });*/

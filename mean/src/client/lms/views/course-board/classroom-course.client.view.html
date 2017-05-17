@@ -20,13 +20,15 @@
 							: {{vm.classroom.startDate | date :'dd-MM-yyyy'}}</span>
 						<div >
 							<a class="md-btn md-btn md-btn-primary" target="_blank"
-								ui-sref="conference({classroomId:vm.classroom._id, memberId: vm.member._id})"
+								ng-click="vm.joinConference(vm.classroom)"
 								ng-show="vm.classroom ">{{'ACTION.JOIN'|translate}}</a>
 						</div>
 					</div>
 					<div class="uk-grid uk-margin">
 					<div class="uk-overflow-container uk-width-1-2">
-						<h4">
+						<h4>
+							{{'MODEL.CLASSROOM.TEACHER'|translate}} : {{vm.classroom.teacher.member.displayName}}</h4>
+						<h4>
 							{{'PAGE.LMS.MY_COURSES.TEACHER_BOARD.STUDENT_LIST'|translate}}</h4>
 						<table class="uk-table uk-table-nowrap uk-table-condensed">
 							<thead>
@@ -35,9 +37,7 @@
 									</th>
 									<th class="uk-width-2-10 uk-text-center">{{'MODEL.USER.DISPLAY_NAME'|translate}}
 									</th>
-									<th class="uk-width-1-10 uk-text-center">
-										{{'PAGE.LMS.MY_COURSES.TEACHER_BOARD.CLASSROOM.PRESENTER'|translate}}
-									</th>
+			
 						
 								</tr>
 							</thead>
@@ -46,9 +46,7 @@
 									<td class="uk-text-center"><img class="md-user-image"
 										src="{{member.member.profileImageURL}}" alt="" /></td>
 									<td class="uk-text-center">{{member.member.displayName}}</td>
-									<td class="uk-text-center uk-table-middle small_col"><input
-										type="checkbox" ng-disabled="true"
-										ng-checked="member.role=='teacher'"></td>
+	
 
 								</tr>
 							</tbody>

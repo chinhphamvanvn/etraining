@@ -36,6 +36,7 @@
     vm.remove = remove;
     vm.addClassroom = addClassroom;
     vm.editClassroom = editClassroom;
+    vm.updateTeacher = updateTeacher;
     vm.removeClassroom = removeClassroom;
     vm.displayUsers = [];
 
@@ -70,6 +71,13 @@
       });
       vm.students = _.filter(data, function(item) {
         return item.role === 'student' && item.member;
+      });
+      vm.teacherOptions = _.map(vm.teachers, function(obj) {
+        return {
+          id: obj._id,
+          title: obj.member.displayName,
+          value: obj._id
+        };
       });
     });
 
@@ -117,6 +125,15 @@
         }
       });
     });
+    
+    vm.teacherConfig = {
+        create: false,
+        maxItems: 1,
+        valueField: 'value',
+        labelField: 'title',
+        searchField: 'title'
+      };
+     vm.teacherOptions = [];
 
     function selectStudentGroup(groups) {
       vm.studentUsers = [];
@@ -143,10 +160,18 @@
     function remove(member) {
       UIkit.modal.confirm($translate.instant('COMMON.CONFIRM_PROMPT'), function() {
         member.$remove(function() {
-          if (member.role === 'teacher')
+          if (member.role === 'teacher') {
             vm.teachers = _.reject(vm.teachers, function(item) {
               return item._id === member._id;
             });
+            vm.teacherOptions = _.map(vm.teachers, function(obj) {
+              return {
+                id: obj._id,
+                title: obj.member.displayName,
+                value: obj._id
+              };
+            });
+          }
           if (member.role === 'student')
             vm.students = _.reject(vm.students, function(item) {
               return item._id === member._id;
@@ -174,6 +199,13 @@
           member.registered = new Date();
           member.$save(function() {
             vm.teachers.push(member);
+            vm.teacherOptions = _.map(vm.teachers, function(obj) {
+              return {
+                id: obj._id,
+                title: obj.member.displayName,
+                value: obj._id
+              };
+            });
           });
         }
       });
@@ -256,6 +288,19 @@
           });
         });
       });
+    }
+    
+    function updateTeacher(classroom) {
+        classroom.$update(function(response) {
+          Notification.success({
+            message: '<i class="uk-icon-ok"></i> Classroom updated successfully!'
+          });
+        }, function(errorResponse) {
+          Notification.error({
+            message: errorResponse.data.message,
+            title: '<i class="uk-icon-ban"></i> Classroom  updated error!'
+          });
+        });
     }
 
     function removeClassroom(classroom) {

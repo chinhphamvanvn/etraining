@@ -4,8 +4,9 @@
  * Module dependencies.
  */
 
-var _ = require('underscore')._;
-var cron = require('cron'),
+var _ = require('underscore')._,
+  config = require('../config'),
+  cron = require('cron'),
   mongoose = require('mongoose'),
   CourseMember = mongoose.model('CourseMember'),
   CourseAttempt = mongoose.model('CourseAttempt'),
@@ -17,6 +18,8 @@ var cron = require('cron'),
   Setting = mongoose.model('Setting'),
   Message = mongoose.model('Message'),
   EditionSection = mongoose.model('EditionSection');
+
+mongoose.connect(config.db.uri, config.db.option);
 
 function alertTeacherOnComplete(student) {
   User.findById(student.member).exec(function(err, studentUser) {

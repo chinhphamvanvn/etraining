@@ -42,6 +42,7 @@ module.exports = {
       ],
       js: [
         //  non-angular
+        'public/lib/kurento-utils/js/kurento-utils.js',
         'public/assets/js/custom/video.min.js',
         'public/lib/wavesurfer.js/dist/wavesurfer.min.js',
         'public/lib/wavesurfer.js/dist/plugin/wavesurfer.microphone.min.js',
@@ -156,8 +157,10 @@ module.exports = {
         'public/assets/js/custom/gantt_chart.js',
         'public/lib/uikit/js/components/htmleditor.js',
         'public/file_manager/js/elfinder.full.js',
+        '/mean/public/lib/pdfjs-dist/build/pdf.js',
         // angular-based
         'public/lib/angular/angular.js',
+        'public/lib/angular-pdf-viewer/dist/angular-pdf-viewer.min.js',
         'public/lib/angular-sanitize/angular-sanitize.js',
         'public/lib/angular-ui-router/release/angular-ui-router.js',
         'public/lib/oclazyload/dist/ocLazyLoad.js',
@@ -165,6 +168,7 @@ module.exports = {
         'public/lib/angular-resource/angular-resource.js',
         'public/lib/angular-ui-notification/dist/angular-ui-notification.js',
         'public/lib/owasp-password-strength-test/owasp-password-strength-test.js',
+        'public/lib/angular-audio/app/angular.audio.js',
         'public/lib/angular-clndr/angular-clndr.js',
         'public/lib/angular-cookies/angular-cookies.js',
         'public/lib/angular-datatables/dist/angular-datatables.js',
@@ -277,7 +281,7 @@ module.exports = {
     allJS: ['server.js', 'config/**/*.js', 'src/server/**/*.js'],
     models: 'src/server/*/models/*.js',
     routes: ['src/server/!(core)/routes/*.js', 'src/server/core/routes/*.js'],
-    sockets: 'src/server/*/sockets/*.js',
+    sockets: 'src/server/sockets/*.js',
     config: ['src/server/*/config/*.js'],
     policies: 'src/server/*/policies/*.js',
     views: ['src/server/*/views/*.html', 'src/server/*/templates/*.html']
