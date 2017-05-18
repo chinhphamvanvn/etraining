@@ -42,52 +42,54 @@
             conferenceSocket.invite(member.member._id);
           }
         }
-        
-     /*   scope.chat = function() {
-          var message = {
-              id: 'chat',
-              text: scope.chatInput
-          }
-          sendMessage(message);
-          $scope.chatInput = "";
-      }
-      
-      function receiveChat(message) {
-        var idx = $scope.chatMessage.length; 
 
-        message.idx = 'message_' + idx;
-        $scope.chatMessage.push({
-            'user': message.user,
-            'text': message.text,
-            'idx': message.idx
-        });
+        /*   scope.chat = function() {
+             var message = {
+                 id: 'chat',
+                 text: scope.chatInput
+             }
+             sendMessage(message);
+             $scope.chatInput = "";
+         }
+         
+         function receiveChat(message) {
+           var idx = $scope.chatMessage.length; 
 
-        if (message.user !== $scope.myProfile.name) {
-            $scope.numOfMessages++;
+           message.idx = 'message_' + idx;
+           $scope.chatMessage.push({
+               'user': message.user,
+               'text': message.text,
+               'idx': message.idx
+           });
+
+           if (message.user !== $scope.myProfile.name) {
+               $scope.numOfMessages++;
+           }
+           
+           var newMsg = angular.element(document.querySelector('#message_' + (idx - 1)));
+           var chatContent = angular.element(document.querySelector('#chat-content'));
+           if (!(_.isEmpty(newMsg))) {
+               chatContent.scrollTo(newMsg, 0, 500);
+           }                    
         }
-        
-        var newMsg = angular.element(document.querySelector('#message_' + (idx - 1)));
-        var chatContent = angular.element(document.querySelector('#chat-content'));
-        if (!(_.isEmpty(newMsg))) {
-            chatContent.scrollTo(newMsg, 0, 500);
-        }                    
-    }
 
-      scope.sendChatMessage = function($event) {
-          if (event.code === 'Enter') {
-              scope.chat();
-          }
-      }*/
+         scope.sendChatMessage = function($event) {
+             if (event.code === 'Enter') {
+                 scope.chat();
+             }
+         }*/
         conferenceSocket.onMemberList(function(memberStatusList) {
-          console.log(memberStatusList);
-          scope.handUpCount =  _.filter(memberStatusList, function(status) { return status.handUp; }).length;
-          _.each(memberStatusList, function(status) {
-            _.each(scope.members, function(m) {
-              console.log(m.member);
-              if (m.member._id == status.memberId) {
-                m.online = true;
-              }
-            });
+          scope.handUpCount = _.filter(memberStatusList, function(status) {
+            return status.handUp;
+          }).length;
+          _.each(scope.members, function(member) {
+            var status = _.find(memberStatusList, function(obj) {
+              return obj.memberId == member.member._id;
+            })
+            if (status)
+              member.online = true;
+            else
+              member.online = false;
           });
         });
       }

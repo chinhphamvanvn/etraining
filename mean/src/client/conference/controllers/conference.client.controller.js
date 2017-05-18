@@ -32,6 +32,7 @@
     
     function onDisconnected() {
       vm.connected = false;
+      vm.selectPanel = '';
     }
     
     function onConnecting() {

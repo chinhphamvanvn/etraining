@@ -12,9 +12,9 @@ Room.prototype.addMember = function(member)
     this.memberList[member.memberId] = member;
 }
 
-Room.prototype.removeMember = function(memberId)
+Room.prototype.removeMember = function(member)
 {
-    delete this.memberList[memberId];
+    delete this.memberList[member.memberId];
 }
 Room.prototype.getMember = function(memberId)
 {
