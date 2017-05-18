@@ -19,8 +19,6 @@ var _ = require('underscore')._,
   Message = mongoose.model('Message'),
   EditionSection = mongoose.model('EditionSection');
 
-mongoose.connect(config.db.uri, config.db.option);
-
 function alertTeacherOnComplete(student) {
   User.findById(student.member).exec(function(err, studentUser) {
     Course.findById(student.course).exec(function(err, course) {

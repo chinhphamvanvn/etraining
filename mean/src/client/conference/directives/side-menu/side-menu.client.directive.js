@@ -22,7 +22,7 @@
         scope.chatMessage = [];
         scope.handUpCount = 0;
         scope.members = [scope.teacher];
-        scope.members = _.extend(scope.members, scope.students);
+        scope.members = scope.members.concat(scope.students);
         scope.setPanel = function(panel) {
           if (panel === 'members') {
             scope.msgHandUp = false;
@@ -83,7 +83,8 @@
           scope.handUpCount =  _.filter(memberStatusList, function(status) { return status.handUp; }).length;
           _.each(memberStatusList, function(status) {
             _.each(scope.members, function(m) {
-              if (m._id == status.memberId) {
+              console.log(m.member);
+              if (m.member._id == status.memberId) {
                 m.online = true;
               }
             });

@@ -31,10 +31,10 @@
 			<ul class="list-unstyled members-list-room">
 				<li class="label-name"><span
 					ng-class="teacher.online ? 'uk-icon-circle vi-online' : 'uk-icon-circle vi-offline'"
-					aria-hidden="true"></span> {{teacher.member.displayNaame}}
+					aria-hidden="true"></span> {{teacher.member.displayName}}
 					({{"PAGE.CONFERENCE.TEACHER" | translate}})</li>
 				<li class="label-name" style="position: relative"
-					ng-repeat="student in members"><span
+					ng-repeat="student in students"><span
 					ng-class="student.online ? 'uk-icon-circle vi-online' : 'uk-icon-circle vi-offline'"
 					aria-hidden="true"></span> {{student.member.displayName}} <span
 					ng-show="student._id == member._id">({{"PAGE.CONFERENCE.YOU" |

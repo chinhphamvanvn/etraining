@@ -16,6 +16,11 @@ function seedDB() {
   }
 }
 
+function startScheduler() {
+  var cron = require('./cron');
+  cron.start();
+}
+
 // Initialize Models
 mongoose.loadModels(seedDB);
 
@@ -24,7 +29,7 @@ module.exports.init = function init(callback) {
     // Initialize express
     var app = express.init(db);
     if (callback) callback(app, db, config);
-
+    startScheduler();
   });
 };
 

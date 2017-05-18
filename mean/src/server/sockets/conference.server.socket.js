@@ -13,9 +13,7 @@ function join(io, socket, roomId) {
   var member = new Member(socket.request.user._id);
   room.addMember(member);
   rooms[roomId] = room;
-  console.log('join room', roomId);
   socket.join(roomId, function(){
-    console.log('Broadcast room');
     io.to(roomId).emit(CHANNEL_ID, JSON.stringify({id:'broadcastMember', memberList:room.getMemberList()}));
   });
 }
