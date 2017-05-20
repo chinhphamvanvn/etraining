@@ -384,6 +384,37 @@ exports.uploadCourseImage = function(req, res) {
 
 };
 
+exports.uploadCoursePresentation = function(req, res) {
+	  // Filtering to upload only images
+	  var course = req.course;
+	  var multerConfig = config.uploads.course.document;
+	  multerConfig.fileFilter = require(path.resolve('./config/lib/multer')).pdfFileFilter;
+	  var upload = multer(multerConfig).single('newCoursePresentation');
+	  uploadFile()
+	    .then(function(fileURL) {
+	      res.json({
+	    	  fileURL: fileURL
+	      });
+	    })
+	    .catch(function(err) {
+	      res.status(422).send(err);
+	    });
+
+	  function uploadFile() {
+	    return new Promise(function(resolve, reject) {
+	      upload(req, res, function(uploadError) {
+	        if (uploadError) {
+	          reject(errorHandler.getErrorMessage(uploadError));
+	        } else {
+	          var fileURL = config.uploads.course.document.urlPath + req.file.filename;
+	          resolve(fileURL);
+	        }
+	      });
+	    });
+	  }
+
+};
+
 
 exports.uploadCourseFile = function(req, res) {
   // Filtering to upload only images

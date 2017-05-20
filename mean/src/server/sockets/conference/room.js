@@ -5,6 +5,8 @@ function Room(roomId)
 {
     this.roomId = roomId;
     this.memberList = {};
+    this.channelList = [];
+    this.presentation = null;
 }
 
 Room.prototype.addMember = function(member)
@@ -26,7 +28,8 @@ Room.prototype.getMemberList = function()
       {
           return {
               memberId: member.memberId,
-              role: member.role
+              handUp: member.handUp,
+              invited: member.invited
           }
       });
 }

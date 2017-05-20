@@ -15,6 +15,7 @@ var s = module.exports = {
   // DOMAIN config should be set to the fully qualified application accessible
   // URL. For example: https://www.myapp.com (including port if required).
   domain: 'localhost',
+  mediaServerUrl: 'ws://training.demo.vietinterview.com:8888/kurento',
   defaultPassword: '123456',
   whitelistEnabled: false,
   whitelistIP: '1.1.1.1',

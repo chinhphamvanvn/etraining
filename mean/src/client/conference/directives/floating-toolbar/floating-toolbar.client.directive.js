@@ -13,6 +13,7 @@
         connected: '=',
         connecting: '=',
         localStream: '=',
+        member: '=',
         onConnecting: '&',
         onConnected: '&',
         onDisconnected: '&'
@@ -78,8 +79,8 @@
         }
         scope.toggleHand = function() {
           scope.handUp = !scope.handUp;
-          if (!scope.handUp) {
-            conferenceSocket.handUo();
+          if (scope.handUp) {
+            conferenceSocket.handUp();
           } else {
             conferenceSocket.handDown();
           }

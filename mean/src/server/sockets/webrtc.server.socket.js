@@ -2,24 +2,28 @@
 var Publisher = require('./webrtc/publisher.js');
 var Subscriber = require('./webrtc/subscriber.js');
 var CHANNEL_ID = 'webrtc';
+var _ = require('underscore');
 var channels = {};
 
-function publishOffer(socket, publisherId, sdpOffer) {
+function publishOffer(socket, sdpOffer) {
   try {
+	var publisherId = socket.request.user._id;
     var channel = channels[publisherId];
     var publisher;
     if (channel) {
-      publisher = channels[publisherId]
-      publisher.release();
-      _.each(channel.subscribers, function(sub) {
-        sub.release();
-      });
+      publisher = channels[publisherId];
+      if (publisher) {
+    	  publisher.release();
+          _.each(publisher.subscribers, function(sub) {
+            sub.release();
+          });
+      }  
       publisher = new Publisher(publisherId);
-      channels[publisherId] = { publisher: publisher, subscribers: {}}
+      channels[publisherId] = publisher;
     }
     else {
       publisher = new Publisher(publisherId);
-      channels[publisherId] = { publisher: publisher, subscribers: {}}
+      channels[publisherId] = publisher;
     }
     var onPublishCandidate = function(candidate) {
       socket.emit(CHANNEL_ID, JSON.stringify({
@@ -42,10 +46,10 @@ function publishOffer(socket, publisherId, sdpOffer) {
 }
 
 
-function publishCandidate(socket, publisherId, candidate) {
+function publishCandidate(socket, candidate) {
   try {
-    var channel = channels[publisherId];
-    var publisher = channel.publisher;
+	var publisherId = socket.request.user._id;
+    var publisher = channels[publisherId];
     publisher.processCandidate(candidate);
 
   } catch (exc) {
@@ -53,19 +57,48 @@ function publishCandidate(socket, publisherId, candidate) {
   }
 }
 
-function subscribeOffer(socket, publisherId, subscriberId, sdpOffer) {
+function unpublish(socket) {
   try {
-    var channel = channels[publisherId];
-    if (!channel) {
-      console.log('Channel not exist', publisherId);
+	var publisherId = socket.request.user._id;
+    var publisher = channels[publisherId];
+    if (publisher) {
+    	  publisher.release();
+      _.each(publisher.subscribers, function(sub) {
+        sub.release();
+      });
+    }
+  } catch (exc) {
+    console.log('Publish offer error ', exc, publisherId);
+  }
+}
+
+function unsubscribe(socket, publisherId) {
+  try {
+	var subscriberId = socket.request.user._id;
+    var publisher = channels[publisherId];
+    if (publisher) {
+    	var subscriber = publisher.subscribers[subscriberId];
+        if (subscriber)
+          subscriber.release();
+    }
+  } catch (exc) {
+    console.log('Publish offer error ', exc, publisherId);
+  }
+}
+
+function subscribeOffer(socket, publisherId, sdpOffer) {
+  try {
+	var subscriberId = socket.request.user._id;
+    var publisher = channels[publisherId];
+    if (!publisher) {
+      console.log('publisher not exist', publisherId);
       return;
     }
-    var publisher = channel.publisher;
-    var subscriber = channel.subscribers[subscriberId];
+    var subscriber = publisher.subscribers[subscriberId];
     if (subscriber)
       subscriber.release();
     subscriber = new Subscriber(subscriberId, publisher);
-    channel.subscribers[subscriberId] =  subscriber;
+    publisher.subscribers[subscriberId] =  subscriber;
     var onSubscribeCandidate = function(candidate) {
       socket.emit(CHANNEL_ID, JSON.stringify({
         id: 'subscribeCandidate',
@@ -83,20 +116,22 @@ function subscribeOffer(socket, publisherId, subscriberId, sdpOffer) {
         }));
       publisher.connect(subscriber);
     };
-    subscriber.processOffer( sdpOffer, onSubscribeCandidate, onSubscribeResponse);
+    console.log('Subscribe to ', subscriber.subscriberId, ' publisher ', publisher.publisherId);
+    subscriber.processOffer(sdpOffer, onSubscribeCandidate, onSubscribeResponse);
   } catch (exc) {
-    console.log('Subscribe offer error ', exc, sessionId, channelId, subscriberId);
+    console.log('Subscribe offer error ', exc, subscriberId);
   }
 }
 
-function subscribeCandidate(socket, publisherId, subscriberId, candidate) {
+function subscribeCandidate(socket, publisherId, candidate) {
   try {
-    var channel = channels[publisherId];
-    if (!channel) {
-      console.log('Channel not exist', publisherId);
+	var subscriberId = socket.request.user._id;
+    var publisher = channels[publisherId];
+    if (!publisher) {
+      console.log('publisher not exist', publisherId);
       return;
     }
-    var subscriber = channel.subscribers[subscriberId];
+    var subscriber = publisher.subscribers[subscriberId];
     subscriber.processCandidate(candidate);
   } catch (exc) {
     console.log('Subscribe candidate error ', exc, subscriberId);
@@ -110,16 +145,22 @@ module.exports = function(io, socket) {
 
     switch (message.id) {
       case 'publishOffer':
-        publishOffer(socket, message.publisherId, message.sdpOffer);
+        publishOffer(socket, message.sdpOffer);
         break;
       case 'publishCandidate':
-        publishCandidate(socket, message.publisherId, message.candidate);
+        publishCandidate(socket, message.candidate);
         break;
       case 'subscribeOffer':
-        subscribeOffer(socket, message.publisherId, message.subscriberId, message.sdpOffer);
+        subscribeOffer(socket, message.publisherId, message.sdpOffer);
         break;
       case 'subscribeCandidate':
-        subscribeCandidate(socket, message.publisherId, message.subscriberId, message.candidate);
+        subscribeCandidate(socket, message.publisherId, message.candidate);
+        break;
+      case 'unpublish':
+    	unpublish(socket);
+        break;
+      case 'unsubscribe':
+    	unsubscribe(socket);
         break;
       default:
         console.log('Error to parse');

@@ -572,8 +572,8 @@ a[ng-click] {
 }
 .conference {    
     position: relative;
-    width: 100vw !important;
-    height: 100vh !important;
+    width: 100vw;
+    height: 100vh;
 }
 .conference .btn-copy {
     margin-top: 15px;

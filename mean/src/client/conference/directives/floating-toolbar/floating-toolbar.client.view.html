@@ -32,7 +32,7 @@
 			<i class="material-icons md-color-grey-50" ng-show="video">videocam_off</i>
 			<i class="material-icons md-color-grey-50" ng-show="!video">videocam</i>
 		</button>
-		<button class="btn-control btn-clear" ng-click="toggleHand()"
+		<button class="btn-control btn-clear" ng-click="toggleHand()" ng-show="member.role=='student' && connected"
 			ng-class="handUp ? 'btn-active' : ''"
 			data-uk-tooltip="{pos:'bottom'}"
 			title="{{'ACTION.HAND_UP' |

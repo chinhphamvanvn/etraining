@@ -1,6 +1,8 @@
 var kurento = require('kurento-client');
 var _ = require('underscore');
-var kurentoClient = null
+var kurentoClient = null;
+var   path = require('path');
+var config = require(path.resolve('./config/config'));
 var channelId = 0;
 
 function Publisher(publisherId) {
@@ -9,6 +11,7 @@ function Publisher(publisherId) {
   this.pubWebRtcEndpoint = null;
   this.sdpOffer = null;
   this.pubCandidateRecvQueue = [];
+  this.subscribers = {};
 }
 
 
@@ -17,7 +20,8 @@ function getKurentoClient(callback) {
     console.log('Reuse existing client');
     return callback(null, kurentoClient);
   }
-  kurento(config.ws_uri, function(error, _kurentoClient) {
+  console.log(config.mediaServerUrl);
+  kurento(config.mediaServerUrl, function(error, _kurentoClient) {
     if (error) {
       var message = 'Coult not find media server at address ' + argv.ws_uri;
       return callback(message + ". Exiting with error " + error);
@@ -34,17 +38,21 @@ Publisher.prototype.connect = function(subscriber, callback) {
       console.log(error);
       return;
     } 
-    callback();
+    if (callback)
+    	callback();
   });
 }
 
 
 Publisher.prototype.release = function() {
-  console.log("Release resoure for channel" + this.id);
-  if (this.pipeline)
-    this.pipeline.release();
-  if (this.pubWebRtcEndpoint)
-    this.pubWebRtcEndpoint.release();
+  try {
+	  if (this.pipeline)
+	    this.pipeline.release();
+	  if (this.pubWebRtcEndpoint)
+	    this.pubWebRtcEndpoint.release();
+  } catch (exc) {
+	  console.log("Release resoure for publisher" + this.id);
+  }
 }
 
 Publisher.prototype.processCandidate = function(_candidate) {
@@ -85,7 +93,7 @@ Publisher.prototype.processOffer = function(sdpOffer, onPublishCandidate, onPubl
             return;
           }
           self.sdpOffer = sdpOffer;
-          console.log('Channel' + self.id + ' answer', sdpAnswer);
+          console.log('Channel' + self.publisherId + ' answer', sdpAnswer);
           while (self.pubCandidateRecvQueue.length) {
             var candidate = self.pubCandidateRecvQueue.shift();
             self.pubWebRtcEndpoint.addIceCandidate(candidate);

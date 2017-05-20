@@ -6,10 +6,10 @@
     .module('core')
     .factory('conferenceSocket', conferenceSocket);
 
-  conferenceSocket.$inject = ['Authentication', '$state', '$timeout', 'Socket'];
+  conferenceSocket.$inject = ['localStorageService', '$state', '$timeout', 'Socket'];
 
-  function conferenceSocket(Authentication, $state, $timeout, Socket) {
-    var memberCallback, roomId, memberId;
+  function conferenceSocket(localStorageService, $state, $timeout, Socket) {
+    var memberCallback, channelCallback, chatCallback, presentationCallback, roomId, memberId;
     
     var CHANNEL_ID = 'conference';
 
@@ -47,7 +47,16 @@
               memberCallback(parsedMessage.memberList);
             break;
         case 'broadcastChannel':
-          watchChannelCallback(parsedMessage.channelList);
+        	if (channelCallback)
+        		channelCallback(parsedMessage.channelList);
+            break;
+        case 'broadcastChat':
+        	if (chatCallback)
+        		chatCallback(parsedMessage.text, parsedMessage.memberId);
+            break;
+        case 'broadcastPresentation':
+        	if (presentationCallback)
+        		presentationCallback(parsedMessage.url, parsedMessage.action, parsedMessage.params);
             break;
         default:
             console.error('Unrecognized message', parsedMessage);
@@ -64,11 +73,23 @@
       leave: function() {
         send({id: 'leave', roomId: roomId});
       },
-      onMemberList:function(callback) {
+      publishChannel: function() {
+	    send({id: 'publishChannel', roomId: roomId});
+	  },
+	  unpublishChannel: function() {
+	    send({id: 'unpublishChannel', roomId: roomId});
+	  },
+      onMemberStatus:function(callback) {
         memberCallback = callback
       },
-      onChannelList:function(callback) {
-        memberCallback = callback
+      onChannelStatus:function(callback) {
+        channelCallback = callback
+      },
+      onChat:function(callback) {
+        chatCallback = callback
+      },
+      onPresentation:function(callback) {
+        presentationCallback = callback
       },
       handUp: function() {
         send({id: 'handUp', roomId: roomId});
@@ -81,6 +102,12 @@
       },
       discard: function(memberId) {
         send({id: 'discard', roomId: roomId, memberId: memberId});
+      },
+      chat: function(text) {
+        send({id: 'chat', roomId: roomId, text: text});
+      },
+      presentation: function(url, action, params) {
+        send({id: 'presentation', roomId: roomId, url: url, action: action, params: params});
       }
     }
   }

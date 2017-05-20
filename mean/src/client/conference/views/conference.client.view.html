@@ -7,23 +7,25 @@
 
 <div class="conference">
 
-	<side-menu connected="vm.connected" select-panel="vm.selectPanel"
-		member="vm.member" students="vm.students" teacher="vm.teacher" ng-if="vm.teacher && vm.students && vm.students.length"></side-menu>
+	<side-menu connected="vm.connected" select-panel="vm.selectPanel" on-invited="vm.onInvited()" on-discarded="vm.onDiscarded()"
+		member="vm.member" students="vm.students" teacher="vm.teacher"
+		ng-if="vm.teacher && vm.students && vm.students.length"></side-menu>
 
 
-	<floating-toolbar connected="vm.connected" connecting="vm.connecting" on-connecting="vm.onConnecting()"
+	<floating-toolbar connected="vm.connected" connecting="vm.connecting"
+		on-connecting="vm.onConnecting()" member="vm.member"
 		on-disconnected="vm.onDisconnected()" on-connected="vm.onConnected()"></floating-toolbar>
 
-	<div class="work-space" ng-click="vm.selectPanel=''" connected="vm.connected" member = "vm.member">
-		<teaching-board></teaching-board>
+	<div class="work-space" ng-click="vm.selectPanel=''">
+		<teaching-board connected="vm.connected" member="vm.member" students="vm.students" teacher="vm.teacher" ng-if="vm.teacher && vm.students && vm.students.length"></teaching-board>
 	</div>
 
-	
+
 
 </div>
 <div class="connecting_overlay" ng-show="vm.connecting">
-		<span class="connecting vi-center"> <img
-			src="/assets/img/conference/radio.gif"> <br>
-			{{"PAGE.CONFERENCE.CONNECTING" | translate}}
-		</span>
-	</div>
+	<span class="connecting vi-center"> <img
+		src="/assets/img/conference/radio.gif"> <br>
+		{{"PAGE.CONFERENCE.CONNECTING" | translate}}
+	</span>
+</div>
