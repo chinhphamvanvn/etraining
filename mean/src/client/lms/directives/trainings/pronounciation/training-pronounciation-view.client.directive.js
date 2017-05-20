@@ -18,24 +18,31 @@
         scope.recognition = null;        
         scope.transcript = '';
         scope.accuracy = 0;
-        
+        var audio;
+        // console.log(scope.practice);
         scope.listen = function() {
-          if (scope.listenMode)
-            return;
-          if (scope.speakMode) {
-            if (scope.recognition)
-              scope.recognition.stop();
+          if(scope.practice.audioURL && scope.practice.audioURL.length > 0){
+            audio = new Audio(scope.practice.audioURL);
+            audio.play();
+            scope.listenMode = true;
+          } else {
+            if (scope.listenMode)
+              return;
+            if (scope.speakMode) {
+              if (scope.recognition)
+                scope.recognition.stop();
+            }
+            var msg = new window.SpeechSynthesisUtterance();
+            msg.voiceURI = 'native';
+            msg.volume = 1; // 0 to 1
+            msg.rate = 1; // 0.1 to 10
+            msg.pitch = 1; //0 to 2
+            msg.text = scope.practice.text;
+            msg.lang = 'en-US';
+            window.speechSynthesis.speak(msg);
+            scope.listenMode = true;
+            scope.speakMode = false;
           }
-          var msg = new window.SpeechSynthesisUtterance();
-          msg.voiceURI = 'native';
-          msg.volume = 1; // 0 to 1
-          msg.rate = 1; // 0.1 to 10
-          msg.pitch = 1; //0 to 2
-          msg.text = scope.practice.text;
-          msg.lang = 'en-US';
-          window.speechSynthesis.speak(msg);
-          scope.listenMode = true;
-          scope.speakMode = false;
         };
         scope.speak = function() {
           if (scope.speakMode)
@@ -79,6 +86,10 @@
           scope.recognition.start();
         };
         scope.reset = function() {
+          if(audio){
+            audio.pause();
+            audio.currentTime = 0;
+          }
           scope.transcript = '';
           scope.listenMode = false;
           scope.speakMode = false;

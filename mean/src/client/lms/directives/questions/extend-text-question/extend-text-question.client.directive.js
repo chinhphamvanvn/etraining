@@ -21,6 +21,8 @@
           controls: true,
           muted: false
         };
+        var x = $('.modal_record_video_drap');
+        x.draggable();
         function preprocessQuestionContent() {
         }
         preprocessQuestionContent();
