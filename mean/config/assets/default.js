@@ -157,7 +157,6 @@ module.exports = {
         'public/assets/js/custom/gantt_chart.js',
         'public/lib/uikit/js/components/htmleditor.js',
         'public/file_manager/js/elfinder.full.js',
-        'public/lib/pdfjs-dist/build/pdf.js',
         // angular-based
         'public/lib/angular/angular.js',
         'public/lib/angular-pdf-viewer/dist/angular-pdf-viewer.min.js',
