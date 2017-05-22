@@ -38,6 +38,9 @@
 <!-- Fav Icon -->
 <link href="/{{favicon}}" rel="shortcut icon" type="image/x-icon">
 
+<!--  PDF runtime -->
+<script type="text/javascript" src="/lib/pdfjs-dist/build/pdf.js"></script>
+
 <!-- Application CSS Files -->
 {{#each cssFiles}}
 <link rel="stylesheet" href="/{{this}}">
@@ -76,7 +79,7 @@
 
 	<!--Load The Socket.io File-->
 	<script type="text/javascript" src="/socket.io/socket.io.js"></script>
-	<script type="text/javascript" src="lib/pdfjs-dist/build/pdf.js"></script>
+	
 	<!--owasp config sync-->
 	<script type="text/javascript">
     var sharedConfig = {{{ sharedConfig }}};
