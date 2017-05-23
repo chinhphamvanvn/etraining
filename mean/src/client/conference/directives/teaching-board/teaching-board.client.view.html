@@ -9,14 +9,13 @@
 		<div class="toolbar-pdf-viewer">
 			<div class="uk-grid toolbar-content"
 				ng-class=" connected ? 'show_toolbar' : 'hide_toolbar'">
-				<div class="uk-width-2-10" ng-show="member.role=='teacher'">
+				<div class="uk-width-1-5" ng-show="member.role=='teacher'">
 					<a class="md-btn vi-success vi-btn"
-						ngf-select="uploadPresentation($file)" ngf-max-size="10MB"> <i
-						class="uk-icon-upload" aria-hidden="true"></i> {{"ACTION.UPLOAD" |
-						translate}}
+						ngf-select="uploadPresentation($file)" ngf-max-size="10MB" style="    font-size: 12px !important; padding: 3px 10px; margin-top: 5px;"> <i
+						class="uk-icon-upload" aria-hidden="true" style="color: #fff;"></i> {{"ACTION.UPLOAD" | translate}}
 					</a>
 				</div>
-				<div class="uk-width-4-10 vi-center"
+				<div class="uk-width-2-5 vi-center"
 					ng-show="member.role=='teacher' ">
 					<a class="md-btn vi-btn-default" ng-click="pdfSwitchPage(-1)">
 						<i class="uk-icon-chevron-left" aria-hidden="true"></i>
@@ -26,7 +25,7 @@
 						class="uk-icon-chevron-right" aria-hidden="true"></i>
 					</a>
 				</div>
-				<div class="uk-width-4-10"
+				<div class="uk-width-2-5"
 					ng-class="{'vi-right': (member.role=='teacher')}">
 					<a class="md-btn vi-btn-default" ng-click="zoomOut(0.1)"> <i
 						class="uk-icon-search-minus" aria-hidden="true"></i>
