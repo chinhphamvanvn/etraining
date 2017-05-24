@@ -2,7 +2,7 @@
 var Room = require('./conference/room.js');
 var Member = require('./conference/member.js');
 var CHANNEL_ID = 'conference';
-var _ = require('lodash');
+var _ = require('underscore');
 var rooms = {};
 
 function join(io, socket, roomId) {
@@ -15,11 +15,9 @@ function join(io, socket, roomId) {
     var member = new Member(socket.request.user._id);
     room.addMember(member);
     rooms[roomId] = room;
-    console.log(room.channelList);
-    room.channelList = _.remove(room.channelList, function(channel) {
+    _.remove(room.channelList, function(channel) {
       return channel == socket.request.user._id;
     });
-    console.log(room.channelList);
     socket.join(roomId, function() {
       io.to(roomId).emit(CHANNEL_ID, JSON.stringify({
         id: 'broadcastMember',
@@ -50,7 +48,7 @@ function leave(io, socket, roomId) {
       return;
     var member = room.getMember(socket.request.user._id);
     room.removeMember(member);
-    room.channelList = _.remove(room.channelList, function(channel) {
+    _.remove(room.channelList, function(channel) {
       return channel === socket.request.user._id;
     });
     socket.leave(roomId, function() {
@@ -91,7 +89,7 @@ function unpublishChannel(io, socket, roomId) {
     var room = rooms[roomId];
     if (!room)
       return;
-    room.channelList = _.remove(room.channelList, function(channel) {
+    _.remove(room.channelList, function(channel) {
       return channel === socket.request.user._id;
     });
     io.to(roomId).emit(CHANNEL_ID, JSON.stringify({
