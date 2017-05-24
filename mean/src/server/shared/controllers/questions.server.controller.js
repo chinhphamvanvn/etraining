@@ -269,7 +269,8 @@ exports.uploadQuestionImage = function(req, res) {
         if (uploadError) {
           reject(errorHandler.getErrorMessage(uploadError));
         } else {
-          var imageURL = config.uploads.question.image.urlPaath + req.file.filename;
+          var imageURL = config.uploads.question.image.urlPath + req.file.filename;
+          console.log(config.uploads.question);
           resolve(imageURL);
         }
       });
@@ -300,7 +301,7 @@ exports.uploadQuestionVideo = function(req, res) {
         if (uploadError) {
           reject(errorHandler.getErrorMessage(uploadError));
         } else {
-          var videoURL = config.uploads.question.video.urlPaath + req.file.filename;
+          var videoURL = config.uploads.question.video.urlPath + req.file.filename;
           resolve(videoURL);
         }
       });
@@ -331,7 +332,7 @@ exports.uploadQuestionAudio = function(req, res) {
         if (uploadError) {
           reject(errorHandler.getErrorMessage(uploadError));
         } else {
-          var audioURL = config.uploads.question.audio.urlPaath + req.file.filename;
+          var audioURL = config.uploads.question.audio.urlPath + req.file.filename;
           resolve(audioURL);
         }
       });
@@ -360,7 +361,7 @@ exports.uploadQuestionFile = function(req, res) {
         if (uploadError) {
           reject(errorHandler.getErrorMessage(uploadError));
         } else {
-          var fileURL = config.uploads.question.document.urlPaath + req.file.filename;
+          var fileURL = config.uploads.question.document.urlPath + req.file.filename;
           resolve(fileURL);
         }
       });
