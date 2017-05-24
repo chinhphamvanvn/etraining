@@ -14,10 +14,10 @@
           var oldURL = scope.object.imageURL;
           scope.resetImage = function() {
             scope.object.imageURL = oldURL;
-          }
+          };
           scope.deleteImage = function() {
             scope.object.imageURL = null;
-          }
+          };
           var progressbar = angular.element(document.getElementById('image_upload-progressbar')),
             bar = angular.element(document.getElementById('image_progress_bar')),
             settings = {

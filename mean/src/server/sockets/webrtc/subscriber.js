@@ -1,6 +1,6 @@
 var kurento = require('kurento-client');
 var _ = require('underscore');
-var   path = require('path');
+var path = require('path');
 var config = require(path.resolve('./config/config'));
 var kurentoClient = null
 
@@ -15,12 +15,12 @@ function Subscriber(subscriberId, publisher) {
 
 Subscriber.prototype.release = function() {
   try {
-	  if (this.subWebRtcEndpoint)
-		    this.subWebRtcEndpoint.release(); 
-  } catch(exc) {
-	  console.log('Release resource for sub', this.subscriberId);
+    if (this.subWebRtcEndpoint)
+      this.subWebRtcEndpoint.release();
+  } catch (exc) {
+    console.log('Release resource for sub', this.subscriberId);
   }
-  
+
 }
 
 function getKurentoClient(callback) {

@@ -35,10 +35,10 @@
           scope.sound.loop = true;
           if (scope.onConnecting)
             scope.onConnecting();
-            conferenceSocket.join();
-              scope.sound.stop();
-              if (scope.onConnected)
-                scope.onConnected();
+          conferenceSocket.join();
+          scope.sound.stop();
+          if (scope.onConnected)
+            scope.onConnected();
         }
 
         scope.disconnect = function() {
@@ -69,13 +69,12 @@
           else
             conferenceSocket.handDown();
         }
-        
+
         scope.signout = function() {
-          conferenceSocket.leave(function() {
-            if (scope.onDisconnected)
-              scope.onDisconnected();
-            $location.path('/');
-          });
+          conferenceSocket.leave();
+          if (scope.onDisconnected)
+            scope.onDisconnected();
+          $location.path('/');
         }
         scope.toggleHand = function() {
           scope.handUp = !scope.handUp;
