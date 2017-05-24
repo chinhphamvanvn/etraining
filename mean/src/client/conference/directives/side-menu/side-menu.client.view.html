@@ -34,7 +34,7 @@
 	<div class="panel-functional"
 		ng-class="selectPanel=='members' ? 'panel-show' : 'panel-hide'">
 		<div class="member-wrapper">
-			<h3 class="vi-center">{{"PAGE.CONFERENCE.MEMBERS" | translate}}</h3>
+			<h3 class="vi-center" style="color: #fff; font-size: 15px; text-transform: uppercase; margin-bottom: 5px; margin-top: 5px;">{{"PAGE.CONFERENCE.MEMBERS" | translate}}</h3>
 			<ul class="list-unstyled members-list-room">
 				<li class="label-name"><span
 					ng-class="teacher.online ? 'uk-icon-circle vi-online' : 'uk-icon-circle vi-offline'"
@@ -74,16 +74,20 @@
 			<div layout="row" class="input-message-group"
 				ng-keypress="sendChatMessage($event)">
 				<div class="uk-grid">
-					<div class="uk-width-4-5">
-						<label>{{"PAGE.CONFERENCE.CHAT_MESSAGE" | translate}}</label> <input
-							type="text" ng-model="chatInput">
+					<div class="uk-width-1-1">
+						<label>{{"PAGE.CONFERENCE.CHAT_MESSAGE" | translate}}</label>
+						<a class="md-button md-button-mini md-button-primary"
+							aria-label="Send message" ng-click="chat()" style="float: right; margin-right: 10px;"> <i
+							class="uk-icon-paper-plane" aria-hidden="true"></i>
+						</a>
+						<input type="text" ng-model="chatInput">
 					</div>
-					<div class="uk-width-1-5">
+					<!-- <div class="uk-width-1-5">
 						<a class="md-button md-button-mini md-button-primary"
 							aria-label="Send message" ng-click="chat()"> <i
 							class="uk-icon-paper-plane" aria-hidden="true"></i>
 						</a>
-					</div>
+					</div> -->
 				</div>
 			</div>
 		</div>
@@ -92,7 +96,7 @@
 	<div class="panel-functional"
 		ng-class="selectPanel=='settings' ? 'panel-show' : 'panel-hide'">
 		<div class="setting-wrapper">
-			<h3 class="vi-center">{{"conference.setting" | translate}}</h3>
+			<h3 class="vi-center" style="color: #fff; font-size: 15px; text-transform: uppercase; margin-bottom: 5px; margin-top: 5px;">{{"PAGE.CONFERENCE.SETTINGS" | translate}}</h3>
 		</div>
 	</div>
 </div>
