@@ -343,6 +343,7 @@ exports.uploadQuestionAudio = function(req, res) {
 
 exports.uploadQuestionFile = function(req, res) {
   // Filtering to upload only images
+  var multerConfig = config.uploads.question.audio;
   var upload = multer(multerConfig).single('newQuestionFile');
 
   uploadFile()

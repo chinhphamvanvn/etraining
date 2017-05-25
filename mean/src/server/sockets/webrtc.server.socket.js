@@ -40,7 +40,7 @@ function publishOffer(socket, sdpOffer) {
     };
     publisher.processOffer(sdpOffer, onPublishCandidate, onPublishResponse);
   } catch (exc) {
-    console.log('Publish offer error ', exc, publisherId);
+    console.log('Publish offer error ', exc);
   }
 }
 
@@ -52,7 +52,7 @@ function publishCandidate(socket, candidate) {
     publisher.processCandidate(candidate);
 
   } catch (exc) {
-    console.log('Publish candidate error ', exc, publisherId);
+    console.log('Publish candidate error ', exc);
   }
 }
 
@@ -67,7 +67,7 @@ function unpublish(socket) {
       });
     }
   } catch (exc) {
-    console.log('Publish offer error ', exc, publisherId);
+    console.log('Publish offer error ', exc);
   }
 }
 
@@ -81,7 +81,7 @@ function unsubscribe(socket, publisherId) {
         subscriber.release();
     }
   } catch (exc) {
-    console.log('Publish offer error ', exc, publisherId);
+    console.log('Publish offer error ', exc);
   }
 }
 
@@ -118,7 +118,7 @@ function subscribeOffer(socket, publisherId, sdpOffer) {
     console.log('Subscribe to ', subscriber.subscriberId, ' publisher ', publisher.publisherId);
     subscriber.processOffer(sdpOffer, onSubscribeCandidate, onSubscribeResponse);
   } catch (exc) {
-    console.log('Subscribe offer error ', exc, subscriberId);
+    console.log('Subscribe offer error ', exc);
   }
 }
 
@@ -133,7 +133,7 @@ function subscribeCandidate(socket, publisherId, candidate) {
     var subscriber = publisher.subscribers[subscriberId];
     subscriber.processCandidate(candidate);
   } catch (exc) {
-    console.log('Subscribe candidate error ', exc, subscriberId);
+    console.log('Subscribe candidate error ', exc);
   }
 }
 

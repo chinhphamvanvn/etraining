@@ -59,7 +59,7 @@
           if (scope.localStream) {
             var videoTrack = scope.localStream.getVideoTracks()[0];
             scope.video = !scope.video;
-            videoTrack.enabled = $scope.video;
+            videoTrack.enabled = scope.video;
           }
         }
         scope.toggleHand = function() {

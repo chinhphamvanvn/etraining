@@ -6,9 +6,9 @@
     .module('lms')
     .controller('CoursesPracticeSectionController', CoursesPracticeSectionController);
 
-  CoursesPracticeSectionController.$inject = ['$scope', '$state', '$window', 'Authentication', '$timeout', 'courseResolve', 'sectionResolve', 'editionResolve', 'practiceResolve', 'Notification', 'fileManagerConfig', 'PracticesService', 'EditionSectionsService', '$q', '_'];
+  CoursesPracticeSectionController.$inject = ['$scope', '$state', '$window', 'Authentication', '$timeout', 'courseResolve', 'sectionResolve', 'editionResolve', 'practiceResolve', 'Notification', 'fileManagerConfig', 'PracticesService', 'EditionSectionsService', '$q', '_', '$translate'];
 
-  function CoursesPracticeSectionController($scope, $state, $window, Authentication, $timeout, course, section, edition, practice, Notification, fileManagerConfig, PracticesService, EditionSectionsService, $q, _) {
+  function CoursesPracticeSectionController($scope, $state, $window, Authentication, $timeout, course, section, edition, practice, Notification, fileManagerConfig, PracticesService, EditionSectionsService, $q, _, $translate) {
     var vm = this;
     vm.authentication = Authentication;
     vm.tinymce_options = fileManagerConfig;

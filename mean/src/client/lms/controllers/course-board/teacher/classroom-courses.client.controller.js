@@ -77,7 +77,7 @@
     }
 
     function joinConference(classroom) {
-      if (classroom.teacher._id != vm.member._id) {
+      if (classroom.teacher._id !== vm.member._id) {
         UIkit.error($translate.instant('ERROR.CONFERENCE.NOT_TEACHER'));
         return;
       }

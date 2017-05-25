@@ -254,6 +254,7 @@ exports.uploadAudio = function(req, res) {
 
 exports.uploadFile = function(req, res) {
   var user = req.user;
+  var multerConfig = config.uploads.user.file;
   var upload = multer(multerConfig).single('newFile');
   var userDir = config.uploads.user.base + user._id;
   if (!fs.existsSync(userDir)){
