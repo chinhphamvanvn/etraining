@@ -2,7 +2,7 @@
 var Room = require('./conference/room.js');
 var Member = require('./conference/member.js');
 var CHANNEL_ID = 'conference';
-var _ = require('underscore');
+var _ = require('lodash');
 var rooms = {};
 
 function join(io, socket, roomId) {
