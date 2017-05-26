@@ -78,7 +78,7 @@
         }
         scope.toggleHand = function() {
           scope.handUp = !scope.handUp;
-          if (!scope.handUp) {
+          if (scope.handUp) {
             conferenceSocket.handUo();
           } else {
             conferenceSocket.handDown();
