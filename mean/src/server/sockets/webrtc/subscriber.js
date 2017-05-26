@@ -1,6 +1,7 @@
 var kurento = require('kurento-client');
 var _ = require('underscore');
-
+var path = require('path');
+var config = require(path.resolve('./config/config'));
 var kurentoClient = null
 
 
@@ -13,8 +14,13 @@ function Subscriber(subscriberId, publisher) {
 }
 
 Subscriber.prototype.release = function() {
-  if (this.subWebRtcEndpoint)
-    this.subWebRtcEndpoint.release();
+  try {
+    if (this.subWebRtcEndpoint)
+      this.subWebRtcEndpoint.release();
+  } catch (exc) {
+    console.log('Release resource for sub', this.subscriberId);
+  }
+
 }
 
 function getKurentoClient(callback) {
@@ -22,9 +28,9 @@ function getKurentoClient(callback) {
     console.log('Reuse existing client');
     return callback(null, kurentoClient);
   }
-  kurento(config.ws_uri, function(error, _kurentoClient) {
+  kurento(config.mediaServerUrl, function(error, _kurentoClient) {
     if (error) {
-      var message = 'Coult not find media server at address ' + argv.ws_uri;
+      var message = 'Coult not find media server at address ';
       return callback(message + ". Exiting with error " + error);
     }
     console.log('Create new client');
@@ -50,7 +56,7 @@ Subscriber.prototype.processOffer = function(sdpOffer, onSubscribeCandidate, onS
       console.log(error);
       return;
     }
-    if (!channel.pipeline) {
+    if (!self.publisher.pipeline) {
       console.log(error);
       return;
     }

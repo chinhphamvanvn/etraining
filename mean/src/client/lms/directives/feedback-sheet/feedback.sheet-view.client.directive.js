@@ -44,7 +44,7 @@
           if (question.feedback._id) {
             question.feedback.$update();
           }
-        }
+        };
 
         scope.saveFeedback = function(question) {
           if (question.feedback._id) {
@@ -69,7 +69,7 @@
                   message: '<i class="uk-icon-check"></i> Feedback saved failed!'
                 });
               });
-        }
+        };
       }
     };
   }

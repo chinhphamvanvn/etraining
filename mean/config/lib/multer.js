@@ -29,4 +29,12 @@ module.exports.audioFileFilter = function(req, file, callback) {
   callback(null, true);
 };
 
-
+module.exports.pdfFileFilter = function(req, file, callback) {
+  console.log(file);
+  if (file.mimetype !== 'application/pdf' ) {
+    var err = new Error();
+    err.code = 'UNSUPPORTED_MEDIA_TYPE';
+    return callback(err, false);
+  }
+  callback(null, true);
+};

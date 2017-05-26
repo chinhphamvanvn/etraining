@@ -14,10 +14,10 @@
           var oldURL = scope.object.fileURL;
           scope.resetFile = function() {
             scope.object.fileURL = oldURL;
-          }
+          };
           scope.deleteFile = function() {
             scope.object.fileURL = null;
-          }
+          };
           var progressbar = angular.element(document.getElementById('file_upload-progressbar')),
             bar = angular.element(document.getElementById('progress_bar')),
             settings = {

@@ -14,7 +14,7 @@
           var oldURL = scope.video.videoURL;
           scope.resetVideo = function() {
             scope.video.videoURL = oldURL;
-          }
+          };
 
           function addStreamStopListener(stream, callback) {
             var streamEndedEvent = 'ended';

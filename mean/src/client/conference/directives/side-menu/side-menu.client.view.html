@@ -1,33 +1,40 @@
-<div class="toolbar" >
+<div class="toolbar">
 	<nav class="navbar"
 		ng-class="connected ? 'show_toolbar' : 'hide_toolbar'">
 		<ul class="list-nav list-unstyled">
 			<li ng-click="setPanel('members')"
-				ng-class="selectPanel=='members' ? 'active-nav' : ''" data-uk-tooltip="{pos:'right'}" title="{{'PAGE.CONFERENCE.MEMBERS' |
-		translate}}"><i	class="uk-icon-users" aria-hidden="true"></i> <span ng-show="handUpCount" class="members" >
-					{{handUpCount}} </span></li>
+				ng-class="selectPanel=='members' ? 'active-nav' : ''"
+				data-uk-tooltip="{pos:'right'}"
+				title="{{'PAGE.CONFERENCE.MEMBERS' |
+		translate}}"><i
+				class="uk-icon-users" aria-hidden="true"></i> <span
+				ng-show="handUpCount" class="members"> {{handUpCount}} </span></li>
 			<li ng-click="setPanel('chat')"
-				ng-class="selectPanel=='chat' ? 'active-nav' : ''"  data-uk-tooltip="{pos:'right'}" title="{{'ACTION.CHAT' |
+				ng-class="selectPanel=='chat' ? 'active-nav' : ''"
+				data-uk-tooltip="{pos:'right'}"
+				title="{{'ACTION.CHAT' |
 		translate}}"><i
 				class="uk-icon-comments-o" aria-hidden="true"></i> <span
 				class="messages" ng-show="numOfMessages!=0">{{numOfMessages}}</span>
-				</li>
+			</li>
 			<li class="animated" ng-click="setPanel('members')"
-				ng-show="member.role=='teacher'"  data-uk-tooltip="{pos:'right'}" title="{{'ACTION.HAND_UP' |
+				ng-show="member.role=='teacher'" data-uk-tooltip="{pos:'right'}"
+				title="{{'ACTION.HAND_UP' |
 		translate}}"
 				ng-class="handUpCount ? 'icon-active flash infinite' : 'icon-unactive'">
-				<i class="uk-icon-hand-paper-o"></i> 
+				<i class="uk-icon-hand-paper-o"></i>
 			</li>
-			<li ng-click="setPanel('settings')" data-uk-tooltip="{pos:'right'}" title="{{'PAGE.CONFERENCE.SETTINGS' | translate}}"
+			<li ng-click="setPanel('settings')" data-uk-tooltip="{pos:'right'}"
+				title="{{'PAGE.CONFERENCE.SETTINGS' | translate}}"
 				ng-class="selectPanel=='settings' ? 'active-nav' : ''"><i
-				class="uk-icon-cogs" aria-hidden="true"></i> </li>
+				class="uk-icon-cogs" aria-hidden="true"></i></li>
 		</ul>
 	</nav>
 
 	<div class="panel-functional"
 		ng-class="selectPanel=='members' ? 'panel-show' : 'panel-hide'">
 		<div class="member-wrapper">
-			<h3 class="vi-center">{{"PAGE.CONFERENCE.MEMBERS" | translate}}</h3>
+			<h3 class="vi-center" style="color: #fff; font-size: 15px; text-transform: uppercase; margin-bottom: 5px; margin-top: 5px;">{{"PAGE.CONFERENCE.MEMBERS" | translate}}</h3>
 			<ul class="list-unstyled members-list-room">
 				<li class="label-name"><span
 					ng-class="teacher.online ? 'uk-icon-circle vi-online' : 'uk-icon-circle vi-offline'"
@@ -37,15 +44,15 @@
 					ng-repeat="student in students"><span
 					ng-class="student.online ? 'uk-icon-circle vi-online' : 'uk-icon-circle vi-offline'"
 					aria-hidden="true"></span> {{student.member.displayName}} <span
-					ng-show="student._id == member._id">({{"PAGE.CONFERENCE.YOU" |
-						translate}})</span> <span class="right action"
-					ng-show="member.role=='teacher'" 
-					ng-class="student.invited ? 'icon-active' : 'icon-unactive'">
-						<i class="uk-icon-video-camera" aria-hidden="true"></i>
-				</span> <span class="right action animated" ng-click="memberInvite(student)"
+					ng-show="student._id == member._id">({{"PAGE.CONFERENCE.YOU"
+						| translate}})</span> <span class="right action"
 					ng-show="member.role=='teacher'"
+					ng-class="student.invited ? 'icon-active' : 'icon-unactive'" ng-click="toggleInvite(student)">
+						<i class="uk-icon-video-camera" ng-class="student.invited ? 'uk-text-primary' : ''"></i>
+				</span> <span class="right action animated"
+					ng-click="memberInvite(student)" ng-show="member.role=='teacher'"
 					ng-class="student.handUp ? 'icon-active flash infinite' : 'icon-unactive'">
-						<i class="uk-icon-hand-paper-o"></i>
+						<i class="uk-icon-hand-paper-o" ng-class="student.handUp ? 'uk-text-warning' : ''"></i>
 				</span></li>
 			</ul>
 		</div>
@@ -67,15 +74,20 @@
 			<div layout="row" class="input-message-group"
 				ng-keypress="sendChatMessage($event)">
 				<div class="uk-grid">
-					<div class="uk-width-4-5">
-						<label>{{"PAGE.CONFERENCE.CHAT_MESSAGE"
-					| translate}}</label> <input type="text" ng-model="chatInput">
-					</div>
-					<div class="uk-width-1-5">
+					<div class="uk-width-1-1">
+						<label>{{"PAGE.CONFERENCE.CHAT_MESSAGE" | translate}}</label>
 						<a class="md-button md-button-mini md-button-primary"
-						aria-label="Send message" ng-click="chat()"> <i
-						class="uk-icon-paper-plane" aria-hidden="true"></i> </a>
+							aria-label="Send message" ng-click="chat()" style="float: right; margin-right: 10px;"> <i
+							class="uk-icon-paper-plane" aria-hidden="true"></i>
+						</a>
+						<input type="text" ng-model="chatInput">
 					</div>
+					<!-- <div class="uk-width-1-5">
+						<a class="md-button md-button-mini md-button-primary"
+							aria-label="Send message" ng-click="chat()"> <i
+							class="uk-icon-paper-plane" aria-hidden="true"></i>
+						</a>
+					</div> -->
 				</div>
 			</div>
 		</div>
@@ -84,7 +96,7 @@
 	<div class="panel-functional"
 		ng-class="selectPanel=='settings' ? 'panel-show' : 'panel-hide'">
 		<div class="setting-wrapper">
-			<h3 class="vi-center">{{"conference.setting" | translate}}</h3>
+			<h3 class="vi-center" style="color: #fff; font-size: 15px; text-transform: uppercase; margin-bottom: 5px; margin-top: 5px;">{{"PAGE.CONFERENCE.SETTINGS" | translate}}</h3>
 		</div>
 	</div>
 </div>

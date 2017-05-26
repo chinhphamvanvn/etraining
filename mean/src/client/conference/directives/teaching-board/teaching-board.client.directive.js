@@ -5,42 +5,60 @@
   // Unless the user is on a small device, because this could obscure the page with a keyboard
 
   angular.module('conference')
-    .directive('teachingBoard', ['conferenceSocket', 'pdfDelegate', '$timeout', '$location', '_', teachingBoard]);
+    .directive('teachingBoard', ['conferenceSocket', 'webrtcSocket', 'pdfDelegate', '$timeout', 'Upload', '_', teachingBoard]);
 
-  function teachingBoard(conferenceSocket, pdfDelegate, $timeout, $location, _) {
+  function teachingBoard(conferenceSocket, webrtcSocket, pdfDelegate, $timeout, Upload, _) {
     return {
       scope: {
         connected: '=',
+        teacher: '=',
+        students: '=',
         member: '='
       },
       templateUrl: '/src/client/conference/directives/teaching-board/teaching-board.client.view.html',
       link: function(scope, element, attributes) {
-        scope.studentChannels = [];
-        scope.showPresentation = false;
-        scope.pdfUrl = '/assets/img/Intro.pdf';
-        scope.zoom = 90;   
-        scope.hidePresentation = function() {
-          $timeout(function() {
-            scope.showPresentation = false;
-          }, 5000);
-        }
+        scope.showListVideos = true;
+        scope.members = [scope.teacher];
+        scope.members = scope.members.concat(scope.students);
+        scope.channelList = [];
+        scope.videoSlots = [];
+        var count = 0;
+        _.each(scope.members, function(member, index) {
+          scope.videoSlots.push({
+            id: member._id,
+            allocated: false,
+            videoId: 'remoteCamera' + index,
+            publisher: member
+          });
+
+        });
+        scope.$watch('connected', function() {
+          if (!scope.connected) {
+            _.each(scope.videoSlots, function(slot) {
+              if (slot.allocated) {
+                webrtcSocket.unsubscribe(slot.publisher.member._id);
+              }
+              slot.allocated = false;
+            });
+          }
+        });
+        scope.defaultUrl = '/assets/img/Intro.pdf';
+        scope.zoom = 90;
+        pdfDelegate
+          .$getByHandle('my-pdf-container')
+          .load(scope.defaultUrl);
         scope.pdfSwitchPage = function(offset) {
-          var info = {
-            currPage: 0,
-            totalPages: pdfDelegate.$getByHandle('my-pdf-container').getPageCount()
-          };
-          if (offset == 1) {
+          if (offset === 1) {
             pdfDelegate.$getByHandle('my-pdf-container').next();
           } else {
             pdfDelegate.$getByHandle('my-pdf-container').prev();
           }
           getPageInfo();
-          info.currPage = pdfDelegate.$getByHandle('my-pdf-container').getCurrentPage();
-          sendMessage({
-            id: 'presentation',
-            event: 'switchPage',
-            object: info
-          });
+          if (scope.pdfUrl === scope.defaultUrl || scope.member.role === 'student')
+            return;
+          conferenceSocket.presentation(scope.pdfUrl, 'switchPage', {
+            curPage: scope.currPage
+          })
         }
         function getPageInfo() {
           scope.currPage = pdfDelegate.$getByHandle('my-pdf-container').getCurrentPage();
@@ -56,22 +74,73 @@
           scope.zoom += 10;
         }
         scope.uploadPresentation = function(file) {
-          if (!file) {
+          if (!file || scope.member.role === 'student') {
             return;
           }
-        /*  $meeting.uploadPresentation({file:file},function(result) {
-              if (result.status && result.data.status) {
-                  console.log('url', result.data.url);
-                   $scope.pdfUrl = result.data.url;
-                   $scope.$apply();
-                   pdfDelegate
-                      .$getByHandle('my-pdf-container')
-                      .load(result.data.url);
-                  sendMessage({id:'presentation',event:'insertSlide',object:result.data.url});
-              }
-          })*/
+          Upload.upload({
+            url: '/api/courses/presentation/upload',
+            data: {
+              newCoursePresentation: file
+            }
+          }).then(function(response) {
+            var data = angular.fromJson(response.data);
+            scope.pdfUrl = data.fileURL;
+            pdfDelegate
+              .$getByHandle('my-pdf-container')
+              .load(scope.pdfUrl);
+            conferenceSocket.presentation(data.fileURL, 'new', {});
+          }, function(errorResponse) {
+            console.log(errorResponse);
+          });
         }
-        conferenceSocket.onChannelList(function() {});
+        conferenceSocket.onChannelStatus(function(channelList) {
+          if (!scope.connected)
+            return;
+          scope.channelList = channelList;
+          var subscribedSlots = _.filter(scope.videoSlots, function(slot) {
+            return _.contains(channelList, slot.publisher.member._id);
+          });
+          var unsubscribedSlots = _.filter(scope.videoSlots, function(slot) {
+            return !_.contains(channelList, slot.publisher.member._id);
+          });
+          _.each(subscribedSlots, function(slot) {
+            if (!slot.allocated && slot.publisher.member._id !== scope.member.member._id) {
+              var camera = document.getElementById(slot.videoId)
+              webrtcSocket.subscribe(camera, slot.publisher.member._id, function() {});
+              slot.allocated = true;
+            }
+          });
+          _.each(unsubscribedSlots, function(slot) {
+            if (slot.allocated) {
+              webrtcSocket.unsubscribe(slot.publisher.member._id);
+            }
+            slot.allocated = false;
+          });
+        });
+
+        if (scope.member.role === 'student') {
+          conferenceSocket.onPresentation(function(url, action, params) {
+            if (!scope.connected)
+              return;
+            if (action === 'new') {
+              if (url !== scope.pdfUrl) {
+                scope.pdfUrl = url;
+                pdfDelegate
+                  .$getByHandle('my-pdf-container')
+                  .load(scope.pdfUrl);
+              }
+            } else if (action === 'switchPage') {
+              if (url !== scope.pdfUrl) {
+                scope.pdfUrl = url;
+                pdfDelegate
+                  .$getByHandle('my-pdf-container')
+                  .load(scope.pdfUrl);
+              }
+              pdfDelegate.$getByHandle('my-pdf-container').goToPage(params.curPage);
+              getPageInfo();
+            }
+          });
+        }
       }
     }
   }

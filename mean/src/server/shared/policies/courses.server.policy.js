@@ -103,6 +103,10 @@ exports.invokeRolesPolicies = function() {
           permissions: ['post']
         },
         {
+            resources: '/api/courses/presentation/upload',
+            permissions: ['post']
+         },
+        {
           resources: '/api/courses/image/upload',
           permissions: ['post']
         }

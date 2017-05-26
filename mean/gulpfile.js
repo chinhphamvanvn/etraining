@@ -246,6 +246,20 @@ gulp.task('eslint', function() {
     .pipe(plugins.eslint.format());
 });
 
+gulp.task('lint-fix', function () {
+  var assets = _.union(
+    defaultAssets.server.gulpConfig,
+    defaultAssets.server.allJS,
+    defaultAssets.client.js,
+    testAssets.tests.server,
+    testAssets.tests.client,
+    testAssets.tests.e2e
+  );
+  return gulp.src(assets)
+    .pipe(plugins.eslint({ fix: true }))
+    .pipe(plugins.eslint.format())
+});
+
 // JS minifying task
 gulp.task('uglify', function() {
   var assets = _.union(

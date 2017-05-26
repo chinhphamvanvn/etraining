@@ -113,7 +113,7 @@
       courseId: vm.course._id
     }, function(members) {
       vm.members = _.filter(members, function(member) {
-        return member.role == 'student';
+        return member.role === 'student';
       });
     });
 
@@ -130,7 +130,7 @@
             sectionId: section._id
           }, function(attempts) {
             member.attempt = _.find(attempts, function(att) {
-              return att.status == 'completed';
+              return att.status === 'completed';
             });
             if (member.attempt) {
               member.feedbacks = FeedbacksService.byAttempt({

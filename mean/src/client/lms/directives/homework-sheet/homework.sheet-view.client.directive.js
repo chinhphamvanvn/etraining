@@ -10,7 +10,7 @@
       scope: {
         mode: '=', // study, view
         attempt: '=',
-        questions: '=',
+        questions: '='
       },
       templateUrl: '/src/client/lms/directives/homework-sheet/homework.sheet.client.view.html',
       link: function(scope, element, attributes) {
@@ -37,7 +37,7 @@
               });
             });
           });
-        }
+        };
 
         scope.saveHomework = function(callback) {
           var allPromises = [];
@@ -48,7 +48,7 @@
           _.each(answers, function(answer) {
             if (answer._id)
               answer.$update(function() {
-                updateAttempt(answer, function(){
+                updateAttempt(answer, function() {
                   Notification.success({
                     message: '<i class="uk-icon-check"></i> Save answer successfully!'
                   });
@@ -57,7 +57,7 @@
               });
             else
               answer.$save(function() {
-                updateAttempt(answer, function(){
+                updateAttempt(answer, function() {
                   Notification.success({
                     message: '<i class="uk-icon-check"></i> Save answer successfully!'
                   });
@@ -80,7 +80,7 @@
                 });
             }
           }
-        }
+        };
       }
     };
   }

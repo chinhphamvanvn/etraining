@@ -140,11 +140,11 @@
     };
 
     vm.permissionViewConfig = {
-        plugins: {
-          'remove_button': {
-            label: ''
-          }
-        },
+      plugins: {
+        'remove_button': {
+          label: ''
+        }
+      },
       maxItems: 1,
       valueField: 'value',
       labelField: 'title',
@@ -160,7 +160,11 @@
           value: obj._id
         };
       });
-      vm.permissionViewOptions.splice(0, 0, {id:0, value: '', title:'------------'});
+      vm.permissionViewOptions.splice(0, 0, {
+        id: 0,
+        value: '',
+        title: '------------'
+      });
     });
 
     vm.permissionApiConfig = {
@@ -179,7 +183,11 @@
           value: obj._id
         };
       });
-      vm.permissionApiOptions.splice(0, 0, {id:0, value: '', title:'------------'});
+      vm.permissionApiOptions.splice(0, 0, {
+        id: 0,
+        value: '',
+        title: '------------'
+      });
     });
 
     function newPermissionApi() {
@@ -258,7 +266,7 @@
         return permission._id === vm.permissionApi._id;
       });
       _.each(vm.endpoints, function(endpoint) {
-        existRule = _.find(vm.permissionApi.endpoints, function(rule) {
+        var existRule = _.find(vm.permissionApi.endpoints, function(rule) {
           return rule.id === endpoint._id;
         });
         if (existRule) {
@@ -269,6 +277,5 @@
         }
       });
     }
-
   }
 }(window.UIkit));

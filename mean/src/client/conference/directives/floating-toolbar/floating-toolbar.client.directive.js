@@ -13,6 +13,7 @@
         connected: '=',
         connecting: '=',
         localStream: '=',
+        member: '=',
         onConnecting: '&',
         onConnected: '&',
         onDisconnected: '&'
@@ -34,10 +35,10 @@
           scope.sound.loop = true;
           if (scope.onConnecting)
             scope.onConnecting();
-            conferenceSocket.join();
-              scope.sound.stop();
-              if (scope.onConnected)
-                scope.onConnected();
+          conferenceSocket.join();
+          scope.sound.stop();
+          if (scope.onConnected)
+            scope.onConnected();
         }
 
         scope.disconnect = function() {
@@ -58,7 +59,7 @@
           if (scope.localStream) {
             var videoTrack = scope.localStream.getVideoTracks()[0];
             scope.video = !scope.video;
-            videoTrack.enabled = $scope.video;
+            videoTrack.enabled = scope.video;
           }
         }
         scope.toggleHand = function() {
@@ -68,18 +69,17 @@
           else
             conferenceSocket.handDown();
         }
-        
+
         scope.signout = function() {
-          conferenceSocket.leave(function() {
-            if (scope.onDisconnected)
-              scope.onDisconnected();
-            $location.path('/');
-          });
+          conferenceSocket.leave();
+          if (scope.onDisconnected)
+            scope.onDisconnected();
+          $location.path('/');
         }
         scope.toggleHand = function() {
           scope.handUp = !scope.handUp;
           if (scope.handUp) {
-            conferenceSocket.handUo();
+            conferenceSocket.handUp();
           } else {
             conferenceSocket.handDown();
           }

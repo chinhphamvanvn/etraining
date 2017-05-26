@@ -6,12 +6,11 @@
     .module('core')
     .factory('webrtcSocket', webrtcSocket);
 
-  webrtcSocket.$inject = ['Authentication', '$state', '$timeout', 'Socket'];
+  webrtcSocket.$inject = ['localStorageService', '$state', '$timeout', 'Socket'];
 
-  function webrtcSocket(Authentication, $state, $timeout, Socket) {
+  function webrtcSocket(localStorageService, $state, $timeout, Socket) {
     var CHANNEL_ID = 'webrtc';
-    var webRtcEndpoint,
-      publisher = {},
+    var publisher = {},
       subscribers = {};
 
     function send(data) {
@@ -30,7 +29,7 @@
           publisher.sdpAnswer = message.sdpAnswer;
           console.log('Process queuing candidate');
           while (publisher.candidateRecvQueue.length)
-            publisher.webRtcEndpoint.addIceCandidate(publisher.candidateRecvQueue.shift());
+          publisher.webRtcEndpoint.addIceCandidate(publisher.candidateRecvQueue.shift());
           publisher.callback();
         }
       });
@@ -53,7 +52,7 @@
           subscriber.sdpAnswer = message.sdpAnswer;
           console.log('Process queuing candidate');
           while (subscriber.candidateRecvQueue.length)
-            subscriber.webRtcEndpoint.addIceCandidate(subscriber.candidateRecvQueue.shift());
+          subscriber.webRtcEndpoint.addIceCandidate(subscriber.candidateRecvQueue.shift());
           subscriber.candidateRecvQueue = [];
           subscriber.callback();
         }
@@ -93,9 +92,29 @@
     });
 
     return {
-      publishWebcam: function(callback) {
-        publisher.id = Authentication.user._id;
+      unpublish: function() {
+        var message = {
+          id: 'unpublish'
+        }
+        send(message);
+        if (publisher && publisher.webRtcEndpoint)
+          publisher.webRtcEndpoint.dispose();
+      },
+      unsubscribe: function(publisherId) {
+        var message = {
+          id: 'unsubscribe',
+          publisherId: publisherId
+        }
+        send(message);
+        _.each(subscribers, function(subscriber) {
+          if (subscriber && subscriber.webRtcEndpoint)
+            subscriber.webRtcEndpoint.dispose();
+        });
+      },
+      publishWebcam: function(localVideo, callback) {
+        publisher.id = localStorageService.get('userId');
         publisher.callback = callback;
+        publisher.sdpAnswer = null;
         publisher.candidateRecvQueue = [];
         var onIceCandidate = function(candidate) {
           var message = {
@@ -105,6 +124,7 @@
           send(message);
         }
         var options = {
+          localVideo: localVideo,
           onicecandidate: onIceCandidate,
         };
         publisher.webRtcEndpoint = kurentoUtils.WebRtcPeer.WebRtcPeerSendonly(options, function(error) {
@@ -126,10 +146,11 @@
           });
         });
       },
-      subscribe: function(publisherId, callback) {
+      subscribe: function(remoteVideo, publisherId, callback) {
         subscribers[publisherId] = {
           callback: callback,
-          candidateRecvQueue: candidateRecvQueue
+          sdpAnswer: null,
+          candidateRecvQueue: []
         };
         var onIceCandidate = function(candidate) {
           var message = {
@@ -140,9 +161,10 @@
           send(message);
         }
         var options = {
+          remoteVideo: remoteVideo,
           onicecandidate: onIceCandidate,
         }
-        subscribers[publisherId].webRtcEndpoint = kurentoUtils.WebRtcPeer.WebRtcPeerRecvonly(options, function(error) {
+        subscribers[publisherId].webRtcEndpoint = kurentoUtils.WebRtcPeer.WebRtcPeerSendrecv(options, function(error) {
           if (error) {
             console.log(error);
             return;
@@ -155,6 +177,7 @@
             subscribers[publisherId].sdpOffer = sdpOffer
             var message = {
               id: 'subscribeOffer',
+              publisherId: publisherId,
               sdpOffer: sdpOffer
             }
             send(message);

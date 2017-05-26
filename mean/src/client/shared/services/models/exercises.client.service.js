@@ -19,7 +19,7 @@
       save: {
         method: 'POST',
         transformRequest: _transform.unpopulate
-      },
+      }
     });
   }
 }());
