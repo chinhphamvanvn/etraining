@@ -60,6 +60,23 @@
             curPage: scope.currPage
           })
         }
+
+        scope.memberDiscard = function(publisher) {
+          var member = publisher.member;
+          if (member) {
+            member.handUp = false;
+            member.invited = false;
+            sendMessage({
+                id: 'discard',
+                'inviteeId': member._id
+            });
+          }
+          webrtcSocket.unsubscribe(publisher.id);
+          publisher.subscription = null;
+          publisher.channel = null;
+          publisher.allocated = false;
+        }
+
         function getPageInfo() {
           scope.currPage = pdfDelegate.$getByHandle('my-pdf-container').getCurrentPage();
           scope.totalPages = pdfDelegate.$getByHandle('my-pdf-container').getPageCount();
