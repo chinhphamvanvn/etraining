@@ -183,6 +183,9 @@
             send(message);
           });
         });
+      },
+      getPublish: function(){
+        return publisher;
       }
     }
   }

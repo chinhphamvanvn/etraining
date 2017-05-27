@@ -5,9 +5,9 @@
   // Unless the user is on a small device, because this could obscure the page with a keyboard
 
   angular.module('conference')
-    .directive('floatingToolbar', ['ngAudio', '$timeout', 'conferenceSocket', '$location', '_', floatingToolbar]);
+    .directive('floatingToolbar', ['ngAudio', '$timeout', 'conferenceSocket', '$location', '_', 'webrtcSocket', floatingToolbar]);
 
-  function floatingToolbar(ngAudio, $timeout, conferenceSocket, $location, _) {
+  function floatingToolbar(ngAudio, $timeout, conferenceSocket, $location, _, webrtcSocket) {
     return {
       scope: {
         connected: '=',
@@ -48,16 +48,18 @@
             scope.onDisconnected();
         }
         scope.toggleAudio = function() {
-          if (scope.localStream) {
-            var audioTrack = scope.localStream.getAudioTracks()[0];
+          var localStream = webrtcSocket.getPublish().webRtcEndpoint.getLocalStream();
+          if (localStream) {
+            var audioTrack = localStream.getAudioTracks()[0];
             scope.audio = !scope.audio;
             audioTrack.enabled = scope.audio;
           }
 
         }
         scope.toggleVideo = function() {
-          if (scope.localStream) {
-            var videoTrack = scope.localStream.getVideoTracks()[0];
+          var localStream = webrtcSocket.getPublish().webRtcEndpoint.getLocalStream();
+          if (localStream) {
+            var videoTrack = localStream.getVideoTracks()[0];
             scope.video = !scope.video;
             videoTrack.enabled = scope.video;
           }
