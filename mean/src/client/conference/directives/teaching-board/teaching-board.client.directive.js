@@ -68,7 +68,7 @@
             member.invited = false;
             sendMessage({
                 id: 'discard',
-                'inviteeId': member._id
+                'memberId': member._id
             });
           }
           webrtcSocket.unsubscribe(publisher.id);
