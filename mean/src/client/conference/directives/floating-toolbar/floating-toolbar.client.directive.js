@@ -5,9 +5,9 @@
   // Unless the user is on a small device, because this could obscure the page with a keyboard
 
   angular.module('conference')
-    .directive('floatingToolbar', ['ngAudio', '$timeout', 'conferenceSocket', '$location', '_', 'webrtcSocket', floatingToolbar]);
+    .directive('floatingToolbar', ['ngAudio', '$timeout', 'conferenceSocket', '$location', '_', 'webrtcSocket', '$window', floatingToolbar]);
 
-  function floatingToolbar(ngAudio, $timeout, conferenceSocket, $location, _, webrtcSocket) {
+  function floatingToolbar(ngAudio, $timeout, conferenceSocket, $location, _, webrtcSocket, $window) {
     return {
       scope: {
         connected: '=',
@@ -76,7 +76,7 @@
           conferenceSocket.leave();
           if (scope.onDisconnected)
             scope.onDisconnected();
-          $location.path('/');
+          $window.history.back();
         }
         scope.toggleHand = function() {
           scope.handUp = !scope.handUp;
