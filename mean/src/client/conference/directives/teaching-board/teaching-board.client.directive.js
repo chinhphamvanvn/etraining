@@ -66,15 +66,18 @@
           if (member) {
             member.handUp = false;
             member.invited = false;
-            sendMessage({
+            conferenceSocket.discard({
                 id: 'discard',
-                'memberId': member._id
+                memberId: member._id
             });
           }
           webrtcSocket.unsubscribe(publisher.id);
-          publisher.subscription = null;
-          publisher.channel = null;
-          publisher.allocated = false;
+          var subscribedSlots = _.filter(scope.videoSlots, function(slot) {
+            return slot.id === member._id;
+          });
+          if(subscribedSlots){
+            subscribedSlots.allocated = false;
+          }
         }
 
         function getPageInfo() {
