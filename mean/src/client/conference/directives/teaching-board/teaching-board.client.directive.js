@@ -73,7 +73,7 @@
           }
           webrtcSocket.unsubscribe(publisher.id);
           var subscribedSlots = _.find(scope.videoSlots, function(slot) {
-            return slot.id === member._id;
+            return slot.publisher._id === publisher._id;
           });
           if(subscribedSlots){
             subscribedSlots.allocated = false;
