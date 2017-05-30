@@ -72,7 +72,7 @@
             });
           }
           webrtcSocket.unsubscribe(publisher.id);
-          var subscribedSlots = _.filter(scope.videoSlots, function(slot) {
+          var subscribedSlots = _.find(scope.videoSlots, function(slot) {
             return slot.id === member._id;
           });
           if(subscribedSlots){
