@@ -63,7 +63,7 @@
       vm.selectPanel = '';
       webrtcSocket.unpublish();
       conferenceSocket.unpublishChannel();
-      if (vm.member.role == 'student')
+      if (vm.member.role === 'student')
         webrtcSocket.unsubscribe(vm.teacher.member._id);
     }
 

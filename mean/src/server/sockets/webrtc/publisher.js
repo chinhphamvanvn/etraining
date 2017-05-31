@@ -23,7 +23,7 @@ function getKurentoClient(callback) {
   console.log(config.mediaServerUrl);
   kurento(config.mediaServerUrl, function(error, _kurentoClient) {
     if (error) {
-      var message = 'Coult not find media server at address ' + argv.ws_uri;
+      var message = 'Coult not find media server at address ';
       return callback(message + ". Exiting with error " + error);
     }
     console.log('Create new client');

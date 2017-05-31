@@ -90,7 +90,7 @@
           }).length;
           _.each(scope.members, function(member) {
             var status = _.find(memberStatusList, function(obj) {
-              return obj.memberId == member.member._id;
+              return obj.memberId === member.member._id;
             })
             if (status) {
               member.online = true;

@@ -16,7 +16,7 @@ function join(io, socket, roomId) {
     room.addMember(member);
     rooms[roomId] = room;
     _.remove(room.channelList, function(channel) {
-      return channel == socket.request.user._id;
+      return channel === socket.request.user._id;
     });
     socket.join(roomId, function() {
       io.to(roomId).emit(CHANNEL_ID, JSON.stringify({
@@ -72,7 +72,7 @@ function publishChannel(io, socket, roomId) {
     var room = rooms[roomId];
     if (!room)
       return;
-    if (room.channelList.indexOf(socket.request.user._id) == -1)
+    if (room.channelList.indexOf(socket.request.user._id) === -1)
       room.channelList.push(socket.request.user._id);
     io.to(roomId).emit(CHANNEL_ID, JSON.stringify({
       id: 'broadcastChannel',

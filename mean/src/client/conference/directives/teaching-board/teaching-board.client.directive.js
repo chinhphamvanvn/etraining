@@ -48,7 +48,7 @@
           .$getByHandle('my-pdf-container')
           .load(scope.defaultUrl);
         scope.pdfSwitchPage = function(offset) {
-          if (offset == 1) {
+          if (offset === 1) {
             pdfDelegate.$getByHandle('my-pdf-container').next();
           } else {
             pdfDelegate.$getByHandle('my-pdf-container').prev();
@@ -60,6 +60,23 @@
             curPage: scope.currPage
           })
         }
+
+        scope.memberDiscard = function(publisher) {
+          var member = publisher.member;
+          if (member) {
+            member.handUp = false;
+            member.invited = false;
+            sendMessage({
+                id: 'discard',
+                'memberId': member._id
+            });
+          }
+          webrtcSocket.unsubscribe(publisher.id);
+          publisher.subscription = null;
+          publisher.channel = null;
+          publisher.allocated = false;
+        }
+
         function getPageInfo() {
           scope.currPage = pdfDelegate.$getByHandle('my-pdf-container').getCurrentPage();
           scope.totalPages = pdfDelegate.$getByHandle('my-pdf-container').getPageCount();
@@ -104,7 +121,7 @@
             return !_.contains(channelList, slot.publisher.member._id);
           });
           _.each(subscribedSlots, function(slot) {
-            if (!slot.allocated && slot.publisher.member._id != scope.member.member._id) {
+            if (!slot.allocated && slot.publisher.member._id !== scope.member.member._id) {
               var camera = document.getElementById(slot.videoId)
               webrtcSocket.subscribe(camera, slot.publisher.member._id, function() {});
               slot.allocated = true;
@@ -123,14 +140,14 @@
             if (!scope.connected)
               return;
             if (action === 'new') {
-              if (url != scope.pdfUrl) {
+              if (url !== scope.pdfUrl) {
                 scope.pdfUrl = url;
                 pdfDelegate
                   .$getByHandle('my-pdf-container')
                   .load(scope.pdfUrl);
               }
             } else if (action === 'switchPage') {
-              if (url != scope.pdfUrl) {
+              if (url !== scope.pdfUrl) {
                 scope.pdfUrl = url;
                 pdfDelegate
                   .$getByHandle('my-pdf-container')
