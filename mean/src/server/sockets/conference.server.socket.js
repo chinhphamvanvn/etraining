@@ -205,6 +205,13 @@ function discard(io, socket, roomId, memberId) {
       id: 'broadcastMember',
       memberList: room.getMemberList()
     }));
+    _.remove(room.channelList, function(channel) {
+      return channel === socket.request.user._id;
+    });
+    io.to(roomId).emit(CHANNEL_ID, JSON.stringify({
+      id: 'broadcastChannel',
+      channelList: room.channelList
+    }));
   } catch (exc) {
     console.log('Discard exception', exc)
   }
