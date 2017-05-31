@@ -71,7 +71,7 @@
                 memberId: member._id
             });
           }
-          webrtcSocket.unsubscribe(publisher.id);
+          webrtcSocket.unsubscribe(publisher.member._id);
           var subscribedSlots = _.find(scope.videoSlots, function(slot) {
             return slot.publisher._id === publisher._id;
           });

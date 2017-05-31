@@ -44,7 +44,7 @@
           if (member.invited && member.online) {
             conferenceSocket.discard(member.member._id);
           }
-
+          member.invited = !member.invited;
         }
 
         scope.chat = function() {

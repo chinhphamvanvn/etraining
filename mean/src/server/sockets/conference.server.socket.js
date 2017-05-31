@@ -37,7 +37,7 @@ function join(io, socket, roomId) {
             }));
         });
     } catch (exc) {
-        console.log('Join exception', exc)
+        console.log('Join exception', exc. roomId, room.getMemberList(), room.getChannelList())
     }
 }
 
@@ -62,7 +62,7 @@ function leave(io, socket, roomId) {
             }));
         });
     } catch (exc) {
-        console.log('Leave exception', exc)
+        console.log('Leave exception', exc, roomId, room.getMemberList(), room.getChannelList())
     }
 
 }
@@ -79,7 +79,7 @@ function publishChannel(io, socket, roomId) {
             channelList: room.channelList
         }));
     } catch (exc) {
-        console.log('Publish webcam exception', exc)
+        console.log('Publish webcam exception', exc, roomId, room.getMemberList(), room.getChannelList())
     }
 
 }
@@ -97,7 +97,7 @@ function unpublishChannel(io, socket, roomId) {
             channelList: room.channelList
         }));
     } catch (exc) {
-        console.log('Unpublish webcam exception', exc)
+        console.log('Unpublish webcam exception', exc, roomId, room.getMemberList(), room.getChannelList())
     }
 
 }
@@ -114,7 +114,7 @@ function handUp(io, socket, roomId) {
             memberList: room.getMemberList()
         }));
     } catch (exc) {
-        console.log('Hand up exception', exc)
+        console.log('Hand up exception', exc, roomId, room.getMemberList(), room.getChannelList())
     }
 
 }
@@ -131,7 +131,7 @@ function handDown(io, socket, roomId) {
             memberList: room.getMemberList()
         }));
     } catch (exc) {
-        console.log('Hand down exception', exc)
+        console.log('Hand down exception', exc, roomId, room.getMemberList(), room.getChannelList())
     }
 
 }
@@ -188,7 +188,7 @@ function invite(io, socket, roomId, memberId) {
             memberList: room.getMemberList()
         }));
     } catch (exc) {
-        console.log('Invite exception', exc)
+        console.log('Invite exception', exc, roomId, room.getMemberList(), room.getChannelList(), memberId)
     }
 
 }
@@ -214,12 +214,44 @@ function discard(io, socket, roomId, memberId) {
             }));
         });
     } catch (exc) {
-        console.log('Discard exception', exc)
+        console.log('Discard exception', exc, roomId, room.getMemberList(), room.getChannelList(), memberId)
     }
 
 }
 
+function disconnect(io, socket) {
+    try {
+        if (!socket.request.user._id)
+            return;
+        _.each(rooms, function(room) {
+            var member = room.getMember(socket.request.user._id);
+            if (member) {
+                room.removeMember(member);
+                _.remove(room.channelList, function(channel) {
+                    return channel === socket.request.user._id;
+                });
+                 io.to(room.roomId).emit(CHANNEL_ID, JSON.stringify({
+                     id: 'broadcastMember',
+                     memberList: room.getMemberList()
+                 }));
+                 io.to(room.roomId).emit(CHANNEL_ID, JSON.stringify({
+                     id: 'broadcastChannel',
+                     channelList: room.channelList
+                 }));
+            }
+            
+        });
+        
+    } catch (exc) {
+        console.log('Disconnect exception', exc)
+    }
+}
+
 module.exports = function(io, socket) {
+    
+    socket.on('disconnect', function () {
+        console.log('socket disconnected', socket.request.user._id);
+    });
 
     socket.on(CHANNEL_ID, function(message) {
         console.log(CHANNEL_ID, ' receive: ', message);
