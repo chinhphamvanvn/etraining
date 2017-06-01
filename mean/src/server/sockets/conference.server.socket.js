@@ -77,7 +77,7 @@ function registerChannel(io, socket, roomId) {
       member.webcam = true;
       io.to(roomId).emit(CHANNEL_ID, JSON.stringify({
           id: 'broadcastMember',
-          memberList: room.getMemberList
+          memberList: room.getMemberList()
       }));
   } catch (exc) {
       console.log('Register webcam exception', exc, roomId, room.getMemberList())
@@ -97,11 +97,11 @@ function unregisterChannel(io, socket, roomId) {
     });
       io.to(roomId).emit(CHANNEL_ID, JSON.stringify({
           id: 'broadcastMember',
-          memberList: room.getMemberList
+          memberList: room.getMemberList()
       }));
       io.to(roomId).emit(CHANNEL_ID, JSON.stringify({
         id: 'broadcastChannel',
-        channelList: room.channelList
+        channelList: room.channelList()
     }));
   } catch (exc) {
       console.log('Unregister webcam exception', exc, roomId, room.getMemberList())
