@@ -18,12 +18,18 @@ Room.prototype.removeMember = function(member) {
 Room.prototype.getMember = function(memberId) {
   return this.memberList[memberId];
 }
+Room.prototype.getMemberBySession = function(sessionId) {
+  return _.find(this.memberList, function(member) {
+    return member.sessionId === sessionId;
+  });
+}
 Room.prototype.getMemberList = function() {
   return _.map(this.memberList, function(member) {
     return {
       memberId: member.memberId,
       handUp: member.handUp,
-      invited: member.invited
+      invited: member.invited,
+      webcam: member.webcam
     }
   });
 }

@@ -78,22 +78,36 @@
           roomId: roomId
         });
       },
+      registerChannel: function() {
+        send({
+          id: 'registerChannel',
+          roomId: roomId
+        });
+      },
+      unregisterChannel: function() {
+        send({
+          id: 'unregisterChannel',
+          roomId: roomId
+        });
+      },
       leave: function() {
         send({
           id: 'leave',
           roomId: roomId
         });
       },
-      publishChannel: function() {
+      publishChannel: function(memberId) {
         send({
           id: 'publishChannel',
-          roomId: roomId
+          roomId: roomId,
+          memberId: memberId
         });
       },
-      unpublishChannel: function() {
+      unpublishChannel: function(memberId) {
         send({
           id: 'unpublishChannel',
-          roomId: roomId
+          roomId: roomId,
+          memberId: memberId
         });
       },
       onMemberStatus: function(callback) {
@@ -118,20 +132,6 @@
         send({
           id: 'handDown',
           roomId: roomId
-        });
-      },
-      invite: function(memberId) {
-        send({
-          id: 'invite',
-          roomId: roomId,
-          memberId: memberId
-        });
-      },
-      discard: function(memberId) {
-        send({
-          id: 'discard',
-          roomId: roomId,
-          memberId: memberId
         });
       },
       chat: function(text) {

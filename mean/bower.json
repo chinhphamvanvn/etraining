@@ -105,7 +105,8 @@
     "tinymce": "^4.5.7",
     "videojs-record": "^1.6.1",
     "angular-audio": "ngAudio#^1.7.3",
-    "angular-pdf-viewer": "^0.2.13"
+    "angular-pdf-viewer": "^0.2.13",
+    "angular-translate-storage-cookie": "^2.15.1"
   },
   "overrides": {
     "bootstrap": {
@@ -130,6 +131,5 @@
     "angular-translate-storage-cookie": "~2.15.1",
     "angular-ui-router": ">=0.2.0"
   },
-  "devDependencies": {
-  }
+  "devDependencies": {}
 }

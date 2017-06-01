@@ -66,15 +66,17 @@
           if (member) {
             member.handUp = false;
             member.invited = false;
-            sendMessage({
-                id: 'discard',
-                'memberId': member._id
+            conferenceSocket.unpublishChannel({
+                memberId: member._id
             });
           }
-          webrtcSocket.unsubscribe(publisher.id);
-          publisher.subscription = null;
-          publisher.channel = null;
-          publisher.allocated = false;
+          webrtcSocket.unsubscribe(publisher.member._id);
+          var subscribedSlots = _.find(scope.videoSlots, function(slot) {
+            return slot.publisher._id === publisher._id;
+          });
+          if(subscribedSlots){
+            subscribedSlots.allocated = false;
+          }
         }
 
         function getPageInfo() {

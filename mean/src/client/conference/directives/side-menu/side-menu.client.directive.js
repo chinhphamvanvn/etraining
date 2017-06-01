@@ -14,9 +14,7 @@
         selectPanel: '=',
         member: '=',
         students: '=',
-        teacher: '=',
-        onInvited: '&',
-        onDiscarded: '&'
+        teacher: '='
       },
       templateUrl: '/src/client/conference/directives/side-menu/side-menu.client.view.html',
       link: function(scope, element, attributes) {
@@ -37,14 +35,11 @@
 
           scope.selectPanel = panel;
         }
-        scope.toggleInvite = function(member) {
-          if (!member.invited && member.online) {
-            conferenceSocket.invite(member.member._id);
+        scope.inviteMember = function(member) {
+          if (!member.invited && member.online && member.webcam) {
+            conferenceSocket.publishChannel(member.member._id);
           }
-          if (member.invited && member.online) {
-            conferenceSocket.discard(member.member._id);
-          }
-
+          member.invited = !member.invited;
         }
 
         scope.chat = function() {
@@ -95,21 +90,18 @@
             if (status) {
               member.online = true;
               member.handUp = status.handUp;
-              if (status.memberId === scope.member.member._id) {
-                if (scope.member.invited && !status.invited) {
-                  scope.onDiscarded();
-                }
-                if (!scope.member.invited && status.invited) {
-                  scope.onInvited();
-                }
-              }
+              member.webcam = status.webcam;
               member.invited = status.invited;
               if (member.invited) {
                 member.handUp = false;
               }
             }
-            else
+            else {
+              member.invited = false;
               member.online = false;
+              member.handUp = false;
+              member.webcam = false;
+            }
           });
         });
       }

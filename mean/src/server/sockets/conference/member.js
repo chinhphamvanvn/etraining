@@ -1,9 +1,9 @@
 var kurento = require('kurento-client');
 
-function Member(memberId, name, role)
+function Member(memberId, sessionId)
 {
     this.memberId = memberId;
-    this.publisher = null;
+    this.sessionId = sessionId;
 }
 
 module.exports = Member

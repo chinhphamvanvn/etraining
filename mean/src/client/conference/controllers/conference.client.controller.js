@@ -43,26 +43,17 @@
       vm.connecting = false;
       var localCamera = document.getElementById('localCamera');
       webrtcSocket.publishWebcam(localCamera, function() {
-        vm.webcamReady = true;
+        conferenceSocket.registerChannel();
         if (vm.member.role === 'teacher')
-          conferenceSocket.publishChannel();
+          conferenceSocket.publishChannel(vm.member.member._id);
       });
-    }
-
-    function onInvited() {
-      if (vm.webcamReady)
-        conferenceSocket.publishChannel();
-    }
-
-    function onDiscarded() {
-      conferenceSocket.unpublishChannel();
     }
 
     function onDisconnected() {
       vm.connected = false;
       vm.selectPanel = '';
       webrtcSocket.unpublish();
-      conferenceSocket.unpublishChannel();
+      conferenceSocket.unregisterChannel();
       if (vm.member.role === 'student')
         webrtcSocket.unsubscribe(vm.teacher.member._id);
     }
