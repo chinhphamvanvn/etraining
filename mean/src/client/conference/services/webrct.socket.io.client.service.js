@@ -106,10 +106,11 @@
           publisherId: publisherId
         }
         send(message);
-        _.each(subscribers, function(subscriber) {
+        var subscriber = subscribers[publisherId];
+        if (subscriber) {
           if (subscriber && subscriber.webRtcEndpoint)
             subscriber.webRtcEndpoint.dispose();
-        });
+        }
       },
       publishWebcam: function(localVideo, callback) {
         publisher.id = localStorageService.get('userId');

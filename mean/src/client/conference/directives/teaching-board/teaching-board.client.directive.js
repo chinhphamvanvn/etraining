@@ -66,9 +66,7 @@
           if (member) {
             member.handUp = false;
             member.invited = false;
-            conferenceSocket.unpublishChannel({
-                memberId: member._id
-            });
+            conferenceSocket.unpublishChannel(member._id);
           }
           webrtcSocket.unsubscribe(publisher.member._id);
           var subscribedSlots = _.find(scope.videoSlots, function(slot) {

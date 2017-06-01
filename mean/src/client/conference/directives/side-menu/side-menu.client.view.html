@@ -46,8 +46,8 @@
 					aria-hidden="true"></span> {{student.member.displayName}} <span
 					ng-show="student._id == member._id">({{"PAGE.CONFERENCE.YOU"
 						| translate}})</span> <span class="right action"
-					ng-show="member.role=='teacher'"
-					ng-class="student.invited ? 'icon-active' : 'icon-unactive'" ng-click="inviteMember(student)" ng-show="student.webcam">
+					ng-show="member.role=='teacher' && student.webcam"
+					ng-class="student.invited ? 'icon-active' : 'icon-unactive'" ng-click="inviteMember(student)">
 						<i class="uk-icon-video-camera" ng-class="student.invited ? 'uk-text-success' : 'uk-text-primary'"></i>
 				</span> <span class="right action animated"
 					ng-click="memberInvite(student)" ng-show="member.role=='teacher'"

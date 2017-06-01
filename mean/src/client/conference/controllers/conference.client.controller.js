@@ -26,8 +26,8 @@
     vm.onConnecting = onConnecting;
     vm.onConnected = onConnected;
     vm.onDisconnected = onDisconnected;
-    vm.onInvited = onInvited;
-    vm.onDiscarded = onDiscarded;
+    /*vm.onInvited = onInvited;*/
+    /*vm.onDiscarded = onDiscarded;*/
     vm.teacher = CourseMembersService.get({
       memberId: vm.classroom.teacher
     });
