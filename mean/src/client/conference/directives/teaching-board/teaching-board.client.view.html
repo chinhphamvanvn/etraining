@@ -1,4 +1,8 @@
-
+<style type="text/css">
+	.show-video-connect {
+		width: calc(100% - 61px);
+	}
+</style>
 <div class="present" class="active-workspace">
 	<div class="my-pdf-container">
 		<div class="pdf-content vi-center">
@@ -28,18 +32,15 @@
 				<div class="uk-width-2-5"
 					ng-class="{'vi-right': (member.role=='teacher')}">
 					<a class="md-btn vi-btn-default" ng-click="zoomOut(0.1)"> <i
-						class="uk-icon-search-minus" aria-hidden="true"></i>
-					</a> <input flex="60" class="vi-input vi-pdf-input" type="text"
-						ng-value="zoom + '%'" disabled> <a
-						class="md-btn vi-btn-default" ng-click="zoomIn(0.1)"> <i
-						class="uk-icon-search-plus" aria-hidden="true"></i>
-					</a>
+						class="uk-icon-search-minus" aria-hidden="true"></i> </a>
+					<input flex="60" class="vi-input vi-pdf-input" type="text" ng-value="zoom + '%'" disabled>
+					<a class="md-btn vi-btn-default" ng-click="zoomIn(0.1)" style="margin-right: 10px;"> <i class="uk-icon-search-plus" aria-hidden="true"></i> </a>
 				</div>
 			</div>
 		</div>
 	</div>
 </div>
-<div class="section_videos">
+<div class="section_videos" ng-class="connected ? 'show-video-connect' : ''">
 	<div class="section_videos_content">
 		<div ng-show="showListVideos">
 			<div class="list_videos_wrapper">
@@ -61,8 +62,8 @@
 
 
 		</div>
-		<div class="video_teacher_wrapper" ng-show="connected">
-			<div class="video_wrapper">
+		<div ng-show="connected" ng-class="member.role =='teacher' ? 'videolocal-teacher' : 'video_teacher_wrapper'">
+			<div ng-class="member.role =='teacher' ? 'local-video-teacher' : 'video_wrapper'">
 
 				<video autoplay muted id="localCamera" class="video_training"></video>
 				<div class="top_bar">{{"PAGE.CONFERENCE.LOCAL_CAMERA" |

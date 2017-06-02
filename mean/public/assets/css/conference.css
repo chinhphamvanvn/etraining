@@ -713,7 +713,7 @@ a[ng-click] {
 .conference .toolbar {
     height: 100%;
     position: relative;
-    width: 100%;
+    width: 300px;
 }
 
 .show_toolbar {
@@ -734,7 +734,7 @@ a[ng-click] {
     text-align: center;
     top: 0px;
     width: 100%;
-    z-index: 90;
+    z-index: 990;
 }
 
 .toolbar-control .navbar-control {
@@ -772,7 +772,7 @@ a[ng-click] {
     position: absolute;
     top: 0px;
     width: 50px;
-    z-index: 100;
+    z-index: 995;
 }
 
 .conference .list-nav {
@@ -831,7 +831,7 @@ a[ng-click] {
     overflow: hidden;
     position: absolute;
     top: 0px;
-    z-index: 100;
+    z-index: 995;
 }
 
 .member-wrapper,
@@ -1057,9 +1057,11 @@ a[ng-click] {
     border-radius: 3px;
     bottom: 0px;
     left: 50%;
+    margin-left: 30px;
     min-width: 600px;
     position: fixed;
     transform: translateX(-50%);
+    z-index: 900;
 }
 
 .toolbar-pdf-viewer .toolbar-content {
@@ -1118,7 +1120,8 @@ a[ng-click] {
     height: 120px;
     overflow: hidden;
     position: relative;
-    width: 100%;
+    width: 200px;
+    float: right;
 }
 
 .video-member {
@@ -1157,7 +1160,8 @@ a[ng-click] {
     width: 100%;
 }
 
-.video_wrapper .top_bar {
+.video_wrapper .top_bar,
+.local-video-teacher .top_bar {
     background-color: rgba(0, 0, 0, 0.5);
     color: #fff;
     font-size: 0.7rem;
@@ -1210,4 +1214,18 @@ a[ng-click] {
         font-size: 0.85em !important;
         text-align: center;
     }
+}
+
+.show-video-teacher {
+    height: 60vh;
+    position: absolute;
+    width: 60%;
+    left: 20%;
+}
+
+.videolocal-teacher {
+    height: 60vh;
+    position: absolute;
+    width: 60%;
+    left: 20%;
 }
