@@ -13,7 +13,8 @@
         connected: '=',
         teacher: '=',
         students: '=',
-        member: '='
+        member: '=',
+        slideshow: '='
       },
       templateUrl: '/src/client/conference/directives/teaching-board/teaching-board.client.view.html',
       link: function(scope, element, attributes) {

@@ -14,7 +14,8 @@
         selectPanel: '=',
         member: '=',
         students: '=',
-        teacher: '='
+        teacher: '=',
+        slideshow: '='
       },
       templateUrl: '/src/client/conference/directives/side-menu/side-menu.client.view.html',
       link: function(scope, element, attributes) {
@@ -24,6 +25,9 @@
         scope.members = [scope.teacher];
         scope.members = scope.members.concat(scope.students);
         scope.setPanel = function(panel) {
+          if(panel === 'slideshow'){
+            scope.slideshow = !scope.slideshow;
+          }
           if (panel === 'members') {
             scope.msgHandUp = false;
           }

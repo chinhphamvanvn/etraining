@@ -1216,13 +1216,6 @@ a[ng-click] {
     }
 }
 
-.show-video-teacher {
-    height: 60vh;
-    position: absolute;
-    width: 60%;
-    left: 20%;
-}
-
 .videolocal-teacher {
     height: 60vh;
     position: absolute;

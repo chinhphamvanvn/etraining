@@ -24,6 +24,10 @@
 				ng-class="handUpCount ? 'icon-active flash infinite' : 'icon-unactive'">
 				<i class="uk-icon-hand-paper-o"></i>
 			</li>
+			<li ng-click="setPanel('slideshow')"
+				title="{{'PAGE.CONFERENCE.SLIDESHOW' | translate}}"
+				ng-class="selectPanel=='slideshow' ? 'active-nav' : ''"><i
+				class="uk-icon-file-pdf-o" aria-hidden="true"></i></li>
 			<li ng-click="setPanel('settings')" data-uk-tooltip="{pos:'right'}"
 				title="{{'PAGE.CONFERENCE.SETTINGS' | translate}}"
 				ng-class="selectPanel=='settings' ? 'active-nav' : ''"><i
