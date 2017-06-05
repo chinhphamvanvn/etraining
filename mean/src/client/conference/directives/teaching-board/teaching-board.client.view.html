@@ -51,8 +51,9 @@
 				<div class="list_videos_content"
 					style="height: {{channelList.length* 120">
 					<div class="video_wrapper"
-						ng-repeat="slot in videoSlots" ng-show="slot.allocated" ng-style="slot.publisher.role =='teacher' && !slideshow && {'float':'right','height':'80vh','overflow': 'hidden','position':'relative','right':'20%','width':'60%'}"
-						>
+						ng-repeat="slot in videoSlots"
+               ng-show="slot.allocated"
+               ng-style="slot.publisher.role =='teacher' && !slideshow && {'position':'fixed','top':'10%','left':'20%','width':'60%','height':'60%'}">
 						<video class="video_training" ng-attr-id="{{slot.videoId}}"
 							autoplay poster="/assets/img/camera.png"></video>
 						<div class="top_bar clearfix">
