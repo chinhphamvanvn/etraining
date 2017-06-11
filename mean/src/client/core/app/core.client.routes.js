@@ -19,12 +19,8 @@
       }
     });
 
-    // Redirect to 404 when route not found
-    $urlRouterProvider.otherwise(function($injector, $location) {
-      $injector.get('$state').transitionTo('error.not-found', null, {
-        location: false
-      });
-    });
+    // Redirect to home when route not found
+    $urlRouterProvider.otherwise('/');
 
     $stateProvider
       .state('home', {
@@ -32,6 +28,14 @@
         templateUrl: '/src/client/core/views/home.client.view.html',
         controller: 'HomeController',
         controllerAs: 'vm'
+      })
+      .state('admin', {
+        abstract: true,
+        url: '/admin',
+        template: '<ui-view/>',
+        data: {
+          roles: ['admin']
+        }
       })
       .state('search', {
         url: '/search?keyword',

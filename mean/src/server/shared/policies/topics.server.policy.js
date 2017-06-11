@@ -80,7 +80,7 @@ exports.isAllowed = function(req, res, next) {
             });
           }
           if (setting.valueBoolean) {
-            if (req.user.permissionApi) {
+            if (req.user && req.user.permissionApi) {
               Endpoint.findOne({
                 prefix: '/api/topics'
               }, function(err, endpointRecord) {

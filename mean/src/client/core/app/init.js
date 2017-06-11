@@ -25,7 +25,6 @@
     $translateProvider.preferredLanguage('vn');
     $translateProvider.useSanitizeValueStrategy('escape');
 
-
     $httpProvider.interceptors.push('authInterceptor');
 
     // Disable debug data for production environment
