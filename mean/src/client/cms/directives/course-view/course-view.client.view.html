@@ -1,5 +1,21 @@
+<style type="text/css">
+	@media (min-width: 768px) {
+		.large-padding {
+			height: calc(100vh - 200px);
+			overflow-y: scroll;
+		}
+	}
+
+	@media (max-width: 767px) {
+		.large-padding {
+			height: calc(100vh - 140px);
+			overflow-y: scroll;
+		}
+	}
+</style>
 <div class="md-card">
-	<div class="md-card-content large-padding" style="height: calc(100vh - 200px); overflow-y: scroll;">
+	<div class="md-card-content large-padding">
+    <!-- style="height: calc(100vh - 200px); overflow-y: scroll;" -->
 		<div class="uk-grid blog_article uk-grid-divider" data-uk-grid-margin>
 			<div class="uk-width-large-3-4 uk-width-medium-6-10">
 				<figure class="uk-thumbnail thumbnail_left">

@@ -1,13 +1,31 @@
+<style type="text/css">
+  @media (min-width: 768px) {
+    .uk-container-center {
+      height: calc(100vh - 145px);
+      overflow-y: scroll;
+      padding: 0px 10px;
+      background-color: #fff;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .uk-container-center {
+      height: calc(100vh - 110px);
+      overflow-y: scroll;
+      padding: 0px 10px;
+      background-color: #fff;
+    }
+  }
+</style>
 <div id="page_content" ng-show="!vm.alert">
 	<div id="page_content_inner">
-		<div class="uk-width-medium-1-1 uk-container-center" ui-view="" style="height: calc(100vh - 145px); overflow-y: scroll;">
-			<div class="md-card md-card-single" single-card>
+		<div class="uk-width-medium-1-1 uk-container-center" ui-view="">
+			<div class="md-card md-card-single" single-card style="box-shadow: none;">
 				<div class="md-card-toolbar">
 					<h3 class="md-card-toolbar-heading-text large">
 						{{'PAGE.LMS.MY_COURSES.TEACHER_BOARD.EXERCISE.TITLE'|translate}}</h3>
 				</div>
-				<div class="md-card-content" style="overflow: auto">
-
+				<div>
 					<div class="uk-grid uk-margin">
 						<div class=" uk-width-1-2">
 							<label class="uk-form-label" for="select_class">{{'PAGE.LMS.MY_COURSES.TEACHER_BOARD.EXERCISE.SELECT_CLASS'|translate}}</label>

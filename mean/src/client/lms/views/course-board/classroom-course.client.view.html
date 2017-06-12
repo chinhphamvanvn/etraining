@@ -1,3 +1,19 @@
+<style type="text/css">
+  @media (min-width: 768px) {
+    .uk-container-center {
+      height: calc(100vh - 145px);
+      overflow-y: scroll;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .uk-container-center {
+      height: calc(100vh - 110px);
+      overflow-y: scroll;
+      padding: 0px 10px;
+    }
+  }
+</style>
 <div class="uk-alert uk-alert-warning uk-margin" data-uk-alert
 	ng-show="vm.alert">
 	<p class="uk-text-center">

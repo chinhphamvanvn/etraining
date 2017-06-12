@@ -1,6 +1,26 @@
+<style type="text/css">
+  @media (min-width: 768px) {
+    .stats-course {
+      height: calc(100vh - 145px);
+      overflow-y: scroll;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .stats-course {
+      height: calc(100vh - 110px);
+      overflow-y: scroll;
+      padding:  0px 10px;
+    }
+  }
+
+  .uk-dropdown.uk-dropdown-small {
+  	width: 240px;
+  }
+</style>
 <div id="page_content">
 	<div id="page_content_inner">
-		<div style="height: calc(100vh - 145px); overflow-y: scroll;">
+		<div class="stats-course">
 			<div class="md-card">
 				<div class="md-card-toolbar">
 					<div class="md-card-toolbar-actions">
@@ -28,14 +48,14 @@
 				</div>
 				<div class="md-card-content">
 					<div class="uk-grid uk-grid-medium" data-uk-grid-margin>
-						<div class="uk-width-1-5">
+						<div class="uk-width-medium-1-5">
 							<ul class="uk-tab uk-tab-left" data-uk-tab="{connect:'#tabs_6'}">
 								<li><a href="#">{{'PAGE.LMS.MY_COURSES.TEACHER_BOARD.REPORT.COMPREHENSIVE.PROGRESS_CHART'|translate}}</a></li>
 								<li><a href="#">{{'PAGE.LMS.MY_COURSES.TEACHER_BOARD.REPORT.PER_STUDENT.TIME_SPENT'|translate}}</a></li>
 								<li><a href="#">{{'PAGE.LMS.MY_COURSES.TEACHER_BOARD.REPORT.PER_STUDENT.DAILY_SECTION'|translate}}</a></li>
 							</ul>
 						</div>
-						<div class="uk-width-4-5">
+						<div class="uk-width-medium-4-5">
 							<ul id="tabs_6" class="uk-switcher uk-margin-small-top">
 								<li><single-member-progress-report course="vm.course"></single-member-progress-report>
 
