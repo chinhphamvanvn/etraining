@@ -9,7 +9,7 @@
 
   function routeConfig($stateProvider) {
     $stateProvider
-      .state('conference', {
+    .state('conference', {
         url: '/conference/:classroomId/:memberId',
         templateUrl: '/src/client/conference/views/conference.client.view.html',
         controller: 'ConferenceController',
@@ -22,6 +22,7 @@
           roles: ['user']
         }
       })
+
   }
 
   getClassroom.$inject = ['$stateParams', 'ClassroomsService'];

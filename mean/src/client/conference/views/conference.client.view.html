@@ -74,40 +74,7 @@
 		</div>
 	</div>
 
-	<div class="panel-functional"
-		ng-class="vm.selectPanel=='chat' ? 'panel-show' : 'panel-hide'">
-		<div class="chat-wrapper">
-			<div id="chat-content" class="chat-content" style="overflow-y: auto;">
-				<ul class="messages-list list-unstyled">
-					<li class="md-1-line message-item" ng-repeat="msg in vm.chatMessage">
-						<div class="message_box" id="{{msg.idx}}">
-							<span class="user">{{msg.user}}: </span> <span class="message">{{msg.text}}</span>
-						</div>
-					</li>
-				</ul>
-			</div>
-
-			<div layout="row" class="input-message-group"
-				ng-keypress="vm.sendChatMessage($event)">
-				<div class="uk-grid">
-					<div class="uk-width-1-1">
-						<label>{{"PAGE.CONFERENCE.CHAT_MESSAGE" | translate}}</label>
-						<a class="md-button md-button-mini md-button-primary"
-							aria-label="Send message" ng-click="vm.chat()" style="float: right; margin-right: 10px;"> <i
-							class="uk-icon-paper-plane" aria-hidden="true"></i>
-						</a>
-						<input type="text" ng-model="vm.chatInput">
-					</div>
-					<!-- <div class="uk-width-1-5">
-						<a class="md-button md-button-mini md-button-primary"
-							aria-label="Send message" ng-click="chat()"> <i
-							class="uk-icon-paper-plane" aria-hidden="true"></i>
-						</a>
-					</div> -->
-				</div>
-			</div>
-		</div>
-	</div>
+	
 
 	<div class="panel-functional"
 		ng-class="vm.selectPanel=='settings' ? 'panel-show' : 'panel-hide'">

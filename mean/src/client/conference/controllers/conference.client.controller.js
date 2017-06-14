@@ -17,9 +17,9 @@
         .module('conference')
         .controller('ConferenceController', ConferenceController);
 
-    ConferenceController.$inject = ['$scope', '$state', '$window', 'localStorageService', '$timeout', 'classResolve', 'memberResolve', 'Notification', 'conferenceSocket', 'webrtcSocket', 'CourseMembersService', 'ngAudio', '$translate', 'pdfDelegate', 'Upload', '_'];
+    ConferenceController.$inject = ['$rootScope', '$scope', '$state', '$window', 'localStorageService', '$timeout', 'classResolve', 'memberResolve', 'Notification', 'conferenceSocket', 'webrtcSocket', 'CourseMembersService', 'ngAudio', '$translate', 'pdfDelegate', 'Upload', '_'];
 
-    function ConferenceController($scope, $state, $window, localStorageService, $timeout, classroom, member, Notification, conferenceSocket, webrtcSocket, CourseMembersService, ngAudio, $translate, pdfDelegate, Upload, _) {
+    function ConferenceController($rootScope, $scope, $state, $window, localStorageService, $timeout, classroom, member, Notification, conferenceSocket, webrtcSocket, CourseMembersService, ngAudio, $translate, pdfDelegate, Upload, _) {
         var vm = this;
         vm.classroom = classroom;
         vm.member = member;
