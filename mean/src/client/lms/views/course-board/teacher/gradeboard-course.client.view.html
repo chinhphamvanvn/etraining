@@ -1,6 +1,22 @@
+<style type="text/css">
+  @media (min-width: 768px) {
+    .gradeboard-cource {
+      height: calc(100vh - 145px);
+      overflow-y: scroll;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .gradeboard-cource {
+      height: calc(100vh - 110px);
+      overflow-y: scroll;
+      padding: 0px 10px;
+    }
+  }
+</style>
 <div id="page_content">
   <div id="page_content_inner">
-    <div class="md-card" style="height: calc(100vh - 145px); overflow-y: scroll;">
+    <div class="md-card gradeboard-cource">
       <div class="content-table-gradebook md-card-content">
         <h3 class="md-card-toolbar-heading-text large">
           {{"PAGE.LMS.MY_COURSES.COURSE_GRADE.QUIZ_INFO" | translate}}

@@ -1,3 +1,19 @@
+<style type="text/css">
+  @media (min-width: 768px) {
+    .uk-container-center {
+      height: calc(100vh - 145px);
+      overflow-y: scroll;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .uk-container-center {
+      height: calc(100vh - 110px);
+      overflow-y: scroll;
+      padding: 0px 10px;
+    }
+  }
+</style>
 <div class="uk-alert uk-alert-warning uk-margin" data-uk-alert
 	ng-show="vm.alert">
 	<p class="uk-text-center">
@@ -25,36 +41,32 @@
 						</div>
 					</div>
 					<div class="uk-grid uk-margin">
-					<div class="uk-overflow-container uk-width-1-2">
-						<h4>
-							{{'MODEL.CLASSROOM.TEACHER'|translate}} : {{vm.classroom.teacher.member.displayName}}</h4>
-						<h4>
-							{{'PAGE.LMS.MY_COURSES.TEACHER_BOARD.STUDENT_LIST'|translate}}</h4>
-						<table class="uk-table uk-table-nowrap uk-table-condensed">
-							<thead>
-								<tr>
-									<th class="uk-width-1-10 uk-text-center">{{'MODEL.USER.AVATAR'|translate}}
-									</th>
-									<th class="uk-width-2-10 uk-text-center">{{'MODEL.USER.DISPLAY_NAME'|translate}}
-									</th>
-			
-						
-								</tr>
-							</thead>
-							<tbody>
-								<tr ng-repeat="member in vm.members">
-									<td class="uk-text-center"><img class="md-user-image"
-										src="{{member.member.profileImageURL}}" alt="" /></td>
-									<td class="uk-text-center">{{member.member.displayName}}</td>
-	
-
-								</tr>
-							</tbody>
-						</table>
-					</div>
+						<div class="uk-overflow-container uk-width-large-1-2">
+							<h4>
+								{{'MODEL.CLASSROOM.TEACHER'|translate}} : {{vm.classroom.teacher.member.displayName}}</h4>
+							<h4>
+								{{'PAGE.LMS.MY_COURSES.TEACHER_BOARD.STUDENT_LIST'|translate}}</h4>
+							<table class="uk-table uk-table-nowrap uk-table-condensed">
+								<thead>
+									<tr>
+										<th class="uk-width-1-10 uk-text-center">{{'MODEL.USER.AVATAR'|translate}}
+										</th>
+										<th class="uk-width-2-10 uk-text-center">{{'MODEL.USER.DISPLAY_NAME'|translate}}
+										</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr ng-repeat="member in vm.members">
+										<td class="uk-text-center"><img class="md-user-image"
+											src="{{member.member.profileImageURL}}" alt="" /></td>
+										<td class="uk-text-center">{{member.member.displayName}}</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-</div>
+	</div>
 </div>
