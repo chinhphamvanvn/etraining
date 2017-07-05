@@ -258,7 +258,7 @@ exports.changeCourseLogo = function(req, res) {
 
   function updateCourse() {
     return new Promise(function(resolve, reject) {
-      course.logoURL = config.uploads.course.image.urlPaath + req.file.filename;
+      course.logoURL = config.uploads.course.image.urlPath + req.file.filename;
       course.save(function(err, course) {
         if (err) {
           reject(err);
