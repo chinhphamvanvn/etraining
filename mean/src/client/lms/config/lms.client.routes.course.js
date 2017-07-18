@@ -29,6 +29,9 @@
         templateUrl: '/src/client/lms/views/list-courses.client.view.html',
         controller: 'LmsCoursesListController',
         controllerAs: 'vm',
+        resolve: {
+          userResolve: getUser
+        },
         data: {
           roles: ['user'],
           courseRoles: ['teacher', 'student']

@@ -18,6 +18,8 @@ module.exports = function(app) {
     .get(programs.listPrivate);
   app.route('/api/programs/restricted').all(programsPolicy.isAllowed)
     .get(programs.listRestricted);
+  app.route('/api/programs/byGroup/:groupId').all(programsPolicy.isAllowed)
+    .get(programs.listByGroupId);
 
   app.route('/api/programs/:programId').all(programsPolicy.isAllowed)
     .get(programs.read)

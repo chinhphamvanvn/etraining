@@ -163,3 +163,17 @@ exports.programByID = function(req, res, next, id) {
     next();
   });
 };
+
+exports.listByGroupId = function(req, res) {
+  CourseProgram.find({
+    organization: req.params.groupId
+  }).sort('-created').populate('user', 'displayName').populate('courses').populate('competencies').exec(function(err, programs) {
+    if (err) {
+      return res.status(400).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    } else {
+      res.jsonp(programs);
+    }
+  });
+};

@@ -34,6 +34,11 @@
         method: 'GET',
         isArray: true,
         url: '/api/programs/restricted'
+      },
+      programsByGroup: {
+        method: 'GET',
+        isArray: true,
+        url: '/api/programs/byGroup/:groupId'
       }
     });
   }

@@ -20,6 +20,8 @@
       vm.logs = UserLogsService.userLogs({
         userId: vm.user._id
       });
+    if(vm.user.birthday)
+      vm.user.birthday = moment(vm.user.birthday).format("DD.MM.YYYY");
     vm.members = [];
     vm.certificates = [];
     vm.skills = CompetencyAchievementsService.byUser({

@@ -85,7 +85,7 @@ var UserSchema = new Schema({
   exp_year: {
     type: Date
   },
-  birth_day: {
+  birthday: {
     type: Date
   },
   gender: {
