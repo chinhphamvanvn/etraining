@@ -151,7 +151,7 @@ exports.programByID = function(req, res, next, id) {
     });
   }
 
-  CourseProgram.findById(id).populate('user', 'displayName').populate('courses').populate('competencies').exec(function(err, program) {
+  CourseProgram.findById(id).populate('user', 'displayName').populate('courses').populate('competencies').populate('organization').exec(function(err, program) {
     if (err) {
       return next(err);
     } else if (!program) {
