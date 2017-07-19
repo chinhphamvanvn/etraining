@@ -42,7 +42,7 @@
         var latestAttempt = _.max(vm.attempts, function(attempt) {
           return new Date(attempt.start).getTime();
         });
-        if (vm.attempts.length) {
+        if (vm.attempts.length && latestAttempt.section) {
           var lastNode = _.find(vm.nodeList, function(node) {
             return node.data._id === latestAttempt.section._id;
           });

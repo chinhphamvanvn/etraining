@@ -125,6 +125,32 @@
 													</div>
 													<div>
 														<div class="uk-input-group">
+															<span class="uk-input-group-addon"><i class="uk-input-group-icon uk-icon-calendar"></i></span>
+															<label for="uk_birthday">{{'MODEL.USER.BIRTHDAY'|translate}}</label>
+															<input class="md-input" type="text" id="uk_birthday" md-input
+																value="{{vm.user.birthday | date:'dd.MM.yyyy'}}">
+														</div>
+													</div>
+
+													<div>
+														<div class="parsley-row">
+															<label for="course_enrol_policy_select">{{'MODEL.USER.GENDER'|translate}}</label>
+															<div id="course_enrol_policy_select">
+																<span class="icheck-inline">
+																	<input type="radio" name="course_enroll" id="user_male"
+																	value="male" icheck ng-model="vm.user.gender" />
+																	<label for="course_enroll_open" class="inline-label">{{'MODEL.USER.MALE'|translate}}</label>
+																</span>
+																<span class="icheck-inline">
+																	<input type="radio" name="course_enroll" id="course_enroll_censor"
+																	value="female" icheck ng-model="vm.user.gender" />
+																	<label for="course_enroll_censor" class="inline-label">{{'MODEL.USER.FEMALE'|translate}}</label>
+																</span>
+															</div>
+														</div>
+													</div>
+													<div>
+														<div class="uk-input-group">
 															<span class="uk-input-group-addon"> <i
 																class="md-list-addon-icon uk-icon-facebook-official"></i>
 															</span> <label>Facebook</label> <input type="text"

@@ -6,11 +6,15 @@
     .module('lms')
     .controller('LmsCoursesListController', LmsCoursesListController);
 
-  LmsCoursesListController.$inject = ['$scope', '$state', '$window', 'Authentication', '$timeout', 'CoursesService', 'Notification', 'GroupsService', '$q', '_', 'treeUtils'];
+  LmsCoursesListController.$inject = ['$scope', '$state', '$window', 'Authentication', '$timeout', 'CoursesService', 'Notification', 'GroupsService', 
+  '$q', '_', 'treeUtils', 'userResolve', 'CourseProgramsService'];
 
-  function LmsCoursesListController($scope, $state, $window, Authentication, $timeout, CoursesService, Notification, GroupsService, $q, _, treeUtils) {
+  function LmsCoursesListController($scope, $state, $window, Authentication, $timeout, CoursesService, Notification, GroupsService, 
+    $q, _, treeUtils, user, CourseProgramsService) {
     var vm = this;
     vm.keyword = '';
+    vm.user = user;
+    var listProgramsByGroupId;
 
     vm.gotoSearch = function() {
       if (!vm.keyword.trim()) return;
@@ -19,6 +23,11 @@
         keyword: vm.keyword
       });
     };
+    CourseProgramsService.programsByGroup({
+      groupId: vm.user.group
+    }, function(programs) {
+      listProgramsByGroupId = programs;
+    });
 
     vm.groups = GroupsService.listCourseGroup(function() {
       _.each(vm.groups, function(group) {
@@ -58,6 +67,7 @@
     vm.toggleExpand = toggleExpand;
     vm.chooseSort = chooseSort;
     vm.selsetAll = selsetAll;
+    vm.selectOrganization = selectOrganization;
 
     vm.optionCoures = [
       {
@@ -140,6 +150,16 @@
     function selsetAll() {
       vm.group = '';
       vm.selectedCourse = vm.fullCourses;
+    }
+
+    function selectOrganization() {
+      vm.group = 'organization';
+      vm.selectedCourse = [];
+      if (listProgramsByGroupId && listProgramsByGroupId.length > 0) {
+        listProgramsByGroupId.forEach(function(program) {
+          vm.selectedCourse = vm.selectedCourse.concat(program.courses);
+        });
+      }
     }
   }
 }());

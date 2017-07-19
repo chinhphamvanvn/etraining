@@ -35,6 +35,10 @@ var GroupSchema = new Schema({
   user: {
     type: Schema.ObjectId,
     ref: 'User'
+  },
+  code: {
+    type: String,
+    default: ''
   }
 });
 

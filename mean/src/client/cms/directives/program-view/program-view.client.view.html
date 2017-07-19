@@ -17,8 +17,8 @@
 				<div class="uk-grid">
 					<div ng-repeat="course in program.courses"
 						class="uk-width-large-1-3 uk-width-medium-1-2 uk-width-small-1-2 uk-width-1-1 uk-margin-bottom hierarchical_show"
-						id="program_list" hierarchical-show>
-						<div class="md-card md-card-hover">
+						id="program_list" hierarchical-show ui-sref="workspace.lms.courses.join.intro({ courseId: course._id,editionId:course.edition._id })">
+						<div class="md-card md-card-hover" >
 							<div class="uk-grid">
 								<div class="uk-width-1-2 uk-width-small-1-1"
 									ng-class="{'md-bg-cyan-600' : course.level=='hard'}">

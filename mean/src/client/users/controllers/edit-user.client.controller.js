@@ -1,4 +1,4 @@
-(function() {
+(function(UIkit) {
   'use strict';
 
   angular
@@ -68,7 +68,14 @@
       searchField: 'title',
       create: false
     };
+    var $birthday = $('#uk_birthday');
 
+    var enroll_birthday = UIkit.datepicker($birthday, {
+      format: 'DD.MM.YYYY'
+    });
+    $birthday.on('change', function() {
+      vm.user.birthday = moment($birthday.val(), 'DD.MM.YYYY');
+    });
 
     function cancel() {
       $state.go('workspace.users.view');
@@ -172,4 +179,4 @@
     }
 
   }
-}());
+}(window.UIkit));

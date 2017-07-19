@@ -82,6 +82,16 @@ var UserSchema = new Schema({
     type: String,
     default: ''
   },
+  exp_year: {
+    type: Date
+  },
+  birthday: {
+    type: Date
+  },
+  gender: {
+    type: String,
+    enum: ['male', 'female'],
+  },
   position: {
     type: String,
     default: ''
