@@ -60,8 +60,13 @@
             vm.summary.time += time;
             course.time = time;
           });
+          drawChart(members);
         });
       });
+    }
+    
+    function drawChart(members) {
+        
     }
 
     // function getExportHeader() {
