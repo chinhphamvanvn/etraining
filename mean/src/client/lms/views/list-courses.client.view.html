@@ -37,6 +37,15 @@
 											</a>
 										</span>
                                     </li>
+                                    <li ng-style="(vm.group == 'organization') ? {'background-color': 'skyblue '}:''">
+                                        <i class="md-icon material-icons md-18">arrow_drop_down</i>
+                                        <span class="sub-heading">
+                                            <a ng-click="vm.selectOrganization()" class="uk-text-muted">
+                                                <span class="uk-text-large">{{"COMMON.PRESENT_MODE.PROGRAM" |
+                                                    translate}}</span>
+                                            </a>
+                                        </span>
+                                    </li>
                                     <li ng-repeat="node in vm.nodes"
                                         ng-style="vm.group == node.data._id ? {'background-color': 'skyblue '}:''">
 										<span class="sub-heading">
@@ -51,15 +60,6 @@
 											</a>
 										</span>
                                         <div ng-include="'subList'"></div>
-                                    </li>
-                                    <li ng-style="(vm.group == 'organization') ? {'background-color': 'skyblue '}:''">
-                                        <i class="md-icon material-icons md-18">arrow_drop_down</i>
-                                        <span class="sub-heading">
-                                            <a ng-click="vm.selectOrganization()" class="uk-text-muted">
-                                                <span class="uk-text-large">{{"COMMON.PRESENT_MODE.PROGRAM" |
-                                                    translate}}</span>
-                                            </a>
-                                        </span>
                                     </li>
                                 </ul>
                             </div>
