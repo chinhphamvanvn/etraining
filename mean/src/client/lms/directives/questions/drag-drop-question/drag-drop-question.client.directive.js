@@ -36,6 +36,9 @@
       },
       templateUrl: '/src/client/lms/directives/questions/drag-drop-question/drag-drop-question.client.view.html',
       link: function(scope, element, attributes) {
+        if(!scope.question.order){
+          scope.question.order = 1;
+        }
         scope.tinymce_options = fileManagerConfig;
         scope.optionById = optionById;
         scope.$watch('question', function() {

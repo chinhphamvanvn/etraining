@@ -17,6 +17,9 @@
       },
       templateUrl: '/src/client/lms/directives/questions/point-click-question/point-click-question.client.view.html',
       link: function(scope, element, attributes) {
+        if(!scope.question.order){
+          scope.question.order = 1;
+        }
         scope.tinymce_options = fileManagerConfig;
         scope.$watch('question', function() {
           if (scope.question._id)
