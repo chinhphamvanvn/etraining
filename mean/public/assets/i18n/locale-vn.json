@@ -703,6 +703,7 @@
 	"COMMON.DIFFICULTY.MEDIUM": "Trung bình",
 	"COMMON.DIFFICULTY.HARD": "Khó",
 	"COMMON.DIFFICULTY.VERY_HARD": "Rất khó",
+	"COMMON.QUESTION_TYPE.LIB": "Câu hỏi từ thư viện câu hỏi",
 	"COMMON.QUESTION_TYPE.MC": "Câu hỏi nhiều lựa chọn",
 	"COMMON.QUESTION_TYPE.SC": "Câu hỏi một lựa chọn",
 	"COMMON.QUESTION_TYPE.TF": "Câu hỏi đúng sai",

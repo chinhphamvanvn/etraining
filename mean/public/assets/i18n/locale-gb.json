@@ -703,6 +703,7 @@
 	"COMMON.DIFFICULTY.MEDIUM": "Medium",
 	"COMMON.DIFFICULTY.HARD": "Hard",
 	"COMMON.DIFFICULTY.VERY_HARD": "Very Hard",
+	"COMMON.QUESTION_TYPE.LIB": "Lib's Question",
 	"COMMON.QUESTION_TYPE.MC": "Multipule Choice Question",
 	"COMMON.QUESTION_TYPE.SC": "Single Choice question",
 	"COMMON.QUESTION_TYPE.TF": "True False Question",
