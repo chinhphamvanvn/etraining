@@ -1,4 +1,4 @@
-(function() {
+(function(c3) {
   'use strict';
 
   // Focus the element on page load
@@ -65,4 +65,4 @@
       }
     };
   }
-}());
+}(window.c3));
