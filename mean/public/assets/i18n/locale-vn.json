@@ -715,6 +715,7 @@
 	"COMMON.QUESTION_TYPE.DND": "Câu hỏi kéo thả",
 	"COMMON.QUESTION_TYPE.PIC": "Câu hỏi hình ảnh",
 	"COMMON.QUESTION_TYPE.AS": "Câu hỏi kết nối",
+	"COMMON.QUESTION_TYPE.GROUP": "Câu hỏi nhóm",
 	"COMMON.QUESTION_SELECT.AUTO": "Tự động",
 	"COMMON.QUESTION_SELECT.MANUAL": "Chọn tay",
 	"COMMON.VIDEO_SOURCE.ORIGINAL": "Video ban đầu",

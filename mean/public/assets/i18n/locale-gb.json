@@ -715,6 +715,7 @@
 	"COMMON.QUESTION_TYPE.DND": "Drag-and-drop question",
 	"COMMON.QUESTION_TYPE.PIC": "Point-and-click question",
 	"COMMON.QUESTION_TYPE.AS": "Association question",
+	"COMMON.QUESTION_TYPE.GROUP": "Group question",
 	"COMMON.QUESTION_SELECT.AUTO": "Automatic",
 	"COMMON.QUESTION_SELECT.MANUAL": "Manual Selection",
 	"COMMON.VIDEO_SOURCE.ORIGINAL": "Original Video",

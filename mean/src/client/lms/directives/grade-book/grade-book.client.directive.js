@@ -66,7 +66,7 @@
           });
           _.each(scope.quizSectionNodes, function(node) {
             var mark = _.find(scope.gradescheme.marks, function(obj) {
-              return obj.quiz === node.id;
+              return obj.section === node.id;
             });
             node.weight = mark.weight;
             if (node.data.quiz) {
@@ -102,7 +102,7 @@
               quizName: node.data.name
             };
             var scheme = _.find(scope.gradescheme.marks, function(scheme) {
-              return scheme.quiz === node.data._id;
+              return scheme.section === node.data._id;
             });
             if (!scheme || !scheme.weight) {
               quizChartData[node.id].quizScore = 0;
