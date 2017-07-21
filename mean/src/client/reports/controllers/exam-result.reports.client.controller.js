@@ -52,6 +52,7 @@
         candidates = _.filter(candidates, function(candidate) {
           return candidate.role === 'student';
         });
+        var promiseCount = 0;
         _.each(candidates, function(candidate) {
           examUtils.candidateProgress(candidate, candidate.exam).then(function(progress) {
             candidate.submit = progress.count;
@@ -59,6 +60,7 @@
             vm.summary.submit += candidate.submit;
           });
           examUtils.candidateScore(candidate, candidate.exam).then(function(score) {
+            promiseCount +=1;
             candidate.score = score;
             vm.summary.score += score;
             if (candidate.score < candidate.exam.benchmark)
@@ -67,46 +69,214 @@
               candidate.result = true;
               vm.summary.passRate++;
             }
+            if (promiseCount == candidates.length) {
+                GroupsService.byCategory({
+                    category: 'organization'
+                  }, function(departments) {
+                      drawDepartmentMarkChart(candidates,departments, candidate.exam.benchmark) ;
+                      drawDepartmentPassChart(candidates,departments) ;
+                  });
+            }
           });
           vm.candidates.push(candidate);
         });
-        drawChart(candidates) ;
+        
       });
     }
     
-    function drawChart(candidates) {
-        var chart = c3.generate({
+    function drawDepartmentMarkChart(candidates,departments, benchmark) {
+        var markRanges = [];
+        var marksGroupByRange = [0,0,0,0,0]
+        var marksGroupByRangeAndDepartment = [];
+        for (var i=0;i<5;i++) {
+            markRanges.push(i*20 +' - '+(i+1)*20+'%');
+        }
+        var departmentNames = [];
+        _.each(departments, function(d) {
+            departmentNames.push(d.name);
+         });
+       
+        
+        for(var i = 0;i<5;i++) {
+            var temp = [];
+            _.each(departments, function(d, index) {
+               temp.push(0); 
+            });
+            marksGroupByRangeAndDepartment.push(temp);
+        }
+        _.each(candidates,function(c) {
+            var groupId = Math.floor(c.score / 20);
+            if (groupId >=4)
+                groupId = 4;
+            marksGroupByRange[groupId]++;
+            _.each(departments, function(d, index) {
+                if (d._id === c.candidate.group) {
+                    marksGroupByRangeAndDepartment[groupId][index]++;
+                }
+             });
+            
+         });
+        
+        
+        
+        var pie_chart = c3.generate({
+            bindto: '#department_mark_pie_chart',
+            legend: {
+                position: 'right'
+            },
+            color: {
+                pattern: ['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728', '#9467bd', '#8c564b', '#e377c2', '#7f7f7f', '#bcbd22', '#17becf']
+              },
+              
             data: {
-                // iris data from R
                 columns: [
-                    ['data1', 30],
-                    ['data2', 120],
+                    [markRanges[0], marksGroupByRange[0]],
+                    [markRanges[1], marksGroupByRange[1]],
+                    [markRanges[2], marksGroupByRange[2]],
+                    [markRanges[3], marksGroupByRange[3]],
+                    [markRanges[4], marksGroupByRange[4]]
                 ],
                 type : 'pie',
-                onclick: function (d, i) { console.log("onclick", d, i); },
-                onmouseover: function (d, i) { console.log("onmouseover", d, i); },
-                onmouseout: function (d, i) { console.log("onmouseout", d, i); }
+            },
+            y: {
+                lines: [
+                    {value: 50, text: 'Benchmark'},
+                ]
             }
         });
 
-        setTimeout(function () {
-            chart.load({
-                columns: [
-                    ["setosa", 0.2, 0.2, 0.2, 0.2, 0.2, 0.4, 0.3, 0.2, 0.2, 0.1, 0.2, 0.2, 0.1, 0.1, 0.2, 0.4, 0.4, 0.3, 0.3, 0.3, 0.2, 0.4, 0.2, 0.5, 0.2, 0.2, 0.4, 0.2, 0.2, 0.2, 0.2, 0.4, 0.1, 0.2, 0.2, 0.2, 0.2, 0.1, 0.2, 0.2, 0.3, 0.3, 0.2, 0.6, 0.4, 0.3, 0.2, 0.2, 0.2, 0.2],
-                    ["versicolor", 1.4, 1.5, 1.5, 1.3, 1.5, 1.3, 1.6, 1.0, 1.3, 1.4, 1.0, 1.5, 1.0, 1.4, 1.3, 1.4, 1.5, 1.0, 1.5, 1.1, 1.8, 1.3, 1.5, 1.2, 1.3, 1.4, 1.4, 1.7, 1.5, 1.0, 1.1, 1.0, 1.2, 1.6, 1.5, 1.6, 1.5, 1.3, 1.3, 1.3, 1.2, 1.4, 1.2, 1.0, 1.3, 1.2, 1.3, 1.3, 1.1, 1.3],
-                    ["virginica", 2.5, 1.9, 2.1, 1.8, 2.2, 2.1, 1.7, 1.8, 1.8, 2.5, 2.0, 1.9, 2.1, 2.0, 2.4, 2.3, 1.8, 2.2, 2.3, 1.5, 2.3, 2.0, 2.0, 1.8, 2.1, 1.8, 1.8, 1.8, 2.1, 1.6, 1.9, 2.0, 2.2, 1.5, 1.4, 2.3, 2.4, 1.8, 1.8, 2.1, 2.4, 2.3, 1.9, 2.3, 2.5, 2.3, 1.9, 2.0, 2.3, 1.8],
-                ]
-            });
-        }, 1500);
 
-        setTimeout(function () {
-            chart.unload({
-                ids: 'data1'
-            });
-            chart.unload({
-                ids: 'data2'
-            });
-        }, 2500);
+        var stack_chart = c3.generate({
+            bindto: '#department_mark_stack_chart',
+            data: {
+                columns: [
+                    [markRanges[0]].concat( marksGroupByRangeAndDepartment[0]),
+                    [markRanges[1]].concat( marksGroupByRangeAndDepartment[1]),
+                    [markRanges[2]].concat( marksGroupByRangeAndDepartment[2]),
+                    [markRanges[3]].concat( marksGroupByRangeAndDepartment[3]),
+                    [markRanges[4]].concat( marksGroupByRangeAndDepartment[4])
+                  ],
+
+                
+              
+            },
+            axis: {
+                x: {
+                    type: 'category',
+                    categories: departmentNames
+                }
+              },
+            type: 'bar',
+            color: {
+                pattern: ['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728', '#9467bd', '#8c564b', '#e377c2', '#7f7f7f', '#bcbd22', '#17becf']
+              },
+              grid: {
+                  x: {
+                      show: true
+                  },
+                  y: {
+                      show: true
+                  }
+              },
+            groups: [
+                markRanges
+            ]
+        });
+
+
+
+
+    }
+    
+function drawDepartmentPassChart(candidates,departments) {
+        
+    var results = ['Pass', 'Fail'];
+    var marksGroupByResults = [0,0,0,0,0]
+    var marksGroupByResultAndDepartment = [];
+
+    var departmentNames = [];
+    _.each(departments, function(d) {
+        departmentNames.push(d.name);
+     });
+   
+    
+    for(var i = 0;i<2;i++) {
+        var temp = [];
+        _.each(departments, function(d, index) {
+           temp.push(0); 
+        });
+        marksGroupByResultAndDepartment.push(temp);
+    }
+    _.each(candidates,function(c) {
+        var groupId = 1;
+        if (c.result)
+            groupId = 0;
+        marksGroupByResults[groupId]++;
+        _.each(departments, function(d, index) {
+            if (d._id === c.candidate.group) {
+                marksGroupByResultAndDepartment[groupId][index]++;
+            }
+         });
+        
+     });
+    
+    
+    
+    var pie_chart = c3.generate({
+        bindto: '#department_pass_pie_chart',
+        legend: {
+            position: 'right'
+        },
+        color: {
+            pattern: ['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728', '#9467bd', '#8c564b', '#e377c2', '#7f7f7f', '#bcbd22', '#17becf']
+          },
+          
+        data: {
+            columns: [
+                [results[0], marksGroupByResults[0]],
+                [results[1], marksGroupByResults[1]],
+            ],
+            type : 'pie',
+        }
+    });
+
+
+    var stack_chart = c3.generate({
+        bindto: '#department_pass_stack_chart',
+        data: {
+            columns: [
+                [results[0]].concat( marksGroupByResultAndDepartment[0]),
+                [results[1]].concat( marksGroupByResultAndDepartment[1]),
+
+              ],
+
+            
+          
+        },
+        axis: {
+            x: {
+                type: 'category',
+                categories: departmentNames
+            }
+          },
+        type: 'bar',
+        color: {
+            pattern: ['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728', '#9467bd', '#8c564b', '#e377c2', '#7f7f7f', '#bcbd22', '#17becf']
+          },
+          grid: {
+              x: {
+                  show: true
+              },
+              y: {
+                  show: true
+              }
+          },
+        groups: [
+            results
+        ]
+    });
+
+
     }
     // function getExportData() {
     //   var data = [];

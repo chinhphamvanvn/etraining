@@ -58,6 +58,7 @@
 								</tfoot>
 							</table>
 						</div>
+						
 						<!--<div>-->
 							<!--<a class="md-btn md-btn-primary  md-btn-wave-light md-btn-icon uk-margin-top"-->
 								<!--ng-csv="vm.getExportData()" csv-header="vm.getExportHeader()"-->
@@ -67,6 +68,23 @@
 							<!--</a>-->
 						<!--</div>-->
 					</div>
+							<div  class="uk-margin-left">
+								<span class=" uk-text-large">{{
+							'PAGE.REPORT.EXAM_RESULT.MARK_CHART'|translate }}</span>
+								<div id="department_mark_pie_chart"  class="c3chart"></div>
+								<div id="department_mark_stack_chart"  class="c3chart"></div>
+								
+							</div>		
+							<div  class="uk-margin-left">
+							<span class=" uk-text-large">{{
+							'PAGE.REPORT.EXAM_RESULT.PASS_CHART'|translate }}</span>
+								<div id="department_pass_pie_chart"  class="c3chart"></div>
+								<div id="department_pass_stack_chart"  class="c3chart"></div>
+								
+							</div>
+									
+									
+					
 				</div>
 			</div>
 		</div>

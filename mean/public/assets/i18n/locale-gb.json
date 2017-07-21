@@ -169,6 +169,8 @@
 	"PAGE.REPORTS.EXAM_RESULT.SELECT_EXAM": "Select Examination",
 	"PAGE.REPORTS.CHART.SELECT_DEPARTMENT": "Select Department",
 	"PAGE.REPORTS.CHART.SELECT_COURSE": "Select Course",
+	"PAGE.REPORT.EXAM_RESULT.MARK_CHART":"Chart of exam mark per department",
+	"PAGE.REPORT.EXAM_RESULT.PASS_CHART":"Chart of exam pass rate per department",
 	"PAGE.SETTINGS.BULLETIN.TITLE": "Bulletin",
 	"PAGE.SETTINGS.ANNOUCEMENT.TITLE": "Notification",
 	"PAGE.SETTINGS.ANNOUCEMENT.PUBLIC": "Public Annoucement",
