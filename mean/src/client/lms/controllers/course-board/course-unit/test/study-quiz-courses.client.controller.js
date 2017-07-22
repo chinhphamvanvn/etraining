@@ -32,7 +32,7 @@
             memberId: vm.member._id
           }, function() {
             var attemptCount = _.filter(vm.attempts, function(att) {
-              return att.section === vm.section._id;
+              return att.section._id === vm.section._id;
             }).length;
             if (attemptCount >= vm.quiz.maxAttempt && vm.quiz.maxAttempt > 0) {
               vm.alert = $translate.instant('ERROR.COURSE_STUDY.MAX_ATTEMPT_EXCEED');
