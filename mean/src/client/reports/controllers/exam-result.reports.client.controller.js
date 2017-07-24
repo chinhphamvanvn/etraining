@@ -89,7 +89,7 @@
         var marksGroupByRange = [0,0,0,0,0]
         var marksGroupByRangeAndDepartment = [];
         for (var i=0;i<5;i++) {
-            markRanges.push(i*20 +' - '+(i+1)*20+'%');
+            markRanges.push(i*20 +' - '+(i+1)*20+ ' Point');
         }
         var departmentNames = [];
         _.each(departments, function(d) {

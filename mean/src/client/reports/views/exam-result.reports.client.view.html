@@ -68,23 +68,35 @@
 							<!--</a>-->
 						<!--</div>-->
 					</div>
-							<div  class="uk-margin-left">
-								<span class=" uk-text-large">{{
-							'PAGE.REPORT.EXAM_RESULT.MARK_CHART'|translate }}</span>
-								<div id="department_mark_pie_chart"  class="c3chart"></div>
-								<div id="department_mark_stack_chart"  class="c3chart"></div>
-								
-							</div>		
-							<div  class="uk-margin-left">
+						<div  class="uk-margin-left" style="padding-bottom: 30px;">
 							<span class=" uk-text-large">{{
-							'PAGE.REPORT.EXAM_RESULT.PASS_CHART'|translate }}</span>
-								<div id="department_pass_pie_chart"  class="c3chart"></div>
-								<div id="department_pass_stack_chart"  class="c3chart"></div>
-								
+						'REPORT.EXAM_RESULT.CHART'|translate }}</span>
+							<div class="uk-grid">
+							<div class="uk-width-1-1 uk-width-small-1-2">
+								<div id="department_mark_pie_chart"  class="c3chart"></div>
+								<p style="text-align: center;">{{'REPORT.EXAM_RESULT.SCORE'|translate}}</p>
 							</div>
+							<div class="uk-width-1-1 uk-width-small-1-2">
+								<div id="department_pass_pie_chart"  class="c3chart"></div>
+								<p style="text-align: center;">{{'REPORT.EXAM_RESULT.RESULT'|translate}}</p>
+							</div>
+							</div>
+						</div>
+						<div  class="uk-margin-left">
+							<span class=" uk-text-large">{{
+						'PAGE.REPORT.EXAM_RESULT.MARK_CHART'|translate }}</span>
+							<!-- <div id="department_mark_pie_chart"  class="c3chart"></div> -->
+							<div id="department_mark_stack_chart"  class="c3chart" style="padding-top: 15px; padding-bottom: 20px;"></div>
+							
+						</div>		
+						<div  class="uk-margin-left">
+							<span class=" uk-text-large">{{
+						'PAGE.REPORT.EXAM_RESULT.PASS_CHART'|translate }}</span>
+							<!-- <div id="department_pass_pie_chart"  class="c3chart"></div> -->
+							<div id="department_pass_stack_chart"  class="c3chart" style="padding-top: 15px; padding-bottom: 20px;"></div>
+							
+						</div>
 									
-									
-					
 				</div>
 			</div>
 		</div>
