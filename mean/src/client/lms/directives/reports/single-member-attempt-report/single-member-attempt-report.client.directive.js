@@ -35,7 +35,10 @@
               _.each(sections, function(section) {
                 section.member = scope.selectedMember;
                 section.count = 0;
-                var sectionAttemps = _.filter(attemps, function(attempt) {
+                var attempts = _.filter(attemps, function(attempt) {
+                  return attempt.section;
+                });
+                var sectionAttemps = _.filter(attempts, function(attempt) {
                   return attempt.section._id === section._id;
                 });
                 if (sectionAttemps && sectionAttemps.length > 0) {

@@ -5,9 +5,9 @@
     .module('core')
     .controller('LanguageController', LanguageController);
 
-  LanguageController.$inject = ['$scope', '$state', '$translate'];
+  LanguageController.$inject = ['$scope', '$state', '$translate','$rootScope'];
 
-  function LanguageController($scope, $state, $translate) {
+  function LanguageController($scope, $state, $translate, $rootScope) {
     var vm = this;
     vm.langSwitcherModel = 'vn';
     var langData = vm.langSwitcherOptions = [
@@ -45,6 +45,7 @@
       onChange: function(args) {
         vm.langSwitcherModel = args;
         $translate.use(args);
+        $rootScope.language = args;
       }
     };
   }
