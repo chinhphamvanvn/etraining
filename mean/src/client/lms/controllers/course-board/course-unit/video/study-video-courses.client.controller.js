@@ -54,7 +54,7 @@
         if (vm.counter > 0) {
           mytimeout = $timeout(vm.onTimeout, 1000);
         } else {
-          $scope.$parent.nextSection();
+          $scope.$parent.vm.nextSection();
         }
       };
       mytimeout = $timeout(vm.onTimeout, 1000);
