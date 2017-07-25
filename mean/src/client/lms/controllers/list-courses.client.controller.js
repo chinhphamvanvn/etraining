@@ -85,7 +85,8 @@
     ];
 
     $rootScope.$watch('language', function(newValue, oldValue) {
-       if (newValue) {
+       if ((newValue != oldValue) && oldValue) {
+          vm.optionCoures = [];
           vm.optionCoures = [
           {
             value: 'asc',

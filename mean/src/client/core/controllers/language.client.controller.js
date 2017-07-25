@@ -9,7 +9,12 @@
 
   function LanguageController($scope, $state, $translate, $rootScope) {
     var vm = this;
-    vm.langSwitcherModel = 'vn';
+    if($rootScope.language) {
+      vm.langSwitcherModel = $rootScope.language;
+    } else {
+      vm.langSwitcherModel = 'vn';
+      $rootScope.language = vm.langSwitcherModel;
+    }
     var langData = vm.langSwitcherOptions = [
       {
         id: 1,
