@@ -20,6 +20,8 @@
       };
     });
 
+    vm.memberStatsDay = vm.memberStatsDayOptions[0].value;
+
     vm.memberStatsDayConfig = {
       create: false,
       maxItems: 1,

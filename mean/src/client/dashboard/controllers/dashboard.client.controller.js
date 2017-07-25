@@ -42,7 +42,7 @@
       };
     });
 
-    vm.userStatsDay = vm.userStatsDayOptions[2].value;
+    vm.userStatsDay = vm.userStatsDayOptions[0].value;
 
     vm.userStatsDayConfig = {
       create: false,

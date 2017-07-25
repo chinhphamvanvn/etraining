@@ -852,5 +852,8 @@
 	"MODAL.EXAM_STUDY.PROMPT": "Do you agree to take the exam ?",
 	"MODAL.MY_COURSES.PROMPT": "Do you want to out of course ?",
 	"MODEL.MINUTE": "Minute",
-	"REPORT.EXAM_RESULT.CHART": "Chart of exam result"
+	"REPORT.EXAM_RESULT.CHART": "Chart of exam result",
+	"COURSE.SORTBYNAME.AZ": "Sort by name from a to z",
+	"COURSE.SORTBYNAME.ZA": "Sort by name from z to a",
+	"COURSE.SORTBYDATE": "Sort by course start date"
 }

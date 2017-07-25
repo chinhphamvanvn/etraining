@@ -7,10 +7,10 @@
     .controller('LmsCoursesListController', LmsCoursesListController);
 
   LmsCoursesListController.$inject = ['$scope', '$state', '$window', 'Authentication', '$timeout', 'CoursesService', 'Notification', 'GroupsService', 
-  '$q', '_', 'treeUtils', 'userResolve', 'CourseProgramsService'];
+  '$q', '_', 'treeUtils', 'userResolve', 'CourseProgramsService','$translate'];
 
   function LmsCoursesListController($scope, $state, $window, Authentication, $timeout, CoursesService, Notification, GroupsService, 
-    $q, _, treeUtils, user, CourseProgramsService) {
+    $q, _, treeUtils, user, CourseProgramsService, $translate) {
     var vm = this;
     vm.keyword = '';
     vm.user = user;
@@ -72,15 +72,15 @@
     vm.optionCoures = [
       {
         value: 'asc',
-        label: 'Sắp xếp theo tên a -> z'
+        label: $translate.instant("COURSE.SORTBYNAME.AZ")
       },
       {
         value: 'dsc',
-        label: 'Sắp xếp theo tên z -> a'
+        label: $translate.instant("COURSE.SORTBYNAME.ZA")
       },
       {
         value: 'date',
-        label: 'Săp xếp theo ngày bắt đầu khóa học'
+        label: $translate.instant("COURSE.SORTBYDATE")
       }
     ];
     vm.selectize_val_config = {

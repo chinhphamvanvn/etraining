@@ -37,7 +37,7 @@
             }, function() {
               _.each(sections, function(section) {
                 var sectionAttemps = _.filter(attemps, function(attempt) {
-                  return attempt.section === section._id;
+                  return attempt.section._id === section._id;
                 });
                 section.member = scope.selectedMember;
                 section.time = 0;

@@ -36,7 +36,7 @@
                 section.member = scope.selectedMember;
                 section.count = 0;
                 var sectionAttemps = _.filter(attemps, function(attempt) {
-                  return attempt.section === section._id;
+                  return attempt.section._id === section._id;
                 });
                 if (sectionAttemps && sectionAttemps.length > 0) {
 
