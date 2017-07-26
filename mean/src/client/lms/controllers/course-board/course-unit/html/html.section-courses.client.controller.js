@@ -1,4 +1,4 @@
-(function(UIkit) {
+(function(UIkit, $) {
   'use strict';
 
   // Courses controller
@@ -63,5 +63,41 @@
           });
         });
     }
+    
+    var progressbar = $('#file_upload-progressbar'),
+    bar = progressbar.find('.uk-progress-bar'),
+    settings = {
+      action: '/api/courses/content/convert', // upload url
+      param: 'contentFile',
+      method: 'POST',
+
+
+      loadstart: function() {
+        bar.css('width', '0%').text('0%');
+        progressbar.removeClass('uk-hidden');
+      },
+
+      progress: function(percent) {
+        percent = Math.ceil(percent);
+        bar.css('width', percent + '%').text(percent + '%');
+      },
+
+      allcomplete: function(response) {
+
+        bar.css('width', '100%').text('100%');
+
+        setTimeout(function() {
+          progressbar.addClass('uk-hidden');
+        }, 250);
+        var data = JSON.parse(response);
+        console.log(data);
+        $scope.$apply();
+        
+
+      }
+    };
+    
+    var select = UIkit.uploadSelect($('#file_upload-select'), settings),
+    drop = UIkit.uploadDrop($('#file_upload-drop'), settings);
   }
-}(window.UIkit));
+}(window.UIkit, window.jQuery));
