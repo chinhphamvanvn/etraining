@@ -13,6 +13,7 @@
       vm.langSwitcherModel = $rootScope.language;
     } else {
       vm.langSwitcherModel = 'vn';
+      $translate.use(vm.langSwitcherModel);
       $rootScope.language = vm.langSwitcherModel;
     }
     var langData = vm.langSwitcherOptions = [

@@ -192,6 +192,8 @@ exports.update = function(req, res) {
   user.roles = req.body.roles;
   user.birthday = req.body.birthday;
   user.gender = req.body.gender;
+  user.startDate = req.body.startDate;
+  user.driverLicense = req.body.driverLicense;
 
   user.save(function(err) {
     if (err) {

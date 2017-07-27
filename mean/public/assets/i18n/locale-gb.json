@@ -242,6 +242,7 @@
 	"PAGE.LMS.MY_COURSES.TEACHER_BOARD.COURSE_OUTLINE.VIDEO.OVERVIEW": "Video Overview",
 	"PAGE.LMS.MY_COURSES.TEACHER_BOARD.COURSE_OUTLINE.VIDEO.STUDIO_MODE": " Teaching Mode",
 	"PAGE.LMS.MY_COURSES.TEACHER_BOARD.COURSE_OUTLINE.VIDEO.NORMAL_MODE": "Normal Mode",
+	"PAGE.LMS.MY_COURSES.TEACHER_BOARD.COURSE_OUTLINE.SCORM": "Scorm",
 	"PAGE.LMS.MY_COURSES.TEACHER_BOARD.GRADE_SCHEME": "Grade Scheme",
 	"PAGE.LMS.MY_COURSES.TEACHER_BOARD.GRADE_BOARD": "Grade",
 	"PAGE.LMS.MY_COURSES.TEACHER_BOARD.GRADE_BOARD.CERTIFICATE": "Certificate",
@@ -567,6 +568,8 @@
 	"MODEL.USER.GROUP": "Department",
 	"MODEL.USER.PHONE": "Phone",
 	"MODEL.USER.BIRTHDAY": "Birthday",
+	"MODEL.USER.START_DATE": "Ngày bắt đầu làm việc",
+	"MODEL.USER.DRIVER_LICENSE": "Bằng lái xe",
 	"MODEL.USER.GENDER": "Gender",
 	"MODEL.USER.STATUS": "Status",
 	"MODEL.USER.ROLE": "Role",
@@ -854,7 +857,9 @@
 	"MODAL.MY_COURSES.PROMPT": "Do you want to out of course ?",
 	"MODEL.MINUTE": "Minute",
 	"REPORT.EXAM_RESULT.CHART": "Chart of exam result",
+	"REPORT.STARTDATE": "Experience",
 	"COURSE.SORTBYNAME.AZ": "Sort by name from a to z",
 	"COURSE.SORTBYNAME.ZA": "Sort by name from z to a",
-	"COURSE.SORTBYDATE": "Sort by course start date"
+	"COURSE.SORTBYDATE": "Sort by course start date",
+	"ALERT.COURSE.LOCK": "Function is locked!"
 }

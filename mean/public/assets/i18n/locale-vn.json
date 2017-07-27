@@ -93,6 +93,7 @@
 	"PAGE.WORKSPACE.SIDEBAR.REPORTS.COURSE_BY_MEMBER": "Khóa học - học viên",
 	"PAGE.WORKSPACE.SIDEBAR.REPORTS.SECTION_BY_MEMBER": "Tiến trình học tập",
 	"PAGE.WORKSPACE.SIDEBAR.REPORTS.EXAM_RESULT": "Thi sát hạch",
+	"PAGE.WORKSPACE.SIDEBAR.REPORTS.DRIVER_START": "Học viên",
 	"PAGE.WORKSPACE.SIDEBAR.REPORTS.USER": "Người dùng",
 	"PAGE.WORKSPACE.SIDEBAR.REPORTS.CHART": "Biểu đồ",
 	"PAGE.REPORT.EXAM_RESULT.MARK_CHART": "Báo cáo điểm số theo phòng ban",
@@ -241,6 +242,7 @@
 	"PAGE.LMS.MY_COURSES.TEACHER_BOARD.COURSE_OUTLINE.VIDEO.OVERVIEW": "Tổng quan",
 	"PAGE.LMS.MY_COURSES.TEACHER_BOARD.COURSE_OUTLINE.VIDEO.STUDIO_MODE": "Chế độ giảng dạy",
 	"PAGE.LMS.MY_COURSES.TEACHER_BOARD.COURSE_OUTLINE.VIDEO.NORMAL_MODE": "Chế độ thường",
+	"PAGE.LMS.MY_COURSES.TEACHER_BOARD.COURSE_OUTLINE.SCORM": "Chuẩn Scorm",
 	"PAGE.LMS.MY_COURSES.TEACHER_BOARD.GRADE_SCHEME": "Thang điểm",
 	"PAGE.LMS.MY_COURSES.TEACHER_BOARD.GRADE_BOARD": "Sổ điểm",
 	"PAGE.LMS.MY_COURSES.TEACHER_BOARD.EXERCISE": "Bài tập",
@@ -565,6 +567,8 @@
 	"MODEL.USER.PHONE": "Điện thoại",
 	"MODEL.USER.BIRTHDAY": "Ngày sinh",
 	"MODEL.USER.GENDER": "Giới tính",
+	"MODEL.USER.START_DATE": "Ngày bắt đầu làm việc",
+	"MODEL.USER.DRIVER_LICENSE": "Bằng lái xe",
 	"MODEL.USER.STATUS": "Trạng thái",
 	"MODEL.USER.ROLE": "Quyền",
 	"MODEL.USER.BANNED": "Từ chối truy cập",
@@ -850,7 +854,9 @@
 	"MODAL.MY_COURSES.PROMPT": "Bạn có muốn ngừng đăng ký?",
 	"MODEL.MINUTE": "phút",
 	"REPORT.EXAM_RESULT.CHART": "Báo cáo kết quả theo kỳ thi",
+	"REPORT.STARTDATE": "Kinh nghiệm",
 	"COURSE.SORTBYNAME.AZ": "Sắp xếp theo tên a đến z",
 	"COURSE.SORTBYNAME.ZA": "Sắp xếp theo tên z đến a",
-	"COURSE.SORTBYDATE": "Săp xếp theo ngày bắt đầu khóa học"
+	"COURSE.SORTBYDATE": "Săp xếp theo ngày bắt đầu khóa học",
+	"ALERT.COURSE.LOCK": "Chức năng đang bị khóa!"
 }
