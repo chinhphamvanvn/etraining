@@ -159,9 +159,9 @@ module.exports = {
         'public/file_manager/js/elfinder.full.js',
         // angular-based
         'public/lib/angular/angular.js',
-        'public/lib/angular-pdf-viewer/dist/angular-pdf-viewer.min.js',
-        'public/lib/angular-sanitize/angular-sanitize.js',
         'public/lib/angular-ui-router/release/angular-ui-router.js',
+        'public/lib/angular-pdf-viewer/dist/angular-pdf-viewer.min.js',
+        'public/lib/angular-sanitize/angular-sanitize.js',        
         'public/lib/oclazyload/dist/ocLazyLoad.js',
         'public/lib/angular-breadcrumb/dist/angular-breadcrumb.js',
         'public/lib/angular-resource/angular-resource.js',

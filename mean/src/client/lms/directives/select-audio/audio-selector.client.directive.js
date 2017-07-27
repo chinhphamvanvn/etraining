@@ -14,10 +14,10 @@
           var oldURL = scope.object.audioURL;
           scope.resetAudio = function() {
             scope.object.audioURL = oldURL;
-          }
+          };
           scope.deleteAudio = function() {
             scope.object.audioURL = null;
-          }
+          };
           var progressbar = angular.element(document.getElementById('audio_upload-progressbar')),
             bar = angular.element(document.getElementById('audio_progress_bar')),
             settings = {

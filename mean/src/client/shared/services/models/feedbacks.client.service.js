@@ -24,7 +24,7 @@
         method: 'GET',
         isArray: true,
         url: '/api/feedbacks/byAttempt/:attemptId'
-      },
+      }
     });
   }
 }());

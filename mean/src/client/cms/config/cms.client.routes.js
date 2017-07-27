@@ -18,6 +18,7 @@
         abstract: true,
         url: '/courses',
         template: '<ui-view/>'
+        // template: '<div ui-view="cms.list-course"/>'
       })
       .state('admin.workspace.cms.courses.list', {
         url: '/list',

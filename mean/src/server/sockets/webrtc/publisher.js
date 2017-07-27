@@ -1,7 +1,7 @@
 var kurento = require('kurento-client');
 var _ = require('underscore');
 var kurentoClient = null;
-var   path = require('path');
+var path = require('path');
 var config = require(path.resolve('./config/config'));
 var channelId = 0;
 
@@ -23,7 +23,7 @@ function getKurentoClient(callback) {
   console.log(config.mediaServerUrl);
   kurento(config.mediaServerUrl, function(error, _kurentoClient) {
     if (error) {
-      var message = 'Coult not find media server at address ' + argv.ws_uri;
+      var message = 'Coult not find media server at address ';
       return callback(message + ". Exiting with error " + error);
     }
     console.log('Create new client');
@@ -37,29 +37,29 @@ Publisher.prototype.connect = function(subscriber, callback) {
     if (error) {
       console.log(error);
       return;
-    } 
+    }
     if (callback)
-    	callback();
+      callback();
   });
 }
 
 
 Publisher.prototype.release = function() {
   try {
-	  if (this.pipeline)
-	    this.pipeline.release();
-	  if (this.pubWebRtcEndpoint)
-	    this.pubWebRtcEndpoint.release();
+    if (this.pipeline)
+      this.pipeline.release();
+    if (this.pubWebRtcEndpoint)
+      this.pubWebRtcEndpoint.release();
   } catch (exc) {
-	  console.log("Release resoure for publisher" + this.id);
+    console.log("Release resoure for publisher" + this.id);
   }
 }
 
 Publisher.prototype.processCandidate = function(_candidate) {
   var self = this;
-  var candidate = kurento.getComplexType('IceCandidate')(_candidate);  
+  var candidate = kurento.getComplexType('IceCandidate')(_candidate);
   if (self.sdpOffer && self.pubWebRtcEndpoint) {
-      self.pubWebRtcEndpoint.addIceCandidate(candidate);
+    self.pubWebRtcEndpoint.addIceCandidate(candidate);
   } else
     self.pubCandidateRecvQueue.push(candidate);
 }

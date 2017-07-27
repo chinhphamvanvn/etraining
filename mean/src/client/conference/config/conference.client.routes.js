@@ -9,12 +9,12 @@
 
   function routeConfig($stateProvider) {
     $stateProvider
-      .state('conference', {
+    .state('conference', {
         url: '/conference/:classroomId/:memberId',
         templateUrl: '/src/client/conference/views/conference.client.view.html',
         controller: 'ConferenceController',
         controllerAs: 'vm',
-        resolve : {
+        resolve: {
           classResolve: getClassroom,
           memberResolve: getMember
         },
@@ -22,14 +22,15 @@
           roles: ['user']
         }
       })
+
   }
 
   getClassroom.$inject = ['$stateParams', 'ClassroomsService'];
 
   function getClassroom($stateParams, ClassroomsService) {
-      return ClassroomsService.get({
-        classroomId: $stateParams.classroomId
-      }).$promise;
+    return ClassroomsService.get({
+      classroomId: $stateParams.classroomId
+    }).$promise;
   }
 
   getMember.$inject = ['$stateParams', 'CourseMembersService'];
@@ -40,5 +41,5 @@
     }).$promise;
   }
 
- 
+
 }());

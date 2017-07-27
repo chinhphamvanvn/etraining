@@ -30,11 +30,11 @@ module.exports.audioFileFilter = function(req, file, callback) {
 };
 
 module.exports.pdfFileFilter = function(req, file, callback) {
-	  console.log(file);
-	  if (file.mimetype !== 'application/pdf' ) {
-	    var err = new Error();
-	    err.code = 'UNSUPPORTED_MEDIA_TYPE';
-	    return callback(err, false);
-	  }
-	  callback(null, true);
-	};
+  console.log(file);
+  if (file.mimetype !== 'application/pdf' ) {
+    var err = new Error();
+    err.code = 'UNSUPPORTED_MEDIA_TYPE';
+    return callback(err, false);
+  }
+  callback(null, true);
+};

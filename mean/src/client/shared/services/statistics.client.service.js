@@ -14,7 +14,7 @@
           return bytes;
         }
         function mean(bytes) {
-          if (bytes.length == 0)
+          if (bytes.length === 0)
             return 0;
           var sum =0;
           for(var i=0;i < bytes.length; i++)

@@ -1,6 +1,21 @@
+<style type="text/css">
+  @media (min-width: 768px) {
+    .uk-container-center {
+      height: calc(100vh - 145px);
+      overflow-y: scroll;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .uk-container-center {
+      height: calc(100vh - 110px);
+      overflow-y: scroll;
+    }
+  }
+</style>
 <div id="page_content">
 	<div id="page_content_inner">
-		<div class="uk-width-medium-1-1 uk-container-center" style="height: calc(100vh - 145px); overflow-y: scroll;">
+		<div class="uk-width-medium-1-1 uk-container-center">
 			<div class="md-card md-card-single" single-card>
 				<div class="md-card-toolbar">
 					<h3 class="md-card-toolbar-heading-text large">
@@ -9,7 +24,7 @@
 				<div class="md-card-content">
 					<div class="uk-overflow-container">
 						<div class="uk-grid">
-							<div class="uk-width-1-2">
+							<div class="uk-width-1-1 uk-width-medium-1-2">
 								<div ng-show="vm.member.role=='teacher'">
 									<span class="uk-form-file md-btn md-btn-primary md-btn-icon">
 										<i class="uk-icon-upload"></i>

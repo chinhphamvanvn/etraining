@@ -1,32 +1,18 @@
+<style type="text/css">
+	@media (min-width: 960px) {
+		.foder-course,
+		.body-foder-course {
+			height: calc(100vh - 160px);
+			overflow-y: scroll;
+			min-height: 200px;
+		}
+	}
+</style>
 <div id="page_content">
 	<div id="page_content_inner" class=" course-container">
 		<div class="uk-grid">
-			<div class="uk-width-large-7-10 uk-width-1-1 uk-margin-bottom push-large-3-10">
-				<div class="md-card border-radius" ng-show="vm.selectedContentNode" style="height: calc(100vh - 160px); overflow-y: scroll;">
-					<div class="md-card-toolbar border-radius-top">
-						<h3 class="md-card-toolbar-heading-text large">
-							<span>{{vm.selectedContentNode.title}} </span>
-						</h3>
-					</div>
-					<div class="md-card-content  border-radius-bottom">
-						<ui-view></ui-view>
-					</div>
-					<div class=" uk-text-center ">
-						<a ng-click="vm.prevSection()"
-							class="md-btn md-btn-flat  md-btn-mini "> <i
-							class="uk-icon-chevron-left uk-text-primary"></i>
-							{{'ACTION.PREV_SECTION'|translate}}
-						</a> <a ng-click="vm.nextSection()"
-							class="md-btn md-btn-flat  md-btn-mini  ">
-							{{'ACTION.NEXT_SECTION'|translate}} <i
-							class="uk-icon-chevron-right uk-text-primary"></i>
-						</a>
-					</div>
-				</div>
-			</div>
-
-			<div class="uk-width-large-3-10 uk-width-1-1 pull-large-7-10">
-				<div class="md-card border-radius" style="height: calc(100vh - 160px); overflow-y: scroll;">
+			<div class="uk-width-large-3-10 uk-width-1-1 uk-margin-bottom">
+				<div class="md-card border-radius foder-course">
 					<div class="md-card-toolbar border-radius-top">
 						<div class="md-card-toolbar-actions"></div>
 						<h3 class="md-card-toolbar-heading-text large">
@@ -48,6 +34,29 @@
 							</span>
 								<div ng-include="'subList'"></div></li>
 						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="uk-width-large-7-10 uk-width-1-1">
+				<div class="md-card border-radius body-foder-course" ng-show="vm.selectedContentNode" style="padding: 0px 10px;">
+					<div class="md-card-toolbar border-radius-top">
+						<h3 class="md-card-toolbar-heading-text large">
+							<span>{{vm.selectedContentNode.title}} </span>
+						</h3>
+					</div>
+					<div class="md-card-content  border-radius-bottom">
+						<ui-view></ui-view>
+					</div>
+					<div class=" uk-text-center ">
+						<a ng-click="vm.prevSection()"
+							class="md-btn md-btn-flat  md-btn-mini "> <i
+							class="uk-icon-chevron-left uk-text-primary"></i>
+							{{'ACTION.PREV_SECTION'|translate}}
+						</a> <a ng-click="vm.nextSection()"
+							class="md-btn md-btn-flat  md-btn-mini  ">
+							{{'ACTION.NEXT_SECTION'|translate}} <i
+							class="uk-icon-chevron-right uk-text-primary"></i>
+						</a>
 					</div>
 				</div>
 			</div>

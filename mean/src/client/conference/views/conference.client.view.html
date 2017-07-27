@@ -3,22 +3,216 @@
 
 @import url("/assets/css/animate.css");
 </style>
-
+<style type="text/css">
+	.show_slideshow {
+		display: block;
+		z-index:900;
+	}
+</style>
 
 <div class="conference">
 
-	<side-menu connected="vm.connected" select-panel="vm.selectPanel" on-invited="vm.onInvited()" on-discarded="vm.onDiscarded()"
-		member="vm.member" students="vm.students" teacher="vm.teacher"
-		ng-if="vm.teacher && vm.students && vm.students.length"></side-menu>
+<!-- side menu -->
+<div class="toolbar" >
+	<nav class="navbar"
+		ng-class="vm.connected ? 'show_toolbar' : 'hide_toolbar'">
+		<ul class="list-nav list-unstyled">
+			<li ng-click="vm.setPanel('members')"
+				ng-class="vm.selectPanel=='members' ? 'active-nav' : ''"
+				data-uk-tooltip="{pos:'right'}"
+				title="{{'PAGE.CONFERENCE.MEMBERS' |	translate}}"><i
+				class="uk-icon-users" aria-hidden="true"></i> <span
+				ng-show="vm.handUpCount" class="members"> {{vm.handUpCount}} </span></li>
+			<li ng-click="vm.setPanel('chat')"
+				ng-class="vm.selectPanel=='chat' ? 'active-nav' : ''"
+				data-uk-tooltip="{pos:'right'}"
+				title="{{'ACTION.CHAT' |translate}}"><i
+				class="uk-icon-comments-o" aria-hidden="true"></i> <span
+				class="messages" ng-show="vm.numOfMessages!=0">{{vm.numOfMessages}}</span>
+			</li>
+			<li class="animated" ng-click="vm.setPanel('members')"
+				ng-show="vm.member.role=='teacher'" data-uk-tooltip="{pos:'right'}"
+				title="{{'ACTION.HAND_UP' |	translate}}"
+				ng-class="vm.handUpCount ? 'icon-active flash infinite' : 'icon-unactive'">
+				<i class="uk-icon-hand-paper-o"></i>
+			</li>
+			<li ng-click="vm.setPanel('slideshow')"
+				title="{{'PAGE.CONFERENCE.SLIDESHOW' | translate}}"
+				ng-class="vm.selectPanel=='slideshow' ? 'active-nav' : ''"><i
+				class="uk-icon-file-pdf-o" aria-hidden="true"></i></li>
+			<li ng-click="vm.setPanel('settings')" data-uk-tooltip="{pos:'right'}"
+				title="{{'PAGE.CONFERENCE.SETTINGS' | translate}}"
+				ng-class="vm.selectPanel=='settings' ? 'active-nav' : ''"><i
+				class="uk-icon-cogs" aria-hidden="true"></i></li>
+		</ul>
+	</nav>
 
-
-	<floating-toolbar connected="vm.connected" connecting="vm.connecting"
-		on-connecting="vm.onConnecting()" member="vm.member"
-		on-disconnected="vm.onDisconnected()" on-connected="vm.onConnected()"></floating-toolbar>
-
-	<div class="work-space" ng-click="vm.selectPanel=''">
-		<teaching-board connected="vm.connected" member="vm.member" students="vm.students" teacher="vm.teacher" ng-if="vm.teacher && vm.students && vm.students.length"></teaching-board>
+	<div class="panel-functional"
+		ng-class="vm.selectPanel=='members' ? 'panel-show' : 'panel-hide'">
+		<div class="member-wrapper">
+			<h3 class="vi-center" style="color: #fff; font-size: 15px; text-transform: uppercase; margin-bottom: 5px; margin-top: 5px;">{{"PAGE.CONFERENCE.MEMBERS" | translate}}</h3>
+			<ul class="list-unstyled members-list-room">
+				<li class="label-name"><span
+					ng-class="vm.teacher.online ? 'uk-icon-circle vi-online' : 'uk-icon-circle vi-offline'"
+					aria-hidden="true"></span> {{vm.teacher.member.displayName}}
+					({{"PAGE.CONFERENCE.TEACHER" | translate}})</li>
+				<li class="label-name" style="position: relative"
+					ng-repeat="student in vm.students"><span
+					ng-class="student.online ? 'uk-icon-circle vi-online' : 'uk-icon-circle vi-offline'"
+					aria-hidden="true"></span> {{student.member.displayName}} <span
+					ng-show="student._id == member._id">({{"PAGE.CONFERENCE.YOU"
+						| translate}})</span> <span class="right action"
+					ng-show="vm.member.role=='teacher' && student.webcam"
+					ng-class="student.invited ? 'icon-active' : 'icon-unactive'" ng-click="vm.inviteMember(student)">
+						<i class="uk-icon-video-camera" ng-class="student.invited ? 'uk-text-success' : 'uk-text-primary'"></i>
+				</span> <span class="right action animated"
+					ng-click="vm.memberInvite(student)" ng-show="vm.member.role=='teacher'"
+					ng-class="student.handUp ? 'icon-active flash infinite' : 'icon-unactive'">
+						<i class="uk-icon-hand-paper-o" ng-class="student.handUp ? 'uk-text-warning' : ''"></i>
+				</span></li>
+			</ul>
+		</div>
 	</div>
+
+	
+
+	<div class="panel-functional"
+		ng-class="vm.selectPanel=='settings' ? 'panel-show' : 'panel-hide'">
+		<div class="setting-wrapper">
+			<h3 class="vi-center" style="color: #fff; font-size: 15px; text-transform: uppercase; margin-bottom: 5px; margin-top: 5px;">{{"PAGE.CONFERENCE.SETTINGS" | translate}}</h3>
+		</div>
+	</div>
+</div>
+
+<!--  Floating toolbar -->
+	<div class="toolbar-control vi-center" ng-mousemove="vm.showToolbar=true"
+		ng-mouseleave="vm.hideToolbar()">
+		<nav class="navbar-control" ng-show="vm.showToolbar">
+			<button class="btn-control btn-clear left-radius"
+				ng-click="vm.connect()" ng-show="!vm.connected && !vm.connecting"
+				data-uk-tooltip="{pos:'bottom'}"
+				title="{{'ACTION.CONNECT' |	translate}}">
+				<i class="material-icons md-color-grey-50">call</i>
+			</button>
+			<button class="btn-control btn-disconnect btn-clear left-radius"
+				ng-click="vm.disconnect()" ng-show="vm.connected || vm.connecting"
+				data-uk-tooltip="{pos:'bottom'}"
+				title="{{'ACTION.DISCONNECT' |	translate}}">
+				<i class="material-icons md-color-amber-900">call_end</i>
+			</button>
+			<button class="btn-control btn-clear" ng-click="vm.toggleAudio()"
+				ng-class="!vm.audio ? 'btn-active' : ''"
+				data-uk-tooltip="{pos:'bottom'}"
+				title="{{vm.audio? 'ACTION.AUDIO_OFF':'ACTION.AUDIO_ON' |	translate}}">
+				<i class="material-icons md-color-grey-50" ng-show="vm.audio">volume_off</i>
+				<i class="material-icons md-color-grey-50" ng-show="!vm.audio">volume_up</i>
+			</button>
+			<button class="btn-control btn-clear" ng-click="vm.toggleVideo()"
+				ng-class="!vm.video ? 'btn-active' : ''"
+				data-uk-tooltip="{pos:'bottom'}"
+				title="{{vm.video? 'ACTION.VIDEO_OFF':'ACTION.VIDEO_ON' |	translate}}">
+				<i class="material-icons md-color-grey-50" ng-show="vm.video">videocam_off</i>
+				<i class="material-icons md-color-grey-50" ng-show="!vm.video">videocam</i>
+			</button>
+			<button class="btn-control btn-clear" ng-click="vm.toggleHand()"
+				ng-show="vm.member.role=='student' && vm.connected"
+				ng-class="vm.handUp ? 'btn-active' : ''"
+				data-uk-tooltip="{pos:'bottom'}"
+				title="{{'ACTION.HAND_UP' |	translate}}">
+				<i class="uk-icon-hand-paper-o md-color-grey-50"></i>
+			</button>
+			<button class="btn-control btn-clear btn-signout right-radius"
+				ng-click="vm.signout()" data-uk-tooltip="{pos:'bottom'}"
+				title="{{'ACTION.CLOSE' |translate}}">
+				<i class="uk-icon-sign-out md-color-amber-900" aria-hidden="true"></i>
+			</button>
+		</nav>
+
+
+	</div>
+
+
+<!-- Teaching board -->
+<div class="show_slideshow present" class="active-workspace">
+	<div class="my-pdf-container">
+		<div class="pdf-content vi-center">
+			<pdf-viewer delegate-handle="my-pdf-container" url="vm.pdfUrl"
+				scale=".9" show-toolbar="false"
+				headers="{ 'x-you-know-whats-awesome': 'EVERYTHING' }"></pdf-viewer>
+		</div>
+		<div class="toolbar-pdf-viewer">
+			<div class="uk-grid toolbar-content"
+				ng-class=" vm.connected ? 'show_toolbar' : 'hide_toolbar'">
+				<div class="uk-width-1-5" ng-show="vm.member.role=='teacher'">
+					<a class="md-btn vi-success vi-btn"
+						ngf-select="vm.uploadPresentation($file)" ngf-max-size="10MB" style="    font-size: 12px !important; padding: 3px 10px; margin-top: 5px;"> <i
+						class="uk-icon-upload" aria-hidden="true" style="color: #fff;"></i> {{"ACTION.UPLOAD" | translate}}
+					</a>
+				</div>
+				<div class="uk-width-2-5 vi-center"
+					ng-show="vm.member.role=='teacher' ">
+					<a class="md-btn vi-btn-default" ng-click="vm.pdfSwitchPage(-1)">
+						<i class="uk-icon-chevron-left" aria-hidden="true"></i>
+					</a> <input type="text" class="vi-input vi-pdf-input"
+						ng-value="vm.currPage + '/' + vm.totalPages"> <a
+						class="md-btn vi-btn-default" ng-click="vm.pdfSwitchPage(1)"> <i
+						class="uk-icon-chevron-right" aria-hidden="true"></i>
+					</a>
+				</div>
+				<div class="uk-width-2-5"
+					ng-class="{'vi-right': (vm.member.role=='teacher')}">
+					<a class="md-btn vi-btn-default" ng-click="vm.zoomOut(0.1)"> <i
+						class="uk-icon-search-minus" aria-hidden="true"></i>
+					</a> <input flex="60" class="vi-input vi-pdf-input" type="text"
+						ng-value="vm.zoom + '%'" disabled> <a
+						class="md-btn vi-btn-default" ng-click="vm.zoomIn(0.1)" style="margin-right: 10px;"> <i
+						class="uk-icon-search-plus" aria-hidden="true"></i>
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="section_videos" style="width: calc(100% - 61px)">
+	<div class="section_videos_content">
+		<div ng-show="showListVideos">
+			<div class="list_videos_wrapper" ng-style="vm.member.role =='teacher' && !vm.slideshow && {'bottom':'0px'}">
+				<div class="list_videos_content"
+					style="height: {{vm.channelList.length* 120">
+					<div class="video_wrapper"
+						ng-repeat="slot in vm.videoSlots"
+               ng-show="slot.allocated"
+               ng-style="slot.publisher.role =='teacher' && !vm.slideshow && {'position':'fixed','top':'10%','left':'20%','width':'60%','height':'60%'}">
+						<video class="video_training" ng-attr-id="{{slot.videoId}}"
+							autoplay poster="/assets/img/camera.png"></video>
+						<div class="top_bar clearfix">
+							{{slot.publisher.member.displayName}} <span ng-show="vm.member.role =='teacher'"
+								ng-click="vm.memberDiscard(slot.publisher)" class="btn-close right">
+								x </span>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+		<!-- 
+		<div ng-show="vm.connected" ng-class="!vm.slideshow && vm.member.role =='teacher' ? 'videolocal-teacher' : 'video_teacher_wrapper'">
+			<div ng-class="!vm.slideshow && vm.member.role =='teacher' ? 'local-video-teacher' : 'video_wrapper'">
+
+				<video autoplay muted id="localCamera" class="video_training"></video>
+				<div class="top_bar">{{"PAGE.CONFERENCE.LOCAL_CAMERA" |
+					translate}}</div>
+			</div>
+		</div>
+		 -->
+		<span class="btn-toggle vi-center" ng-show="vm.studentChannels.length"
+			ng-style="vm.showListVideos ? {} : {'right': 0}"
+			ng-click="vm.showListVideos = !vm.showListVideos;"> <i
+			aria-hidden="true"
+			ng-class="vm.showListVideos ? 'uk-icon-angle-double-right' : 'uk-icon-angle-double-left'"></i>
+		</span>
+	</div>
+</div>
 
 
 

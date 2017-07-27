@@ -68,10 +68,10 @@
           var oldURL = scope.object.videoURL;
           scope.resetVideo = function() {
             scope.object.videoURL = oldURL;
-          }
+          };
           scope.deleteVideo = function() {
             scope.object.videoURL = null;
-          }
+          };
           var progressbar = angular.element(document.getElementById('video_upload-progressbar')),
             bar = angular.element(document.getElementById('video_progress_bar')),
             settings = {

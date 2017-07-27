@@ -10,6 +10,16 @@
   function routeFilter($rootScope, $state, Authentication, $stateParams, $http, $window, $timeout, variables, _) {
     $rootScope.$on('$stateChangeStart', stateChangeStart);
     $rootScope.$on('$stateChangeSuccess', stateChangeSuccess);
+    
+    $rootScope.$on('$stateChangeError',function(event, toState, toParams, fromState, fromParams, error){
+        console.log('$stateChangeError - fired when an error occurs during transition.');
+        console.log(arguments);
+      });
+    
+    $rootScope.$on('$stateNotFound',function(event, unfoundState, fromState, fromParams){
+        console.log('$stateNotFound '+unfoundState.to+'  - fired when a state cannot be found by its name.');
+        console.log(unfoundState, fromState, fromParams);
+      }); 
 
     function stateChangeStart(event, toState, toParams, fromState, fromParams) {
 

@@ -11,24 +11,23 @@
           object: '='
         },
         link: function(scope, element, attr) {
-          $(".uk-modal").on({
-            'show.uk.modal': function(){
-            },
-            'hide.uk.modal': function(){
-              if(scope.recordMode){
+          $('.uk-modal').on({
+            'show.uk.modal': function() {},
+            'hide.uk.modal': function() {
+              if (scope.recordMode) {
                 scope.stopRecord();
               }
-              var objectAudio = document.getElementById("screenVideo");
+              var objectAudio = document.getElementById('screenVideo');
               objectAudio.pause();
             }
           });
           var oldUrl = scope.object ? scope.object.videoUrl : null;
           scope.resetVideo = function() {
             scope.object.videoUrl = oldUrl || null;
-          }
+          };
           scope.deleteVideo = function() {
             scope.object.videoUrl = null;
-          }
+          };
           scope.videoAttr = {
             autoplay: false,
             controls: true,
@@ -50,38 +49,38 @@
           scope.startRecord = function() {
             if (!scope.recordMode) {
               scope.videoAttr = {
-                  autoplay: true,
-                  controls: false,
-                  muted: true
-                };
+                autoplay: true,
+                controls: false,
+                muted: true
+              };
               scope.recordMode = true;
               var session = {
-                  audio: true,
-                  video: true
-                };
-                navigator.getUserMedia(session, function(stream) {
-                  mediaStream = stream;
-                  videoElement.src = URL.createObjectURL(stream);
-                  videoElement.controls = true;
-                  videoElement.play();
-                  videoRecorder.addStream(mediaStream);
-                  videoRecorder.startRecording();
-                }, function(error) {
-                  scope.screen = false;
-                  Notification.error({
-                    message: '<i class="uk-icon-ban"></i> Voice captured error!' + error
-                  });
+                audio: true,
+                video: true
+              };
+              navigator.getUserMedia(session, function(stream) {
+                mediaStream = stream;
+                videoElement.src = URL.createObjectURL(stream);
+                videoElement.controls = true;
+                videoElement.play();
+                videoRecorder.addStream(mediaStream);
+                videoRecorder.startRecording();
+              }, function(error) {
+                scope.screen = false;
+                Notification.error({
+                  message: '<i class="uk-icon-ban"></i> Voice captured error!' + error
                 });
-              
+              });
+
             }
           };
 
           scope.stopRecord = function() {
             scope.videoAttr = {
-                autoplay: true,
-                controls: true,
-                muted: false
-              };
+              autoplay: true,
+              controls: true,
+              muted: false
+            };
             videoRecorder.stopRecording(function(videoUrl) {
               mediaStream.getAudioTracks().forEach(function(track) {
                 track.stop();
