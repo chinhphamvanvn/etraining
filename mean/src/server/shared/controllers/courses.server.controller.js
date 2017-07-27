@@ -441,6 +441,7 @@ exports.uploadCourseFile = function(req, res) {
                 if (uploadError) {
                     reject(errorHandler.getErrorMessage(uploadError));
                 } else {
+                    console.log(req.file);
                     var fileURL = config.uploads.course.document.urlPath + req.file.filename;
                     resolve(fileURL);
                 }
@@ -454,7 +455,7 @@ exports.uploadCourseFile = function(req, res) {
 exports.convertToHtml = function(req, res) {
     // Filtering to upload only images
     var course = req.course;
-    var multerConfig = config.uploads.course.file;
+    var multerConfig = config.uploads.course.document;
     var upload = multer(multerConfig).single('contentFile');
     uploadFile()
         .then(function(html) {
@@ -474,13 +475,13 @@ exports.convertToHtml = function(req, res) {
                 } else {
                     console.log(req.file);
                     var filePath = path.resolve(config.uploads.course.document.dest + req.file.filename);
+                    var filename = req.file.originalname;
                     console.log(filePath);
-                    if (filePath.endsWith('doc') || filePath.endsWith('docx') || filePath.endsWith('ppt') || filePath.endsWith('pptx') || filePath.endsWith('xls') || filePath.endsWith('xlsx')) {
-                        generateHtml(filePath, function(err, result) {
-                            console.log(result);
-                            resolve(result);
-                        });
-                    } else if (filePath.endsWith('pdf')) {
+                    if (filename.endsWith('doc') || filename.endsWith('docx') || filename.endsWith('ppt') || filename.endsWith('pptx') || filename.endsWith('xls') || filename.endsWith('xlsx')) {
+                        generateHtml(filePath, (function(err,html) {
+                            resolve(html);
+                        }));
+                    } else if (filename.endsWith('pdf')) {
                         var converter = new pdftohtml(filePath, filePath + '.html');
                         converter.convert('default').then(function() {
                             fs = require('fs')
