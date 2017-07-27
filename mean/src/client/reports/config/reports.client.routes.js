@@ -54,6 +54,15 @@
         data: {
           roles: ['admin']
         }
+      })
+      .state('admin.workspace.reports.driver-start-date', {
+        url: '/driver-start-date',
+        templateUrl: '/src/client/reports/views/driver-start-date-by-member.reports.client.view.html',
+        controller: 'DriverStartDateController',
+        controllerAs: 'vm',
+        data: {
+          roles: ['admin']
+        }
       });
   }
 }());

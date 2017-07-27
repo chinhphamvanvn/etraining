@@ -94,8 +94,10 @@
               obj.selected = scope.menuItems && _.contains(scope.menuItems, section.key);
             });
           });
-          var tree = $('#' + scope.treeId).fancytree('getTree');
-          tree.reload(menuSections);
+          $timeout(function() {
+            var tree = $('#' + scope.treeId).fancytree('getTree');
+            tree.reload(menuSections);
+          }, 1000);
         });
       }
     };

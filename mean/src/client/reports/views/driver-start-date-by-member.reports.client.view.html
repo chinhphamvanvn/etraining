@@ -1,0 +1,38 @@
+<div id="page_content">
+	<div id="page_content_inner">
+		<h3 class="heading_b uk-margin-bottom">{{'PAGE.WORKSPACE.SIDEBAR.REPORTS'
+			| translate}}</h3>
+		<div class="uk-grid" data-uk-grid-margin>
+			<div class="uk-width-medium-1-1">
+				<div class="md-card">
+					<div class="content-table-gradebook md-card-content">
+						<div class="uk-margin-bottom">
+							<a class="md-btn  md-btn-wave-light md-btn-icon"
+								data-uk-modal="{target:'#select_user'}">
+								{{'PAGE.REPORTS.COURSE_BY_MEMBER.SELECT_DEPARTMENT'|translate}}
+								<i class="material-icons">&#xE313;</i>
+							</a>
+							<select-user-dialog callback="vm.generateReport"
+								dialog-id="'select_user'"></select-user-dialog>
+						</div>
+						<div  class="uk-margin-left" style="padding-bottom: 30px;">
+							<span class=" uk-text-large">{{
+							'REPORT.EXAM_RESULT.CHART'|translate }}</span>
+							<div class="uk-grid">
+							<div class="uk-width-1-1 uk-width-small-1-2">
+								<div id="department_mark_pie_chart_1"  class="c3chart"></div>
+								<p style="text-align: center;">{{'REPORT.STARTDATE'|translate}}</p>
+							</div>
+							<div class="uk-width-1-1 uk-width-small-1-2">
+								<div id="department_mark_pie_chart_2"  class="c3chart"></div>
+								<p style="text-align: center;">{{'MODEL.USER.DRIVER_LICENSE'|translate}}</p>
+							</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+

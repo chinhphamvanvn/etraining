@@ -131,23 +131,45 @@
 																value="{{vm.user.birthday | date:'dd.MM.yyyy'}}">
 														</div>
 													</div>
-
-													<div>
-														<div class="parsley-row">
-															<label for="course_enrol_policy_select">{{'MODEL.USER.GENDER'|translate}}</label>
-															<div id="course_enrol_policy_select">
-																<span class="icheck-inline">
-																	<input type="radio" name="course_enroll" id="user_male"
-																	value="male" icheck ng-model="vm.user.gender" />
-																	<label for="course_enroll_open" class="inline-label">{{'MODEL.USER.MALE'|translate}}</label>
-																</span>
-																<span class="icheck-inline">
-																	<input type="radio" name="course_enroll" id="course_enroll_censor"
-																	value="female" icheck ng-model="vm.user.gender" />
-																	<label for="course_enroll_censor" class="inline-label">{{'MODEL.USER.FEMALE'|translate}}</label>
-																</span>
-															</div>
+													
+													<div class="parsley-row">
+														<label for="course_model_select">{{'MODEL.USER.GENDER'|translate}}</label>
+														<div id="course_model_select">
+															<span class="icheck-inline"> <input
+																ng-disabled="vm.course._id" type="radio" name="course_model"
+																id="course_model_self" required value="male" icheck
+																ng-model="vm.user.gender" /> <label for="course_model_self"
+																class="inline-label">{{'MODEL.USER.MALE'|translate}}</label>
+															</span> <span class="icheck-inline"> <input
+																ng-disabled="vm.course._id" type="radio" name="course_model"
+																id="course_model_group" class="wizard-icheck" value="female"
+																icheck ng-model="vm.user.gender" /> <label
+																for="course_model_group" class="inline-label">{{'MODEL.USER.FEMALE'|translate}}</label>
+															</span>
 														</div>
+													</div>
+													<div>
+														<div class="uk-input-group">
+															<span class="uk-input-group-addon"><i class="uk-input-group-icon uk-icon-calendar"></i></span>
+															<label for="uk_start_date">{{'MODEL.USER.START_DATE'|translate}}</label>
+															<input class="md-input" type="text" id="uk_start_date" md-input
+																value="{{vm.user.startDate | date:'dd.MM.yyyy'}}">
+														</div>
+													</div>
+													<div class="parsley-row">
+														<label for="course_level_select">{{'MODEL.USER.DRIVER_LICENSE'|translate}}</label>
+														<div id="course_level_select">
+															<span class="icheck-inline"> <input type="radio"
+																name="course_level" id="course_easy" required value="yes"
+																icheck ng-model="vm.user.driverLicense" /> <label
+																for="course_easy" class="inline-label">{{'COMMON.YES'|translate}}</label>
+															</span> <span class="icheck-inline"> <input type="radio"
+																name="course_level" id="course_medium" required
+																value="no" icheck ng-model="vm.user.driverLicense" /> <label
+																for="course_medium" class="inline-label">{{'COMMON.NO'|translate}}</label>
+															</span>
+														</div>
+
 													</div>
 													<div>
 														<div class="uk-input-group">
