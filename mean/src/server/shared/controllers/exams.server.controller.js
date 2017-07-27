@@ -176,7 +176,7 @@ exports.changeExamLogo = function(req, res) {
 
   function updateExam() {
     return new Promise(function(resolve, reject) {
-      exam.logoURL = config.uploads.exam.image.urlPaath + req.file.filename;
+      exam.logoURL = config.uploads.exam.image.urlPath + req.file.filename;
       exam.save(function(err, exam) {
         if (err) {
           reject(err);
