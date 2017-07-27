@@ -15,7 +15,6 @@ var path = require('path'),
 var office2html = require('office2html'),
     generateHtml = office2html.generateHtml;
 var pdftohtml = require('pdftohtmljs');
-var mammoth = require("mammoth");
 
 /**
  * Create a Course
@@ -478,12 +477,8 @@ exports.convertToHtml = function(req, res) {
                     var filename = req.file.originalname;
                     console.log(filePath);
                     if (filename.endsWith('doc') || filename.endsWith('docx') || filename.endsWith('ppt') || filename.endsWith('pptx') || filename.endsWith('xls') || filename.endsWith('xlsx')) {
-                        generateHtml(filePath, (function(err,html) {
-                            resolve(html);
-                        }));
-                    } else if (filename.endsWith('pdf')) {
-                        var converter = new pdftohtml(filePath, filePath + '.html');
-                        converter.convert('default').then(function() {
+
+                        generateHtml(filePath, function(err, result) {
                             fs = require('fs')
                             fs.readFile(filePath + '.html', 'utf8', function(err, data) {
                                 if (err) {
@@ -491,7 +486,32 @@ exports.convertToHtml = function(req, res) {
                                 }
                                 resolve(data);
                             });
-                        })
+                        });
+                    } else if (filename.endsWith('pdf')) {
+
+                        var converter = new pdftohtml(filePath, "temp.html");
+
+                        // See presets (ipad, default) 
+                        // Feel free to create custom presets 
+                        // see https://github.com/fagbokforlaget/pdftohtmljs/blob/master/lib/presets/ipad.js 
+                        // convert() returns promise 
+                        converter.convert().then(function() {
+                            console.log("Success");
+                            fs = require('fs');
+                            var tempPath = path.resolve('temp.html');
+                            console.log(tempPath);
+                            fs.readFile(tempPath, 'utf8', function(err, data) {
+                                if (err) {
+                                    console.log(err);
+                                }
+                                resolve(data);
+                            });
+                        }).catch(function(err) {
+                            console.error("Conversion error: " + err);
+                        });
+
+
+
                     } else
                         reject('Unssuport file type');
                 }
