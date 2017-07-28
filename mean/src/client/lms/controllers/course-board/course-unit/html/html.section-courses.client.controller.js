@@ -90,6 +90,7 @@
           progressbar.addClass('uk-hidden');
         }, 250);
         var data = JSON.parse(response);
+        vm.html.content = data.html;
         console.log(data);
         $scope.$apply();
         
