@@ -779,6 +779,8 @@
 	"ERROR.COURSE_REGISTER.ENROLL_EXPIRED": "Enroll course expired",
 	"ERROR.COURSE_REGISTER.ENROLL_RESTRICTED": "Enroll course restricted",
 	"ERROR.COURSE_REGISTER.CLASS_UNAVAILABLE": "Virtual classroom  unavailable",
+	"ERROR.COURSE_REGISTER.DATE": "Please review the registration date and attend course",
+	"ERROR.COURSE_REGISTER.CHOOSE_CLASS": "Please select the online class of the course",
 	"ERROR.COURSE_FORUM_UNAVAILABLE": "Course forum unavailable",
 	"ERROR.GROUP_EDIT.REMOVE_UNEMPTY_ORG_GROUP": "Cannot delete the department contain member",
 	"ERROR.USER_EDIT.EMPTY_ORG_GROUP": "Not yet choose the department",
