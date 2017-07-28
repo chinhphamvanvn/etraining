@@ -202,7 +202,7 @@ exports.uploadCourseMaterial = function(req, res) {
         if (uploadError) {
           reject(errorHandler.getErrorMessage(uploadError));
         } else {
-            console.log(config.uploads.course.document);
+            console.log(req.file);
           var downloadURL = config.uploads.course.document.urlPath + req.file.filename;
           console.log(downloadURL);
           var originalname = req.file.originalname;
