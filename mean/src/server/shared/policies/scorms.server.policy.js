@@ -14,7 +14,7 @@ var acl = require('acl'),
 acl = new acl(new acl.memoryBackend());
 
 /**
- * Invoke Courses Permissions
+ * Invoke Scorms Permissions
  */
 exports.invokeRolesPolicies = function() {
   acl.allow([
@@ -22,35 +22,11 @@ exports.invokeRolesPolicies = function() {
       roles: ['admin'],
       allows: [
         {
-          resources: '/api/courses',
+          resources: '/api/scorms',
           permissions: '*'
         },
         {
-          resources: '/api/courses/:courseId',
-          permissions: '*'
-        },
-        {
-          resources: '/api/courses/:courseId/logo',
-          permissions: '*'
-        },
-        {
-          resources: '/api/courses/public',
-          permissions: ['get']
-        },
-        {
-          resources: '/api/courses/private',
-          permissions: ['get']
-        },
-        {
-          resources: '/api/courses/restricted',
-          permissions: ['get']
-        },
-        {
-          resources: '/api/courses/byGroup/:groupId',
-          permissions: ['get']
-        },
-        {
-          resources: '/api/courses/search',
+          resources: '/api/scorms/:scormId',
           permissions: '*'
         }
       ]
@@ -59,64 +35,12 @@ exports.invokeRolesPolicies = function() {
       roles: ['user'],
       allows: [
         {
-          resources: '/api/courses',
+          resources: '/api/scorms',
           permissions: ['get', 'post']
         },
         {
-          resources: '/api/courses/:courseId',
+          resources: '/api/scorms/:scormId',
           permissions: ['get']
-        },
-        {
-          resources: '/api/courses/:courseId/logo',
-          permissions: ['get']
-        },
-        {
-          resources: '/api/courses/public',
-          permissions: ['get']
-        },
-        {
-          resources: '/api/courses/private',
-          permissions: ['get']
-        },
-        {
-          resources: '/api/courses/restricted',
-          permissions: ['get']
-        },
-        {
-          resources: '/api/courses/byGroup/:groupId',
-          permissions: ['get']
-        },
-        {
-          resources: '/api/courses/search',
-          permissions: ['get']
-        },
-        {
-          resources: '/api/courses/video/upload',
-          permissions: ['post']
-        },
-        {
-            resources: '/api/courses/content/convert',
-            permissions: ['post']
-          },
-        {
-          resources: '/api/courses/audio/upload',
-          permissions: ['post']
-        },
-        {
-          resources: '/api/courses/file/upload',
-          permissions: ['post']
-        },
-        {
-            resources: '/api/courses/scorm/upload',
-            permissions: ['post']
-          },
-        {
-            resources: '/api/courses/presentation/upload',
-            permissions: ['post']
-         },
-        {
-          resources: '/api/courses/image/upload',
-          permissions: ['post']
         }
       ]
     },
@@ -124,23 +48,11 @@ exports.invokeRolesPolicies = function() {
       roles: ['guest'],
       allows: [
         {
-          resources: '/api/courses',
+          resources: '/api/scorms',
           permissions: ['get']
         },
         {
-          resources: '/api/courses/:courseId',
-          permissions: ['get']
-        },
-        {
-          resources: '/api/courses/:courseId/logo',
-          permissions: ['get']
-        },
-        {
-          resources: '/api/courses/public',
-          permissions: ['get']
-        },
-        {
-          resources: '/api/courses/search',
+          resources: '/api/scorms/:scormId',
           permissions: ['get']
         }
       ]
@@ -149,13 +61,13 @@ exports.invokeRolesPolicies = function() {
 };
 
 /**
- * Check If Courses Policy Allows
+ * Check If Scorms Policy Allows
  */
 exports.isAllowed = function(req, res, next) {
   var roles = (req.user) ? req.user.roles : ['guest'];
 
-  // If an Course is being processed and the current user created it then allow any manipulation
-  if (req.course && req.user && req.course.user && req.course.user.id === req.user.id) {
+  // If an Html is being processed and the current user created it then allow any manipulation
+  if (req.scorm && req.user && req.scorm.user && req.scorm.user.id === req.user.id) {
     return next();
   }
 
@@ -177,7 +89,7 @@ exports.isAllowed = function(req, res, next) {
           if (setting.valueBoolean) {
             if (req.user && req.user.permissionApi) {
               Endpoint.findOne({
-                prefix: '/api/courses'
+                prefix: '/api/scorms'
               }, function(err, endpointRecord) {
                 if (err || !endpointRecord) {
                   return next();

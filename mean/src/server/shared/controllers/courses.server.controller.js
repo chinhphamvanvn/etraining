@@ -450,6 +450,37 @@ exports.uploadCourseFile = function(req, res) {
 
 };
 
+exports.uploadCourseScorm = function(req, res) {
+    // Filtering to upload only images
+    var course = req.course;
+    var multerConfig = config.uploads.course.scorm;
+    var upload = multer(multerConfig).single('newCourseScorm');
+    uploadFile()
+        .then(function(fileURL) {
+            res.json({
+                fileURL: fileURL
+            });
+        })
+        .catch(function(err) {
+            res.status(422).send(err);
+        });
+
+    function uploadFile() {
+        return new Promise(function(resolve, reject) {
+            upload(req, res, function(uploadError) {
+                if (uploadError) {
+                    reject(errorHandler.getErrorMessage(uploadError));
+                } else {
+                    console.log(req.file);
+                    var fileURL = config.uploads.course.scorm.urlPath + req.file.filename;
+                    resolve(fileURL);
+                }
+            });
+        });
+    }
+
+};
+
 
 exports.convertToHtml = function(req, res) {
     // Filtering to upload only images

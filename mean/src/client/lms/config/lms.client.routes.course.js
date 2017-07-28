@@ -103,6 +103,20 @@
           courseRoles: ['teacher']
         }
       })
+      .state('workspace.lms.courses.outline.preview.scorm', {
+        url: '/scorm/:sectionId',
+        templateUrl: '/src/client/lms/views/course-board/course-unit/scorm/preview-scorm-course.client.view.html',
+        controller: 'CoursesPreviewScormController',
+        controllerAs: 'vm',
+        resolve: {
+          sectionResolve: getSection,
+          editionResolve: getEdition
+        },
+        data: {
+          roles: ['user'],
+          courseRoles: ['teacher']
+        }
+      })
       .state('workspace.lms.courses.outline.preview.quiz', {
         url: '/quiz/:sectionId',
         templateUrl: '/src/client/lms/views/course-board/course-unit/test/preview-quiz-course.client.view.html',
@@ -193,6 +207,22 @@
           editionResolve: getEdition,
           courseResolve: getCourse,
           htmlResolve: getHtml
+        },
+        data: {
+          roles: ['user'],
+          courseRoles: ['teacher']
+        }
+      })
+      .state('workspace.lms.courses.section.view.scorm', {
+        url: '/scorm/:sectionId',
+        templateUrl: '/src/client/lms/views/course-board/course-unit/scorm/view-scorm.section-course.client.view.html',
+        controller: 'CoursesScormSectionController',
+        controllerAs: 'vm',
+        resolve: {
+          sectionResolve: getSection,
+          editionResolve: getEdition,
+          courseResolve: getCourse,
+          scormResolve: getScorm
         },
         data: {
           roles: ['user'],
@@ -294,6 +324,22 @@
           editionResolve: getEdition,
           courseResolve: getCourse,
           htmlResolve: getHtml
+        },
+        data: {
+          roles: ['user'],
+          courseRoles: ['teacher']
+        }
+      })
+      .state('workspace.lms.courses.section.edit.scorm', {
+        url: '/scorm/:sectionId',
+        templateUrl: '/src/client/lms/views/course-board/course-unit/scorm/form-scorm.section-course.client.view.html',
+        controller: 'CoursesScormSectionController',
+        controllerAs: 'vm',
+        resolve: {
+          sectionResolve: getSection,
+          editionResolve: getEdition,
+          courseResolve: getCourse,
+          scormResolve: getScorm
         },
         data: {
           roles: ['user'],
@@ -440,6 +486,21 @@
         url: '/html/:sectionId',
         templateUrl: '/src/client/lms/views/course-board/course-unit/html/study-html-course.client.view.html',
         controller: 'CoursesStudyHtmlController',
+        controllerAs: 'vm',
+        resolve: {
+          sectionResolve: getSection,
+          memberResolve: getMember,
+          editionResolve: getEdition
+        },
+        data: {
+          roles: ['user'],
+          courseRoles: ['student']
+        }
+      })
+      .state('workspace.lms.courses.join.study.scorm', {
+        url: '/scorm/:sectionId',
+        templateUrl: '/src/client/lms/views/course-board/course-unit/scorm/study-scorm-course.client.view.html',
+        controller: 'CoursesStudyScormController',
         controllerAs: 'vm',
         resolve: {
           sectionResolve: getSection,
@@ -770,6 +831,37 @@
           var html = new HtmlsService();
           html.$save(function() {
             resolve(html);
+          });
+        }
+      }, function(err) {
+        reject();
+      });
+    });
+  }
+  
+  getScorm.$inject = ['$stateParams', 'EditionSectionsService', 'ScormsService', '$q'];
+
+  function getScorm($stateParams, EditionSectionsService, ScormsService, $q) {
+    if ($stateParams.scormId)
+      return ScormsService.get({
+          scormId: $stateParams.scormId
+      }).$promise;
+    return $q(function(resolve, reject) {
+      EditionSectionsService.get({
+        sectionId: $stateParams.sectionId
+      }, function(section) {
+        if (section.scorm) {
+            ScormsService.get({
+              scormId: section.scormId
+          }, function(scorm) {
+            resolve(scorm);
+          }, function() {
+            reject();
+          });
+        } else {
+          var scorm = new ScormsService();
+          scorm.$save(function() {
+            resolve(scorm);
           });
         }
       }, function(err) {

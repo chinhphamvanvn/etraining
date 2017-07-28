@@ -10,6 +10,7 @@ module.exports = function(app) {
   // Courses Routes
   app.route('/api/courses/content/convert').post(courses.convertToHtml);
   app.route('/api/courses/video/upload').post(courses.uploadCourseVideo);
+  app.route('/api/courses/scorm/upload').post(courses.uploadCourseScorm);
   app.route('/api/courses/audio/upload').post(courses.uploadCourseAudio);
   app.route('/api/courses/file/upload').post(courses.uploadCourseFile);
   app.route('/api/courses/presentation/upload').post(courses.uploadCoursePresentation);

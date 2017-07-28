@@ -67,6 +67,7 @@
 				<a ng-click="vm.toggleExpand(node)" ng-class="{'uk-text-muted':node.id!=vm.selectedNode.id,'uk-text-bold uk-text-italic':node.id==vm.selectedNode.id}">
                 	<i ng-if="!node.data.hasContent" ng-class="{'uk-text-primary':node.id==vm.selectedNode.id}" class="md-icon material-icons md-18">folder_open</i>
 					<i ng-if="node.data.hasContent && node.data.contentType=='html'" class="md-icon material-icons md-18" ng-class="{'uk-text-primary':node.id==vm.selectedNode.id}">note</i>
+					<i ng-if="node.data.hasContent && node.data.contentType=='scorm'" class="md-icon material-icons md-18" ng-class="{'uk-text-primary':node.id==vm.selectedNode.id}">note</i>
 					<i ng-if="node.data.hasContent && node.data.contentType=='test'" class="md-icon material-icons md-18" ng-class="{'uk-text-primary':node.id==vm.selectedNode.id}">question_answer</i>
 					<i ng-if="node.data.hasContent && node.data.contentType=='survey'" class="md-icon material-icons md-18" ng-class="{'uk-text-primary':node.id==vm.selectedNode.id}">question_answer</i>
 					<i ng-if="node.data.hasContent && node.data.contentType=='video'" class="md-icon material-icons md-18" ng-class="{'uk-text-primary':node.id==vm.selectedNode.id}">videocam</i>{{node.data.name}}
