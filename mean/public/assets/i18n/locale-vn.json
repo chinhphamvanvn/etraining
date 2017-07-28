@@ -776,6 +776,8 @@
 	"ERROR.COURSE_REGISTER.ENROLL_EXPIRED": "Khóa học đã hết hạn đăng ký",
 	"ERROR.COURSE_REGISTER.ENROLL_RESTRICTED": "Khóa học giới hạn thành viên đăng ký",
 	"ERROR.COURSE_REGISTER.CLASS_UNAVAILABLE": "Chưa có lớp học trực tuyến",
+	"ERROR.COURSE_REGISTER.DATE": "Vui lòng xem lại ngày đăng ký và tham gia khóa học",
+	"ERROR.COURSE_REGISTER.CHOOSE_CLASS": "Chưa chọn lớp học trực tuyến",
 	"ERROR.COURSE_FORUM_UNAVAILABLE": "Khóa học chưa có chức năng thảo luận",
 	"ERROR.GROUP_EDIT.REMOVE_UNEMPTY_ORG_GROUP": "Không thể xóa phòng ban có nhân viên",
 	"ERROR.USER_EDIT.EMPTY_ORG_GROUP": "Chưa chọn phòng ban",

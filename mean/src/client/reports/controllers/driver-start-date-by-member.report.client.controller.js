@@ -52,7 +52,7 @@
           var diffDays = differenceTwoDate(new Date(user.startDate), new Date());
           if(diffDays < 365 *3) {
             marksStartDate[0] ++;
-          } else if (365 *3 <= diffDays < 365 * 5) {
+          } else if (365 *3 <= diffDays && diffDays < 365 * 5) {
             marksStartDate[1] ++;
           } else {
             marksStartDate[2] ++;
