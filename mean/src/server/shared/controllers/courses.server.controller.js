@@ -456,9 +456,9 @@ exports.uploadCourseScorm = function(req, res) {
     var multerConfig = config.uploads.course.scorm;
     var upload = multer(multerConfig).single('newCourseScorm');
     uploadFile()
-        .then(function(fileURL) {
+        .then(function(packageUrl) {
             res.json({
-                fileURL: fileURL
+                packageUrl: packageUrl
             });
         })
         .catch(function(err) {
@@ -471,9 +471,16 @@ exports.uploadCourseScorm = function(req, res) {
                 if (uploadError) {
                     reject(errorHandler.getErrorMessage(uploadError));
                 } else {
-                    console.log(req.file);
-                    var fileURL = config.uploads.course.scorm.urlPath + req.file.filename;
-                    resolve(fileURL);
+                    var unzip = require('unzip');
+                    var filePath = path.resolve(config.uploads.course.scorm.dest + req.file.filename);
+                    var dirPath = path.resolve(config.uploads.course.scorm.dest+ req.file.filename);
+                    fs = require('fs');
+                    if (!fs.existsSync(dirPath))
+                        fs.mkdirSync(dirPath);
+                    fs.createReadStream(filePath).pipe(unzip.Extract({ path: dirPath }));
+                    var packageUrl = path.join( config.uploads.course.scorm.urlPath ,  req.file.filename ,'res/index.html');
+                    console.log(packageUrl);
+                    resolve(packageUrl);
                 }
             });
         });
@@ -503,14 +510,12 @@ exports.convertToHtml = function(req, res) {
                 if (uploadError) {
                     reject(errorHandler.getErrorMessage(uploadError));
                 } else {
-                    console.log(req.file);
                     var filePath = path.resolve(config.uploads.course.document.dest + req.file.filename);
                     var filename = req.file.originalname;
-                    console.log(filePath);
                     if (filename.endsWith('doc') || filename.endsWith('docx') || filename.endsWith('ppt') || filename.endsWith('pptx') || filename.endsWith('xls') || filename.endsWith('xlsx')) {
 
                         generateHtml(filePath, function(err, result) {
-                            fs = require('fs')
+                            fs = require('fs');
                             fs.readFile(filePath + '.html', 'utf8', function(err, data) {
                                 if (err) {
                                     console.log(err);

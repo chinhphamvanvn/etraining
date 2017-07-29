@@ -15,6 +15,11 @@ var ScormSchema = new Schema({
         default: '',
         trim: true
     },
+    packageFile: {
+        type: String,
+        default: '',
+        trim: true
+    },
     created: {
         type: Date,
         default: Date.now

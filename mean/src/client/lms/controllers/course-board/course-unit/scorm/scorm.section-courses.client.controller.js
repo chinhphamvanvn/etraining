@@ -67,7 +67,7 @@
     var progressbar = $('#file_upload-progressbar'),
     bar = progressbar.find('.uk-progress-bar'),
     settings = {
-      action: '/api/courses/upload/scorm', // upload url
+      action: '/api/courses/scorm/upload', // upload url
       param: 'newCourseScorm',
       method: 'POST',
 

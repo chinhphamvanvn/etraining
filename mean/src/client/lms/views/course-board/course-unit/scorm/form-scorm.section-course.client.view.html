@@ -43,11 +43,10 @@
 	<div id="page_content_inner">
 		<div class="md-card">
 			<div class="md-card-content uk-margin">
-				<label for="section_html">{{'MODEL.SECTION.SCORM'|translate}}</label>
-				<iframe src="vm.scorm.packagekUrl"></iframe>
+				<iframe src="vm.scorm.packagekUrl" ng-show="vm.scorm.packagekUrl"></iframe>
 				<div>
 					<span class="uk-form-file md-btn md-btn-primary md-btn-icon">
-						<i class="uk-icon-upload"></i> {{'ACTION.UPLOAD_COURSE'|translate}}
+						<i class="uk-icon-upload"></i> {{'ACTION.UPLOAD_SCORM'|translate}}
 						<input id="file_upload-select" type="file">
 					</span>
 					<div id="file_upload-progressbar" class="uk-progress uk-hidden">
