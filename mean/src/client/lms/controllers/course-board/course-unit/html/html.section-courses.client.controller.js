@@ -6,15 +6,17 @@
     .module('lms')
     .controller('CoursesHTMLSectionController', CoursesHTMLSectionController);
 
-  CoursesHTMLSectionController.$inject = ['$scope', '$state', '$window', 'Authentication', '$timeout', 'courseResolve', 'sectionResolve', 'editionResolve', 'htmlResolve', 'Notification', 'EditionSectionsService', 'fileManagerConfig', '$q', '_', '$translate'];
+  CoursesHTMLSectionController.$inject = ['$scope', '$state', '$window', 'Authentication', '$timeout', 'courseResolve', 'sectionResolve', 'editionResolve', 'htmlResolve', 'Notification', 'EditionSectionsService', 'fileManagerConfig', '$q', '_', '$translate', '$sce'];
 
-  function CoursesHTMLSectionController($scope, $state, $window, Authentication, $timeout, course, section, edition, html, Notification, EditionSectionsService, fileManagerConfig, $q, _, $translate) {
+  function CoursesHTMLSectionController($scope, $state, $window, Authentication, $timeout, course, section, edition, html, Notification, EditionSectionsService, fileManagerConfig, $q, _, $translate, $sce) {
     var vm = this;
     vm.authentication = Authentication;
     vm.course = course;
     vm.edition = edition;
     vm.section = section;
     vm.html = html;
+    vm.html.content= $sce.trustAsHtml(vm.html.content);
+
     vm.save = save;
     vm.tinymce_options = fileManagerConfig;
 
