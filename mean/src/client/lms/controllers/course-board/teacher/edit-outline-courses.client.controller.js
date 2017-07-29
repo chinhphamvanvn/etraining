@@ -184,7 +184,8 @@
             $state.go('workspace.lms.courses.section.edit.scorm', {
               courseId: vm.edition.course._id,
               editionId: vm.edition._id,
-              sectionId: node.data._id
+              sectionId: node.data._id,
+              scormId: node.data.scorm
             });
         if (section.contentType === 'test')
           $state.go('workspace.lms.courses.section.edit.quiz', {
