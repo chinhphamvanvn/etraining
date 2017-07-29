@@ -47,7 +47,7 @@ exports.read = function(req, res) {
 exports.update = function(req, res) {
   var scorm = req.scorm;
 
-  scorm = _.extend(v, req.body);
+  scorm = _.extend(scorm, req.body);
 
   scorm.save(function(err) {
     if (err) {
