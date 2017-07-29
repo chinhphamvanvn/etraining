@@ -16,6 +16,7 @@
 
     function generateReport(users) {
       vm.sections = [];
+      var tmpSections = [];
       _.each(users, function(user) {
         CourseMembersService.byUser({
           userId: user._id
@@ -46,8 +47,13 @@
                       section.completed = _.find(sectionAttemps, function(attempt) {
                         return attempt.status === 'completed';
                       });
-                      vm.sections.push(section);
+                      tmpSections.push(section);
                     }
+                    vm.sections = _.groupBy(tmpSections, function (section) {
+                      return section.member.member.username;
+                    });
+                    // Convert object to array
+                    Object.keys(vm.sections).map(function (key) { return vm.sections[key]; });
                   });
                 });
               });
