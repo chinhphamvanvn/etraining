@@ -31,15 +31,23 @@ $opts = array(
 			'path'          => '../../assets/img/gallery/',                 // path to files (REQUIRED)
 			'tmbPath'       => '../files/thumbnails/',
 			'tmbURL'        => dirname($_SERVER['PHP_SELF']) . '/../files/thumbnails',
-			'URL'           => dirname($_SERVER['PHP_SELF']) . '/../../assets/img/gallery/', // URL to files (REQUIRED)
+			'URL'           => '/assets/img/gallery/', // URL to files (REQUIRED)
 			'uploadDeny'    => array('all'),                // All Mimetypes not allowed to upload
-			'uploadAllow'   => array('image', 'text/plain'),// Mimetype `image` and `text/plain` allowed to upload
+			'uploadAllow'   => array('image', 'text/plain',
+                'application/msword',
+                'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+                'application/vnd.ms-excel',
+                'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+                'application/vnd.ms-powerpoint',
+                'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+                'application/pdf'
+                ),// Mimetype `image` and `text/plain` allowed to upload
 			'uploadOrder'   => array('deny', 'allow'),      // allowed Mimetype `image` and `text/plain` only
-			'accessControl' => 'access'                     // disable and hide dot starting files (OPTIONAL)
+			'accessControl' => 'access',                     // disable and hide dot starting files (OPTIONAL)
+            'dispInlineRegex' => '^(?:image|(?text/plain|application/pdf)$)'
 		)
 	)
 );
-
 // run elFinder
 $connector = new elFinderConnector(new elFinder($opts));
 $connector->run();
