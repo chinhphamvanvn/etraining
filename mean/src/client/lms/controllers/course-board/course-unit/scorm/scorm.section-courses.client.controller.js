@@ -6,15 +6,16 @@
     .module('lms')
     .controller('CoursesScormSectionController', CoursesScormSectionController);
 
-  CoursesScormSectionController.$inject = ['$scope', '$state', '$window', 'Authentication', '$timeout', 'courseResolve', 'sectionResolve', 'editionResolve', 'scormResolve', 'Notification', 'EditionSectionsService', 'fileManagerConfig', '$q', '_', '$translate'];
+  CoursesScormSectionController.$inject = ['$scope', '$sce', '$state', '$window', 'Authentication', '$timeout', 'courseResolve', 'sectionResolve', 'editionResolve', 'scormResolve', 'Notification', 'EditionSectionsService', 'fileManagerConfig', '$q', '_', '$translate'];
 
-  function CoursesScormSectionController($scope, $state, $window, Authentication, $timeout, course, section, edition, scorm, Notification, EditionSectionsService, fileManagerConfig, $q, _, $translate) {
+  function CoursesScormSectionController($scope, $sce, $state, $window, Authentication, $timeout, course, section, edition, scorm, Notification, EditionSectionsService, fileManagerConfig, $q, _, $translate) {
     var vm = this;
     vm.authentication = Authentication;
     vm.course = course;
     vm.edition = edition;
     vm.section = section;
     vm.scorm = scorm;
+    vm.scorm.packageUrl = $sce.trustAsResourceUrl(vm.scorm.packageUrl);
     vm.save = save;
     vm.tinymce_options = fileManagerConfig;
 

@@ -24,6 +24,7 @@
         vm.attempt.member = vm.member._id;
         vm.attempt.status = 'initial';
         vm.attempt.$save();
+        vm.scorm.packageUrl = $sce.trustAsResourceUrl(vm.scorm.packageUrl);
       });
     }
 

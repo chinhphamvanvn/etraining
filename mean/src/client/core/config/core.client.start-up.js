@@ -14,16 +14,26 @@
       plugins: [
         'advlist autolink lists link image charmap print preview anchor',
         'searchreplace visualblocks code fullscreen',
-        'insertdatetime media table contextmenu paste'
+        'insertdatetime media mediaembed table contextmenu paste'
       ],
-      toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+      media_live_embeds: true,
+      relative_urls : false,
+      remove_script_host : false,
+      convert_urls : true,
+      video_template_callback: function(data) {
+        return '<iframe width="' + data.width + '" height="' + data.height + '" src="' + data.source1 + '" /></iframe>';
+      },
+      toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image media',
       file_picker_callback: function(callback, value, meta) {
         tinymce.activeEditor.windowManager.open({
           file: '/file_manager/fm_tinymce.html', // use an absolute path!
           title: 'File Manager',
           width: 920,
           height: 440,
-          resizable: 'yes'
+          resizable: 'yes',
+          xhrFields: {
+            'withCredentials' : true
+          }
         }, {
           oninsert: function(file, elf) {
             var url,
