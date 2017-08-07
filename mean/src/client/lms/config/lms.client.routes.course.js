@@ -852,7 +852,7 @@
       }, function(section) {
         if (section.scorm) {
             ScormsService.get({
-              scormId: section.scormId
+              scormId: section.scorm
           }, function(scorm) {
             resolve(scorm);
           }, function() {
