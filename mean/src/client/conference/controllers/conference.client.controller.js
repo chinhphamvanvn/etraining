@@ -112,7 +112,7 @@
             vm.connected = true;
             vm.connecting = false;
             var localCamera = document.getElementById('localCamera');
-            webrtcSocket.publishWebcam(null, function() {
+            webrtcSocket.publishWebcam(localCamera, function() {
                 conferenceSocket.registerChannel();
                 if (vm.member.role === 'teacher')
                     conferenceSocket.publishChannel(vm.member.member._id);

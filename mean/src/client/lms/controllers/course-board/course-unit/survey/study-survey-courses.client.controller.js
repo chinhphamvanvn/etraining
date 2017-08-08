@@ -104,8 +104,8 @@
             return obj.answer._id;
           });
           vm.attempt.$update(function() {
-            if (!$scope.$parent.endCourse) {
-              $scope.$parent.nextSection();
+            if (!$scope.$parent.vm.endCourse) {
+              $scope.$parent.vm.nextSection();
             } else {
               vm.completeCourse = true;
             }

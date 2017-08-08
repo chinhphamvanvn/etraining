@@ -17,6 +17,11 @@
     vm.selectGroup = selectGroup;
     vm.currPage = 1;
     vm.itemsPerPage = 10;
+    var typeQuestion = ['sc', 'mc', 'tf', 'fb', 'ext', 'as', 'dnd', 'pic', 'grouped'];
+    vm.lengthQuestion = {};
+    typeQuestion.forEach(function(type) {
+      vm.lengthQuestion[type] = {length : 0};
+    });
 
     function selectGroup(groups) {
       vm.groups = groups;
@@ -29,6 +34,14 @@
         }, function(questions) {
           vm.totalQuestions = vm.totalQuestions.concat(questions);
           vm.questions = vm.totalQuestions.slice(0, vm.itemsPerPage);
+
+          vm.totalQuestions.forEach(function(ques) {
+            if(ques.type && vm.lengthQuestion[ques.type]){
+              vm.lengthQuestion[ques.type].length ++;
+            } else if(ques.grouped) {
+              vm.lengthQuestion['grouped'].length ++;
+            }
+          });
         });
       });
     }

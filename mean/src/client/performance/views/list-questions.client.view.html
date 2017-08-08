@@ -85,6 +85,21 @@
                         </div>
 
                     </div>
+                    <div>
+                        <span ng-show="vm.totalQuestions.length > 0">{{'PAGE.LMS.MY_EXAMS.GRADE_SCHEME.TOTAL_QUESTION' | translate}}: {{vm.totalQuestions.length}}&nbsp;&nbsp;</span>
+                        <span ng-repeat="(key, value) in vm.lengthQuestion">
+                            <span ng-show="key == 'sc' && value.length > 0">{{'COMMON.QUESTION_TYPE.SC'|translate}}</span>
+                            <span ng-show="key == 'mc' && value.length > 0">{{'COMMON.QUESTION_TYPE.MC'|translate}}</span>
+                            <span ng-show="key == 'tf' && value.length > 0">{{'COMMON.QUESTION_TYPE.TF'|translate}}</span>
+                            <span ng-show="key == 'fb' && value.length > 0">{{'COMMON.QUESTION_TYPE.FB'|translate}}</span>
+                            <span ng-show="key == 'ext' && value.length > 0">{{'COMMON.QUESTION_TYPE.EXT'|translate}}</span>
+                            <span ng-show="key == 'as' && value.length > 0">{{'COMMON.QUESTION_TYPE.AS'|translate}}</span>
+                            <span ng-show="key == 'dnd' && value.length > 0">{{'COMMON.QUESTION_TYPE.DND'|translate}}</span>
+                            <span ng-show="key == 'pic' && value.length > 0">{{'COMMON.QUESTION_TYPE.PIC'|translate}}</span>
+                            <span ng-show="key == 'grouped' && value.length > 0">{{'COMMON.QUESTION_TYPE.GRP'|translate}}</span>
+                            <span ng-show="value.length">: {{value.length}} &nbsp;&nbsp;</span>
+                        </span>
+                    </div>
                     <div class="md-card-content questions-list">
                         <table class="uk-table uk-table-hover uk-table-condensed"
                                cellspacing="0" width="100%">

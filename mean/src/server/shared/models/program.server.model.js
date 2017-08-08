@@ -56,6 +56,12 @@ var CourseProgramSchema = new Schema({
       ref: 'Course'
     }]
   },
+  organization: {
+    type: [{
+      type: Schema.ObjectId,
+      ref: 'Group'
+    }]
+  },
   competencies: {
     type: [{
       type: Schema.ObjectId,

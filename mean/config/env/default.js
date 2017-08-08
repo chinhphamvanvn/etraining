@@ -114,7 +114,14 @@ var s = module.exports = {
         limits: {
           fileSize: 8 * 1024 * 1024 // Max file size in bytes (1 MB)
         }
-      }
+      },
+      scorm: {
+          dest: 'public/files/course/scorm/',
+          urlPath: '/files/course/scorm/',
+          limits: {
+            fileSize: 512 * 1024 * 1024 // Max file size in bytes (1 MB)
+          }
+        }
     },
     question: {
       image: {

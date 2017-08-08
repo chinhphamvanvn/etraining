@@ -221,28 +221,49 @@
         });
         // if course is self-study, then allow single enrollment per user
         if (!exist) {
-          var member = new CourseMembersService();
-          member.course = vm.course._id;
-          member.member = user._id;
-          member.edition = vm.edition._id;
-          if (vm.selectedClass)
-            member.classroom = vm.selectedClass;
-          member.registerAgent = Authentication.user._id;
-          member.status = 'active';
-          member.enrollmentStatus = 'registered';
-          member.role = 'student';
-          member.registered = new Date();
-          member.$save(function() {
-            Notification.success({
-              message: '<i class="uk-icon-check"></i> Member ' + user.displayName + 'enroll successfully!'
-            });
-            vm.students.push(member);
-          }, function(errorResponse) {
+          if(vm.course.status !== 'available') {
             Notification.error({
-              message: errorResponse.data.message,
-              title: '<i class="uk-icon-ban"></i> Member ' + user.displayName + 'failed to enroll successfully!'
-            });
-          });
+                message: 'Error: ' + $translate.instant('ERROR.COURSE_REGISTER.UNAVAILABLE') + ' !'
+              });
+          } else {
+            if (!vm.course.enrollStatus) {
+              Notification.error({
+                message: 'Error: ' + $translate.instant('ERROR.COURSE_REGISTER.ENROLL_UNAVAILABLE') + ' !'
+              });
+            } else {
+              if(vm.course.model === 'group' && !vm.selectedClass) {
+                 Notification.error({
+                  message: 'Error: ' + $translate.instant('ERROR.COURSE_REGISTER.CHOOSE_CLASS') + ' !'
+                });
+              } else {
+                var member = new CourseMembersService();
+                member.course = vm.course._id;
+                member.member = user._id;
+                member.edition = vm.edition._id;
+                if (vm.selectedClass)
+                  member.classroom = vm.selectedClass;
+                member.registerAgent = Authentication.user._id;
+                member.status = 'active';
+                member.enrollmentStatus = 'registered';
+                member.role = 'student';
+                member.registered = new Date();
+                member.$save(function() {
+                  Notification.success({
+                    message: '<i class="uk-icon-check"></i> Member ' + user.displayName + ' enroll successfully!'
+                  });
+                  vm.students.push(member);
+                }, function(errorResponse) {
+                  Notification.error({
+                    message: 'Error: ' + $translate.instant('ERROR.COURSE_REGISTER.DATE') + ' !'
+                  });
+                  // Notification.error({
+                  //   message: errorResponse.data.message,
+                  //   title: '<i class="uk-icon-ban"></i> Member ' + user.displayName + 'failed to enroll successfully!'
+                  // });
+                });
+              }
+            }
+          }
         } else if (exist && course.model === 'group') {
           exist.classroom = vm.selectedClass;
           exist.$update(function() {

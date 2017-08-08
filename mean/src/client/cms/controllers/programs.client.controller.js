@@ -6,9 +6,11 @@
     .module('cms')
     .controller('ProgramsController', ProgramsController);
 
-  ProgramsController.$inject = ['$scope', '$state', '$window', 'Authentication', '$timeout', 'programResolve', 'CoursesService', 'Notification', 'CompetenciesService', 'fileManagerConfig', '$translate', '_'];
+  ProgramsController.$inject = ['$scope', '$state', '$window', 'Authentication', '$timeout', 'programResolve', 'CoursesService', 
+  'Notification', 'CompetenciesService', 'fileManagerConfig', '$translate', '_', 'GroupsService'];
 
-  function ProgramsController($scope, $state, $window, Authentication, $timeout, program, CoursesService, Notification, CompetenciesService, fileManagerConfig, $translate, _) {
+  function ProgramsController($scope, $state, $window, Authentication, $timeout, program, CoursesService, Notification, 
+    CompetenciesService, fileManagerConfig, $translate, _, GroupsService) {
     var vm = this;
 
     vm.authentication = Authentication;
@@ -80,7 +82,19 @@
         };
       });
     });
-
+    vm.organization = _.pluck(vm.program.organization, '_id');
+    vm.organizationOptions = [];
+    GroupsService.byCategory({
+      category: 'organization'
+    }, function(groups) {
+      vm.organizationOptions = _.map(groups, function(obj) {
+        return {
+          id: obj._id,
+          title: obj.name,
+          value: obj._id
+        };
+      });
+    });
 
     function activate() {
       vm.program.status = 'available';
@@ -116,6 +130,7 @@
     function save() {
       vm.program.competencies = vm.competencies;
       vm.program.courses = vm.courses;
+      vm.program.organization = vm.organization;
       if (!vm.program._id)
         vm.program.$save(onSaveSuccess, onSaveFailure);
       else

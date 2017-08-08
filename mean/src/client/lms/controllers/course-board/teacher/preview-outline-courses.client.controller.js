@@ -54,6 +54,10 @@
         $state.go('workspace.lms.courses.outline.preview.html', {
           sectionId: node.data._id
         });
+      if (node.data.contentType === 'scorm')
+          $state.go('workspace.lms.courses.outline.preview.scorm', {
+            sectionId: node.data._id
+          });
       if (node.data.contentType === 'test')
         $state.go('workspace.lms.courses.outline.preview.quiz', {
           sectionId: node.data._id

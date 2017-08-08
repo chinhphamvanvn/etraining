@@ -196,7 +196,7 @@ exports.chaangeMediaImage = function(req, res) {
 
   function updateMedia() {
     return new Promise(function(resolve, reject) {
-      media.imageURL = config.uploads.library.image.urlPaath + req.file.filename;
+      media.imageURL = config.uploads.library.image.urlPath + req.file.filename;
       media.save(function(err, course) {
         if (err) {
           reject(err);
@@ -228,7 +228,7 @@ exports.chaangeMediaImage = function(req, res) {
 
 exports.uploadMediaContent = function(req, res) {
   // Filtering to upload only images
-  var multerConfig = config.uploads.library.content;
+  var multerConfig = config.uploads.library.document;
   var upload = multer(multerConfig).single('newMediaContent');
   uploadContent()
     .then(function(result) {
@@ -245,7 +245,7 @@ exports.uploadMediaContent = function(req, res) {
           console.log(uploadError);
           reject(errorHandler.getErrorMessage(uploadError));
         } else {
-          var downloadURL = config.uploads.library.content.urlPaath + req.file.filename;
+          var downloadURL = config.uploads.library.document.urlPath + req.file.filename;
           var originalname = req.file.originalname;
           resolve({
             downloadURL: downloadURL,

@@ -185,7 +185,7 @@ exports.materialByID = function(req, res, next, id) {
 
 exports.uploadCourseMaterial = function(req, res) {
   // Filtering to upload only images
-  var multerConfig = config.uploads.file.document;
+  var multerConfig = config.uploads.course.document;
   var upload = multer(multerConfig).single('newCourseMaterial');
 
   uploadMaterial()
@@ -202,7 +202,9 @@ exports.uploadCourseMaterial = function(req, res) {
         if (uploadError) {
           reject(errorHandler.getErrorMessage(uploadError));
         } else {
-          var downloadURL = config.uploads.file.document.urlPaath + req.file.filename;
+            console.log(req.file);
+          var downloadURL = config.uploads.course.document.urlPath + req.file.filename;
+          console.log(downloadURL);
           var originalname = req.file.originalname;
           resolve({
             downloadURL: downloadURL,

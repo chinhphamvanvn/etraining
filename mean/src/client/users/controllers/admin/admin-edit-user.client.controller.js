@@ -68,6 +68,23 @@
       create: false
     };
 
+    var $birthday = $('#uk_birthday');
+
+    var enroll_birthday = UIkit.datepicker($birthday, {
+      format: 'DD.MM.YYYY'
+    });
+    $birthday.on('change', function() {
+      vm.user.birthday = moment($birthday.val(), 'DD.MM.YYYY');
+    });
+
+    var $startDate = $('#uk_start_date');
+
+    var enroll_start_date = UIkit.datepicker($startDate, {
+      format: 'DD.MM.YYYY'
+    });
+    $startDate.on('change', function() {
+      vm.user.startDate = moment($startDate.val(), 'DD.MM.YYYY');
+    });
 
     function remove() {
       if (isContextUserSelf())

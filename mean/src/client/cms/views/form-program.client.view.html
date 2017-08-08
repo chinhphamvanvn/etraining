@@ -36,7 +36,7 @@
 						<li class="uk-width-1-3"><a href="#">{{'MODEL.PROGRAM.ENROLL_POLICY'|translate}}</a></li>
 						<li class="uk-width-1-3"><a href="#">{{'PAGE.CMS.PROGRAMS.SYLLABUS'|translate}}</a></li>
 					</ul>
-					<ul id="tabs_4" class="uk-switcher uk-margin">
+					<ul id="tabs_4" class="uk-switcher uk-margin" style="min-height: 300px;">
 						<li>
 							<div class="uk-grid uk-margin-top">
 								<div class="uk-width-medium-3-4 parsley-row">
@@ -138,7 +138,7 @@
 						</li>
 						<li>
 							<div class="uk-grid uk-margin-large-bottom" data-uk-grid-margin>
-								<div class="uk-width-1-2" style="min-height: 250px;">
+								<div class="uk-width-1-2">
 									<label class="uk-form-label">{{'MODEL.PROGRAM.COURSE'|translate}}</label>
 									<selectize config="vm.courseConfig" position="bottom" options="vm.courseOptions"
 										ng-model="vm.courses" name="program_course"></selectize>
@@ -147,6 +147,11 @@
 									<label class="uk-form-label">{{'MODEL.PROGRAM.COMPETENCY'|translate}}</label>
                   <selectize config="vm.competencyConfig" position="bottom"   options="vm.competencyOptions"
                              ng-model="vm.competencies" name="program_competency"></selectize>
+								</div>
+								<div class=" uk-width-1-2">
+									<label class="uk-form-label">{{'PAGE.REPORTS.COURSE_BY_MEMBER.SELECT_DEPARTMENT'|translate}}</label>
+                  <selectize config="vm.competencyConfig" position="bottom"   options="vm.organizationOptions"
+                             ng-model="vm.organization" name="program_organization"></selectize>
 								</div>
 							</div>
 

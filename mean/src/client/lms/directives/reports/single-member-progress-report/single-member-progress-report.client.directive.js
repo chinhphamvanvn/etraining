@@ -32,8 +32,11 @@
               editionId: scope.selectedMember.edition._id
             }, function() {
               _.each(sections, function(section) {
-                var sectionAttemps = _.filter(attemps, function(attempt) {
-                  return attempt.section === section._id;
+                var attempts = _.filter(attemps, function(attempt) {
+                  return attempt.section;
+                });
+                var sectionAttemps = _.filter(attempts, function(attempt) {
+                  return attempt.section._id === section._id;
                 });
                 section.member = scope.selectedMember;
                 if (sectionAttemps && sectionAttemps.length > 0) {

@@ -16,6 +16,7 @@
 
     function generateReport(users) {
       vm.members = [];
+      var tmpMembers = [];
       _.each(users, function(user) {
         CourseMembersService.byUser({
           userId: user._id
@@ -42,7 +43,12 @@
             courseUtils.memberScoreByCourse(member, member.edition).then(function(score) {
               member.score = score.totalPercent;
             });
-            vm.members.push(member);
+            tmpMembers.push(member);
+            vm.members = _.groupBy(tmpMembers, function (member) {
+              return member.member.username;
+            });
+            // Convert object to array
+            Object.keys(vm.members).map(function (key) { return vm.members[key]; });
           });
         });
       });

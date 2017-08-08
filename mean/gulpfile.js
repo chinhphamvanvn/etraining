@@ -407,6 +407,8 @@ gulp.task('makeUploadsDir', function() {
     fs.mkdirSync(courseDir + 'audio');
   if (!fs.existsSync(courseDir + 'document'))
     fs.mkdirSync(courseDir + 'document');
+  if (!fs.existsSync(courseDir + 'scorm'))
+      fs.mkdirSync(courseDir + 'scorm');
 
   var libDir = './public/files/library/';
   if (!fs.existsSync(libDir))

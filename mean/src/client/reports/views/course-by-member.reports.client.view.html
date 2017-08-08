@@ -39,24 +39,24 @@
 										<th>{{'REPORT.COURSE_BY_MEMBER.TIME'|translate}}</th>
 									</tr>
 								</thead>
-								<tbody>
-									<tr ng-repeat="member in vm.members">
-										<td>{{$index + 1}}</td>
-										<td>{{member.member.username}}</td>
+								<tbody ng-repeat="(key, members) in vm.members" ng-init="parentIndex=$index">
+									<tr ng-repeat="member in members">
+										<td ng-if="$index == 0" rowspan="{{ vm.members[key].length }}">{{parentIndex + 1}}</td>
+										<td ng-if="$index == 0" rowspan="{{ vm.members[key].length }}">{{member.member.username}}</td>
 										<td>{{member.course.code}}</td>
-										<th>{{member.course.name}}</th>
-										<th><span ng-if="member.course.model=='self-paced'">{{'COMMON.COURSE_MODEL.SELF_STUDY'|translate}}</span>
+										<td>{{member.course.name}}</td>
+										<td><span ng-if="member.course.model=='self-paced'">{{'COMMON.COURSE_MODEL.SELF_STUDY'|translate}}</span>
 											<span ng-if="member.course.model=='group'">{{'COMMON.COURSE_MODEL.GROUP_STUDY'|translate}}</span>
-										</th>
-										<th>{{member.registered | date :'dd/MM/yyyy' }}</th>
-										<th>{{member.firstAttempt.created | date :'dd/MM/yyyy' }}</th>
-										<th>{{member.lastAttempt.created | date :'dd/MM/yyyy' }}</th>
-										<th><span ng-if="member.enrollmentStatus=='registered'">{{'COMMON.ENROLL.REGISTERED'|translate}}</span>
+										</td>
+										<td>{{member.registered | date :'dd/MM/yyyy' }}</td>
+										<td>{{member.firstAttempt.created | date :'dd/MM/yyyy' }}</td>
+										<td>{{member.lastAttempt.created | date :'dd/MM/yyyy' }}</td>
+										<td><span ng-if="member.enrollmentStatus=='registered'">{{'COMMON.ENROLL.REGISTERED'|translate}}</span>
 											<span ng-if="member.enrollmentStatus=='in-study'">{{'COMMON.ENROLL.INSTUDY'|translate}}</span>
 											<span ng-if="member.enrollmentStatus=='completed'">{{'COMMON.ENROLL.COMPLETED'|translate}}</span>
-										</th>
-										<th>{{member.score}}</th>
-										<th>{{member.time | timeString}}</th>
+										</td>
+										<td>{{member.score}}</td>
+										<td>{{member.time | timeString}}</td>
 									</tr>
 								</tbody>
 							</table>

@@ -40,6 +40,10 @@ exports.invokeRolesPolicies = function() {
         {
           resources: '/api/programs/restricted',
           permissions: ['get']
+        },
+        {
+          resources: '/api/programs/byGroup/:groupId',
+          permissions: ['get']
         }
       ]
     },
@@ -65,6 +69,10 @@ exports.invokeRolesPolicies = function() {
         {
           resources: '/api/programs/restricted',
           permissions: ['get']
+        },
+        {
+          resources: '/api/programs/byGroup/:groupId',
+          permissions: ['get']
         }
       ]
     },
@@ -81,6 +89,10 @@ exports.invokeRolesPolicies = function() {
         },
         {
           resources: '/api/programs/public',
+          permissions: ['get']
+        },
+        {
+          resources: '/api/programs/byGroup/:groupId',
           permissions: ['get']
         }
       ]

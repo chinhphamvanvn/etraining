@@ -22,6 +22,8 @@
     vm.moveDown = moveDown;
     vm.update = update;
     vm.questions = [];
+    vm.selectQuestionGroupManual = selectQuestionGroupManual;
+    vm.selectQuestionsLib = selectQuestionsLib;
 
     _.each(vm.quiz.questions, function(q) {
       var question = QuestionsService.get({
@@ -117,6 +119,38 @@
         vm.questions = _.reject(vm.questions, function(o) {
           return o.order === question.order && !o._id;
         });
+    }
+
+    function selectQuestionGroupManual(groups) {
+      vm.questionsLib = [];
+      _.each(groups, function(group) {
+        QuestionsService.byCategory({
+          groupId: group
+        }, function(questions) {
+          vm.questionsLib = vm.questionsLib.concat(questions);
+        });
+      });
+    }
+
+    function selectQuestionsLib() {
+      if(vm.questionsLib && vm.questionsLib.length > 0) {
+        var questionNew = _.filter(vm.questionsLib, function(ques) {
+          return ques.selected;
+        });
+        questionNew.forEach(function(questionLib) {
+          var existQues = _.find(vm.questions, function(ques) {
+            return ques._id === questionLib._id;
+          });
+          if(!existQues) {
+            if (vm.questions.length === 0){
+              questionLib.order = vm.questions.length + 1;
+            } else {
+              questionLib.order = _.max(vm.questions, function(o) { return o.order;}).order + 1;
+            }
+            vm.questions.push(questionLib);
+          }
+        });
+      }
     }
 
   }

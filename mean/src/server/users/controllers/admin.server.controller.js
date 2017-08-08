@@ -190,7 +190,10 @@ exports.update = function(req, res) {
   user.group = req.body.group;
   user.displayName = user.firstName + ' ' + user.lastName;
   user.roles = req.body.roles;
-
+  user.birthday = req.body.birthday;
+  user.gender = req.body.gender;
+  user.startDate = req.body.startDate;
+  user.driverLicense = req.body.driverLicense;
 
   user.save(function(err) {
     if (err) {
@@ -375,7 +378,7 @@ exports.changeProfilePicture = function(req, res) {
     fs.mkdirSync(userDir);
   }
   config.uploads.user.image.urlPath = config.uploads.user.image.urlPath.replace('$USER_ID', user._id);
-  config.uploads.user.image.dest = config.uploads.user.image.dest.replace('$USER_ID', user._id); 
+  config.uploads.user.image.dest = config.uploads.user.image.dest.replace('$USER_ID', user._id);
   if (user) {
     existingImageUrl = config.uploads.user.image.dest.replace('$USER_ID', user._id) + path.basename(user.profileImageURL);
     uploadImage()

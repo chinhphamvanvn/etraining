@@ -14,7 +14,7 @@ var _ = require('lodash'),
   UserLog = mongoose.model('UserLog'),
   validator = require('validator');
 
-var whitelistedFields = ['firstName', 'lastName', 'email', 'username', 'position', 'facebook', 'twitter', 'phone', 'profileImageURL', 'banned'];
+var whitelistedFields = ['firstName', 'lastName', 'email', 'username', 'position', 'facebook', 'twitter', 'phone', 'profileImageURL', 'banned', "birthday", "gender", "startDate", "driverLicense"];
 
 /**
  * Update user details
@@ -170,6 +170,10 @@ exports.me = function(req, res) {
       twitter: req.user.twitter,
       lastName: validator.escape(req.user.lastName),
       firstName: validator.escape(req.user.firstName),
+      birthday: req.user.birthday,
+      gender: req.user.gender,
+      startDate: req.user.startDate,
+      driverLicense: req.user.driverLicense,
       additionalProvidersData: req.user.additionalProvidersData
     };
   }
@@ -226,7 +230,7 @@ exports.uploadAudio = function(req, res) {
     fs.mkdirSync(userDir);
   }
   config.uploads.user.audio.urlPath = config.uploads.user.audio.urlPath.replace('$USER_ID', user._id);
-  config.uploads.user.audio.dest = config.uploads.user.audio.dest.replace('$USER_ID', user._id); 
+  config.uploads.user.audio.dest = config.uploads.user.audio.dest.replace('$USER_ID', user._id);
   uploadAudio()
     .then(function(audioUrl) {
       res.json({
@@ -261,7 +265,7 @@ exports.uploadFile = function(req, res) {
     fs.mkdirSync(userDir);
   }
   config.uploads.user.document.urlPath = config.uploads.user.document.urlPath.replace('$USER_ID', user._id);
-  config.uploads.user.document.dest = config.uploads.user.document.dest.replace('$USER_ID', user._id); 
+  config.uploads.user.document.dest = config.uploads.user.document.dest.replace('$USER_ID', user._id);
   uploadFile()
     .then(function(filrUrl) {
       res.json({

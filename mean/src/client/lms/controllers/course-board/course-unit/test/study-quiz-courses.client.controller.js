@@ -32,7 +32,7 @@
             memberId: vm.member._id
           }, function() {
             var attemptCount = _.filter(vm.attempts, function(att) {
-              return att.section === vm.section._id;
+              return att.section._id === vm.section._id;
             }).length;
             if (attemptCount >= vm.quiz.maxAttempt && vm.quiz.maxAttempt > 0) {
               vm.alert = $translate.instant('ERROR.COURSE_STUDY.MAX_ATTEMPT_EXCEED');
@@ -51,7 +51,7 @@
                 vm.attempt.end = new Date();
                 vm.attempt.answers = _.pluck(vm.questions, 'answer._id');
                 vm.attempt.$update(function() {
-                  $scope.$parent.nextSection();
+                  $scope.$parent.vm.nextSection();
                 });
               }, vm.remainTime * 1000);
               vm.intervalToken = $interval(updateClock, 1000);
@@ -147,8 +147,8 @@
             $interval.cancel(vm.intervalToken);
             $timeout.cancel(vm.timeoutToken);
 
-            if (!$scope.$parent.endCourse) {
-              $scope.$parent.nextSection();
+            if (!$scope.$parent.vm.endCourse) {
+              $scope.$parent.vm.nextSection();
             } else {
               vm.completeCourse = true;
             }

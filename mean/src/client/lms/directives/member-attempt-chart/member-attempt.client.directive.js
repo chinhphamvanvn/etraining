@@ -49,18 +49,23 @@
               memberId: scope.member._id,
               editionId: scope.edition
             }, function(stats) {
-              var date = ['x'];
-              var attempt = [$translate.instant('COMMON.MEMBER_ATTEMPT')];
-              _.each(stats, function(stat) {
-                date.push(stat._id.day + '/' + stat._id.month + '/' + stat._id.year);
-                attempt.push(stat.count);
-              });
-              progress_chart.load({
-                columns: [
-                  date,
-                  attempt
-                ]
-              });
+              if(stats.length > 0) {
+                progress_chart.show();
+                var date = ['x'];
+                var attempt = [$translate.instant('COMMON.MEMBER_ATTEMPT')];
+                _.each(stats, function(stat) {
+                  date.push(stat._id.day + '/' + stat._id.month + '/' + stat._id.year);
+                  attempt.push(stat.count);
+                });
+                progress_chart.load({
+                  columns: [
+                    date,
+                    attempt
+                  ]
+                });
+              } else {
+                progress_chart.hide();
+              }
             });
           }
         });

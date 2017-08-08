@@ -40,5 +40,11 @@
       roles: ['admin'],
       position: 4
     });
+    menuService.addSubMenuItem('sidebar', 'admin.workspace.reports', {
+      title: 'PAGE.WORKSPACE.SIDEBAR.REPORTS.DRIVER_START',
+      state: 'admin.workspace.reports.driver-start-date',
+      roles: ['admin'],
+      position: 5
+    });
   }
 }());

@@ -43,9 +43,19 @@
 	<div id="page_content_inner">
 		<div class="md-card">
 			<div class="md-card-content uk-margin">
-				<label for="section_html">{{'MODEL.SECTION.HTML'|translate}}</span></label>
+				<label for="section_html">{{'MODEL.SECTION.HTML'|translate}}</label>
+
 				<textarea ui-tinymce="vm.tinymce_options" ng-model="vm.html.content"
 					cols="30" rows="24"></textarea>
+				<div>
+					<span class="uk-form-file md-btn md-btn-primary md-btn-icon">
+						<i class="uk-icon-upload"></i> {{'ACTION.UPLOAD_COURSE'|translate}}
+						<input id="file_upload-select" type="file">
+					</span>
+					<div id="file_upload-progressbar" class="uk-progress uk-hidden">
+						<div class="uk-progress-bar" style="width: 0">0%</div>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
