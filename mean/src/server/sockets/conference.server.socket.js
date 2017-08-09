@@ -232,7 +232,7 @@ function unpublishChannel(io, socket, roomId, memberId) {
     }
 }
 
-function disconnect(io, sessionId) {
+function disconnect(io,socket, sessionId) {
     try {
         _.each(rooms, function(room) {
             var member = room.getMemberBySession(sessionId);
@@ -261,7 +261,7 @@ function disconnect(io, sessionId) {
 module.exports = function(io, socket) {
     var sessionId = nextId++;
     socket.on('disconnect', function () {
-      disconnect(io, sessionId);
+      disconnect(io,socket, sessionId);
     });
 
     socket.on(CHANNEL_ID, function(message) {
