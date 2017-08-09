@@ -1,0 +1,129 @@
+<div class="center-container">
+	<div class="center-body">
+		<div class="form form-visible">
+			<div class="col-md-8">
+				<div class="row">
+					<div class="col-md-6">
+						<div class="subpadding" id="signin" data-jc="visible"
+							data-jc-path="common.tab" >
+							<h2>Sign in</h2>
+							<div class="m ui-textbox-container" data-jc="textbox"
+								data-jc-path="signin.email" data-jc-type="email"
+								data-required="true" data-jc-value="'@'">
+								<div class="ui-textbox-label ui-textbox-label-required">Email
+									address:</div>
+								<div class="ui-textbox">
+									<input type="text" data-jc-bind="" name="signin.email">
+								</div>
+							</div>
+							<div class="m ui-textbox-container" data-jc="textbox"
+								data-jc-path="signin.password" data-jc-type="password"
+								data-required="true" data-jc-value="''">
+								<div class="ui-textbox-label ui-textbox-label-required">Password:</div>
+								<div class="ui-textbox">
+									<input type="password" data-jc-bind="" name="signin.password">
+								</div>
+							</div>
+							<div class="m ui-checkbox ui-checkbox-checked" data-jc="checkbox"
+								data-jc-path="signin.isrembember" data-jc-value="true">
+								<div>
+									<i class="fa fa-check"></i>
+								</div>
+								<span>Remember me</span>
+							</div>
+							<div data-jc="error" data-jc-path="signin.response">
+								<ul class="ui-error hidden"></ul>
+							</div>
+							<div data-jc="validation" data-jc-path="signin" class="m">
+								<button class="ui-button" disabled="" data-jc="click"
+									data-jc-path="doLogin" data-enter="#signin">Login</button>
+							</div>
+							<div>
+								<a href="javascript:void(0)" data-jc="click"
+									data-jc-path="common.tab" data-value="password">Forgot your
+									password?</a>
+							</div>
+							<div class="social">
+								<a href="/oauth2/github/" class="oauth2"><i
+									class="fa fa-github"></i></a><a href="/oauth2/facebook/"
+									class="oauth2"><i class="fa fa-facebook"></i></a><a
+									href="/oauth2/google/" class="oauth2"><i
+									class="fa fa-google-plus"></i></a><a href="/oauth2/linkedin/"
+									class="oauth2"><i class="fa fa-linkedin"></i></a><a
+									href="/oauth2/live/" class="oauth2"><i
+									class="fa fa-windows"></i></a>
+							</div>
+							<p>
+								With <b>Total.js Membership</b> you will have an access into the
+								online services.
+							</p>
+						</div>
+						<hr class="visible-xs visible-sm">
+					</div>
+					<div class="col-md-6 bl">
+						<div class="subpadding">
+							<h2>
+								<i class="fa fa-lock"></i>Sign up
+							</h2>
+							<div class="m ui-textbox-container" data-jc="textbox"
+								data-jc-path="signup.name" data-required="true"
+								data-jc-value="''" data-placeholder="e.g. Peter Sirka"
+								data-maxlength="30">
+								<div class="ui-textbox-label ui-textbox-label-required">Account
+									name:</div>
+								<div class="ui-textbox">
+									<input type="text" placeholder="e.g. Peter Sirka"
+										maxlength="30" data-jc-bind="" name="signup.name">
+								</div>
+							</div>
+							<div class="m ui-textbox-container" data-jc="textbox"
+								data-jc-path="signup.email" data-jc-type="email"
+								data-required="true" data-jc-value="'@'">
+								<div class="ui-textbox-label ui-textbox-label-required">Email
+									address:</div>
+								<div class="ui-textbox">
+									<input type="text" data-jc-bind="" name="signup.email">
+								</div>
+							</div>
+							<div class="m ui-textbox-container" data-jc="textbox"
+								data-jc-path="signup.password" data-jc-type="password"
+								data-required="true" data-jc-value="''">
+								<div class="ui-textbox-label ui-textbox-label-required">Password:</div>
+								<div class="ui-textbox">
+									<input type="password" data-jc-bind="" name="signup.password">
+								</div>
+							</div>
+							<div class="m ui-textbox-container" data-jc="textbox"
+								data-jc-path="signup.passwordreply" data-jc-type="password"
+								data-required="true" data-jc-value="''">
+								<div class="ui-textbox-label ui-textbox-label-required">Password
+									confirmation:</div>
+								<div class="ui-textbox">
+									<input type="password" data-jc-bind=""
+										name="signup.passwordreply">
+								</div>
+							</div>
+							<div class="b ui-checkbox" data-jc="checkbox"
+								data-jc-path="signup.isterms">
+								<div>
+									<i class="fa fa-check"></i>
+								</div>
+								<span>I agree with terms and conditions</span>
+							</div>
+							<div class="m fs11">
+								<a href="/terms/" target="_blank">Terms &amp; Conditions</a>
+							</div>
+							<div data-jc="error" data-jc-path="signup.response">
+								<ul class="ui-error hidden"></ul>
+							</div>
+							<div data-jc="validation" data-jc-path="signup">
+								<button class="ui-button" disabled="" data-jc="click"
+									data-jc-path="doRegister">Sign up</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

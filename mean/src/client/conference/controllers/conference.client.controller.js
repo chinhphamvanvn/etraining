@@ -314,10 +314,10 @@
                 return;
             vm.channelList = channelList;
             var subscribedSlots = _.filter(vm.videoSlots, function(slot) {
-                return _.contains(channelList, vm.publisher.member._id);
+                return _.contains(channelList, slot.publisher.member._id);
             });
             var unsubscribedSlots = _.filter(vm.videoSlots, function(slot) {
-                return !_.contains(channelList, vm.publisher.member._id);
+                return !_.contains(channelList, slot.publisher.member._id);
             });
             _.each(subscribedSlots, function(slot) {
                 if (!slot.allocated && slot.publisher.member._id !== vm.member.member._id) {
