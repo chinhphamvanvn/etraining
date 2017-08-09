@@ -178,8 +178,9 @@
         function inviteMember(member) {
             if (!member.invited && member.online && member.webcam) {
                 conferenceSocket.publishChannel(member.member._id);
+                member.invited = !member.invited;
             }
-            member.invited = !member.invited;
+            
         }
 
         function chat() {
