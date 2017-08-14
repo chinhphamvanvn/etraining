@@ -30,10 +30,10 @@
 				<div class="md-card">
 					<div class="md-card-toolbar">
 						<div class="md-card-toolbar-actions">
-							
-							<a class="md-btn  md-btn-icon md-btn-wave-light" 
+
+							<a class="md-btn  md-btn-icon md-btn-wave-light"
 								href='#view_permission' data-uk-modal="{ center:true }">{{'PAGE.USERS.PERMISSION.VIEW_PERMISSION'|translate}}</a>
-							<a class="md-btn  md-btn-icon md-btn-wave-light" 
+							<a class="md-btn  md-btn-icon md-btn-wave-light"
 								href='#api_permission' data-uk-modal="{ center:true }">{{'PAGE.USERS.PERMISSION.API_PERMISSION'|translate}}</a>
 						</div>
 						<h3 class="md-card-toolbar-heading-text uk-text-upper">
@@ -95,9 +95,9 @@
 				translate}}
 			<a  ng-click="vm.newPermissionView()" data-uk-tooltip="{pos:'right'}"
                    title="{{'ACTION.CREATE'|translate}}"><i class="md-icon material-icons uk-text-success ">add</i></a>
-				
+
 				</h3>
-					
+
 		</div>
 		<div class="uk-margin-medium-bottom">
             	<div class="uk-grid">
@@ -108,12 +108,12 @@
 							name="view_edit_role"></selectize>
             		</div>
             		<div class="uk-width-1-3">
-            			
+
 		                <a ng-show="vm.permissionView._id" ng-click="vm.deletePermissionView()" data-uk-tooltip="{pos:'right'}"
 		                   title="{{'ACTION.DELETE'|translate}}"><i class="md-icon material-icons uk-text-danger">delete</i></a>
             		</div>
             	</div>
-            	
+
             </div>
         <form class="uk-form-stacked" ng-show="vm.permissionView">
             <div class="uk-margin-medium-bottom">
@@ -130,7 +130,7 @@
 	                <menu-tree-view tree-id="'menuAdminTree'" role="'admin'" select="vm.selectAdminMenu"  menu-items="vm.permissionView.adminMenu"></menu-tree-view>
             </div>
             </div>
-            
+
         </form>
         <div class="uk-modal-footer uk-text-right">
                 <button type="button" class="md-btn md-btn-flat uk-modal-close">{{'ACTION.CLOSE'|translate}}</button>
@@ -147,9 +147,9 @@
 				translate}}
 			<a  ng-click="vm.newPermissionApi()" data-uk-tooltip="{pos:'right'}"
                    title="{{'ACTION.CREATE'|translate}}"><i class="md-icon material-icons uk-text-success ">add</i></a>
-				
+
 				</h3>
-					
+
 		</div>
 		<div class="uk-margin-medium-bottom">
             	<div class="uk-grid">
@@ -160,12 +160,12 @@
 							name="api_edit_role"></selectize>
             		</div>
             		<div class="uk-width-1-3">
-            			
+
 		                <a ng-show="vm.permissionApi._id" ng-click="vm.deletePermissionApi()" data-uk-tooltip="{pos:'right'}"
 		                   title="{{'ACTION.DELETE'|translate}}"><i class="md-icon material-icons uk-text-danger">delete</i></a>
             		</div>
             	</div>
-            	
+
             </div>
         <form class="uk-form-stacked" ng-show="vm.permissionApi">
             <div class="uk-margin-medium-bottom">
@@ -186,7 +186,7 @@
 						</thead>
 						<tbody>
 							<tr ng-repeat="endpoint in vm.endpoints | orderBy:'name'" >
-								<td class="uk-text-center">{{endpoint.name}}</td>
+								<td class="uk-text-center">{{endpoint.name | translate}}</td>
 								<td class="uk-text-center">
 									<input 	type="checkbox" icheck ng-model='endpoint.view'>
 								</td>
@@ -202,9 +202,9 @@
 							</tr>
 						</tbody>
 					</table>
-           
+
            </div>
-            
+
         </form>
         <div class="uk-modal-footer uk-text-right">
                 <button type="button" class="md-btn md-btn-flat uk-modal-close">{{'ACTION.CLOSE'|translate}}</button>
