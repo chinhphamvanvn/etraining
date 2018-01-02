@@ -1,0 +1,242 @@
+
+<div id="page_content">
+
+	<div id="page_heading" data-uk-sticky="{ top: 48, media: 960 }">
+
+		<h1>{{'PAGE.CMS.PROGRAMS.ENROLL.TITLE' | translate}} :
+			{{vm.program.name}}</h1>
+		<span class="uk-text-upper uk-text-small"> <a
+			ui-sref="admin.workspace.cms.programs.list"><i
+				class="material-icons uk-text-primary">keyboard_arrow_left</i>{{'PAGE.CMS.PROGRAMS.TITLE'
+				| translate}}</a> <a
+			ui-sref="admin.workspace.cms.programs.view({programId:vm.program._id})"><i
+				class="material-icons uk-text-primary">keyboard_arrow_left</i>{{vm.program.name}}</a>
+		</span>
+	</div>
+	
+	<div id="page_content_inner">
+	<h3 class="heading_a uk-margin-bottom">{{'PAGE.CMS.PROGRAMS.ENROLL.MANAGER'
+		| translate}}</h3>
+	<div class="md-card uk-margin-medium-bottom">
+		<div class="md-card-content">
+			<div class="uk-overflow-container">
+				<table class="uk-table uk-table-nowrap  uk-table-condensed">
+					<thead>
+						<tr>
+							<th class="uk-width-1-10 uk-text-center">{{'MODEL.USER.AVATAR'|translate}}</th>
+							<th class="uk-width-2-10">{{'MODEL.USER.USERNAME'|translate}}</th>
+							<th class="uk-width-2-10 uk-text-center">{{'MODEL.USER.DISPLAY_NAME'|translate}}</th>
+							<th class="uk-width-1-10 uk-text-center">{{'MODEL.MEMBER.REGISTER_DATE'|translate}}</th>
+							<th class="uk-width-1-10 uk-text-center">{{'MODEL.MEMBER.STATUS'|translate}}</th>
+							<th class="uk-width-2-10 uk-text-center">{{'COMMON.ACTION' |
+								translate}}</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="member in vm.managers">
+							<td class="uk-text-center"><img class="md-user-image"
+								src="{{member.member.profileImageURL}}" alt="" /></td>
+							<td>{{member.member.username}}</td>
+							<td class="uk-text-center">{{member.member.displayName}}</td>
+							<td class="uk-text-center">{{member.registered |
+								date:'dd-MM-yyyy'}}</td>
+							<td class="uk-text-center"><span
+								ng-show="member.status=='active'"
+								class="uk-badge uk-badge-success">active</span> <span
+								ng-show="member.status=='withdrawn'"
+								class="uk-badge uk-badge-warning">withdrawn</span></td>
+							<td class="uk-text-center"> <a
+								ng-click="vm.remove(member)" data-uk-tooltip="{pos:'right'}"
+								title="{{'ACTION.DELETE'|translate}}"><i
+									class="md-icon material-icons uk-text-danger">delete</i></a></td>
+						</tr>
+
+					</tbody>
+				</table>
+			</div>
+
+		</div>
+	</div>
+
+	<h3 class="heading_a uk-margin-bottom">{{'PAGE.CMS.PROGRAMS.ENROLL.STUDENT'
+		| translate}}</h3>
+	<div class="md-card uk-margin-medium-bottom">
+		<div class="md-card-content">
+			<div class="uk-overflow-container">
+				<table class="uk-table uk-table-nowrap  uk-table-condensed">
+					<thead>
+						<tr>
+							<th class="uk-width-1-10 uk-text-center">{{'MODEL.USER.AVATAR'|translate}}</th>
+							<th class="uk-width-2-10">{{'MODEL.USER.USERNAME'|translate}}</th>
+							<th class="uk-width-2-10 uk-text-center">{{'MODEL.USER.DISPLAY_NAME'|translate}}</th>
+							<th class="uk-width-1-10 uk-text-center">{{'MODEL.MEMBER.REGISTER_DATE'|translate}}</th>
+							<th class="uk-width-1-10 uk-text-center">{{'MODEL.MEMBER.ENROLL_STATUS'|translate}}</th>
+							<th class="uk-width-1-10 uk-text-center">{{'MODEL.MEMBER.STATUS'|translate}}</th>
+							<th class="uk-width-2-10 uk-text-center">{{'COMMON.ACTION' |
+								translate}}</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="member in vm.students">
+							<td class="uk-text-center"><img class="md-user-image"
+								src="{{member.member.profileImageURL}}" alt="" /></td>
+							<td>{{member.member.username}}</td>
+							<td class="uk-text-center">{{member.member.displayName}}</td>
+							<td class="uk-text-center">{{member.registered |
+								date:'dd-MM-yyyy'}}</td>
+							<td class="uk-text-center"><span
+								ng-show="member.enrollmentStatus=='registered'"
+								class="uk-badge uk-badge-default">registered</span> <span
+								ng-show="member.enrollmentStatus=='in-study'"
+								class="uk-badge uk-badge-primary">studying</span> <span
+								ng-show="member.enrollmentStatus=='completed'"
+								class="uk-badge uk-badge-success">completed</span></td>
+							<td class="uk-text-center"><span
+								ng-show="member.status=='active'"
+								class="uk-badge uk-badge-success">active</span> <span
+								ng-show="member.status=='withdrawn'"
+								class="uk-badge uk-badge-warning">withdrawn</span></td>
+							<td class="uk-text-center">								
+									 <a
+								ng-click="vm.remove(member)" data-uk-tooltip="{pos:'right'}"
+								title="{{'ACTION.DELETE'|translate}}"><i
+									class="md-icon material-icons uk-text-danger">delete</i></a></td>
+						</tr>
+
+					</tbody>
+				</table>
+			</div>
+
+		</div>
+	</div>
+</div>
+
+</div>
+
+
+<div class="uk-modal " id="new_manager">
+	<div class="uk-modal-dialog uk-modal-dialog-large">
+		<div class="uk-alert uk-text-center uk-alert-info">
+			<h3 class="heading_b">{{'PAGE.CMS.PROGRAMS.ENROLL.SELECT_MANAGER'
+				| translate}}</h3>
+		</div>
+		<div class="uk-overflow-container">
+
+			<div class="uk-grid" data-uk-grid-margin>
+				<div class="uk-width-medium-2-5 ">
+
+					<h3 class="heading_a">{{'PAGE.CMS.PROGRAMS.ENROLL.FILTER_BY_GROUP'|translate}}</h3>
+					<group-tree-view tree-id="'managerTree'" mode="'multiple'"
+						category="'organization'" select="vm.selectManagerGroup"></group-tree-view>
+				</div>
+				<div class="uk-width-medium-3-5">
+
+					<table
+						class="uk-table uk-table-hover uk-table-nowrap uk-table-condensed">
+						<thead>
+							<tr>
+								<th></th>
+								<th class="uk-text-center uk-text-upper">{{'MODEL.USER.AVATAR'|translate}}</th>
+								<th class="uk-text-center uk-text-upper">{{'MODEL.USER.DISPLAY_NAME'|translate}}</th>
+								<th class="uk-text-center uk-text-upper">{{'MODEL.USER.POSITION'|translate}}</th>
+								<th class="uk-text-center uk-text-upper">{{'MODEL.USER.GROUP'|translate}}</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="user in vm.managerUsers">
+								<td class="uk-text-center uk-table-middle small_col"><input
+									type="checkbox" icheck ng-model="user.selectedAsManager"
+									class="check_row" table-check-row></td>
+								<td class="uk-text-center"><a href="#"
+									class="user_action_image"><img class="md-user-image"
+										src="{{user.profileImageURL}}" alt="" /></a></td>
+								<td class="uk-text-center">{{user.displayName}}</td>
+								<td class="uk-text-center">{{user.position}}</td>
+								<td class="uk-text-center">{{user.group.name}}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+		<div class="uk-modal-footer uk-text-right">
+			<button type="button" class="md-btn md-btn-flat uk-modal-close">{{'ACTION.CLOSE'|translate}}</button>
+			<button type="button"
+				class="md-btn md-btn-flat md-btn-flat-primary uk-modal-close"
+				id="snippet_new_save" ng-click="vm.selectManagers()">{{'ACTION.SELECT'|translate}}</button>
+		</div>
+	</div>
+</div>
+
+<div class="uk-modal " id="new_student">
+	<div class="uk-modal-dialog uk-modal-dialog-large">
+		<div class="uk-alert uk-text-center uk-alert-info">
+			<h3 class="heading_b">{{'PAGE.CMS.PROGRAMS.ENROLL.SELECT_STUDENT'
+				| translate}}</h3>
+		</div>
+		<div class="uk-overflow-container">
+
+			<div class="uk-grid" data-uk-grid-margin>
+				<div class="uk-width-medium-2-5 ">
+
+					<h3 class="heading_a">{{'PAGE.CMS.PROGRAMS.ENROLL.FILTER_BY_GROUP'|translate}}</h3>
+					<group-tree-view tree-id="'studentTree'" mode="'multiple'"
+						category="'organization'" select="vm.selectStudentGroup"></group-tree-view>
+
+				</div>
+				<div class="uk-width-medium-3-5">
+
+					<table
+						class="uk-table uk-table-hover uk-table-nowrap  uk-table-condensed">
+						<thead>
+							<tr>
+								<th></th>
+								<th class="uk-text-center uk-text-upper">{{'MODEL.USER.AVATAR'|translate}}</th>
+								<th class="uk-text-center uk-text-upper">{{'MODEL.USER.DISPLAY_NAME'|translate}}</th>
+								<th class="uk-text-center uk-text-upper">{{'MODEL.USER.POSITION'|translate}}</th>
+								<th class="uk-text-center uk-text-upper">{{'MODEL.USER.GROUP'|translate}}</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="user in vm.studentUsers">
+								<td class="uk-text-center uk-table-middle small_col"><input
+									type="checkbox" icheck ng-model="user.selectedAsStudent"
+									class="check_row" table-check-row></td>
+								<td class="uk-text-center"><a href="#"
+									class="user_action_image"><img class="md-user-image"
+										src="{{user.profileImageURL}}" alt="" /></a></td>
+								<td class="uk-text-center">{{user.displayName}}</td>
+								<td class="uk-text-center">{{user.position}}</td>
+								<td class="uk-text-center">{{user.group.name}}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+		<div class="uk-modal-footer uk-text-right">
+			<button type="button" class="md-btn md-btn-flat uk-modal-close">{{'ACTION.CLOSE'|translate}}</button>
+			<button type="button"
+				class="md-btn md-btn-flat md-btn-flat-primary uk-modal-close"
+				id="snippet_new_save" ng-click="vm.selectStudents()">{{'ACTION.SELECT'|translate}}</button>
+		</div>
+	</div>
+</div>
+
+<div class="md-fab-wrapper  md-fab-speed-dial-horizontal">
+	<a class="md-fab md-fab-success" href="javascript:void(0)"
+		data-uk-tooltip="{pos:'top'}" title="{{'ACTION.CREATE'|translate}}"
+		md-fab-speed-dial><i class="material-icons">&#xE145;</i></a>
+	<div class="md-fab-wrapper-small">
+		<a class="md-fab md-fab-small" href="#new_manager"
+			data-uk-modal="{ center:true }"
+			data-uk-tooltip="{cls:'uk-tooltip-small',pos:'top'}"
+			title="{{'PAGE.CMS.PROGRAMS.ENROLL.MANAGER'|translate}}"><i
+			class="material-icons">person_pin</i></a> <a class="md-fab md-fab-small"
+			ng-class="{'disabled':vm.program.model=='group' && vm.classrooms.length==0}"
+			href="#new_student" data-uk-modal="{ center:true }"
+			data-uk-tooltip="{cls:'uk-tooltip-small',pos:'top'}"
+			title="{{'PAGE.CMS.PROGRAMS.ENROLL.STUDENT'|translate}}"><i
+			class="material-icons">school</i></a>
+	</div>
+</div>

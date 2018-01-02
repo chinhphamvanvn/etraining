@@ -1,0 +1,47 @@
+<!-- <div class="md-card md-card-hover">
+	<a
+		ui-sref="workspace.lms.courses.join.intro({ courseId: course._id ,editionId:edition._id})">
+		<div class="uk-grid">
+			<div class="uk-width-4-10 uk-width-small-2-5 uk-width-medium-1-1"
+				style="border-bottom: none;">
+				<div class="uk-text-center course-thumbnail">
+					<img class="imageCourseHome course-thumbnail-img"
+						ng-src="{{course.logoURL}}" alt="">
+				</div>
+			</div>
+			<div class="uk-width-6-10 uk-width-small-3-5 uk-width-medium-1-1">
+				<div class="content-meta-data">
+					<div class="title-author-info">
+						<h3 class="course-title">{{course.name | truncateWord: 8}}</h3>
+						<span class="uk-text-truncate author">{{course.user.displayName}}</span>
+					</div>
+
+					<div class="level-date-home course-info">
+						<span class="date">{{course.startDate | date
+							:'dd-MM-yyyy'}}</span>&nbsp;&nbsp; <span class="capitalize">{{course.level}}
+						</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</a>
+</div> -->
+
+<div class="col-sm-4 col-md-3">
+	<a ui-sref="workspace.lms.courses.join.intro({ courseId: course._id ,editionId:edition._id})">
+		<div>
+			<img ng-src="{{course.logoURL}}" alt="">
+		</div>
+
+		<div class="title-author-info">
+			<h3 class="course-title">{{course.name | truncateWord: 8}}</h3>
+			<span class="uk-text-truncate author">{{course.user.displayName}}</span>
+		</div>
+
+		<div class="level-date-home course-info">
+			<span class="date">{{course.startDate | date
+				:'dd-MM-yyyy'}}</span>&nbsp;&nbsp; <span class="capitalize">{{course.level}}
+			</span>
+		</div>
+	</a>
+</div>

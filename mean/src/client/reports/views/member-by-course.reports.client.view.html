@@ -1,0 +1,88 @@
+<div id="page_content">
+	<div id="page_content_inner">
+		<h3 class="heading_b uk-margin-bottom">{{'PAGE.REPORTS.MEMBER_BY_COURSE.TITLE'
+			| translate}}</h3>
+		<div class="uk-grid" data-uk-grid-margin>
+			<div class="uk-width-medium-1-1">
+				<div class="md-card">
+					<div class="content-table-gradebook md-card-content">
+						<div class="uk-margin-bottom">
+							<a class="md-btn  md-btn-wave-light md-btn-icon"
+								data-uk-modal="{target:'#select_course'}">
+								{{'PAGE.REPORTS.MEMBER_BY_COURSE.SELECT_COURSE'|translate}} <i
+								class="material-icons">&#xE313;</i>
+							</a>
+							<select-course-dialog callback="vm.generateReport"
+								dialog-id="'select_course'"></select-course-dialog>
+							<export-excel tableid="tableToExport" style="margin-left: 10px;"></export-excel>
+						</div>
+						<div class="uk-overflow-container table-border" id="tableToExport">
+							<table class="uk-table uk-table-hover uk-table-condensed"
+								cellspacing="0" width="100%">
+								<thead>
+									<tr>
+										<th colspan="3" class="uk-text-center">{{'REPORT.MEMBER_BY_COURSE.COURSE'|translate}}</th>
+										<th colspan="7" class="uk-text-center">{{'REPORT.MEMBER_BY_COURSE.MEMBER'|translate}}</th>
+										<th>{{'REPORT.MEMBER_BY_COURSE.TIME'|translate}}</th>
+									</tr>
+									<tr>
+										<th colspan="3" class="uk-text-center"></th>
+										<th>{{'COMMON.TOTAL'|translate}}</th>
+										<th colspan="2" class="uk-text-center">{{'COMMON.ENROLL.REGISTERED'|translate}}</th>
+										<th colspan="2" class="uk-text-center">{{'COMMON.ENROLL.INSTUDY'|translate}}</th>
+										<th colspan="2" class="uk-text-center">{{'COMMON.ENROLL.COMPLETED'|translate}}</th>
+										<th></th>
+									</tr>
+									<tr>
+										<th>#</th>
+										<th>{{'MODEL.COURSE.CODE'|translate}}</th>
+										<th>{{'MODEL.COURSE.NAME'|translate}}</th>
+										<th></th>
+										<th>{{'COMMON.TOTAL'|translate}}</th>
+										<th>{{'COMMON.PERCENTAGE'|translate}}</th>
+										<th>{{'COMMON.TOTAL'|translate}}</th>
+										<th>{{'COMMON.PERCENTAGE'|translate}}</th>
+										<th>{{'COMMON.TOTAL'|translate}}</th>
+										<th>{{'COMMON.PERCENTAGE'|translate}}</th>
+										<th></th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr ng-repeat="course in vm.courses">
+										<td>{{$index + 1}}</td>
+										<td>{{course.code}}</td>
+										<td>{{course.name}}</td>
+										<th>{{course.toalMember}}</th>
+										<th>{{course.totalRegisterMember}}</th>
+										<th>{{course.percentRegisterMember}}%</th>
+										<th>{{course.totalInstudyMember}}</th>
+										<th>{{course.percentInstudyMember}}%</th>
+										<th>{{course.totalCompleteMember}}</th>
+										<th>{{course.percentCompleteMember}}%</th>
+										<th>{{course.time | timeString}}</th>
+									</tr>
+								</tbody>
+								<tfoot>
+									<tr>
+										<th colspan="3" class="uk-text-center"><span
+												class="uk-float-right uk-text-bold">{{'COMMON.TOTAL'|translate}}</span>
+										</th>
+										<th>{{vm.summary.toalMember}}</th>
+										<th>{{vm.summary.totalRegisterMember}}</th>
+										<th>{{vm.summary.percentRegisterMember}}%</th>
+										<th>{{vm.summary.totalInstudyMember}}</th>
+										<th>{{vm.summary.percentInstudyMember}}%</th>
+										<th>{{vm.summary.totalCompleteMember}}</th>
+										<th>{{vm.summary.percentCompleteMember}}%</th>
+										<th>{{vm.summary.time | timeString}}</th>
+									</tr>
+								</tfoot>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+

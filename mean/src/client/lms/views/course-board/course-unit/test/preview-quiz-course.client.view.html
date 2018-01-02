@@ -1,0 +1,76 @@
+
+<div class="uk-alert uk-alert-danger" data-uk-alert ng-show="vm.alert">
+	{{vm.alert}}</div>
+
+<div class="md-card" ng-show="!vm.alert">
+	<div class="md-card-toolbar"
+		ng-class="{'md-bg-green-200':vm.question.attempted,'md-bg-grey-100':!vm.question.attempted }">
+		<div class="md-card-toolbar-actions">
+			<span class=" uk-text-danger"><i
+				class="uk-icon-clock-o uk-text-danger"></i> {{vm.remainTime | timeString}}</span>
+
+		</div>
+		<div class="md-card-toolbar-heading-text">
+			<span>{{'PAGE.LMS.MY_COURSES.COURSE_STUDY.QUESTION'|translate}}
+				{{vm.index+1}}<span ng-show="vm.question.grouped">-{{vm.subIndex+1}}</span>/{{vm.questions.length}} </span>
+
+		</div>
+	</div>
+
+	<div class="md-card-content">
+		<div ng-if="vm.question.type=='mc'">
+			<multiple-choice-question mode="'study'" question="vm.question">
+			</lms-question>
+		</div>
+		<div ng-if="vm.question.type=='sc'">
+			<single-choice-question mode="'study'" question="vm.question"></single-choice-question>
+		</div>
+		<div ng-if="vm.question.type=='tf'">
+			<true-false-question mode="'study'" question="vm.question"></true-false-question>
+		</div>
+		<div ng-if="vm.question.type=='fb'">
+			<fill-blank-question mode="'study'" question="vm.question"></fill-blank-question>
+		</div>
+		<div ng-if="vm.question.type=='ext'">
+			<extend-text-question mode="'study'" question="vm.question"></extend-text-question>
+		</div>
+		<div ng-if="vm.question.type=='as'">
+			<associative-question mode="'study'" question="vm.question"></associative-question>
+		</div>
+		<div ng-if="vm.question.type=='dnd'">
+			<drag-drop-question mode="'study'" question="vm.question"></drag-drop-question>
+		</div>
+		<div ng-if="vm.question.type=='pic'">
+			<point-click-question mode="'study'" question="vm.question"></point-click-question>
+		</div>
+		<div ng-if="vm.question.grouped">
+			<group-question mode="'study'" question="vm.question" sub-index="vm.subIndex"></group-question>
+		</div>
+		<br>
+		<hr>
+		<div class="uk-grid uk-margin-top">
+			<div class="uk-width-1-3">
+				<a ng-show="vm.index < vm.questions.length-1 || (vm.question.grouped && vm.subIndex < vm.question.subQuestions.length)"
+					class="uk-align-left md-btn  md-btn-wave-light md-btn-icon"
+					ng-click="vm.saveNext()"> <i class="uk-icon-arrow-right "></i>
+					{{'ACTION.NEXT'|translate}}
+				</a>
+			</div>
+
+			<div class="uk-width-1-3 uk-text-center">
+				<a class=" md-btn md-btn-primary md-btn-wave-light"
+					ng-show="vm.index == vm.questions.length-1">
+					{{'ACTION.SUBMIT_EXAM'|translate}} </a>
+			</div>
+			<div class="uk-width-1-3 ">
+				<a ng-show=" vm.index > 0 || vm.question.grouped && vm.subIndex >0"
+					class="uk-align-right md-btn  md-btn-wave-light md-btn-icon"
+					ng-click="vm.savePrev()"> <i class="uk-icon-arrow-left "></i>
+					{{'ACTION.PREV'|translate}}
+				</a>
+			</div>
+		</div>
+
+
+	</div>
+</div>

@@ -1,0 +1,116 @@
+<div class="uk-margin">
+	<div id="progress_chart" class="c3chart"></div>
+</div>
+
+<div id="page_content">
+	<div id="page_content_inner">
+		<div class="md-card uk-margin-medium-bottom">
+			<div class="content-table-gradebook md-card-content">
+				<h3 class="md-card-toolbar-heading-text large"
+					style="font-size: 18px; font-weight: 500;">
+					{{"PAGE.LMS.MY_COURSES.COURSE_GRADE.QUIZ_INFO" | translate}}</h3>
+				<!--<button class="md-btn buttons-csv buttons-html5" type="button"-->
+					<!--ng-csv="getExportData()" csv-header="getExportHeader()"-->
+					<!--filename="ReportExam.csv"-->
+					<!--style="margin-top: 8px; margin-left: 30px;">-->
+					<!--<i class="uk-icon-file-excel-o" aria-hidden="true"></i>-->
+					<!--{{"ACTION.EXPORT" | translate}}-->
+				<!--</button>-->
+				<export-excel tableid="tableToExportGradeBookDirective" style="margin-left: 10px;"></export-excel>
+				<div class="content-table-gradebook md-card-content">
+					<div class="uk-overflow-container">
+						<table
+							class="uk-table uk-table-hover uk-text-nowrap tableChartScore">
+							<thead>
+								<tr>
+									<th></th>
+									<th class="uk-width-1-10 uk-text-center"
+										ng-repeat="node in quizSectionNodes">{{node.data.name}}</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td class="uk-width-1-10">{{"PAGE.LMS.MY_COURSES.COURSE_GRADE.QUIZ_RATE"
+										| translate}}</td>
+									<td class="uk-width-1-10 uk-text-center"
+										ng-repeat="node in quizSectionNodes">{{node.weight}}&#37;</td>
+								</tr>
+								<tr>
+									<td class="uk-width-1-10">{{"PAGE.LMS.MY_EXAMS.SCOREBOOK.TITLE"
+										| translate}}</td>
+									<td class="uk-width-1-10 uk-text-center"
+										ng-repeat="node in quizSectionNodes"><span
+										ng-repeat="attempt in node.attempts | orderBy: '-start'">{{attempt.weightPercent}}%
+											<answer-sheet sheet-id="attempt._id" exam="node.quiz"
+												answers="attempt.answers"
+												ng-if="attempt.answers && attempt.answers.length > 0 && node.quiz"></answer-sheet>
+											&nbsp;&#166;&nbsp;&nbsp;
+									</span></td>
+								</tr>
+								<tr>
+									<td class="uk-width-1-10">{{"MODEL.GRADESCHEME.BENCHMARK"
+										| translate}}</td>
+									<td class="uk-width-1-10 uk-text-center">{{gradescheme.benchmark}}&#37;</td>
+								</tr>
+								<tr>
+									<td class="uk-width-1-10">{{"REPORT.STUDENT_MARK.SCORE"
+										| translate}}</td>
+									<td class="uk-width-1-10 uk-text-center">{{sumStudentScore}}&#37;</td>
+								</tr>
+								<tr>
+									<td class="uk-width-1-10">{{"REPORT.STUDENT_MARK.MAX_SCORE"
+										| translate}}</td>
+									<td class="uk-width-1-10 uk-text-center">{{sumQuizScore}}&#37;</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+
+				<div style="display: none" id="tableToExportGradeBookDirective">
+					<table class="uk-table uk-table-hover uk-text-nowrap tableChartScore">
+						<thead>
+							<tr>
+								<th></th>
+								<th class="uk-width-1-10 uk-text-center"
+									ng-repeat="node in quizSectionNodes">{{node.data.name}}</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td class="uk-width-1-10">{{"PAGE.LMS.MY_COURSES.COURSE_GRADE.QUIZ_RATE"
+									| translate}}</td>
+								<td class="uk-width-1-10 uk-text-center"
+									ng-repeat="node in quizSectionNodes">{{node.weight}}&#37;</td>
+							</tr>
+							<tr>
+								<td class="uk-width-1-10">{{"PAGE.LMS.MY_EXAMS.SCOREBOOK.TITLE"
+									| translate}}</td>
+								<td class="uk-width-1-10 uk-text-center"
+									ng-repeat="node in quizSectionNodes"><span
+										ng-repeat="attempt in node.attempts | orderBy: '-start'">{{attempt.weightPercent}}%
+												&nbsp;&#166;&nbsp;&nbsp;
+										</span></td>
+							</tr>
+							<tr>
+								<td class="uk-width-1-10">{{"MODEL.GRADESCHEME.BENCHMARK"
+									| translate}}</td>
+								<td class="uk-width-1-10 uk-text-center">{{gradescheme.benchmark}}&#37;</td>
+							</tr>
+							<tr>
+								<td class="uk-width-1-10">{{"REPORT.STUDENT_MARK.SCORE"
+									| translate}}</td>
+								<td class="uk-width-1-10 uk-text-center">{{sumStudentScore}}&#37;</td>
+							</tr>
+							<tr>
+								<td class="uk-width-1-10">{{"REPORT.STUDENT_MARK.MAX_SCORE"
+									| translate}}</td>
+								<td class="uk-width-1-10 uk-text-center">{{sumQuizScore}}&#37;</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

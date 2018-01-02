@@ -1,0 +1,25 @@
+<div class="md-card">
+	<div class="md-card-toolbar">
+		<div class="md-card-toolbar-heading-text">
+			<span>{{vm.exercise.name}}</span>
+		</div>
+	</div>
+
+	<div class="md-card-content">
+		<div ng-repeat="question in vm.questions">
+			<extend-text-question mode="'study'" question="vm.question"></extend-text-question>
+			</lms-question>
+		</div>
+
+		<br>
+		<hr>
+		<div class="uk-grid uk-margin-top">
+			<div class="uk-width-1-1 uk-text-center">
+				<a class=" md-btn md-btn-primary md-btn-wave-light">
+					{{'ACTION.SUBMIT_HOMEWORK'|translate}} </a>
+			</div>
+		</div>
+
+
+	</div>
+</div>

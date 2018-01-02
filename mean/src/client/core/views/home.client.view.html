@@ -1,0 +1,614 @@
+<style type="text/css">
+@import url("/assets/css/landing.css");
+
+.md-card .md-card-head {
+	border-top: 1px solid rgba(0, 0, 0, 0.12);
+}
+.uk-navbar{
+	border-radius: 0px;
+}
+.bulletin{
+	height: 520px;
+}
+.button-search{
+	background-color: #F3F3F3;
+    border-radius: 4px;
+    padding-left: 15px;
+    padding-right: 15px;
+    -webkit-animation-duration: 0.3s !important;
+    -moz-animation-duration: 0.3s !important;
+    animation-duration: 0.3s !important;
+	width: 390px;
+    float: left;
+	margin-left: 30px;
+}
+.button-search input{
+	width: 90%;
+	outline: none !important;
+    background: transparent;
+    border: none;
+    line-height: 38px;
+	font-family: inherit;
+    font-size: inherit;
+}
+body{
+	padding: 0px !important;
+}
+.uk-navbar{
+	padding: 10px 0px 6px 0px;
+}
+.md-card{
+	/* display: none; */
+}
+.manager-user{
+	position: relative;
+	float:right;
+	padding: 0px 25px;
+}
+.manager-user .image{
+	display: inline-flex;
+    vertical-align: middle;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    border: solid 1px #E4E4E4;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    overflow: hidden;
+    cursor: pointer;
+	float: left;
+}
+.manager-user .text{
+	float: left;
+	width: 153px;
+	height: 35px;
+	margin-left: 10px;
+	cursor: pointer;
+}
+.manager-user .text p{
+	margin: 0px;
+}
+.manager-user .text p strong{
+	font-size: 14px;
+}
+.manager-user .text p{
+	font-size: 85%;
+	font-weight: 300;
+}
+.sigin-sigup{
+	width: 250px;
+	height: 240px;
+	background-color:#ffffff;
+	position: absolute;
+	top: 50px;
+	left: 5px;
+	margin-top: 12px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+}
+#parent-hinhthoi{
+	position: relative;
+}
+#hinhthoi{
+	width: 15px;
+    height: 15px;
+    background-color: #ffffff;
+    position: absolute;
+    top: -8px;
+    left: 120px;
+    transform: rotate(45deg);
+}
+.popover-signin{
+	width: 200px;
+	height: 186px;
+	margin: 25px auto;
+}
+.popover-signin .btn:not(:last-child){
+	margin-bottom: 10px;
+}
+.popover-signin .btn
+{
+	color: #464646;
+    border: 1px solid #E1E5EA;
+    font-weight: 400;
+    line-height: 1.9;
+    width: 175px;
+    font-family: Roboto, sans-serif;
+	outline: none !important;
+	text-align: center;
+    vertical-align: middle;
+    touch-action: manipulation;
+    cursor: pointer;
+	white-space: nowrap;
+    padding: 6px 12px;
+    font-size: 14px;
+	border-radius: 4px;
+	user-select: none;
+	display: block;
+}
+.language{
+	width: 50px;
+	height: 35px;
+	float: right;
+}
+.selectize-control.single {
+    height: 0px;
+    margin-top: 0px;
+}
+.selectize-input{
+	border: 0px;
+}
+.selectize-control.single{
+	margin: 0;
+}
+.logo{
+	position: relative;
+}
+.logo::after{
+	position: absolute;
+	content: '';
+	background-image: url("/assets/img/brand/carret-down-small.svg");
+	background-repeat: no-repeat;
+	width: 16px;
+	height: 8px;
+	top: 13px;
+    right: -5px;
+}
+.uk-navbar{
+	position: relative;
+}
+.sidebarleft{
+	width: 380px;
+	background-color: #ffffff;
+	position: fixed;
+	top: 56px;
+	left: 0px;
+	border: 1px solid #ccc;
+	overflow: scroll;
+	overflow-x: hidden;
+	overflow-y: auto;
+    padding: 0;
+}
+.navLeft-menu-page{
+	padding-top: 15px;
+    padding-bottom: 15px;
+    margin-bottom: 0px;
+}
+.padding-left{
+	padding-right: 40px !important;
+	font-weight: 700;
+    text-decoration: none;
+    font-size: 16px;
+	-webkit-transition: padding-left 0.2s ease-in-out;
+	color: inherit;
+    display: block;
+    padding: 10px 0px 10px 0px;
+}
+.sidebarleft ul{
+	list-style-type: none;
+}
+ul.nav-tabs{
+	display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    position: relative;
+    z-index: 0;
+	margin-bottom: 0;
+    padding-left: 0;
+    list-style: none;
+	margin-top: 50px;
+}
+ul.nav-tabs li{
+	float: none;
+    margin: 0 85px;
+    width: 50%;
+	text-align: center;
+	padding-bottom: 10px;
+}
+ul.nav-tabs li a
+{
+	font-size: 15px;
+    font-weight: 500;
+    padding-top: 34px;
+    position: relative;
+    border: none;
+    color: #000;
+	background: transparent !important;
+	padding-bottom: 10px;
+	font-weight: bold;
+}
+ul.nav-tabs li a.active{
+	color: red;
+}
+ul.nav-tabs li a::before{
+	position: absolute;
+    width: 100%;
+    color: #c5c5c5;
+    font-family: 'symbol';
+    font-size: 24px;
+    top: 0;
+    left: 0;
+    text-align: center;
+	content: '\6d';
+}
+ul.nav-tabs li a::after{
+	content: '';
+    position: absolute;
+    width: 0;
+    height: 0;
+    bottom: -2px;
+    left: 0;
+    /* border-bottom: solid 2px #D41701; */
+	width: 100%;
+}
+.tabcontent{
+	display: none;
+}
+.tabcontent{
+	height: 600px;
+	border: 1px solid #ccc;
+}
+
+</style>
+<header id="header_landing">
+	<div class="header_main_content">
+		<nav class="uk-navbar " data-uk-sticky>
+			<div class="uk-container uk-container-center">
+				<a href="#" class="uk-float-left" id="mobile_navigation_toggle"
+					data-uk-offcanvas="{target:'#mobile_navigation'}"> <i
+					class="material-icons">&#xE5D2;</i>
+				</a>
+				<div class="uk-navbar-brand logo" style="    padding-left: 0px;">
+					<a ui-sref="home"> <img src="/assets/img/brand/logo.png" alt=""
+						width="105" height="24">
+					</a>
+				</div>
+				<!--search header-->
+				<div class="button-search">
+					<input type="text"
+						placeholder="{{'MODEL.COURSE.SEARCH' | translate}}"
+						ng-model="vm.keyword"
+						ng-keypress="(($event.which === 13) || ($event.keyCode === 13))&& vm.gotoSearch()">
+					<a ng-click="vm.gotoSearch()"><i
+						class="uk-icon-hover uk-icon-search vi-btn-search"></i></a>
+				</div>
+				<!--write by Mr Chinh-->
+				<!--login logout-->
+				<div class="manager-user">
+					<div class="image">
+						<img src="/assets/img/brand/user.svg" alt="">
+					</div>
+					<div class="text">
+						<p><strong>Đăng nhập, đăng ký</strong></p>
+						<p>Tài khoản</p>
+					</div>
+					<div class="sigin-sigup">
+						<div id="parent-hinhthoi">
+							<div id="hinhthoi"></div>
+						</div>
+						<div class="popover-signin">
+							<a ng-click="vm.gotoWorkspace()" 
+								ng-show="vm.authentication.user"
+								class="">
+								{{'PAGE.HOME.WORKSPACE'|translate}}
+							</a> 
+							<a ui-sref="authentication.signup"
+								ng-show="!vm.authentication.user && (!vm.registerSetting ||vm.registerSetting.valueString=='open')"
+								class="btn btn-block">{{'ACTION.SIGN_UP'|translate}}
+							</a>
+							<a ui-sref="authentication.signin"
+								ng-show="!vm.authentication.user"
+								class="btn btn-block">{{'ACTION.SIGN_IN'|translate}}
+							</a>
+							<a href="#" ng-click="vm.callOauthProvider('/api/auth/facebook')"
+								class="btn btn-block md-btn-facebook"
+								data-uk-tooltip="{pos:'bottom'}" title="Sign in with Facebook">Đăng nhập với Facebook
+							</a>
+							<a href="#" ng-click="vm.callOauthProvider('/api/auth/google')"
+								class="btn btn-block md-btn-gplus"
+								data-uk-tooltip="{pos:'bottom'}" title="Sign in with Google+">Đăng nhập với Google+
+							</a>
+						</div>
+					</div>
+				</div>
+				
+				<!--write by Mr Chinh-->
+				<div class="language"
+					ng-controller="LanguageController as lang">
+					<selectize 
+						config='lang.langSwitcherConfig'
+						options='lang.langSwitcherOptions'
+						ng-model="lang.langSwitcherModel">
+					</selectize>
+				</div>
+				<!--button login logout-->
+				<!-- <div class="uk-navbar-flip uk-hidden-small">
+					<a ng-click="vm.gotoWorkspace()" ng-show="vm.authentication.user"
+						class="md-btn md-btn-success header_cta uk-margin-left"> <i
+						class="material-icons">work</i>
+						{{'PAGE.HOME.WORKSPACE'|translate}}
+					</a> <a ui-sref="authentication.signup"
+						ng-show="!vm.authentication.user && (!vm.registerSetting ||vm.registerSetting.valueString=='open')"
+						class="md-btn md-btn-default header_cta uk-margin-left">{{'ACTION.SIGN_UP'|translate}}</a>
+					<a ui-sref="authentication.signin"
+						ng-show="!vm.authentication.user"
+						class="md-btn md-btn-primary header_cta uk-margin-left">{{'ACTION.SIGN_IN'|translate}}</a>
+				</div> -->
+
+				<!-- <div class="uk-navbar-flip">
+					<ul class="uk-navbar-nav" id="main_navigation">
+						<li><a href="#sect-bulletin">
+								{{'PAGE.HOME.BULLETIN'|translate}} </a></li>
+						<li><a href="#sect-course">
+								{{'PAGE.HOME.COURSES'|translate}} </a></li>
+						<li><a href="#sect-program">
+								{{'PAGE.HOME.PROGRAMS'|translate}} </a></li>		
+					</ul>
+				</div> -->
+			</div>
+		</nav>
+	</div>
+	<!--sidebar left-->
+	<div class="sidebarleft">
+		<ul navLeft-menu-page>
+			<li>
+				<a class="padding-left" href="http://localhost:12345/">Trang chủ</a>
+			</li>
+			<li>
+				<a class="padding-left" href="#sect-bulletin">{{'PAGE.HOME.BULLETIN'|translate}} </a>
+			</li>
+			<li>
+				<a class="padding-left" href="#sect-course">{{'PAGE.HOME.COURSES'|translate}} </a>
+			</li>
+			<li>
+				<a class="padding-left" href="#sect-program">{{'PAGE.HOME.PROGRAMS'|translate}} </a>
+			</li>
+			<li>
+				<a class="padding-left" href="">Giỏ hàng</a>
+			</li>
+			<li>
+				<a class="padding-left" href="">Kích hoạt khóa học</a>
+			</li>
+			<li>
+				<a class="padding-left" href="">Chăm sóc khách hàng</a>
+			</li>
+			<li>
+				<a class="padding-left" href="">Trở thành giảng viên</a>
+			</li>
+			<li>
+				<a class="padding-left" href="">Góc chia sẻ</a>
+			</li>
+			<li>
+				<a class="padding-left" href="">Chương trình Affiliate</a>
+			</li>
+			<li>
+				<a class="padding-left" href="">Toàn bộ khóa học</a>
+			</li>
+			<li>
+				<a class="padding-left" href="">Công nghệ thông tin</a>
+			</li>
+			<li>
+				<a class="padding-left" href="">Thiết kế</a>
+			</li>
+			<li>
+				<a class="padding-left" href="">Nuôi dạy con</a>
+			</li>
+			<li>
+				<a class="padding-left" href="">Trang chủ</a>
+			</li>
+			<li>
+				<a class="padding-left" href="">Phát triển bản thân</a>
+			</li>
+			<li>
+				<a class="padding-left" href="">Kinh doanh & khởi nghiệp</a>
+			</li>
+			<li>
+				<a class="padding-left" href="">Ngoại ngữ</a>
+			</li>
+			<li>
+				<a class="padding-left" href="">Marketing</a>
+			</li>
+			<li>
+				<a class="padding-left" href="">Tin học văn phòng</a>
+			</li>
+			<li>
+				<a class="padding-left" href="">Khác</a>
+			</li>
+		</ul>
+	</div>
+</header>
+<div id="mobile_navigation" class="uk-offcanvas">
+	<div class="uk-offcanvas-bar">
+		<ul>
+			<li class="small-bulletin"><a href="#sect-bulletin"
+				data-uk-smooth-scroll="{offset: 48}"> <span class="menu_title">{{'PAGE.HOME.BULLETIN'|translate}}</span>
+			</a></li>
+			<li class="small-navar"><a href="#sect-course"
+				data-uk-smooth-scroll="{offset: 48}"> <span class="menu_title">{{'PAGE.HOME.COURSES'|translate}}
+				</span>
+			</a></li>
+			<li class="small-navar"><a href="#sect-program"
+				data-uk-smooth-scroll="{offset: 48}"> <span class="menu_title">{{'PAGE.HOME.PROGRAMS'|translate}}
+				</span>
+			</a></li>
+			<li class="small-navar"><a ng-click="vm.gotoWorkspace()"
+				ng-show="vm.authentication.user">
+					{{'PAGE.HOME.WORKSPACE'|translate}} </a></li>
+			<li class="small-navar"><a ng-click="vm.gotoSignup()"
+				ng-show="!vm.authentication.user
+           && (!vm.registerSetting ||vm.registerSetting.valueString=='open')">{{'ACTION.SIGN_UP'|translate}}</a>
+			</li>
+			<li class="small-navar"><a ng-click="vm.gotoSignin()"
+				ng-show="!vm.authentication.user">{{'ACTION.SIGN_IN'|translate}}</a>
+			</li>
+		</ul>
+	</div>
+</div>
+
+<div class="md-bg-grey-50">
+	
+
+	<div class="uk-block bulletin" id="sect-bulletin"  ng-show='vm.annoucements.length'>
+		<div class="uk-container uk-container-center">
+			<div class="uk-grid ">
+				<div class="uk-width-large-6-10 uk-width-9-10 uk-container-center">
+					<!-- <div class="md-card">
+						<div class="md-card-content">
+							<div class="uk-slidenav-position"
+								data-uk-slideshow="{animation:'scroll'}">
+								<ul class="uk-slideshow">
+									<li ng-repeat="message in vm.annoucements">
+										<h2>
+											<i class="md-icon material-icons md-36 uk-text-default"
+												ng-show="message.level=='info'">info</i> <i
+												class="md-icon material-icons md-36  uk-text-warning"
+												ng-show="message.level=='warning'">warning</i> <i
+												class="md-icon material-icons md-36  uk-text-primary"
+												ng-show="message.level=='primary'">announcement</i>
+											{{'PAGE.HOME.BULLETIN' |translate}}
+										</h2>
+										<hr>
+										<h3>{{message.title}}</h3>
+										<p ng-bind-html="message.content"></p>
+									</li>
+								</ul>
+								<a href="" class="uk-slidenav uk-slidenav-previous"
+									data-uk-slideshow-item="previous"></a> <a href=""
+									class="uk-slidenav uk-slidenav-next"
+									data-uk-slideshow-item="next"></a>
+							</div>
+						</div>
+					</div> -->
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="container-home uk-container uk-container-center ">
+		<ul class="nav-tabs">
+			<li>
+				<a href="#" class="tablinks" onclick="khoahoc(event,'khoahocmo')">Khóa học đang mở</a>
+			</li>
+			<li>
+				<a href="#" class="tablinks" onclick="khoahoc(event,'khoahocmoi')">Khóa học mới</a>
+			</li>
+		</ul>
+	</div>
+
+	<div class="uk-block courses-container-data courses-container"	id="sect-course" ng-show='vm.courses.length'>
+		<div class="container-home uk-container uk-container-center">
+			<!-- <div class="uk-grid">
+			<h3 class="uk-width-small-1-2 heading_b uk-text-center md-color-blue-500">{{'PAGE.HOME.AVAILABLE_COURSE_LIST'|translate}}</h3>
+			<div class="uk-width-small-1-2 content-search uk-grid" style="margin-top: 0px;">
+				<div class="main-search-box uk-width-large-10-12 uk-container-center uk-text-center">
+					<input type="text"
+						placeholder="{{'MODEL.COURSE.SEARCH' | translate}}"
+						ng-model="vm.keyword"
+						ng-keypress="(($event.which === 13) || ($event.keyCode === 13))&& vm.gotoSearch()">
+					<a ng-click="vm.gotoSearch()"><i
+						class="uk-icon-hover uk-icon-search vi-btn-search"></i></a>
+				</div>
+			</div>
+			</div> -->
+			<!--Khoa hoc dang mo-->
+			<!-- <div class="content-data uk-grid uk-grid-medium tabcontent" id="khoahocmo">
+				<div
+					class="uk-width-small-1-1 uk-width-medium-1-3 uk-width-large-1-4 course-card-home"
+					ng-repeat="course in vm.courses">
+					<course-card course="course"></course-card>
+				</div>
+			</div> -->
+			<div class="row tabcontent" id="khoahocmo">
+				<div ng-repeat="course in vm.courses">
+					<course-card course="course"></course-card>
+				</div>
+			</div>
+			<!--End-->
+			<!--Khoa hoc moi-->
+			<div class="content-data uk-grid uk-grid-medium tabcontent" id="khoahocmoi">
+				<div
+					class="uk-width-small-1-1 uk-width-medium-1-3 uk-width-large-1-4 course-card-home"
+					ng-repeat="course in vm.courses">
+					<div>Khoa hoc moi</div>
+				</div>
+			</div>
+			<!--End-->
+		</div>
+
+		<div class="uk-text-center showmore-container">
+			<show-more-pagination curr-page=1 items-per-page=8 items="vm.courses"
+				total-items="vm.totalItems"
+				ng-show="vm.courses.length < vm.totalItems.length">
+			</show-more-pagination>
+		</div>
+	</div>
+	
+	<div class="uk-block" id="sect-program" ng-show='vm.programs.length'>
+		<div class="container-home uk-container uk-container-center">
+			<h3 class="heading_b uk-text-center md-color-blue-500">{{'PAGE.HOME.AVAILABLE_PROGRAM_LIST'|translate}}</h3>
+			<div class="content-data uk-grid uk-grid-medium">
+				<div class="uk-width-1-1 course-card-home"
+					ng-repeat="program in vm.programs">
+					<program-card program="program"></program-card>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+</div>
+<footer id="footer">
+	<small> &copy; 2014-2015 <a href="#">Thanh Cong A Chau ,
+			JSC</a> , All rights reserved.
+	</small>
+</footer>
+
+
+<script>
+	$(document).ready(function(){
+		$(".sigin-sigup").hide();
+		$(".manager-user").click(function(){
+			$(".sigin-sigup").toggle();
+		});
+	});
+</script>
+<script>
+	$(document).ready(function(){
+		$("#khoahocmo").css("display", "inherit");
+		// tra ve width cua 1 element co class la .uk-container
+		var width_uk_container = $(".uk-container").outerWidth();
+		// tra ve width cua document
+		var width_document = $( document ).width();
+		var padding = (width_document - width_uk_container)/2;
+		//tra ve height cua window
+		var heightdocument = $( window ).height();
+		var heightsidebar = heightdocument - 56;
+		$(".sidebarleft").css('height', heightsidebar);
+
+		$(".padding-left").css('padding-left', padding);
+
+		$(".sidebarleft").hide();
+		$(".logo").click(function(){
+			$(".sidebarleft").toggle("slide");
+		});
+	});
+</script>
+<script>
+	function khoahoc(evt, khoahoc) 
+	{
+		var i, tabcontent, tablinks;
+		tabcontent = document.getElementsByClassName("tabcontent");
+		for (i = 0; i < tabcontent.length; i++) {
+			tabcontent[i].style.display = "none";
+		}
+		tablinks = document.getElementsByClassName("tablinks");
+		for (i = 0; i < tablinks.length; i++) {
+			tablinks[i].className = tablinks[i].className.replace(" active", "");
+		}
+		document.getElementById(khoahoc).style.display = "block";
+		evt.currentTarget.className += " active";
+	}
+</script>

@@ -1,0 +1,191 @@
+<div id="page_content">
+
+	<div id="page_heading" data-uk-sticky="{ top: 48, media: 960 }">
+		<div class="heading_actions">
+			<button ng-show="vm.program._id"
+				ng-class="{'disabled':vm.program.status=='available'}"
+				class="md-btn md-btn-icon " ng-click="vm.activate()">
+				<i class="material-icons uk-text-success">lock_open</i>{{'ACTION.PROGRAM_ACTIVATE'
+				| translate }}
+			</button>
+			<button ng-show="vm.program._id"
+				ng-class="{'disabled':vm.program.status=='unavailable' || vm.program.status=='draft'}"
+				class="md-btn md-btn-icon " ng-click="vm.deactivate()">
+				<i class="material-icons uk-text-warning">lock</i>{{'ACTION.PROGRAM_DEACTIVATE'
+				| translate }}
+			</button>
+		</div>
+		<h1 ng-show="!vm.program._id">{{'PAGE.CMS.PROGRAMS.CREATE.TITLE' |
+			translate}}</h1>
+		<h1 ng-show="vm.program._id">{{'PAGE.CMS.PROGRAMS.UPDATE.TITLE' |
+			translate}} : {{vm.program.name}}</h1>
+		<span class="uk-text-upper uk-text-small"> <a
+			ui-sref="admin.workspace.cms.programs.list"><i
+				class="material-icons uk-text-primary">keyboard_arrow_left</i>{{'PAGE.CMS.PROGRAMS.TITLE'
+				| translate}}</a>
+		</span>
+	</div>
+
+	<div id="page_content_inner">
+		<div class="md-card uk-margin-large-bottom">
+			<div class="md-card-content">
+				<form ng-submit="vm.save()" class="uk-form-stacked" id="programForm"
+					novalidate>
+					<ul class="uk-tab uk-tab-grid" data-uk-tab="{connect:'#tabs_4'}">
+						<li class="uk-width-1-3 uk-active"><a href="#">{{'PAGE.CMS.PROGRAMS.BASIC_INFO'|translate}}</a></li>
+						<li class="uk-width-1-3"><a href="#">{{'MODEL.PROGRAM.ENROLL_POLICY'|translate}}</a></li>
+						<li class="uk-width-1-3"><a href="#">{{'PAGE.CMS.PROGRAMS.SYLLABUS'|translate}}</a></li>
+					</ul>
+					<ul id="tabs_4" class="uk-switcher uk-margin" style="min-height: 300px;">
+						<li>
+							<div class="uk-grid uk-margin-top">
+								<div class="uk-width-medium-3-4 parsley-row">
+									<label for="program_name">{{'MODEL.PROGRAM.NAME'|translate}}<span
+										class="req">*</span></label> <input type="text" name="program_name"
+										id="program_name" data-parsley-trigger="change" required
+										class="md-input" md-input ng-model="vm.program.name" />
+								</div>
+								<div class="uk-width-medium-1-4 parsley-row">
+									<label for="program_code">{{'MODEL.PROGRAM.CODE'|translate}}<span
+										class="req">*</span></label> <input type="text" name="program_code"
+										id="program_code" data-parsley-trigger="change"
+										class="md-input" md-input ng-model="vm.program.code" />
+								</div>
+							</div>
+							<div class="uk-grid">
+								<div class="uk-width-medium-1-1 parsley-row">
+									<label for="program_summary">{{'MODEL.PROGRAM.SUMMARY'|translate}}</span></label>
+									<textarea cols="30" rows="2" name="program_summary"
+										id="program_summary" class="md-input"
+										ng-model="vm.program.summary" md-input textarea-autosize></textarea>
+								</div>
+							</div>
+							<div class="uk-grid">
+								<div class="uk-width-medium-1-1 parsley-row">
+									<label>{{'MODEL.PROGRAM.DETAIL'|translate}}</label>
+									<textarea ui-tinymce="vm.tinymce_options"
+										ng-model="vm.program.detail" cols="30" rows="24"></textarea>
+								</div>
+							</div>
+						</li>
+						<li>
+							<div
+								class="uk-grid uk-grid-width-large-1-2 uk-grid-width-xlarge-1-2"
+								data-uk-grid-margin>
+								<div class="parsley-row">
+									<label for="switch_enrol">{{'MODEL.PROGRAM.ENROLL_STATUS'|translate}}</label>
+									<input type="checkbox" class="switchery switchery-small"
+										ui-switch color="#7cb342" ng-model="vm.program.enrollStatus"
+										id="switch_enrol" />
+								</div>
+								<div class="parsley-row">
+									<label for="program_enrol_policy_select">{{'MODEL.PROGRAM.ENROLL_POLICY'|translate}}</label>
+									<div id="program_enrol_policy_select">
+										<span class="icheck-inline"> <input type="radio"
+											name="program_enroll" id="program_enroll_open" required
+											value="open" icheck ng-model="vm.program.enrollPolicy" /> <label
+											for="program_enroll_open" class="inline-label">{{'COMMON.ENROLL_POLICY.OPEN'|translate}}</label>
+											<span class="uk-form-help-block">{{'COMMON.ENROLL_POLICY.OPEN_DESC'|translate}}</span>
+										</span> <span class="icheck-inline"> <input type="radio"
+											name="program_enroll" id="program_enroll_censor" required
+											value="censor" icheck ng-model="vm.program.enrollPolicy" /> <label
+											for="program_enroll_censor" class="inline-label">{{'COMMON.ENROLL_POLICY.CENSOR'|translate}}</label>
+											<span class="uk-form-help-block">{{'COMMON.ENROLL_POLICY.CENSOR_DESC'|translate}}</span>
+										</span>
+
+									</div>
+								</div>
+							</div>
+							<div class="uk-grid " data-uk-grid-margin>
+								<div class="uk-width-1-4 parsley-row">
+									<div class="uk-input-group">
+										<span class="uk-input-group-addon"> <a href="#"><i
+												class="material-icons">&#xE0CD;</i></a>
+										</span> <label for="program_phone">{{'MODEL.PROGRAM.PHONE'|translate}}</label>
+										<input type="text" class="md-input" name="program_phone"
+											id="program_phone" md-input ng-model="vm.program.phone" />
+									</div>
+								</div>
+								<div class="uk-width-1-4 parsley-row">
+									<div class="uk-input-group">
+										<span class="uk-input-group-addon"> <a href="#"><i
+												class="material-icons">&#xE0BE;</i></a>
+										</span> <label for="program_email">{{'MODEL.PROGRAM.EMAIL'|translate}}</label>
+										<input type="text" class="md-input" name="program_email"
+											id="program_email" md-input ng-model="vm.program.email" />
+									</div>
+								</div>
+								<div class="uk-width-2-4 parsley-row">
+									<label for="program_display_policy_select">{{'MODEL.PROGRAM.PRESENT_MODE'|translate}}</label>
+									<div id="program_display_policy_select">
+										<span class="icheck-inline"> <input type="radio"
+											name="program_displayMode" id="program_display_public" required
+											value="open" icheck ng-model="vm.program.displayMode" /> <label
+											for="program_display_public" class="inline-label">{{'COMMON.PRESENT_MODE.ALL'|translate}}</label>
+										</span> <span class="icheck-inline"> <input type="radio"
+											name="program_displayMode" id="program_display_login" required
+											value="login" icheck ng-model="vm.program.displayMode" /> <label
+											for="program_display_login" class="inline-label">{{'COMMON.PRESENT_MODE.LOGIN'|translate}}</label>
+										</span> <span class="icheck-inline"> <input type="radio"
+											name="program_displayMode" id="program_display_enroll" required
+											value="enroll" icheck ng-model="vm.program.displayMode" /> <label
+											for="program_display_enroll" class="inline-label">{{'COMMON.PRESENT_MODE.ENROLLED'|translate}}</label>
+										</span>
+									</div>
+								</div>
+							</div>
+
+						</li>
+						<li>
+							<div class="uk-grid uk-margin-large-bottom" data-uk-grid-margin>
+								<div class="uk-width-1-2">
+									<label class="uk-form-label">{{'MODEL.PROGRAM.COURSE'|translate}}</label>
+									<selectize config="vm.courseConfig" position="bottom" options="vm.courseOptions"
+										ng-model="vm.courses" name="program_course"></selectize>
+								</div>
+								<div class=" uk-width-1-2">
+									<label class="uk-form-label">{{'MODEL.PROGRAM.COMPETENCY'|translate}}</label>
+                  <selectize config="vm.competencyConfig" position="bottom"   options="vm.competencyOptions"
+                             ng-model="vm.competencies" name="program_competency"></selectize>
+								</div>
+								<div class=" uk-width-1-2">
+									<label class="uk-form-label">{{'PAGE.REPORTS.COURSE_BY_MEMBER.SELECT_DEPARTMENT'|translate}}</label>
+                  <selectize config="vm.competencyConfig" position="bottom"   options="vm.organizationOptions"
+                             ng-model="vm.organization" name="program_organization"></selectize>
+								</div>
+							</div>
+
+
+						</li>
+					</ul>
+
+					<div class="md-fab-wrapper">
+						<div class="md-fab md-fab-toolbar md-fab-small md-fab-accent"
+							md-fab-toolbar>
+							<i class="material-icons">&#xE8BE;</i>
+							<div class="md-fab-toolbar-actions">
+								<button form="programForm" id="program_edit_save"
+									data-uk-tooltip="{cls:'uk-tooltip-small',pos:'bottom'}"
+									title="Save">
+									<i class="material-icons md-color-white">&#xE161;</i>
+								</button>
+								<a id="user_edit_cancel" ng-click="vm.cancel()"
+									data-uk-tooltip="{cls:'uk-tooltip-small',pos:'bottom'}"
+									title="Cancel"><i class="material-icons md-color-white">&#xE5CD;</i></a>
+								<button ng-if="vm.program._id && vm.program.status=='draft'"
+									ng-click="vm.remove()" id="user_edit_delete"
+									data-uk-tooltip="{cls:'uk-tooltip-small',pos:'bottom'}"
+									title="Delete">
+									<i class="material-icons md-color-red">&#xE872;</i>
+								</button>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+</div>
+
+

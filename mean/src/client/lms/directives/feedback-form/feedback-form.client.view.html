@@ -1,0 +1,90 @@
+
+<div ng-if="mode=='edit'">
+	<div class="uk-grid" data-uk-grid-margin>
+		<div class="uk-width-1-1">
+			<div id="feedback_text">
+				<label for=""feedback_text"">{{'MODEL.FEEDBACK.RESPONSE'|translate}}</label>
+				<textarea ui-tinymce="tinymce_options"
+				ng-model="feedback.response" cols="30" rows="4"></textarea>
+			</div>
+		</div>
+		<div class="uk-width-medium-1-1">
+			<button data-uk-modal="{target:'#{{feedback._id}}modal_record_audio'}"
+				class="md-btn md-btn-mini md-btn-icon  md-btn-wave">
+				<i class="uk-icon-microphone uk-text-primary"></i>
+				{{'ACTION.RECORD_AUDIO'|translate}}
+			</button>
+			<button data-uk-modal="{target:'#{{feedback._id}}modal_record_video'}"
+				class="md-btn md-btn-mini md-btn-icon  md-btn-wave">
+				<i class="uk-icon-video-camera uk-text-primary"></i>
+				{{'ACTION.RECORD'|translate}}
+			</button>
+		
+		</div>
+							
+	</div>
+</div>
+
+
+<div ng-if="mode=='view'">
+	<div class="uk-grid">
+		<div class="uk-width-medium-1-1 ">
+			<p class="uk-text-left text-wrap" ng-bind-html="feedback.response" />
+		</div>
+	</div>
+	<div class="uk-grid" data-uk-grid-margin >
+		<div class="uk-width-1-2" ng-if="feedback.audioUrl">
+			<div id="audio_answer">
+				<label for="audio_answer">{{'MODEL.FEEDBACK.AUDIO'|translate}}</label>
+				<video controls src="{{feedback.audioUrl | trust}}"></video>
+			</div>
+		</div>
+		<div class="uk-width-1-2" ng-if="feedback.videoUrl">
+			<div id="video_answer">
+				<label for="video_answer">{{'MODEL.FEEDBACK.VIDEO'|translate}}</label>
+				<video controls src="{{feedback.videoUrl | trust}}"></video>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="uk-width-medium-1-1">
+	<div style="float: left;" ng-if="feedback.audioUrl" class="uk-width-medium-1-2 uk-margin"  ng-style="feedback.videoUrl && {'padding-top':'80px'}">
+		<video src="{{feedback.audioUrl}}"
+			data-attr-autoplay={{videoAttr.autoplay}} video-control
+			data-attr-control={{videoAttr.controls}} video-muted
+			data-attr-muted={{videoAttr.muted}}
+			poster="'/assets/img/brand/logow.png'"  style="height: 50px; width: 100%" 
+		></video>
+	</div>
+	<div style="float: right;" ng-if="feedback.videoUrl" class="uk-width-medium-1-2 uk-margin">
+		<video src="{{feedback.videoUrl|trust}}"
+		video-autoplay
+			data-attr-autoplay={{videoAttr.autoplay}} video-control
+			data-attr-control={{videoAttr.controls}} video-muted
+			data-attr-muted={{videoAttr.muted}}
+			poster="{{ feedback.videoUrl!=null?'':'/assets/img/brand/logow.png' }}"></video>
+	</div>
+</div>
+<div class="uk-width-medium-1-1 uk-margin" style="overflow: hidden;">
+	<div class="uk-modal" id="{{feedback._id}}modal_record_video">
+		<div class="uk-modal-dialog">
+			<button type="button" class="uk-modal-close uk-close"></button>
+			<div class="uk-grid uk-grid-small" data-uk-grid-margin>
+				<div class="uk-width-medium-1-1">
+					<recorder-video object="feedback"></recorder-video>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="uk-modal" id="{{feedback._id}}modal_record_audio">
+		<div class="uk-modal-dialog">
+			<button type="button" class="uk-modal-close uk-close"></button>
+			<div class="uk-grid uk-grid-small" data-uk-grid-margin>
+				<div class="uk-width-medium-1-1">
+					<recorder-audio object="feedback"></recorder-audio>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

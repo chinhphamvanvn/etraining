@@ -1,0 +1,112 @@
+<style type="text/css">
+  @media (min-width: 768px) {
+    .survey-course {
+      height: calc(100vh - 145px);
+      overflow-y: scroll;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .survey-course {
+      height: calc(100vh - 110px);
+      overflow-y: scroll;
+    }
+  }
+</style>
+<div id="page_content">
+	<div id="page_content_inner">
+		<div class="md-card survey-course">
+			<div class="md-card-toolbar">
+				<h3 class="md-card-toolbar-heading-text large">
+					{{'PAGE.LMS.MY_COURSES.TEACHER_BOARD.SURVEY_RESULT'|translate}}</h3>
+				<!--<button class="md-btn buttons-csv buttons-html5" type="button"-->
+					<!--ng-csv="vm.memberListCsv" csv-header="vm.headerArrCsv"-->
+					<!--filename="ReportServey.csv"-->
+					<!--style="margin-top: 8px; float: right; margin-right: 30px;">-->
+					<!--<i class="uk-icon-file-excel-o" aria-hidden="true"></i>-->
+					<!--{{"ACTION.EXPORT" | translate}}-->
+				<!--</button>-->
+				<export-excel tableid="tableToExportServey" style="margin-left: 10px;"></export-excel>
+			</div>
+			<div class="md-card-content">
+				<div class="md-card-content">
+					<div class="uk-accordion" data-uk-accordion
+						ng-repeat="section in vm.sections">
+						<h3 class="uk-accordion-title md-bg-teal-50">
+							<span class="uk-text-bold">{{section.name}}</span> <span
+								class="uk-float-right uk-text-italic uk-margin-right">{{'PAGE.LMS.MY_COURSES.TEACHER_BOARD.SURVEY_CANDIDATE_COUNT'
+								| translate}} {{section.attempts.length}}</span>
+						</h3>
+						<div class="uk-accordion-content">
+							<div ng-repeat="question in section.survey.questions">
+								<h5 class="sub_heading">
+									{{'PAGE.LMS.MY_COURSES.COURSE_SURVEY.QUESTION'|translate}}: <span
+										style="font-size: 14px;">{{question.detail.title}}</span>
+									<p class="question-survey"
+										ng-bind-html="question.detail.description"></p>
+								</h5>
+								<table class="uk-table uk-table-nowrap uk-table-condensed">
+									<thead>
+										<tr>
+											<th class="uk-width-6-10 uk-text-center">{{'PAGE.LMS.MY_COURSES.COURSE_SURVEY.OPTION'|translate}}</th>
+											<th class="uk-width-2-10 uk-text-center">{{'PAGE.LMS.MY_COURSES.TEACHER_BOARD.SURVEY_CANDIDATE_CHECK_COUNT'|translate}}</th>
+											<th class="uk-width-2-10 uk-text-center">{{'PAGE.LMS.MY_COURSES.TEACHER_BOARD.SURVEY_CANDIDATE_PERCENT'|translate}}</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr ng-repeat="option in question.options">
+											<td class="uk-text-center">{{option.content}}</td>
+											<td class="uk-text-center">{{option.count}} /
+												{{section.attempts.length}}</td>
+											<td class="uk-text-center">{{option.percentage}} %</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div style="display: none" id="tableToExportServey">
+				<div class="uk-accordion" data-uk-accordion ng-repeat="section in vm.sections">
+					<p class="uk-accordion-title md-bg-teal-50" style="font-size: 18px; font-weight: 500">
+						<span class="uk-text-bold">{{section.name}}</span>
+					</p>
+					<span class="uk-float-right uk-text-italic uk-margin-right">{{'PAGE.LMS.MY_COURSES.TEACHER_BOARD.SURVEY_CANDIDATE_COUNT'
+								| translate}} {{section.attempts.length}}</span>
+					<div class="uk-accordion-content">
+						<div ng-repeat="question in section.survey.questions">
+							<p>{{'PAGE.LMS.MY_COURSES.COURSE_SURVEY.QUESTION'|translate}}: <span
+									style="font-size: 14px;">{{question.detail.title}}</span>
+								<p class="question-survey"
+								   ng-bind-html="question.detail.description"></p>
+							</p>
+							<table class="uk-table uk-table-nowrap uk-table-condensed">
+								<thead>
+									<tr>
+										<th></th>
+										<th class="uk-width-6-10 uk-text-center">{{'PAGE.LMS.MY_COURSES.COURSE_SURVEY.OPTION'|translate}}</th>
+										<th class="uk-width-2-10 uk-text-center">{{'PAGE.LMS.MY_COURSES.TEACHER_BOARD.SURVEY_CANDIDATE_CHECK_COUNT'|translate}}</th>
+										<th class="uk-width-2-10 uk-text-center">{{'PAGE.LMS.MY_COURSES.TEACHER_BOARD.SURVEY_CANDIDATE_PERCENT'|translate}}</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr ng-repeat="option in question.options">
+										<td></td>
+										<td class="uk-text-center" style="width: 152px">{{option.content}}</td>
+										<td class="uk-text-center">{{option.count}} |
+											{{section.attempts.length}}</td>
+										<td class="uk-text-center">{{option.percentage}} %</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<br><br>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+

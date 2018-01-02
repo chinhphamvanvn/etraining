@@ -1,0 +1,170 @@
+<div ng-if="mode=='edit'">
+	<div class="uk-grid ">
+		<div class="uk-width-medium-1-2 parsley-row">
+			<label for="question_title">
+				{{'MODEL.QUESTION.TITLE'|translate}} <span class="req">*</span>
+			</label> <input type="text" name="question_title" id="question_title"
+				required class="md-input" md-input ng-model="question.title" />
+		</div>
+		<div class="uk-width-medium-1-2 parsley-row">
+			<label for="question_level_select">{{'MODEL.QUESTION.LEVEL'|translate}}</label>
+			<div id="question_level_select">
+				<span class="icheck-inline"> <input type="radio"
+					name="question_level_{{question._id}}"
+					id="question_easy_{{question._id}}" value="easy" icheck
+					ng-model="question.level" /> <label for="question_easy"
+					class="inline-label">{{'COMMON.DIFFICULTY.EASY'|translate}}</label>
+				</span> <span class="icheck-inline"> <input type="radio"
+					name="question_level_{{question._id}}"
+					id="question_medium_{{question._id}}" value="medium" icheck
+					ng-model="question.level" /> <label for="question_medium"
+					class="inline-label">{{'COMMON.DIFFICULTY.MEDIUM'|translate}}</label>
+				</span> <span class="icheck-inline"> <input type="radio"
+					name="question_level_{{question._id}}"
+					id="question_hard_{{question._id}}" value="hard" icheck
+					ng-model="question.level" /> <label for="question_hard"
+					class="inline-label">{{'COMMON.DIFFICULTY.HARD'|translate}}</label>
+				</span>
+			</div>
+		</div>
+	</div>
+	<div class="uk-grid">
+		<div class="uk-width-medium-1-1 parsley-row">
+			<textarea ui-tinymce="tinymce_options"
+				ng-model="question.description" cols="30" rows="4"></textarea>
+		</div>
+	</div>
+</div>
+
+<div ng-if="mode=='view'">
+	<div class="uk-grid no-margin-top">
+		<div class="uk-width-medium-1-2 parsley-row">
+			<h4 class="quiz-heading uk-text-left">{{'MODEL.QUESTION.LEVEL'|translate}}</h4>
+			<div id="question_level_select">
+				<span class="icheck-inline"> <input ng-disabled="true"
+					type="radio" name="question_level_{{question._id}}"
+					id="question_easy_{{question._id}}" value="easy" icheck
+					ng-model="question.level" /> <label for="question_easy"
+					class="inline-label">{{'COMMON.DIFFICULTY.EASY'|translate}}</label>
+				</span> <span class="icheck-inline"> <input ng-disabled="true"
+					type="radio" name="question_level_{{question._id}}"
+					id="question_medium_{{question._id}}" value="medium" icheck
+					ng-model="question.level" /> <label for="question_medium"
+					class="inline-label">{{'COMMON.DIFFICULTY.MEDIUM'|translate}}</label>
+				</span> <span class="icheck-inline"> <input ng-disabled="true"
+					type="radio" name="question_level_{{question._id}}"
+					id="question_hard_{{question._id}}" value="hard" icheck
+					ng-model="question.level" /> <label for="question_hard"
+					class="inline-label">{{'COMMON.DIFFICULTY.HARD'|translate}}</label>
+				</span>
+			</div>
+		</div>
+	</div>
+	<div class="uk-grid no-margin-top">
+		<div class="uk-width-medium-1-1 parsley-row">
+			<h4 class="quiz-heading uk-text-left">
+				{{'MODEL.QUESTION.DESC'|translate}}</h4>
+			<p class="uk-text-left text-wrap" ng-bind-html="question.description" />
+		</div>
+	</div>
+</div>
+
+<div ng-if="mode=='study'">
+	<div class="uk-grid">
+		<div class="uk-width-medium-1-1 parsley-row">
+			<p class="uk-text-left text-wrap" ng-bind-html="question.description" />
+		</div>
+	</div>
+	<div class="uk-grid" data-uk-grid-margin>
+		<div class="uk-width-1-1">
+			<div id="text_answer">
+				<label for="open_text">{{'MODEL.ANSWER.RESPONSE'|translate}}</label>
+				<input type="text" name="open_text" id="open_text"
+					data-parsley-trigger="change" class="md-input" md-input
+					ng-model="answer.text" />
+			</div>
+		</div>
+		<div ng-if="answer.audioUrl" class="uk-width-medium-1-2 uk-margin"  ng-style="answer.videoUrl && {'padding-top':'80px'}">
+			<video src="{{answer.audioUrl}}"
+				data-attr-autoplay={{videoAttr.autoplay}} video-control
+				data-attr-control={{videoAttr.controls}} video-muted
+				data-attr-muted={{videoAttr.muted}}
+				poster="'/assets/img/brand/logow.png'"  style="height: 50px; width: 100%" 
+			></video>
+		</div>
+		<div ng-if="answer.videoUrl" class="uk-width-medium-1-2 uk-margin">
+			<video src="{{answer.videoUrl|trust}}"
+			video-autoplay
+				data-attr-autoplay={{videoAttr.autoplay}} video-control
+				data-attr-control={{videoAttr.controls}} video-muted
+				data-attr-muted={{videoAttr.muted}}
+				poster="{{ object.videoUrl!=null?'':'/assets/img/brand/logow.png' }}"></video>
+		</div>
+		
+		<div class="uk-width-medium-1-1 uk-margin">
+			
+			<a data-uk-modal="{target:'#{{question._id}}modal_record_audio'}"
+				class="md-btn md-btn-mini md-btn-icon  md-btn-wave"> <i
+				class="uk-icon-microphone uk-text-primary"></i>
+				{{'ACTION.RECORD_AUDIO'|translate}}
+			</a> <a data-uk-modal="{target:'#{{question._id}}modal_record_video'}"
+				class="md-btn md-btn-mini md-btn-icon  md-btn-wave"> <i
+				class="uk-icon-video-camera uk-text-primary"></i>
+				{{'ACTION.RECORD'|translate}}
+			</a>
+
+		</div>
+
+	</div>
+</div>
+
+
+<div ng-if="mode=='result'">
+	<div class="uk-grid">
+		<div class="uk-width-medium-1-1 ">
+			<p class="uk-text-left text-wrap" ng-bind-html="question.description" />
+		</div>
+	</div>
+	<div class="uk-grid" data-uk-grid-margin>
+		<div class="uk-width-1-1">
+			<div id="text_answer">
+				<label for="open_text">{{'MODEL.ANSWER.RESPONSE'|translate}}</label>
+				<span>{{answer.text}}</span>
+			</div>
+		</div>
+		<div class="uk-width-1-2" ng-show="answer.audioUrl">
+			<div id="audio_answer">
+				<label for="audio_answer">{{'MODEL.ANSWER.AUDIO'|translate}}</label>
+				<video controls src="{{answer.audioUrl | trust}}"></video>
+			</div>
+		</div>
+		<div class="uk-width-1-2" ng-show="answer.videoUrl">
+			<div id="video_answer">
+				<label for="video_answer">{{'MODEL.ANSWER.VIDEO'|translate}}</label>
+				<video controls src="{{answer.videoUrl | trust}}"></video>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="uk-modal modal_record_video_drap" id="{{question._id}}modal_record_video" style="width: 400px; background: rgba(0, 0, 0, 0);">
+	<div class="uk-modal-dialog" style="background: #f5f5f5; width: 400px;">
+		<button type="button" class="uk-modal-close uk-close"></button>
+		<div class="uk-grid uk-grid-small" data-uk-grid-margin>
+			<div class="uk-width-medium-1-1">
+				<recorder-video object="answer"></recorder-video>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="uk-modal modal_record_video_drap" id="{{question._id}}modal_record_audio" style="width: 400px; background: rgba(0, 0, 0, 0);">
+	<div class="uk-modal-dialog" style="background: #f5f5f5;">
+		<button type="button" class="uk-modal-close uk-close"></button>
+		<div class="uk-grid uk-grid-small" data-uk-grid-margin>
+			<div class="uk-width-medium-1-1">
+				<recorder-audio object="answer"></recorder-audio>
+			</div>
+		</div>
+	</div>
+</div>

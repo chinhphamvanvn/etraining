@@ -1,0 +1,81 @@
+<div id="page_content">
+	<div id="page_content_inner">
+		<h3 class="heading_b uk-margin-bottom">{{'PAGE.REPORTS.SECTION_BY_MEMBER.TITLE'
+			| translate}}</h3>
+		<div class="uk-grid" data-uk-grid-margin>
+			<div class="uk-width-medium-1-1">
+				<div class="md-card">
+					<div class="content-table-gradebook md-card-content">
+						<div class="uk-margin-bottom">
+							<a class="md-btn  md-btn-wave-light md-btn-icon"
+								data-uk-modal="{target:'#select_user'}">
+								{{'PAGE.REPORTS.SECTION_BY_MEMBER.SELECT_DEPARTMENT'|translate}}
+								<i class="material-icons">&#xE313;</i>
+							</a>
+							<select-user-dialog callback="vm.generateReport"
+								dialog-id="'select_user'"></select-user-dialog>
+							<export-excel tableid="tableToExportSectionMember" style="margin-left: 10px;"></export-excel>
+						</div>
+						<div class="uk-overflow-container table-border" id="tableToExportSectionMember">
+							<table class="uk-table uk-table-hover uk-table-condensed"
+								cellspacing="0" width="100%">
+								<thead>
+									<tr>
+										<th colspan="4" class="uk-text-center">{{'REPORT.SECTION_BY_MEMBER.MEMBER'|translate}}</th>
+										<th colspan="3" class="uk-text-center">{{'REPORT.SECTION_BY_MEMBER.COURSE'|translate}}</th>
+										<th colspan="5" class="uk-text-center">{{'REPORT.SECTION_BY_MEMBER.OUTLINE'|translate}}</th>
+									</tr>
+									<tr>
+										<th>#</th>
+										<th>{{'MODEL.USER.USERNAME'|translate}}</th>
+										<th>{{'MODEL.USER.FIRST_NAME'|translate}}</th>
+										<th>{{'MODEL.USER.LAST_NAME'|translate}}</th>
+										<th>{{'MODEL.COURSE.CODE'|translate}}</th>
+										<th>{{'MODEL.COURSE.NAME'|translate}}</th>
+										<th>{{'MODEL.MEMBER.ENROLL_STATUS'|translate}}</th>
+										<th>{{'MODEL.SECTION.CONTENT_TYPE'|translate}}</th>
+										<th>{{'MODEL.SECTION.NAME'|translate}}</th>
+										<th>{{'REPORT.SECTION_BY_MEMBER.FIRST_ATTEMPT'|translate}}</th>
+										<th>{{'REPORT.SECTION_BY_MEMBER.LAST_ATTEMPT'|translate}}</th>
+										<th>{{'REPORT.SECTION_BY_MEMBER.STATUS'|translate}}</th>
+
+									</tr>
+								</thead>
+								<tbody ng-repeat="(key, sections) in vm.sections" ng-init="parentIndex=$index">
+									<tr ng-repeat="section in sections">
+										<td ng-if="$index == 0" rowspan="{{ vm.sections[key].length }}">{{parentIndex + 1}}</td>
+										<td ng-if="$index == 0" rowspan="{{ vm.sections[key].length }}">{{section.member.member.username}}</td>
+										<td ng-if="$index == 0" rowspan="{{ vm.sections[key].length }}">{{section.member.member.firstName}}</td>
+										<td ng-if="$index == 0" rowspan="{{ vm.sections[key].length }}">{{section.member.member.lastName}}</td>
+										<td>{{section.member.course.code}}</td>
+										<td>{{section.member.course.name}}</td>
+										<td><span ng-if="section.member.enrollmentStatus=='registered'">{{'COMMON.ENROLL.REGISTERED'|translate}}</span>
+											<span ng-if="section.member.enrollmentStatus=='in-study'">{{'COMMON.ENROLL.INSTUDY'|translate}}</span>
+											<span ng-if="section.member.enrollmentStatus=='completed'">{{'COMMON.ENROLL.COMPLETED'|translate}}</span>
+										</td>
+										<td>{{section.contentType}}</td>
+										<td>{{section.name}}</td>
+										<td>{{section.firstAttempt.created | date :'dd/MM/yyyy'
+											}}</td>
+										<td>{{section.lastAttempt.created | date :'dd/MM/yyyy' }}</td>
+										<td><span ng-if="!section.completed">{{'COMMON.ATTEMPT_STATUS.INITIAL'|translate}}</span>
+											<span ng-if="section.completed">{{'COMMON.ATTEMPT_STATUS.COMPLETE'|translate}}</span>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<!--<div>-->
+							<!--<a class="md-btn md-btn-primary  md-btn-wave-light md-btn-icon uk-margin-top"-->
+								<!--ng-csv="vm.getExportData()" csv-header="vm.getExportHeader()"-->
+								<!--filename="report.section_by_member.csv" field-separator=";"-->
+								<!--decimal-separator="."> <i class="material-icons">save</i>-->
+								<!--{{'ACTION.EXPORT'|translate}}-->
+							<!--</a>-->
+						<!--</div>-->
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

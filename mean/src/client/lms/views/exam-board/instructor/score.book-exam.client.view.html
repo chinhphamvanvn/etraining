@@ -1,0 +1,22 @@
+<div id="page_content">
+	<div id="page_heading" data-uk-sticky="{ top: 48, media: 960 }">
+		<h1>{{'PAGE.LMS.MY_EXAMS.SCOREBOARD_MEMBER.TITLE'|translate}} :
+			{{vm.candidate.candidate.displayName}}</h1>
+		<span class="uk-text-upper uk-text-small"> <a
+			ui-sref="workspace.lms.exams.scoreboard({examId:vm.exam._id,scheduleId:vm.schedule._id})">
+				<i class="material-icons uk-text-primary">keyboard_arrow_left</i>
+				{{'PAGE.LMS.MY_EXAMS.SCOREBOARD.TITLE'|translate}} :
+				{{vm.schedule.name}}
+		</a>
+		</span>
+	</div>
+
+	<div id="page_content_inner">
+		<exam-result exam="vm.exam" candidate="vm.candidate" ng-if="vm.exam && vm.candidate"></exam-result>
+
+	</div>
+
+</div>
+
+
+

@@ -1,0 +1,146 @@
+<div class="md-card">
+	<div class="md-card-content large-padding">
+		<div class="uk-grid blog_article uk-grid-divider" data-uk-grid-margin>
+			<div class="uk-width-large-3-4 uk-width-medium-6-10">
+				<div class="uk-article">
+					{{program.code}}
+					<h1 class="uk-article-title">{{program.name}}</h1>
+					<p class="uk-article-meta">{{'COMMON.CREATE_BY'|translate}}
+						{{program.user.displayName}} {{'COMMON.ON_DATE'|translate}}
+						{{program.created | date :'dd-MM-yyyy'}}</p>
+					<p class="uk-article-lead">{{program.summary}}</p>
+					<hr class="uk-article-divider">
+					<p ng-bind-html="program.detail"></p>
+				</div>
+				<h3 class="heading_a uk-margin-bottom">{{'MODEL.PROGRAM.COURSE'|
+					translate}}</h3>
+				<div class="uk-grid">
+					<div ng-repeat="course in program.courses"
+						class="uk-width-large-1-3 uk-width-medium-1-2 uk-width-small-1-2 uk-width-1-1 uk-margin-bottom hierarchical_show"
+						id="program_list" hierarchical-show ui-sref="workspace.lms.courses.join.intro({ courseId: course._id,editionId:course.edition._id })">
+						<div class="md-card md-card-hover" >
+							<div class="uk-grid">
+								<div class="uk-width-1-2 uk-width-small-1-1"
+									ng-class="{'md-bg-cyan-600' : course.level=='hard'}">
+									<div class="uk-text-center">
+										<img ng-src="{{course.logoURL}}" alt="" />
+									</div>
+									<div style="padding: 5px 5px">
+										<h3 class="course-title"
+											ng-class="{'md-color-white' : course.level=='hard'}">
+											{{course.name | truncateWord: 8}}</h3>
+									</div>
+								</div>
+								<div class="uk-width-1-2 uk-width-small-1-1 body-program-view">
+									<ul class="md-list">
+										<li class="summary-program"
+											style="border-top: 1px solid rgba(0, 0, 0, 0.12);">
+											<div class="md-list-content">
+												<span class="md-list-heading">{{'MODEL.COURSE.SUMMARY'|translate}}</span>
+												<toggle-text text="course.summary" number-of-word="8"
+													class-name="'uk-text-small uk-text-muted'"></toggle-text>
+											</div>
+										</li>
+										<li class="summary-program">
+											<div class="md-list-content">
+												<span class="md-list-heading">{{'MODEL.COURSE.EMAIL'|translate}}</span>
+												<span class="uk-text-small uk-text-muted uk-text-truncate">{{course.email}}</span>
+											</div>
+										</li>
+										<li class="summary-program">
+											<div class="md-list-content">
+												<span class="md-list-heading">{{'MODEL.COURSE.PHONE'|translate}}</span>
+												<span class="uk-text-small uk-text-muted">{{course.phone}}</span>
+											</div>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="uk-width-large-1-4 uk-width-medium-4-10">
+				<h5 class="uk-margin-small-bottom uk-text-upper">{{'PAGE.CMS.PROGRAMS.BASIC_INFO'|translate}}</h5>
+				<ul class="md-list uk-margin-remove">
+					<li>
+						<div class="md-list-content">
+							<span class="md-list-heading uk-text-truncate"><a href="#"><i
+									class="md-icon material-icons uk-text-primary">nature</i>
+									{{'MODEL.PROGRAM.STATUS'|translate}}</a> <span class="uk-badge"
+								ng-show="program.status=='initial'">{{'COMMON.STATUS.INITIAL'|translate}}</span>
+								<span class="uk-badge uk-badge-success"
+								ng-show="program.status=='available'">{{'COMMON.STATUS.AVAIL'|translate}}</span>
+								<span class="uk-badge uk-badge-warning"
+								ng-show="program.status=='suspended'">{{'COMMON.STATUS.SUSPEND'|translate}}</span>
+							</span>
+						</div>
+					</li>
+
+				</ul>
+				<h5 class="uk-margin-small-bottom uk-text-upper  uk-margin-large">{{'MODEL.PROGRAM.COMPETENCY'|
+					translate}}</h5>
+				<div class="blog_tags">
+					<span class="uk-badge uk-text-left text-wrap"
+						ng-repeat="competency in program.competencies">{{competency.name}}</span>
+				</div>
+
+				<h5 class="uk-margin-small-bottom uk-text-upper uk-margin-large">
+					{{'PAGE.CMS.PROGRAMS.ENROLLMENT'|translate}}</h5>
+				<ul class="md-list uk-margin-remove">
+					<li>
+						<div class="md-list-content">
+							<span class="md-list-heading uk-text-truncate"><a href="#"><i
+									class="md-icon material-icons uk-text-primary">school</i>
+									{{'MODEL.PROGRAM.ENROLL_STATUS'|translate}}</a> <span
+								class="uk-badge uk-badge-success" ng-show="program.enrollStatus">Ok</span>
+								<span class="uk-badge uk-badge-danger"
+								ng-show="!program.enrollStatus">Nok</span> </span>
+						</div>
+					</li>
+					<li>
+						<div class="md-list-content">
+							<span class="md-list-heading uk-text-truncate"><a href="#"><i
+									class="md-icon material-icons uk-text-primary">filter_list</i>
+									{{'MODEL.PROGRAM.ENROLL_POLICY'|translate}}</a></span> <span
+								class="uk-text-small uk-text-muted"
+								ng-show="program.enrollPolicy=='open'">{{'COMMON.ENROLL_POLICY.OPEN_DESC'|translate}}</span>
+							<span class="uk-text-small uk-text-muted"
+								ng-show="program.enrollPolicy=='censor'">{{'COMMON.ENROLL_POLICY.CENSOR_DESC'|translate}}</span>
+						</div>
+					</li>
+					<li>
+						<div class="md-list-content">
+							<span class="md-list-heading uk-text-truncate"><a href="#"><i
+									class="md-icon material-icons uk-text-primary">slideshow</i>
+									{{'MODEL.PROGRAM.PRESENT_MODE'|translate}}</a></span> <span
+								class="uk-text-small uk-text-muted"
+								ng-show="program.displayMode=='open'">{{'COMMON.PRESENT_MODE.ALL'|translate}}</span>
+							<span class="uk-text-small uk-text-muted"
+								ng-show="program.displayMode=='login'">{{'COMMON.PRESENT_MODE.LOGIN'|translate}}</span>
+							<span class="uk-text-small uk-text-muted"
+								ng-show="program.displayMode=='enroll'">{{'COMMON.PRESENT_MODE.ENROLL'|translate}}</span>
+						</div>
+					</li>
+
+					<li>
+						<div class="md-list-content">
+							<span class="md-list-heading uk-text-truncate"><a href="#"><i
+									class="md-icon material-icons uk-text-primary">email</i>
+									{{'MODEL.PROGRAM.EMAIL'|translate}}</a></span> <span
+								class="uk-text-small uk-text-muted">{{program.email}}</span>
+						</div>
+					</li>
+					<li>
+						<div class="md-list-content">
+							<span class="md-list-heading uk-text-truncate"><a href="#"><i
+									class="md-icon material-icons uk-text-primary">phone</i>
+									{{'MODEL.PROGRAM.PHONE'|translate}}</a></span> <span
+								class="uk-text-small uk-text-muted">{{program.phone}}</span>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>

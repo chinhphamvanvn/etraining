@@ -1,0 +1,235 @@
+<div id="top_bar">
+  <div class="md-top-bar">
+    <ul id="menu_top" class="uk-clearfix">
+      <li class="uk-visible-large"><a ui-sref='workspace.lms.courses.me'><i
+        class="material-icons md-24">&#xE88A;</i></a></li>
+      <li class="uk-visible-large"><a
+        ui-sref="workspace.lms.courses.join.intro({courseId:vm.course._id,editionId:vm.edition._id})"
+        ng-class="{'uk-text-primary':state.name.includes('intro')}"><i
+        class="material-icons md-24"
+        ng-class="{'uk-text-primary':state.name.includes('intro')}">info_outline</i><span>{{'PAGE.LMS.MY_COURSES.STUDENT_BOARD.COURSE_INFO'|translate}}</span></a>
+      </li>
+      <li class="uk-visible-large"
+        ng-show="vm.member && vm.member.role=='student'"><a
+        ui-sref="workspace.lms.courses.join.study({courseId:vm.course._id,editionId:vm.edition._id})"
+        ng-class="{'uk-text-primary':state.name.includes('study')}"><i
+        ng-class="{'uk-text-primary':state.name.includes('study')}"
+        class="material-icons md-24">account_balance</i><span>{{'PAGE.LMS.MY_COURSES.STUDENT_BOARD.COURSE_OUTLINE'|translate}}</span></a>
+      </li>
+      <li class="uk-visible-large"><a
+        ng-show="vm.member"
+        ui-sref="workspace.lms.courses.join.material({courseId:vm.course._id,editionId:vm.edition._id})"
+        ng-class="{'uk-text-primary':state.name.includes('material')}"><i
+        ng-class="{'uk-text-primary':state.name.includes('material')}"
+        class="material-icons md-24">library_books</i><span>{{'PAGE.LMS.MY_COURSES.STUDENT_BOARD.MATERIAL'|translate}}</span></a>
+      </li>
+      <li class="uk-visible-large"><a
+        ng-show="vm.member"
+        ui-sref="workspace.lms.courses.join.forum({courseId:vm.course._id,editionId:vm.edition._id})"
+        ng-class="{'uk-text-primary':state.name.includes('forum')}"><i
+        ng-class="{'uk-text-primary':state.name.includes('forum')}"
+        class="material-icons md-24">question_answer</i><span>{{'PAGE.LMS.MY_COURSES.STUDENT_BOARD.FORUM'|translate}}</span></a>
+      </li>
+      <li class="uk-visible-large"
+          ng-show="vm.member && vm.member.role=='student'"><a
+        ui-sref="workspace.lms.courses.join.gradebook({courseId:vm.course._id,editionId:vm.edition._id})"
+        ng-class="{'uk-text-primary':state.name.includes('gradebook')}"><i
+        ng-class="{'uk-text-primary':state.name.includes('gradebook')}"
+        class="material-icons md-24">book</i><span>{{'PAGE.LMS.MY_COURSES.STUDENT_BOARD.GRADEBOOK'|translate}}</span></a>
+      </li>
+      <li class="uk-visible-large"
+          ng-show="vm.course.model=='group' && vm.member.role=='teacher'"><a
+        ui-sref="workspace.lms.courses.join.classroom.teacher({courseId:vm.course._id,editionId:vm.edition._id})"
+        ng-class="{'uk-text-primary':state.name.includes('class')}"><i
+        ng-class="{'uk-text-primary':state.name.includes('classroom')}"
+        class="material-icons md-24">room</i><span>{{'PAGE.LMS.MY_COURSES.STUDENT_BOARD.CLASSROOM'|translate}}</span></a>
+      </li>
+      <li class="uk-visible-large"
+          ng-show="vm.course.model=='group' && vm.member.role=='student'"><a
+        ui-sref="workspace.lms.courses.join.classroom.student({courseId:vm.course._id,editionId:vm.edition._id,classroomId:vm.member.classroom._id})"
+        ng-class="{'uk-text-primary':state.name.includes('class')}"><i
+        ng-class="{'uk-text-primary':state.name.includes('classroom')}"
+        class="material-icons md-24">room</i><span>{{'PAGE.LMS.MY_COURSES.STUDENT_BOARD.CLASSROOM'|translate}}</span></a>
+      </li>
+      <li class="uk-visible-large"
+          ng-show="vm.member && vm.member.role=='teacher'"><a
+        ui-sref="workspace.lms.courses.join.exercise({courseId:vm.course._id,editionId:vm.edition._id})"
+        ng-class="{'uk-text-primary':state.name.includes('exercise')}"><i
+        ng-class="{'uk-text-primary':state.name.includes('exercise')}"
+        class="material-icons md-24">play_for_work</i><span>{{'PAGE.LMS.MY_COURSES.TEACHER_BOARD.EXERCISE'|translate}}</span></a>
+      </li>
+      <li class="uk-visible-large"
+          ng-show="vm.member && vm.member.role=='teacher'"><a
+        ui-sref="workspace.lms.courses.join.gradeboard({courseId:vm.course._id,editionId:vm.edition._id})"
+        ng-class="{'uk-text-primary':state.name.includes('gradeboard')}"><i
+        ng-class="{'uk-text-primary':state.name.includes('gradeboard')}"
+        class="material-icons md-24">book</i><span>{{'PAGE.LMS.MY_COURSES.TEACHER_BOARD.GRADE_BOARD'|translate}}</span></a>
+      </li>
+      <li class="uk-visible-large"
+          ng-show="vm.member && vm.member.role=='teacher'"><a
+        ui-sref="workspace.lms.courses.join.survey({courseId:vm.course._id,editionId:vm.edition._id})"
+        ng-class="{'uk-text-primary':state.name.includes('survey')}"><i
+        ng-class="{'uk-text-primary':state.name.includes('survey')}"
+        class="material-icons md-24">check_circle</i><span>{{'PAGE.LMS.MY_COURSES.TEACHER_BOARD.SURVEY'|translate}}</span></a>
+      </li>
+      <li class="uk-visible-large"
+          ng-show="vm.member && vm.member.role=='teacher'"><a
+        ui-sref="workspace.lms.courses.join.stats({courseId:vm.course._id,editionId:vm.edition._id})"
+        ng-class="{'uk-text-primary':state.name.includes('stats')}"><i
+        ng-class="{'uk-text-primary':state.name.includes('stats')}"
+        class="material-icons md-24">show_chart</i><span>{{'PAGE.LMS.MY_COURSES.TEACHER_BOARD.REPORT'|translate}}</span></a>
+      </li>
+      
+
+      <!-- Mobile menu -->
+      <li data-uk-dropdown="justify:'#top_bar'" class="uk-hidden-large">
+        <a href="#"><i class="material-icons">&#xE5D2;</i></a>
+        <div class="uk-dropdown uk-dropdown-width-2">
+          <div class="uk-grid uk-dropdown-grid" data-uk-grid-margin>
+            <div class="uk-width-1-2">
+              <ul class="uk-nav uk-nav-dropdown">
+                <li><a href="/workspace/lms/courses/me"><i
+                  class="material-icons md-24">&#xE88A;</i> {{"PAGE.HOME" |
+                  translate}}</a></li>
+              </ul>
+            </div>
+
+            <div class="uk-width-1-2">
+              <ul class="uk-nav uk-nav-dropdown">
+                <li><a
+                  ui-sref="workspace.lms.courses.join.intro({courseId:vm.course._id,editionId:vm.edition._id})"
+                  ng-class="{'uk-text-primary':state.name.includes('intro')}"><i
+                  class="material-icons md-24"
+                  ng-class="{'uk-text-primary':state.name.includes('intro')}">info_outline</i><span>{{'PAGE.LMS.MY_COURSES.STUDENT_BOARD.COURSE_INFO'|translate}}</span></a>
+                </li>
+              </ul>
+            </div>
+
+            <div class="uk-width-1-2"
+                 ng-show="vm.member && vm.member.role=='student'">
+              <ul class="uk-nav uk-nav-dropdown">
+                <li><a
+                  ui-sref="workspace.lms.courses.join.study({courseId:vm.course._id,editionId:vm.edition._id})"
+                  ng-class="{'uk-text-primary':state.name.includes('study')}"><i
+                  ng-class="{'uk-text-primary':state.name.includes('study')}"
+                  class="material-icons md-24">account_balance</i><span>{{'PAGE.LMS.MY_COURSES.STUDENT_BOARD.COURSE_OUTLINE'|translate}}</span></a>
+                </li>
+              </ul>
+            </div>
+
+            <div class="uk-width-1-2"
+                 ng-show="vm.member">
+              <ul class="uk-nav uk-nav-dropdown">
+                <li><a
+                  ui-sref="workspace.lms.courses.join.material({courseId:vm.course._id,editionId:vm.edition._id})"
+                  ng-class="{'uk-text-primary':state.name.includes('material')}"><i
+                  ng-class="{'uk-text-primary':state.name.includes('material')}"
+                  class="material-icons md-24">library_books</i><span>{{'PAGE.LMS.MY_COURSES.STUDENT_BOARD.MATERIAL'|translate}}</span></a>
+                </li>
+              </ul>
+            </div>
+
+            <div class="uk-width-1-2"
+                 ng-show="vm.member">
+              <ul class="uk-nav uk-nav-dropdown">
+                <li><a
+                  ui-sref="workspace.lms.courses.join.forum({courseId:vm.course._id,editionId:vm.edition._id})"
+                  ng-class="{'uk-text-primary':state.name.includes('forum')}"><i
+                  ng-class="{'uk-text-primary':state.name.includes('forum')}"
+                  class="material-icons md-24">question_answer</i><span>{{'PAGE.LMS.MY_COURSES.STUDENT_BOARD.FORUM'|translate}}</span></a>
+                </li>
+              </ul>
+            </div>
+            
+
+            <div class="uk-width-1-2"
+                 ng-show="vm.member && vm.member.role=='student'">
+              <ul class="uk-nav uk-nav-dropdown">
+                <li><a
+                  ui-sref="workspace.lms.courses.join.gradebook({courseId:vm.course._id,editionId:vm.edition._id})"
+                  ng-class="{'uk-text-primary':state.name.includes('gradebook')}"><i
+                  ng-class="{'uk-text-primary':state.name.includes('gradebook')}"
+                  class="material-icons md-24">book</i><span>{{'PAGE.LMS.MY_COURSES.STUDENT_BOARD.GRADEBOOK'|translate}}</span></a>
+                </li>
+              </ul>
+            </div>
+
+            <div class="uk-width-1-2"
+                 ng-show="vm.course.model=='group' && vm.member.role=='teacher'">
+              <ul class="uk-nav uk-nav-dropdown">
+                <li><a
+                  ui-sref="workspace.lms.courses.join.classroom.teacher({courseId:vm.course._id,editionId:vm.edition._id})"
+                  ng-class="{'uk-text-primary':state.name.includes('class')}"><i
+                  ng-class="{'uk-text-primary':state.name.includes('classroom')}"
+                  class="material-icons md-24">room</i><span>{{'PAGE.LMS.MY_COURSES.STUDENT_BOARD.CLASSROOM'|translate}}</span></a>
+                </li>
+              </ul>
+            </div>
+
+            <div class="uk-width-1-2"
+                 ng-show="vm.course.model=='group' && vm.member.role=='student'">
+              <ul class="uk-nav uk-nav-dropdown">
+                <li><a
+                  ui-sref="workspace.lms.courses.join.classroom.student({courseId:vm.course._id,editionId:vm.edition._id,classroomId:vm.member.classroom._id})"
+                  ng-class="{'uk-text-primary':state.name.includes('class')}"><i
+                  ng-class="{'uk-text-primary':state.name.includes('classroom')}"
+                  class="material-icons md-24">room</i><span>{{'PAGE.LMS.MY_COURSES.STUDENT_BOARD.CLASSROOM'|translate}}</span></a>
+                </li>
+              </ul>
+            </div>
+
+            <div class="uk-width-1-2"
+                 ng-show="vm.member && vm.member.role=='teacher'">
+              <ul class="uk-nav uk-nav-dropdown">
+                <li><a
+                  ui-sref="workspace.lms.courses.join.gradeboard({courseId:vm.course._id,editionId:vm.edition._id})"
+                  ng-class="{'uk-text-primary':state.name.includes('gradeboard')}"><i
+                  ng-class="{'uk-text-primary':state.name.includes('gradeboard')}"
+                  class="material-icons md-24">book</i><span>{{'PAGE.LMS.MY_COURSES.TEACHER_BOARD.GRADE_BOARD'|translate}}</span></a>
+                </li>
+              </ul>
+            </div>
+            
+            <div class="uk-width-1-2"
+                 ng-show="vm.member && vm.member.role=='teacher'">
+              <ul class="uk-nav uk-nav-dropdown">
+                <li><a
+                  ui-sref="workspace.lms.courses.join.exercise({courseId:vm.course._id,editionId:vm.edition._id})"
+                  ng-class="{'uk-text-primary':state.name.includes('exercise')}"><i
+                  ng-class="{'uk-text-primary':state.name.includes('exercise')}"
+                  class="material-icons md-24">play_for_work</i><span>{{'PAGE.LMS.MY_COURSES.TEACHER_BOARD.EXERCISE'|translate}}</span></a>
+                </li>
+                
+              </ul>
+            </div>
+
+            <div class="uk-width-1-2"
+                 ng-show="vm.member && vm.member.role=='teacher'">
+              <ul class="uk-nav uk-nav-dropdown">
+                <li><a
+                  ui-sref="workspace.lms.courses.join.survey({courseId:vm.course._id,editionId:vm.edition._id})"
+                  ng-class="{'uk-text-primary':state.name.includes('survey')}"><i
+                  ng-class="{'uk-text-primary':state.name.includes('survey')}"
+                  class="material-icons md-24">check_circle</i><span>{{'PAGE.LMS.MY_COURSES.TEACHER_BOARD.SURVEY'|translate}}</span></a>
+                </li>
+                
+              </ul>
+            </div>
+
+            <div class="uk-width-1-2"
+                 ng-show="vm.member && vm.member.role=='teacher'">
+              <ul class="uk-nav uk-nav-dropdown">
+                <li><a
+                  ui-sref="workspace.lms.courses.join.stats({courseId:vm.course._id,editionId:vm.edition._id})"
+                  ng-class="{'uk-text-primary':state.name.includes('stats')}"><i
+                  ng-class="{'uk-text-primary':state.name.includes('stats')}"
+                  class="material-icons md-24">show_chart</i><span>{{'PAGE.LMS.MY_COURSES.TEACHER_BOARD.REPORT'|translate}}</span></a>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
+<div ui-view></div>

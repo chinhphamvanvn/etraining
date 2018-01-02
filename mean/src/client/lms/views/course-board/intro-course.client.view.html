@@ -1,0 +1,11 @@
+<div id="page_content">
+	<div id="page_content_inner">
+		<course-view course="vm.course"></course-view>
+	</div>
+</div>
+<div class="md-fab-wrapper" ng-show="!vm.member || !vm.member._id">
+	<a class="md-fab md-fab-accent md-fab-wave-light"
+		ng-click="vm.register()" data-uk-tooltip="{pos:'left'}"
+		title="{{'ACTION.REGISTER'|translate}}"> <i class="material-icons">launch</i>
+	</a>
+</div>

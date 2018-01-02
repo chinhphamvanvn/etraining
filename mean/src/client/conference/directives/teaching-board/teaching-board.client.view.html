@@ -1,0 +1,84 @@
+<style type="text/css">
+	.show_slideshow {
+		display: block;
+		z-index:900;
+	}
+</style>
+<div class="show_slideshow present" class="active-workspace" ng-show="slideshow || !connected">
+	<div class="my-pdf-container">
+		<div class="pdf-content vi-center">
+			<pdf-viewer delegate-handle="my-pdf-container" url="pdfUrl"
+				scale=".9" show-toolbar="false"
+				headers="{ 'x-you-know-whats-awesome': 'EVERYTHING' }"></pdf-viewer>
+		</div>
+		<div class="toolbar-pdf-viewer">
+			<div class="uk-grid toolbar-content"
+				ng-class=" connected ? 'show_toolbar' : 'hide_toolbar'">
+				<div class="uk-width-1-5" ng-show="member.role=='teacher'">
+					<a class="md-btn vi-success vi-btn"
+						ngf-select="uploadPresentation($file)" ngf-max-size="10MB" style="    font-size: 12px !important; padding: 3px 10px; margin-top: 5px;"> <i
+						class="uk-icon-upload" aria-hidden="true" style="color: #fff;"></i> {{"ACTION.UPLOAD" | translate}}
+					</a>
+				</div>
+				<div class="uk-width-2-5 vi-center"
+					ng-show="member.role=='teacher' ">
+					<a class="md-btn vi-btn-default" ng-click="pdfSwitchPage(-1)">
+						<i class="uk-icon-chevron-left" aria-hidden="true"></i>
+					</a> <input type="text" class="vi-input vi-pdf-input"
+						ng-value="currPage + '/' + totalPages"> <a
+						class="md-btn vi-btn-default" ng-click="pdfSwitchPage(1)"> <i
+						class="uk-icon-chevron-right" aria-hidden="true"></i>
+					</a>
+				</div>
+				<div class="uk-width-2-5"
+					ng-class="{'vi-right': (member.role=='teacher')}">
+					<a class="md-btn vi-btn-default" ng-click="zoomOut(0.1)"> <i
+						class="uk-icon-search-minus" aria-hidden="true"></i>
+					</a> <input flex="60" class="vi-input vi-pdf-input" type="text"
+						ng-value="zoom + '%'" disabled> <a
+						class="md-btn vi-btn-default" ng-click="zoomIn(0.1)" style="margin-right: 10px;"> <i
+						class="uk-icon-search-plus" aria-hidden="true"></i>
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="section_videos" style="width: calc(100% - 61px)">
+	<div class="section_videos_content">
+		<div ng-show="showListVideos">
+			<div class="list_videos_wrapper" ng-style="member.role =='teacher' && !slideshow && {'bottom':'0px'}">
+				<div class="list_videos_content"
+					style="height: {{channelList.length* 120">
+					<div class="video_wrapper"
+						ng-repeat="slot in videoSlots"
+               ng-show="slot.allocated"
+               ng-style="slot.publisher.role =='teacher' && !slideshow && {'position':'fixed','top':'10%','left':'20%','width':'60%','height':'60%'}">
+						<video class="video_training" ng-attr-id="{{slot.videoId}}"
+							autoplay poster="/assets/img/camera.png"></video>
+						<div class="top_bar clearfix">
+							{{slot.publisher.member.displayName}} <span ng-show="member.role =='teacher'"
+								ng-click="memberDiscard(slot.publisher)" class="btn-close right">
+								x </span>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+		<div ng-show="connected" ng-class="!slideshow && member.role =='teacher' ? 'videolocal-teacher' : 'video_teacher_wrapper'">
+			<div ng-class="!slideshow && member.role =='teacher' ? 'local-video-teacher' : 'video_wrapper'">
+
+				<video autoplay muted id="localCamera" class="video_training"></video>
+				<div class="top_bar">{{"PAGE.CONFERENCE.LOCAL_CAMERA" |
+					translate}}</div>
+			</div>
+		</div>
+		<span class="btn-toggle vi-center" ng-show="studentChannels.length"
+			ng-style="showListVideos ? {} : {'right': 0}"
+			ng-click="showListVideos = !showListVideos;"> <i
+			aria-hidden="true"
+			ng-class="showListVideos ? 'uk-icon-angle-double-right' : 'uk-icon-angle-double-left'"></i>
+		</span>
+	</div>
+</div>

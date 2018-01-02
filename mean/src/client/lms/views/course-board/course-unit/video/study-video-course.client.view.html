@@ -1,0 +1,30 @@
+<div class="uk-grid">
+	<div class="uk-width-1-1">
+		<div class="lecture-video">
+			<video id="selectorVideo" src="{{vm.video.videoURL | trust}}"
+				autoplay controls></video>
+
+			<div class="lecture-video__next-alert uk-hidden-small"
+				ng-show="vm.autoSectionAuto && !vm.endCourse">
+				<span class="title uppercase" ng-click="vm.nextSection()">
+					{{'ACTION.NEXT'|translate}} <i class="uk-icon-angle-double-right"></i>
+				</span> <br> <span class="counter">{{vm.counter}}</span> <i
+					class="uk-icon-pause pause" ng-click="vm.stopNextSectionAuto()"></i>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="uk-grid">
+	<div class="uk-width-1-1">
+		<ul class="uk-tab" data-uk-tab="{connect:'#tabs_1'}">
+			<li class="uk-active"><a href="#">{{'MODEL.VIDEO.TRANSCRIPT'|translate}}</a></li>
+		</ul>
+
+		<ul id="tabs_1" class="uk-switcher uk-margin">
+			<li>{{vm.video.transcript}}</li>
+		</ul>
+	</div>
+</div>
+
+

@@ -1,0 +1,238 @@
+<div ng-if="mode=='edit'">
+	<div class="uk-grid ">
+		<div class="uk-width-medium-1-2 parsley-row">
+			<label for="question_title">
+				{{'MODEL.QUESTION.TITLE'|translate}} <span class="req">*</span>
+			</label> <input type="text" name="question_title" id="question_title"
+				required class="md-input" md-input ng-model="question.title" />
+		</div>
+		<div class="uk-width-medium-1-2 parsley-row">
+			<label for="question_level_select">{{'MODEL.QUESTION.LEVEL'|translate}}</label>
+			<div id="question_level_select">
+				<span class="icheck-inline"> <input type="radio"
+					name="question_level_{{question._id}}"
+					id="question_easy_{{question._id}}" value="easy" icheck
+					ng-model="question.level" /> <label for="question_easy"
+					class="inline-label">{{'COMMON.DIFFICULTY.EASY'|translate}}</label>
+				</span> <span class="icheck-inline"> <input type="radio"
+					name="question_level_{{question._id}}"
+					id="question_medium_{{question._id}}" value="medium" icheck
+					ng-model="question.level" /> <label for="question_medium"
+					class="inline-label">{{'COMMON.DIFFICULTY.MEDIUM'|translate}}</label>
+				</span> <span class="icheck-inline"> <input type="radio"
+					name="question_level_{{question._id}}"
+					id="question_hard_{{question._id}}" value="hard" icheck
+					ng-model="question.level" /> <label for="question_hard"
+					class="inline-label">{{'COMMON.DIFFICULTY.HARD'|translate}}</label>
+				</span>
+			</div>
+		</div>
+	</div>
+	<div class="uk-grid">
+		<div class="uk-width-medium-1-1 parsley-row">
+			<textarea ui-tinymce="tinymce_options"
+				ng-model="question.description" cols="30" rows="4"></textarea>
+		</div>
+		<div class="uk-width-8-10 uk-text-center uk-margin">
+			<svg " ng-mousemove="mouseMove($event)"
+				xmlns="http://www.w3.org/2000/svg"
+				xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve"
+				width="320" height="320">
+			<rect width="320" height="320" data-selected="true"
+					style="fill:blue;stroke:blank;stroke-width:1;fill-opacity:0.1;stroke-opacity:0.9" />
+			<image x="0" y="0" width="320" height="320"
+					xlink:href="{{question.imageUrl}}">
+		    <title>{{question.title}}</title>
+		  </image>
+		  <g ng-repeat="option in question.options"
+					ng-mousedown="mouseDown($event)" ng-mouseup="mouseUp($event)">
+		    <circle id="{{option._id}}_circle" style="fill-opacity:0.4"
+					ng-attr-fill="{{option.selected ? 'green':'red'}}"
+					ng-attr-cx="{{option.svgData.x}}" ng-attr-cy="{{option.svgData.y}}"
+					r="15">
+		    </circle>
+		    <text id="{{option._id}}_text" style="cursor:default"
+					ng-attr-x="{{option.svgData.x}}" ng-attr-y="{{option.svgData.y}}"
+					text-anchor="middle" stroke="white" stroke-width="1px" dy=".3em">{{option.order}}</text>
+		  </g>
+		</svg>
+			<div>
+				<span class="uk-form-file md-btn md-btn-icon"> <i
+					class="uk-icon-upload"></i>
+					{{'ACTION.CHOOSE_IMAGE_FILE'|translate}} <input
+					id='file_upload_{{question.order}}' type="file">
+				</span>
+
+			</div>
+		</div>
+		<div class="uk-width-2-10 uk-text-center uk-margin">
+			<div class="uk-width-1-1"
+				ng-repeat="option in question.options | orderBy: 'order'">
+				<div class="uk-grid" data-uk-grid-margin>
+					<div class="uk-width-medium-5-10 uk-text-center">
+						<span class="icheck-inline"> <input type="checkbox"
+							id="option_{{option._id}}" icheck ng-model="option.selected"
+							ng-change="selectOption(option)" /> <label
+							for="option_{{option._id}}" class="inline-label">{{option.order}}</label>
+						</span>
+					</div>
+					<div class="uk-width-medium-5-10">
+						<a ng-click="removeOption(option)"
+							data-uk-tooltip="{cls:'uk-tooltip-small',pos:'top'}"
+							title="{{'ACTION.DELETE'|translate}}"> <i
+							class="md-icon material-icons uk-text-danger">delete</i>
+						</a>
+					</div>
+				</div>
+			</div>
+			<div class="uk-width-1-1 uk-text-center">
+				<a href="#" class="md-btn md-btn-flat md-btn-flat-primary"
+					ng-click="addOption()">{{'PAGE.LMS.MY_COURSES.TEACHER_BOARD.COURSE_OUTLINE.TEST.ADD_OPTION'|translate}}</a>
+			</div>
+		</div>
+	</div>
+	<div class="uk-alert uk-alert-warning uk-text-center"
+		ng-show="question.correctOptions.length==0">
+		{{'ERROR.QUESTION.EMPTY_QUESTION_OPTION'|translate}}</div>
+		
+	<div class="uk-grid">
+		<div class="uk-width-medium-1-1 parsley-row">
+			<label for="question_explain">
+				{{'MODEL.QUESTION.EXPLAIN'|translate}} <span class="req">*</span>
+			<textarea ui-tinymce="tinymce_options"
+				ng-model="question.explanation" cols="30" rows="4"></textarea>
+		</div>
+	</div>	
+</div>
+
+<div ng-if="mode=='view'">
+	<div class="uk-grid no-margin-top">
+
+		<div class="uk-width-medium-1-2 parsley-row">
+			<h4 class="quiz-heading uk-text-left">{{'MODEL.QUESTION.LEVEL'|translate}}</h4>
+			<div id="question_level_select">
+				<span class="icheck-inline"> <input ng-disabled="true"
+					type="radio" name="question_level_{{question._id}}"
+					id="question_easy_{{question._id}}" value="easy" icheck
+					ng-model="question.level" /> <label for="question_easy"
+					class="inline-label">{{'COMMON.DIFFICULTY.EASY'|translate}}</label>
+				</span> <span class="icheck-inline"> <input ng-disabled="true"
+					type="radio" name="question_level_{{question._id}}"
+					id="question_medium_{{question._id}}" value="medium" icheck
+					ng-model="question.level" /> <label for="question_medium"
+					class="inline-label">{{'COMMON.DIFFICULTY.MEDIUM'|translate}}</label>
+				</span> <span class="icheck-inline"> <input ng-disabled="true"
+					type="radio" name="question_level_{{question._id}}"
+					id="question_hard_{{question._id}}" value="hard" icheck
+					ng-model="question.level" /> <label for="question_hard"
+					class="inline-label">{{'COMMON.DIFFICULTY.HARD'|translate}}</label>
+				</span>
+			</div>
+		</div>
+	</div>
+	<div class="uk-grid no-margin-top">
+		<div class="uk-width-medium-1-1 parsley-row">
+			<h4 class="quiz-heading uk-text-left">
+				{{'MODEL.QUESTION.DESC'|translate}}</h4>
+			<p class="uk-text-left text-wrap" ng-bind-html="question.description" />
+		</div>
+	</div>
+	<div class="uk-grid no-margin-top" data-uk-grid-margin>
+		<div class="uk-width-1-1 uk-text-center uk-margin">
+			<svg xmlns="http://www.w3.org/2000/svg"
+				xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve"
+				width="320" height="320">
+			<rect width="320" height="320" data-selected="true"
+					style="fill:blue;stroke:blank;stroke-width:1;fill-opacity:0.1;stroke-opacity:0.9" />
+			<image x="0" y="0" width="320" height="320"
+					xlink:href="{{question.imageUrl}}">
+		    <title>{{question.title}}</title>
+		  </image>
+		  <g ng-repeat="option in question.options">
+		    <circle id="{{option._id}}_circle" style="fill-opacity:0.4"
+					ng-attr-fill="{{option.selected ? 'green':'red'}}"
+					ng-attr-cx="{{option.svgData.x}}" ng-attr-cy="{{option.svgData.y}}"
+					r="15">
+		    </circle>
+		    <text id="{{option._id}}_text" style="cursor:default"
+					ng-attr-x="{{option.svgData.x}}" ng-attr-y="{{option.svgData.y}}"
+					text-anchor="middle" stroke="white" stroke-width="1px" dy=".3em">{{option.order}}</text>
+		  </g>
+		</svg>
+		</div>
+	</div>
+	<div class="uk-grid no-margin-top">
+		<div class="uk-width-medium-1-1 parsley-row">
+			<h4 class="quiz-heading uk-text-left">
+				{{'MODEL.QUESTION.EXPLAIN'|translate}}</h4>
+			<p class="uk-text-left text-wrap" ng-bind-html="question.explanation" />
+		</div>
+	</div>
+</div>
+<div ng-if="mode=='study'">
+
+	<div class="uk-grid">
+		<div class="uk-width-medium-1-1 parsley-row">
+			<p ng-bind-html="question.description" />
+		</div>
+	</div>
+	<div class="uk-grid" data-uk-grid-margin>
+		<div class="uk-width-1-1 uk-text-center uk-margin">
+			<svg xmlns="http://www.w3.org/2000/svg"
+				xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve"
+				width="320" height="320">
+			<rect width="320" height="320" data-selected="true"
+					style="fill:blue;stroke:blank;stroke-width:1;fill-opacity:0.1;stroke-opacity:0.9" />
+			<image x="0" y="0" width="320" height="320"
+					xlink:href="{{question.imageUrl}}">
+		    <title>{{question.title}}</title>
+		  </image>
+		  <g ng-repeat="option in question.options">
+		    <circle id="{{option._id}}_circle" ng-click="selectOption(option)"
+					style="fill-opacity:0.4"
+					ng-attr-fill="{{option.selected ? 'blue':'red'}}"
+					ng-attr-cx="{{option.svgData.x}}" ng-attr-cy="{{option.svgData.y}}"
+					r="15">
+		    </circle>
+		  </g>
+		</svg>
+		</div>
+	</div>
+</div>
+<div ng-if="mode=='result'">
+
+	<div class="uk-grid">
+		<div class="uk-width-medium-1-1 ">
+			<p class="uk-text-left text-wrap" ng-bind-html="question.description" />
+		</div>
+	</div>
+	<div class="uk-grid" data-uk-grid-margin>
+		<div class="uk-width-1-1 uk-text-center uk-margin">
+			<svg xmlns="http://www.w3.org/2000/svg"
+				xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve"
+				width="320" height="320">
+			<rect width="320" height="320" data-selected="true"
+					style="fill:blue;stroke:blank;stroke-width:1;fill-opacity:0.1;stroke-opacity:0.9" />
+			<image x="0" y="0" width="320" height="320"
+					xlink:href="{{question.imageUrl}}">
+		    <title>{{question.title}}</title>
+		  </image>
+		  <g ng-repeat="option in question.options">
+		    <circle id="{{option._id}}_circle" 
+					style="fill-opacity:0.4"
+					ng-attr-fill="{{option.selected ? 'blue':'red'}}"
+					ng-attr-cx="{{option.svgData.x}}" ng-attr-cy="{{option.svgData.y}}"
+					r="15">
+		    </circle>
+		  </g>
+		</svg>
+		</div>
+	</div>
+	<div class="uk-grid no-margin-top" ng-show="showExplain">
+		<div class="uk-width-medium-1-1 parsley-row">
+			<h4 class="quiz-heading uk-text-left">
+				{{'MODEL.QUESTION.EXPLAIN'|translate}}</h4>
+			<p class="uk-text-left text-wrap" ng-bind-html="question.explanation" />
+		</div>
+	</div>
+</div>

@@ -1,0 +1,66 @@
+
+<div id="page_content">
+	<div id="page_heading" data-uk-sticky="{ top: 48, media: 960 }">
+		<div class="heading_actions">
+			<span class="icheck-inline"> <input type="checkbox"
+				class="switchery switchery-small" ui-switch color="#7cb342"
+				name="switch_visible" id="switch_visible"
+				ng-model="vm.section.visible" /> <label for="switch_visible"
+				class="inline-label">{{'MODEL.SECTION.VISIBLE'|translate}}</label>
+			</span>
+		</div>
+		<h1>
+			<label>{{'MODEL.SECTION.NAME'|translate}}</label> <input type="text"
+				class="md-input uk-form-width-large" md-input
+				ng-model="vm.section.name" />
+		</h1>
+		<span class="uk-text-upper uk-text-small"> <a
+			ui-sref="workspace.lms.courses.me"><i
+				class="material-icons uk-text-primary">keyboard_arrow_left</i>{{'PAGE.LMS.MY_COURSES.TITLE'
+				| translate}}</a> <a
+			ui-sref="workspace.lms.courses.outline.edit({courseId:vm.course._id,editionId:vm.edition._id})"><i
+				class="material-icons uk-text-primary">keyboard_arrow_left</i>{{vm.course.name}}</a>
+		</span>
+	</div>
+	<div class="md-fab-wrapper">
+		<div class="md-fab md-fab-toolbar md-fab-small md-fab-accent"
+			md-fab-toolbar>
+			<i class="material-icons">&#xE8BE;</i>
+			<div class="md-fab-toolbar-actions">
+				<button id="section_edit_save" ng-click="vm.save()"
+					data-uk-tooltip="{cls:'uk-tooltip-small',pos:'bottom'}"
+					title="{{'ACTION.SAVE'|translate}}">
+					<i class="material-icons md-color-white">&#xE161;</i>
+				</button>
+				<a id="section_edit_cancel"
+					ui-sref="workspace.lms.courses.section.view.html({courseId:vm.course._id,sectionId:vm.section._id})"
+					data-uk-tooltip="{cls:'uk-tooltip-small',pos:'bottom'}"
+					title="{{'ACTION.CANCEL'|translate}}"><i
+					class="material-icons md-color-white">&#xE5CD;</i></a>
+			</div>
+		</div>
+	</div>
+	<div id="page_content_inner">
+		<div class="md-card">
+			<div class="md-card-content uk-margin">
+				<label for="section_html">{{'MODEL.SECTION.HTML'|translate}}</label>
+
+				<textarea ui-tinymce="vm.tinymce_options" ng-model="vm.html.content"
+					cols="30" rows="24"></textarea>
+				<div>
+					<span class="uk-form-file md-btn md-btn-primary md-btn-icon">
+						<i class="uk-icon-upload"></i> {{'ACTION.UPLOAD_COURSE'|translate}}
+						<input id="file_upload-select" type="file">
+					</span>
+					<div id="file_upload-progressbar" class="uk-progress uk-hidden">
+						<div class="uk-progress-bar" style="width: 0">0%</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>
+
+
+

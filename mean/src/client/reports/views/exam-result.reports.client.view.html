@@ -1,0 +1,105 @@
+<div id="page_content">
+	<div id="page_content_inner">
+		<h3 class="heading_b uk-margin-bottom">{{'PAGE.REPORTS.EXAM_RESULT.TITLE'
+			| translate}}</h3>
+		<div class="uk-grid" data-uk-grid-margin>
+			<div class="uk-width-medium-1-1">
+				<div class="md-card">
+					<div class="content-table-gradebook md-card-content">
+						<div class="uk-margin-bottom">
+							<label class="uk-form-label">{{'PAGE.REPORTS.EXAM_RESULT.SELECT_EXAM'|translate}}</label>
+							<div class="uk-grid" style="padding-bottom: 15px;">
+								<div class="uk-width-medium-1-2">
+									<input ng-change="vm.selectSchedule()" name="exam" id="exam" type="text" config="vm.scheduleConfig" options="vm.scheduleOptions" ng-model="vm.scheduleId"  selectize placeholder="--Select--" />
+								</div>
+							</div>
+							<export-excel tableid="tableToExportExamResult" style="margin-left: 10px;"></export-excel>
+						</div>
+						<div class="uk-overflow-container table-border" id="tableToExportExamResult">
+							<table class="uk-table uk-table-hover uk-table-condensed"
+								cellspacing="0" width="100%">
+								<thead>
+									<tr>
+										<th>#</th>
+										<th>{{'MODEL.SCHEDULE.NAME'|translate}}</th>
+										<th>{{'MODEL.USER.DISPLAY_NAME'|translate}}</th>
+										<th>{{'MODEL.USER.USERNAME'|translate}}</th>
+										<th>{{'MODEL.USER.POSITION'|translate}}</th>
+										<th>{{'REPORT.EXAM_RESULT.FIRST_SUBMIT'|translate}}</th>
+										<th>{{'REPORT.EXAM_RESULT.SCORE'|translate}}</th>
+										<th>{{'REPORT.EXAM_RESULT.SUBMIT'|translate}}</th>
+										<th>{{'REPORT.EXAM_RESULT.RESULT'|translate}}</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr ng-repeat="candidate in vm.candidates">
+										<td>{{$index + 1}}</td>
+										<td>{{candidate.schedule.name}}</td>
+										<td>{{candidate.candidate.displayName}}</td>
+										<th>{{candidate.candidate.username}}</th>
+										<th>{{candidate.candidate.position}}</th>
+										<th>{{candidate.firstSubmit | date:'dd/MM/yyyy'}}</th>
+										<th>{{candidate.score}}</th>
+										<th>{{candidate.submit}}</th>
+										<th><span ng-if="candidate.result">{{'COMMON.PASS'|translate}}</span>
+											<span ng-if="!candidate.result">{{'COMMON.FAIL'|translate}}</span>
+										</th>
+									</tr>
+								</tbody>
+								<tfoot ng-if="vm.candidates.length > 0">
+									<tr>
+										<th colspan="6" class="uk-text-center">
+											<span class="uk-float-right uk-text-bold">{{'COMMON.OVERVIEW'|translate}}</span>
+										</th>
+										<th>{{Math.floor(vm.summary.score/vm.candidates.length)}}</th>
+										<th>{{Math.floor(vm.summary.submit/vm.candidates.length)}}</th>
+										<th>{{Math.floor(vm.summary.passRate*100/vm.candidates.length)}}%</th>
+									</tr>
+								</tfoot>
+							</table>
+						</div>
+						
+						<!--<div>-->
+							<!--<a class="md-btn md-btn-primary  md-btn-wave-light md-btn-icon uk-margin-top"-->
+								<!--ng-csv="vm.getExportData()" csv-header="vm.getExportHeader()"-->
+								<!--filename="report.exam_resulte.csv" field-separator=";"-->
+								<!--decimal-separator="."> <i class="material-icons">save</i>-->
+								<!--{{'ACTION.EXPORT'|translate}}-->
+							<!--</a>-->
+						<!--</div>-->
+					</div>
+						<div  class="uk-margin-left" style="padding-bottom: 30px;">
+							<span class=" uk-text-large">{{
+						'REPORT.EXAM_RESULT.CHART'|translate }}</span>
+							<div class="uk-grid">
+							<div class="uk-width-1-1 uk-width-small-1-2">
+								<div id="department_mark_pie_chart"  class="c3chart"></div>
+								<p style="text-align: center;">{{'REPORT.EXAM_RESULT.SCORE'|translate}}</p>
+							</div>
+							<div class="uk-width-1-1 uk-width-small-1-2">
+								<div id="department_pass_pie_chart"  class="c3chart"></div>
+								<p style="text-align: center;">{{'REPORT.EXAM_RESULT.RESULT'|translate}}</p>
+							</div>
+							</div>
+						</div>
+						<div  class="uk-margin-left">
+							<span class=" uk-text-large">{{
+						'PAGE.REPORT.EXAM_RESULT.MARK_CHART'|translate }}</span>
+							<!-- <div id="department_mark_pie_chart"  class="c3chart"></div> -->
+							<div id="department_mark_stack_chart"  class="c3chart" style="padding-top: 15px; padding-bottom: 20px;"></div>
+							
+						</div>		
+						<div  class="uk-margin-left">
+							<span class=" uk-text-large">{{
+						'PAGE.REPORT.EXAM_RESULT.PASS_CHART'|translate }}</span>
+							<!-- <div id="department_pass_pie_chart"  class="c3chart"></div> -->
+							<div id="department_pass_stack_chart"  class="c3chart" style="padding-top: 15px; padding-bottom: 20px;"></div>
+							
+						</div>
+									
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+

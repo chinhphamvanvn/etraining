@@ -1,0 +1,1225 @@
+/* General */
+* {
+    -webkit-box-sizing: border-box;
+       -moz-box-sizing: border-box;
+            box-sizing: border-box;
+}
+
+*:focus {
+    outline: none !important;
+}
+
+html, body {
+    height: 100% !important;
+    padding: 0px 0px 0px 0px !important;
+}
+
+video {
+    width: 100% !important;
+}
+
+thead {
+    background: rgb(33, 150, 243);
+    color: #fff;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+tbody tr:nth-child(2n) {
+   background-color: #f2f2f2;
+}
+
+th,
+td {
+    border: 1px solid #ccc;
+}
+
+th {
+    padding: 15px 5px;
+    text-transform: uppercase;
+}
+
+td {
+    padding: 0px 5px;
+}
+
+.md-button.md-default-theme.md-raised[disabled],
+.md-button.md-raised[disabled],
+.md-button.md-default-theme.md-fab[disabled],
+.md-button.md-fab[disabled] {
+    background-color: rgba(0,0,0,0.12) !important;
+}
+
+md-sidenav {
+    width: 280px;
+}
+
+md-toolbar {
+    background-color: rgb(17, 74, 161) !important;
+}
+
+.md-dialog-container {
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+}
+
+md-dialog {
+    min-width: 480px;
+}
+
+.setting-dialog {
+    min-height: 430px;
+    min-width: 480px;
+}
+
+.setting-dialog .md-tab {
+    text-transform: capitalize !important;
+}
+
+.setting-dialog md-tab-content md-content {
+    padding: 20px !important;
+}
+
+.vi-select,
+.vi-input {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    display: block;
+    font-size: 0.8em;
+    padding: 5px;
+    width: 100%;
+}
+
+.clearfix:after {
+    clear: both;
+    content: " ";
+    display: table;
+}
+
+.right {
+    float: right;
+}
+
+.left {
+    float: left;
+}
+
+.right-radius {
+    border-bottom-right-radius: 3px;
+    border-top-right-radius: 3px;
+}
+
+.left-radius {
+    border-bottom-left-radius: 3px;
+    border-top-left-radius: 3px;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+    height: 10px;
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0px 0px 3px rgba(0,0,0,0.3);
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 10px;
+    -webkit-box-shadow: inset 0px 0px 3px rgba(0,0,0,0.5);
+    background: rgba(236, 236, 236, 0.8);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:window-inactive {
+    background: rgba(236, 236, 236, 0.8);
+}
+
+/* Bootstrap style */
+.list-unstyled {
+  list-style: none;
+  padding: 0px 0px;
+}
+
+.list-inline {
+  list-style: none;
+  margin-left: -5px;
+  padding-left: 0px;
+}
+
+.list-inline > li {
+  display: inline-block;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+/* Vi style */
+.vi-col {
+    padding: 0px 15px;
+}
+
+.vi-row {
+    margin: 0px 15px;
+}
+
+.vi-online,
+.vi-offline {
+    font-size: 0.75em;
+}
+
+.vi-online {
+    color: rgba(6, 195, 6, 1);
+}
+
+.vi-offline {
+    color: rgba(175, 177, 175, 1);
+}
+
+.vi-center {
+    text-align: center !important;
+}
+
+.vi-right {
+    text-align: right !important;
+}
+
+.vi-left {
+    text-align: left !important;
+}
+
+.vi-title {
+    font-weight: bold;
+}
+
+.vi-headline {
+    padding: 15px 0px;
+}
+
+.vi-btn-default {
+    min-width: 35px !important;
+}
+
+.vi-btn-block {
+    width: 100% !important;
+}
+
+.vi-btn-reset {
+    margin: 0px 0px !important;
+}
+
+.btn-clear {
+    background-color: transparent;
+    border: none;
+    margin: 0px 0px;
+}
+
+.btn-signout {
+    color: #FF5722 !important;
+}
+
+.btn-signout:hover {
+    background: rgba(255,87,34,0.8) !important;
+    color: #fff !important;
+}
+
+.vi-input {
+    -webkit-align-items: center;
+    -webkit-box-align: center;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-grid-row-align: center;
+    -ms-user-select: none;
+    align-items: center;
+    background: transparent;
+    border: 0px;
+    border-radius: 3px;
+    box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.26);
+    box-sizing: border-box;
+    color: currentColor;
+    display: inline-block;
+    font-family: inherit;
+    line-height: 36px;
+    font-size: 14px;
+    font-style: inherit;
+    font-variant: inherit;
+    font-weight: 500;
+    margin: 6px 0px;
+    min-height: 36px;
+    outline: none;
+    overflow: hidden;
+    padding: 0px 6px;
+    position: relative;
+    vertical-align: middle;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    user-select: none;
+    white-space: nowrap;
+}
+
+.vi-disabled-class {
+    cursor: not-allowed !important;
+}
+
+.label-chat {
+    position: relative;
+}
+
+#noti-message {
+    -webkit-animation-duration: 2s;
+    -moz-animation-duration: 2s;
+    -webkit-animation-delay: 1s;
+    -moz-animation-delay: 1s;
+    animation-delay: 1s;
+    animation-duration: 2s;
+    color: #FF5722;
+    font-size: 0.7em;
+    position: absolute;
+    right: -8px;
+    top: 0px;
+}
+
+/* Button custom style */
+.vi-btn {
+    background-color: #adadad !important;
+    color: rgb(255,255,255) !important;
+}
+
+.vi-btn:hover {
+    background-color: #908e8e;
+}
+
+.vi-default {
+    background-color: rgb(140, 140, 140) !important;
+}
+
+.vi-default:hover {
+    background-color: rgb(105, 105, 105) !important;
+}
+
+.vi-success {
+    background-color: rgb(92, 171, 57) !important;
+}
+
+.vi-primary {
+    background-color: rgba(63, 81, 181, 0.9) !important;
+}
+
+.vi-primary:hover {
+    background-color: rgba(63, 81, 181, 1) !important;
+}
+
+.vi-warn {
+    background-color: rgb(243, 137, 12) !important
+}
+
+.vi-danger {
+    background-color: rgb(241, 50, 33) !important;
+}
+
+/* Toaster custom style */
+.md-toast-content span.md-toast-text {
+    font-size: 1rem !important;
+    font-weight: 700;
+}
+
+.vi-toast-success .md-toast-content {
+    background-color: rgb(92, 171, 57) !important;
+}
+
+.vi-toast-danger .md-toast-content {
+    background-color: rgb(241, 50, 33) !important;
+}
+
+.vi-toolbar {
+    overflow: hidden;
+}
+
+.vi-admin-toolbar {
+    background-color: rgb(1,74,182);
+    color: rgba(255,255,255,0.87);
+}
+
+.vi-toolbar .md-button._md-nav-button.md-unselected,
+.vi-toolbar .md-button._md-nav-button.md-unselected {
+    color: #fff !important;
+}
+
+.vi-toolbar .md-nav-bar,
+md-nav-bar .md-nav-bar {
+    border-color: transparent !important;
+}
+
+.rooms-list button {
+    line-height: 1.8em;
+    min-height: 0px;
+    text-align: left;
+    white-space: normal;
+    width: 100%;
+}
+
+.room-status-group span {
+    font-style: italic;
+    font-weight: normal;
+    text-transform: lowercase;
+}
+
+.auth-main {
+    background: #f2f2f2;
+    height: 100%;
+}
+
+.auth-main md-radio-group.layout-row md-radio-button {
+    margin-bottom: 25px;
+    margin-right: 0px;
+}
+
+.auth-meeting-main {
+    background: url('../images/meeting_bg_02.png');
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.auth-main md-select:not([disabled]):focus .md-select-value {
+    border-bottom-color: #fff;
+    color: #fff;
+}
+
+.meeting-auth-wrapper {
+    background: rgba(32, 166, 235, 0.5);
+    color: #fff;
+    min-height: 300px;
+    padding: 25px 0px;
+    width: 100%;
+}
+
+.meeting-auth-wrapper input,
+.meeting-auth-wrapper label {
+    color: #fff;
+}
+
+.meeting-auth-wrapper input {
+    border-bottom: 1px solid #fff;
+}
+
+.meeting-auth-wrapper .section_intro {
+    border-right: 1px solid rgba(255, 255, 255, 0.5);
+    padding-top: 75px;
+    padding-right: 30px;
+}
+
+.meeting-auth-wrapper .section_login {
+    padding-left: 30px;
+}
+
+.meeting-auth-wrapper .btn-login {
+    background: rgba(255, 87, 34, 1) !important;
+    padding: 7px 20px;
+}
+
+.auth-block {
+    background: #fff;
+    border-color: 1px solid #ccc;
+    box-shadow: 0px 0px 5px #ccc;
+    padding: 30px 15px;
+    width: 400px;
+}
+
+.vi-btn-group-room {
+    padding: 0px 15px;
+    margin: 15px 0px;
+}
+
+.vi-btn-group-room .vi-warn {
+    margin-left: 0px;
+}
+
+.vi-btn-group-room .vi-danger {
+    margin-right: 0px;
+}
+
+.vi-panel {
+    background: #fff;
+    border: 1px solid #d0d0d0;
+    padding-bottom: 30px;
+}
+
+.room-info .md-headline,
+.room-users .md-headline {
+    margin-bottom: 0px;
+    margin-top: 15px;
+}
+
+/* Admin page */
+a[ng-click] {
+    cursor: pointer;
+}
+
+.auth-room-logo img,
+.auth-admin-logo img {
+    max-width: 250px;
+}
+
+.admin-nav .admin-nav-item a {
+    padding: 5px;
+}
+
+.admin-nav .admin-nav-item a:hover {
+    border-bottom: 2px solid #ff5722;
+}
+
+.content-admin-rooms-list {
+    padding-bottom: 25px;
+}
+
+.content-admin-rooms-list .vi-panel h3 {
+    margin-bottom: 0px;
+}
+
+.content-admin-rooms-list .vi-headline {
+    padding-top: 0px;
+}
+
+.vi-md-list-user-item {
+    border: 1px solid #d6d5d5;
+    border-bottom: none;
+}
+
+.vi-md-list-user-item._md-button-wrap > div.md-button:first-child > .md-button:first-child {
+    cursor: default !important;
+}
+
+.vi-md-list-user-item:last-child {
+    border-bottom: 1px solid #d6d5d5;
+}
+
+.members-list {
+    max-height: 440px !important;
+    overflow-y: auto;
+}
+
+.bandwidth {
+    display: block;
+    width: 100%;
+}
+
+/* Edit page */
+.vi-member-item .vi-member-name {
+    font-size: 18px !important;
+}
+
+.vi-member-item .vi-member-email {
+    font-style: italic;
+}
+
+.vi-members-list  {
+    margin: 0px 5px;
+}
+
+.vi-btn-group-member {
+    padding-bottom: 10px;
+}
+
+/* Login video conference */
+.auth-main-trusted {
+    background-image: url('../images/bg_trusted_login.jpg');
+    background-position: center center;
+    background-size: contain;
+}
+
+.auth-block-trusted {
+    background: rgba(8, 118, 149, 0.6);
+    color: #fff;
+    min-height: 320px;
+    padding-top: 35px;
+    width: 100%;
+}
+
+.btn-trusted {
+    background-color: rgb(246, 137, 78) !important;
+    border-radius: 0px;
+    color: #fff !important;
+    font-size: 1.2em;
+    font-weight: normal;
+    padding: 10px 60px;
+    text-transform: capitalize;
+}
+
+.trusted-radio-group .radio-item .md-off {
+    border-color: #fff;
+}
+
+.logo-trusted {
+    width: 250px;
+}
+
+/* Connecting */
+.connecting_overlay,
+.loading_overlay {
+    background: rgba(0, 0, 0, 0.3);
+    height: 100%;
+    left: 0px;
+    position: absolute;
+    top: 0px;
+    width: 100%;
+    z-index: 80;
+}
+
+.loading,
+.connecting {
+    color: #fff;
+    font-size: 0.8rem;
+    left: 50%;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%);
+    z-index: 100;
+}
+
+.loading img,
+.connecting img {
+    height: 50px;
+    width: 50px;
+}
+
+.list_videos_wrapper .loading img {
+    font-size: 0.7rem;
+    height: 20px;
+    width: 20px;
+}
+
+/* Panels */
+.title_panel {
+    color: #44A5FF;
+    font-size: 0.8em;
+    font-weight: normal;
+    margin: 20px 0px 0px 0px;
+    text-transform: uppercase;
+}
+
+.sub_title_panel {
+    font-size: .8em;
+    margin: 10px 0px 5px 0px;
+}
+
+.icon-active {
+    color: #8bc34a !important;
+}
+
+.icon-unactive {
+    color: #ccc !important;
+}
+
+.members-list-room {
+    margin-top: 0px;
+}
+
+.members-list-room > li {
+    cursor: pointer;
+    font-size: 0.85em;
+    margin: 5px 0px;
+    padding: 5px 0px;
+}
+
+.members-list-room > li:hover {
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.members-list-room .title {
+    font-weight: 500;
+}
+
+.members-list-room .action {
+    cursor: pointer;
+    padding-left: 15px;
+    transition: all 0.2s ease;
+}
+
+.members-list-room .action:hover {
+    color: #8bc34a;
+    font-size: 1.1rem;
+}
+
+/* Conference video */
+.workspace-video--bg {
+    background: url('../images/meeting_poster.jpg');
+    background-position: center;
+    background-size: cover;
+}
+
+.sharelink-dialog-content h4 {
+    font-size: 0.9rem;
+    font-weight: normal;
+    margin: 0px 0px;
+    margin-bottom: 15px;
+}
+
+.member_info .vi-select,
+.sharelink-container .vi-select {
+    margin-bottom: 10px;
+    min-height: 35px;
+}
+
+.md-select-menu-container {
+    z-index: 100 !important;
+}
+
+.un-active-workspace {
+    opacity: 0;
+    visibility: hidden;
+    z-index: 1;
+}
+
+.active-workspace {
+    opacity: 1;
+    visibility: visible;
+    z-index: 70;
+}
+
+.active-nav {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.panel-show {
+    transition: width 0.5s ease;
+    width: 250px;
+}
+
+.panel-hide {
+    transition: width 0.5s ease;
+    width: 0px;
+}
+
+.present_icon_wrapper img {
+    display: block;
+}
+
+.conference {
+    height: 100vh;
+    position: relative;
+    width: 100vw;
+}
+
+.conference .btn-copy {
+    margin-top: 15px;
+}
+
+.conference .toolbar {
+    height: 100%;
+    position: relative;
+    width: 300px;
+}
+
+.show_toolbar {
+    opacity: 1;
+    visibility: visible;
+}
+
+.hide_toolbar {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.toolbar-control {
+    font-size: 0px;
+    left: 0px;
+    padding: 20px 0px 50px 0px;
+    position: absolute;
+    text-align: center;
+    top: 0px;
+    width: 100%;
+    z-index: 990;
+}
+
+.toolbar-control .navbar-control {
+    background: rgba(0, 0, 0, 0.7);
+    border-radius: 3px;
+    display: inline-block;
+    transition: all 1s ease;
+}
+
+.toolbar-control .btn-control {
+    color: #fff;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 1rem;
+    height: 45px;
+    line-height: 45px;
+    width: 45px;
+}
+
+.toolbar-control .btn-control:hover {
+    background-color: #2196F3;
+}
+
+.toolbar-control .btn-active {
+    background-color: #2196F3;
+}
+
+.toolbar-control .btn-disconnect {
+    color: #ff5722 !important;
+}
+
+.conference .navbar {
+    background: rgba(0, 0, 0, 0.7);
+    bottom: 0px;
+    position: absolute;
+    top: 0px;
+    width: 50px;
+    z-index: 995;
+}
+
+.conference .list-nav {
+    margin: 0px 0px;
+    padding: 20px 0px 0px 0px;
+}
+
+.list-nav li {
+    color: #fff;
+    cursor: pointer;
+    max-height: 50px;
+    padding: 15px 0px;
+    position: relative;
+    text-align: center;
+}
+
+.list-nav .icon {
+    display: inline-block;
+    height: 25px;
+    width: 25px;
+}
+
+.conference .list-nav li:hover {
+    background: rgba(0, 0, 0, 0.8);
+}
+
+.conference .avatar-item {
+    padding: 5px 0px !important;
+}
+
+.conference .avatar {
+    display: inline-block;
+    height: 35px;
+    width: 35px;
+}
+
+.conference .members,
+.conference .messages {
+    background-color: #046ec3;
+    border-radius: 50%;
+    bottom: 10px;
+    font-size: 0.5em;
+    height: 12px;
+    line-height: 13px;
+    position: absolute;
+    right: 10px;
+    text-align: center;
+    width: 12px;
+}
+
+.conference .panel-functional {
+    background: rgba(0, 0, 0, 0.8);
+    bottom: 0px;
+    color: #fff;
+    left: 50px;
+    overflow: hidden;
+    position: absolute;
+    top: 0px;
+    z-index: 995;
+}
+
+.member-wrapper,
+.sharedoc-wrapper,
+.chat-wrapper,
+.setting-wrapper {
+    display: inline-block;
+    height: 100%;
+    overflow: auto;
+    position: relative;
+    width: 250px;
+}
+
+.member-wrapper {
+    padding: 0px 10px;
+}
+
+.sharedoc-wrapper {
+    padding: 15px 10px;
+}
+
+.list-docs li {
+    position: relative;
+}
+
+.list-docs a i {
+    margin-right: 5px;
+}
+
+.conference .list-docs .btn-del {
+    color: rgb(241, 50, 33);
+    cursor: pointer;
+    padding: 5px 10px;
+    position: absolute;
+    right: 0px;
+    top: 50%;
+    transform: translateY(-50%);
+    visibility: hidden;
+}
+
+.conference .list-docs li:hover {
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.conference .list-docs li:hover .btn-del {
+    visibility: visible;
+}
+
+.conference .list-docs a{
+    color: #fff;
+    display: inline-block;
+    font-size: 0.8rem;
+    padding: 10px 5px;
+    text-decoration: none;
+    width: 100%;
+}
+
+.conference .list-docs a:hover {
+    color: #ccc;
+    text-decoration: underline;
+}
+
+.conference .work-space {
+    height: 100%;
+    left: 0px;
+    overflow: hidden;
+    position: absolute;
+    top: 0px;
+    width: 100%;
+}
+
+.conference .large-video,
+.conference .present,
+.conference .sharecreen {
+    bottom: 0px;
+    height: 100%;
+    overflow: hidden;
+    position: absolute;
+    right: 0px;
+    transition: all 0.6s ease;
+    width: 100%;
+}
+
+.conference .large-video {
+    overflow: auto;
+}
+
+.conference .small-video {
+    bottom: 10px;
+    cursor: pointer;
+    height: 120px;
+    left: initial;
+    right: 30px;
+    top: initial;
+    width: 200px;
+    z-index: 500;
+}
+
+.conference .large-video-wrapper,
+.conference .screen-video-wrapper {
+    height: 100%;
+    left: 0px;
+    position: relative;
+    top: 0px;
+    width: 100%;
+}
+
+.conference .sharecreen video {
+    height: 100%;
+    left: 0px;
+    position: absolute;
+    top: 0px;
+    width: 100%;
+}
+
+.conference .chat-wrapper {
+    height: 100%;
+    padding-top: 15px;
+}
+
+.chat-content {
+    height: calc(100% - 45px);
+    padding: 0px 10px;
+}
+
+.messages-list {
+    margin: 0px 0px;
+}
+
+.messages-list .message_box {
+    background: #007ee0;
+    border-radius: 5px;
+    color: #fff;
+    font-size: 0.7rem;
+    margin-bottom: 7px;
+    padding: 5px 7px;
+    word-wrap: break-word;
+}
+
+.messages-list .user {
+    font-weight: bold;
+    font-size: 13px;
+}
+
+.messages-list .message {
+    font-size: 0.8rem;
+}
+
+.conference .input-message-group {
+    background-color: #4c4c4c;
+}
+
+.conference .input-message-group input{
+    color: #000;
+    font-size: 0.8em;
+    width: 100%;
+}
+
+.conference .input-message-group label {
+    color: #fff;
+    font-size: 0.8em;
+}
+
+.conference .input-message-group button {
+    margin: 10px 0px 0px 0px;
+}
+
+.conference .message {
+    color: #fff;
+    display: block;
+    margin-top: 5px;
+}
+
+.conference .setting-wrapper {
+    padding: 0px 10px;
+}
+
+.conference .setting-wrapper .md-select-value .md-select-icon {
+    color: #fff;
+}
+
+.conference .setting-wrapper md-select .md-select-value {
+    border-bottom-color: #fff;
+    color: #fff;
+}
+
+.conference .my-pdf-container {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    overflow: auto;
+}
+
+.conference .sharescreen-toolbar {
+    bottom: 10px;
+    left: 50%;
+    max-width: 600px;
+    position: absolute;
+    transform: translateX(-50%);
+}
+
+.conference .sharescreen-toolbar span {
+    font-size: 0.7em;
+}
+
+.conference md-tooltip {
+    font-size: 0.7em;
+}
+
+/* Present */
+.vi-pdf-input {
+    background-color: #fff;
+    max-width: 70px;
+}
+
+.my-pdf-container .toolbar-pdf-viewer {
+    padding-top: 70px;
+    padding-bottom: 10px;
+    margin-bottom: 0px;
+}
+
+.my-pdf-container .toolbar-pdf-viewer {
+    border-radius: 3px;
+    bottom: 0px;
+    left: 50%;
+    margin-left: 30px;
+    min-width: 600px;
+    position: fixed;
+    transform: translateX(-50%);
+    z-index: 900;
+}
+
+.toolbar-pdf-viewer .toolbar-content {
+    background-color: rgba(0, 0, 0, 0.7);
+    transition: all 0.5s ease;
+}
+
+.section_videos .btn-toggle {
+    background: rgba(0, 0, 0, 0.6);
+    bottom: 0px;
+    color: #fff;
+    cursor: pointer;
+    display: inline-block;
+    height: 25px;
+    line-height: 25px;
+    position: absolute;
+    right: 200px;
+    transition: all 0.5s ease;
+    width: 25px;
+}
+
+.section_videos .btn-toggle:hover {
+    background-color: rgba(0, 0, 0, 0.9);
+}
+
+.section_videos {
+    bottom: 10px;
+    position: absolute;
+    right: 10px;
+    top: 0px;
+    width: 200px;
+    z-index: 110;
+}
+
+.section_videos_content {
+    height: 100%;
+    position: relative;
+}
+
+.section_videos_content .list_videos_wrapper {
+    bottom: 120px;
+    max-height: calc(100% - 120px);
+    overflow: auto;
+    position: absolute;
+    width: 200px;
+    right:0;
+}
+
+.section_videos_content .video_teacher_wrapper {
+    bottom: 0;
+    height: 120px;
+    position: absolute;
+    width: 100%;
+}
+
+.section_videos_content .video_wrapper {
+    height: 120px;
+    overflow: hidden;
+    position: relative;
+    width: 200px;
+    float: right;
+}
+
+.video-member {
+    position: relative;
+}
+
+.video-member video {
+    display: block;
+}
+
+.video-member .info {
+    background: rgba(0, 0, 0, 0.5);
+    bottom: 0px;
+    color: #fff;
+    left: 50%;
+    padding: 5px 15px;
+    position: absolute;
+    transform: translateX(-50%);
+    width: 80%;
+}
+
+.video-member .action {
+    text-align: right;
+}
+
+.video-member .action .refresh {
+    cursor: pointer;
+}
+
+.video_wrapper .video_training {
+    height: 100%;
+    left: 0px;
+    object-fit: cover;
+    position: absolute;
+    top: 0px;
+    width: 100%;
+}
+
+.video_wrapper .top_bar,
+.local-video-teacher .top_bar {
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    font-size: 0.7rem;
+    height: 20px;
+    left: 0px;
+    padding: 3px;
+    position: absolute;
+    top: 0px;
+    width: 100%;
+}
+
+.video_wrapper .btn-close {
+    color: #FF5722;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 1rem;
+    padding: 0px 7px;
+}
+
+.video_wrapper .btn-close:hover {
+    color: #fb6232;
+}
+
+/* Sharefile */
+.share-file-training-content,
+.share-screen-content {
+    background: #fff;
+    height: 99% !important;
+    padding: 5px !important;
+}
+
+.files-sharing-list .title {
+    margin-left: 5px;
+}
+
+@media (max-width: 600px) {
+    .meeting-auth-wrapper .section_login {
+        padding-left: 0px;
+    }
+}
+
+@media (min-width: 960px) {
+    .md-padding {
+        padding: 0px 0px !important;
+    }
+}
+
+@media screen and (max-width: 960px) {
+    .vi-logo {
+        font-size: 0.85em !important;
+        text-align: center;
+    }
+}
+
+.videolocal-teacher {
+    height: 60vh;
+    position: absolute;
+    width: 60%;
+    left: 20%;
+}

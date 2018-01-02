@@ -1,0 +1,37 @@
+
+<div class="md-card md-card-hover"
+	ng-repeat="submit in submits | orderBy:'start'">
+	<div class="md-card-content">
+		<div class="uk-article">
+			<div class="uk-grid uk-grid-divider">
+				<div class="uk-width-1-5">
+					<h1 class="uk-article-lead">{{'PAGE.LMS.MY_EXAMS.SCOREBOOK.SUBMIT'|translate}}
+						#{{$index+1}}</h1>
+				</div>
+				<div class="uk-width-2-5">
+					<p class="uk-article-meta">{{'MODEL.SUBMIT.START_DATE'|translate}}
+						: {{submit.start | date:'dd/MM/yyyy HH:mm:ss'}}</p>
+					<p class="uk-article-meta">{{'MODEL.SUBMIT.END_DATE'|translate}}
+						: {{submit.end | date:'dd/MM/yyyy HH:mm:ss'}}</p>
+					<p class="uk-article-meta">{{'PAGE.LMS.MY_EXAMS.SCOREBOOK.DURATION'|translate}}
+						: {{submit.duration | timeString}}</p>
+				</div>
+				<div class="uk-width-2-5">
+					<p class="uk-article-meta uk-text-primary">{{'MODEL.EXAM.BENCHMARK'|translate}}
+						: {{exam.benchmark}}%</p>
+					<p class="uk-article-meta uk-text-success"
+						ng-show="submit.score >= exam.benchmark">{{'PAGE.LMS.MY_EXAMS.SCOREBOOK.RESUTL'|translate}}
+						: {{submit.score}}%</p>
+					<p class="uk-article-meta uk-text-danger"
+						ng-show="submit.score < exam.benchmark">{{'PAGE.LMS.MY_EXAMS.SCOREBOOK.RESUTL'|translate}}
+						: {{submit.score}}%</p>
+					<p class="uk-article-meta">
+						{{'ACTION.VIEW_SCORE'|translate}}
+						<answer-sheet exam="exam" sheet-id="submit._id"
+							answers="submit.answers" ng-if="submit.answers && submit.answers.length && exam"></answer-sheet>
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

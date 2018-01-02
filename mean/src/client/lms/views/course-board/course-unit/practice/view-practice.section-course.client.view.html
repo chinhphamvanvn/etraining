@@ -1,0 +1,138 @@
+<div id="page_content" class="page_quiz_content">
+	<div id="page_heading" data-uk-sticky="{ top: 48, media: 960 }">
+		<div class="heading_actions">
+			<span class="icheck-inline"> <input type="checkbox"
+				class="switchery switchery-small" ui-switch color="#7cb342"
+				name="switch_visible" id="switch_visible" ng-disabled="true"
+				ng-model="vm.section.visible" /> <label for="switch_visible"
+				class="inline-label">{{'MODEL.SECTION.VISIBLE'|translate}}</label>
+			</span>
+		</div>
+		<h1>{{vm.section.name}}</h1>
+		<span class="uk-text-upper uk-text-small"> <a
+			ui-sref="workspace.lms.courses.me"><i
+				class="material-icons uk-text-primary">keyboard_arrow_left</i>{{'PAGE.LMS.MY_COURSES.TITLE'
+				| translate}}</a> <a
+			ui-sref="workspace.lms.courses.outline.edit({courseId:vm.course._id})"><i
+				class="material-icons uk-text-primary">keyboard_arrow_left</i>{{vm.course.name}}</a>
+		</span>
+	</div>
+	<div id="page_content_inner">
+		<div class="md-card">
+			<div class="md-card-content large-padding">
+				<div class="uk-grid" data-uk-grid-margin>
+					<div class="uk-width-medium-3-4">
+						<div class="uk-grid" data-uk-grid-margin>
+
+						<div class="uk-width-medium-1-1 parsley-row">
+							<h4 class="quiz-heading uk-text-left">
+								{{'MODEL.PRACTICE.TEXT'|translate}}</h4>
+							<p class="uk-text-left text-wrap" ng-bind-html="vm.practice.text" />
+						</div>
+						
+						<!-- <div class="uk-width-medium-1-2">
+								<div class="md-card toolbar-fixed">
+									<div class="md-card-toolbar">
+										<div class="md-card-toolbar-heading-text">
+											<h3>
+												{{'MODEL.PRACTICE.VIDEO'|translate}}
+											</h3>
+										</div>
+									</div>
+									<div class="md-card-content">
+										<div
+											class="uk-cover uk-position-relative  transform-origin-50"
+											id="video_player">
+											<video id="main_video" controls 
+												src="{{vm.practice.videoURL|trust}}"></video>
+										</div>
+
+									</div>
+								</div>
+							</div> -->
+							
+						<div class="uk-width-medium-1-2">
+							<div class="md-card toolbar-fixed">
+								<div class="md-card-toolbar">
+										<div class="md-card-toolbar-heading-text">
+											<h3>
+												{{'MODEL.PRACTICE.AUDIO'|translate}}
+											</h3>
+										</div>
+									</div>
+								<div class="md-card-content">
+									<div class="uk-cover uk-position-relative  transform-origin-50"
+										id="video_player">
+										<video id="main_audio" controls src="{{vm.practice.audioURL | trust}}"></video>
+									</div>
+
+								</div>
+							</div>
+						</div>
+						<!-- <div class="uk-width-medium-1-2">
+							<div class="md-card toolbar-fixed">
+								<div class="md-card-toolbar">
+										<div class="md-card-toolbar-heading-text">
+											<h3>
+												{{'MODEL.PRACTICE.IMAGE'|translate}}
+											</h3>
+										</div>
+									</div>
+								<div class="md-card-content">
+									<div class="uk-cover uk-position-relative  transform-origin-50"
+										id="video_player">
+										<img id="main_image" src="{{vm.practice.imageURL}}"></img>
+									</div>
+
+								</div>
+							</div>
+						</div>
+						<div class="uk-width-medium-1-2">
+							<div class="md-card toolbar-fixed">
+								<div class="md-card-toolbar">
+										<div class="md-card-toolbar-heading-text">
+											<h3>
+												{{'MODEL.PRACTICE.FILE'|translate}}
+											</h3>
+										</div>
+									</div>
+								<div class="md-card-content">
+									<div class="uk-cover uk-position-relative  transform-origin-50"
+										id="video_player">
+										<a href="{{vm.practice.fileURL}}"><i
+											class="material-icons">attach_file</i>{{vm.practice.fileURL}}</a>
+									</div>
+
+								</div>
+							</div>
+						</div> -->
+						</div>
+					</div>
+					<div class="uk-width-medium-1-4">
+						<ul class="md-list uk-margin-remove">
+							<li>
+								<div class="md-list-content">
+									<span class="md-list-heading uk-text-truncate"><a
+										href="#">{{'MODEL.PRACTICE.TYPE'|translate}}</a></span> <span
+										class="uk-badge " ng-show="vm.practice.type=='pronounciation'">{{'COMMON.PRACTICE_TYPE.PRONOUNCIATION'|translate}}</span>
+
+								</div>
+							</li>
+
+						</ul>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>
+
+<div class="md-fab-wrapper">
+	<a class="md-fab md-fab-accent md-fab-wave-light"
+		ui-sref="workspace.lms.courses.section.edit.practice({courseId:vm.course._id,sectionId:vm.section._id})">
+		<i class="material-icons">&#xE150;</i>
+	</a>
+</div>
+

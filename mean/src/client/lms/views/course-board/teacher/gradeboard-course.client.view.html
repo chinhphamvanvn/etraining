@@ -1,0 +1,144 @@
+<style type="text/css">
+  @media (min-width: 768px) {
+    .gradeboard-cource {
+      height: calc(100vh - 145px);
+      overflow-y: scroll;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .gradeboard-cource {
+      height: calc(100vh - 110px);
+      overflow-y: scroll;
+      padding: 0px 10px;
+    }
+  }
+</style>
+<div id="page_content">
+  <div id="page_content_inner">
+    <div class="md-card gradeboard-cource">
+      <div class="content-table-gradebook md-card-content">
+        <h3 class="md-card-toolbar-heading-text large">
+          {{"PAGE.LMS.MY_COURSES.COURSE_GRADE.QUIZ_INFO" | translate}}
+        </h3>
+        <table class="uk-table uk-table-nowrap">
+          <thead>
+          <tr>
+            <th>#</th>
+            <th class="uk-width-1-10 uk-text-center"
+                ng-repeat="exam in vm.examList">{{exam.data.name}}
+            </th>
+          </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="uk-width-1-10">{{"PAGE.LMS.MY_COURSES.COURSE_GRADE.QUIZ_RATE" | translate}}</td>
+              <td class="uk-width-1-10 uk-text-center"
+                ng-repeat="exam in vm.examList">{{exam.weight}}&#37;</td>
+            </tr>
+            <tr>
+              <td class="uk-width-1-10">{{"MODEL.GRADESCHEME.BENCHMARK" | translate}}</td>
+              <td class="uk-width-1-10 uk-text-center">{{vm.gradescheme.benchmark}}&#37;</td>
+            </tr>
+            <tr>
+              <td class="uk-width-1-10">{{"PAGE.LMS.MY_COURSES.COURSE_GRADE.QUIZ_LATEST" | translate}}</td>
+              <td class="uk-width-1-10 uk-text-center">{{"COMMON.YES" | translate}}</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div>
+          <h3 class="md-card-toolbar-heading-text large" style="float: none;">
+            {{'PAGE.LMS.MY_COURSES.COURSE_GRADE.STUDENT_LIST'|translate}}
+          </h3>
+          <export-excel tableid="tableToExportGradeboard" style="margin-left: 170px; position: absolute; margin-top: -50px;"></export-excel>
+        </div>
+
+        <div class="uk-overflow-container">
+          <table class="uk-table uk-table-nowrap">
+            <thead>
+              <tr>
+                <th class="uk-width-1-10 uk-text-center">{{'MODEL.USER.AVATAR'|translate}}</th>
+                <th class="uk-width-2-10 uk-text-center">{{'MODEL.USER.DISPLAY_NAME'|translate}}</th>
+                <th class="uk-width-1-10 uk-text-center"
+                    ng-repeat="exam in vm.examList">{{exam.data.name}} (&#37;)
+                </th>
+                <th class="uk-text-center">{{"PAGE.LMS.MY_COURSES.GRADE_SCHEME" | translate}}</th>
+                <th class="uk-text-center">{{"PAGE.LMS.MY_COURSES.COURSE_GRADE.EXAM_RESULT" | translate}}</th>
+                <th>{{'COMMON.ACTION' | translate}}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="member in vm.members">
+                <td class="uk-text-center"><img class="md-user-image" src="{{member.member.profileImageURL}}" alt=""/></td>
+                <td class="uk-text-center">
+                  <a ui-sref="workspace.lms.courses.join.gradeboard-member({memberId:member._id})">
+                    {{member.member.displayName}}
+                  </a>
+                </td>
+                <td class="uk-text-center" ng-repeat="score in vm.scoreMap[member._id].scores">
+                  {{score.rawPercent}}
+                </td>
+                <td class="uk-text-center">{{vm.scoreMap[member._id].totalScore}}</td>
+                <td class="uk-text-center">
+                  <span ng-show="vm.scoreMap[member._id].totalScore >= vm.gradescheme.benchmark && member.enrollmentStatus=='completed'">{{"COMMON.PASS" | translate}}</span>
+                  <span ng-show="vm.scoreMap[member._id].totalScore < vm.gradescheme.benchmark && member.enrollmentStatus=='completed'">{{"COMMON.FAIL" | translate}}</span>
+                </td>
+                <td>
+                  <a ng-show="member.status=='active'" ng-click="vm.suspend(member)" data-uk-tooltip="{pos:'right'}"
+                     title="{{'ACTION.SUSPEND'|translate}}"><i class="md-icon material-icons uk-text-warning">lock</i></a>
+                  <a ng-show="member.status=='suspended'" ng-click="vm.activate(member)" data-uk-tooltip="{pos:'right'}"
+                     title="{{'ACTION.ACTIVATE'|translate}}"><i class="md-icon material-icons uk-text-warning">lock_open</i></a>
+                  <a ng-show="!member.certificate" ng-click="vm.certify(member)" data-uk-tooltip="{pos:'right'}"
+                     title="{{'ACTION.CERTIFY'|translate}}"><i
+                    class="md-icon material-icons uk-text-primary">content_paste</i></a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div style="display: none" id="tableToExportGradeboard">
+          <table class="uk-table uk-table-nowrap">
+            <thead>
+            <tr>
+              <th class="uk-width-2-10 uk-text-center">{{'MODEL.USER.DISPLAY_NAME'|translate}}</th>
+              <th class="uk-width-1-10 uk-text-center"
+                  ng-repeat="exam in vm.examList">{{exam.data.name}} (&#37;)
+              </th>
+              <th class="uk-text-center">{{"PAGE.LMS.MY_COURSES.GRADE_SCHEME" | translate}}</th>
+              <th class="uk-text-center">{{"PAGE.LMS.MY_COURSES.COURSE_GRADE.EXAM_RESULT" | translate}}</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="member in vm.members">
+              <td class="uk-text-center">{{member.member.displayName}}</td>
+              <td class="uk-text-center" ng-repeat="score in vm.scoreMap[member._id].scores">
+                {{score.rawPercent}}
+              </td>
+              <td class="uk-text-center">{{vm.scoreMap[member._id].totalScore}}</td>
+              <td class="uk-text-center">
+                <span ng-if="vm.scoreMap[member._id].totalScore >= vm.gradescheme.benchmark && member.enrollmentStatus=='completed'">{{"COMMON.PASS" | translate}}</span>
+                <span ng-if="vm.scoreMap[member._id].totalScore < vm.gradescheme.benchmark && member.enrollmentStatus=='completed'">{{"COMMON.FAIL" | translate}}</span>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+        <!--<button class="md-btn md-btn-primary  md-btn-wave-light md-btn-icon ng-binding ng-isolate-scope waves-effect waves-button waves-light"-->
+          <!--ng-csv="vm.csvArray"-->
+          <!--csv-header="vm.csvHeader"-->
+          <!--filename="gradeboad_students.csv">-->
+            <!--<i class="material-icons">save</i>-->
+            <!--{{'ACTION.EXPORT'|translate}}-->
+        <!--</button>-->
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+
