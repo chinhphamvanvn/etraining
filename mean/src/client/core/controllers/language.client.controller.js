@@ -19,12 +19,12 @@
     var langData = vm.langSwitcherOptions = [
       {
         id: 1,
-        title: 'English',
+        title :'',
         value: 'gb'
       },
       {
         id: 2,
-        title: 'Tiếng Việt',
+        title :'',
         value: 'vn'
       }
     ];
@@ -34,7 +34,7 @@
         option: function(langData, escape) {
           return '<div class="option">' +
             '<i class="item-icon flag-' + escape(langData.value).toUpperCase() + '"></i>' +
-            '<span>' + escape(langData.title) + '</span>' +
+            // '<span>' + escape(langData.title) + '</span>' +
             '</div>';
         },
         item: function(langData, escape) {

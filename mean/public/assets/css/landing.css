@@ -11,6 +11,26 @@
 *    6. altair landing page styles
 *
 /* 6. altair landing page styles ===================== */
+
+/*Mr Chinh*/
+.manager-user .text::after{
+  position: absolute;
+  content: '';
+  background-image: url("/assets/img/brand/carret-down-small.svg");
+  background-repeat: no-repeat;
+  width: 16px;
+  height: 8px;
+  top: 8px;
+  right: 20px;
+}
+
+ul.nav-tabs{
+  background: url("/assets/img/brand/bg-tabs.png") no-repeat;
+  background-position: bottom center;
+  background-size: contain;
+}
+/*end*/
+
 html {
   background: #ffffff;
 }

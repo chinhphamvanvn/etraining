@@ -1,4 +1,4 @@
-<div class="md-card md-card-hover">
+<!-- <div class="md-card md-card-hover">
 	<a
 		ui-sref="workspace.lms.courses.join.intro({ courseId: course._id ,editionId:edition._id})">
 		<div class="uk-grid">
@@ -23,6 +23,24 @@
 					</div>
 				</div>
 			</div>
+		</div>
+	</a>
+</div> -->
+
+<div class="col-sm-4 col-md-3">
+	<a ui-sref="workspace.lms.courses.join.intro({ courseId: course._id ,editionId:edition._id})">
+		<div class="image-course">
+			<img ng-src="{{course.logoURL}}" alt="">
+		</div>
+
+		<div class="title-author-info">
+			<h3 class="course-title">{{course.name | truncateWord: 8}}</h3>
+			<span class="uk-text-truncate author">{{course.user.displayName}}</span>
+		</div>
+
+		<div class="course-info">
+			<span class="date-course">{{course.startDate | date :'dd-MM-yyyy'}}</span> 
+			<span class="level-course">{{course.level}}</span>
 		</div>
 	</a>
 </div>
